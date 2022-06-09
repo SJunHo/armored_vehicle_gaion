@@ -42,7 +42,7 @@ public class SparkConfig {
 //    this.setMaster("yarn");
 //    this.setMaster("local[16]");
     return SparkSession.builder()
-				.appName("Railroad2")
+				.appName("armoredVehicle")
 				.master("local[*]")
 				.config("es.index.auto.create", "true")
        	.config("es.nodes", config.getHost() + ":" + config.getTransportPort())

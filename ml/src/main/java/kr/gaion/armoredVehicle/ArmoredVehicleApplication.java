@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication(scanBasePackages = {"kr.gaion.armoredVehicle"})
 @EntityScan(basePackages = {"kr.gaion.armoredVehicle"})
-public class Railroad2Application {
+public class ArmoredVehicleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Railroad2Application.class, args);
+		SpringApplication.run(ArmoredVehicleApplication.class, args);
 	}
 
 	static {
