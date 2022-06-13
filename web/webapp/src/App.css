@@ -1,0 +1,32 @@
+.content-wrapper {
+  padding-top: 51px;
+  height: 100vh;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: [first] 10px [end];
+  grid-gap: 0cm;
+  padding: 0cm;
+}
+
+.item1 {
+  column-width: 5px;
+}
+
+.fixed {
+  width: 10px;
+  padding-left: 0cm;
+  padding-right: 0ch;
+}
+
+.pad50 {
+  padding-top: 70px;
+}
+
+.fullw {
+  width: 100%;
+}
+
+.fullw2 {
+  width: inherit;
+}

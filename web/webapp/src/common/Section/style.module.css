@@ -1,0 +1,64 @@
+.title {
+  background-color: #2705a1cc;
+  height: 35px;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px 5px 0 0;
+  border-color: #0b8e9d;
+  border-style: solid;
+  border-width: 1px;
+  line-height: 12px;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+.bottomTitle {
+  background-color: #f5f5f5;
+  border-radius: 0 0 5px 5px;
+  height: 16px;
+}
+
+.bottomTitle.hasText {
+  height: 32px;
+  padding: 8px;
+  line-height: 16px;
+}
+
+.wrapper {
+  background-color: #ecf5fa;
+  min-height: 250px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  
+}
+
+.childrenWrapper {
+  border-radius: 0 0 5px 5px;
+  border-color: #0b8e9d;
+  border-style: solid;
+  border-width: 1px;
+  border-top: none;
+  flex: 1;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.childrenContent {
+  flex: 1;
+  padding: 8px;
+}
+
+.subSectionChildrenWrapper {
+  border-color: #e4e4e4;
+}
+
+.subSectionTitle {
+  border-color: #e4e4e4;
+  background-color: #f5f5f5;
+  color: black;
+  font-weight: normal;
+}

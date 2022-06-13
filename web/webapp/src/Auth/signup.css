@@ -1,0 +1,92 @@
+@charset "utf-8";
+/* CSS Document */
+.main_title {
+  font-family: 'Nanum Barun Gothic';
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #046dad;
+  width: 100%;
+  padding-top: 100px;
+  text-align: center;
+  text-shadow: 0 5px 5px rgba(7, 83, 130, 0.3);
+}
+.signup {
+  font-family: 'Nanum Barun Gothic';
+  z-index: 1000;
+  width: 100%;
+  margin-top: 30px;
+}
+.signup_screen {
+  width: 350px;
+  margin: 0 auto;
+  background-color: #077ac0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(7, 83, 130, 0.3);
+}
+.signup_title {
+  padding-bottom: 20px;
+  text-align: center;
+  color: #d8ecf9;
+  font-size: 1.2rem;
+}
+.signup_form {
+  text-align: center;
+}
+.control_group {
+  margin-bottom: 10px;
+}
+.control_group label {
+  text-align: center;
+  margin-left: 20px;
+}
+.control_group label select {
+  text-align: center;
+  margin-left: 10px;
+  width: 100px;
+  height: 40px;
+}
+input {
+  color: #285774;
+  text-align: center;
+  background-color: #d2eaf9;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 200;
+  padding: 10px 0;
+  width: 300px;
+  -webkit-transition: border 0.5s;
+  transition: border 0.5s;
+}
+input:focus,
+textarea:focus {
+  border: 5px solid #7ac8f8;
+  box-shadow: none;
+}
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #5793b7;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #5793b7;
+}
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #5793b7;
+}
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #5793b7;
+}
+.signup_page {
+  width: 100%;
+  height: 1000%;
+  background: #212730 url('/images/login_bg.jpg');
+  background-size: cover;
+}
