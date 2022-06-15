@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gaion.scas.monitoring.mapper.BoardMapper">
+	<select id="findBoards" resultType="kr.co.gaion.scas.monitoring.model.Board">
+		select * 
+		from board
+	</select>
+	<select id="findById" parameterType="Integer" resultType="kr.co.gaion.scas.monitoring.model.Board">
+		select *
+		from board
+		where id = #{id}
+	</select>
+    <select id="findByPublished" parameterType="boolean" resultType="kr.co.gaion.scas.monitoring.model.Board">
+    	select * 
+    	from board
+    	where published = #{published}
+    </select>
+    <select id="findByTitleContaining" parameterType="String" resultType="kr.co.gaion.scas.monitoring.model.Board">
+    	select *
+    	from board
+    	where title like CONCAT('%',#{title},'%')
+    </select>
+	<insert id="insertBoard" parameterType="kr.co.gaion.scas.monitoring.model.Board">
+		INSERT INTO board 
+		(title, description, published)
+		VALUES (#{title}, #{description}, #{published})
+	</insert>
+	<update id="updateBoard" parameterType="kr.co.gaion.scas.monitoring.model.Board">
+		update board 
+		set title = #{title},
+			description = #{description},
+			published = #{published}
+		where id = #{id}
+			  
+	</update>
+	<delete id="deleteById" parameterType="Integer">
+		delete from board
+		where id = #{id}
+	</delete>
+	<delete id="deleteAll" >
+		delete from board
+	</delete>
+</mapper>
