@@ -16,6 +16,7 @@ import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
+import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j;
@@ -40,8 +41,8 @@ import java.util.stream.Collectors;
 @Log4j
 public class PcaDimensionalityReduction extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlgorithmPredictInput> {
 
-  public PcaDimensionalityReduction(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull EsConnector esConnector, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
-    super(elasticsearchSparkService, utilities, storageConfig, modelUtil, esConnector, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "PcaDimensionalityReduction", modelService);
+  public PcaDimensionalityReduction(@NonNull DatabaseSparkService databaseSparkService, @NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull EsConnector esConnector, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
+    super(elasticsearchSparkService,databaseSparkService, utilities, storageConfig, modelUtil, esConnector, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "PcaDimensionalityReduction", modelService);
   }
 
   public Dataset<Row> computePcaDataframeApi(BaseAlgorithmTrainInput config) throws Exception {

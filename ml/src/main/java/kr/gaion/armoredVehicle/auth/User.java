@@ -21,23 +21,5 @@ public class User {
   private String password;
 
   @Column
-  private String email;
-
-  @Column(nullable = false)
-  private String firstName;
-
-  @Column()
-  private String lastName;
-
-  @Column()
-  private String address;
-
-  @Column
-  private String zip;
-
-  @Column
-  private String phone;
-
-  @Column
   private String role;
 }

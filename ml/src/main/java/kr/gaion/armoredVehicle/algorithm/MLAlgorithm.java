@@ -9,6 +9,7 @@ import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
+import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.Getter;
 import lombok.NonNull;
@@ -32,6 +33,7 @@ import java.util.List;
 public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends BaseAlgorithmPredictInput> implements IMLAlgorithm<T, T2> {
   protected String name = "genericAlgorithm";
   @NonNull protected final ElasticsearchSparkService elasticsearchSparkService;
+  @NonNull protected final DatabaseSparkService databaseSparkService;
 	@NonNull protected final Utilities utilities;
 	@NonNull protected final StorageConfig storageConfig;
 	@NonNull protected final ModelUtilService modelUtil;
@@ -128,13 +130,13 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
 
       switch (dataInputOption) {
          case INPUT_FROM_FILE: {
-					 	originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
+			 originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
             break;
          }
          case INPUT_FROM_ES: {
             // get test data from ElasticSearch
 //			 data = SparkEsConnector.getUnlabeledDataFromES(config);
-            List<String> docIds = config.getEsDocIds();
+            List<String> docIds = config.getDbDocIds();
             if (docIds != null) {
                originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs(docIds);
             } else {
@@ -142,6 +144,9 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
             }
             break;
          }
+		 case INPUT_FROM_DB: {
+			  originalData = this.databaseSparkService.getUnlabeledDataFromDb();
+		 }
          default: {
             // abnormal case:
             throw new Error("Input method is not acceptable: " + dataInputOption);

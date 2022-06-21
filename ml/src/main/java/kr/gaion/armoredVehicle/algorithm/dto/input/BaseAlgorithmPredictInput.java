@@ -15,7 +15,7 @@ public class BaseAlgorithmPredictInput extends BaseAlgorithmInput {
   private DataProvider dataProvider;
   private DataInputOption dataInputOption;
   private List<String> listFieldsForPredict;
-  private List<String> esDocIds;
+  private List<String> dbDocIds;
   private FileInput fileInput;
   private Double threshold;
   private boolean dimensionalityReduction;

@@ -15,6 +15,7 @@ import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
+import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
@@ -35,8 +36,8 @@ import java.util.stream.IntStream;
 @Log4j2
 public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrainInput, BaseAlgorithmPredictInput> {
   private final PcaDimensionalityReduction dimensionalityReduction;
-  public ClusterMlAlgorithm(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull EsConnector esConnector, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull String algorithmName, @NonNull ModelService modelService, @NonNull PcaDimensionalityReduction dimensionalityReduction) {
-    super(elasticsearchSparkService, utilities, storageConfig, modelUtil, esConnector, chiSqSelector, algorithmConfig, dataConfig, sparkSession, algorithmName, modelService);
+  public ClusterMlAlgorithm(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull EsConnector esConnector, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull String algorithmName, @NonNull ModelService modelService, @NonNull PcaDimensionalityReduction dimensionalityReduction) {
+    super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, esConnector, chiSqSelector, algorithmConfig, dataConfig, sparkSession, algorithmName, modelService);
     this.dimensionalityReduction = dimensionalityReduction;
   }
 
