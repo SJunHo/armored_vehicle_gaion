@@ -12,6 +12,7 @@ import { DataFormat, ImportESDataFromFileInput, OpenApiContext } from "../api";
 import Select2 from "react-select";
 import { InputWrapper } from "../common/Common";
 import Spinner from "react-bootstrap/Spinner";
+import Select from "react-select/src/Select";
 
 export const DataUpload: React.FC = () => {
   const { t } = useTranslation();
@@ -29,10 +30,10 @@ export const DataUpload: React.FC = () => {
             id: "upload",
             title: t("pp.txt.fileUpload"),
           },
-          {
-            id: "import",
-            title: t("pp.fu.id.tab"),
-          },
+          // {
+          //   id: "import",
+          //   title: t("pp.fu.id.tab"),
+          // },
         ]}
         activeTabId={selectedTab}
         onChangeActiveTab={(v) => setSelectedTab(v)}
@@ -49,18 +50,18 @@ export const DataUpload: React.FC = () => {
           }}
         />
       )}
-      {selectedTab === "import" && (
-        <ImportPage
-          importing={importing}
-          uploadedFiles={uploadedFiles}
-          onSubmit={(v) => {
-            setImporting(true);
-            datasetControllerApi
-              ?.importESIndexFromCSV(v)
-              ?.finally(() => setImporting(false));
-          }}
-        />
-      )}
+      {/*{selectedTab === "import" && (*/}
+      {/*  <ImportPage*/}
+      {/*    importing={importing}*/}
+      {/*    uploadedFiles={uploadedFiles}*/}
+      {/*    onSubmit={(v) => {*/}
+      {/*      setImporting(true);*/}
+      {/*      datasetControllerApi*/}
+      {/*        ?.importESIndexFromCSV(v)*/}
+      {/*        ?.finally(() => setImporting(false));*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*)}*/}
     </Page>
   );
 };
@@ -71,12 +72,25 @@ const UploadPage: React.FC<{
 }> = ({ onUploadFile, uploading }) => {
   const { t } = useTranslation();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedDataType, setSelectedDataType] = useState<any>(null);
+
 
   return (
     <>
-      
       <Section title={t("pp.fu.up.subtitle")}>
         <Form>
+          <Row className="d-flex mt-4">
+            <Col md={2}>
+              <Form.Select
+                value={selectedDataType}
+                onChange={(v) => setSelectedDataType((v.target as any).value)}
+              >
+                <option value={'bearing'}>베어링</option>
+                <option value={'wheel'}>휠</option>
+                <option value={'gearbox'}>기어박스</option>
+              </Form.Select>
+            </Col>
+          </Row>
           <FormControl
             type="file"
             multiple

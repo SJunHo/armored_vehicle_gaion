@@ -16,20 +16,37 @@ export const Header: React.FC = () => {
       <Container fluid={true}>
         <Navbar.Collapse className="collapse">
           <Nav>
-            <Nav.Link href={"/dashboard"}>
-              <>
-                <span className="glyphicon glyphicon-book" />
-                Dashboard
-                <span className="glyphicon glyphicon-menu-down" />
-              </>
-            </Nav.Link>
-            <Nav.Link href={"/dataset"}>
-              <>
-                <span className="glyphicon glyphicon-book" />
-                {t("Status Data Tracking")}
-                <span className="glyphicon glyphicon-menu-down" />
-              </>
-            </Nav.Link>
+            {/*<Nav.Link href={"/dashboard"}>*/}
+            {/*  <>*/}
+            {/*    <span className="glyphicon glyphicon-book" />*/}
+            {/*    Dashboard*/}
+            {/*    <span className="glyphicon glyphicon-menu-down" />*/}
+            {/*  </>*/}
+            {/*</Nav.Link>*/}
+            {/*<Nav.Link href={"/dataset"}>*/}
+            {/*  <>*/}
+            {/*    <span className="glyphicon glyphicon-book" />*/}
+            {/*    {t("Status Data Tracking")}*/}
+            {/*    <span className="glyphicon glyphicon-menu-down" />*/}
+            {/*  </>*/}
+            {/*</Nav.Link>*/}
+
+            {/*<NavDropdown*/}
+            {/*  title={*/}
+            {/*    <>*/}
+            {/*      <span className="glyphicon glyphicon-book" />*/}
+            {/*      {t("pp.header.lookup")}*/}
+            {/*      <span className="glyphicon glyphicon-menu-down" />*/}
+            {/*    </>*/}
+            {/*  }*/}
+            {/*>*/}
+            {/*  <NavDropdown.Item href="/data/upload">*/}
+            {/*    {t("pp.fu.up.upload")}*/}
+            {/*  </NavDropdown.Item>*/}
+            {/*  <NavDropdown.Item href="/data/lookup">*/}
+            {/*    {t("pp.popup.header.lookupDef")}*/}
+            {/*  </NavDropdown.Item>*/}
+            {/*</NavDropdown>*/}
 
             <NavDropdown
               title={
@@ -43,9 +60,7 @@ export const Header: React.FC = () => {
               <NavDropdown.Item href="/data/upload">
                 {t("pp.fu.up.upload")}
               </NavDropdown.Item>
-              <NavDropdown.Item href="/data/lookup">
-                {t("pp.popup.header.lookupDef")}
-              </NavDropdown.Item>
+
             </NavDropdown>
 
             <NavDropdown
