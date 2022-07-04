@@ -23,14 +23,14 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
   const selectedIndice = watch("trainingESIndex");
 
   useEffect(() => {
-    mlControllerApi?.getEsDatasetIndicesList().then((res) => {
+    mlControllerApi?.getTrainingDataList().then((res) => {
       setIndices(res.data);
     });
   }, [mlControllerApi]);
 
   useEffect(() => {
     if (selectedIndice && mlControllerApi) {
-      mlControllerApi?.getIndexMappings(selectedIndice).then((res) => {
+      mlControllerApi?.getTrainingDataColumnList(selectedIndice).then((res) => {
         setColumns(res.data);
       });
     }

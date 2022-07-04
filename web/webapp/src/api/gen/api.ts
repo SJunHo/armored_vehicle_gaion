@@ -148,7 +148,7 @@ export interface BaseAlgorithmPredictInput {
      * @type {Array<string>}
      * @memberof BaseAlgorithmPredictInput
      */
-    esDocIds?: Array<string>;
+    dbDocIds?: Array<string>;
     /**
      * 
      * @type {FileInput}
@@ -721,7 +721,8 @@ export enum DataFormat {
 
 export enum DataInputOption {
     File = 'INPUT_FROM_FILE',
-    Es = 'INPUT_FROM_ES'
+    Es = 'INPUT_FROM_ES',
+    Db = 'INPUT_FROM_DB'
 }
 
 /**
@@ -789,13 +790,19 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    defectUser?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
     udefectProb?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ESDataUpdateInput
+     */
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1028,19 +1035,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageRailSensorData
-     */
     totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    number?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1055,16 +1056,16 @@ export interface PageRailSensorData {
     content?: Array<RailSensorData>;
     /**
      * 
+     * @type {number}
+     * @memberof PageRailSensorData
+     */
+    number?: number;
+    /**
+     * 
      * @type {Sort}
      * @memberof PageRailSensorData
      */
     sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageRailSensorData
-     */
-    pageable?: Pageable;
     /**
      * 
      * @type {boolean}
@@ -1083,6 +1084,12 @@ export interface PageRailSensorData {
      * @memberof PageRailSensorData
      */
     numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {boolean}
@@ -1125,13 +1132,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 
@@ -2079,7 +2086,7 @@ export const DatasetControllerApiAxiosParamCreator = function (configuration?: C
          * @param {string} [toDate] 
          * @param {number} [severity] 
          * @param {boolean} [hasDefectScore] 
-         * @param {number} [hasDefectUser]
+         * @param {number} [hasDefectUser] 
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
          * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -2543,7 +2550,7 @@ export const DatasetControllerApiFp = function(configuration?: Configuration) {
          * @param {string} [toDate] 
          * @param {number} [severity] 
          * @param {boolean} [hasDefectScore] 
-         * @param {number} [hasDefectUser]
+         * @param {number} [hasDefectUser] 
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
          * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -2695,7 +2702,7 @@ export const DatasetControllerApiFactory = function (configuration?: Configurati
          * @param {string} [toDate] 
          * @param {number} [severity] 
          * @param {boolean} [hasDefectScore] 
-         * @param {number} [hasDefectUser]
+         * @param {number} [hasDefectUser] 
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
          * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -2848,7 +2855,7 @@ export class DatasetControllerApi extends BaseAPI {
      * @param {string} [toDate] 
      * @param {number} [severity] 
      * @param {boolean} [hasDefectScore] 
-     * @param {number} [hasDefectUser]
+     * @param {number} [hasDefectUser] 
      * @param {number} [page] Zero-based page index (0..N)
      * @param {number} [size] The size of the page to be returned
      * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -2946,6 +2953,118 @@ export class DatasetControllerApi extends BaseAPI {
      */
     public uploadDatasetFile(files?: Array<any>, options?: any) {
         return DatasetControllerApiFp(this.configuration).uploadDatasetFile(files, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * DatasetDatabaseControllerApi - axios parameter creator
+ * @export
+ */
+export const DatasetDatabaseControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {Array<any>} [files] Files to be uploaded
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadCSVFileAndImportDB: async (files?: Array<any>, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/upload-dataset-file-to-database`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (files) {
+                files.forEach((element) => {
+                    localVarFormParams.append('files', element as any);
+                })
+            }
+
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DatasetDatabaseControllerApi - functional programming interface
+ * @export
+ */
+export const DatasetDatabaseControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DatasetDatabaseControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {Array<any>} [files] Files to be uploaded
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadCSVFileAndImportDB(files?: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadCSVFileAndImportDB(files, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * DatasetDatabaseControllerApi - factory interface
+ * @export
+ */
+export const DatasetDatabaseControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DatasetDatabaseControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {Array<any>} [files] Files to be uploaded
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadCSVFileAndImportDB(files?: Array<any>, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.uploadCSVFileAndImportDB(files, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DatasetDatabaseControllerApi - object-oriented interface
+ * @export
+ * @class DatasetDatabaseControllerApi
+ * @extends {BaseAPI}
+ */
+export class DatasetDatabaseControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {Array<any>} [files] Files to be uploaded
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public uploadCSVFileAndImportDB(files?: Array<any>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).uploadCSVFileAndImportDB(files, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -3145,6 +3264,76 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
+         * @param {string} index 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingDataColumnList: async (index: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'index' is not null or undefined
+            assertParamExists('getTrainingDataColumnList', 'index', index)
+            const localVarPath = `/api/get-trainingData/{index}`
+                .replace(`{${"index"}}`, encodeURIComponent(String(index)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingDataList: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/get-trainingData`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3262,39 +3451,6 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(baseAlgorithmPredictInput, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        test: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/test`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearer-key required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3644,6 +3800,25 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} index 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTrainingDataColumnList(index: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingDataColumnList(index, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTrainingDataList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingDataList(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3672,15 +3847,6 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          */
         async predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClusterResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.predictCluster(algorithmName, baseAlgorithmPredictInput, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async test(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.test(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3812,6 +3978,23 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
+         * @param {string} index 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingDataColumnList(index: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getTrainingDataColumnList(index, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingDataList(options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getTrainingDataList(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3838,14 +4021,6 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          */
         predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): AxiosPromise<ClusterResponse> {
             return localVarFp.predictCluster(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        test(options?: any): AxiosPromise<number> {
-            return localVarFp.test(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3979,6 +4154,27 @@ export class MlControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} index 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public getTrainingDataColumnList(index: string, options?: any) {
+        return MlControllerApiFp(this.configuration).getTrainingDataColumnList(index, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public getTrainingDataList(options?: any) {
+        return MlControllerApiFp(this.configuration).getTrainingDataList(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4010,16 +4206,6 @@ export class MlControllerApi extends BaseAPI {
      */
     public predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any) {
         return MlControllerApiFp(this.configuration).predictCluster(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MlControllerApi
-     */
-    public test(options?: any) {
-        return MlControllerApiFp(this.configuration).test(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

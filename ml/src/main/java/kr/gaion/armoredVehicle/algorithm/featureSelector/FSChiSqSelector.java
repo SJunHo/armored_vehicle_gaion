@@ -4,6 +4,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.ResponseStatus;
 import kr.gaion.armoredVehicle.algorithm.dto.ResponseType;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.response.FSResponse;
+import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +24,8 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FSChiSqSelector {
-  @NonNull
-  private final ElasticsearchSparkService elasticsearchSparkService;
-
+  @NonNull private final ElasticsearchSparkService elasticsearchSparkService;
+  @NonNull private final DatabaseSparkService databaseSparkService;
   /**
    * to train with DataFrame API
    */
@@ -37,7 +37,7 @@ public class FSChiSqSelector {
     String[] selectedFeatures = selectFeaturesDataframeApi(config);
 
     // Load data from Elasticsearch
-    Dataset<Row> originalData = this.elasticsearchSparkService.getDatasetFromElasticsearch();
+    Dataset<Row> originalData = this.databaseSparkService.getDatasetFromDatabase();
     originalData.cache();                                                          // #PC0032
     Dataset<Row> filteredData = originalData.select(classCol, selectedFeatures);
 
@@ -79,20 +79,21 @@ public class FSChiSqSelector {
 
   public String[] selectFeaturesDataframeApi(BaseAlgorithmTrainInput config) {
     // get data from elasticsearch
-    Dataset<Row> originalData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);                        // #PC0023
+//    Dataset<Row> originalData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);                        // #PC0023
+    Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
     // Using StringIndexer 																													// #PC0026
-    StringIndexerModel labelIndexer = new StringIndexer()                                          // #PC0026
-        .setInputCol("label")                                        // #PC0026
-        .setOutputCol("index")                                        // #PC0026
-        .fit(originalData);                                          // #PC0026
-    Dataset<Row> indexedData = labelIndexer.transform(originalData);                                    // #PC0026
-    indexedData.cache();                                                          // #PC0032
+    StringIndexerModel labelIndexer = new StringIndexer()            // #PC0026
+            .setInputCol("label")                                        // #PC0026
+            .setOutputCol("index")                                       // #PC0026
+            .fit(originalData);                                          // #PC0026
+    Dataset<Row> indexedData = labelIndexer.transform(originalData); // #PC0026
+    indexedData.cache();                                             // #PC0032
 
     var selector = new ChiSqSelector().setNumTopFeatures(8).setOutputCol("selectedFeatures").setLabelCol("index");
     var model = selector.fit(indexedData);
     return Arrays.stream(model.selectedFeatures())
-        .mapToObj(fi -> config.getFeatureCols().get(fi))
-        .collect(Collectors.toList())
-        .toArray(new String[]{});
+            .mapToObj(fi -> config.getFeatureCols().get(fi))
+            .collect(Collectors.toList())
+            .toArray(new String[]{});
   }
 }

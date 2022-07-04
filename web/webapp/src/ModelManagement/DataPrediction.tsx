@@ -136,7 +136,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Es,
       listFieldsForPredict: selectedModel?.response?.listFeatures,
-      esDocIds: selectedData!.map((v) => v.esId!),
     });
     const predictedData = res?.data.predictionInfo || [];
     setRailConditionData((old) =>
@@ -161,7 +160,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Es,
       listFieldsForPredict: selectedModel?.response?.listFeatures,
-      esDocIds: selectedData?.map((v) => v.esId!),
     });
     const predictedData = res?.data.predictionInfo || [];
     setRailConditionData((old) =>

@@ -6,6 +6,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
 import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
+//import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.dto.ModelResponse;
 import kr.gaion.armoredVehicle.ml.dto.input.UpdateModelInput;
@@ -86,8 +87,8 @@ public class ModelService {
 		var srb = new SearchSourceBuilder();
 		srb.size(1000);
 		srb.from(0);
-    srb.query(QueryBuilders.matchAllQuery());
-    srb.fetchSource(new String[]{"modelName", "description", "checked", "response"}, new String[]{});
+        srb.query(QueryBuilders.matchAllQuery());
+        srb.fetchSource(new String[]{"modelName", "description", "checked", "response"}, new String[]{});
 		searchRequest.source(srb);
     try {
       var res = this.esConnector.getClient().search(searchRequest, RequestOptions.DEFAULT);
@@ -116,6 +117,10 @@ public class ModelService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("response", response);
 		map.put("modelName", modelName);
+        // modelResponseSaveToDatabase
+//        String insertInfo =
+        System.out.println("this" + gson.toJson(map));
+
 		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
 		log.info(insertInfo);
 

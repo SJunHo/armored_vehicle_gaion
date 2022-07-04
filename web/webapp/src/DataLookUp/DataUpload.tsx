@@ -20,7 +20,7 @@ export const DataUpload: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [importing, setImporting] = useState(false);
-  const { datasetControllerApi } = useContext(OpenApiContext);
+  const { datasetControllerApi, datasetDatabaseControllerApi } = useContext(OpenApiContext);
 
   return (
     <Page>
@@ -43,8 +43,8 @@ export const DataUpload: React.FC = () => {
           uploading={uploading}
           onUploadFile={(files) => {
             setUploading(true);
-            datasetControllerApi
-              ?.uploadDatasetFile(files)
+            datasetDatabaseControllerApi
+              ?.uploadCSVFileAndImportDB(files)
               .then(() => setUploadedFiles(files))
               .finally(() => setUploading(false));
           }}
@@ -125,112 +125,112 @@ const UploadPage: React.FC<{
   );
 };
 
-const ImportPage: React.FC<{
-  uploadedFiles: File[];
-  onSubmit: (v: ImportESDataFromFileInput) => any;
-  importing: boolean;
-}> = ({ uploadedFiles, onSubmit, importing }) => {
-  const { t } = useTranslation();
-  const [input, setInput] = useState<ImportESDataFromFileInput>({
-    format: DataFormat.Csv,
-    delimiter: ",",
-  });
-
-  return (
-    <>
-      
-      <Section title={t("pp.fu.id.desc")}>
-        <Form>
-          <InputWrapper title={t("pp.lbl.uploadedFiles")}>
-            <Select2
-              options={uploadedFiles.map((uploadedFile) => ({
-                value: uploadedFile.name,
-                label: uploadedFile.name,
-              }))}
-              isMulti
-              onChange={(v) =>
-                setInput((old) => ({
-                  ...old,
-                  listUploadedFiles: v?.map((v) => v.value),
-                }))
-              }
-            />
-          </InputWrapper>
-          <Row>
-            <Col md={3}>
-              <InputWrapper title={t("pp.lbl.fileFormat")}>
-                <Form.Select
-                  value={input.format}
-                  onChange={(v) =>
-                    // @ts-ignore
-                    setInput((old) => ({ ...old, format: v.target.value }))
-                  }
-                >
-                  <option value={DataFormat.Csv}>CSV</option>
-                  <option value={DataFormat.Dense}>Dense</option>
-                  <option value={DataFormat.Basket}>Basket</option>
-                  <option value={DataFormat.Sparse}>Sparse</option>
-                </Form.Select>
-              </InputWrapper>
-            </Col>
-            <Col md={3}>
-              <InputWrapper title={t("pp.es.index")}>
-                <Form.Control
-                  value={input.indexW}
-                  onChange={(v) =>
-                    setInput((old) => ({ ...old, indexW: v.target.value }))
-                  }
-                />
-              </InputWrapper>
-            </Col>
-            <Col md={3}>
-              <InputWrapper title={t("pp.lbl.key")}>
-                <Form.Control
-                  value={input.columnPrimaryKey}
-                  onChange={(v) =>
-                    setInput((old) => ({
-                      ...old,
-                      columnPrimaryKey: v.target.value,
-                    }))
-                  }
-                />
-              </InputWrapper>
-            </Col>
-            <Col md={3}>
-              <InputWrapper title={t("pp.lbl.delimiter")}>
-                <Form.Control value={input.delimiter} />
-              </InputWrapper>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-            <Form.Check
-              checked={input.clearOldData}
-              label={t("pp.chkbx.truncate")}
-              onChange={(v) =>
-                setInput((old) => ({ ...old, clearOldData: v.target.checked }))
-              }
-            />
-            </Col>
-          </Row>
-        </Form>
-        <Row>
-          <Col md={1}>
-            <Button disabled={importing} onClick={() => onSubmit(input)}>
-              {importing && (
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-              )}
-              {t("pp.fu.id.btn.save")}
-            </Button>
-          </Col>
-        </Row>
-      </Section>
-    </>
-  );
-};
+// const ImportPage: React.FC<{
+//   uploadedFiles: File[];
+//   onSubmit: (v: ImportESDataFromFileInput) => any;
+//   importing: boolean;
+// }> = ({ uploadedFiles, onSubmit, importing }) => {
+//   const { t } = useTranslation();
+//   const [input, setInput] = useState<ImportESDataFromFileInput>({
+//     format: DataFormat.Csv,
+//     delimiter: ",",
+//   });
+//
+//   return (
+//     <>
+//
+//       <Section title={t("pp.fu.id.desc")}>
+//         <Form>
+//           <InputWrapper title={t("pp.lbl.uploadedFiles")}>
+//             <Select2
+//               options={uploadedFiles.map((uploadedFile) => ({
+//                 value: uploadedFile.name,
+//                 label: uploadedFile.name,
+//               }))}
+//               isMulti
+//               onChange={(v) =>
+//                 setInput((old) => ({
+//                   ...old,
+//                   listUploadedFiles: v?.map((v) => v.value),
+//                 }))
+//               }
+//             />
+//           </InputWrapper>
+//           <Row>
+//             <Col md={3}>
+//               <InputWrapper title={t("pp.lbl.fileFormat")}>
+//                 <Form.Select
+//                   value={input.format}
+//                   onChange={(v) =>
+//                     // @ts-ignore
+//                     setInput((old) => ({ ...old, format: v.target.value }))
+//                   }
+//                 >
+//                   <option value={DataFormat.Csv}>CSV</option>
+//                   <option value={DataFormat.Dense}>Dense</option>
+//                   <option value={DataFormat.Basket}>Basket</option>
+//                   <option value={DataFormat.Sparse}>Sparse</option>
+//                 </Form.Select>
+//               </InputWrapper>
+//             </Col>
+//             <Col md={3}>
+//               <InputWrapper title={t("pp.es.index")}>
+//                 <Form.Control
+//                   value={input.indexW}
+//                   onChange={(v) =>
+//                     setInput((old) => ({ ...old, indexW: v.target.value }))
+//                   }
+//                 />
+//               </InputWrapper>
+//             </Col>
+//             <Col md={3}>
+//               <InputWrapper title={t("pp.lbl.key")}>
+//                 <Form.Control
+//                   value={input.columnPrimaryKey}
+//                   onChange={(v) =>
+//                     setInput((old) => ({
+//                       ...old,
+//                       columnPrimaryKey: v.target.value,
+//                     }))
+//                   }
+//                 />
+//               </InputWrapper>
+//             </Col>
+//             <Col md={3}>
+//               <InputWrapper title={t("pp.lbl.delimiter")}>
+//                 <Form.Control value={input.delimiter} />
+//               </InputWrapper>
+//             </Col>
+//           </Row>
+//           <Row>
+//             <Col>
+//             <Form.Check
+//               checked={input.clearOldData}
+//               label={t("pp.chkbx.truncate")}
+//               onChange={(v) =>
+//                 setInput((old) => ({ ...old, clearOldData: v.target.checked }))
+//               }
+//             />
+//             </Col>
+//           </Row>
+//         </Form>
+//         <Row>
+//           <Col md={1}>
+//             <Button disabled={importing} onClick={() => onSubmit(input)}>
+//               {importing && (
+//                 <Spinner
+//                   as="span"
+//                   animation="border"
+//                   size="sm"
+//                   role="status"
+//                   aria-hidden="true"
+//                 />
+//               )}
+//               {t("pp.fu.id.btn.save")}
+//             </Button>
+//           </Col>
+//         </Row>
+//       </Section>
+//     </>
+//   );
+// };

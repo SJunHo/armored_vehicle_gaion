@@ -7,7 +7,6 @@ import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
-import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
@@ -37,7 +36,6 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
 	@NonNull protected final Utilities utilities;
 	@NonNull protected final StorageConfig storageConfig;
 	@NonNull protected final ModelUtilService modelUtil;
-	@NonNull protected final EsConnector esConnector;
 	@NonNull protected final FSChiSqSelector chiSqSelector;
 	@NonNull protected final AlgorithmConfig algorithmConfig;
 	@NonNull protected final DataConfig dataConfig;
@@ -144,9 +142,9 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
             }
             break;
          }
-		 case INPUT_FROM_DB: {
-			  originalData = this.databaseSparkService.getUnlabeledDataFromDb();
-		 }
+//		 case INPUT_FROM_DB: {
+//			  originalData = this.databaseSparkService.getUnlabeledDataFromDb();
+//		 }
          default: {
             // abnormal case:
             throw new Error("Input method is not acceptable: " + dataInputOption);

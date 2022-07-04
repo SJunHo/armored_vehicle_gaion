@@ -10,7 +10,7 @@ import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
-import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
+//import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
@@ -35,8 +35,8 @@ import java.util.List;
 @Service
 @Log4j
 public class LinearRegression extends MLAlgorithm<BaseAlgorithmTrainInput , BaseAlgorithmPredictInput> {
-  public LinearRegression(ElasticsearchSparkService elasticsearchSparkService, DatabaseSparkService databaseSparkService, Utilities utilities, StorageConfig storageConfig, ModelUtilService modelUtil, EsConnector esConnector, FSChiSqSelector chiSqSelector, AlgorithmConfig algorithmConfig, DataConfig dataConfig, SparkSession sparkSession, ModelService modelService) {
-    super(elasticsearchSparkService,databaseSparkService, utilities, storageConfig, modelUtil, esConnector, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "LinearRegression", modelService);
+  public LinearRegression(ElasticsearchSparkService elasticsearchSparkService, DatabaseSparkService databaseSparkService, Utilities utilities, StorageConfig storageConfig, ModelUtilService modelUtil,FSChiSqSelector chiSqSelector, AlgorithmConfig algorithmConfig, DataConfig dataConfig, SparkSession sparkSession, ModelService modelService) {
+    super(elasticsearchSparkService,databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "LinearRegression", modelService);
   }
 
   @Override
@@ -135,7 +135,8 @@ public class LinearRegression extends MLAlgorithm<BaseAlgorithmTrainInput , Base
 
 		// get data from Elasticsearch
 		log.info("get data from Elasticsearch");
-		Dataset<NumericLabeledData> originalData = this.elasticsearchSparkService.getNumericLabeledDatasetFromElasticsearch(config);
+//		Dataset<NumericLabeledData> originalData = this.elasticsearchSparkService.getNumericLabeledDatasetFromElasticsearch(config);
+		Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config);
 
 		// Split the data into train and test
 		log.info("Split the data into train and test");

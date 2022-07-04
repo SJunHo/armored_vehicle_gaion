@@ -14,7 +14,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.response.FSResponse;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
-import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
+//import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
@@ -41,8 +41,8 @@ import java.util.stream.Collectors;
 @Log4j
 public class PcaDimensionalityReduction extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlgorithmPredictInput> {
 
-  public PcaDimensionalityReduction(@NonNull DatabaseSparkService databaseSparkService, @NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull EsConnector esConnector, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
-    super(elasticsearchSparkService,databaseSparkService, utilities, storageConfig, modelUtil, esConnector, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "PcaDimensionalityReduction", modelService);
+  public PcaDimensionalityReduction(@NonNull DatabaseSparkService databaseSparkService, @NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil,@NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
+    super(elasticsearchSparkService,databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "PcaDimensionalityReduction", modelService);
   }
 
   public Dataset<Row> computePcaDataframeApi(BaseAlgorithmTrainInput config) throws Exception {
@@ -56,7 +56,9 @@ public class PcaDimensionalityReduction extends MLAlgorithm<BaseAlgorithmTrainIn
     }
 
     // get input data
-    Dataset<Row> inputData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
+//    Dataset<Row> inputData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
+    Dataset<Row> inputData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+
 
     var pca = train(numPrincipalComponents, inputData);
     return pca.transform(inputData);

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { DatasetControllerApi, MlControllerApi } from "./gen";
+import { DatasetControllerApi, MlControllerApi, DatasetDatabaseControllerApi } from "./gen";
 import { MeContext } from "./MeContext";
 
 type OpenApiContextProps = {
   mlControllerApi?: MlControllerApi;
   datasetControllerApi?: DatasetControllerApi;
+  datasetDatabaseControllerApi?: DatasetDatabaseControllerApi;
 };
 
 export const basePath =
@@ -34,6 +35,11 @@ export const OpenApiContextProvider: React.FC = ({ children }) => {
         isJsonMime: () => true,
       }),
       datasetControllerApi: new DatasetControllerApi({
+        baseOptions,
+        basePath,
+        isJsonMime: () => true,
+      }),
+      datasetDatabaseControllerApi: new DatasetDatabaseControllerApi({
         baseOptions,
         basePath,
         isJsonMime: () => true,

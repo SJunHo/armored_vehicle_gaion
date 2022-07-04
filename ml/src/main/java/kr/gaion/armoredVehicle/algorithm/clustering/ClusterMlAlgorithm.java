@@ -13,7 +13,6 @@ import kr.gaion.armoredVehicle.algorithm.featureSelector.PcaDimensionalityReduct
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
-import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
@@ -36,8 +35,8 @@ import java.util.stream.IntStream;
 @Log4j2
 public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrainInput, BaseAlgorithmPredictInput> {
   private final PcaDimensionalityReduction dimensionalityReduction;
-  public ClusterMlAlgorithm(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull EsConnector esConnector, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull String algorithmName, @NonNull ModelService modelService, @NonNull PcaDimensionalityReduction dimensionalityReduction) {
-    super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, esConnector, chiSqSelector, algorithmConfig, dataConfig, sparkSession, algorithmName, modelService);
+  public ClusterMlAlgorithm(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull String algorithmName, @NonNull ModelService modelService, @NonNull PcaDimensionalityReduction dimensionalityReduction) {
+    super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil,  chiSqSelector, algorithmConfig, dataConfig, sparkSession, algorithmName, modelService);
     this.dimensionalityReduction = dimensionalityReduction;
   }
 
@@ -116,7 +115,8 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
       trainData = this.dimensionalityReduction.computePcaDataframeApi(config);
     } else {
 //      // get input data
-      trainData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
+//      trainData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
+      trainData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
     }
 
     TModel model = this.trainModel(config, trainData);

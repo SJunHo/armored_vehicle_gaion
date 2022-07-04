@@ -10,7 +10,7 @@ import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.dataset.service.FileSystemStorageService;
-import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
+//import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.spark.SparkConfig;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class ModelUtilService {
 	@NonNull private final Utilities utilities;
 	@NonNull private final StorageConfig storageConfig;
 	@NonNull public final HdfsHelperService hdfsHelperService;
-	@NonNull private final EsConnector esConnector;
+//	@NonNull private final EsConnector esConnector;
 	@NonNull private final FileSystemStorageService fileSystemStorageService;
 
 	private final Gson gson = new Gson();
