@@ -43,7 +43,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation:${springVersion}") {
 		exclude module: 'spring-boot-starter-logging'
 	}
-
+	implementation group: 'com.opencsv', name: 'opencsv', version: '5.2'
 	implementation "mysql:mysql-connector-java:5.1.27"
 	implementation "org.hibernate:hibernate-core"
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
@@ -72,7 +72,7 @@ dependencies {
 	implementation 'org.codehaus.janino:commons-compiler:3.0.16'
 	implementation 'org.codehaus.janino:janino:3.0.16'
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
-
+	implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

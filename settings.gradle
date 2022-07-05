@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'railroad2'
+rootProject.name = 'armoredVehicle'
 
 include 'ml'
 include 'web'

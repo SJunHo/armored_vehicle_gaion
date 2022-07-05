@@ -1,0 +1,13 @@
+.wrapper {
+  padding: 8px;
+  background-color: #ecf5fa;
+  height: 100%;
+}
+
+.childrenWrapper {
+  background-color: white;
+}
+
+h1 {
+  color: #2705a1cc;
+}

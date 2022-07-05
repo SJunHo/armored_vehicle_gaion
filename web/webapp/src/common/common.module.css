@@ -1,0 +1,11 @@
+.formInputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+.formInputWrapper.row {
+  flex-direction: row;
+}
+.formInputWrapper > div {
+  margin-bottom: 8px;
+}
