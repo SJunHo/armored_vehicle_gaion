@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class BaseAlgorithmTrainInput extends BaseAlgorithmInput {
+  // DAO의 input이니까 즉 Request. 즉, 얘는 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '학습'을 위한 정보들(Request)
   private String trainingESIndex;
   /**
    * Number of classes for classification

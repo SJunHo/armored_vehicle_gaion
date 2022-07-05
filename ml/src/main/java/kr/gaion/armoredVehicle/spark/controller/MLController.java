@@ -18,6 +18,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.input.ClusterTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.response.*;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.PcaDimensionalityReduction;
+import kr.gaion.armoredVehicle.algorithm.regressor.LinearRegressor;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.dataset.repository.FileInfoRepository;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
@@ -46,6 +47,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MLController {
+  // Controller: 사용자의 요청(request)을 어떻게 처리할지 결정하는 파트입니다. 즉, Controller에 정의 된 기준대로 요청을 처리합니다.
+  // @Controller: Controller의 역할을 수행한다고 명시해주는 어노테이션, Controller의 내용을 기준 삼아 요청을 처리.
+  // @RequestMapping(vale=" ", method= ): Controller에 들어온 요청을 처리하는 기준점입니다. 서버의 URL + value로 매핑되며 method의 RequestMethod.GET or POST. 주소창에 URL + value를 입력하면 method가 수행됩니다.
   @NonNull private final RandomForestClassifier rfc;
   @NonNull private final SVM svm;
   @NonNull private final MLPClassifier mlp;
@@ -58,6 +62,7 @@ public class MLController {
   @NonNull private final SparkSession sparkSession;
   @NonNull private final FSChiSqSelector chiSqSelector;
   @NonNull private final PcaDimensionalityReduction pcaDimensionalityReduction;
+  @NonNull private final LinearRegressor linearRegressor;
   @NonNull private final DatabaseSparkService databaseSparkService;
   @NonNull private final DatasetDatabaseService datasetDatabaseService;
   @NonNull private final FileInfoRepository fileInfoRepository;
@@ -92,6 +97,11 @@ public class MLController {
     return isolationForestOutlierDetection.train(input);
   }
 
+  @PostMapping(path = "/api/train/linear_regressor")
+  public LinearRegressionTrainResponse trainLinearRegression(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
+    return (LinearRegressionTrainResponse) linearRegressor.train(input);
+  }
+
 //  @GetMapping(path = "/api/test")
 //  public Dataset<Row> test() {
 //    var result = databaseSparkService.getLabeledDatasetFromDatabase();
@@ -113,6 +123,9 @@ public class MLController {
       case "lr": {
         return this.lr.predict(input);
       }
+      case "linear_regressor": {
+        return this.linearRegressor.predict(input);
+      }
       default: {
         throw new Error("Unsupported algorithm");
       }
@@ -133,8 +146,6 @@ public class MLController {
       }
     }
   }
-
-
 
   @GetMapping(path = "/api/ml/{algorithm}/models")
   public List<ModelResponse> getModels(@PathVariable String algorithm) {

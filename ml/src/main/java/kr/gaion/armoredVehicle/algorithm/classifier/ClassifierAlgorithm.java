@@ -69,6 +69,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 		// model evaluation
 
     var response = createModelResponse(model, test, config);
+
     var trainingResults = getTrainingResults(model, test);
 
 		JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(trainingResults);
@@ -136,6 +137,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 	}
 
   protected abstract T loadModel(String modelName) throws IOException;
+
   protected abstract ClassificationResponse predictData(Dataset<Row> data, T model, BaseAlgorithmPredictInput input, String[] indicesLabelsMapping);
 
   protected abstract String saveTrainedModel(BaseAlgorithmTrainInput config, T model) throws Exception;
