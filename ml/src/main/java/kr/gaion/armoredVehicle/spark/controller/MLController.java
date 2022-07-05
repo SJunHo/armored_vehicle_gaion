@@ -40,7 +40,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static kr.gaion.armoredVehicle.spark.controller.TestSpark.ReadCSV;
+//import static kr.gaion.armoredVehicle.spark.controller.TestSpark.ReadCSV;
 
 @RestController("api")
 @RequiredArgsConstructor
@@ -167,22 +167,23 @@ public class MLController {
 
   @GetMapping(path = "/api/get-trainingData/{index}")
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
-    String path = "D:\\Sources\\armored-vehicle\\testData\\bearing_training_001.csv";
+    String path = "D:\\Sources\\armored-vehicle\\test-data\\"+index+".csv";
     CSVReader reader = new CSVReader(new FileReader(path ));
     String[] header = reader.readNext();
     return header;
   }
 
-  @GetMapping(path = "/api/es-mappings")
-  public String[] getEsDatasetIndicesList() {
-    return dataConfig.getEsDatasetIndices();
-  }
 
-  @GetMapping(path = "/api/es-mapping/{index}")
-  public String[] getIndexMappings(@PathVariable String index) throws IOException {
-    var res = esConnector.getEsIndexMappings(index);
-    return ((Map<String, Object>) res.sourceAsMap().get("properties")).keySet().toArray(new String[]{});
-  }
+//  @GetMapping(path = "/api/es-mappings")
+//  public String[] getEsDatasetIndicesList() {
+//    return dataConfig.getEsDatasetIndices();
+//  }
+//
+//  @GetMapping(path = "/api/es-mapping/{index}")
+//  public String[] getIndexMappings(@PathVariable String index) throws IOException {
+//    var res = esConnector.getEsIndexMappings(index);
+//    return ((Map<String, Object>) res.sourceAsMap().get("properties")).keySet().toArray(new String[]{});
+//  }
 
   @PostMapping(path = "/api/fs/chi-sq")
   public FSResponse chiSquareFS(@RequestBody BaseAlgorithmTrainInput input) {

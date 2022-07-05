@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 public class DatasetDatabaseController {
     @NonNull private final DatasetDatabaseService datasetDatabaseService;
 
-
     @PostMapping(path="/api/data/database/upload-dataset-file-to-database", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public List<String> uploadCSVFileAndImportDB(
             @Parameter(
@@ -29,7 +28,6 @@ public class DatasetDatabaseController {
                 content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE)  // Won't work without OCTET_STREAM as the mediaType.
             )
             @RequestParam("files") List<MultipartFile> files
-//            @RequestParam("dataType") String dataType
     ) {
         String result = datasetDatabaseService.importCSVtoDatabase(files, "bearing");
         System.out.println(result);
