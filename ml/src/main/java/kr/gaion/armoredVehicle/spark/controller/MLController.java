@@ -1,25 +1,5 @@
 package kr.gaion.armoredVehicle.spark.controller;
 
-<<<<<<< HEAD:ml/src/main/java/kr/gaion/railroad2/ml/controller/MLController.java
-import kr.gaion.railroad2.algorithm.classifier.LogisticRegressionClassifier;
-import kr.gaion.railroad2.algorithm.classifier.MLPClassifier;
-import kr.gaion.railroad2.algorithm.classifier.RandomForestClassifier;
-import kr.gaion.railroad2.algorithm.classifier.SVM;
-import kr.gaion.railroad2.algorithm.clustering.IsolationForestOutlierDetection;
-import kr.gaion.railroad2.algorithm.clustering.KmeansClustering;
-import kr.gaion.railroad2.algorithm.dto.input.BaseAlgorithmPredictInput;
-import kr.gaion.railroad2.algorithm.dto.input.BaseAlgorithmTrainInput;
-import kr.gaion.railroad2.algorithm.dto.input.ClusterTrainInput;
-import kr.gaion.railroad2.algorithm.dto.response.*;
-import kr.gaion.railroad2.algorithm.featureSelector.FSChiSqSelector;
-import kr.gaion.railroad2.algorithm.featureSelector.PcaDimensionalityReduction;
-import kr.gaion.railroad2.algorithm.regressor.LinearRegressor;
-import kr.gaion.railroad2.common.DataConfig;
-import kr.gaion.railroad2.elasticsearch.EsConnector;
-import kr.gaion.railroad2.ml.dto.ModelResponse;
-import kr.gaion.railroad2.ml.dto.input.UpdateModelInput;
-import kr.gaion.railroad2.ml.service.ModelService;
-=======
 import au.com.bytecode.opencsv.CSVReader;
 import kr.gaion.armoredVehicle.algorithm.classifier.LogisticRegressionClassifier;
 //import kr.gaion.armoredVehicle.algorithm.classifier.MLPClassifier;
@@ -38,6 +18,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.input.ClusterTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.response.*;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.PcaDimensionalityReduction;
+import kr.gaion.armoredVehicle.algorithm.regressor.LinearRegressor;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.dataset.repository.FileInfoRepository;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
@@ -46,7 +27,6 @@ import kr.gaion.armoredVehicle.ml.dto.ModelResponse;
 import kr.gaion.armoredVehicle.ml.dto.input.UpdateModelInput;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
->>>>>>> origin/gaion:ml/src/main/java/kr/gaion/armoredVehicle/spark/controller/MLController.java
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.spark.sql.Dataset;
@@ -82,13 +62,10 @@ public class MLController {
   @NonNull private final SparkSession sparkSession;
   @NonNull private final FSChiSqSelector chiSqSelector;
   @NonNull private final PcaDimensionalityReduction pcaDimensionalityReduction;
-<<<<<<< HEAD:ml/src/main/java/kr/gaion/railroad2/ml/controller/MLController.java
   @NonNull private final LinearRegressor linearRegressor;
-=======
   @NonNull private final DatabaseSparkService databaseSparkService;
   @NonNull private final DatasetDatabaseService datasetDatabaseService;
   @NonNull private final FileInfoRepository fileInfoRepository;
->>>>>>> origin/gaion:ml/src/main/java/kr/gaion/armoredVehicle/spark/controller/MLController.java
 
   @PostMapping(path = "/api/train/rfc")
   public RandomForestClassificationResponse trainRfc(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
@@ -120,23 +97,16 @@ public class MLController {
     return isolationForestOutlierDetection.train(input);
   }
 
-<<<<<<< HEAD:ml/src/main/java/kr/gaion/railroad2/ml/controller/MLController.java
   @PostMapping(path = "/api/train/linear_regressor")
   public LinearRegressionTrainResponse trainLinearRegression(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
     return (LinearRegressionTrainResponse) linearRegressor.train(input);
   }
 
-  @GetMapping(path = "/api/test")
-  public Long test() {
-    return this.sparkSession.range(10).count();
-  }
-=======
 //  @GetMapping(path = "/api/test")
 //  public Dataset<Row> test() {
 //    var result = databaseSparkService.getLabeledDatasetFromDatabase();
 //    return result;
 //  }
->>>>>>> origin/gaion:ml/src/main/java/kr/gaion/armoredVehicle/spark/controller/MLController.java
 
   @PostMapping(path = "/api/predict/{algorithmName}")
   public ClassificationResponse predict(@RequestBody BaseAlgorithmPredictInput input, @PathVariable String algorithmName) throws Exception {
@@ -176,8 +146,6 @@ public class MLController {
       }
     }
   }
-
-
 
   @GetMapping(path = "/api/ml/{algorithm}/models")
   public List<ModelResponse> getModels(@PathVariable String algorithm) {

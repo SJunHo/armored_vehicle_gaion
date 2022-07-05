@@ -128,13 +128,8 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
 
       switch (dataInputOption) {
          case INPUT_FROM_FILE: {
-<<<<<<< HEAD:ml/src/main/java/kr/gaion/railroad2/algorithm/MLAlgorithm.java
          	originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
          	break;
-=======
-			 originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
-            break;
->>>>>>> origin/gaion:ml/src/main/java/kr/gaion/armoredVehicle/algorithm/MLAlgorithm.java
          }
          case INPUT_FROM_ES: {
             // get test data from ElasticSearch
