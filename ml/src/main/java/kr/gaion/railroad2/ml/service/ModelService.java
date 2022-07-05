@@ -39,6 +39,10 @@ import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 @RequiredArgsConstructor
 @Log4j
 public class ModelService {
+    // Service의 역할은 Dao가 DB에서 받아온 데이터를 전달받아 가공하는 것. 사용자의 요청(request)에 대해 어떤 처리를 할지 결정하는 파트입니다.
+    // 즉, Controller가 받은 요청에 대해 알맞는 정보를 가공해서 다시 Controller에게 데이터를 넘기는 것을 의미합니다.
+    // 주의할 점은 실제 비즈니스 로직은 Service에서 수행하지 않습니다. API에서 발생하는 트랙잭션과 Domain의 순서 보장의 역할을 갖고 있으며, 실제 로직은 Domain 패키지에서 수행됩니다.
+    // /@Service: Service의 역할을 수행한다고 명시해주는 어노테이션.
   @NonNull private final EsConnector esConnector;
   @NonNull private final Utilities utilities;
   @NonNull private final StorageConfig storageConfig;

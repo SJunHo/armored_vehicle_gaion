@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ClassificationResponse extends AlgorithmResponse{
+  // DAO의 Response. 즉,얘는 '분류' 모델이 웹으로 다시 돌려주어야 할 결과가 가지고 있어야 하는 정보들
   protected double[] confusionMatrix;
   protected String[] labels;
   protected double weightedFalsePositiveRate;

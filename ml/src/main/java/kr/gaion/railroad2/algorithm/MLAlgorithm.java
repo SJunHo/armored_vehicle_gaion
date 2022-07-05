@@ -128,8 +128,8 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
 
       switch (dataInputOption) {
          case INPUT_FROM_FILE: {
-					 	originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
-            break;
+         	originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
+         	break;
          }
          case INPUT_FROM_ES: {
             // get test data from ElasticSearch

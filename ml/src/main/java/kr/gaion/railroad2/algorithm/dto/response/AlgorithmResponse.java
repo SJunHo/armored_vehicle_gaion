@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class AlgorithmResponse {
+  // DAO의 Response. 즉, 얘는 모델 상관없이 웹으로 다시 돌려주어야 할 결과가 기본적으로 꼭 가지고 있어야 하는 정보들
   /**
    * to indicate that response is [message] or [object data]
    */
