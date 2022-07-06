@@ -15,9 +15,11 @@ import { RandomForestClassificationResponse } from "../api";
 import { OpenApiContext } from "../api/OpenApiContext";
 import { InputWrapper } from "../common/Common";
 import { Section } from "../common/Section/Section";
-import { DataInputSection } from "./CreateModel/DataInputSection";
+
 import { CreateModelResult } from "./CreateModelResult";
 import styles from "./styles.module.css";
+import {DataInputSection} from "./CreateModel/DataInputSection";
+import {LifeDataInputSection} from "./CreateModel/LifeDataInputSection";
 
 const SPLIT_TRAIN_TEST_STRATEGIES = ["auto", "all", "sqrt", "log2", "onethird"];
 
@@ -64,7 +66,16 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
           break;
         }
         case "if": {
-          console.log("aaa");
+          newResult = await mlControllerApi?.trainIsolationForest(input);
+          break;
+        }
+        case "linear": {
+          console.log("linear");
+          newResult = await mlControllerApi?.trainLinearRegression(input);
+          break;
+        }
+        case "lasso": {
+          console.log("lasso");
           newResult = await mlControllerApi?.trainIsolationForest(input);
           break;
         }
@@ -87,13 +98,15 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
         : {}),
     });
   }, [algorithmName, methods]);
-
   return (
     <div>
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(handleTrain)}>
           <div className="d-flex gap-3">
-            <DataInputSection algorithmName={algorithmName} />
+            {
+              algorithmName=="linear"?<LifeDataInputSection algorithmName={algorithmName} />:<DataInputSection algorithmName={algorithmName} />
+            }
+
             <Section
               className={styles.trainInputSection}
               title={"모델 파라미터 설정"}
@@ -296,6 +309,9 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
       )}
       {algorithmName === "kmean" && <KmeanSection />}
       {algorithmName === "if" && <IsolationForestSection />}
+      {algorithmName === "linear" && <LinearRegression />}
+      {algorithmName === "lasso" && <IsolationForestSection />}
+
 
       <InputWrapper
         labelWidth={6}
@@ -434,3 +450,36 @@ export const IsolationForestSection: React.FC = () => {
     </>
   );
 };
+
+export const LinearRegression: React.FC = () => {
+  const { t } = useTranslation();
+
+  const { register } = useFormContext();
+  return (
+    <>
+      <InputWrapper
+        rowLayout
+        labelWidth={6}
+        className={styles.body2Input}
+        title={t("ml.regression.maxIter")}
+      >
+        <Form.Control
+          type="number"
+          {...register("maxIter", { valueAsNumber: true, value: 0 })}
+        />
+      </InputWrapper>
+      <InputWrapper
+        rowLayout
+        labelWidth={6}
+        className={styles.body2Input}
+        title={t("ml.regression.regParams")}
+      >
+        <Form.Control
+          type="number"
+          {...register("regParams", { valueAsNumber: true, value: 0 })}
+        />
+      </InputWrapper>
+    </>
+  );
+};
+

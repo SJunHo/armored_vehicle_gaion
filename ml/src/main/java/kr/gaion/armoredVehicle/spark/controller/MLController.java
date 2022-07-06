@@ -20,7 +20,7 @@ import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.PcaDimensionalityReduction;
 import kr.gaion.armoredVehicle.algorithm.regressor.LinearRegressor;
 import kr.gaion.armoredVehicle.common.DataConfig;
-import kr.gaion.armoredVehicle.dataset.repository.FileInfoRepository;
+import kr.gaion.armoredVehicle.database.repository.FileInfoRepository;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.dto.ModelResponse;
@@ -29,8 +29,6 @@ import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +37,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 //import static kr.gaion.armoredVehicle.spark.controller.TestSpark.ReadCSV;
 
@@ -123,7 +120,7 @@ public class MLController {
       case "lr": {
         return this.lr.predict(input);
       }
-      case "linear_regressor": {
+      case "linear": {
         return this.linearRegressor.predict(input);
       }
       default: {

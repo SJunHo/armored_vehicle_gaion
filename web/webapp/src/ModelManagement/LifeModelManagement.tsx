@@ -8,10 +8,9 @@ import { DataPrediction } from "./DataPrediction";
 import styles from "./styles.module.css";
 import { TrainingModelList } from "./TrainingModelList";
 
-export const ModelManagement: React.FC = () => {
+export const LifeModelManagement: React.FC = () => {
   const { t } = useTranslation();
-  const { algorithmName, tab = "train" } =
-    useParams<{ algorithmName: string; tab?: string }>();
+  const { algorithmName, tab = "train" } = useParams<{ algorithmName: string; tab?: string }>();
   const history = useHistory();
 
   const handleChangeTab = (v: string) => {
@@ -24,15 +23,15 @@ export const ModelManagement: React.FC = () => {
         headers={[
           {
             id: "train",
-            title: algorithmName == "linear"?t("ml.common.tab.lifeCreate") : t("ml.common.tab.mg"),
+            title: t("ml.common.tab.lifeCreate"),
           },
           {
             id: "models",
-            title: algorithmName == "linear"?t("ml.common.tab.lifeMg") : t("table.column.manage"),
+            title: t("ml.common.tab.lifeMg"),
           },
           {
             id: "predict",
-            title: algorithmName == "linear"?t("ml.common.tab.lifePredict") : t("ml.common.tab.troubleshot"),
+            title: t("ml.common.tab.lifePredict"),
           },
         ]}
         activeTabId={tab}

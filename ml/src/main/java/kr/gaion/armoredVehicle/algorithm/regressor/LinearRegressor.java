@@ -25,6 +25,7 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.linalg.DenseVector;
 import org.apache.spark.ml.linalg.Vector;
+import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.ml.regression.LinearRegressionTrainingSummary;
 import org.apache.spark.sql.Dataset;
@@ -50,13 +51,16 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         // get settings
         int maxIterations = config.getMaxIter();
         double regParam = config.getRegParam();
-        double elasticNetParam = config.getElasticNetMixing();
+//        double elasticNetParam = config.getElasticNetMixing();
 
         // TODO: ES 기능이니까 수정하기.
         // ------------------------------------------------------------------------------------------------
         // get data from Elasticsearch
-        log.info("get data from Elasticsearch");
-        Dataset<NumericLabeledData> originalData = this.elasticsearchSparkService.getNumericLabeledDatasetFromElasticsearch(config);
+//        log.info("get data from Elasticsearch");
+//        Dataset<NumericLabeledData> originalData = this.elasticsearchSparkService.getNumericLabeledDatasetFromElasticsearch(config);
+        Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config); 												// #PC0023
+        System.out.println("///////////////");
+        originalData.show();
         // ------------------------------------------------------------------------------------------------
 
         // Split the data into train and test
@@ -67,7 +71,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
         // 모델 생성
         org.apache.spark.ml.regression.LinearRegression lr = new org.apache.spark.ml.regression.LinearRegression()
-                .setMaxIter(maxIterations).setRegParam(regParam).setElasticNetParam(elasticNetParam);
+                .setMaxIter(maxIterations).setRegParam(regParam);
 
         // Fit the model.
         LinearRegressionModel lrModel = lr.fit(train);

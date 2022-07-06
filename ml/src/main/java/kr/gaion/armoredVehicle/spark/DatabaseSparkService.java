@@ -72,7 +72,6 @@ public class DatabaseSparkService {
         }
     }
 
-
     private static Dataset<LabeledData> processData(
             Dataset<Row> jvRddData,
             List<String> filterOutFields,
@@ -118,18 +117,22 @@ public class DatabaseSparkService {
         }, Encoders.javaSerialization(LabeledData.class));
     }
 
+    public Dataset<NumericLabeledData> getNumericLabeledDatasetFromDb(BaseAlgorithmTrainInput input) {
+        var featureCols = input.getFeatureCols();
+        var jvRddData = this.getDataRDDFromDb("BERTRNING");
+        System.out.println("jvRddData");
+        jvRddData.withColumnRenamed("value","features");
+        jvRddData.show();
+        // get data from ElasticSearch
+        return processNumericLabeledDataset(jvRddData, featureCols);
+    }
+
     private static Dataset<NumericLabeledData> processNumericLabeledDataset(
-            Dataset<Row> jvRddData, String classCol, List<String> featureCols) {
+            Dataset<Row> jvRddData, List<String> featureCols) {
         return jvRddData.map(new MapFunction<>() {
             private static final long serialVersionUID = -1318784596736889400L;
 
             public NumericLabeledData call(Row mapData) {
-                double label;
-                try {
-                    label = Double.parseDouble(mapData.getAs(classCol).toString());                                    // #PC0026
-                } catch (Exception e) {
-                    label = 0.0;
-                }
                 double[] vector = new double[featureCols.size()];
                 int index = -1;
                 String strVal;
@@ -145,25 +148,13 @@ public class DatabaseSparkService {
                 }
 
                 NumericLabeledData dataReturn = new NumericLabeledData();
-                dataReturn.setLabel(label);
                 dataReturn.setFeatures(Vectors.dense(vector));
+                System.out.println("features" + dataReturn.getFeatures());
+
 
                 return dataReturn;
             }
         }, Encoders.javaSerialization(NumericLabeledData.class));
-    }
-
-
-    public Dataset<NumericLabeledData> getNumericLabeledDatasetFromDb(BaseAlgorithmTrainInput input) {
-        var classCol = input.getClassCol();
-        var featureCols = input.getFeatureCols();
-
-//        log.info("Getting data from ElasticSearch for: " + this.esIndexConfig.getIndex() + "/" + this.esIndexConfig.getReadingType() + "/");
-
-        var jvRddData = this.getDataRDDFromDb("BERTRNING");
-
-        // get data from ElasticSearch
-        return processNumericLabeledDataset(jvRddData, classCol, featureCols);
     }
 
     public Dataset<Row> getDatasetFromDatabase() {

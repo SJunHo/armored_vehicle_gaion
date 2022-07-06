@@ -135,8 +135,7 @@ public class LinearRegression extends MLAlgorithm<BaseAlgorithmTrainInput , Base
 
 		// get data from Elasticsearch
 		log.info("get data from Elasticsearch");
-//		Dataset<NumericLabeledData> originalData = this.elasticsearchSparkService.getNumericLabeledDatasetFromElasticsearch(config);
-		Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config);
+		Dataset<NumericLabeledData> originalData = this.elasticsearchSparkService.getNumericLabeledDatasetFromElasticsearch(config);
 
 		// Split the data into train and test
 		log.info("Split the data into train and test");

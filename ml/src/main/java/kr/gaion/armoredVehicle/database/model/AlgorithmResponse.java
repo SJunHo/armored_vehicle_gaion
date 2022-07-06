@@ -3,10 +3,13 @@ package kr.gaion.armoredVehicle.database.model;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClusterResponse;
 import kr.gaion.armoredVehicle.database.converter.ClassificationResponseConverter;
 import kr.gaion.armoredVehicle.database.converter.ClusterResponseConverter;
+import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "algorithm_response")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Algorithm_Type")
@@ -27,8 +30,9 @@ public class AlgorithmResponse {
     @Column(name = "id_col")
     private String idCol;
 
-    @Column(name = "list_features")
-    private String listFeatures;
+    @Type(type="json")
+    @Column( name = "list_features",columnDefinition = "json")
+    private String[] listFeatures;
 
     @Column(name = "class_col")
     private String classCol;

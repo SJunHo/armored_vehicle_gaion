@@ -1,4 +1,4 @@
-package kr.gaion.armoredVehicle.dataset.repository;
+package kr.gaion.armoredVehicle.database.repository;
 
 import kr.gaion.armoredVehicle.database.model.FileInfo;
 import org.springframework.data.jpa.repository.JpaRepository;

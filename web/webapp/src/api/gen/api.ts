@@ -796,13 +796,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
 }
 /**
  * 
@@ -990,6 +990,139 @@ export interface ImportESDataFromFileInput {
 /**
  * 
  * @export
+ * @interface LinearRegressionTrainResponse
+ */
+export interface LinearRegressionTrainResponse {
+    /**
+     * 
+     * @type {ResponseType}
+     * @memberof LinearRegressionTrainResponse
+     */
+    type?: ResponseType;
+    /**
+     * 
+     * @type {ResponseStatus}
+     * @memberof LinearRegressionTrainResponse
+     */
+    status?: ResponseStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof LinearRegressionTrainResponse
+     */
+    message?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LinearRegressionTrainResponse
+     */
+    idCol?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    listFeatures?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof LinearRegressionTrainResponse
+     */
+    classCol?: string;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    confusionMatrix?: Array<number>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    labels?: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    weightedFalsePositiveRate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    weightedFMeasure?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    accuracy?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    weightedPrecision?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    weightedRecall?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    weightedTruePositiveRate?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    predictionInfo?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    predictedActualFeatureLine?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    predictedFeatureLine?: Array<string>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    coefficients?: Array<number>;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof LinearRegressionTrainResponse
+     */
+    residuals?: Array<object>;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    rootMeanSquaredError?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LinearRegressionTrainResponse
+     */
+    r2?: number;
+}
+/**
+ * 
+ * @export
  * @interface ModelResponse
  */
 export interface ModelResponse {
@@ -1120,13 +1253,13 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    pageNumber?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * 
      * @type {boolean}
@@ -3157,76 +3290,6 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getEsDatasetIndicesList: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/es-mappings`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearer-key required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} index 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getIndexMappings: async (index: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'index' is not null or undefined
-            assertParamExists('getIndexMappings', 'index', index)
-            const localVarPath = `/api/es-mapping/{index}`
-                .replace(`{${"index"}}`, encodeURIComponent(String(index)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearer-key required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {string} algorithm 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3541,6 +3604,45 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        trainLinearRegression: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
+            assertParamExists('trainLinearRegression', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
+            const localVarPath = `/api/train/linear_regressor`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(baseAlgorithmTrainInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         trainLr: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
             assertParamExists('trainLr', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
@@ -3771,25 +3873,6 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getEsDatasetIndicesList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEsDatasetIndicesList(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} index 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getIndexMappings(index: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getIndexMappings(index, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {string} algorithm 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3875,6 +3958,16 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async trainLinearRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LinearRegressionTrainResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.trainLinearRegression(baseAlgorithmTrainInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async trainLr(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClassificationResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trainLr(baseAlgorithmTrainInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
@@ -3949,23 +4042,6 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          */
         deleteModel(algorithm: string, esId: string, options?: any): AxiosPromise<boolean> {
             return localVarFp.deleteModel(algorithm, esId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getEsDatasetIndicesList(options?: any): AxiosPromise<Array<string>> {
-            return localVarFp.getEsDatasetIndicesList(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} index 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getIndexMappings(index: string, options?: any): AxiosPromise<Array<string>> {
-            return localVarFp.getIndexMappings(index, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4046,6 +4122,15 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        trainLinearRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<LinearRegressionTrainResponse> {
+            return localVarFp.trainLinearRegression(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         trainLr(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<ClassificationResponse> {
             return localVarFp.trainLr(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
         },
@@ -4118,27 +4203,6 @@ export class MlControllerApi extends BaseAPI {
      */
     public deleteModel(algorithm: string, esId: string, options?: any) {
         return MlControllerApiFp(this.configuration).deleteModel(algorithm, esId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MlControllerApi
-     */
-    public getEsDatasetIndicesList(options?: any) {
-        return MlControllerApiFp(this.configuration).getEsDatasetIndicesList(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} index 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MlControllerApi
-     */
-    public getIndexMappings(index: string, options?: any) {
-        return MlControllerApiFp(this.configuration).getIndexMappings(index, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4228,6 +4292,17 @@ export class MlControllerApi extends BaseAPI {
      */
     public trainKmean(clusterTrainInput: ClusterTrainInput, options?: any) {
         return MlControllerApiFp(this.configuration).trainKmean(clusterTrainInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public trainLinearRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any) {
+        return MlControllerApiFp(this.configuration).trainLinearRegression(baseAlgorithmTrainInput, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -66,6 +66,11 @@ const resources = {
       "ml.clustering.bootstrap": "Bootstrap",
       "ml.clustering.maxFeatures": "Max. Number of Features",
       "ml.clustering.contamination": "Contamination",
+
+      "ml.regression.linear":"Linear Regression",
+      "ml.regression.maxIter": "Max Number of Iterations",
+      "ml.regression.regParams": "Param for regularization parameter",
+
       "ml.common.ac": "Actual Class",
       "ml.common.accuracy": "Accuracy",
       "ml.common.btn.ca": "Clear all",
@@ -513,6 +518,11 @@ const resources = {
       "ml.clustering.maxFeatures": "Max. Number of Features",
       "ml.clustering.bootstrap": "Bootstrap",
       "ml.clustering.numIters": "반복 횟수",
+
+      "ml.regression.linear":"선형 회귀",
+      "ml.regression.maxIter":"최대 반복 횟수",
+      "ml.regression.regParams":"일반화 수치",
+
       "ml.common.ac": "실제 클래스",
       "ml.common.accuracy": "정확도",
       "ml.common.btn.ca": "모두 삭제",
@@ -560,6 +570,11 @@ const resources = {
       "ml.common.tab.mg": "고장전조 예측 모델 생성",
       "ml.common.tab.predict": "고장전조 예측모델 관리",
       "ml.common.tab.troubleshot": "고장전조 예측 수행",
+
+      "ml.common.tab.lifeCreate": "잔존수명 예지 모델 생성",
+      "ml.common.tab.lifeMg": "잔존수명 예지 모델 관리",
+      "ml.common.tab.lifePredict": "잔존수명 예지 수행",
+
       "ml.common.td": "학습 데이터 선택 :",
       "ml.common.unlbd": "미 분류 데이터",
       "ml.common.vr": "진단 결과",

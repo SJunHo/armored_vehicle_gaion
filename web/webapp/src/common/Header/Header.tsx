@@ -106,6 +106,32 @@ export const Header: React.FC = () => {
             <NavDropdown
               title={
                 <>
+                  <span className="glyphicon glyphicon-road" />
+                  잔존 수명 예지
+                  <span className="glyphicon glyphicon-menu-down" />
+                </>
+              }
+            >
+              <NavDropdown.Header>전처리</NavDropdown.Header>
+              <NavDropdown.Item href="/ml/fs/chisq">
+                Chi-Square Selector
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/ml/fs/pca">
+                Principal Components Analysis (PCA)
+              </NavDropdown.Item>
+              <NavDropdown.Header>회귀</NavDropdown.Header>
+              <NavDropdown.Item href="/ml/linear">
+                Linear Regression
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/ml/lasso">
+                Lasso Regression
+              </NavDropdown.Item>
+            </NavDropdown>
+
+
+            <NavDropdown
+              title={
+                <>
                   <span className="glyphicon glyphicon-th" />
                   예측결과 조회
                   <span className="glyphicon glyphicon-menu-down" />

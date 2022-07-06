@@ -3,11 +3,10 @@ package kr.gaion.armoredVehicle.dataset.service;
 import kr.gaion.armoredVehicle.database.DatabaseModule;
 import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
 import kr.gaion.armoredVehicle.database.model.TrainingBearing;
-import kr.gaion.armoredVehicle.dataset.repository.TrainingBearingRepository;
+import kr.gaion.armoredVehicle.database.repository.TrainingBearingRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

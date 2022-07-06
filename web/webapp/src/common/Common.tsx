@@ -62,6 +62,14 @@ export const ALGORITHM_INFO: { [key: string]: AlgorithmInfo } = {
     name: "PCA Dimensionality Reduction",
     className: "",
   },
+  linear: {
+    name: "Linear Regression",
+    className: "LinearRegression",
+  },
+  lasso: {
+    name: "Lasso Regression",
+    className: "LassoRegression",
+  },
 };
 
 // <div
