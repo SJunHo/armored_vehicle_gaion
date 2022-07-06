@@ -65,9 +65,30 @@ export const LifeDataInputSection: React.FC<Props> = ({ algorithmName }) => {
             )}
           />
         </InputWrapper>
+        <InputWrapper title={t("ml.common.cf")}>
+          <Controller
+            name="classCol"
+            control={control}
+            render={({ field }) => (
+              <Select2
+                {...field}
+                value={
+                  field.value
+                    ? { label: field.value, value: field.value }
+                    : undefined
+                }
+                onChange={(v) => setValue("classCol", v?.value)}
+                options={columns.map((col) => ({
+                  value: col,
+                  label: col,
+                }))}
+              />
+            )}
+          />
+        </InputWrapper>
         <InputWrapper
           title={
-            <div className="d-flex gap-3 mt-5">
+            <div className="d-flex gap-3">
               <div className="">{t("ml.common.ff")}</div>
               <Button
                 size="sm"

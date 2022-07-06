@@ -23,6 +23,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -59,12 +60,14 @@ public class DatabaseSparkService {
 
     public Dataset<Row> getDataRDDFromDb(String tableName){
         try{
+            String tname = tableName;
+            System.out.println(tname);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://localhost:3306/AMVHC")
-                    .option("dbtable", "BERTRNING")
-                    .option("user", "root")
-                    .option("password", "gaion")
+                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
+                    .option("dbtable", tname.toUpperCase())
+                    .option("user", "AMVHC_U")
+                    .option("password", "!Tltmxpa0517")
                     .load();
             return jdbcDF;
         } catch (Exception e) {
@@ -119,20 +122,32 @@ public class DatabaseSparkService {
 
     public Dataset<NumericLabeledData> getNumericLabeledDatasetFromDb(BaseAlgorithmTrainInput input) {
         var featureCols = input.getFeatureCols();
-        var jvRddData = this.getDataRDDFromDb("BERTRNING");
+        var classCol = input.getClassCol();
+
+        var jvRddData = this.getDataRDDFromDb("TEMPLIFE");
         System.out.println("jvRddData");
-        jvRddData.withColumnRenamed("value","features");
+
         jvRddData.show();
-        // get data from ElasticSearch
-        return processNumericLabeledDataset(jvRddData, featureCols);
+
+        return processNumericLabeledDataset(jvRddData, classCol, featureCols);
     }
 
     private static Dataset<NumericLabeledData> processNumericLabeledDataset(
-            Dataset<Row> jvRddData, List<String> featureCols) {
+            Dataset<Row> jvRddData, String classCol, List<String> featureCols) {
+
+        System.out.println(classCol);
+        System.out.println(featureCols);
+
         return jvRddData.map(new MapFunction<>() {
             private static final long serialVersionUID = -1318784596736889400L;
 
             public NumericLabeledData call(Row mapData) {
+                double label;
+                try {
+                    label = Double.parseDouble(mapData.getAs(classCol).toString());                                    // #PC0026
+                } catch (Exception e) {
+                    label = 0.0;
+                }
                 double[] vector = new double[featureCols.size()];
                 int index = -1;
                 String strVal;
@@ -148,9 +163,8 @@ public class DatabaseSparkService {
                 }
 
                 NumericLabeledData dataReturn = new NumericLabeledData();
+                dataReturn.setLabel(label);
                 dataReturn.setFeatures(Vectors.dense(vector));
-                System.out.println("features" + dataReturn.getFeatures());
-
 
                 return dataReturn;
             }

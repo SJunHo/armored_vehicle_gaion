@@ -51,17 +51,8 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         // get settings
         int maxIterations = config.getMaxIter();
         double regParam = config.getRegParam();
-//        double elasticNetParam = config.getElasticNetMixing();
 
-        // TODO: ES 기능이니까 수정하기.
-        // ------------------------------------------------------------------------------------------------
-        // get data from Elasticsearch
-//        log.info("get data from Elasticsearch");
-//        Dataset<NumericLabeledData> originalData = this.elasticsearchSparkService.getNumericLabeledDatasetFromElasticsearch(config);
         Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config); 												// #PC0023
-        System.out.println("///////////////");
-        originalData.show();
-        // ------------------------------------------------------------------------------------------------
 
         // Split the data into train and test
         log.info("Split the data into train and test");
@@ -70,8 +61,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         var test = splittedData[1];
 
         // 모델 생성
-        org.apache.spark.ml.regression.LinearRegression lr = new org.apache.spark.ml.regression.LinearRegression()
-                .setMaxIter(maxIterations).setRegParam(regParam);
+        org.apache.spark.ml.regression.LinearRegression lr = new org.apache.spark.ml.regression.LinearRegression().setMaxIter(maxIterations).setRegParam(regParam);
 
         // Fit the model.
         LinearRegressionModel lrModel = lr.fit(train);

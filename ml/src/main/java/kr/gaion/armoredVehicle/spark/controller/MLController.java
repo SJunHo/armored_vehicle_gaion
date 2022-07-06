@@ -20,6 +20,8 @@ import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.PcaDimensionalityReduction;
 import kr.gaion.armoredVehicle.algorithm.regressor.LinearRegressor;
 import kr.gaion.armoredVehicle.common.DataConfig;
+import kr.gaion.armoredVehicle.database.model.TempLifeData;
+import kr.gaion.armoredVehicle.database.model.TrainingBearing;
 import kr.gaion.armoredVehicle.database.repository.FileInfoRepository;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
@@ -36,6 +38,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 //import static kr.gaion.armoredVehicle.spark.controller.TestSpark.ReadCSV;
@@ -175,10 +179,48 @@ public class MLController {
 
   @GetMapping(path = "/api/get-trainingData/{index}")
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
-    String path = "D:\\Sources\\armored-vehicle\\test-data\\"+index+".csv";
-    CSVReader reader = new CSVReader(new FileReader(path ));
-    String[] header = reader.readNext();
-    return header;
+    String type = "";
+    if(index.contains("bearing")){
+      type = "bearing";
+    }else if(index.contains("server")){
+      type = "server";
+    }
+    System.out.println(type);
+    switch (type) {
+      case "bearing": {
+        Field[] fields = TrainingBearing.class.getDeclaredFields();
+        List<String> fieldNames = new ArrayList<>();
+
+        for (Field field : fields){
+          fieldNames.add(field.getName());
+        }
+        System.out.println(fieldNames);
+        String[] resultList = fieldNames.toArray(new String[0]);
+
+        return resultList;
+      }
+      case "server": {
+        Field[] fields = TempLifeData.class.getDeclaredFields();
+        List<String> fieldNames = new ArrayList<>();
+
+        for (Field field : fields)
+          fieldNames.add(field.getName());
+
+        String[] resultList = fieldNames.toArray(new String[0]);
+
+        return resultList;
+      }
+
+      default: {
+        throw new Error("Unsupported algorithm");
+      }
+    }
+
+
+//    String path = "D:\\Sources\\armored-vehicle\\test-data\\" + index + ".csv";
+//    CSVReader reader = new CSVReader(new FileReader(path));
+//    String[] header = reader.readNext();
+//    return header;
   }
 
 

@@ -476,7 +476,7 @@ export const LinearRegression: React.FC = () => {
       >
         <Form.Control
           type="number"
-          {...register("regParams", { valueAsNumber: true, value: 0 })}
+          {...register("regParams", { valueAsNumber: true, value: 0.0 })}
         />
       </InputWrapper>
     </>

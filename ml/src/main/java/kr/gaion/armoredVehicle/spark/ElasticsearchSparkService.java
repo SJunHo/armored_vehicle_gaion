@@ -174,7 +174,7 @@ public class ElasticsearchSparkService implements Serializable {
 		}, Encoders.javaSerialization(LabeledData.class));
 	}
 
-	public Dataset<NumericLabeledData> getNumericLabeledDatasetFromElasticsearch(BaseAlgorithmTrainInput input) {
+	public Dataset<NumericLabeledData> getNumericLabeledDatasetFromDb(BaseAlgorithmTrainInput input) {
 		var classCol = input.getClassCol();
 		var featureCols = input.getFeatureCols();
 
@@ -220,6 +220,7 @@ public class ElasticsearchSparkService implements Serializable {
 			}
 		}, Encoders.javaSerialization(NumericLabeledData.class));
 	}
+
 
 	public Dataset<Row> getDfVectorFromCsvFormattedFile(FileInput config) {
 		String delimiter = config.getSeparator();
