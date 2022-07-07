@@ -99,7 +99,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 		response.setClassCol(input.getClassCol());
 
 		log.info("predicted unlabeled data successfully.");
-		response.setStatus( ResponseStatus.SUCCESS);
+		response.setStatus(ResponseStatus.SUCCESS);
 
 		return response;
 	}

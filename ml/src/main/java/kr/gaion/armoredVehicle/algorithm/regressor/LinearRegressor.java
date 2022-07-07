@@ -14,7 +14,6 @@ import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
-import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
@@ -25,7 +24,6 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.linalg.DenseVector;
 import org.apache.spark.ml.linalg.Vector;
-import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.ml.regression.LinearRegressionTrainingSummary;
 import org.apache.spark.sql.Dataset;
@@ -52,25 +50,35 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         int maxIterations = config.getMaxIter();
         double regParam = config.getRegParam();
 
-        Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config); 												// #PC0023
+        Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config);
+        Dataset<Row> rowOriginalData = sparkSession.createDataFrame(originalData.rdd(), NumericLabeledData.class);
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        originalData.show();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ rowOriginalData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        rowOriginalData.show();
 
         // Split the data into train and test
         log.info("Split the data into train and test");
-        var splittedData = this.splitTrainTest(originalData, config.getSeed(), config.getFraction()); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 splitTrainTest 메소드를 this로 호출
+        var splittedData = this.splitTrainTest(rowOriginalData, config.getSeed(), config.getFraction()); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 splitTrainTest 메소드를 this로 호출
         var train = splittedData[0];
         var test = splittedData[1];
 
         // 모델 생성
-        org.apache.spark.ml.regression.LinearRegression lr = new org.apache.spark.ml.regression.LinearRegression().setMaxIter(maxIterations).setRegParam(regParam);
+        org.apache.spark.ml.regression.LinearRegression lr = new org.apache.spark.ml.regression.LinearRegression()
+                .setMaxIter(maxIterations)
+                .setRegParam(regParam)
+                .setFeaturesCol("features")
+                .setLabelCol("label");
 
         // Fit the model.
         LinearRegressionModel lrModel = lr.fit(train);
 
-        // Save model
-        log.info("Saving model ..");
-        var modelFullPathName = this.saveModel(config, lrModel); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 saveModel 메소드를 this로 호출
-        lrModel.save(modelFullPathName);    // #PC0026	// #PC0017
-        //labelIndexer.save(modelFullPathName);
+//        // Save model
+//        log.info("Saving model ..");
+//        var modelFullPathName = this.saveModel(config, lrModel); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 saveModel 메소드를 this로 호출
+//        lrModel.save(modelFullPathName);    // #PC0026	// #PC0017
+//        //labelIndexer.save(modelFullPathName);
 
         // return response
         var response = new LinearRegressionTrainResponse(ResponseType.OBJECT_DATA); // Linear Regression 모델이 다시 웹으로 돌려주어야하는 정보가 있는 LinearRegressionTrainResponse에 response를 담음
@@ -78,13 +86,9 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         // if the test data set is not null/empty
         if (config.getFraction() < 100.0) {
             var jvRddPredictionInfo = evaluateTest(test, lrModel);  // test 데이터셋(실제 값, feature)과 학습된 모델 결과(test 데이터셋에 대한 예측값)를 묶음
-
             // prediction-actual information
             response.setPredictionInfo(jvRddPredictionInfo.takeAsList(algorithmConfig.getMaxResult()));
         }
-
-        // Print the coefficients and intercept for linear regression.
-        //response.setCoefficients(lrModel.coefficients().toArray());
 
         // Print the coefficients and intercept for linear regression. ~> coefficients 계산하고 순서에 맞게 인덱스를 달아 리스트로 묶음
         double[] arrCoe = new double[lrModel.coefficients().toArray().length + 1];
@@ -150,9 +154,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         }
 
         JavaRDD<String> lineData = data.toJavaRDD().map(new Function<>() {
-
             private static final long serialVersionUID = -4035135440483467579L;
-
             @Override
             public String call(Row rowData) {
                 // create suitable vector
@@ -207,23 +209,23 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         return response;
     }
 
-    private static Dataset<String> evaluateTest(Dataset<NumericLabeledData> test, LinearRegressionModel lrModel) {
+    private static Dataset<String> evaluateTest(Dataset<Row> test, LinearRegressionModel lrModel) {
         // 각 feature(각 row)들의 각 예측 결과, 실제 결과를 StringBuilder로 묶음
         // Dense Vector == Numpy Array ~> [예측, 실제, feature]
         return test.map(new MapFunction<>() {
             private static final long serialVersionUID = 7065916945772988691L;
 
             @Override
-            public String call(NumericLabeledData row) {
+            public String call(Row row) {
                 StringBuilder strBlder = new StringBuilder();
                 // in each line of returned data:
                 // the first element is predicted value,
                 // the second is actual
                 // and the rest is feature
-                DenseVector vector = (DenseVector) (row.getFeatures());
+                DenseVector vector = (DenseVector) (row.getAs("features"));
                 double predictedVal = lrModel.predict(vector);
                 strBlder.append(predictedVal).append(',');
-                double actualVal = row.getLabel();
+                double actualVal = row.getAs("label");
                 strBlder.append(actualVal).append(',');
 
                 String originalFeatures = vector.toString();
