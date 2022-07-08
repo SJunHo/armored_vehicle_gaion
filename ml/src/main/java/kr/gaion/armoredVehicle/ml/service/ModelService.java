@@ -102,7 +102,6 @@ public class ModelService {
       srb.fetchSource(new String[]{"modelName", "description", "checked", "response"}, new String[]{});
       searchRequest.source(srb);
     try {
-<<<<<<< HEAD
         var res = this.esConnector.getClient().search(searchRequest, RequestOptions.DEFAULT);
         return Arrays.stream(res.getHits().getHits()).map(hit -> {
             var m = new ModelResponse();
@@ -114,19 +113,6 @@ public class ModelService {
 
             return m;
         }).collect(Collectors.toList());
-=======
-      var res = this.esConnector.getClient().search(searchRequest, RequestOptions.DEFAULT);
-      return Arrays.stream(res.getHits().getHits()).map(hit -> {
-        var m = new ModelResponse();
-        m.setModelName((String) hit.getSourceAsMap().get("modelName"));
-        m.setResponse(objectMapper.convertValue(hit.getSourceAsMap().get("response"), ClassificationResponse.class));
-        m.setDescription((String) hit.getSourceAsMap().get("description"));
-        m.setChecked((Boolean) hit.getSourceAsMap().get("checked"));
-        m.setEsId(hit.getId());
-          System.out.println(m);
-        return m;
-      }).collect(Collectors.toList());
->>>>>>> origin/gaion
     } catch (IOException e) {
         e.printStackTrace();
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -162,36 +148,11 @@ public class ModelService {
             case "MLP":
             {
 //                model = (ClassificationResponse)response;
-
-<<<<<<< HEAD
-        // TODO: ES 커넥터 삭제
-		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
-=======
             }
         }
 
-
-
-//        dbModelResponse.setWeightedFalsePositiveRate();
-
-//        AlgorithmResponseDB algorithmResponseDB = new AlgorithmResponseDB();
-//        algorithmResponseDB.setType(response.getType().toString());
-//        algorithmResponseDB.setStatus(response.getStatus().toString());
-//        algorithmResponseDB.setMessage(response.getMessage());
-//        algorithmResponseDB.setIdCol(response.getIdCol());
-//        algorithmResponseDB.setListFeatures(response.getListFeatures());
-//        algorithmResponseDB.setClassCol(response.getClassCol());
-//        algorithmResponseDB.setClassCol(response.getClassCol());
-//        System.out.println("algorithmName :" + algorithmName);
-//        if(algorithmName=="randomForest"){
-//            algorithmResponseDB.setClassificationResponse();
-//        }
-//        algorithmResponseDBRepository.save();
-
-
 //		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
         String insertInfo = "true";
->>>>>>> origin/gaion
 		log.info(insertInfo);
 
 		return insertInfo;
