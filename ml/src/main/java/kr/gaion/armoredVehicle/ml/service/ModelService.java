@@ -1,8 +1,10 @@
 package kr.gaion.armoredVehicle.ml.service;
 
 import com.google.gson.Gson;
+import kr.gaion.armoredVehicle.algorithm.dto.ResponseType;
 import kr.gaion.armoredVehicle.algorithm.dto.response.AlgorithmResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
+import kr.gaion.armoredVehicle.algorithm.dto.response.LinearRegressionTrainResponse;
 import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
@@ -126,6 +128,7 @@ public class ModelService {
 //        String insertInfo =
         System.out.println("this" + gson.toJson(map));
 
+        // TODO: ES 커넥터 삭제
 		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
 		log.info(insertInfo);
 
@@ -141,6 +144,7 @@ public class ModelService {
 
 			searchRequest.setQuery(query);
 
+			// TODO: ES 커넥터 삭제
 			var response = this.esConnector.getClient().deleteByQuery(searchRequest, RequestOptions.DEFAULT);
 
 			long deleted = response.getDeleted();

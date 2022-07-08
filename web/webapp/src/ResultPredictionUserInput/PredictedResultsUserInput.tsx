@@ -72,7 +72,6 @@ export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = ()
                 }
             },
             {
-                // TODO: 라디오 버튼 체크 후, 페이지 이동 뒤 다시 돌아 왔을 떄, 선택 유지되게 하는 방법?
                 Header: t("history.defect_user").toString(),
                 Cell: (value?: any) => {
                     return (
