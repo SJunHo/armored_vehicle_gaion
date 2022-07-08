@@ -83,9 +83,9 @@ export const Header: React.FC = () => {
               <NavDropdown.Item href="/ml/svm">
                 Linear Support Vector Machine
               </NavDropdown.Item>
-              <NavDropdown.Item href="/ml/svc">
-                Linear Support Vector Classifier
-              </NavDropdown.Item>
+              {/*<NavDropdown.Item href="/ml/svc">*/}
+              {/*  Linear Support Vector Classifier*/}
+              {/*</NavDropdown.Item>*/}
               <NavDropdown.Item href="/ml/rfc">Random Forest</NavDropdown.Item>
               <NavDropdown.Item href="/ml/mlp">
                 Multiple Layers Perceptron

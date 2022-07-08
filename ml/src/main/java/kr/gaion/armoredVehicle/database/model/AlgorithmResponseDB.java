@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "algorithm_response")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Algorithm_Type")
-public class AlgorithmResponse {
+public class AlgorithmResponseDB {
     @Id
     @Column(name = "algorithm_response_id")
     private String algorithmResponseId;

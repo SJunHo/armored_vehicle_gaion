@@ -12,12 +12,19 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "Algorithm_Type")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "Algorithm_Type")
 public class DbModelResponse {
     @Id
+    @GeneratedValue
+    @Column(name = "algorithm_response_id")
+    private Long algorithmResponseId;
+
     @Column(name = "MODEL_NAME")
     private String modelName;
+
+    @Column(name = "algorithm_type")
+    private String type;
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -25,39 +32,22 @@ public class DbModelResponse {
     @Column(name = "CHECKED")
     private Boolean checked;
 
-    @Convert(converter = ClassificationResponseConverter.class)
-    @Column(name = "classification_response", columnDefinition = "json")
-    private ClassificationResponse classificationResponse;
-//    @Column(name = "CONFUSION_MATRIX")
-//    private String confusionMatrix;
-//
-//    @Column(name = "LABELS")
-//    private String labels;
-//
-//    @Column(name = "WEIGHTHED_FALSE_POSITIVE_RATE")
-//    private double weightedFalsePositiveRate;
-//
-//    @Column(name = "WEIGHTHED_F_MEASURE")
-//    private double weightedFMeasure;
-//
-//    @Column(name = "ACCURACY")
-//    private double accuracy;
-//
-//    @Column(name = "WEIGHTED_PRECISION")
-//    private double weightedPrecision;
-//
-//    @Column(name = "WEIGHTED_RECALL")
-//    private double weightedRecall;
-//
-//    @Column(name = "WEIGHTED_TRUE_POSITIVE_RATE")
-//    private double weightedTruePositiveRate;
-//
-//    @Column(name = "PREDICTION_INFO")
-//    private String predictionInfo;
-//
-//    @Column(name = "PREDICTED_ACTUAL_FEATURE_LINE")
-//    private String predictedActualFeatureLine;
-//
-//    @Column(name = "PREDICTED_FEATURE_LINE")
-//    private String predictedFeatureLine;
+    @Column(name = "weighted_false_positive_rate")
+    private double weightedFalsePositiveRate;
+
+    @Column(name = "weighted_F_measure")
+    private double weightedFMeasure;
+
+    @Column(name = "accuracy")
+    private double accuracy;
+
+    @Column(name = "weighted_precision")
+    private double weightedPrecision;
+
+    @Column(name = "weighted_recall")
+    private double weightedRecall;
+
+    @Column(name = "weighted_true_positive_rate")
+    private double weightedTruePositiveRate;
+
 }
