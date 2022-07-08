@@ -77,10 +77,11 @@ public class RandomForestClassifier extends ClassifierAlgorithm<RandomForestClas
 		var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
 
 		kr.gaion.armoredVehicle.database.model.AlgorithmResponse algorithmResponse = new AlgorithmResponse();
-		//TODO: ㅅㅂ
+
 //		algorithmResponse.setClassificationResponse();
 //		algorithmResponse.setClassCol(config.getClassCol());
 //		algorithmResponse.setListFeatures(config.getFeatureCols());
+
 		// view debug string
 		response.setDecisionTree(model.toDebugString());
 

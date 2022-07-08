@@ -79,7 +79,8 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 		JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(trainingResults, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
 
 		this.populateResponseFromMetrics(response, new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector, config.getFeatureCols().toArray(new String[0]));
-    return response;
+
+		return response;
 	}
 
   @Override

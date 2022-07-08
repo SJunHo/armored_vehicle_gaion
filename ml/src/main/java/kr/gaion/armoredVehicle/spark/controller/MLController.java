@@ -98,9 +98,9 @@ public class MLController {
     return isolationForestOutlierDetection.train(input);
   }
 
-  @PostMapping(path = "/api/train/linear_regressor")
+  @PostMapping(path = "/api/train/linear")
   public LinearRegressionTrainResponse trainLinearRegression(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
-    return (LinearRegressionTrainResponse) linearRegressor.train(input);
+    return linearRegressor.train(input);
   }
 
 //  @GetMapping(path = "/api/test")
@@ -195,9 +195,8 @@ public class MLController {
           fieldNames.add(field.getName());
         }
         System.out.println(fieldNames);
-        String[] resultList = fieldNames.toArray(new String[0]);
 
-        return resultList;
+        return fieldNames.toArray(new String[0]);
       }
       case "server": {
         Field[] fields = TempLifeData.class.getDeclaredFields();
@@ -206,9 +205,7 @@ public class MLController {
         for (Field field : fields)
           fieldNames.add(field.getName());
 
-        String[] resultList = fieldNames.toArray(new String[0]);
-
-        return resultList;
+        return fieldNames.toArray(new String[0]);
       }
 
       default: {

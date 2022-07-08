@@ -1168,13 +1168,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1253,25 +1253,25 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    pageNumber?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    paged?: boolean;
+    pageSize?: number;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
     unpaged?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    paged?: boolean;
 }
 /**
  * 
@@ -3607,7 +3607,7 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         trainLinearRegression: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
             assertParamExists('trainLinearRegression', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
-            const localVarPath = `/api/train/linear_regressor`;
+            const localVarPath = `/api/train/linear`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

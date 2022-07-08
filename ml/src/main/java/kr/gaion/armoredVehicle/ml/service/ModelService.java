@@ -87,29 +87,30 @@ public class ModelService {
 	}
 
 	public List<ModelResponse> getModelResponse(String algorithm) {
-		var searchRequest = new SearchRequest(this.getAlgorithmESIndex(algorithm));
-		var srb = new SearchSourceBuilder();
-		srb.size(1000);
-		srb.from(0);
-        srb.query(QueryBuilders.matchAllQuery());
-        srb.fetchSource(new String[]{"modelName", "description", "checked", "response"}, new String[]{});
-		searchRequest.source(srb);
+      var searchRequest = new SearchRequest(this.getAlgorithmESIndex(algorithm));
+      var srb = new SearchSourceBuilder();
+      srb.size(1000);
+      srb.from(0);
+      srb.query(QueryBuilders.matchAllQuery());
+      srb.fetchSource(new String[]{"modelName", "description", "checked", "response"}, new String[]{});
+      searchRequest.source(srb);
     try {
-      var res = this.esConnector.getClient().search(searchRequest, RequestOptions.DEFAULT);
-      return Arrays.stream(res.getHits().getHits()).map(hit -> {
-        var m = new ModelResponse();
-        m.setModelName((String) hit.getSourceAsMap().get("modelName"));
-        m.setResponse(objectMapper.convertValue(hit.getSourceAsMap().get("response"), ClassificationResponse.class));
-        m.setDescription((String) hit.getSourceAsMap().get("description"));
-        m.setChecked((Boolean) hit.getSourceAsMap().get("checked"));
-        m.setEsId(hit.getId());
-        return m;
-      }).collect(Collectors.toList());
+        var res = this.esConnector.getClient().search(searchRequest, RequestOptions.DEFAULT);
+        return Arrays.stream(res.getHits().getHits()).map(hit -> {
+            var m = new ModelResponse();
+            m.setModelName((String) hit.getSourceAsMap().get("modelName"));
+            m.setResponse(objectMapper.convertValue(hit.getSourceAsMap().get("response"), ClassificationResponse.class));
+            m.setDescription((String) hit.getSourceAsMap().get("description"));
+            m.setChecked((Boolean) hit.getSourceAsMap().get("checked"));
+            m.setEsId(hit.getId());
+
+            return m;
+        }).collect(Collectors.toList());
     } catch (IOException e) {
-      e.printStackTrace();
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        e.printStackTrace();
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
-	}
+  }
 
 	public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName) throws IOException {
 		// Delete old data
@@ -133,13 +134,17 @@ public class ModelService {
 
 	public void deleteOldMlResponse(String algorithmName, String modelName) {
 		log.info(String.format("Delete old data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
+
 		try {
-			var searchRequest = new DeleteByQueryRequest(this.getAlgorithmESIndex(algorithmName));
-			var query = QueryBuilders.boolQuery()
-					.filter(QueryBuilders.boolQuery().must(termQuery("modelName", modelName)));
+		    var searchRequest = new DeleteByQueryRequest(this.getAlgorithmESIndex(algorithmName));
+			var query = QueryBuilders.boolQuery().filter(QueryBuilders.boolQuery().must(termQuery("modelName", modelName)));
+
 			searchRequest.setQuery(query);
+
 			var response = this.esConnector.getClient().deleteByQuery(searchRequest, RequestOptions.DEFAULT);
+
 			long deleted = response.getDeleted();
+
 			log.info(String.format("Deleted _index: %s, modelName: %s, affected: %d ",
 					this.getAlgorithmESIndex(algorithmName),
 					modelName,
