@@ -121,20 +121,25 @@ public class ModelService {
 
 	public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName) throws IOException {
 		// Delete old data
-		deleteOldMlResponse(algorithmName, modelName);
+//		deleteOldMlResponse(algorithmName, modelName);
 
 		// Write new data
 		log.info(String.format("Write new data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
+
 		Gson gson = new Gson();
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("response", response);
 		map.put("modelName", modelName);
+
         // modelResponseSaveToDatabase
         switch (algorithmName) {
             case "RandomForestClassifier":
             {
-                var model= (ClassificationResponse)response;
+                var model= (ClassificationResponse) response;
+
                 DbModelResponse dbModelResponse = new DbModelResponse();
+
                 dbModelResponse.setModelName(modelName);
                 dbModelResponse.setType(algorithmName);
                 dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
@@ -143,16 +148,28 @@ public class ModelService {
                 dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
                 dbModelResponse.setWeightedRecall(model.getWeightedRecall());
                 dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
+
                 dbModelResponseRepository.save(dbModelResponse);
             }
-            case "MLP":
+            case "LinearRegression":
             {
-//                model = (ClassificationResponse)response;
+                 var model= (LinearRegressionTrainResponse) response;
+
+                 DbModelResponse dbModelResponse = new DbModelResponse();
+
+                 dbModelResponse.setModelName(modelName);
+                 dbModelResponse.setType(algorithmName);
+                 dbModelResponse.setCoefficients(model.getCoefficients());
+                 dbModelResponse.setResiduals(model.getResiduals());
+                 dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
+                 dbModelResponse.setR2(model.getR2());
+
+                 dbModelResponseRepository.save(dbModelResponse);
             }
         }
 
 //		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
-        String insertInfo = "true";
+        String insertInfo = String.format("Save new data result: Algorithm name: %s, Model name: %s.", algorithmName, modelName);
 		log.info(insertInfo);
 
 		return insertInfo;

@@ -300,7 +300,7 @@ export const PredictionInfoSection: React.FC<{
   const columns = useMemo<Column<any[]>[]>(
     () => [
       {
-        Header: algorithmName === "kmean" ? "Actual" : "Cluster ID",
+        Header: algorithmName === "kmean" ? "Actual" : "Predicted",
         accessor: (data0) => data0[0],
       },
       {
