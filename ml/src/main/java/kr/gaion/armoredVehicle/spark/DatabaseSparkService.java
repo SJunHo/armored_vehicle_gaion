@@ -124,8 +124,8 @@ public class DatabaseSparkService {
         var classCol = input.getClassCol();
 
         var jvRddData = this.getDataRDDFromDb("TEMPLIFE");
-        System.out.println("jvRddData");
 
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ jvRddData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
         jvRddData.show();
 
         return processNumericLabeledDataset(jvRddData, classCol, featureCols);
@@ -134,8 +134,8 @@ public class DatabaseSparkService {
     private static Dataset<NumericLabeledData> processNumericLabeledDataset(
             Dataset<Row> jvRddData, String classCol, List<String> featureCols) {
 
-        System.out.println(classCol);
-        System.out.println(featureCols);
+        System.out.println("********** classCol = " + classCol);
+        System.out.println("********** featureCols = " + featureCols);
 
         return jvRddData.map(new MapFunction<>() {
             private static final long serialVersionUID = -1318784596736889400L;

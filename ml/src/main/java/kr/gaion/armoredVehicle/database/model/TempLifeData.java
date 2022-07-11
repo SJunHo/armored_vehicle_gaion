@@ -21,33 +21,33 @@ public class TempLifeData {
     @Column(name="seq")
     private long lifecycleId;
 
-    @Column(name="ACPOWER")
+    @Column(name="acPower")
     private float acPower;
 
-    @Column(name="CPUUTIL")
+    @Column(name="cpuUtil")
     private float cpuUtil;
 
-    @Column(name="DISKACCESSES")
+    @Column(name="diskAccesses")
     private float diskAccesses;
 
-    @Column(name="DISKBLOCKS")
+    @Column(name="diskBlocks")
     private float diskBlocks;
 
-    @Column(name="DISKUTIL")
+    @Column(name="diskUtil")
     private float diskUtil;
 
-    @Column(name="INSTRETIRED")
+    @Column(name="instRetired")
     private float instRetired;
 
-    @Column(name="LASTLEVEL")
+    @Column(name="lastLevel")
     private float lastLevel;
 
-    @Column(name="MEMORYBUS")
+    @Column(name="memoryBus")
     private float memoryBus;
 
-    @Column(name="CORECYCEL")
+    @Column(name="coreCycle")
     private float coreCycle;
 
-    @Column(name="TIME")
+    @Column(name="time")
     private String time;
 }

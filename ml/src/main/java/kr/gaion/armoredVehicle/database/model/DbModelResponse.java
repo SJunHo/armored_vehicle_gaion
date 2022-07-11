@@ -4,8 +4,10 @@ import kr.gaion.armoredVehicle.database.converter.ClassificationResponseConverte
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "DB_MODEL_RESPONSE")
@@ -32,6 +34,7 @@ public class DbModelResponse {
     @Column(name = "CHECKED")
     private Boolean checked;
 
+    // Classification
     @Column(name = "weighted_false_positive_rate")
     private double weightedFalsePositiveRate;
 
@@ -47,7 +50,22 @@ public class DbModelResponse {
     @Column(name = "weighted_recall")
     private double weightedRecall;
 
+    // Regression
     @Column(name = "weighted_true_positive_rate")
     private double weightedTruePositiveRate;
+
+    @Type(type="json")
+    @Column( name = "coefficients",columnDefinition = "json")
+    private double[] coefficients;
+
+    @Column(name = "rootMeanSquaredError")
+    private double rootMeanSquaredError;
+
+    @Column(name = "r2")
+    private double r2;
+
+    @Type(type = "json")
+    @Column( name = "residuals",columnDefinition = "json")
+    private List<?> residuals;
 
 }
