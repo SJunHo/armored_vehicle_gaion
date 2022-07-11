@@ -16,7 +16,7 @@ import java.sql.Time;
 import java.util.Date;
 
 @Entity
-@Table(name = "BERTRNING")
+@Table(name = "BERTRNNG")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

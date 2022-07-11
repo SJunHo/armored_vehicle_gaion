@@ -776,6 +776,79 @@ export enum DataProvider {
 /**
  * 
  * @export
+ * @interface DbModelResponse
+ */
+export interface DbModelResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    algorithmResponseId?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbModelResponse
+     */
+    modelName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbModelResponse
+     */
+    type?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbModelResponse
+     */
+    description?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DbModelResponse
+     */
+    checked?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    weightedFalsePositiveRate?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    weightedFMeasure?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    accuracy?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    weightedPrecision?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    weightedRecall?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    weightedTruePositiveRate?: number;
+}
+/**
+ * 
+ * @export
  * @interface ESDataUpdateInput
  */
 export interface ESDataUpdateInput {
@@ -796,13 +869,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1168,13 +1241,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1253,13 +1326,13 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    pageNumber?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * 
      * @type {boolean}
@@ -3250,18 +3323,18 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         /**
          * 
          * @param {string} algorithm 
-         * @param {string} esId 
+         * @param {number} algorithmResponseId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteModel: async (algorithm: string, esId: string, options: any = {}): Promise<RequestArgs> => {
+        deleteModel: async (algorithm: string, algorithmResponseId: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'algorithm' is not null or undefined
             assertParamExists('deleteModel', 'algorithm', algorithm)
-            // verify required parameter 'esId' is not null or undefined
-            assertParamExists('deleteModel', 'esId', esId)
-            const localVarPath = `/api/ml/{algorithm}/model/{esId}`
+            // verify required parameter 'algorithmResponseId' is not null or undefined
+            assertParamExists('deleteModel', 'algorithmResponseId', algorithmResponseId)
+            const localVarPath = `/api/ml/{algorithm}/model/{algorithmResponseId}`
                 .replace(`{${"algorithm"}}`, encodeURIComponent(String(algorithm)))
-                .replace(`{${"esId"}}`, encodeURIComponent(String(esId)));
+                .replace(`{${"algorithmResponseId"}}`, encodeURIComponent(String(algorithmResponseId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3863,12 +3936,12 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} algorithm 
-         * @param {string} esId 
+         * @param {number} algorithmResponseId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteModel(algorithm: string, esId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteModel(algorithm, esId, options);
+        async deleteModel(algorithm: string, algorithmResponseId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteModel(algorithm, algorithmResponseId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3877,7 +3950,7 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getModels(algorithm: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ModelResponse>>> {
+        async getModels(algorithm: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DbModelResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getModels(algorithm, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4036,12 +4109,12 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
         /**
          * 
          * @param {string} algorithm 
-         * @param {string} esId 
+         * @param {number} algorithmResponseId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteModel(algorithm: string, esId: string, options?: any): AxiosPromise<boolean> {
-            return localVarFp.deleteModel(algorithm, esId, options).then((request) => request(axios, basePath));
+        deleteModel(algorithm: string, algorithmResponseId: number, options?: any): AxiosPromise<boolean> {
+            return localVarFp.deleteModel(algorithm, algorithmResponseId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4049,7 +4122,7 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getModels(algorithm: string, options?: any): AxiosPromise<Array<ModelResponse>> {
+        getModels(algorithm: string, options?: any): AxiosPromise<Array<DbModelResponse>> {
             return localVarFp.getModels(algorithm, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4196,13 +4269,13 @@ export class MlControllerApi extends BaseAPI {
     /**
      * 
      * @param {string} algorithm 
-     * @param {string} esId 
+     * @param {number} algorithmResponseId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MlControllerApi
      */
-    public deleteModel(algorithm: string, esId: string, options?: any) {
-        return MlControllerApiFp(this.configuration).deleteModel(algorithm, esId, options).then((request) => request(this.axios, this.basePath));
+    public deleteModel(algorithm: string, algorithmResponseId: number, options?: any) {
+        return MlControllerApiFp(this.configuration).deleteModel(algorithm, algorithmResponseId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

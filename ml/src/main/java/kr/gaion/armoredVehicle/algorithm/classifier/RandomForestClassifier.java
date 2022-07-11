@@ -10,7 +10,6 @@ import kr.gaion.armoredVehicle.algorithm.dto.response.RandomForestClassification
 import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
-import kr.gaion.armoredVehicle.database.model.AlgorithmResponse;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
@@ -52,7 +51,6 @@ public class RandomForestClassifier extends ClassifierAlgorithm<RandomForestClas
 		var maxDepths = config.getMaxDepths();
 		var maxBins = config.getMaxBins();
 		// Training model
-		System.out.println("config : " + ReflectionToStringBuilder.toString(config));
 		var rfTrainer
 			= new org.apache.spark.ml.classification.RandomForestClassifier()
 			.setLabelCol("index")																												// #PC0026
@@ -76,7 +74,7 @@ public class RandomForestClassifier extends ClassifierAlgorithm<RandomForestClas
 			RandomForestClassificationModel model, Dataset<Row> test, BaseAlgorithmTrainInput config) {
 		var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
 
-		kr.gaion.armoredVehicle.database.model.AlgorithmResponse algorithmResponse = new AlgorithmResponse();
+//		kr.gaion.armoredVehicle.database.model.AlgorithmResponse algorithmResponse = new AlgorithmResponse();
 		//TODO: ㅅㅂ
 //		algorithmResponse.setClassificationResponse();
 //		algorithmResponse.setClassCol(config.getClassCol());

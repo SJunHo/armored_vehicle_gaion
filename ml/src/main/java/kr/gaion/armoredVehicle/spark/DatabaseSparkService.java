@@ -42,7 +42,6 @@ public class DatabaseSparkService {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
         ){
-            System.out.println(query);
         }catch(SQLException e){
             e.printStackTrace();
         }

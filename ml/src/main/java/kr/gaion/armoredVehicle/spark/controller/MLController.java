@@ -20,6 +20,7 @@ import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.PcaDimensionalityReduction;
 import kr.gaion.armoredVehicle.algorithm.regressor.LinearRegressor;
 import kr.gaion.armoredVehicle.common.DataConfig;
+import kr.gaion.armoredVehicle.database.model.DbModelResponse;
 import kr.gaion.armoredVehicle.database.model.TempLifeData;
 import kr.gaion.armoredVehicle.database.model.TrainingBearing;
 import kr.gaion.armoredVehicle.database.repository.FileInfoRepository;
@@ -149,24 +150,25 @@ public class MLController {
   }
 
   @GetMapping(path = "/api/ml/{algorithm}/models")
-  public List<ModelResponse> getModels(@PathVariable String algorithm) {
+  public List<DbModelResponse> getModels(@PathVariable String algorithm) {
     return modelService.getModelResponse(algorithm);
   }
 
-  @PostMapping(path = "/api/ml/{algorithm}/model/{esId}")
-  public ModelResponse updateModel(@PathVariable String algorithm, @PathVariable String esId, @RequestBody UpdateModelInput update) {
-    try {
-      return modelService.updateModel(algorithm, esId, update);
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-    }
-  }
+  //Todo: update 기능
+//  @PostMapping(path = "/api/ml/{algorithm}/model/{algorithmResponseId}")
+//  public ModelResponse updateModel(@PathVariable String algorithm, @PathVariable Long algorithmResponseId, @RequestBody UpdateModelInput update) {
+//    try {
+//      return modelService.updateModel(algorithm, algorithmResponseId, update);
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//    }
+//  }
 
-  @DeleteMapping(path = "/api/ml/{algorithm}/model/{esId}")
-  public Boolean deleteModel(@PathVariable String algorithm, @PathVariable String esId) {
+  @DeleteMapping(path = "/api/ml/{algorithm}/model/{algorithmResponseId}")
+  public Boolean deleteModel(@PathVariable String algorithm, @PathVariable Long algorithmResponseId) {
     try {
-      return modelService.deleteModel(algorithm, esId);
+      return modelService.deleteModel(algorithm, algorithmResponseId);
     } catch (Exception e) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
@@ -179,48 +181,44 @@ public class MLController {
 
   @GetMapping(path = "/api/get-trainingData/{index}")
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
-    String type = "";
-    if(index.contains("bearing")){
-      type = "bearing";
-    }else if(index.contains("server")){
-      type = "server";
-    }
-    System.out.println(type);
-    switch (type) {
-      case "bearing": {
-        Field[] fields = TrainingBearing.class.getDeclaredFields();
-        List<String> fieldNames = new ArrayList<>();
+    String path = "D:\\Sources\\armored-vehicle\\test-data\\"+index+".csv";
+    CSVReader reader = new CSVReader(new FileReader(path ));
+    String[] header = reader.readNext();
+    return header;
 
-        for (Field field : fields){
-          fieldNames.add(field.getName());
-        }
-        System.out.println(fieldNames);
-        String[] resultList = fieldNames.toArray(new String[0]);
+//    String type = "";
+//    if(index.contains("bearing")){
+//      type = "bearing";
+//    }else if(index.contains("server")){
+//      type = "server";
+//    }
+//    System.out.println(type);
+//    switch (type) {
+//      case "bearing": {
+//        Field[] fields = TrainingBearing.class.getDeclaredFields();
+//        List<String> fieldNames = new ArrayList<>();
+//
+//        for (Field field : fields){
+//          fieldNames.add(field.getName());
+//        }
+//        System.out.println(fieldNames);
+//        String[] resultList = fieldNames.toArray(new String[0]);
+//
+//        return resultList;
+//      }
+//      case "server": {
+//        Field[] fields = TempLifeData.class.getDeclaredFields();
+//        List<String> fieldNames = new ArrayList<>();
+//
+//        for (Field field : fields)
+//          fieldNames.add(field.getName());
+//
+//        String[] resultList = fieldNames.toArray(new String[0]);
+//
+//        return resultList;
+//      }
+//    }
 
-        return resultList;
-      }
-      case "server": {
-        Field[] fields = TempLifeData.class.getDeclaredFields();
-        List<String> fieldNames = new ArrayList<>();
-
-        for (Field field : fields)
-          fieldNames.add(field.getName());
-
-        String[] resultList = fieldNames.toArray(new String[0]);
-
-        return resultList;
-      }
-
-      default: {
-        throw new Error("Unsupported algorithm");
-      }
-    }
-
-
-//    String path = "D:\\Sources\\armored-vehicle\\test-data\\" + index + ".csv";
-//    CSVReader reader = new CSVReader(new FileReader(path));
-//    String[] header = reader.readNext();
-//    return header;
   }
 
 
