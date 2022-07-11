@@ -3,6 +3,7 @@ package kr.gaion.armoredVehicle.ml.service;
 import com.google.gson.Gson;
 import kr.gaion.armoredVehicle.algorithm.dto.response.AlgorithmResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
+import kr.gaion.armoredVehicle.algorithm.dto.response.LinearRegressionTrainResponse;
 import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.model.AlgorithmResponseDB;
@@ -169,32 +170,23 @@ public class ModelService {
                 dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
                 dbModelResponseRepository.save(dbModelResponse);
             }
-            case "MLP":
+            case "LinearRegression":
             {
-//                model = (ClassificationResponse)response;
+  //                model = (ClassificationResponse)response;
+              var model= (LinearRegressionTrainResponse) response;
 
+              DbModelResponse dbModelResponse = new DbModelResponse();
+
+              dbModelResponse.setModelName(modelName);
+              dbModelResponse.setType(algorithmName);
+              dbModelResponse.setCoefficients(model.getCoefficients());
+              dbModelResponse.setResiduals(model.getResiduals());
+              dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
+              dbModelResponse.setR2(model.getR2());
+
+              dbModelResponseRepository.save(dbModelResponse);
             }
         }
-
-
-
-//        dbModelResponse.setWeightedFalsePositiveRate();
-
-//        AlgorithmResponseDB algorithmResponseDB = new AlgorithmResponseDB();
-//        algorithmResponseDB.setType(response.getType().toString());
-//        algorithmResponseDB.setStatus(response.getStatus().toString());
-//        algorithmResponseDB.setMessage(response.getMessage());
-//        algorithmResponseDB.setIdCol(response.getIdCol());
-//        algorithmResponseDB.setListFeatures(response.getListFeatures());
-//        algorithmResponseDB.setClassCol(response.getClassCol());
-//        algorithmResponseDB.setClassCol(response.getClassCol());
-//        System.out.println("algorithmName :" + algorithmName);
-//        if(algorithmName=="randomForest"){
-//            algorithmResponseDB.setClassificationResponse();
-//        }
-//        algorithmResponseDBRepository.save();
-
-
 //		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
         String insertInfo = "true";
 		log.info(insertInfo);
