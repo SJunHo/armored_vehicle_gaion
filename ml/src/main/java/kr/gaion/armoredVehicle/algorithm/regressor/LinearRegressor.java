@@ -74,11 +74,11 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         // Fit the model.
         LinearRegressionModel lrModel = lr.fit(train);
 
-        // TODO: ES가 아닌 DB에 저장하기. (모델은 서버내 폴더 등에 저장) - 그럼 save path에 그냥 경로 입력?
-//        // Save model
-//        log.info("Saving model ..");
-//        var modelFullPathName = this.saveModel(config, lrModel); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 saveModel 메소드를 this로 호출
-//        lrModel.save(modelFullPathName);    // #PC0026	// #PC0017
+        // TODO: save 기능 확인하기
+        // Save model
+        log.info("Saving model ..");
+        var modelFullPathName = this.saveModel(config, lrModel); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 saveModel 메소드를 this로 호출
+        lrModel.save(modelFullPathName);    // #PC0026	// #PC0017
 
         // return response
         var response = new LinearRegressionTrainResponse(ResponseType.OBJECT_DATA); // Linear Regression 모델이 다시 웹으로 돌려주어야하는 정보가 있는 LinearRegressionTrainResponse에 response를 담음
@@ -116,7 +116,6 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
         response.setStatus(ResponseStatus.SUCCESS); // SUCCESS 메시지도 웹으로 돌려주어야 하니까 response에 set
 
-        // TODO: response 응답(모델 결과 및 label, features 등)을 ES가 아닌 DB 테이블에 저장.
         // Service의 역할은 Dao가 DB에서 받아온 데이터를 전달받아 가공하는 것. 즉, Controller가 받은 요청에 대해 알맞는 정보를 가공해서 다시 Controller에게 데이터를 넘기는 것을 의미합니다.
         // 그래서 웹에서 컨트롤러로 들어온 요청에 대한 대답을 서비스가 가공해서 다시 컨트롤러로 주기위해 정보들을 담아주는 것. 그럼 이 정보를 컨트롤러가 웹으로 보내준다.
         this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName());
@@ -184,7 +183,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
                 double[] data = new double[rowData.length()];
                 for (int i = 0; i < rowData.length(); i++) {
                     try {
-                        data[i] = Double.valueOf(rowData.getString(i));
+                        data[i] = Double.parseDouble(rowData.getString(i));
                     } catch (Exception e) {
                         data[i] = 0;
                     }

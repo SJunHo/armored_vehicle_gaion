@@ -198,15 +198,22 @@ public class ModelService {
 		log.info(String.format("Delete old data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
 		try {
 			var searchRequest = new DeleteByQueryRequest(this.getAlgorithmESIndex(algorithmName));
+
 			var query = QueryBuilders.boolQuery()
 					.filter(QueryBuilders.boolQuery().must(termQuery("modelName", modelName)));
+
 			searchRequest.setQuery(query);
+
+			// TODO: esConnector 삭제
 			var response = this.esConnector.getClient().deleteByQuery(searchRequest, RequestOptions.DEFAULT);
+
 			long deleted = response.getDeleted();
+
 			log.info(String.format("Deleted _index: %s, modelName: %s, affected: %d ",
 					this.getAlgorithmESIndex(algorithmName),
 					modelName,
 					deleted));
+
 		} catch (IndexNotFoundException | IOException e) {
 			log.warn("Delete failed. Cause: " + e.getMessage());
 			log.warn(String.format("The index %s not found.", this.getAlgorithmESIndex(algorithmName)));

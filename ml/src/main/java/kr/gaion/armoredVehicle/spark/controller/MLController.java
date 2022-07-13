@@ -99,9 +99,9 @@ public class MLController {
     return isolationForestOutlierDetection.train(input);
   }
 
-  @PostMapping(path = "/api/train/linear_regressor")
+  @PostMapping(path = "/api/train/linear")
   public LinearRegressionTrainResponse trainLinearRegression(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
-    return (LinearRegressionTrainResponse) linearRegressor.train(input);
+    return linearRegressor.train(input);
   }
 
 //  @GetMapping(path = "/api/test")
@@ -183,8 +183,7 @@ public class MLController {
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
     String path = "D:\\Sources\\armored-vehicle\\test-data\\"+index+".csv";
     CSVReader reader = new CSVReader(new FileReader(path ));
-    String[] header = reader.readNext();
-    return header;
+    return reader.readNext();
 
 //    String type = "";
 //    if(index.contains("bearing")){

@@ -845,6 +845,30 @@ export interface DbModelResponse {
      * @memberof DbModelResponse
      */
     weightedTruePositiveRate?: number;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof DbModelResponse
+     */
+    coefficients?: Array<number>;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    rootMeanSquaredError?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
+    r2?: number;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof DbModelResponse
+     */
+    residuals?: Array<object>;
 }
 /**
  * 
@@ -1196,43 +1220,6 @@ export interface LinearRegressionTrainResponse {
 /**
  * 
  * @export
- * @interface ModelResponse
- */
-export interface ModelResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelResponse
-     */
-    esId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelResponse
-     */
-    modelName?: string;
-    /**
-     * 
-     * @type {ClassificationResponse}
-     * @memberof ModelResponse
-     */
-    response?: ClassificationResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelResponse
-     */
-    description?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelResponse
-     */
-    checked?: boolean;
-}
-/**
- * 
- * @export
  * @interface PageRailSensorData
  */
 export interface PageRailSensorData {
@@ -1326,25 +1313,25 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    unpaged?: boolean;
+    pageNumber?: number;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
     paged?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    unpaged?: boolean;
 }
 /**
  * 
@@ -1974,25 +1961,6 @@ export interface UpdateDataLookupInput {
      * @memberof UpdateDataLookupInput
      */
     indexOfLabeledField?: number;
-}
-/**
- * 
- * @export
- * @interface UpdateModelInput
- */
-export interface UpdateModelInput {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateModelInput
-     */
-    description?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UpdateModelInput
-     */
-    checked?: boolean;
 }
 
 /**
@@ -3680,7 +3648,7 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         trainLinearRegression: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
             assertParamExists('trainLinearRegression', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
-            const localVarPath = `/api/train/linear`;
+            const localVarPath = `/api/train/linear_regressor`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3866,53 +3834,6 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @param {string} algorithm 
-         * @param {string} esId 
-         * @param {UpdateModelInput} updateModelInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateModel: async (algorithm: string, esId: string, updateModelInput: UpdateModelInput, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'algorithm' is not null or undefined
-            assertParamExists('updateModel', 'algorithm', algorithm)
-            // verify required parameter 'esId' is not null or undefined
-            assertParamExists('updateModel', 'esId', esId)
-            // verify required parameter 'updateModelInput' is not null or undefined
-            assertParamExists('updateModel', 'updateModelInput', updateModelInput)
-            const localVarPath = `/api/ml/{algorithm}/model/{esId}`
-                .replace(`{${"algorithm"}}`, encodeURIComponent(String(algorithm)))
-                .replace(`{${"esId"}}`, encodeURIComponent(String(esId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearer-key required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateModelInput, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -4075,18 +3996,6 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trainSVM(baseAlgorithmTrainInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
-        /**
-         * 
-         * @param {string} algorithm 
-         * @param {string} esId 
-         * @param {UpdateModelInput} updateModelInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateModel(algorithm: string, esId: string, updateModelInput: UpdateModelInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateModel(algorithm, esId, updateModelInput, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
     }
 };
 
@@ -4233,17 +4142,6 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          */
         trainSVM(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<SVMClassificationResponse> {
             return localVarFp.trainSVM(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} algorithm 
-         * @param {string} esId 
-         * @param {UpdateModelInput} updateModelInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateModel(algorithm: string, esId: string, updateModelInput: UpdateModelInput, options?: any): AxiosPromise<ModelResponse> {
-            return localVarFp.updateModel(algorithm, esId, updateModelInput, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4420,19 +4318,6 @@ export class MlControllerApi extends BaseAPI {
      */
     public trainSVM(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any) {
         return MlControllerApiFp(this.configuration).trainSVM(baseAlgorithmTrainInput, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} algorithm 
-     * @param {string} esId 
-     * @param {UpdateModelInput} updateModelInput 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MlControllerApi
-     */
-    public updateModel(algorithm: string, esId: string, updateModelInput: UpdateModelInput, options?: any) {
-        return MlControllerApiFp(this.configuration).updateModel(algorithm, esId, updateModelInput, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
