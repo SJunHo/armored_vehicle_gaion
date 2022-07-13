@@ -13,6 +13,7 @@ import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.ml.util.MLWritable;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Log4j
 @Getter
 @RequiredArgsConstructor
 public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends BaseAlgorithmPredictInput> implements IMLAlgorithm<T, T2> {
@@ -67,24 +69,40 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
 	}
 
   public String saveModel(BaseAlgorithmTrainInput config, Saveable model) throws Exception {
-		String modelName = config.getModelName();
-		var modelFullPathName = this.getModelFullPath(modelName);
-		modelUtil.deleteModelIfExisted(modelFullPathName);
-		this.mlSaveModel(model, modelFullPathName);
-		// StringIndexer model saving ..
-		String modelIndexerPath = this.getModelIndexerPath(modelName);
-		modelUtil.deleteModelIfExisted(modelIndexerPath);
-		return modelIndexerPath;
+	  log.info("-------------------- saveModel with Saveable model --------------------");
+
+	  String modelName = config.getModelName();
+
+	  var modelFullPathName = this.getModelFullPath(modelName);
+
+	  modelUtil.deleteModelIfExisted(modelFullPathName);
+
+	  this.mlSaveModel(model, modelFullPathName);
+
+	  // StringIndexer model saving ..
+	  String modelIndexerPath = this.getModelIndexerPath(modelName);
+
+	  modelUtil.deleteModelIfExisted(modelIndexerPath);
+
+	  return modelIndexerPath;
 	}
 
 	public String saveModel(BaseAlgorithmTrainInput config, MLWritable model) throws Exception {
+		log.info("-------------------- saveModel with MLWritable mode --------------------");
+
 		String modelName = config.getModelName();
+
 		var modelFullPathName = this.getModelFullPath(modelName);
+
 		modelUtil.deleteModelIfExisted(modelFullPathName);
+
 		model.save(modelFullPathName);
+
 		// StringIndexer model saving ..
 		String modelIndexerPath = this.getModelIndexerPath(modelName);
+
 		modelUtil.deleteModelIfExisted(modelIndexerPath);
+
 		return modelIndexerPath;
 	}
 

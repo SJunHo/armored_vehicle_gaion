@@ -17,7 +17,7 @@ import { Column, Row as TableRow } from "react-table";
 import {
   DataInputOption,
   DataProvider,
-  ModelResponse,
+  DbModelResponse,
   OpenApiContext,
   RailSensorData,
 } from "../api";
@@ -31,8 +31,8 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   const [predicting, setPredicting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [searchingData, setSearchingData] = useState(false);
-  const [models, setModels] = useState<ModelResponse[]>([]);
-  const [selectedModel, setSelectedModel] = useState<ModelResponse>();
+  const [models, setModels] = useState<DbModelResponse[]>([]);
+  const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
   const [railConditionData, setRailConditionData] = useState<RailSensorData[]>(
     []
   );
@@ -40,7 +40,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   const [wb, setWb] = useState<string>("W");
 
   const { t } = useTranslation();
-  const columns = useMemo<Column<ModelResponse>[]>(
+  const columns = useMemo<Column<DbModelResponse>[]>(
     () => [
       {
         Header: "Model Name",
@@ -135,7 +135,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Es,
-      listFieldsForPredict: selectedModel?.response?.listFeatures,
     });
     const predictedData = res?.data.predictionInfo || [];
     setRailConditionData((old) =>
@@ -159,7 +158,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Es,
-      listFieldsForPredict: selectedModel?.response?.listFeatures,
     });
     const predictedData = res?.data.predictionInfo || [];
     setRailConditionData((old) =>
@@ -205,7 +203,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     []
   );
 
-  const handleModelSelected = useCallback((v: TableRow<ModelResponse>[]) => {
+  const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
     setSelectedModel(v[0]?.original);
   }, []);
 

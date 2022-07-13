@@ -59,7 +59,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         rowOriginalData.show();
 
         // Split the data into train and test
-        log.info("Split the data into train and test");
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Split the data into train and test @@@@@@@@@@@@@@@@@@@@@@@@@");
         var splittedData = this.splitTrainTest(rowOriginalData, config.getSeed(), config.getFraction()); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 splitTrainTest 메소드를 this로 호출
         var train = splittedData[0];
         var test = splittedData[1];
@@ -76,7 +76,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
         // TODO: save 기능 확인하기
         // Save model
-        log.info("Saving model ..");
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Saving model ... @@@@@@@@@@@@@@@@@@@@@@@@@");
         var modelFullPathName = this.saveModel(config, lrModel); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 saveModel 메소드를 this로 호출
         lrModel.save(modelFullPathName);    // #PC0026	// #PC0017
 
@@ -126,7 +126,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
     @Override
     public ClassificationResponse predict(BaseAlgorithmPredictInput input) throws Exception {
         // BaseAlgorithmPredictInput input: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '예측'을 위한 정보들(Request)
-        log.info("Start predicting unlabeled data ..");
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@ ");
 
         // 0. Get settings
         var dataInputOption = input.getDataInputOption();
@@ -203,7 +203,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         response.setPredictedFeatureLine(response.getPredictionInfo());
         response.setClassCol(input.getClassCol());
 
-        log.info("predicted unlabeled data successfully.");
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ predicted unlabeled data successfully. @@@@@@@@@@@@@@@@@@@@@@@@@");
         response.setStatus(ResponseStatus.SUCCESS);
 
         return response;

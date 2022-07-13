@@ -15,7 +15,7 @@ server:
   tomcat:
     max-swallow-size: 20000MB
 storage:
-  homeDir: ${ETRI_RSS_HOME:\Sources\armored-vehicle\test-data}
+  homeDir: ${ETRI_RSS_HOME:D:\Sources\armored-vehicle\test-data}
   dataDir: data
   modelDir: model
   modelIndexerDir: model_indexer

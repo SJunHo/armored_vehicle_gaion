@@ -18,36 +18,36 @@ import java.util.Date;
 public class TempLifeData {
     @Id
     @GeneratedValue
-    @Column(name="seq")
+    @Column(name="IDX")
     private long lifecycleId;
 
-    @Column(name="acPower")
+    @Column(name="ACPOWER")
     private float acPower;
 
-    @Column(name="cpuUtil")
+    @Column(name="CPUUTIL")
     private float cpuUtil;
 
-    @Column(name="diskAccesses")
+    @Column(name="DISKACCESSES")
     private float diskAccesses;
 
-    @Column(name="diskBlocks")
+    @Column(name="DISKBLOCKS")
     private float diskBlocks;
 
-    @Column(name="diskUtil")
+    @Column(name="DISKUTIL")
     private float diskUtil;
 
-    @Column(name="instRetired")
+    @Column(name="INSTRETIRED")
     private float instRetired;
 
-    @Column(name="lastLevel")
+    @Column(name="LASTLEVEL")
     private float lastLevel;
 
-    @Column(name="memoryBus")
+    @Column(name="MEMORYBUS")
     private float memoryBus;
 
-    @Column(name="coreCycle")
+    @Column(name="CORECYCEL")
     private float coreCycle;
 
-    @Column(name="time")
+    @Column(name="TIME")
     private String time;
 }

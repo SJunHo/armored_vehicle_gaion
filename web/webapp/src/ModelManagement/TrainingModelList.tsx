@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useTranslation } from "react-i18next";
 import { CellProps, Column, Row as TableRow } from "react-table";
-import { DbModelResponse, OpenApiContext, UpdateModelInput } from "../api";
+import { DbModelResponse, OpenApiContext } from "../api";
 import { ALGORITHM_INFO } from "../common/Common";
 import { Section } from "../common/Section/Section";
 import { Table } from "../common/Table";
