@@ -25,7 +25,7 @@ public class DbModelResponse {
     @Column(name = "MODEL_NAME")
     private String modelName;
 
-    @Column(name = "algorithm_type")
+    @Column(name = "Algorithm_Type")
     private String type;
 
     @Column(name = "DESCRIPTION")
@@ -50,10 +50,9 @@ public class DbModelResponse {
     @Column(name = "weighted_recall")
     private double weightedRecall;
 
-    // Regression
     @Column(name = "weighted_true_positive_rate")
     private double weightedTruePositiveRate;
-
+    // Regression
     @Type(type="json")
     @Column( name = "coefficients",columnDefinition = "json")
     private double[] coefficients;
@@ -64,8 +63,8 @@ public class DbModelResponse {
     @Column(name = "r2")
     private double r2;
 
-    @Type(type = "json")
-    @Column( name = "residuals",columnDefinition = "json")
-    private List<?> residuals;
+//    @Type(type = "json")
+//    @Column( name = "residuals",columnDefinition = "json")
+//    private List<?> residuals;
 
 }

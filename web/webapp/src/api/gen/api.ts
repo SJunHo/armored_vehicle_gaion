@@ -893,13 +893,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
 }
 /**
  * 
@@ -1228,13 +1228,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1917,13 +1917,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    sorted?: boolean;
+    unsorted?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * 
      * @type {boolean}
@@ -3648,7 +3648,7 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         trainLinearRegression: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
             assertParamExists('trainLinearRegression', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
-            const localVarPath = `/api/train/linear`;
+            const localVarPath = `/api/train/linear_regressor`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
