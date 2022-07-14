@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useTranslation } from "react-i18next";
 import { CellProps, Column, Row as TableRow } from "react-table";
-import { DbModelResponse, OpenApiContext } from "../api";
+import {DbModelResponse, OpenApiContext, UpdateModelInput} from "../api";
 import { ALGORITHM_INFO } from "../common/Common";
 import { Section } from "../common/Section/Section";
 import { Table } from "../common/Table";
@@ -38,23 +38,23 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
     setSelectedModels(rows.map(row => row.original));
   }, []);
 
-  // const handleUpdateRows = useCallback(
-  //   (row: DbModelResponse, v: UpdateModelInput) => {
-  //     mlControllerApi
-  //       ?.updateModel(ALGORITHM_INFO[algorithmName].className, row.algorithmResponseId!, v)
-  //       .then(res => {
-  //         setModels(old =>
-  //           old.map(oldModel => {
-  //             if (oldModel.esId === res.data.esId) {
-  //               return res.data;
-  //             }
-  //             return oldModel;
-  //           })
-  //         );
-  //       });
-  //   },
-  //   [mlControllerApi, algorithmName]
-  // );
+  const handleUpdateRows = useCallback(
+    (row: DbModelResponse, v: UpdateModelInput) => {
+      mlControllerApi
+        ?.updateModel(ALGORITHM_INFO[algorithmName].className, row.algorithmResponseId!, v)
+        .then(res => {
+          setModels(old =>
+            old.map(oldModel => {
+              if (oldModel.algorithmResponseId === res.data.algorithmResponseId) {
+                return res.data;
+              }
+              return oldModel;
+            })
+          );
+        });
+    },
+    [mlControllerApi, algorithmName]
+  );
 
   const columns = useMemo<Column<DbModelResponse>[]>(
     () => [
@@ -86,17 +86,16 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
         Header: t("table.column.notes").toString(),
         accessor: "description",
         Cell: EditableCell,
-        // onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
+        onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
       },
       {
-        Header: t("table.column.register").toString(),
+        Header: algorithmName == "linear"? t("table.column.life.register").toString(): t("table.column.broken.register").toString(),
         accessor: "checked",
         Cell: EditableCheckboxCell,
-        // onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
+        onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
       },
     ],
-    // [t, handleUpdateRows]
-    [t]
+    [t, handleUpdateRows]
   );
   return (
     <Section title={ALGORITHM_INFO[algorithmName].name}>

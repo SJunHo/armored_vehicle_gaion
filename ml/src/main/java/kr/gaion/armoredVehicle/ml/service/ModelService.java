@@ -57,8 +57,8 @@ public class ModelService {
   @NonNull private final DBModelResponseRepository dbModelResponseRepository;
 
   private final ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-//  public ModelResponse updateModel(String algorithmName, String esId, UpdateModelInput input) throws IOException {
+//수정완료
+//  public DbModelResponse updateModel(String algorithmName, String esId, UpdateModelInput input) throws IOException {
 //    var updateRequest = new UpdateRequest(this.getAlgorithmESIndex(algorithmName), esId);
 //    var updateDoc = new HashMap<String, Object>();
 //    updateDoc.put("description", input.getDescription());
@@ -73,10 +73,16 @@ public class ModelService {
 //    return ret;
 //  }
 
-//  public DbModelResponse updateModel(String algorithmName, String esId, UpdateModelInput input) throws IOException {
-//
-//  }
+  public DbModelResponse updateModel(String algorithmName, Long algorithmResponseId, UpdateModelInput input) throws IOException {
+    DbModelResponse dbModelResponse = dbModelResponseRepository.findById(algorithmResponseId).get();
+    dbModelResponse.setDescription(input.getDescription());
+    dbModelResponse.setChecked(input.getChecked());
+    dbModelResponseRepository.save(dbModelResponse);
+    return dbModelResponse;
+  }
 
+
+  //수정완료
 //  public boolean deleteModel(String algorithmName, String esId) throws Exception {
 //    try {
 //      var res = esConnector.select(this.getAlgorithmESIndex(algorithmName), 1, 0, QueryBuilders.idsQuery().addIds(esId));
@@ -112,6 +118,7 @@ public class ModelService {
 		return algorithmName.toLowerCase() + "_2";
 	}
 
+  //수정완료
 //	public List<ModelResponse> getModelResponse(String algorithm) {
 //		var searchRequest = new SearchRequest(this.getAlgorithmESIndex(algorithm));
 //		var srb = new SearchSourceBuilder();
@@ -171,6 +178,49 @@ public class ModelService {
                 dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
                 dbModelResponseRepository.save(dbModelResponse);
             }
+            case "SVMClassifier":
+            {
+              var model= (ClassificationResponse)response;
+              DbModelResponse dbModelResponse = new DbModelResponse();
+              dbModelResponse.setModelName(modelName);
+              dbModelResponse.setType(algorithmName);
+              dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
+              dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
+              dbModelResponse.setAccuracy(model.getAccuracy());
+              dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
+              dbModelResponse.setWeightedRecall(model.getWeightedRecall());
+              dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
+              dbModelResponseRepository.save(dbModelResponse);
+            }
+            case "LogisticRegression":
+            {
+              var model= (ClassificationResponse)response;
+              DbModelResponse dbModelResponse = new DbModelResponse();
+              dbModelResponse.setModelName(modelName);
+              dbModelResponse.setType(algorithmName);
+              dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
+              dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
+              dbModelResponse.setAccuracy(model.getAccuracy());
+              dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
+              dbModelResponse.setWeightedRecall(model.getWeightedRecall());
+              dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
+              dbModelResponseRepository.save(dbModelResponse);
+            }
+            case "MLPClassifier":
+            {
+              var model= (ClassificationResponse)response;
+              DbModelResponse dbModelResponse = new DbModelResponse();
+              dbModelResponse.setModelName(modelName);
+              dbModelResponse.setType(algorithmName);
+              dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
+              dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
+              dbModelResponse.setAccuracy(model.getAccuracy());
+              dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
+              dbModelResponse.setWeightedRecall(model.getWeightedRecall());
+              dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
+              dbModelResponseRepository.save(dbModelResponse);
+            }
+
             case "LinearRegression":
             {
   //                model = (ClassificationResponse)response;
@@ -178,11 +228,8 @@ public class ModelService {
               System.out.println(modelName);
               System.out.println(algorithmName);
               DbModelResponse dbModelResponse = new DbModelResponse();
-
               dbModelResponse.setModelName(modelName);
               dbModelResponse.setType(algorithmName);
-              System.out.println(Arrays.toString(model.getCoefficients()));
-//              System.out.println(model.getResiduals().toString());
               dbModelResponse.setCoefficients(model.getCoefficients());
 //              dbModelResponse.setResiduals(model.getResiduals());
               dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());

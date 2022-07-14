@@ -3,6 +3,7 @@ package kr.gaion.armoredVehicle.database.model;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClusterResponse;
 import kr.gaion.armoredVehicle.database.converter.ClassificationResponseConverter;
 import kr.gaion.armoredVehicle.database.converter.ClusterResponseConverter;
+import kr.gaion.armoredVehicle.database.converter.RegressionResponseConverter;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
@@ -44,4 +45,8 @@ public class AlgorithmResponseDB {
     @Convert(converter = ClusterResponseConverter.class)
     @Column(name = "cluster_response", columnDefinition = "json")
     private ClusterResponse clusterResponse;
+
+    @Convert(converter = RegressionResponseConverter.class)
+    @Column(name = "regression_response", columnDefinition = "json")
+    private RegressionResponse regressionResponse;
 }

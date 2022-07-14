@@ -865,10 +865,10 @@ export interface DbModelResponse {
     r2?: number;
     /**
      * 
-     * @type {Array<object>}
+     * @type {Array<string>}
      * @memberof DbModelResponse
      */
-    residuals?: Array<object>;
+    listFeatures?: Array<string>;
 }
 /**
  * 
@@ -893,13 +893,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1313,25 +1313,25 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    pageNumber?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    paged?: boolean;
+    pageSize?: number;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
     unpaged?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    paged?: boolean;
 }
 /**
  * 
@@ -1917,13 +1917,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    sorted?: boolean;
+    unsorted?: boolean;
     /**
      * 
      * @type {boolean}
@@ -1961,6 +1961,25 @@ export interface UpdateDataLookupInput {
      * @memberof UpdateDataLookupInput
      */
     indexOfLabeledField?: number;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateModelInput
+ */
+export interface UpdateModelInput {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateModelInput
+     */
+    description?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateModelInput
+     */
+    checked?: boolean;
 }
 
 /**
@@ -3648,7 +3667,7 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         trainLinearRegression: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
             assertParamExists('trainLinearRegression', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
-            const localVarPath = `/api/train/linear_regressor`;
+            const localVarPath = `/api/train/linear`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3834,6 +3853,53 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {string} algorithm 
+         * @param {number} algorithmResponseId 
+         * @param {UpdateModelInput} updateModelInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateModel: async (algorithm: string, algorithmResponseId: number, updateModelInput: UpdateModelInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'algorithm' is not null or undefined
+            assertParamExists('updateModel', 'algorithm', algorithm)
+            // verify required parameter 'algorithmResponseId' is not null or undefined
+            assertParamExists('updateModel', 'algorithmResponseId', algorithmResponseId)
+            // verify required parameter 'updateModelInput' is not null or undefined
+            assertParamExists('updateModel', 'updateModelInput', updateModelInput)
+            const localVarPath = `/api/ml/{algorithm}/model/{algorithmResponseId}`
+                .replace(`{${"algorithm"}}`, encodeURIComponent(String(algorithm)))
+                .replace(`{${"algorithmResponseId"}}`, encodeURIComponent(String(algorithmResponseId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateModelInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -3996,6 +4062,18 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trainSVM(baseAlgorithmTrainInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {string} algorithm 
+         * @param {number} algorithmResponseId 
+         * @param {UpdateModelInput} updateModelInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateModel(algorithm: string, algorithmResponseId: number, updateModelInput: UpdateModelInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DbModelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateModel(algorithm, algorithmResponseId, updateModelInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -4142,6 +4220,17 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          */
         trainSVM(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<SVMClassificationResponse> {
             return localVarFp.trainSVM(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} algorithm 
+         * @param {number} algorithmResponseId 
+         * @param {UpdateModelInput} updateModelInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateModel(algorithm: string, algorithmResponseId: number, updateModelInput: UpdateModelInput, options?: any): AxiosPromise<DbModelResponse> {
+            return localVarFp.updateModel(algorithm, algorithmResponseId, updateModelInput, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4318,6 +4407,19 @@ export class MlControllerApi extends BaseAPI {
      */
     public trainSVM(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any) {
         return MlControllerApiFp(this.configuration).trainSVM(baseAlgorithmTrainInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} algorithm 
+     * @param {number} algorithmResponseId 
+     * @param {UpdateModelInput} updateModelInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public updateModel(algorithm: string, algorithmResponseId: number, updateModelInput: UpdateModelInput, options?: any) {
+        return MlControllerApiFp(this.configuration).updateModel(algorithm, algorithmResponseId, updateModelInput, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

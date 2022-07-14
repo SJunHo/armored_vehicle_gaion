@@ -16,7 +16,7 @@ import java.util.List;
 public class RegressionResponse {
     @Id
     @Column(name = "regression_id")
-    private long classificationResponseId;
+    private long regressionResponseId;
 
     @Column(name = "model_name")
     private String modelName;

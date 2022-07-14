@@ -481,8 +481,10 @@ const resources = {
       "table.normal": "정상",
       "table.defect": "고장",
       "table.column.notes": "비고",
-      "table.column.register": "고장전조 예측 모델 선택",
-      "table.column.manage": "고장전조 예측 모델 관리",
+      "table.column.broken.register": "고장전조 예측 모델 선택",
+      "table.column.broken.manage": "고장전조 예측 모델 관리",
+      "table.column.life.register": "잔존수명 예측 모델 선택",
+      "table.column.life.manage": "잔존수명 예측 모델 관리",
       "table.column.select": "선택",
 
       "dashboard.cc": "차량별 총 누적 측정수",

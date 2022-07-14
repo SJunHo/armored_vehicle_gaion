@@ -7,6 +7,7 @@ import { CreateModelSection } from "./CreateModelSection";
 // import { DataPrediction } from "./DataPrediction";
 import styles from "./styles.module.css";
 import { TrainingModelList } from "./TrainingModelList";
+import {DataPrediction} from "./DataPrediction";
 
 export const ModelManagement: React.FC = () => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ export const ModelManagement: React.FC = () => {
           },
           {
             id: "models",
-            title: algorithmName == "linear"?t("ml.common.tab.lifeMg") : t("table.column.manage"),
+            title: algorithmName == "linear"?t("ml.common.tab.lifeMg") : t("table.column.broken.manage"),
           },
           {
             id: "predict",
@@ -44,10 +45,10 @@ export const ModelManagement: React.FC = () => {
             path="/ml/:algorithmName/models"
             render={() => <TrainingModelList algorithmName={algorithmName} />}
           />
-          {/*<Route*/}
-          {/*  path="/ml/:algorithmName/predict"*/}
-          {/*  render={() => <DataPrediction algorithmName={algorithmName} />}*/}
-          {/*/>*/}
+          <Route
+            path="/ml/:algorithmName/predict"
+            render={() => <DataPrediction algorithmName={algorithmName} />}
+          />
           <Route
             path="/ml/:algorithmName/train"
             render={() => <CreateModelSection algorithmName={algorithmName} />}
