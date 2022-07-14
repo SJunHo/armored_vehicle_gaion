@@ -4,7 +4,7 @@ import { Route, Switch, useHistory, useParams } from "react-router-dom";
 import { Page } from "../common/Page/Page";
 import { TabHeader } from "../common/TabHeader/TabHeader";
 import { CreateModelSection } from "./CreateModelSection";
-import { DataPrediction } from "./DataPrediction";
+// import { DataPrediction } from "./DataPrediction";
 import styles from "./styles.module.css";
 import { TrainingModelList } from "./TrainingModelList";
 
@@ -43,10 +43,10 @@ export const LifeModelManagement: React.FC = () => {
             path="/ml/:algorithmName/models"
             render={() => <TrainingModelList algorithmName={algorithmName} />}
           />
-          <Route
-            path="/ml/:algorithmName/predict"
-            render={() => <DataPrediction algorithmName={algorithmName} />}
-          />
+          {/*<Route*/}
+          {/*  path="/ml/:algorithmName/predict"*/}
+          {/*  render={() => <DataPrediction algorithmName={algorithmName} />}*/}
+          {/*/>*/}
           <Route
             path="/ml/:algorithmName/train"
             render={() => <CreateModelSection algorithmName={algorithmName} />}

@@ -139,14 +139,14 @@ public class ModelService {
 //	}
 
     public List<DbModelResponse> getModelResponse(String algorithm){
-        return dbModelResponseRepository.getModelResponseListByalgorithm(algorithm);
+        return dbModelResponseRepository.getModelResponseListByAlgorithm(algorithm);
     }
 
 
 
 	public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName) throws IOException {
 		// Delete old data
-		deleteOldMlResponse(algorithmName, modelName);
+//		deleteOldMlResponse(algorithmName, modelName);
 
 		// Write new data
 		log.info(String.format("Write new data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
@@ -155,6 +155,7 @@ public class ModelService {
 		map.put("response", response);
 		map.put("modelName", modelName);
         // modelResponseSaveToDatabase
+    System.out.println("algorithmName: " + algorithmName);
         switch (algorithmName) {
             case "RandomForestClassifier":
             {
@@ -174,13 +175,16 @@ public class ModelService {
             {
   //                model = (ClassificationResponse)response;
               var model= (LinearRegressionTrainResponse) response;
-
+              System.out.println(modelName);
+              System.out.println(algorithmName);
               DbModelResponse dbModelResponse = new DbModelResponse();
 
               dbModelResponse.setModelName(modelName);
               dbModelResponse.setType(algorithmName);
+              System.out.println(Arrays.toString(model.getCoefficients()));
+//              System.out.println(model.getResiduals().toString());
               dbModelResponse.setCoefficients(model.getCoefficients());
-              dbModelResponse.setResiduals(model.getResiduals());
+//              dbModelResponse.setResiduals(model.getResiduals());
               dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
               dbModelResponse.setR2(model.getR2());
 

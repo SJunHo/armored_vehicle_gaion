@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DBModelResponseRepository extends JpaRepository<DbModelResponse, Long> {
     @Query(value = "SELECT * from DB_MODEL_RESPONSE dmr where dmr.Algorithm_Type =?1 ", nativeQuery = true)
-    List<DbModelResponse> getModelResponseListByalgorithm(String algorithm);
+    List<DbModelResponse> getModelResponseListByAlgorithm(String algorithm);
 
 
 }

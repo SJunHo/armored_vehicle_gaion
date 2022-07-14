@@ -24,6 +24,7 @@ import kr.gaion.armoredVehicle.database.model.DbModelResponse;
 import kr.gaion.armoredVehicle.database.model.TempLifeData;
 import kr.gaion.armoredVehicle.database.model.TrainingBearing;
 import kr.gaion.armoredVehicle.database.repository.FileInfoRepository;
+import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.dto.ModelResponse;
@@ -68,6 +69,8 @@ public class MLController {
   @NonNull private final DatabaseSparkService databaseSparkService;
   @NonNull private final DatasetDatabaseService datasetDatabaseService;
   @NonNull private final FileInfoRepository fileInfoRepository;
+  @NonNull private final StorageConfig storageConfig;
+
 
   @PostMapping(path = "/api/train/rfc")
   public RandomForestClassificationResponse trainRfc(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
@@ -181,8 +184,12 @@ public class MLController {
 
   @GetMapping(path = "/api/get-trainingData/{index}")
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
+<<<<<<< HEAD
     // TODO: path 바꾸기(서버 path로)
     String path = "D:\\Sources\\armored-vehicle\\test-data\\"+index+".csv";
+=======
+    String path = storageConfig.getHomeDir()+index+".csv";
+>>>>>>> origin/gaion
     CSVReader reader = new CSVReader(new FileReader(path ));
     return reader.readNext();
 

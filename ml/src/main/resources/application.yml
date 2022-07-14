@@ -15,7 +15,7 @@ server:
   tomcat:
     max-swallow-size: 20000MB
 storage:
-  homeDir: ${ETRI_RSS_HOME:D:\Sources\armored-vehicle\test-data}
+  homeDir: ${ETRI_RSS_HOME:D:\Sources\armored-vehicle\test-data\}
   dataDir: data
   modelDir: model
   modelIndexerDir: model_indexer
@@ -30,7 +30,7 @@ database:
   properties:
     hibernate:
       hbm2ddl:
-        auto: update
+#        auto: update
       connection:
         charSet: UTF-8
       dialect: org.hibernate.dialect.MariaDBDialect

@@ -23,8 +23,8 @@ import java.util.Date;
 public class TrainingBearing {
     @Id
     @GeneratedValue
-    @Column(name="BEARINGID")
-    private long bearingId;
+    @Column(name="IDX")
+    private long idx;
 
     @Column(name="SDAID")
     private String sdaId;
