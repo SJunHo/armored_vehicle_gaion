@@ -182,8 +182,7 @@ public class MLController {
   @GetMapping(path = "/api/get-trainingData/{index}")
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
     // TODO: path 바꾸기(서버 path로)
-//    String path = "D:\\Sources\\armored-vehicle\\test-data\\"+index+".csv";
-    String path = "C:\\Users\\daeho\\Documents\\WORK\\차륜형장갑차\\"+index+".csv";
+    String path = "D:\\Sources\\armored-vehicle\\test-data\\"+index+".csv";
     CSVReader reader = new CSVReader(new FileReader(path ));
     return reader.readNext();
 
