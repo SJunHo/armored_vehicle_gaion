@@ -63,6 +63,10 @@ public class DbModelResponse {
     @Column(name = "r2")
     private double r2;
 
+    @Type(type="json")
+    @Column(name = "listFeatures")
+    private String[] listFeatures;
+
 //    @Type(type = "json")
 //    @Column( name = "residuals",columnDefinition = "json")
 //    private List<?> residuals;

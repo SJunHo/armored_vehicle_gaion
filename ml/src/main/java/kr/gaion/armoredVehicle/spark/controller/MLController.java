@@ -157,16 +157,16 @@ public class MLController {
     return modelService.getModelResponse(algorithm);
   }
 
-  //Todo: update 기능
-//  @PostMapping(path = "/api/ml/{algorithm}/model/{algorithmResponseId}")
-//  public ModelResponse updateModel(@PathVariable String algorithm, @PathVariable Long algorithmResponseId, @RequestBody UpdateModelInput update) {
-//    try {
-//      return modelService.updateModel(algorithm, algorithmResponseId, update);
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//    }
-//  }
+//  Todo: update 기능
+  @PostMapping(path = "/api/ml/{algorithm}/model/{algorithmResponseId}")
+  public DbModelResponse updateModel(@PathVariable String algorithm, @PathVariable Long algorithmResponseId, @RequestBody UpdateModelInput update) {
+    try {
+      return modelService.updateModel(algorithm, algorithmResponseId, update);
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
+  }
 
   @DeleteMapping(path = "/api/ml/{algorithm}/model/{algorithmResponseId}")
   public Boolean deleteModel(@PathVariable String algorithm, @PathVariable Long algorithmResponseId) {

@@ -50,8 +50,9 @@ public class DatabaseSparkService {
 
     public Dataset<Row> getLabeledDatasetFromDatabase(BaseAlgorithmTrainInput input) {
 //        log.info("Getting data from ElasticSearch for: " + this.dbIndexConfig.getIndex() + "/" + this.dbIndexConfig.getReadingType() + "/");
-
-        var jvRddData = this.getDataRDDFromDb("BERTRNING");
+        //Todo 부품 별 테이블 선택 로직 구현
+        // TODO: 2022-07-14 부품 선택 input 기능 구현
+        var jvRddData = this.getDataRDDFromDb("BERTRNNG");
 
         var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
         return spark.createDataFrame(esData.rdd(), LabeledData.class);
