@@ -4,19 +4,31 @@
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@nivo/bar": "^0.79.1",
+    "@nivo/core": "^0.79.0",
     "@popperjs/core": "^2.11.5",
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.2.0",
+    "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.6.1",
+    "date-fns": "^2.28.0",
+    "moment": "^2.29.3",
+    "namor": "^2.0.3",
     "react": "^16.14.0",
+    "react-animated-tree": "^1.0.10",
     "react-bootstrap": "^2.4.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^16.14.0",
     "react-dropzone": "^14.2.1",
     "react-redux": "^7.2.8",
     "react-router-dom": "^5.3.3",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.3",
+    "react-simple-menu": "^1.0.0",
+    "react-simple-tree-menu": "^1.1.18",
+    "react-table": "^7.8.0",
     "react-validation": "^3.0.7",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
@@ -48,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "redux-devtools-extension": "^2.13.9"
   }
 }

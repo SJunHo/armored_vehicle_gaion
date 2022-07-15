@@ -1,22 +1,49 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Router, Switch, Route, Link } from "react-router-dom";
-import {Navbar, Container, Nav, NavDropdown} from "react-bootstrap";
+import { Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+import HeaderComp from "./components/header.component";
 import Login from "./components/login/login.component";
 import Register from "./components/login/register.component";
-import Home from "./components/home.component";
-import Profile from "./components/login/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
-import Tutorial from "./components/monitoring/tutorial.component";
-import TutorialsList from "./components/monitoring/tutorials-list.component";
-import AddTutorial from "./components/monitoring/add-tutorial.component"
-import ExistingSensorData from "./components/monitoring/DataCollection/existingsensordata.component";
+
+/*통계정보*/
+import Statistical from "./components/statistical.component";
+import VehicleInformation from "./components/vehicleinformation.component"
+import DriverCalibration from "./components/drivercalibration.component"
+import PartsReplacementCycle from "./components/partsreplacementcycle.component"
+
+/*학습데이터 수집*/
+import LearningData from "./components/monitoring/LearningDataCollection/learningdata.component";
+
+/*고장진단 모델*/
+import RandomForest from "./components/monitoring/FaultDiagnosisModel/randomforest.component";
+import SupportVectorMachine from "./components/monitoring/FaultDiagnosisModel/supportvectormachine.component";
+import MultilayerNeuralNetworks from "./components/monitoring/FaultDiagnosisModel/multilayerneuralnetworks.component";
+import IsolateRamdhamForest from "./components/monitoring/FaultDiagnosisModel/isolateramdhamforest.component";
+import LogicicRegession from "./components/monitoring/FaultDiagnosisModel/logicicregression.component";
+
+/*잔존수명예지 모델*/
+import LinearRegression from "./components/monitoring/MRLF/linearregression.component";
+import RasoRegession from "./components/monitoring/MRLF/rasoregession.component";
+
+/*시스템 설정*/
+import Driver_CIS from "./components/monitoring/SystemSettings/driver_cis.component";
+import Setting_PRC from "./components/monitoring/SystemSettings/setting_prc.component";
+import SettingThresholds from "./components/monitoring/SystemSettings/settingthresholds.component";
+import CIM from "./components/monitoring/SystemSettings/cim.component";
+import ManageUsers from "./components/monitoring/SystemSettings/manageusers.component";
+
+/*전자 매뉴얼*/
+import Electronmanual from "./components/monitoring/ElectronManual/electronmanual.component";
+
+
+
 import { logout } from "./actions/login/auth";
 import { clearMessage } from "./actions/login/message";
 
@@ -31,8 +58,6 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
-      showAdminBoard: false,
       currentUser: undefined,
     };
 
@@ -47,8 +72,6 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
       });
     }
 
@@ -64,147 +87,62 @@ class App extends Component {
   logOut() {
     this.props.dispatch(logout());
     this.setState({
-      showModeratorBoard: false,
-      showAdminBoard: false,
       currentUser: undefined,
     });
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser } = this.state;
 
     return (
-      <Router history={history}>
-        <div>
-        <Navbar variant="dark" bg="dark" expand="lg">
-          <Container fluid>
-          <Navbar.Brand href="/">SCAS</Navbar.Brand>
-            <Navbar.Toggle aria-controls="navbar-dark-example" />
-            <Navbar.Collapse id="navbar-dark-example">
-              <Nav>
-                <NavDropdown
-                  id="nav-dropdown-dark-example"
-                  title="통계정보"
-                  menuVariant="dark"
-                >
-                  <NavDropdown.Item href="/tutorials">통계정보 조회</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">이상치 차량 조회</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">차량정보 조회</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.4">운전자 교정 정보</NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-              <Nav>
-                <NavDropdown
-                  id="nav-dropdown-dark-example"
-                  title="데이터수집"
-                  menuVariant="dark"
-                >
-                  <NavDropdown.Item href="/existingsensordata">추가 센서 데이터</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li>
-              {showModeratorBoard && (
-                <li className="nav-item">
-                  <Link to={"/mode"} className="nav-link">
-                    Moderate Board
-                  </Link>
-                </li>
-              )}
 
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/tutorials"} className="nav-link">
-                    tutorialList
-                  </Link>
-                </li>
-              )}
+      <div>
+        {
+          currentUser && (<HeaderComp />)
+        }
+        <Router history={history}>
+          <Switch>
 
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/existingsensordata"} className="nav-link">
-                    기존 센서 데이터
-                  </Link>
-                </li>
-              )}
+            <Route exact path="/" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/user" component={BoardUser} />
+            <Route exact path="/mode" component={BoardModerator} />
+     
 
-              {showAdminBoard && (
-                <li className="nav-item">
-                  <Link to={"/admin"} className="nav-link">
-                    Admin Board
-                  </Link>
-                </li>
-              )}
 
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
-                  </Link>
-                </li>
-              )}
-            </div>
+              /*통계정보*/
+            <Route exact path="/statistical" component={Statistical} />
+            <Route exact path="/vehicleinformation" component={VehicleInformation} />
+            <Route exact path="/drivercalibration" component={DriverCalibration} />
+            <Route exact path="/partsreplacementcycle" component={PartsReplacementCycle} />
 
-            {currentUser ? (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
-                  </a>
-                </li>
-              </div>
-            ) : (
-              <div className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">
-                    Login
-                  </Link>
-                </li>
+              /*학습 데이터*/
+            <Route exact path="/learningdata" component={LearningData} />
 
-                <li className="nav-item">
-                  <Link to={"/register"} className="nav-link">
-                    Sign Up
-                  </Link>
-                </li>
-              </div>
-            )}
-          </nav>
+              /*고장진단 모델*/
+            <Route exact path="/randomforest" component={RandomForest} />
+            <Route exact path="/supportvectormachine" component={SupportVectorMachine} />
+            <Route exact path="/multilayerneuralnetworks" component={MultilayerNeuralNetworks} />
+            <Route exact path="/isolateramdhamforest" component={IsolateRamdhamForest} />
+            <Route exact path="/logicicregression" component={LogicicRegession} />
 
-          <div className="container mt-3">
-            <Switch>
-              <Route exact path={["/", "/home"]} component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/user" component={BoardUser} />
-              <Route exact path="/mode" component={BoardModerator} />
-              <Route exact path="/tutorials" component={TutorialsList} />
-              <Route exact path="/existingsensordata" component={ExistingSensorData} />
-              <Route exact path="/add" component={AddTutorial} />
-              <Route exact path="/tutorials/:id" component={Tutorial} />
-              <Route exact path="/admin" component={BoardAdmin} />
-            </Switch>
-          </div>
 
-          {/* <AuthVerify logOut={this.logOut}/> */}
-        </div>
-      </Router>
+              /*잔존수명예지 모델*/
+            <Route exact path="/linearregression" component={LinearRegression} />
+            <Route exact path="/rasoregression" component={RasoRegession} />
+
+              /*시스템 설정*/
+            <Route exact path="/driver_cis" component={Driver_CIS} />
+            <Route exact path="/setting_prc" component={Setting_PRC} />
+            <Route exact path="/settingthresholds" component={SettingThresholds} />
+            <Route exact path="/cim" component={CIM} />
+            <Route exact path="/manageusers" component={ManageUsers} />
+
+              /*전자 매뉴얼*/
+            <Route exact path="/electronmanual" component={Electronmanual} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }
