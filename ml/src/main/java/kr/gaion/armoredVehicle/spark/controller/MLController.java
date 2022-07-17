@@ -103,7 +103,7 @@ public class MLController {
   }
 
   @PostMapping(path = "/api/train/linear")
-  public LinearRegressionTrainResponse trainLinearRegression(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
+  public RegressionResponse trainLinearRegression(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
     return linearRegressor.train(input);
   }
 
@@ -128,9 +128,9 @@ public class MLController {
       case "lr": {
         return this.lr.predict(input);
       }
-      case "linear": {
-        return this.linearRegressor.predict(input);
-      }
+//      case "linear": {
+//        return this.linearRegressor.predict(input);
+//      }
       default: {
         throw new Error("Unsupported algorithm");
       }

@@ -525,6 +525,8 @@ const resources = {
       "ml.regression.maxIter":"최대 반복 횟수",
       "ml.regression.regParams":"일반화 수치",
 
+      
+      "ml.common.r2": "R2 점수",
       "ml.common.ac": "실제 클래스",
       "ml.common.accuracy": "정확도",
       "ml.common.btn.ca": "모두 삭제",
