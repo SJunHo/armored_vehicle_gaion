@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import kr.gaion.armoredVehicle.algorithm.dto.response.AlgorithmResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.LinearRegressionTrainResponse;
+import kr.gaion.armoredVehicle.algorithm.dto.response.RegressionResponse;
 import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.model.AlgorithmResponseDB;
@@ -224,7 +225,7 @@ public class ModelService {
             case "LinearRegression":
             {
   //                model = (ClassificationResponse)response;
-              var model= (LinearRegressionTrainResponse) response;
+              var model= (RegressionResponse) response;
               System.out.println(modelName);
               System.out.println(algorithmName);
               DbModelResponse dbModelResponse = new DbModelResponse();

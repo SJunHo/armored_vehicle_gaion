@@ -11,7 +11,7 @@ import {
 } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Select2 from "react-select";
-import { RandomForestClassificationResponse } from "../api";
+import {LinearRegressionTrainResponse, RandomForestClassificationResponse} from "../api";
 import { OpenApiContext } from "../api/OpenApiContext";
 import { InputWrapper } from "../common/Common";
 import { Section } from "../common/Section/Section";
@@ -34,11 +34,13 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
 
   const { t } = useTranslation();
   const { mlControllerApi } = useContext(OpenApiContext);
-  const [result, setResult] =
-    React.useState<RandomForestClassificationResponse>();
+  const [result, setResult] = React.useState<RandomForestClassificationResponse>();
+  const [result2, setResult2] = React.useState<LinearRegressionTrainResponse>();
+
 
   async function handleTrain(input: any) {
     setResult(undefined);
+    setResult2(undefined);
     setIsTraining(true);
     console.log(algorithmName);
     let newResult;
@@ -85,6 +87,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
     }
 
     setResult(newResult?.data);
+    setResult2(newResult?.data);
     setIsTraining(false);
   }
 
@@ -177,7 +180,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
         </Form>
       </FormProvider>
       {result && (
-        <CreateModelResult algorithmName={algorithmName} result={result} />
+        <CreateModelResult algorithmName={algorithmName} result={result} result2={result2} />
       )}
     </div>
   );

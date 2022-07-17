@@ -10,6 +10,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.LinearRegressionTrainResponse;
+import kr.gaion.armoredVehicle.algorithm.dto.response.RegressionResponse;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
@@ -124,7 +125,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
     }
 
     @Override
-    public ClassificationResponse predict(BaseAlgorithmPredictInput input) throws Exception {
+    public RegressionResponse predict(BaseAlgorithmPredictInput input) throws Exception {
         // BaseAlgorithmPredictInput input: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '예측'을 위한 정보들(Request)
         log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@ ");
 
