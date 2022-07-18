@@ -11,7 +11,7 @@ import {
 } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Select2 from "react-select";
-import {LinearRegressionTrainResponse, RandomForestClassificationResponse} from "../api";
+import {RegressionResponse, RandomForestClassificationResponse} from "../api";
 import { OpenApiContext } from "../api/OpenApiContext";
 import { InputWrapper } from "../common/Common";
 import { Section } from "../common/Section/Section";
@@ -35,7 +35,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
   const { t } = useTranslation();
   const { mlControllerApi } = useContext(OpenApiContext);
   const [result, setResult] = React.useState<RandomForestClassificationResponse>();
-  const [result2, setResult2] = React.useState<LinearRegressionTrainResponse>();
+  const [result2, setResult2] = React.useState<RegressionResponse>();
 
 
   async function handleTrain(input: any) {
@@ -78,7 +78,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
         }
         case "lasso": {
           console.log("lasso");
-          newResult = await mlControllerApi?.trainIsolationForest(input);
+          newResult = await mlControllerApi?.trainLassoRegression(input);
           break;
         }
       }
@@ -101,68 +101,35 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
         : {}),
     });
   }, [algorithmName, methods]);
+
   return (
     <div>
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(handleTrain)}>
-          {algorithmName === "linear" && (
-              <div className="d-flex gap-3">
-                {
-                  algorithmName=="linear"? <LifeDataInputSection algorithmName={algorithmName} /> : <DataInputSection algorithmName={algorithmName} />
-                }
-                <Section
-                    className={styles.trainInputSection}
-                    title={"모델 파라미터 설정"}
-                    bottomTitle=""
-                >
-                  <div className={styles.trainInputBody}>
-                    <InputWrapper title={t("ml.common.stt")}>
-                      <Form.Range
-                          {...register("fraction")}
-                          step={10}
-                          min={0}
-                          max={100}
-                      />
-                      <span>
+          <div className="d-flex gap-3">
+            <DataInputSection algorithmName={algorithmName} />
+            <Section
+                className={styles.trainInputSection}
+                title={"모델 파라미터 설정"}
+                bottomTitle=""
+            >
+              <div className={styles.trainInputBody}>
+                <InputWrapper title={t("ml.common.stt")}>
+                  <Form.Range
+                      {...register("fraction")}
+                      step={10}
+                      min={0}
+                      max={100}
+                  />
+                  <span>
                     {t("ml.common.ratio")} {watch("fraction")}/
-                        {100 - watch("fraction")}
+                    {100 - watch("fraction")}
                   </span>
-                    </InputWrapper>
-                    <AdditionalParams algorithmName={algorithmName} />
-                  </div>
-                </Section>
+                </InputWrapper>
+                <AdditionalParams algorithmName={algorithmName} />
               </div>
-          )
-          }
-          {algorithmName !== "linear" && (
-              <div className="d-flex gap-3">
-                {
-                  algorithmName=="linear"? <LifeDataInputSection algorithmName={algorithmName} /> : <DataInputSection algorithmName={algorithmName} />
-                }
-                <Section
-                    className={styles.trainInputSection}
-                    title={"모델 파라미터 설정"}
-                    bottomTitle=""
-                >
-                  <div className={styles.trainInputBody}>
-                    <InputWrapper title={t("ml.common.stt")}>
-                      <Form.Range
-                          {...register("fraction")}
-                          step={10}
-                          min={0}
-                          max={100}
-                      />
-                      <span>
-                    {t("ml.common.ratio")} {watch("fraction")}/
-                        {100 - watch("fraction")}
-                  </span>
-                    </InputWrapper>
-                    <AdditionalParams algorithmName={algorithmName} />
-                    <PreprocessingSection />
-                  </div>
-                </Section>
-              </div>
-          )}
+            </Section>
+          </div>
           <div className="d-flex flex-row-reverse mt-3 pe-0">
             <Button disabled={isTraining} type="submit">
               {isTraining && (
@@ -342,7 +309,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
       {algorithmName === "kmean" && <KmeanSection />}
       {algorithmName === "if" && <IsolationForestSection />}
       {algorithmName === "linear" && <LinearRegression />}
-      {algorithmName === "lasso" && <IsolationForestSection />}
+      {algorithmName === "lasso" && <LinearRegression />}
 
       <InputWrapper
         labelWidth={6}

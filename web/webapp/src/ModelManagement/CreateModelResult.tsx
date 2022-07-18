@@ -5,18 +5,18 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import { chunk, range, sum } from "lodash";
 import styles from "./styles.module.css";
-import {LinearRegressionTrainResponse, RandomForestClassificationResponse} from "../api/gen";
+import {RegressionResponse, RandomForestClassificationResponse} from "../api/gen";
 import { useParams } from "react-router-dom";
 import { Table } from "../common/Table";
 import { Column } from "react-table";
-import { FlexibleWidthXYPlot, MarkSeries, XAxis, YAxis } from "react-vis";
+import {FlexibleWidthXYPlot, MarkSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, LineMarkSeries, Hint, FlexibleXYPlot} from "react-vis";
 import Select2 from "react-select";
-import { colorPalette2 } from "../Dashboard/Dashboard";
-import {LinearRegression} from "./CreateModelSection";
+import {colorPalette, colorPalette2} from "../Dashboard/Dashboard";
+// import {Scatter, Tooltip, XAxis, YAxis} from 'recharts'
 
 type Props = {
   result: RandomForestClassificationResponse;
-  result2? : LinearRegressionTrainResponse;
+  result2? : RegressionResponse;
   algorithmName: string;
 };
 
@@ -35,7 +35,10 @@ export const CreateModelResult: React.FC<Props> = ({
   } = result;
   const { t } = useTranslation();
 
+  const [value, setValue] = useState<any>();
+
   console.log(result2)
+
   return (
     <Card className="mt-3">
       <Card.Header>
@@ -66,6 +69,59 @@ export const CreateModelResult: React.FC<Props> = ({
                     </Card.Body>
                   </Card>
                 </div>
+                  <div className="col-lg-6">
+                      <Card>
+                          <Card.Header>
+                              <strong>{t("ml.common.residuals_line")}</strong>
+                          </Card.Header>
+                          <Card.Body>
+                              <FlexibleXYPlot height={300}>
+                                  <XAxis />
+                                  <YAxis style={{ fontSize: 10 }} />
+                                  <LineMarkSeries
+                                      data={(result2?.residuals || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      style={{
+                                          strokeWidth: '3px'
+                                      }}
+                                      // lineStyle={{stroke: 'black'}}
+                                      // markStyle={{stroke: 'white'}}
+                                      opacityType="category"
+                                      stroke="black"
+                                      opacity={0.7}
+                                      fill={"white"}
+                                      sizeRange={[1, 2]}
+                                  />
+                              </FlexibleXYPlot>
+                          </Card.Body>
+                      </Card>
+                  </div>
+                  <div className="col-lg-6">
+                      <Card>
+                          <Card.Header>
+                              <strong>{t("ml.common.residuals_histogram")}</strong>
+                          </Card.Header>
+                          <Card.Body>
+                              <FlexibleXYPlot height={250}>
+                                  <XAxis />
+                                  <YAxis style={{ fontSize: 10 }} />
+                                  <MarkSeries
+                                      data={(result2?.residuals || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      opacityType="category"
+                                      stroke="black"
+                                      opacity={0.7}
+                                      fill={"white"}
+                                      sizeRange={[1, 2]}
+                                  />
+                              </FlexibleXYPlot>
+                          </Card.Body>
+                      </Card>
+                  </div>
               </Row>
             </>)
             : algorithmName !== "kmean" && algorithmName !== "if" ? (
@@ -254,7 +310,7 @@ export const ClassificationResult: React.FC<Props> = ({ result,result2 }) => {
       <Card.Body>
         <Container fluid>
           {algorithmName === "linear" || algorithmName === 'lasso' ?  (
-            <Row></Row>
+            <Row> </Row>
             )
             : algorithmName !== "kmean" && algorithmName !== "if" ?  (
               <Row>

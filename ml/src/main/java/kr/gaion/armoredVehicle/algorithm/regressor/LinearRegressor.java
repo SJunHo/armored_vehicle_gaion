@@ -20,11 +20,14 @@ import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.collections.Bag;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.function.ForeachFunction;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.linalg.DenseVector;
 import org.apache.spark.ml.linalg.Vector;
+import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.ml.regression.LinearRegressionTrainingSummary;
 import org.apache.spark.sql.Dataset;
@@ -33,6 +36,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,9 +70,10 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         var test = splittedData[1];
 
         // 모델 생성
-        org.apache.spark.ml.regression.LinearRegression lr = new org.apache.spark.ml.regression.LinearRegression()
+        LinearRegression lr = new LinearRegression()
                 .setMaxIter(maxIterations)
                 .setRegParam(regParam)
+                .setElasticNetParam(0.0) // L2 regularization(Ridge)
                 .setFeaturesCol("features")
                 .setLabelCol("label");
 
@@ -106,9 +111,14 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         LinearRegressionTrainingSummary trainingSummary = lrModel.summary();
 
         // residuals ~> 모델 summary에서 residuals 찾고 웹으로 돌려주어야 하니까 response에 set
-        response.setResiduals(trainingSummary.residuals().collectAsList());
+        // spark dataset의 각 row를 DOuble 타입으로 바꾸고 리스트로 변환. (dataset's row: [[0.1111], [0.2222], ...] -> [0.1111, 0.2222, ...]
+        List<Double> residualsValues = trainingSummary.residuals().map((MapFunction<Row, Double>) row -> row.<Double>getAs(0), Encoders.DOUBLE()).collectAsList();
+        response.setResiduals(residualsValues);
+//        response.setResiduals(trainingSummary.residuals().collectAsList());
+
         // RMSE ~> 모델 summary에서 RMSE 찾고 웹으로 돌려주어야 하니까 response에 set
         response.setRootMeanSquaredError(trainingSummary.rootMeanSquaredError());
+
         // R2 ~> 모델 summary에서 R2 찾고 웹으로 돌려주어야 하니까 response에 set
         response.setR2(trainingSummary.r2());
 

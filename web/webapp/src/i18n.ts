@@ -192,6 +192,9 @@ const resources = {
       "ml.common.lambda": "Lambda",
       "ml.common.rst": "R^2 Statistic",
       "ml.common.rmse": "Root Mean Squared Error(RMSE)",
+      "ml.common.r2": "R2 Square",
+      "ml.common.coefficients": "Coefficients",
+      "ml.common.residuals": "Residuals",
       "ml.common.strp": "Set the regularization parameter.",
       "ml.common.nctp":
         "Number of classes for training/predicting. (Automatically setting)",
@@ -526,7 +529,6 @@ const resources = {
       "ml.regression.regParams":"일반화 수치",
 
       
-      "ml.common.r2": "R2 점수",
       "ml.common.ac": "실제 클래스",
       "ml.common.accuracy": "정확도",
       "ml.common.btn.ca": "모두 삭제",
@@ -649,6 +651,11 @@ const resources = {
       "ml.common.lambda": "람다",
       "ml.common.rst": "결정계수",
       "ml.common.rmse": "평균 제곱근 오차",
+      "ml.common.coefficients": "계수",
+      "ml.common.residuals": "잔차",
+      "ml.common.residuals_line": "잔차 Line Chart",
+      "ml.common.residuals_histogram": "잔차 Histogram",
+      "ml.common.r2": "R 제곱(결정계수)",
       "ml.common.strp": "정규화 매개 변수 설정",
       "ml.common.nctp": "학습/예측을 위한 클래스 수입니다. (자동설정)",
       "ml.common.noaf": "피쳐의 특성 수입니다. (자동설정)",
