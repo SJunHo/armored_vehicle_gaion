@@ -15,6 +15,8 @@ public class User {
   private String email;
 
   private String password;
+  
+  private char usrth;
 
   private Set<Role> roles = new HashSet<>();
 
@@ -67,4 +69,12 @@ public class User {
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
+  
+	public char getUsrth() {
+		return usrth;
+	}
+	
+	public void setUsrth(char usrth) {
+		this.usrth = usrth;
+	}
 }

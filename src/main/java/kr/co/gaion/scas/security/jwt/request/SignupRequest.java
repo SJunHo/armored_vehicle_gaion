@@ -10,7 +10,7 @@ public class SignupRequest {
 
   private String email;
 
-  private Set<String> role;
+  private char usrth;
 
   private String password;
 
@@ -43,11 +43,11 @@ public class SignupRequest {
     this.password = password;
   }
 
-  public Set<String> getRole() {
-    return this.role;
+  public char getUsrth() {
+	  return usrth;
   }
 
-  public void setRole(Set<String> role) {
-    this.role = role;
+  public void setUsrth(char usrth) {
+	  this.usrth = usrth;
   }
 }

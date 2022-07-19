@@ -32,11 +32,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
     User user = userRepository.findById(userid);
     //user에 대한 role 가져오기
-    int roleId = userRolesRepository.findByUserId(user.getId());
-    Role role = roleRepository.findById(roleId);
-    Set<Role> roles = new HashSet<>();
-    roles.add(role);
-    user.setRoles(roles);
+//    int roleId = userRolesRepository.findByUserId(user.getId());
+//    Role role = roleRepository.findById(roleId);
+//    Set<Role> roles = new HashSet<>();
+//    roles.add(role);
+//    user.setRoles(roles);
     
     return UserDetailsImpl.build(user);
   }

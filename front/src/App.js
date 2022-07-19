@@ -9,7 +9,6 @@ import Login from "./components/login/login.component";
 import Register from "./components/login/register.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
 
 
 /*통계정보*/
@@ -19,28 +18,28 @@ import DriverCalibration from "./components/drivercalibration.component"
 import PartsReplacementCycle from "./components/partsreplacementcycle.component"
 
 /*학습데이터 수집*/
-import LearningData from "./components/monitoring/LearningDataCollection/learningdata.component";
+import LearningData from "./components/analysis/LearningDataCollection/learningdata.component";
 
 /*고장진단 모델*/
-import RandomForest from "./components/monitoring/FaultDiagnosisModel/randomforest.component";
-import SupportVectorMachine from "./components/monitoring/FaultDiagnosisModel/supportvectormachine.component";
-import MultilayerNeuralNetworks from "./components/monitoring/FaultDiagnosisModel/multilayerneuralnetworks.component";
-import IsolateRamdhamForest from "./components/monitoring/FaultDiagnosisModel/isolateramdhamforest.component";
-import LogicicRegession from "./components/monitoring/FaultDiagnosisModel/logicicregression.component";
+import RandomForest from "./components/analysis/FaultDiagnosisModel/randomforest.component";
+import SupportVectorMachine from "./components/analysis/FaultDiagnosisModel/supportvectormachine.component";
+import MultilayerNeuralNetworks from "./components/analysis/FaultDiagnosisModel/multilayerneuralnetworks.component";
+import IsolateRamdhamForest from "./components/analysis/FaultDiagnosisModel/isolateramdhamforest.component";
+import LogicicRegession from "./components/analysis/FaultDiagnosisModel/logicicregression.component";
 
 /*잔존수명예지 모델*/
-import LinearRegression from "./components/monitoring/MRLF/linearregression.component";
-import RasoRegession from "./components/monitoring/MRLF/rasoregession.component";
+import LinearRegression from "./components/analysis/MRLF/linearregression.component";
+import RasoRegession from "./components/analysis/MRLF/rasoregession.component";
 
 /*시스템 설정*/
-import Driver_CIS from "./components/monitoring/SystemSettings/driver_cis.component";
-import Setting_PRC from "./components/monitoring/SystemSettings/setting_prc.component";
-import SettingThresholds from "./components/monitoring/SystemSettings/settingthresholds.component";
-import CIM from "./components/monitoring/SystemSettings/cim.component";
-import ManageUsers from "./components/monitoring/SystemSettings/manageusers.component";
+import Driver_CIS from "./components/analysis/SystemSettings/driver_cis.component";
+import Setting_PRC from "./components/analysis/SystemSettings/setting_prc.component";
+import SettingThresholds from "./components/analysis/SystemSettings/settingthresholds.component";
+import CIM from "./components/analysis/SystemSettings/cim.component";
+import ManageUsers from "./components/analysis/SystemSettings/manageusers.component";
 
 /*전자 매뉴얼*/
-import Electronmanual from "./components/monitoring/ElectronManual/electronmanual.component";
+import Electronmanual from "./components/analysis/ElectronManual/electronmanual.component";
 
 
 
@@ -103,23 +102,21 @@ class App extends Component {
         <Router history={history}>
           <Switch>
 
-            <Route exact path="/" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/user" component={BoardUser} />
-            <Route exact path="/mode" component={BoardModerator} />
-     
+            <Route exact path="/" component={Login}/>
+            <Route exact path="/register" component={Register}/>
+            <Route exact path="/user" component={BoardUser}/>
+            <Route exact path="/mode" component={BoardModerator}/>
 
-
-              /*통계정보*/
+              {/*통계정보*/}
             <Route exact path="/statistical" component={Statistical} />
             <Route exact path="/vehicleinformation" component={VehicleInformation} />
             <Route exact path="/drivercalibration" component={DriverCalibration} />
             <Route exact path="/partsreplacementcycle" component={PartsReplacementCycle} />
 
-              /*학습 데이터*/
+              {/*학습 데이터*/}
             <Route exact path="/learningdata" component={LearningData} />
 
-              /*고장진단 모델*/
+              {/*고장진단 모델*/}
             <Route exact path="/randomforest" component={RandomForest} />
             <Route exact path="/supportvectormachine" component={SupportVectorMachine} />
             <Route exact path="/multilayerneuralnetworks" component={MultilayerNeuralNetworks} />
@@ -127,18 +124,18 @@ class App extends Component {
             <Route exact path="/logicicregression" component={LogicicRegession} />
 
 
-              /*잔존수명예지 모델*/
+              {/*잔존수명예지 모델*/}
             <Route exact path="/linearregression" component={LinearRegression} />
             <Route exact path="/rasoregression" component={RasoRegession} />
 
-              /*시스템 설정*/
+              {/*시스템 설정*/}
             <Route exact path="/driver_cis" component={Driver_CIS} />
             <Route exact path="/setting_prc" component={Setting_PRC} />
             <Route exact path="/settingthresholds" component={SettingThresholds} />
             <Route exact path="/cim" component={CIM} />
             <Route exact path="/manageusers" component={ManageUsers} />
 
-              /*전자 매뉴얼*/
+              {/*전자 매뉴얼*/}
             <Route exact path="/electronmanual" component={Electronmanual} />
           </Switch>
         </Router>

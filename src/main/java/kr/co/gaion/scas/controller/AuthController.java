@@ -96,40 +96,10 @@ public class AuthController {
                signUpRequest.getEmail(),
                encoder.encode(signUpRequest.getPassword()));
 
-    Set<String> strRoles = signUpRequest.getRole();
-    Set<Role> roles = new HashSet<>();
-    int role_id = 0;
-    if (strRoles == null) {
-      Role userRole = roleRepository.findByName(ERole.ROLE_USER);
-      roles.add(userRole);
-    } else {
-      strRoles.forEach(role -> {
-        switch (role) {
-        case "admin":
-          Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
-          roles.add(adminRole);
-          break;
-        case "mod":
-          Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR);
-          roles.add(modRole);
-          break;
-        default:
-          Role userRole = roleRepository.findByName(ERole.ROLE_USER);
-          roles.add(userRole);
-        }
-      });
-    }
-    
-    Iterator<Role> iter = roles.iterator();
-    while(iter.hasNext()) {
-    	role_id = iter.next().getId();
-    }
-    UserRole userRoles = new UserRole();
-    userRoles.setUser_id(user.getId());
-    userRoles.setRole_id(role_id);
-    user.setRoles(roles);
+    char strRoles = signUpRequest.getUsrth();    
+
+    user.setUsrth(strRoles);
     userRepository.insertUser(user);
-    userRoleRepository.insertUserRoles(userRoles);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }

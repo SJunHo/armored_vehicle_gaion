@@ -1,5 +1,6 @@
 package kr.co.gaion.scas.security.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.List;
@@ -38,9 +39,14 @@ public class UserDetailsImpl implements UserDetails {
   }
 
   public static UserDetailsImpl build(User user) {
-    List<GrantedAuthority> authorities = user.getRoles().stream()
-        .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-        .collect(Collectors.toList());
+	  List<GrantedAuthority> authorities = new ArrayList<>();
+	    if(user.getUsrth() == 'N') {
+	    	authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+	    }else if(user.getUsrth() == 'A') {
+	    	authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+	    }else if(user.getUsrth() == 'M') {
+	    	authorities.add(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+	    }
     return new UserDetailsImpl(
         user.getId(), 
         user.getUsername(), 
