@@ -20,7 +20,7 @@ import kr.co.gaion.scas.monitoring.model.ThresholdResponse;
 import kr.co.gaion.scas.monitoring.service.ThresholdService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8083")
 @RequestMapping("/api/threshold")
 public class ThresholdController {
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "../login/auth-header";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://localhost:8082";
 
 class DataCollectionService{
     upload(file, onUploadProgress) {

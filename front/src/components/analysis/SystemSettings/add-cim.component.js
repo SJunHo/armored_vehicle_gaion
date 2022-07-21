@@ -1,88 +1,51 @@
 import React, { Component } from "react";
 import cimService from "../../../services/analysis/cim.service";
 
-export default class CIM extends Component {
+
+export default class AddCIM extends Component {
   constructor(props) {
     super(props);
-    this.getCmncd = this.getCmncd.bind(this);
+
     this.saveCmncd = this.saveCmncd.bind(this);
-    this.deleteCmncd = this.deleteCmncd.bind(this);
-
     this.state = {
-      cmncdid : "",
-      changedCode : "",
-      changedGroupcode : "",
-      changedExpln : "",
-      changedUsedvcd : "",
-      changedVar : "",
+        changedCode : "",
+        changedGroupcode : "",
+        changedExpln : "",
+        changedUsedvcd : "",
+        changedVar : "",
     };
   }
-
-  componentDidMount(){
-    this.getCmncd(this.props.match.params.id);
-  }
-
-  getCmncd(id){
-    cimService.get(id)
-    .then((response) => {
-      console.log(response);
-      this.setState({
-        cmncdid : response.data.cmncdid,
-        changedCode : response.data.code,
-        changedGroupcode : response.data.groupcode,
-        changedExpln : response.data.expln,
-        changedUsedvcd : response.data.usedvcd,
-        changedVar : response.data.var,
-      });
-      console.log(response.data);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-  }
-
-  saveCmncd(){
-    var data = {
-        cmncdid : this.state.cmncdid,
-        code : this.state.changedCode,
-        expln : this.state.changedExpln,
-        usedvcd : this.state.changedUsedvcd,
-        var : this.state.changedVar,
-        groupcode : this.state.changedGroupcode,
-    };
-
-    cimService.update(data)
-    .then((reponse) => {
-        console.log(reponse);
-        window.location.href = "/cimList";
-        })
-        .catch((e) => {
-        console.log(e);
-        });
-  } 
-
-  deleteCmncd(){
-    var result = window.confirm("정말 삭제하시겠습니까?");
-    if(result){
-      cimService.delete(this.state.cmncdid)
-      .then((reponse) => {
-        alert("삭제되었습니다");
-        window.location.href = "/cimList";
-        })
-        .catch((e) => {
-        console.log(e);
-        });
-    }else{
-      return;
+  componentDidUpdate(prevState,prevProp){
+    if(prevState.changedUsedvcd !== this.state.changedUsedvcd){
+        console.log(this.state.changedUsedvcd);
     }
   }
+  saveCmncd(){
+        var data = {
+            code : this.state.changedCode,
+            expln : this.state.changedExpln,
+            usedvcd : this.state.changedUsedvcd,
+            var : this.state.changedVar,
+            groupcode : this.state.changedGroupcode
+        };
+
+        cimService.create(data)
+        .then((reponse) => {
+            console.log(reponse);
+            window.location.href = "/cimList";
+            })
+            .catch((e) => {
+            console.log(e);
+            });
+    }
+    
 
   render() {
     return (
       <div className="container">
         <header className="jumbotron">
-        공통정보 하나
-        </header>   
+        공통정보 등록
+        </header>  
         <div>
             <div className="form-group">
               <label htmlFor="group">그룹</label>
@@ -91,7 +54,6 @@ export default class CIM extends Component {
                 className="form-control"
                 id="group"
                 required
-                defaultValue={this.state.changedGroupcode}
                 onChange={(e)=> this.setState({changedGroupcode : e.target.value})}
                 name="group"
               />
@@ -104,7 +66,6 @@ export default class CIM extends Component {
                 className="form-control"
                 id="code"
                 required
-                defaultValue={this.state.changedCode}
                 onChange={(e)=> this.setState({changedCode : e.target.value})}
                 name="code"
               />
@@ -117,7 +78,6 @@ export default class CIM extends Component {
                 className="form-control"
                 id="var"
                 required
-                defaultValue={this.state.changedVar}
                 onChange={(e)=> this.setState({changedVar : e.target.value})}
                 name="var"
               />
@@ -130,7 +90,6 @@ export default class CIM extends Component {
                 className="form-control"
                 id="expln"
                 required
-                defaultValue={this.state.changedExpln}
                 onChange={(e)=> this.setState({changedExpln : e.target.value})}
                 name="expln"
               />
@@ -141,27 +100,23 @@ export default class CIM extends Component {
               <input type="radio"
                 id="useY"
                 required
-                checked={this.state.changedUsedvcd === "Y"}
                 onChange={(e)=> this.setState({changedUsedvcd : 'Y'})}
                 name="usedvcd"
               />사용
               <input type="radio"
                 id="useN"
                 required
-                checked={this.state.changedUsedvcd === "N"}
                 onChange={(e)=> this.setState({changedUsedvcd : 'N'})}
                 name="usedvcd"
               />미사용
             </div>
 
             <button onClick={this.saveCmncd} className="btn btn-success">
-              수정
+              생성
             </button>
-            <button onClick={this.deleteCmncd} className="btn btn-danger">
-              삭제
-            </button>
-          </div>   
+          </div>
       </div>
     );
   }
 }
+

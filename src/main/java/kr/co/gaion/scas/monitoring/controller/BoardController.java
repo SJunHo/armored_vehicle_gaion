@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import kr.co.gaion.scas.monitoring.mapper.BoardMapper;
 import kr.co.gaion.scas.monitoring.model.Board;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8083")
 @RestController
 @RequestMapping("/api/board")
 public class BoardController {

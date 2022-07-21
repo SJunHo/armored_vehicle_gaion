@@ -36,6 +36,8 @@ import Driver_CIS from "./components/analysis/SystemSettings/driver_cis.componen
 import Setting_PRC from "./components/analysis/SystemSettings/setting_prc.component";
 import SettingThresholds from "./components/analysis/SystemSettings/settingthresholds.component";
 import CIM from "./components/analysis/SystemSettings/cim.component";
+import CIMList from "./components/analysis/SystemSettings/cim-list.component";
+import AddCIM from "./components/analysis/SystemSettings/add-cim.component";
 import ManageUsers from "./components/analysis/SystemSettings/manageusers.component";
 
 /*전자 매뉴얼*/
@@ -132,7 +134,9 @@ class App extends Component {
             <Route exact path="/driver_cis" component={Driver_CIS} />
             <Route exact path="/setting_prc" component={Setting_PRC} />
             <Route exact path="/settingthresholds" component={SettingThresholds} />
-            <Route exact path="/cim" component={CIM} />
+            <Route exact path="/cimList" component={CIMList} />
+            <Route exact path="/cimAdd" component={AddCIM} />
+            <Route exact path="/cim/:id" component={CIM} />
             <Route exact path="/manageusers" component={ManageUsers} />
 
               {/*전자 매뉴얼*/}

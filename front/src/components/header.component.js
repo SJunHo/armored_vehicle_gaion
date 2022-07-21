@@ -120,7 +120,7 @@ class HeaderComp extends Component {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/settingthresholds">임계값 설정</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/CIM">공통정보 관리</NavDropdown.Item>
+                <NavDropdown.Item href="/cimList">공통정보 관리</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/manageusers">사용자 관리</NavDropdown.Item>
               </NavDropdown>
