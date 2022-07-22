@@ -208,13 +208,11 @@ public class ModelService {
             {
 //                  model = (ClassificationResponse)response;
                   var model= (RegressionResponse) response;
-                  System.out.println(modelName);
-                  System.out.println(algorithmName);
                   DbModelResponse dbModelResponse = new DbModelResponse();
                   dbModelResponse.setModelName(modelName);
                   dbModelResponse.setType(algorithmName);
                   dbModelResponse.setCoefficients(model.getCoefficients());
-                  dbModelResponse.setResiduals(model.getResiduals());
+//                  dbModelResponse.setResiduals(model.getResiduals());
                   dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
                   dbModelResponse.setR2(model.getR2());
 
@@ -224,13 +222,11 @@ public class ModelService {
             {
                 //                model = (ClassificationResponse)response;
                 var model= (RegressionResponse) response;
-                System.out.println(modelName);
-                System.out.println(algorithmName);
                 DbModelResponse dbModelResponse = new DbModelResponse();
                 dbModelResponse.setModelName(modelName);
                 dbModelResponse.setType(algorithmName);
                 dbModelResponse.setCoefficients(model.getCoefficients());
-                dbModelResponse.setResiduals(model.getResiduals());
+//                dbModelResponse.setResiduals(model.getResiduals());
                 dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
                 dbModelResponse.setR2(model.getR2());
                 dbModelResponse.setListFeatures(model.getListFeatures());

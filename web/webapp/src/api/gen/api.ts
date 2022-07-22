@@ -869,6 +869,12 @@ export interface DbModelResponse {
      * @memberof DbModelResponse
      */
     listFeatures?: Array<string>;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof DbModelResponse
+     */
+    residuals?: Array<object>;
 }
 /**
  * 
@@ -893,13 +899,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
 }
 /**
  * 
@@ -1087,139 +1093,6 @@ export interface ImportESDataFromFileInput {
 /**
  * 
  * @export
- * @interface LinearRegressionTrainResponse
- */
-export interface LinearRegressionTrainResponse {
-    /**
-     * 
-     * @type {ResponseType}
-     * @memberof LinearRegressionTrainResponse
-     */
-    type?: ResponseType;
-    /**
-     * 
-     * @type {ResponseStatus}
-     * @memberof LinearRegressionTrainResponse
-     */
-    status?: ResponseStatus;
-    /**
-     * 
-     * @type {string}
-     * @memberof LinearRegressionTrainResponse
-     */
-    message?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LinearRegressionTrainResponse
-     */
-    idCol?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    listFeatures?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof LinearRegressionTrainResponse
-     */
-    classCol?: string;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    confusionMatrix?: Array<number>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    labels?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedFalsePositiveRate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedFMeasure?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    accuracy?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedPrecision?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedRecall?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedTruePositiveRate?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    predictionInfo?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    predictedActualFeatureLine?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    predictedFeatureLine?: Array<string>;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    coefficients?: Array<number>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    residuals?: Array<object>;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    rootMeanSquaredError?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    r2?: number;
-}
-/**
- * 
- * @export
  * @interface PageRailSensorData
  */
 export interface PageRailSensorData {
@@ -1325,13 +1198,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
 }
 /**
  * 
@@ -1718,6 +1591,91 @@ export interface RandomForestClassificationResponse {
      * @memberof RandomForestClassificationResponse
      */
     decisionTree?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RegressionResponse
+ */
+export interface RegressionResponse {
+    /**
+     * 
+     * @type {ResponseType}
+     * @memberof RegressionResponse
+     */
+    type?: ResponseType;
+    /**
+     * 
+     * @type {ResponseStatus}
+     * @memberof RegressionResponse
+     */
+    status?: ResponseStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegressionResponse
+     */
+    message?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegressionResponse
+     */
+    idCol?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RegressionResponse
+     */
+    listFeatures?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegressionResponse
+     */
+    classCol?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RegressionResponse
+     */
+    predictionInfo?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RegressionResponse
+     */
+    predictedActualFeatureLine?: Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RegressionResponse
+     */
+    predictedFeatureLine?: Array<string>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof RegressionResponse
+     */
+    coefficients?: Array<number>;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof RegressionResponse
+     */
+    residuals?: Array<object>;
+    /**
+     * 
+     * @type {number}
+     * @memberof RegressionResponse
+     */
+    rootMeanSquaredError?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RegressionResponse
+     */
+    r2?: number;
 }
 /**
  * 
@@ -3664,6 +3622,45 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        trainLassoRegression: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
+            assertParamExists('trainLassoRegression', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
+            const localVarPath = `/api/train/lasso`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(baseAlgorithmTrainInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         trainLinearRegression: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
             assertParamExists('trainLinearRegression', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
@@ -4018,7 +4015,17 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trainLinearRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LinearRegressionTrainResponse>> {
+        async trainLassoRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegressionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.trainLassoRegression(baseAlgorithmTrainInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async trainLinearRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegressionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trainLinearRegression(baseAlgorithmTrainInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4182,7 +4189,16 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trainLinearRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<LinearRegressionTrainResponse> {
+        trainLassoRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<RegressionResponse> {
+            return localVarFp.trainLassoRegression(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        trainLinearRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<RegressionResponse> {
             return localVarFp.trainLinearRegression(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4352,6 +4368,17 @@ export class MlControllerApi extends BaseAPI {
      */
     public trainKmean(clusterTrainInput: ClusterTrainInput, options?: any) {
         return MlControllerApiFp(this.configuration).trainKmean(clusterTrainInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public trainLassoRegression(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any) {
+        return MlControllerApiFp(this.configuration).trainLassoRegression(baseAlgorithmTrainInput, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -464,7 +464,7 @@ export const LinearRegression: React.FC = () => {
         <Form.Control
           type="number"
           {...register("maxIter", { valueAsNumber: true, value: 100 })}
-          placeholder={"기본횟수 100"}
+          placeholder={"default iteration 100"}
         />
       </InputWrapper>
       <InputWrapper
@@ -476,6 +476,7 @@ export const LinearRegression: React.FC = () => {
         <Form.Control
           type="number"
           {...register("regParams", { valueAsNumber: true, value: 0.0 }, )}
+          placeholder={"default value 0.0"}
         />
       </InputWrapper>
     </>

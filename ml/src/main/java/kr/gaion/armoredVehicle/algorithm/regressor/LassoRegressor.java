@@ -88,7 +88,9 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
         if (config.getFraction() < 100.0) {
             var jvRddPredictionInfo = evaluateTest(test, lrModel);  // test 데이터셋(실제 값, feature)과 학습된 모델 결과(test 데이터셋에 대한 예측값)를 묶음
             // prediction-actual information
-            response.setPredictionInfo(jvRddPredictionInfo.takeAsList(algorithmConfig.getMaxResult()));
+//            response.setPredictionInfo(jvRddPredictionInfo.takeAsList(algorithmConfig.getMaxResult()));
+            response.setPredictionInfo(jvRddPredictionInfo.takeAsList((int) jvRddPredictionInfo.count()));
+            // -> test set의 모든 예측값, 실제값, features 가져와서 response
         }
 
         // Print the coefficients and intercept for linear regression. ~> coefficients 계산하고 순서에 맞게 인덱스를 달아 리스트로 묶음
