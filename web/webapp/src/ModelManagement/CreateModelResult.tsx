@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
-import { chunk, range, sum } from "lodash";
+import {chunk, range, sum, zip} from "lodash";
 import styles from "./styles.module.css";
 import {RegressionResponse, RandomForestClassificationResponse} from "../api/gen";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ import {
 } from "react-vis";
 import Select2 from "react-select";
 import {colorPalette, colorPalette2} from "../Dashboard/Dashboard";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
   result: RandomForestClassificationResponse;
@@ -54,7 +55,10 @@ export const CreateModelResult: React.FC<Props> = ({
         residualList.push(x)
     })
 
-    const [eachResidualValue, setEachResidualValue] = useState<any>();
+    const actualPredictedValues = zip(actualValues, predictedValues)
+
+    const [eachResidualValue, setEachResidualValue] = useState<any>([]);
+    // console.log(eachResidualValue)
 
     return (
     <Card className="mt-3">
@@ -152,16 +156,16 @@ export const CreateModelResult: React.FC<Props> = ({
                                       tickTotal = { 10 }
                                   />
                                   <LineSeries
-                                      data={(actualValues || []).map((data: any, index: any) => ({
-                                          x: index,
-                                          y: data,
+                                      data={(actualPredictedValues || []).map((data: any, index: any) => ({
+                                          x: data[1],
+                                          y: data[1],
                                       }))}
                                       stroke="#9E520D"
                                   />
                                   <MarkSeries
-                                      data={(predictedValues || []).map((data: any, index: any) => ({
-                                          x: index,
-                                          y: data,
+                                      data={(actualPredictedValues || []).map((data: any, index: any) => ({
+                                          x: data[0],
+                                          y: data[1],
                                       }))}
                                       sizeType="literal"
                                       _sizeValue={1}
@@ -177,26 +181,34 @@ export const CreateModelResult: React.FC<Props> = ({
                               <strong>{t("ml.common.residuals_line")}</strong>
                           </Card.Header>
                           <Card.Body>
-                              <FlexibleXYPlot height={300}>
-                                  <XAxis
-                                      style={{ fontSize: 12 }}
-                                      tickTotal = { 10 }
-                                  />
-                                  <YAxis
-                                      style={{ fontSize: 12 }}
-                                      tickTotal = { 10 }
-                                  />
-                                  <LineSeries
-                                      // data={(result2?.residuals || []).map((data: any, index: any) => ({
-                                      data={(residualList || []).map((data: any, index: any) => ({
-                                          x: index,
-                                          y: data,
-                                      }))}
-                                      stroke="#3296D7"
-                                      onNearestXY={(v) => setEachResidualValue(v.y)}
-                                      onSeriesMouseOut={() => setEachResidualValue(undefined)}
-                                  />
-                              </FlexibleXYPlot>
+                              <div data-tip data-for="tooltip">
+                                  <FlexibleXYPlot height={300}>
+                                      <XAxis
+                                          // title="index"
+                                          style={{ fontSize: 12 }}
+                                          tickTotal = { 10 }
+                                      />
+                                      <YAxis
+                                          // title="value"
+                                          style={{ fontSize: 12 }}
+                                          tickTotal = { 10 }
+                                      />
+                                      <LineSeries
+                                          // data={(result2?.residuals || []).map((data: any, index: any) => ({
+                                          data={(residualList || []).map((data: any, index: any) => ({
+                                              x: index,
+                                              y: data,
+                                          }))}
+                                          stroke="#3296D7"
+                                          onNearestXY={(v) => setEachResidualValue([v.x, v.y])}
+                                          onSeriesMouseOut={() => setEachResidualValue([undefined, undefined])}
+                                      />
+                                  </FlexibleXYPlot>
+                              </div>
+                              <ReactTooltip id="tooltip">
+                                  <div> {eachResidualValue[0]} </div>
+                                  <div> {t("ml.common.residuals") + " : " + eachResidualValue[1]?.toFixed(3)} </div>
+                              </ReactTooltip>
                           </Card.Body>
                       </Card>
                   </div>
@@ -411,7 +423,7 @@ export const ClassificationResult: React.FC<Props> = ({ result,result2 }) => {
   return (
     <Card>
       <Card.Header>
-        <strong>{t("ml.common.cr")}</strong>
+        <strong>{t("ml.common.result")}</strong>
       </Card.Header>
       <Card.Body>
         <Container fluid>
@@ -517,7 +529,7 @@ export const PredictionInfoSection: React.FC<{
   );
   return (
     <Container fluid>
-      <h4 className={styles.center}>{t("ml.common.paf")}</h4>
+      {/*<h4 className={styles.center}>{t("ml.common.result")}</h4>*/}
       <div style={{ width: "100%", overflowX: "scroll" }}>
         <Table
           data={data}

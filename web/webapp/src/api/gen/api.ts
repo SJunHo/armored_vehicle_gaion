@@ -1101,13 +1101,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1186,13 +1186,13 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    pageNumber?: number;
     /**
      * 
      * @type {boolean}
