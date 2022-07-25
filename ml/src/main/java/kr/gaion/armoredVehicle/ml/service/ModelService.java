@@ -3,43 +3,29 @@ package kr.gaion.armoredVehicle.ml.service;
 import com.google.gson.Gson;
 import kr.gaion.armoredVehicle.algorithm.dto.response.AlgorithmResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
-import kr.gaion.armoredVehicle.algorithm.dto.response.LinearRegressionTrainResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.RegressionResponse;
 import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
-import kr.gaion.armoredVehicle.database.model.AlgorithmResponseDB;
 import kr.gaion.armoredVehicle.database.model.DbModelResponse;
-import kr.gaion.armoredVehicle.database.repository.AlgorithmResponseDBRepository;
 import kr.gaion.armoredVehicle.database.repository.DBModelResponseRepository;
-import kr.gaion.armoredVehicle.database.repository.FileInfoRepository;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 //import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
-import kr.gaion.armoredVehicle.ml.dto.ModelResponse;
 import kr.gaion.armoredVehicle.ml.dto.input.UpdateModelInput;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.index.IndexNotFoundException;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
@@ -81,7 +67,6 @@ public class ModelService {
     dbModelResponseRepository.save(dbModelResponse);
     return dbModelResponse;
   }
-
 
   //수정완료
 //  public boolean deleteModel(String algorithmName, String esId) throws Exception {
@@ -149,8 +134,6 @@ public class ModelService {
     public List<DbModelResponse> getModelResponse(String algorithm){
         return dbModelResponseRepository.getModelResponseListByAlgorithm(algorithm);
     }
-
-
 
 	public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName) throws IOException {
 		// Delete old data
@@ -221,22 +204,34 @@ public class ModelService {
               dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
               dbModelResponseRepository.save(dbModelResponse);
             }
-
             case "LinearRegression":
             {
-  //                model = (ClassificationResponse)response;
-              var model= (RegressionResponse) response;
-              System.out.println(modelName);
-              System.out.println(algorithmName);
-              DbModelResponse dbModelResponse = new DbModelResponse();
-              dbModelResponse.setModelName(modelName);
-              dbModelResponse.setType(algorithmName);
-              dbModelResponse.setCoefficients(model.getCoefficients());
-//              dbModelResponse.setResiduals(model.getResiduals());
-              dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
-              dbModelResponse.setR2(model.getR2());
+//                  model = (ClassificationResponse)response;
+                  var model= (RegressionResponse) response;
+                  DbModelResponse dbModelResponse = new DbModelResponse();
+                  dbModelResponse.setModelName(modelName);
+                  dbModelResponse.setType(algorithmName);
+                  dbModelResponse.setCoefficients(model.getCoefficients());
+//                  dbModelResponse.setResiduals(model.getResiduals());
+                  dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
+                  dbModelResponse.setR2(model.getR2());
 
-              dbModelResponseRepository.save(dbModelResponse);
+                  dbModelResponseRepository.save(dbModelResponse);
+            }
+            case "LassoRegression":
+            {
+                //                model = (ClassificationResponse)response;
+                var model= (RegressionResponse) response;
+                DbModelResponse dbModelResponse = new DbModelResponse();
+                dbModelResponse.setModelName(modelName);
+                dbModelResponse.setType(algorithmName);
+                dbModelResponse.setCoefficients(model.getCoefficients());
+//                dbModelResponse.setResiduals(model.getResiduals());
+                dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
+                dbModelResponse.setR2(model.getR2());
+                dbModelResponse.setListFeatures(model.getListFeatures());
+
+                dbModelResponseRepository.save(dbModelResponse);
             }
         }
 //		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));

@@ -52,6 +52,7 @@ public class DbModelResponse {
 
     @Column(name = "weighted_true_positive_rate")
     private double weightedTruePositiveRate;
+
     // Regression
     @Type(type="json")
     @Column( name = "coefficients",columnDefinition = "json")
@@ -67,8 +68,8 @@ public class DbModelResponse {
     @Column(name = "listFeatures")
     private String[] listFeatures;
 
-//    @Type(type = "json")
-//    @Column( name = "residuals",columnDefinition = "json")
-//    private List<?> residuals;
+    @Type(type = "json")
+    @Column(name = "residuals", columnDefinition = "json")
+    private List<?> residuals;
 
 }

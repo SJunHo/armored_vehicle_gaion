@@ -1,29 +1,30 @@
-import React, { useMemo, useState } from "react";
+import React, {useMemo, useRef, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import { chunk, range, sum } from "lodash";
 import styles from "./styles.module.css";
-import {LinearRegressionTrainResponse, RandomForestClassificationResponse} from "../api/gen";
+import {RegressionResponse, RandomForestClassificationResponse} from "../api/gen";
 import { useParams } from "react-router-dom";
 import { Table } from "../common/Table";
 import { Column } from "react-table";
-import { FlexibleWidthXYPlot, MarkSeries, XAxis, YAxis } from "react-vis";
+import {
+    FlexibleWidthXYPlot, MarkSeries, FlexibleXYPlot, VerticalBarSeries, LineSeries, DiscreteColorLegend, XAxis, YAxis, Hint, Crosshair
+} from "react-vis";
 import Select2 from "react-select";
-import { colorPalette2 } from "../Dashboard/Dashboard";
-import {LinearRegression} from "./CreateModelSection";
+import {colorPalette, colorPalette2} from "../Dashboard/Dashboard";
 
 type Props = {
   result: RandomForestClassificationResponse;
-  result2? : LinearRegressionTrainResponse;
+  result2? : RegressionResponse;
   algorithmName: string;
 };
 
 export const CreateModelResult: React.FC<Props> = ({
   result,
   result2,
-  algorithmName
+  algorithmName,
 }) => {
   const {
     accuracy,
@@ -36,7 +37,26 @@ export const CreateModelResult: React.FC<Props> = ({
   const { t } = useTranslation();
 
   console.log(result2)
-  return (
+
+    var indexList: number[] = []
+    var predictedValues: number[] = []
+    var actualValues: number[] = []
+    var residualList: number[] = []
+
+    result2?.predictionInfo?.forEach((value1, index, array) => {
+        indexList.push(index)
+        predictedValues.push(Number(value1.split(',')[0]))
+        actualValues.push(Number(value1.split(',')[1]))
+    })
+
+    actualValues.forEach((value1, index) => {
+        var x = actualValues[index] - predictedValues[index]
+        residualList.push(x)
+    })
+
+    const [eachResidualValue, setEachResidualValue] = useState<any>();
+
+    return (
     <Card className="mt-3">
       <Card.Header>
         <strong>{t("ml.common.mei")}</strong>
@@ -66,8 +86,150 @@ export const CreateModelResult: React.FC<Props> = ({
                     </Card.Body>
                   </Card>
                 </div>
+                  <div className="col-lg-6">
+                      <Card>
+                          <Card.Header>
+                              <strong>{t("ml.common.actual_predicted_line")}</strong>
+                          </Card.Header>
+                          <Card.Body>
+                              <div>
+                                  <DiscreteColorLegend
+                                      orientation="vertical"
+                                      items={[
+                                          {title: 'Actual Values', color: '#9E520D'},
+                                          {title: 'Predicted Values', color: '#00819E'}
+                                      ]}
+                                  />
+                              </div>
+                              <FlexibleXYPlot height={300}>
+                                  <XAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <YAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <LineSeries
+                                      data={(actualValues || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      stroke="#9E520D"
+                                  />
+                                  <LineSeries
+                                      data={(predictedValues || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      stroke="#00819E"
+                                      strokeStyle="solid"
+                                  />
+                              </FlexibleXYPlot>
+                          </Card.Body>
+                      </Card>
+                  </div>
+                  <div className="col-lg-6">
+                      <Card>
+                          <Card.Header>
+                              <strong>{t("ml.common.actual_predicted_scatter")}</strong>
+                          </Card.Header>
+                          <Card.Body>
+                              <DiscreteColorLegend
+                                  orientation="vertical"
+                                  items={[
+                                      {title: 'Actual Values', color: '#9E520D'},
+                                      {title: 'Predicted Values', color: 'black'}
+                                  ]}
+                              />
+                              <FlexibleXYPlot height={300}>
+                                  <XAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <YAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <LineSeries
+                                      data={(actualValues || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      stroke="#9E520D"
+                                  />
+                                  <MarkSeries
+                                      data={(predictedValues || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      sizeType="literal"
+                                      _sizeValue={1}
+                                      color="black"
+                                  />
+                              </FlexibleXYPlot>
+                          </Card.Body>
+                      </Card>
+                  </div>
+                  <div className="col-lg-6">
+                      <Card>
+                          <Card.Header>
+                              <strong>{t("ml.common.residuals_line")}</strong>
+                          </Card.Header>
+                          <Card.Body>
+                              <FlexibleXYPlot height={300}>
+                                  <XAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <YAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <LineSeries
+                                      // data={(result2?.residuals || []).map((data: any, index: any) => ({
+                                      data={(residualList || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      stroke="#3296D7"
+                                      onNearestXY={(v) => setEachResidualValue(v.y)}
+                                      onSeriesMouseOut={() => setEachResidualValue(undefined)}
+                                  />
+                              </FlexibleXYPlot>
+                          </Card.Body>
+                      </Card>
+                  </div>
+                  <div className="col-lg-6">
+                      <Card>
+                          <Card.Header>
+                              <strong>{t("ml.common.residuals_histogram")}</strong>
+                          </Card.Header>
+                          <Card.Body>
+                              <FlexibleXYPlot height={300}>
+                                  <XAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <YAxis
+                                      style={{ fontSize: 12 }}
+                                      tickTotal = { 10 }
+                                  />
+                                  <LineSeries
+                                      // data={(result2?.residuals || []).map((data: any, index: any) => ({
+                                      data={(residualList || []).map((data: any, index: any) => ({
+                                          x: index,
+                                          y: data,
+                                      }))}
+                                      stroke="black"
+                                  />
+                              </FlexibleXYPlot>
+                          </Card.Body>
+                      </Card>
+                  </div>
               </Row>
             </>)
+
             : algorithmName !== "kmean" && algorithmName !== "if" ? (
               <>
               <Row>
@@ -254,7 +416,7 @@ export const ClassificationResult: React.FC<Props> = ({ result,result2 }) => {
       <Card.Body>
         <Container fluid>
           {algorithmName === "linear" || algorithmName === 'lasso' ?  (
-            <Row></Row>
+            <Row> </Row>
             )
             : algorithmName !== "kmean" && algorithmName !== "if" ?  (
               <Row>

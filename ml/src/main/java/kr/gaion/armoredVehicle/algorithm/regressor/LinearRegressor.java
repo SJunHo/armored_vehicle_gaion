@@ -20,11 +20,15 @@ import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.collections.Bag;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.function.ForeachFunction;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.linalg.DenseVector;
 import org.apache.spark.ml.linalg.Vector;
+import org.apache.spark.ml.linalg.Vectors;
+import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.ml.regression.LinearRegressionTrainingSummary;
 import org.apache.spark.sql.Dataset;
@@ -33,6 +37,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,18 +69,25 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         var splittedData = this.splitTrainTest(rowOriginalData, config.getSeed(), config.getFraction()); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 splitTrainTest 메소드를 this로 호출
         var train = splittedData[0];
         var test = splittedData[1];
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Train set Count: " + train.count());  // Train set Count: 24974 (8:2)
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Test set Count: " +test.count()); // Test set Count: 6298 (8:2)
 
         // 모델 생성
-        org.apache.spark.ml.regression.LinearRegression lr = new org.apache.spark.ml.regression.LinearRegression()
+        LinearRegression lr = new LinearRegression()
                 .setMaxIter(maxIterations)
                 .setRegParam(regParam)
+                .setElasticNetParam(0.0) // L2 regularization(Ridge)
                 .setFeaturesCol("features")
                 .setLabelCol("label");
 
         // Fit the model.
         LinearRegressionModel lrModel = lr.fit(train);
 
-        // TODO: save 기능 확인하기
+//        // Predict
+//        Dataset<Row> predicted = lrModel.transform(test);
+//        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Predict to Test Dataset. @@@@@@@@@@@@@@@@@@@@@@@@@");
+//        predicted.show();
+
         // Save model
         log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Saving model ... @@@@@@@@@@@@@@@@@@@@@@@@@");
         var modelFullPathName = this.saveModel(config, lrModel); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 saveModel 메소드를 this로 호출
@@ -88,7 +100,9 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         if (config.getFraction() < 100.0) {
             var jvRddPredictionInfo = evaluateTest(test, lrModel);  // test 데이터셋(실제 값, feature)과 학습된 모델 결과(test 데이터셋에 대한 예측값)를 묶음
             // prediction-actual information
-            response.setPredictionInfo(jvRddPredictionInfo.takeAsList(algorithmConfig.getMaxResult()));
+//            response.setPredictionInfo(jvRddPredictionInfo.takeAsList(algorithmConfig.getMaxResult()));
+            response.setPredictionInfo(jvRddPredictionInfo.takeAsList((int) jvRddPredictionInfo.count()));
+            // -> test set의 모든 예측값, 실제값, features 가져와서 response
         }
 
         // Print the coefficients and intercept for linear regression. ~> coefficients 계산하고 순서에 맞게 인덱스를 달아 리스트로 묶음
@@ -105,10 +119,16 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         // Summarize the model over the training set and print out some metrics. ~> 모델 summary
         LinearRegressionTrainingSummary trainingSummary = lrModel.summary();
 
+        // residual 수정함 (trainingSummary에서 안쓰고 실제값 - 예측값)
         // residuals ~> 모델 summary에서 residuals 찾고 웹으로 돌려주어야 하니까 response에 set
-        response.setResiduals(trainingSummary.residuals().collectAsList());
+        // spark dataset의 각 row를 DOuble 타입으로 바꾸고 리스트로 변환. (dataset's row like [[0.1111], [0.2222], ...] -> [0.1111, 0.2222, ...]
+//        List<Double> residualsValues = trainingSummary.residuals().map((MapFunction<Row, Double>) row -> row.<Double>getAs(0), Encoders.DOUBLE()).collectAsList();
+//        response.setResiduals(residualsValues);
+//        response.setResiduals(trainingSummary.residuals().collectAsList());
+
         // RMSE ~> 모델 summary에서 RMSE 찾고 웹으로 돌려주어야 하니까 response에 set
         response.setRootMeanSquaredError(trainingSummary.rootMeanSquaredError());
+
         // R2 ~> 모델 summary에서 R2 찾고 웹으로 돌려주어야 하니까 response에 set
         response.setR2(trainingSummary.r2());
 
@@ -117,7 +137,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
         response.setStatus(ResponseStatus.SUCCESS); // SUCCESS 메시지도 웹으로 돌려주어야 하니까 response에 set
 
-        // Service의 역할은 Dao가 DB에서 받아온 데이터를 전달받아 가공하는 것. 즉, Controller가 받은 요청에 대해 알맞는 정보를 가공해서 다시 Controller에게 데이터를 넘기는 것을 의미합니다.
+       // Service의 역할은 Dao가 DB에서 받아온 데이터를 전달받아 가공하는 것. 즉, Controller가 받은 요청에 대해 알맞는 정보를 가공해서 다시 Controller에게 데이터를 넘기는 것을 의미합니다.
         // 그래서 웹에서 컨트롤러로 들어온 요청에 대한 대답을 서비스가 가공해서 다시 컨트롤러로 주기위해 정보들을 담아주는 것. 그럼 이 정보를 컨트롤러가 웹으로 보내준다.
         this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName());
 

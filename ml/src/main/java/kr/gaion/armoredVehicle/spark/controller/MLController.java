@@ -19,6 +19,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.response.*;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.PcaDimensionalityReduction;
 import kr.gaion.armoredVehicle.algorithm.regressor.LinearRegressor;
+import kr.gaion.armoredVehicle.algorithm.regressor.LassoRegressor;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.database.model.DbModelResponse;
 import kr.gaion.armoredVehicle.database.model.TempLifeData;
@@ -66,6 +67,7 @@ public class MLController {
   @NonNull private final FSChiSqSelector chiSqSelector;
   @NonNull private final PcaDimensionalityReduction pcaDimensionalityReduction;
   @NonNull private final LinearRegressor linearRegressor;
+  @NonNull private final LassoRegressor lassoRegressor;
   @NonNull private final DatabaseSparkService databaseSparkService;
   @NonNull private final DatasetDatabaseService datasetDatabaseService;
   @NonNull private final FileInfoRepository fileInfoRepository;
@@ -107,6 +109,11 @@ public class MLController {
     return linearRegressor.train(input);
   }
 
+  @PostMapping(path = "/api/train/lasso")
+  public RegressionResponse trainLassoRegression(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
+    return lassoRegressor.train(input);
+  }
+
 //  @GetMapping(path = "/api/test")
 //  public Dataset<Row> test() {
 //    var result = databaseSparkService.getLabeledDatasetFromDatabase();
@@ -128,9 +135,6 @@ public class MLController {
       case "lr": {
         return this.lr.predict(input);
       }
-//      case "linear": {
-//        return this.linearRegressor.predict(input);
-//      }
       default: {
         throw new Error("Unsupported algorithm");
       }
@@ -184,7 +188,9 @@ public class MLController {
 
   @GetMapping(path = "/api/get-trainingData/{index}")
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
+
     String path = storageConfig.getHomeDir()+index+".csv";
+
     CSVReader reader = new CSVReader(new FileReader(path ));
     return reader.readNext();
 

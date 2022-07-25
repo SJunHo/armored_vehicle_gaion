@@ -35,6 +35,7 @@ export const LifeDataInputSection: React.FC<Props> = ({ algorithmName }) => {
       });
     }
   }, [mlControllerApi, selectedIndice]);
+
   console.log(ALGORITHM_INFO, algorithmName);
 
   return (
