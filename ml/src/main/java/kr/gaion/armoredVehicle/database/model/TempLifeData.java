@@ -45,7 +45,7 @@ public class TempLifeData {
     @Column(name="MEMORYBUS")
     private float memoryBus;
 
-    @Column(name="CORECYCEL")
+    @Column(name="CORECYCLE")
     private float coreCycle;
 
     @Column(name="TIME")

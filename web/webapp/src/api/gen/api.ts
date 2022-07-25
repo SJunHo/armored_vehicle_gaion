@@ -1128,54 +1128,6 @@ export interface LinearRegressionTrainResponse {
     classCol?: string;
     /**
      * 
-     * @type {Array<number>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    confusionMatrix?: Array<number>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    labels?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedFalsePositiveRate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedFMeasure?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    accuracy?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedPrecision?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedRecall?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof LinearRegressionTrainResponse
-     */
-    weightedTruePositiveRate?: number;
-    /**
-     * 
      * @type {Array<string>}
      * @memberof LinearRegressionTrainResponse
      */
@@ -1313,13 +1265,13 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    pageNumber?: number;
     /**
      * 
      * @type {boolean}
