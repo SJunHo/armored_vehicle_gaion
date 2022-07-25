@@ -72,20 +72,20 @@ export const Header: React.FC = () => {
                 </>
               }
             >
-              <NavDropdown.Header>전처리</NavDropdown.Header>
-              <NavDropdown.Item href="/ml/fs/chisq">
-                Chi-Square Selector
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/ml/fs/pca">
-                Principal Components Analysis (PCA)
-              </NavDropdown.Item>
-              <NavDropdown.Header>분류</NavDropdown.Header>
-              <NavDropdown.Item href="/ml/svm">
-                Linear Support Vector Machine
-              </NavDropdown.Item>
-              {/*<NavDropdown.Item href="/ml/svc">*/}
-              {/*  Linear Support Vector Classifier*/}
+              {/*<NavDropdown.Header>전처리</NavDropdown.Header>*/}
+              {/*<NavDropdown.Item href="/ml/fs/chisq">*/}
+              {/*  Chi-Square Selector*/}
               {/*</NavDropdown.Item>*/}
+              {/*<NavDropdown.Item href="/ml/fs/pca">*/}
+              {/*  Principal Components Analysis (PCA)*/}
+              {/*</NavDropdown.Item>*/}
+              <NavDropdown.Header>분류</NavDropdown.Header>
+              {/*<NavDropdown.Item href="/ml/svm">*/}
+              {/*  Linear Support Vector Machine*/}
+              {/*</NavDropdown.Item>*/}
+              <NavDropdown.Item href="/ml/svc">
+                Linear Support Vector Classifier
+              </NavDropdown.Item>
               <NavDropdown.Item href="/ml/rfc">Random Forest</NavDropdown.Item>
               <NavDropdown.Item href="/ml/mlp">
                 Multiple Layers Perceptron
@@ -95,9 +95,9 @@ export const Header: React.FC = () => {
                 Logistic Regression
               </NavDropdown.Item>
               <NavDropdown.Header>군집화</NavDropdown.Header>
-              <NavDropdown.Item href="/ml/kmean">
-                K-Means based Outlier Detection
-              </NavDropdown.Item>
+              {/*<NavDropdown.Item href="/ml/kmean">*/}
+              {/*  K-Means based Outlier Detection*/}
+              {/*</NavDropdown.Item>*/}
               <NavDropdown.Item href="/ml/if">
                 Isolation Forest
               </NavDropdown.Item>
@@ -112,13 +112,13 @@ export const Header: React.FC = () => {
                 </>
               }
             >
-              <NavDropdown.Header>전처리</NavDropdown.Header>
-              <NavDropdown.Item href="/ml/fs/chisq">
-                Chi-Square Selector
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/ml/fs/pca">
-                Principal Components Analysis (PCA)
-              </NavDropdown.Item>
+              {/*<NavDropdown.Header>전처리</NavDropdown.Header>*/}
+              {/*<NavDropdown.Item href="/ml/fs/chisq">*/}
+              {/*  Chi-Square Selector*/}
+              {/*</NavDropdown.Item>*/}
+              {/*<NavDropdown.Item href="/ml/fs/pca">*/}
+              {/*  Principal Components Analysis (PCA)*/}
+              {/*</NavDropdown.Item>*/}
               <NavDropdown.Header>회귀</NavDropdown.Header>
               <NavDropdown.Item href="/ml/linear">
                 Linear Regression

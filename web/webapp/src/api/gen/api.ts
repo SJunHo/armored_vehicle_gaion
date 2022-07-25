@@ -1093,94 +1093,79 @@ export interface ImportESDataFromFileInput {
 /**
  * 
  * @export
-<<<<<<< HEAD
- * @interface LinearRegressionTrainResponse
+ * @interface PageObject
  */
-export interface LinearRegressionTrainResponse {
+export interface PageObject {
     /**
      * 
-     * @type {ResponseType}
-     * @memberof LinearRegressionTrainResponse
+     * @type {number}
+     * @memberof PageObject
      */
-    type?: ResponseType;
+    totalElements?: number;
     /**
      * 
-     * @type {ResponseStatus}
-     * @memberof LinearRegressionTrainResponse
+     * @type {number}
+     * @memberof PageObject
      */
-    status?: ResponseStatus;
+    totalPages?: number;
     /**
      * 
-     * @type {string}
-     * @memberof LinearRegressionTrainResponse
+     * @type {number}
+     * @memberof PageObject
      */
-    message?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LinearRegressionTrainResponse
-     */
-    idCol?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    listFeatures?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof LinearRegressionTrainResponse
-     */
-    classCol?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    predictionInfo?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    predictedActualFeatureLine?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    predictedFeatureLine?: Array<string>;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof LinearRegressionTrainResponse
-     */
-    coefficients?: Array<number>;
+    size?: number;
     /**
      * 
      * @type {Array<object>}
-     * @memberof LinearRegressionTrainResponse
+     * @memberof PageObject
      */
-    residuals?: Array<object>;
+    content?: Array<object>;
     /**
      * 
      * @type {number}
-     * @memberof LinearRegressionTrainResponse
+     * @memberof PageObject
      */
-    rootMeanSquaredError?: number;
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageObject
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    last?: boolean;
     /**
      * 
      * @type {number}
-     * @memberof LinearRegressionTrainResponse
+     * @memberof PageObject
      */
-    r2?: number;
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageObject
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    empty?: boolean;
 }
 /**
  * 
  * @export
-=======
->>>>>>> origin/daeho
  * @interface PageRailSensorData
  */
 export interface PageRailSensorData {
@@ -1189,13 +1174,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -3204,6 +3189,100 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
     return {
         /**
          * 
+         * @param {string} dataType 
+         * @param {string} [trainNo] 
+         * @param {string} [carNo] 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [severity] 
+         * @param {boolean} [hasDefectScore] 
+         * @param {number} [hasDefectUser] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllConditionDataDB: async (dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataType' is not null or undefined
+            assertParamExists('getAllConditionDataDB', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dataType !== undefined) {
+                localVarQueryParameter['dataType'] = dataType;
+            }
+
+            if (trainNo !== undefined) {
+                localVarQueryParameter['train-no'] = trainNo;
+            }
+
+            if (carNo !== undefined) {
+                localVarQueryParameter['car-no'] = carNo;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (severity !== undefined) {
+                localVarQueryParameter['severity'] = severity;
+            }
+
+            if (hasDefectScore !== undefined) {
+                localVarQueryParameter['has_defect_score'] = hasDefectScore;
+            }
+
+            if (hasDefectUser !== undefined) {
+                localVarQueryParameter['has_defect_user'] = hasDefectUser;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3258,6 +3337,26 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
     return {
         /**
          * 
+         * @param {string} dataType 
+         * @param {string} [trainNo] 
+         * @param {string} [carNo] 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [severity] 
+         * @param {boolean} [hasDefectScore] 
+         * @param {number} [hasDefectUser] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllConditionDataDB(dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllConditionDataDB(dataType, trainNo, carNo, fromDate, toDate, severity, hasDefectScore, hasDefectUser, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3278,6 +3377,25 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
     return {
         /**
          * 
+         * @param {string} dataType 
+         * @param {string} [trainNo] 
+         * @param {string} [carNo] 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [severity] 
+         * @param {boolean} [hasDefectScore] 
+         * @param {number} [hasDefectUser] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllConditionDataDB(dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getAllConditionDataDB(dataType, trainNo, carNo, fromDate, toDate, severity, hasDefectScore, hasDefectUser, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3295,6 +3413,27 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
  * @extends {BaseAPI}
  */
 export class DatasetDatabaseControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} dataType 
+     * @param {string} [trainNo] 
+     * @param {string} [carNo] 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [severity] 
+     * @param {boolean} [hasDefectScore] 
+     * @param {number} [hasDefectUser] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getAllConditionDataDB(dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getAllConditionDataDB(dataType, trainNo, carNo, fromDate, toDate, severity, hasDefectScore, hasDefectUser, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {Array<any>} [files] Files to be uploaded
