@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class CimController {
 	CimService cimService;
 	
 	@GetMapping("/list")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<Map<String,Object>> getCmncdList(
 			@RequestParam(defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "10") int pageSize){
@@ -51,6 +53,7 @@ public class CimController {
 	}
 	
 	@GetMapping("/info/{id}")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<Cmncd> getCmncd(@PathVariable("id") int id){
 		try {
 			Cmncd cmncd = cimService.getCmncd(id);
@@ -63,6 +66,7 @@ public class CimController {
 	}
 	
 	@PostMapping("/create")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<Cmncd> createCmncd(@RequestBody Cmncd cmncd){
 		try {
 			Date today = new Date();
@@ -80,6 +84,7 @@ public class CimController {
 	}
 	
 	@PostMapping("/update")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<Cmncd> updateCmncd(@RequestBody Cmncd cmncd){
 		try {
 			Date today = new Date();
@@ -96,6 +101,7 @@ public class CimController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<Cmncd> deleteCmncd(@PathVariable("id") int id){
 		try {
 			

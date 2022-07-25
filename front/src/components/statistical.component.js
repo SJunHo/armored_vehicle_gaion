@@ -11,6 +11,7 @@ export default class Statistical extends Component {
 
   render() {
     return (
+      
       <div className="container">
         <header className="jumbotron">
         통계정보 조회

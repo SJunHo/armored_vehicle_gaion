@@ -1,27 +1,38 @@
 package kr.co.gaion.scas.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.gaion.scas.security.service.UserDetailsImpl;
+import kr.co.gaion.scas.security.service.UserDetailsServiceImpl;
+import kr.co.gaion.scas.monitoring.model.Cmncd;
 import kr.co.gaion.scas.security.jwt.JwtUtils;
 import kr.co.gaion.scas.security.jwt.mapper.UserMapper;
 import kr.co.gaion.scas.security.jwt.mapper.UserRolesMapper;
@@ -53,7 +64,12 @@ public class AuthController {
   
   @Autowired
   PasswordEncoder encoder;
+  
+  
 
+  @Autowired
+  UserDetailsServiceImpl userService;
+  
   @Autowired
   JwtUtils jwtUtils;
 
@@ -94,7 +110,11 @@ public class AuthController {
     // Create new user's account
     User user = new User(signUpRequest.getId(),signUpRequest.getUsername(), 
                signUpRequest.getEmail(),
-               encoder.encode(signUpRequest.getPassword()));
+               encoder.encode(signUpRequest.getPassword()),
+               signUpRequest.getPhonenum(), 
+               signUpRequest.getMltrank(),
+               signUpRequest.getMltnum(),
+               signUpRequest.getMltunit());
 
     char strRoles = signUpRequest.getUsrth();    
 
@@ -103,4 +123,6 @@ public class AuthController {
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
+  
+  
 }

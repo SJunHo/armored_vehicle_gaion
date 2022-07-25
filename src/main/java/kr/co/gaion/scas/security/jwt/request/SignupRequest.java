@@ -1,7 +1,5 @@
 package kr.co.gaion.scas.security.jwt.request;
 
-import java.util.Set;
-
 public class SignupRequest {
 
   private String id;
@@ -14,6 +12,13 @@ public class SignupRequest {
 
   private String password;
 
+  private String phonenum;
+  
+  private String mltrank;
+  
+  private String mltnum;
+  
+  private String mltunit;
   
   public String getId() {
 	return id;
@@ -50,4 +55,37 @@ public class SignupRequest {
   public void setUsrth(char usrth) {
 	  this.usrth = usrth;
   }
+
+public String getPhonenum() {
+	return phonenum;
+}
+
+public void setPhonenum(String phonenum) {
+	this.phonenum = phonenum;
+}
+
+public String getMltrank() {
+	return mltrank;
+}
+
+public void setMltrank(String mltrank) {
+	this.mltrank = mltrank;
+}
+
+public String getMltnum() {
+	return mltnum;
+}
+
+public void setMltnum(String mltnum) {
+	this.mltnum = mltnum;
+}
+
+public String getMltunit() {
+	return mltunit;
+}
+
+public void setMltunit(String mltunit) {
+	this.mltunit = mltunit;
+}
+
 }

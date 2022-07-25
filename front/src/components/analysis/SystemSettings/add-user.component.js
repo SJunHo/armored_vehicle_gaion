@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import userService from "../../../services/login/user.service";
-
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+
+import { connect } from "react-redux";
+import { register } from "../../../actions/login/auth";
 
 const required = (value) => {
   if (!value) {
@@ -96,9 +97,10 @@ const vmltunit = (value) =>{
   }
 };
 
-export default class ManageUsers extends Component {
+class AddUser extends Component {
   constructor(props) {
     super(props);
+
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeId = this.onChangeId.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -122,9 +124,7 @@ export default class ManageUsers extends Component {
       successful: false,
     };
   }
-  componentDidMount(){
-    this.getUserInfo(this.props.match.params.id);
-  }
+
   onChangeId(e){
     this.setState({
       id: e.target.value,
@@ -173,71 +173,40 @@ export default class ManageUsers extends Component {
     });
   }
 
-  getUserInfo(id){
-    userService.get(id)
-    .then((response) => {
-      this.setState({
-        id : response.data.id,
-        username : response.data.username,
-        password : response.data.password,
-        email : response.data.email,
-        usrth : response.data.usrth,
-        phonenum : response.data.phonenum,
-        mltrank : response.data.mltrank,
-        mltnum : response.data.mltnum,
-        mltunit : response.data.mltunit
-      });
-      console.log(response.data);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-  }
+  handleRegister(e) {
+    e.preventDefault();
 
-  handleRegister() {
+    this.setState({
+      successful: false,
+    });
+
     this.form.validateAll();
 
-    var data = {
-      id : this.state.id,
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-      usrth: this.state.usrth,
-      phonenum: this.state.phonenum,
-      mltrank: this.state.mltrank,
-      mltnum: this.state.mltnum,
-      mltunit: this.state.mltunit,
-    }
-    userService.update(data)
-    .then((response) => {
-      console.log(response.data);
-      window.location.href = "/manageusers";
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-  }
-
-  deleteUser(){
-    var result = window.confirm("정말 삭제하시겠습니까?");
-      if(result){
-      userService.delete(this.state.id)
-      .then((response) => {
-        alert("삭제되었습니다");
-        window.location.href = "/manageusers";
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (this.checkBtn.context._errors.length === 0) {
+      this.props
+        .dispatch(
+          register(this.state.id,this.state.username, this.state.email, 
+                    this.state.password, this.state.usrth, this.state.phonenum, 
+                    this.state.mltrank, this.state.mltnum, this.state.mltunit)
+        )
+        .then(() => {
+          alert("등록되었습니다");
+          window.location.href = "/manageusers";
+        })
+        .catch(() => {
+          this.setState({
+            successful: false,
+          });
+        });
     }
   }
-
 
   render() {
     const { message } = this.props;
+
     return (
       <div className="container">
-        <Form
+          <Form
             onSubmit={this.handleRegister}
             ref={(c) => {
               this.form = c;
@@ -291,7 +260,7 @@ export default class ManageUsers extends Component {
                     onChange={this.onChangePassword}
                     validations={[required, vpassword]}
                   />
-                </div> 
+                </div>
 
                 <div className="form-group">
                   <label htmlFor="phonenum">핸드폰</label>
@@ -365,17 +334,37 @@ export default class ManageUsers extends Component {
                 name="usrth"
               />사용자
             </div>
-            </div>
+
+            <button onClick={this.saveCmncd} className="btn btn-success">
+              등록
+            </button>
+              </div>
             )}
 
-            <button onClick={this.handleRegister} className="btn btn-success">
-              수정
-            </button>
-            <button onClick={this.deleteUser} className="btn btn-danger">
-              삭제
-            </button>
+            {message && (
+              <div className="form-group">
+                <div className={ this.state.successful ? "alert alert-success" : "alert alert-danger" } role="alert">
+                  {message}
+                </div>
+              </div>
+            )}
+            <CheckButton
+              style={{ display: "none" }}
+              ref={(c) => {
+                this.checkBtn = c;
+              }}
+            />
           </Form>
-      </div>
+        </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  const { message } = state.message;
+  return {
+    message,
+  };
+}
+
+export default connect(mapStateToProps)(AddUser);

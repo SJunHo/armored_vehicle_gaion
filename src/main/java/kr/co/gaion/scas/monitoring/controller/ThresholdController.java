@@ -28,7 +28,7 @@ public class ThresholdController {
 	private ThresholdService thresholdService;
 	
 	@GetMapping("/list")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<List<ThresholdResponse>> getThresholdList(@RequestParam(required = false) String title){
 		try {
 			List<ThresholdResponse> thresholdList = new ArrayList<ThresholdResponse>();
@@ -46,7 +46,7 @@ public class ThresholdController {
 	}
 	
 	@PostMapping("/update")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<Threshold> createTutorial(@RequestBody List<ThresholdResponse> data) {
 	  try {
 		  thresholdService.updateThreshold(data);

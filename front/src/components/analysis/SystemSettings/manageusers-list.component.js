@@ -1,30 +1,30 @@
 import React, { Component } from "react";
-import cimService from "../../../services/analysis/cim.service";
+import userService from "../../../services/login/user.service";
 import Pagination from "@material-ui/lab/Pagination";
 import {Link} from "react-router-dom";
 
-export default class CIMList extends Component {
+export default class ManageUsersList extends Component {
   constructor(props) {
     super(props);
 
-    this.getCmncdList = this.getCmncdList.bind(this);
+    this.getUserList = this.getUserList.bind(this);
     this.getRequestParams = this.getRequestParams.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
+
     this.state = {
       content: "",
-      cmncdList: [],
+      userList : [],
       currentIndex: -1,
       page: 1,
       count: 0,
       pageSize: 10,
+
     };
   }
-
   componentDidMount(){
-    this.getCmncdList();
+    this.getUserList();
   }
-
   getRequestParams(page, pageSize) {
     let params = {};
 
@@ -39,15 +39,15 @@ export default class CIMList extends Component {
     return params;
   }
 
-  getCmncdList(){
+  getUserList(){
     const {page, pageSize} = this.state;
     const params = this.getRequestParams(page, pageSize);
 
-    cimService.getAll(params)
+    userService.getUserList(params)
     .then((response) => {
-      const { cmncdList, paging } = response.data;
+      const { userList, paging } = response.data;
       this.setState({
-        cmncdList: cmncdList,
+        userList: userList,
         count : paging.totalPageCount,
       });
       console.log(response.data);
@@ -66,7 +66,7 @@ export default class CIMList extends Component {
   }
 
   handleRowClick(id){
-    this.props.history.push(`/cim/${id}`);
+    this.props.history.push(`/manageuser/${id}`);
   }
 
   render() {
@@ -78,31 +78,39 @@ export default class CIMList extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-        공통정보 관리
+        사용자 관리
         </header>
-        <Link to={"/cimAdd"} className="btn btn-info">
+        <Link to={"/addUser"} className="btn btn-info">
             등록
         </Link>
         <table>
           <thead>
               <tr>
-                <td>코드명</td>
-                <td>설명</td>
-                <td>사용여부</td>
-                <td>생성일</td>
-                <td>수정일</td>
+                <td>사용자 ID</td>
+                <td>사용자명</td>
+                <td>연락처</td>
+                <td>소속</td>
+                <td>군번</td>
+                <td>계급</td>
+                <td>권한</td>
               </tr>
           </thead>
           <tbody>
           {
-          this.state.cmncdList && 
-            this.state.cmncdList.map((item, index) => {
+          this.state.userList && 
+            this.state.userList.map((item, index) => {
               return(
-              <tr key={item.cmncdid} onClick={()=>this.handleRowClick(item.cmncdid)}>
-                <td>{item.groupcode}</td>
-                <td>{item.expln}</td>
-                <td>{item.crtdt}</td>
-                <td>{item.mdfcdt}</td>
+              <tr key={item.id} onClick={()=>this.handleRowClick(item.id)}>
+                <td>{item.id}</td>
+                <td>{item.username}</td>
+                <td>{item.phonenum}</td>
+                <td>{item.mltunit}</td>
+                <td>{item.mltnum}</td>
+                <td>{item.mltrank}</td>
+                <td>{item.usrth === 'M' 
+                            ? '분석가' : ( item.usrth === 'N' 
+                            ? '사용자' : '관리자'
+                        )}</td>
               </tr>
               );
             })}
@@ -120,7 +128,6 @@ export default class CIMList extends Component {
               onChange={this.handlePageChange}
             />
         </div>
-      
       </div>
     );
   }
