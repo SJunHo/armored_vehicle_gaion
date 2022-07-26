@@ -9,7 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USERS")
+//@Table(name = "USERS")
+@Table(name = "users")
 @Getter
 @Setter
 public class User {
@@ -21,5 +22,6 @@ public class User {
   private String password;
 
   @Column
-  private String role;
+//  private String role;
+  private String usrth;
 }
