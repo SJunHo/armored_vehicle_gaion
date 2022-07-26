@@ -39,12 +39,14 @@ import java.util.List;
 @Log4j
 public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlgorithmPredictInput>  {
     public LassoRegressor(ElasticsearchSparkService elasticsearchSparkService, DatabaseSparkService databaseSparkService, Utilities utilities, StorageConfig storageConfig, ModelUtilService modelUtil, FSChiSqSelector chiSqSelector, AlgorithmConfig algorithmConfig, DataConfig dataConfig, SparkSession sparkSession, ModelService modelService) {
-        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "LinearRegression", modelService);
+        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "LassoRegression", modelService);
     }
 
     @Override
     public LinearRegressionTrainResponse train(BaseAlgorithmTrainInput config) throws Exception {
         // BaseAlgorithmTrainInput config: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '학습'을 위한 정보들(Request)
+
+        log.info("============================ START Lasso Regression ============================");
 
         // get settings
         int maxIterations = config.getMaxIter();
@@ -63,6 +65,8 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
         var splittedData = this.splitTrainTest(rowOriginalData, config.getSeed(), config.getFraction()); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 splitTrainTest 메소드를 this로 호출
         var train = splittedData[0];
         var test = splittedData[1];
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Train set Count: " + train.count());  // Train set Count: 24974 (8:2)
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Test set Count: " +test.count()); // Test set Count: 6298 (8:2)
 
         // 모델 생성
         LinearRegression lr = new LinearRegression()
@@ -75,7 +79,6 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
         // Fit the model.
         LinearRegressionModel lrModel = lr.fit(train);
 
-        // TODO: save 기능 확인하기
         // Save model
         log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Saving model ... @@@@@@@@@@@@@@@@@@@@@@@@@");
         var modelFullPathName = this.saveModel(config, lrModel); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 saveModel 메소드를 this로 호출
@@ -109,13 +112,13 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
 
         // residuals ~> 모델 summary에서 residuals 찾고 웹으로 돌려주어야 하니까 response에 set
         // spark dataset의 각 row를 DOuble 타입으로 바꾸고 리스트로 변환. (dataset's row: [[0.1111], [0.2222], ...] -> [0.1111, 0.2222, ...]
-
-        List<Double> residualsValues = trainingSummary.residuals().map((MapFunction<Row, Double>) row -> row.<Double>getAs(0), Encoders.DOUBLE()).collectAsList();
-        response.setResiduals(residualsValues);
+//        List<Double> residualsValues = trainingSummary.residuals().map((MapFunction<Row, Double>) row -> row.<Double>getAs(0), Encoders.DOUBLE()).collectAsList();
+//        response.setResiduals(residualsValues);
 //        response.setResiduals(trainingSummary.residuals().collectAsList());
 
         // RMSE ~> 모델 summary에서 RMSE 찾고 웹으로 돌려주어야 하니까 response에 set
         response.setRootMeanSquaredError(trainingSummary.rootMeanSquaredError());
+
         // R2 ~> 모델 summary에서 R2 찾고 웹으로 돌려주어야 하니까 response에 set
         response.setR2(trainingSummary.r2());
 
@@ -134,7 +137,7 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
     @Override
     public RegressionResponse predict(BaseAlgorithmPredictInput input) throws Exception {
         // BaseAlgorithmPredictInput input: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '예측'을 위한 정보들(Request)
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@");
 
         // 0. Get settings
         var dataInputOption = input.getDataInputOption();
