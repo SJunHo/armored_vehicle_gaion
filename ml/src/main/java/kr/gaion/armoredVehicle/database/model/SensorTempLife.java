@@ -25,10 +25,10 @@ public class SensorTempLife {
     private float acPower;
 
     @Column(name="AI_Algorithm")
-    private double AiAlgorithm;
+    private double aiAlgorithm;
 
     @Column(name="AI_Model")
-    private double AiModel;
+    private double aiModel;
 
     @Column(name="CPUUTIL")
     private float cpuUtil;

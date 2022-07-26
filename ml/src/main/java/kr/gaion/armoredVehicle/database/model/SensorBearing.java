@@ -38,6 +38,15 @@ public class SensorBearing {
     @Column(name="TIME")
     private long timeIndex;
 
+    @Column(name="AI_Predict")
+    private double aiPredict;
+
+    @Column(name="AI_Algorithm")
+    private double aiAlgorithm;
+
+    @Column(name="AI_Model")
+    private double aiModel;
+
     @Column(name="L_B_V_OverallRMS")
     private double lbvOverallRMS;
 
@@ -149,15 +158,6 @@ public class SensorBearing {
 
     @Column(name="R_B_T_Temperature")
     private double rbtTemperature;
-
-    @Column(name="AI_Predict")
-    private double AiPredict;
-
-    @Column(name="AI_Algorithm")
-    private double AiAlgorithm;
-
-    @Column(name="AI_Model")
-    private double AiModel;
 
     @Column(name="W_RPM")
     private double wRpm;

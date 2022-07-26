@@ -42,13 +42,13 @@ public class SensorEngine {
     private long timeIndex;
 
     @Column(name="AI_Predict")
-    private double AiPredict;
+    private double aiPredict;
 
     @Column(name="AI_Algorithm")
-    private double AiAlgorithm;
+    private double aiAlgorithm;
 
     @Column(name="AI_Model")
-    private double AiModel;
+    private double aiModel;
 
     @Column(name="W_RPM")
     private double wRPM;
