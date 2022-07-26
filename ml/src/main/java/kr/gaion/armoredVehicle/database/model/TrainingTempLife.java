@@ -15,7 +15,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TempLifeData {
+public class TrainingTempLife {
     @Id
     @GeneratedValue
     @Column(name="IDX")

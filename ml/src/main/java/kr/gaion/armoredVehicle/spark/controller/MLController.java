@@ -22,13 +22,10 @@ import kr.gaion.armoredVehicle.algorithm.regressor.LinearRegressor;
 import kr.gaion.armoredVehicle.algorithm.regressor.LassoRegressor;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.database.model.DbModelResponse;
-import kr.gaion.armoredVehicle.database.model.TempLifeData;
-import kr.gaion.armoredVehicle.database.model.TrainingBearing;
 import kr.gaion.armoredVehicle.database.repository.FileInfoRepository;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
-import kr.gaion.armoredVehicle.ml.dto.ModelResponse;
 import kr.gaion.armoredVehicle.ml.dto.input.UpdateModelInput;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
@@ -41,8 +38,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 //import static kr.gaion.armoredVehicle.spark.controller.TestSpark.ReadCSV;

@@ -17,8 +17,8 @@ import java.util.Date;
 public class SensorBearing {
     @Id
     @GeneratedValue
-    @Column(name="BEARINGID")
-    private long bearingId;
+    @Column(name="IDX")
+    private long idx;
 
     @Column(name="SDAID")
     private String carId;
@@ -161,4 +161,7 @@ public class SensorBearing {
 
     @Column(name="W_RPM")
     private double wRpm;
+
+    @Column(name="FILENM")
+    private String filenm;
 }

@@ -4,23 +4,27 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Time;
 import java.util.Date;
 
-@Entity
-@Table(name = "ENGTRNNG")
+@Table(name = "ENGDATA")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrainingEngine {
+public class SensorEngine {
     @Id
     @GeneratedValue
     @Column(name="IDX")
     private long idx;
 
     @Column(name="SDAID")
-    private String sdaId;
+    private String carId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name="OPERDATE")
@@ -28,14 +32,23 @@ public class TrainingEngine {
 
     @JsonFormat(pattern = "HH:mm:ss")
     @Column(name="OPERTIME")
-    private Date operateTime;
+    private Time operateTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="DATE")
-    private Date operateDateTime;
+    private DateTime operateDateTime;
 
     @Column(name="TIME")
     private long timeIndex;
+
+    @Column(name="AI_Predict")
+    private double AiPredict;
+
+    @Column(name="AI_Algorithm")
+    private double AiAlgorithm;
+
+    @Column(name="AI_Model")
+    private double AiModel;
 
     @Column(name="W_RPM")
     private double wRPM;
@@ -67,6 +80,6 @@ public class TrainingEngine {
     @Column(name="LO")
     private double lo;
 
-    @Column(name="AI_Predict")
-    private int AiPredict;
+    @Column(name="FILENM")
+    private String filenm;
 }
