@@ -1,11 +1,11 @@
 package kr.gaion.armoredVehicle.dataset.service;
 
 import kr.gaion.armoredVehicle.database.DatabaseModule;
+import kr.gaion.armoredVehicle.database.model.SensorBearing;
 import kr.gaion.armoredVehicle.database.repository.SensorBearingRepository;
 import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
 import kr.gaion.armoredVehicle.database.model.TrainingBearing;
 import kr.gaion.armoredVehicle.database.repository.TrainingBearingRepository;
-import kr.gaion.armoredVehicle.ml.dto.RailSensorData;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -65,31 +65,7 @@ public class DatasetDatabaseService {
     }
 
 
-    public Page<Object> getConditionData(
-            String dataType,
-            String trainNumber,
-            String carNumber,
-            Date fromDate,
-            Date toDate,
-            Integer severity,
-            Pageable pageable,
-            Boolean hasDefectScore,
-            Integer hasDefectUser) throws IOException {
-
-        switch (dataType){
-            case "B" :{
-                return sensorBearingRepository.findSensorBearingByAiPredictIsNull(pageable);
-            }
-            case "W" : {
-                return null;
-            }
-            case "E" : {
-                return null;
-            }
-            case "G" : {
-                return null;
-            }
-        }
-        return null;
+    public Page<SensorBearing> getUnlabeledBearingData(Pageable pageable) throws IOException {
+        return sensorBearingRepository.findSensorBearingByAiPredictIsNull(pageable);
     }
 }

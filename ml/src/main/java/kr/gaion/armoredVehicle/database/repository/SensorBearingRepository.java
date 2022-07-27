@@ -13,5 +13,5 @@ import java.util.List;
 public interface SensorBearingRepository extends PagingAndSortingRepository<SensorBearing, Long> {
 //    Page<Object> findSensorBearingByAiPredictIsNull(Pageable pageable);
     @Query(value = "Select * from BERDATA f where f.AI_Predict is Null", nativeQuery = true)
-    Page<Object> findSensorBearingByAiPredictIsNull(Pageable pageable);
+    Page<SensorBearing> findSensorBearingByAiPredictIsNull(Pageable pageable);
 }
