@@ -161,7 +161,6 @@ public class ModelService {
                 dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
                 dbModelResponse.setWeightedRecall(model.getWeightedRecall());
                 dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-                dbModelResponseRepository.save(dbModelResponse);
             }
             case "SVMClassifier":
             {
@@ -174,7 +173,6 @@ public class ModelService {
               dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
               dbModelResponse.setWeightedRecall(model.getWeightedRecall());
               dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-              dbModelResponseRepository.save(dbModelResponse);
             }
             case "LogisticRegression":
             {
@@ -187,7 +185,6 @@ public class ModelService {
               dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
               dbModelResponse.setWeightedRecall(model.getWeightedRecall());
               dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-              dbModelResponseRepository.save(dbModelResponse);
             }
             case "MLPClassifier":
             {
@@ -200,7 +197,6 @@ public class ModelService {
               dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
               dbModelResponse.setWeightedRecall(model.getWeightedRecall());
               dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-              dbModelResponseRepository.save(dbModelResponse);
             }
             case "LinearRegression":
             {
@@ -212,7 +208,6 @@ public class ModelService {
                   dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
                   dbModelResponse.setR2(model.getR2());
                   dbModelResponse.setListFeatures(model.getListFeatures());
-                  dbModelResponseRepository.save(dbModelResponse);
             }
             case "LassoRegression":
             {
