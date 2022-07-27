@@ -1,9 +1,7 @@
 package kr.gaion.armoredVehicle.database.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -11,6 +9,7 @@ import java.sql.Time;
 import java.util.Date;
 
 @Table(name = "BERDATA")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,7 +32,7 @@ public class SensorBearing {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="DATE")
-    private DateTime operateDateTime;
+    private Date operateDateTime;
 
     @Column(name="TIME")
     private long timeIndex;
@@ -42,10 +41,10 @@ public class SensorBearing {
     private double aiPredict;
 
     @Column(name="AI_Algorithm")
-    private double aiAlgorithm;
+    private String aiAlgorithm;
 
     @Column(name="AI_Model")
-    private double aiModel;
+    private String aiModel;
 
     @Column(name="L_B_V_OverallRMS")
     private double lbvOverallRMS;

@@ -1,16 +1,21 @@
 package kr.gaion.armoredVehicle.dataset.service;
 
 import kr.gaion.armoredVehicle.database.DatabaseModule;
+import kr.gaion.armoredVehicle.database.repository.SensorBearingRepository;
 import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
 import kr.gaion.armoredVehicle.database.model.TrainingBearing;
 import kr.gaion.armoredVehicle.database.repository.TrainingBearingRepository;
+import kr.gaion.armoredVehicle.ml.dto.RailSensorData;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +25,7 @@ public class DatasetDatabaseService {
     @NonNull private final StorageService storageService;
     @NonNull private final DatabaseModule databaseModule;
     @NonNull private final TrainingBearingRepository trainingBearingRepository;
+    @NonNull private final SensorBearingRepository sensorBearingRepository;
     //save file to nas directory
     public String handleUploadFile(MultipartFile file) {
         this.storageService.store(file);
@@ -58,4 +64,32 @@ public class DatasetDatabaseService {
         return "fileInfo";
     }
 
+
+    public Page<Object> getConditionData(
+            String dataType,
+            String trainNumber,
+            String carNumber,
+            Date fromDate,
+            Date toDate,
+            Integer severity,
+            Pageable pageable,
+            Boolean hasDefectScore,
+            Integer hasDefectUser) throws IOException {
+
+        switch (dataType){
+            case "B" :{
+                return sensorBearingRepository.findSensorBearingByAiPredictIsNull(pageable);
+            }
+            case "W" : {
+                return null;
+            }
+            case "E" : {
+                return null;
+            }
+            case "G" : {
+                return null;
+            }
+        }
+        return null;
+    }
 }

@@ -147,11 +147,12 @@ public class ModelService {
 		map.put("modelName", modelName);
         // modelResponseSaveToDatabase
     System.out.println("algorithmName: " + algorithmName);
-        switch (algorithmName) {
+    DbModelResponse dbModelResponse = new DbModelResponse();
+
+    switch (algorithmName) {
             case "RandomForestClassifier":
             {
                 var model= (ClassificationResponse)response;
-                DbModelResponse dbModelResponse = new DbModelResponse();
                 dbModelResponse.setModelName(modelName);
                 dbModelResponse.setType(algorithmName);
                 dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
@@ -160,12 +161,10 @@ public class ModelService {
                 dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
                 dbModelResponse.setWeightedRecall(model.getWeightedRecall());
                 dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-                dbModelResponseRepository.save(dbModelResponse);
             }
             case "SVMClassifier":
             {
               var model= (ClassificationResponse)response;
-              DbModelResponse dbModelResponse = new DbModelResponse();
               dbModelResponse.setModelName(modelName);
               dbModelResponse.setType(algorithmName);
               dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
@@ -174,12 +173,10 @@ public class ModelService {
               dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
               dbModelResponse.setWeightedRecall(model.getWeightedRecall());
               dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-              dbModelResponseRepository.save(dbModelResponse);
             }
             case "LogisticRegression":
             {
               var model= (ClassificationResponse)response;
-              DbModelResponse dbModelResponse = new DbModelResponse();
               dbModelResponse.setModelName(modelName);
               dbModelResponse.setType(algorithmName);
               dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
@@ -188,12 +185,10 @@ public class ModelService {
               dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
               dbModelResponse.setWeightedRecall(model.getWeightedRecall());
               dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-              dbModelResponseRepository.save(dbModelResponse);
             }
             case "MLPClassifier":
             {
               var model= (ClassificationResponse)response;
-              DbModelResponse dbModelResponse = new DbModelResponse();
               dbModelResponse.setModelName(modelName);
               dbModelResponse.setType(algorithmName);
               dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
@@ -202,12 +197,10 @@ public class ModelService {
               dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
               dbModelResponse.setWeightedRecall(model.getWeightedRecall());
               dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-              dbModelResponseRepository.save(dbModelResponse);
             }
             case "LinearRegression":
             {
                   var model= (RegressionResponse) response;
-                  DbModelResponse dbModelResponse = new DbModelResponse();
                   dbModelResponse.setModelName(modelName);
                   dbModelResponse.setType(algorithmName);
                   dbModelResponse.setCoefficients(model.getCoefficients());
@@ -215,13 +208,10 @@ public class ModelService {
                   dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
                   dbModelResponse.setR2(model.getR2());
                   dbModelResponse.setListFeatures(model.getListFeatures());
-
-                  dbModelResponseRepository.save(dbModelResponse);
             }
             case "LassoRegression":
             {
                 var model= (RegressionResponse) response;
-                DbModelResponse dbModelResponse = new DbModelResponse();
                 dbModelResponse.setModelName(modelName);
                 dbModelResponse.setType(algorithmName);
                 dbModelResponse.setCoefficients(model.getCoefficients());
@@ -230,9 +220,10 @@ public class ModelService {
                 dbModelResponse.setR2(model.getR2());
                 dbModelResponse.setListFeatures(model.getListFeatures());
 
-                dbModelResponseRepository.save(dbModelResponse);
             }
         }
+    dbModelResponseRepository.save(dbModelResponse);
+
 //		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
         String insertInfo = "true";
 		log.info(insertInfo);

@@ -121,7 +121,7 @@ public class MLController {
       case "rfc": {
         return this.rfc.predict(input);
       }
-      case "svm": {
+      case "svc": {
         return this.svm.predict(input);
       }
       case "mlp": {
