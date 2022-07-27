@@ -222,17 +222,20 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
               value={wb}
               onChange={(v) => setWb((v.target as any).value)}
             >
-              <option value="W">W</option>
-              <option value="B">B</option>
+              <option value="W"> 차륜(휠) </option>
+              <option value="B"> 차축(베어링) </option>
+              <option value="E"> 엔진(윤활) </option>
+              <option value="G"> 감속기(기어박스) </option>
+              <option value="S"> 잔존수명(임시) </option>
             </Form.Select>
           </Col>
           <Col xs={1} className="Col pe-0" />
 
           <Col xs={2} className="Col pe-0">
-            {t("ml.run.result")}
+          {/*  {t("ml.run.result")}*/}
           </Col>
           <Col xs={3} className="Col ps-0">
-            <Form.Control size="sm" type="number" />
+          {/*  <Form.Control size="sm" type="number" />*/}
           </Col>
           <Col className="Col d-grid gap-2">
             <Button

@@ -10,15 +10,17 @@ import { useParams } from "react-router-dom";
 import { Table } from "../common/Table";
 import { Column } from "react-table";
 import {
-    FlexibleWidthXYPlot, MarkSeries, FlexibleXYPlot, VerticalBarSeries, LineSeries, DiscreteColorLegend, XAxis, YAxis, Hint, Crosshair
+    FlexibleWidthXYPlot, MarkSeries, FlexibleXYPlot, VerticalBarSeries, LineSeries, DiscreteColorLegend, XAxis, YAxis, Hint, Crosshair, RectSeries, VerticalRectSeries
 } from "react-vis";
+import {BarChart, Bar, XAxis as X, YAxis as Y, CartesianGrid, Tooltip, Legend} from "recharts"
 import Select2 from "react-select";
 import {colorPalette, colorPalette2} from "../Dashboard/Dashboard";
 import ReactTooltip from "react-tooltip";
+import {log} from "util";
 
 type Props = {
   result: RandomForestClassificationResponse;
-  result2? : RegressionResponse;
+  result2?: RegressionResponse;
   algorithmName: string;
 };
 
@@ -39,10 +41,10 @@ export const CreateModelResult: React.FC<Props> = ({
 
   console.log(result2)
 
-    var indexList: number[] = []
-    var predictedValues: number[] = []
-    var actualValues: number[] = []
-    var residualList: number[] = []
+    let indexList: number[] = []
+    let predictedValues: number[] = []
+    let actualValues: number[] = []
+    let residualList: number[] = []
 
     result2?.predictionInfo?.forEach((value1, index, array) => {
         indexList.push(index)
@@ -50,15 +52,38 @@ export const CreateModelResult: React.FC<Props> = ({
         actualValues.push(Number(value1.split(',')[1]))
     })
 
-    actualValues.forEach((value1, index) => {
+    actualValues?.forEach((value1, index) => {
         var x = actualValues[index] - predictedValues[index]
         residualList.push(x)
     })
 
     const actualPredictedValues = zip(actualValues, predictedValues)
+    // console.log(actualPredictedValues)
 
     const [eachResidualValue, setEachResidualValue] = useState<any>([]);
     // console.log(eachResidualValue)
+
+    let roundResidualList: number[] = []
+    residualList?.forEach((value => {
+        // roundResidualList.push(Number(value.toFixed(1)))
+        roundResidualList.push(Number(Math.round(value)))
+    }))
+    // console.log(roundResidualList)
+
+    let count = roundResidualList?.reduce((accumulator: any, value: number) => {
+        return {...accumulator, [value]: (accumulator[value] || 0) + 1};
+    }, {});
+    // console.log(count)
+
+    let residualKeyValuesList = []
+    for(let i=0; i <= Object.keys(count).length; i++) {
+        residualKeyValuesList.push({
+            x: Number(Object.keys(count)[i]),
+            y: Number(Object.values(count)[i])
+        })
+    }
+    console.log(residualKeyValuesList)
+
 
     return (
     <Card className="mt-3">
@@ -218,24 +243,17 @@ export const CreateModelResult: React.FC<Props> = ({
                               <strong>{t("ml.common.residuals_histogram")}</strong>
                           </Card.Header>
                           <Card.Body>
-                              <FlexibleXYPlot height={300}>
-                                  <XAxis
-                                      style={{ fontSize: 12 }}
-                                      tickTotal = { 10 }
-                                  />
-                                  <YAxis
-                                      style={{ fontSize: 12 }}
-                                      tickTotal = { 10 }
-                                  />
-                                  <LineSeries
-                                      // data={(result2?.residuals || []).map((data: any, index: any) => ({
-                                      data={(residualList || []).map((data: any, index: any) => ({
-                                          x: index,
-                                          y: data,
-                                      }))}
-                                      stroke="black"
-                                  />
-                              </FlexibleXYPlot>
+                              <div style={{display: "flex"}}>
+                                  <BarChart
+                                      width={868}
+                                      height={300}
+                                      data={residualKeyValuesList}
+                                  >
+                                      <X dataKey="x"/>
+                                      <Y />
+                                      <Bar dataKey="y" />
+                                  </BarChart>
+                              </div>
                           </Card.Body>
                       </Card>
                   </div>

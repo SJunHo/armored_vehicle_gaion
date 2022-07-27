@@ -56,7 +56,7 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
     [mlControllerApi, algorithmName]
   );
 
-  const columns = useMemo<Column<DbModelResponse>[]>(
+  const classificationColumns = useMemo<Column<DbModelResponse>[]>(
     () => [
       {
         Header: "Model Name",
@@ -89,7 +89,7 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
         onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
       },
       {
-        Header: algorithmName == "linear"? t("table.column.life.register").toString(): t("table.column.broken.register").toString(),
+        Header: t("table.column.broken.register").toString(),
         accessor: "checked",
         Cell: EditableCheckboxCell,
         onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
@@ -97,13 +97,51 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
     ],
     [t, handleUpdateRows]
   );
+
+    const regressionColumns = useMemo<Column<DbModelResponse>[]>(
+        () => [
+            {
+                Header: "Model Name",
+                accessor: "modelName",
+            },
+            {
+                Header: "R-squared",
+                accessor: item => item.r2,
+            },
+            {
+                Header: "Root Mean Squared Error",
+                accessor: item => item.rootMeanSquaredError,
+            },
+            {
+                Header: t("table.column.notes").toString(),
+                accessor: "description",
+                Cell: EditableCell,
+                onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
+            },
+            {
+                Header:t("table.column.life.register").toString(),
+                accessor: "checked",
+                Cell: EditableCheckboxCell,
+                onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
+            },
+        ],
+        [t, handleUpdateRows]
+    );
+
   return (
     <Section title={ALGORITHM_INFO[algorithmName].name}>
-      <Table
-        onRowsSelected={handleRowSelected}
-        columns={columns}
-        data={models}
-      />
+        {algorithmName === "linear" || algorithmName === "lasso" ? (
+            <Table
+                onRowsSelected={handleRowSelected}
+                columns={regressionColumns}
+                data={models}/>
+            ) : (
+                <Table
+                    onRowsSelected={handleRowSelected}
+                    columns={classificationColumns}
+                    data={models}
+                />
+        )}
       <Row className="d-flex justify-content-between">
         <Col md={2}>
           <Button

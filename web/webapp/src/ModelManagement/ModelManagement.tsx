@@ -25,15 +25,15 @@ export const ModelManagement: React.FC = () => {
         headers={[
           {
             id: "train",
-            title: algorithmName == "linear"?t("ml.common.tab.lifeCreate") : t("ml.common.tab.mg"),
+            title: algorithmName == "linear" || algorithmName == "lasso" ? t("ml.common.tab.lifeCreate") : t("ml.common.tab.mg"),
           },
           {
             id: "models",
-            title: algorithmName == "linear"?t("ml.common.tab.lifeMg") : t("table.column.broken.manage"),
+            title: algorithmName == "linear" || algorithmName == "lasso" ? t("ml.common.tab.lifeMg") : t("table.column.broken.manage"),
           },
           {
             id: "predict",
-            title: algorithmName == "linear"?t("ml.common.tab.lifePredict") : t("ml.common.tab.troubleshot"),
+            title: algorithmName == "linear" || algorithmName == "lasso" ? t("ml.common.tab.lifePredict") : t("ml.common.tab.troubleshot"),
           },
         ]}
         activeTabId={tab}
