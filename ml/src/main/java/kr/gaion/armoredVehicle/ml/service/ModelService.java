@@ -140,7 +140,7 @@ public class ModelService {
 //		deleteOldMlResponse(algorithmName, modelName);
 
 		// Write new data
-		log.info(String.format("Write new data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
+		log.info(String.format("******************** Write new data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
 		Gson gson = new Gson();
 		Map<String, Object> map = new HashMap<>();
 		map.put("response", response);
@@ -206,7 +206,6 @@ public class ModelService {
             }
             case "LinearRegression":
             {
-//                  model = (ClassificationResponse)response;
                   var model= (RegressionResponse) response;
                   DbModelResponse dbModelResponse = new DbModelResponse();
                   dbModelResponse.setModelName(modelName);
@@ -215,12 +214,12 @@ public class ModelService {
 //                  dbModelResponse.setResiduals(model.getResiduals());
                   dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
                   dbModelResponse.setR2(model.getR2());
+                  dbModelResponse.setListFeatures(model.getListFeatures());
 
                   dbModelResponseRepository.save(dbModelResponse);
             }
             case "LassoRegression":
             {
-                //                model = (ClassificationResponse)response;
                 var model= (RegressionResponse) response;
                 DbModelResponse dbModelResponse = new DbModelResponse();
                 dbModelResponse.setModelName(modelName);

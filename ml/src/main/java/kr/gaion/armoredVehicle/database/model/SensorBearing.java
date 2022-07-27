@@ -16,8 +16,8 @@ import java.util.Date;
 public class SensorBearing {
     @Id
     @GeneratedValue
-    @Column(name="BEARINGID")
-    private long bearingId;
+    @Column(name="IDX")
+    private long idx;
 
     @Column(name="SDAID")
     private String carId;
@@ -36,6 +36,15 @@ public class SensorBearing {
 
     @Column(name="TIME")
     private long timeIndex;
+
+    @Column(name="AI_Predict")
+    private double aiPredict;
+
+    @Column(name="AI_Algorithm")
+    private String aiAlgorithm;
+
+    @Column(name="AI_Model")
+    private String aiModel;
 
     @Column(name="L_B_V_OverallRMS")
     private double lbvOverallRMS;
@@ -149,15 +158,9 @@ public class SensorBearing {
     @Column(name="R_B_T_Temperature")
     private double rbtTemperature;
 
-    @Column(name="AI_Predict")
-    private double aiPredict;
-
-    @Column(name="AI_Algorithm")
-    private double aiAlgorithm;
-
-    @Column(name="AI_Model")
-    private double aiModel;
-
     @Column(name="W_RPM")
     private double wRpm;
+
+    @Column(name="FILENM")
+    private String filenm;
 }

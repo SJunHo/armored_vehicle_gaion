@@ -1271,13 +1271,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 

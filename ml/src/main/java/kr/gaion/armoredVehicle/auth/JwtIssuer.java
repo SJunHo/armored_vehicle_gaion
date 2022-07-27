@@ -35,7 +35,8 @@ public class JwtIssuer {
             ))
         .withIssuer(authConfiguration.getIssuer())
         .withClaim("username", user.getUsername())
-        .withClaim("role", user.getRole())
+//        .withClaim("role", user.getRole())
+        .withClaim("role", user.getUsrth())
         .sign(Algorithm.HMAC512(authConfiguration.getSecret()));
   }
 }

@@ -1,6 +1,5 @@
 package kr.gaion.armoredVehicle.algorithm.regressor;
 
-
 import kr.gaion.armoredVehicle.algorithm.AlgorithmConfig;
 import kr.gaion.armoredVehicle.algorithm.MLAlgorithm;
 import kr.gaion.armoredVehicle.algorithm.ModelUtilService;
@@ -8,7 +7,6 @@ import kr.gaion.armoredVehicle.algorithm.dto.ResponseStatus;
 import kr.gaion.armoredVehicle.algorithm.dto.ResponseType;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
-import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.LinearRegressionTrainResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.RegressionResponse;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
@@ -20,14 +18,11 @@ import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.extern.log4j.Log4j;
-import org.apache.commons.collections.Bag;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.function.ForeachFunction;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.linalg.DenseVector;
 import org.apache.spark.ml.linalg.Vector;
-import org.apache.spark.ml.linalg.Vectors;
 import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.ml.regression.LinearRegressionTrainingSummary;
@@ -37,7 +32,6 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,6 +46,8 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
     public LinearRegressionTrainResponse train(BaseAlgorithmTrainInput config) throws Exception {
         // BaseAlgorithmTrainInput config: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '학습'을 위한 정보들(Request)
 
+        log.info("============================ START Linear Regression ============================");
+
         // get settings
         int maxIterations = config.getMaxIter();
         double regParam = config.getRegParam();
@@ -59,9 +55,9 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config);
         Dataset<Row> rowOriginalData = sparkSession.createDataFrame(originalData.rdd(), NumericLabeledData.class);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@");
         originalData.show();
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ rowOriginalData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ rowOriginalData @@@@@@@@@@@@@@@@@@@@@@@@@");
         rowOriginalData.show();
 
         // Split the data into train and test
@@ -82,11 +78,6 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
         // Fit the model.
         LinearRegressionModel lrModel = lr.fit(train);
-
-//        // Predict
-//        Dataset<Row> predicted = lrModel.transform(test);
-//        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Predict to Test Dataset. @@@@@@@@@@@@@@@@@@@@@@@@@");
-//        predicted.show();
 
         // Save model
         log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Saving model ... @@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -147,7 +138,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
     @Override
     public RegressionResponse predict(BaseAlgorithmPredictInput input) throws Exception {
         // BaseAlgorithmPredictInput input: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '예측'을 위한 정보들(Request)
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@");
 
         // 0. Get settings
         var dataInputOption = input.getDataInputOption();
