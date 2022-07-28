@@ -20,4 +20,5 @@ public class BaseAlgorithmPredictInput extends BaseAlgorithmInput {
   private FileInput fileInput;
   private Double threshold;
   private boolean dimensionalityReduction;
+  private String dataType;
 }

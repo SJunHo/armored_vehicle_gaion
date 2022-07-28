@@ -160,9 +160,10 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
             }
             break;
          }
-//		 case INPUT_FROM_DB: {
-//			  originalData = this.databaseSparkService.getUnlabeledDataFromDb();
-//		 }
+				 case INPUT_FROM_DB: {
+						originalData = this.databaseSparkService.getUnlabeledDataFromDb(config);
+						break;
+				 }
          default: {
             // abnormal case:
             throw new Error("Input method is not acceptable: " + dataInputOption);

@@ -1,5 +1,6 @@
 package kr.gaion.armoredVehicle.dataset.service;
 
+import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.database.DatabaseModule;
 import kr.gaion.armoredVehicle.database.model.SensorBearing;
 import kr.gaion.armoredVehicle.database.repository.SensorBearingRepository;
@@ -9,6 +10,8 @@ import kr.gaion.armoredVehicle.database.repository.TrainingBearingRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -59,13 +62,9 @@ public class DatasetDatabaseService {
         return "success";
     }
 
-    public String insertFileInfoToDatabase(){
-
-        return "fileInfo";
+    //import Table data
+    public List<SensorBearing> getUnlabeledBearingData() throws IOException {
+        return sensorBearingRepository.findSensorBearingByAiPredictIsNull();
     }
 
-
-    public Page<SensorBearing> getUnlabeledBearingData(Pageable pageable) throws IOException {
-        return sensorBearingRepository.findSensorBearingByAiPredictIsNull(pageable);
-    }
 }

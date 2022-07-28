@@ -167,6 +167,12 @@ export interface BaseAlgorithmPredictInput {
      * @memberof BaseAlgorithmPredictInput
      */
     dimensionalityReduction?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof BaseAlgorithmPredictInput
+     */
+    dataType?: string;
 }
 /**
  * 
@@ -899,13 +905,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
 }
 /**
  * 
@@ -1101,13 +1107,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1160,79 +1166,6 @@ export interface PageRailSensorData {
      * 
      * @type {boolean}
      * @memberof PageRailSensorData
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearing
- */
-export interface PageSensorBearing {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearing
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearing
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearing
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearing>}
-     * @memberof PageSensorBearing
-     */
-    content?: Array<SensorBearing>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearing
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearing
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearing
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearing
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearing
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearing
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearing
      */
     empty?: boolean;
 }
@@ -3588,7 +3521,7 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearing>> {
+        async getUnlabeledBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearing>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingData(dataType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3618,7 +3551,7 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledBearingData(dataType: string, options?: any): AxiosPromise<PageSensorBearing> {
+        getUnlabeledBearingData(dataType: string, options?: any): AxiosPromise<Array<SensorBearing>> {
             return localVarFp.getUnlabeledBearingData(dataType, options).then((request) => request(axios, basePath));
         },
         /**

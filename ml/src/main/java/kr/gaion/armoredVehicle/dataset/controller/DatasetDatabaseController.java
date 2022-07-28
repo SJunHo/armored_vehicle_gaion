@@ -37,9 +37,9 @@ public class DatasetDatabaseController {
 
 
   @GetMapping(path = "/api/data/database/get-all-bearing-data")
-  public Page<SensorBearing> getUnlabeledBearingData(@RequestParam("dataType") String dataType, @Parameter(hidden = true) Pageable pageable) {
+  public List<SensorBearing> getUnlabeledBearingData(@RequestParam("dataType") String dataType) {
     try {
-      return this.datasetDatabaseService.getUnlabeledBearingData(pageable);
+      return this.datasetDatabaseService.getUnlabeledBearingData();
     } catch (IOException e) {
       e.printStackTrace();
       return null;

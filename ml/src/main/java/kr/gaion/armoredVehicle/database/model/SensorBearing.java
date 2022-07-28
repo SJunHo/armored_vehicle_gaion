@@ -38,7 +38,7 @@ public class SensorBearing {
     private long timeIndex;
 
     @Column(name="AI_Predict")
-    private double aiPredict;
+    private Double aiPredict;
 
     @Column(name="AI_Algorithm")
     private String aiAlgorithm;

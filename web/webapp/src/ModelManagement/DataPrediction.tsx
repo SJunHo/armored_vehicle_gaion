@@ -19,7 +19,7 @@ import {
   DataProvider,
   DbModelResponse,
   OpenApiContext,
-  RailSensorData,
+  SensorBearing,
 } from "../api";
 import { ALGORITHM_INFO } from "../common/Common";
 import { Section } from "../common/Section/Section";
@@ -33,10 +33,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   const [searchingData, setSearchingData] = useState(false);
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
-  const [railConditionData, setRailConditionData] = useState<RailSensorData[]>(
-    []
-  );
-  const [selectedData, setSelectedData] = useState<RailSensorData[]>();
+  const [railConditionData, setRailConditionData] = useState<SensorBearing[]>([]);
+  const [selectedData, setSelectedData] = useState<SensorBearing[]>();
+  const [tableColumns, setTableColumns] = useState<any>([]);
+  const [sensorObject, setSensorObject] = useState<Object>();
   const [wb, setWb] = useState<string>("W");
 
   const { t } = useTranslation();
@@ -54,53 +54,194 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     [t]
   );
 
-  const conditionDataColumns = useMemo<Column<RailSensorData>[]>(
+
+  const SensorBearingDataColumns = useMemo<Column<SensorBearing>[]>(
     () => [
       {
         Header: "예측 결과",
-        accessor: "defectScore",
+        accessor: "aiPredict",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "aiAlgorithm",
+      },
+      {
+        Header: "모델이름",
+        accessor: "aiModel",
       },
       {
         Header: "ID",
-        accessor: "id",
+        accessor: "idx",
       },
       {
-        Header: t("history.tno").toString(),
-        accessor: "trainNo",
+        Header: "날짜",
+        accessor: "operateDateTime",
       },
       {
-        Header: t("history.cno").toString(),
-        accessor: "carNo",
+        Header: "carId",
+        accessor: "carId",
       },
       {
-        Header: t("history.wb").toString(),
-        accessor: "wb",
+        Header: "lbvOverallRMS",
+        accessor: "lbvOverallRMS",
       },
       {
-        Header: t("history.lr").toString(),
-        accessor: "lr",
+        Header: "lbv1x",
+        accessor: "lbv1x",
       },
       {
-        Header: t("history.ns").toString(),
-        accessor: "ns",
+        Header: "lbv6912bpfo",
+        accessor: "lbv6912bpfo",
+      },{
+        Header: "lbv6912bpfi",
+        accessor: "lbv6912bpfi",
       },
       {
-        Header: t("history.ot").toString(),
-        accessor: "oneTwo",
+        Header: "lbv6912bsf",
+        accessor: "lbv6912bsf",
       },
       {
-        Header: t("history.time").toString(),
-        accessor: (item) => {
-          const time = item.time ? new Date(item.time) : undefined;
-          return time
-            ? time.toLocaleDateString("en-CA") +
-                " " +
-                time.toLocaleTimeString("kr")
-            : "-";
-        },
+        Header: "lbv6912ftf",
+        accessor: "lbv6912ftf",
+      },
+      {
+        Header: "lbv32924bpfo",
+        accessor: "lbv32924bpfo",
+      },
+      {
+        Header: "lbv32924bpfi",
+        accessor: "lbv32924bpfi",
+      },
+      {
+        Header: "lbv32924bsf",
+        accessor: "lbv32924bsf",
+      },
+      {
+        Header: "lbv32924ftf",
+        accessor: "lbv32924ftf",
+      },
+      {
+        Header: "lbv32922bpfo",
+        accessor: "lbv32922bpfo",
+      },
+      {
+        Header: "lbv32922bpfi",
+        accessor: "lbv32922bpfi",
+      },
+      {
+        Header: "lbv32922bsf",
+        accessor: "lbv32922bsf",
+      },
+      {
+        Header: "lbv32922ftf",
+        accessor: "lbv32922ftf",
+      },
+      {
+        Header: "lbvCrestfactor",
+        accessor: "lbvCrestfactor",
+      },
+      {
+        Header: "lbvDemodulation",
+        accessor: "lbvDemodulation",
+      },
+      {
+        Header: "lbsFault1",
+        accessor: "lbsFault1",
+      },
+      {
+        Header: "lbsFault2",
+        accessor: "lbsFault2",
+      },
+      {
+        Header: "lbtTemperature",
+        accessor: "lbtTemperature",
+      },
+      {
+        Header: "rbvOverallRMS",
+        accessor: "rbvOverallRMS",
+      },
+      {
+        Header: "rbv1x",
+        accessor: "rbv1x",
+      },
+      {
+        Header: "rbv6912bpfo",
+        accessor: "rbv6912bpfo",
+      },
+      {
+        Header: "rbv6912bpfi",
+        accessor: "rbv6912bpfi",
+      },
+      {
+        Header: "rbv6912bsf",
+        accessor: "rbv6912bsf",
+      },
+      {
+        Header: "rbv6912ftf",
+        accessor: "rbv6912ftf",
+      },
+      {
+        Header: "rbv32924bpfo",
+        accessor: "rbv32924bpfo",
+      },
+      {
+        Header: "rbv32924bpfi",
+        accessor: "rbv32924bpfi",
+      },
+      {
+        Header: "rbv32924bsf",
+        accessor: "rbv32924bsf",
+      },
+      {
+        Header: "rbv32924ftf",
+        accessor: "rbv32924ftf",
+      },
+      {
+        Header: "rbv32922bpfo",
+        accessor: "rbv32922bpfo",
+      },
+      {
+        Header: "rbv32922bpfi",
+        accessor: "rbv32922bpfi",
+      },
+      {
+        Header: "rbv32922bsf",
+        accessor: "rbv32922bsf",
+      },
+      {
+        Header: "rbv32922ftf",
+        accessor: "rbv32922ftf",
+      },
+      {
+        Header: "rbvCrestfactor",
+        accessor: "rbvCrestfactor",
+      },
+      {
+        Header: "rbvDemodulation",
+        accessor: "rbvDemodulation",
+      },
+      {
+        Header: "rbsFault1",
+        accessor: "rbsFault1",
+      },
+      {
+        Header: "rbsFault2",
+        accessor: "rbsFault2",
+      },
+      {
+        Header: "rbtTemperature",
+        accessor: "rbtTemperature",
+      },
+      {
+        Header: "filenm",
+        accessor: "filenm",
+      },
+      {
+        Header: "wrpm",
+        accessor: "wrpm",
       },
     ],
-    [t]
+    []
   );
   // const conditionDataGearBoxColumns = useMemo<Column<RailSensorData>[]>(
   //   () => [
@@ -259,40 +400,54 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       });
   }, [mlControllerApi, algorithmName]);
 
-  function handleSearchConditionData() {
+  function handleSearchConditionData(wb:any) {
     setSearchingData(true);
-    datasetDatabaseControllerApi
-      ?.getAllConditionDataDB(
-        wb,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        false
-      )
-      .then((res) => setRailConditionData(res.data.content || []))
-      .finally(() => setSearchingData(false));
+    if(wb == "B"){
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
+        .then((res) => setRailConditionData(res.data || []))
+        .finally(() => setSearchingData(false));
+      setTableColumns(SensorBearingDataColumns)
+      console.log(railConditionData)
+    }else if(wb =="W"){
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
+        .then((res) => setRailConditionData(res.data || []))
+        .finally(() => setSearchingData(false));
+      setTableColumns(SensorBearingDataColumns)
+    }else if(wb =="G"){
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
+        .then((res) => setRailConditionData(res.data || []))
+        .finally(() => setSearchingData(false));
+      setTableColumns(SensorBearingDataColumns)
+    }else if(wb =="E"){
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
+        .then((res) => setRailConditionData(res.data || []))
+        .finally(() => setSearchingData(false));
+      setTableColumns(SensorBearingDataColumns)
+    }
   }
 
   async function handleClassifyData() {
     const res = await mlControllerApi?.predict(algorithmName, {
-      classCol: "defect_score",
+      classCol: "Ai_Predict",
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
-      dataInputOption: DataInputOption.Es,
+      dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
+      dataType: wb
     });
     const predictedData = res?.data.predictionInfo || [];
+
     setRailConditionData((old) =>
       old.map((row) => {
         const selectedIndex = selectedData!.findIndex(
-          (selectedId) => selectedId.esId === row.esId
+          (selectedId) => selectedId.idx === row.idx
         );
         if (selectedIndex !== -1) {
-          row.defectScore = JSON.parse(
+          row.aiPredict = JSON.parse(
             "[" + predictedData[selectedIndex] + "]"
           )[0];
+          row.aiAlgorithm = algorithmName;
+          row.aiModel = selectedModel?.modelName;
         }
         return row;
       })
@@ -301,26 +456,26 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
 
   async function handleOutlierDetectionData() {
     const res = await mlControllerApi?.predictCluster(algorithmName, {
-      classCol: "defect_score",
+      classCol: "Ai_Predict",
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Es,
       listFieldsForPredict: selectedModel?.listFeatures,
     });
     const predictedData = res?.data.predictionInfo || [];
-    setRailConditionData((old) =>
-      old.map((row) => {
-        const selectedIndex = selectedData!.findIndex(
-          (selectedId) => selectedId.esId === row.esId
-        );
-        if (selectedIndex !== -1) {
-          row.defectScore = JSON.parse(
-            "[" + predictedData[selectedIndex] + "]"
-          )[0];
-        }
-        return row;
-      })
-    );
+    // setRailConditionData((old) =>
+    //   old.map((row) => {
+    //     const selectedIndex = selectedData!.findIndex(
+    //       (selectedId) => selectedId.esId === row.esId
+    //     );
+    //     if (selectedIndex !== -1) {
+    //       row.defectScore = JSON.parse(
+    //         "[" + predictedData[selectedIndex] + "]"
+    //       )[0];
+    //     }
+    //     return row;
+    //   })
+    // );
   }
 
   async function handlePredictData() {
@@ -332,28 +487,27 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     }
   }
 
-  async function handleUpdateData() {
-    setSaving(true);
-    datasetControllerApi
-      ?.updateRailSensorData(
-        selectedData!.map((es) => ({
-          esId: es.esId,
-          gdefectProb: es.defectScore,
-        }))
-      )
-      .finally(() => setSaving(false));
-  }
+  // async function handleUpdateData() {
+  //   setSaving(true);
+  //   datasetControllerApi
+  //     ?.updateRailSensorData(
+  //       selectedData!.map((es) => ({
+  //         esId: es.esId,
+  //         gdefectProb: es.defectScore,
+  //       }))
+  //     )
+  //     .finally(() => setSaving(false));
+  // }
 
-  const handleConditionDataSelected = useCallback(
-    (v: TableRow<RailSensorData>[]) => {
-      setSelectedData(v.map((i) => i.original));
-    },
-    []
-  );
+  const handleConditionDataSelected =
+    useCallback((v: TableRow<SensorBearing>[]) => {setSelectedData(v?.map((i) => i.original))},[]);
+
+
 
   const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
     setSelectedModel(v[0]?.original);
   }, []);
+  console.log(selectedModel)
 
   return (
     <Container fluid>
@@ -385,7 +539,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
           <Col className="Col d-grid gap-2">
             <Button
               className="button btn-block font-monospace fw-bold"
-              onClick={() => handleSearchConditionData()}
+              onClick={() => handleSearchConditionData(wb)}
               size="sm"
               disabled={searchingData}
             >
@@ -437,7 +591,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         <Col>고장전조 예측 결과</Col>
       </Row>
       <Table
-        columns={conditionDataColumns}
+        columns={tableColumns}
         data={railConditionData}
         onRowsSelected={handleConditionDataSelected}
       />
@@ -446,7 +600,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         <Col className="Col col-1 d-grid gap-2">
           <Button
             className="button font-monospace fw-bold"
-            onClick={handleUpdateData}
+            // onClick={handleUpdateData}
             size="sm"
             disabled={predicting}
           >
