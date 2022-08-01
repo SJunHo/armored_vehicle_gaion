@@ -3,6 +3,7 @@ package kr.gaion.armoredVehicle.dataset.controller;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import kr.gaion.armoredVehicle.database.model.SensorBearing;
+import kr.gaion.armoredVehicle.database.model.SensorTempLife;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,6 @@ public class DatasetDatabaseController {
         return files.stream().map(this.datasetDatabaseService::handleUploadFile).collect(Collectors.toList());
     }
 
-
   @GetMapping(path = "/api/data/database/get-all-bearing-data")
   public List<SensorBearing> getUnlabeledBearingData(@RequestParam("dataType") String dataType) {
     try {
@@ -45,6 +45,7 @@ public class DatasetDatabaseController {
       return null;
     }
   }
+
 //  @GetMapping(path = "/api/data/database/get-all-wheel-data")
 //  public Page<SensorBearing> getUnlabeledWheelData(@RequestParam("dataType") String dataType, @Parameter(hidden = true) Pageable pageable) {
 //    try {
@@ -54,6 +55,7 @@ public class DatasetDatabaseController {
 //      return null;
 //    }
 //  }
+//
 //  @GetMapping(path = "/api/data/database/get-all-gearbox-data")
 //  public Page<SensorBearing> getUnlabeledGearboxData(@RequestParam("dataType") String dataType, @Parameter(hidden = true) Pageable pageable) {
 //    try {
@@ -63,6 +65,7 @@ public class DatasetDatabaseController {
 //      return null;
 //    }
 //  }
+//
 //  @GetMapping(path = "/api/data/database/get-all-engine-data")
 //  public Page<SensorBearing> getUnlabeledEngineData(@RequestParam("dataType") String dataType, @Parameter(hidden = true) Pageable pageable) {
 //    try {
@@ -72,4 +75,15 @@ public class DatasetDatabaseController {
 //      return null;
 //    }
 //  }
+
+  @GetMapping(path = "/api/data/database/get-all-templife-data")
+  public List<SensorTempLife> getUnlabeledTepmLifeData(@RequestParam("dataType") String dataType) {
+        try {
+            return this.datasetDatabaseService.getUnlabeledTempLifeData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

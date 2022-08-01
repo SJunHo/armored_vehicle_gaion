@@ -115,8 +115,8 @@ public class MLController {
 //    return result;
 //  }
 
-  @PostMapping(path = "/api/predict/{algorithmName}")
-  public ClassificationResponse predict(@RequestBody BaseAlgorithmPredictInput input, @PathVariable String algorithmName) throws Exception {
+  @PostMapping(path = "/api/classification-predict/{algorithmName}")
+  public ClassificationResponse classification_predict(@RequestBody BaseAlgorithmPredictInput input, @PathVariable String algorithmName) throws Exception {
     switch (algorithmName) {
       case "rfc": {
         return this.rfc.predict(input);
@@ -129,6 +129,21 @@ public class MLController {
       }
       case "lr": {
         return this.lr.predict(input);
+      }
+      default: {
+        throw new Error("Unsupported algorithm");
+      }
+    }
+  }
+
+  @PostMapping(path = "/api/regression-predict/{algorithmName}")
+  public RegressionResponse regression_predict(@RequestBody BaseAlgorithmPredictInput input, @PathVariable String algorithmName) throws Exception {
+    switch (algorithmName) {
+      case "linear": {
+        return this.linearRegressor.predict(input);
+      }
+      case "lasso": {
+        return this.lassoRegressor.predict(input);
       }
       default: {
         throw new Error("Unsupported algorithm");

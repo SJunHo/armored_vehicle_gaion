@@ -147,6 +147,8 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         // 1. get data
         // JavaRDD<Vector> data = null;
         Dataset<Row> data = this.getUnlabeledData(input); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 메소드를 this로 호출
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ UnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@");
+        data.show();
 
         // 2. load model
         var model = LinearRegressionModel.load(this.getModelFullPath(modelName));
@@ -164,6 +166,10 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         for(String field : fieldsForPredict) {
             indices[index++] = listColNames.indexOf(field);
         }
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ JavaRDD @@@@@@@@@@@@@@@@@@@@@@@@@");
+        var d = data.toJavaRDD().take(10);
+        System.out.println(d);
 
         JavaRDD<String> lineData = data.toJavaRDD().map(new Function<>() {
             private static final long serialVersionUID = -4035135440483467579L;

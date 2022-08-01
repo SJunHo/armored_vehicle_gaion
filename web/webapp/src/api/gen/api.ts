@@ -1107,13 +1107,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -2170,6 +2170,97 @@ export interface SensorBearing {
      * @memberof SensorBearing
      */
     wrpm?: number;
+}
+/**
+ * 
+ * @export
+ * @interface SensorTempLife
+ */
+export interface SensorTempLife {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    acPower?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorTempLife
+     */
+    aiAlgorithm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorTempLife
+     */
+    aiModel?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    cpuUtil?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    diskAccesses?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    diskBlocks?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    diskUtil?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    instRetired?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    lastLevel?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    memoryBus?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    coreCycle?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorTempLife
+     */
+    time?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorTempLife
+     */
+    filenm?: string;
 }
 /**
  * 
@@ -3463,6 +3554,46 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledTepmLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataType' is not null or undefined
+            assertParamExists('getUnlabeledTepmLifeData', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-templife-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dataType !== undefined) {
+                localVarQueryParameter['dataType'] = dataType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3527,6 +3658,16 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledTepmLifeData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorTempLife>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTepmLifeData(dataType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3556,6 +3697,15 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledTepmLifeData(dataType: string, options?: any): AxiosPromise<Array<SensorTempLife>> {
+            return localVarFp.getUnlabeledTepmLifeData(dataType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3582,6 +3732,17 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
      */
     public getUnlabeledBearingData(dataType: string, options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledBearingData(dataType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} dataType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledTepmLifeData(dataType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTepmLifeData(dataType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3636,6 +3797,49 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(baseAlgorithmTrainInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} algorithmName 
+         * @param {BaseAlgorithmPredictInput} baseAlgorithmPredictInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        classificationPredict: async (algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'algorithmName' is not null or undefined
+            assertParamExists('classificationPredict', 'algorithmName', algorithmName)
+            // verify required parameter 'baseAlgorithmPredictInput' is not null or undefined
+            assertParamExists('classificationPredict', 'baseAlgorithmPredictInput', baseAlgorithmPredictInput)
+            const localVarPath = `/api/classification-predict/{algorithmName}`
+                .replace(`{${"algorithmName"}}`, encodeURIComponent(String(algorithmName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(baseAlgorithmPredictInput, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3836,12 +4040,12 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        predict: async (algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options: any = {}): Promise<RequestArgs> => {
+        predictCluster: async (algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'algorithmName' is not null or undefined
-            assertParamExists('predict', 'algorithmName', algorithmName)
+            assertParamExists('predictCluster', 'algorithmName', algorithmName)
             // verify required parameter 'baseAlgorithmPredictInput' is not null or undefined
-            assertParamExists('predict', 'baseAlgorithmPredictInput', baseAlgorithmPredictInput)
-            const localVarPath = `/api/predict/{algorithmName}`
+            assertParamExists('predictCluster', 'baseAlgorithmPredictInput', baseAlgorithmPredictInput)
+            const localVarPath = `/api/cluster-predict/{algorithmName}`
                 .replace(`{${"algorithmName"}}`, encodeURIComponent(String(algorithmName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3879,12 +4083,12 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        predictCluster: async (algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options: any = {}): Promise<RequestArgs> => {
+        regressionPredict: async (algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'algorithmName' is not null or undefined
-            assertParamExists('predictCluster', 'algorithmName', algorithmName)
+            assertParamExists('regressionPredict', 'algorithmName', algorithmName)
             // verify required parameter 'baseAlgorithmPredictInput' is not null or undefined
-            assertParamExists('predictCluster', 'baseAlgorithmPredictInput', baseAlgorithmPredictInput)
-            const localVarPath = `/api/cluster-predict/{algorithmName}`
+            assertParamExists('regressionPredict', 'baseAlgorithmPredictInput', baseAlgorithmPredictInput)
+            const localVarPath = `/api/regression-predict/{algorithmName}`
                 .replace(`{${"algorithmName"}}`, encodeURIComponent(String(algorithmName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4296,6 +4500,17 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} algorithmName 
+         * @param {BaseAlgorithmPredictInput} baseAlgorithmPredictInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async classificationPredict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClassificationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.classificationPredict(algorithmName, baseAlgorithmPredictInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} algorithm 
          * @param {number} algorithmResponseId 
          * @param {*} [options] Override http request option.
@@ -4351,8 +4566,8 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async predict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClassificationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.predict(algorithmName, baseAlgorithmPredictInput, options);
+        async predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClusterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.predictCluster(algorithmName, baseAlgorithmPredictInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4362,8 +4577,8 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClusterResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.predictCluster(algorithmName, baseAlgorithmPredictInput, options);
+        async regressionPredict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegressionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.regressionPredict(algorithmName, baseAlgorithmPredictInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4479,6 +4694,16 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
+         * @param {string} algorithmName 
+         * @param {BaseAlgorithmPredictInput} baseAlgorithmPredictInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        classificationPredict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): AxiosPromise<ClassificationResponse> {
+            return localVarFp.classificationPredict(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} algorithm 
          * @param {number} algorithmResponseId 
          * @param {*} [options] Override http request option.
@@ -4529,8 +4754,8 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        predict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): AxiosPromise<ClassificationResponse> {
-            return localVarFp.predict(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(axios, basePath));
+        predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): AxiosPromise<ClusterResponse> {
+            return localVarFp.predictCluster(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4539,8 +4764,8 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): AxiosPromise<ClusterResponse> {
-            return localVarFp.predictCluster(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(axios, basePath));
+        regressionPredict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any): AxiosPromise<RegressionResponse> {
+            return localVarFp.regressionPredict(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4648,6 +4873,18 @@ export class MlControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} algorithmName 
+     * @param {BaseAlgorithmPredictInput} baseAlgorithmPredictInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public classificationPredict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any) {
+        return MlControllerApiFp(this.configuration).classificationPredict(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {string} algorithm 
      * @param {number} algorithmResponseId 
      * @param {*} [options] Override http request option.
@@ -4709,8 +4946,8 @@ export class MlControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MlControllerApi
      */
-    public predict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any) {
-        return MlControllerApiFp(this.configuration).predict(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(this.axios, this.basePath));
+    public predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any) {
+        return MlControllerApiFp(this.configuration).predictCluster(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4721,8 +4958,8 @@ export class MlControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MlControllerApi
      */
-    public predictCluster(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any) {
-        return MlControllerApiFp(this.configuration).predictCluster(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(this.axios, this.basePath));
+    public regressionPredict(algorithmName: string, baseAlgorithmPredictInput: BaseAlgorithmPredictInput, options?: any) {
+        return MlControllerApiFp(this.configuration).regressionPredict(algorithmName, baseAlgorithmPredictInput, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

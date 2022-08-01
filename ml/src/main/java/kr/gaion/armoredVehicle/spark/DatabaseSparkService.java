@@ -68,7 +68,7 @@ public class DatabaseSparkService {
             System.out.println(tname);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.175:3306/AMVHC")
+                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
                     .option("dbtable", tname.toUpperCase())
                     .option("user", "AMVHC_U")
                     .option("password", "!Tltmxpa0517")
@@ -186,7 +186,6 @@ public class DatabaseSparkService {
         return jdbcDF;
     }
 
-
     //import Db unlabeled data for predict
     public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput) {
         switch(baseAlgorithmPredictInput.getDataType()){
@@ -196,7 +195,7 @@ public class DatabaseSparkService {
                     System.out.println(tname);
                     Dataset<Row> jdbcDF = spark.read()
                             .format("jdbc")
-                            .option("url", "jdbc:mysql://192.168.0.175:3306/AMVHC")
+                            .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
                             .option("dbtable", "(Select * from BERDATA where AI_Predict is Null) as subtest")
                             .option("user", "AMVHC_U")
                             .option("password", "!Tltmxpa0517")
@@ -214,6 +213,23 @@ public class DatabaseSparkService {
             }
             case "E": {
 
+            }
+            case "T": {
+                try {
+                    String tname = "TEMPLIFEDATA";
+                    System.out.println(tname);
+                    Dataset<Row> jdbcDF = spark.read()
+                            .format("jdbc")
+                            .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
+//                            .option("dbtable", "(Select * from TEMPLIFEDATA where AI_Predict is Null) as subtest")
+                            .option("dbtable", "(Select * from TEMPLIFEDATA where ACPOWER is Null) as subtest")
+                            .option("user", "AMVHC_U")
+                            .option("password", "!Tltmxpa0517")
+                            .load();
+                    return jdbcDF;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 

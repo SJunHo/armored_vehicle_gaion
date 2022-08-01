@@ -16,43 +16,43 @@ public class SensorTempLife {
     @Id
     @GeneratedValue
     @Column(name="IDX")
-    private long lifecycleId;
+    private Long idx;
 
 //    @Column(name="AI_Predict")
-//    private double AiPredict;
+//    private Double AiPredict;
 
     @Column(name="ACPOWER")
-    private float acPower;
+    private Float acPower;
 
     @Column(name="AI_Algorithm")
-    private double aiAlgorithm;
+    private String aiAlgorithm;
 
     @Column(name="AI_Model")
-    private double aiModel;
+    private String aiModel;
 
     @Column(name="CPUUTIL")
-    private float cpuUtil;
+    private Float cpuUtil;
 
     @Column(name="DISKACCESSES")
-    private float diskAccesses;
+    private Float diskAccesses;
 
     @Column(name="DISKBLOCKS")
-    private float diskBlocks;
+    private Float diskBlocks;
 
     @Column(name="DISKUTIL")
-    private float diskUtil;
+    private Float diskUtil;
 
     @Column(name="INSTRETIRED")
-    private float instRetired;
+    private Float instRetired;
 
     @Column(name="LASTLEVEL")
-    private float lastLevel;
+    private Float lastLevel;
 
     @Column(name="MEMORYBUS")
-    private float memoryBus;
+    private Float memoryBus;
 
     @Column(name="CORECYCLE")
-    private float coreCycle;
+    private Float coreCycle;
 
     @Column(name="TIME")
     private String time;

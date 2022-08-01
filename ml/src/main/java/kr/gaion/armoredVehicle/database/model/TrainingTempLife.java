@@ -19,34 +19,34 @@ public class TrainingTempLife {
     @Id
     @GeneratedValue
     @Column(name="IDX")
-    private long lifecycleId;
+    private Long idx;
 
     @Column(name="ACPOWER")
-    private float acPower;
+    private Float acPower;
 
     @Column(name="CPUUTIL")
-    private float cpuUtil;
+    private Float cpuUtil;
 
     @Column(name="DISKACCESSES")
-    private float diskAccesses;
+    private Float diskAccesses;
 
     @Column(name="DISKBLOCKS")
-    private float diskBlocks;
+    private Float diskBlocks;
 
     @Column(name="DISKUTIL")
-    private float diskUtil;
+    private Float diskUtil;
 
     @Column(name="INSTRETIRED")
-    private float instRetired;
+    private Float instRetired;
 
     @Column(name="LASTLEVEL")
-    private float lastLevel;
+    private Float lastLevel;
 
     @Column(name="MEMORYBUS")
-    private float memoryBus;
+    private Float memoryBus;
 
     @Column(name="CORECYCLE")
-    private float coreCycle;
+    private Float coreCycle;
 
     @Column(name="TIME")
     private String time;

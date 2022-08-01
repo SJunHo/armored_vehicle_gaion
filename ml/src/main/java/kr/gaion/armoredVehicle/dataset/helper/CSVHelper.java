@@ -1,5 +1,6 @@
 package kr.gaion.armoredVehicle.dataset.helper;
 
+import kr.gaion.armoredVehicle.database.model.TrainingTempLife;
 import org.apache.commons.csv.CSVParser;
 import kr.gaion.armoredVehicle.database.model.TrainingBearing;
 import org.apache.commons.csv.CSVFormat;
@@ -20,7 +21,7 @@ public class CSVHelper {
         }
         return true;
     }
-    public static List<TrainingBearing> csvToTutorials(InputStream is) {
+    public static List<TrainingBearing> csvToBearing(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<TrainingBearing> trainingBearingList = new ArrayList<>();
@@ -82,6 +83,35 @@ public class CSVHelper {
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         } catch (ParseException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static List<TrainingTempLife> csvToTempLife(InputStream is) {
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+
+            List<TrainingTempLife> trainingTempLifeList = new ArrayList<>();
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+
+            for (CSVRecord csvRecord : csvRecords) {
+                TrainingTempLife trainingTempLife = new TrainingTempLife();
+                trainingTempLife.setAcPower(Float.parseFloat(csvRecord.get("ACPOWER")));
+                trainingTempLife.setCoreCycle(Float.parseFloat(csvRecord.get("CORECYCLE")));
+                trainingTempLife.setCpuUtil(Float.parseFloat(csvRecord.get("CPUUTIL")));
+                trainingTempLife.setDiskAccesses(Float.parseFloat(csvRecord.get("DISKACCESSES")));
+                trainingTempLife.setDiskBlocks(Float.parseFloat(csvRecord.get("DISKBLOCKS")));
+                trainingTempLife.setDiskUtil(Float.parseFloat(csvRecord.get("DISKUTIL")));
+                trainingTempLife.setInstRetired(Float.parseFloat(csvRecord.get("INSTRETIRED")));
+                trainingTempLife.setLastLevel(Float.parseFloat(csvRecord.get("LASTLEVEL")));
+                trainingTempLife.setMemoryBus(Float.parseFloat(csvRecord.get("MEMORYBUS")));
+                trainingTempLife.setTime(csvRecord.get("TIME"));
+
+
+                trainingTempLifeList.add(trainingTempLife);
+            }
+            return trainingTempLifeList;
+        } catch (IOException e) {
+            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         }
     }
 }
