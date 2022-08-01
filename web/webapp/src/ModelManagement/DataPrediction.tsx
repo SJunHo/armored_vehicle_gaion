@@ -21,8 +21,10 @@ import {
     DbModelResponse,
     OpenApiContext,
     SensorBearing,
-    SensorTempLife,
-
+    SensorGearbox,
+    SensorWheel,
+    SensorEngine,
+    SensorTempLife
 } from "../api";
 import { ALGORITHM_INFO } from "../common/Common";
 import { Section } from "../common/Section/Section";
@@ -283,7 +285,72 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     ],
     []
   );
-  // const conditionDataGearBoxColumns = useMemo<Column<RailSensorData>[]>(
+  const SensorGearboxDataColumns = useMemo<Column<SensorGearbox>[]>(
+    () => [
+      {
+        Header: "예측 결과",
+        accessor: "aiPredict",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "aiAlgorithm",
+      },
+      {
+        Header: "모델이름",
+        accessor: "aiModel",
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "날짜",
+        accessor: "operateDateTime",
+      },
+      {
+        Header: "carId",
+        accessor: "carId",
+      },
+      {
+        Header: "wrpm",
+        accessor: "wrpm",
+      },
+      {
+        Header: "gvOverallRms",
+        accessor: "gvOverallRms",
+      },
+      {
+        Header: "gvWheel1x",
+        accessor: "gvWheel1x",
+      },
+      {
+        Header: "gvWheel2x",
+        accessor: "gvWheel2x",
+      },
+      {
+        Header: "gvPinion1x",
+        accessor: "gvPinion1x",
+      },
+      {
+        Header: "gvPinion2x",
+        accessor: "gvPinion2x",
+      },
+      {
+        Header: "gvGmf1x",
+        accessor: "gvGmf1x",
+      },
+      {
+        Header: "gvGmf2x",
+        accessor: "gvGmf2x",
+      },
+      {
+        Header: "filenm",
+        accessor: "filenm",
+      },
+    ],
+    [t]
+  );
+  // const SensorWheelDataColumns = useMemo<Column<SensorWheel>[]>(
   //   () => [
   //     {
   //       Header: "예측 결과",
@@ -331,55 +398,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   //   ],
   //   [t]
   // );
-  // const conditionDataWheelColumns = useMemo<Column<RailSensorData>[]>(
-  //   () => [
-  //     {
-  //       Header: "예측 결과",
-  //       accessor: "defectScore",
-  //     },
-  //     {
-  //       Header: "ID",
-  //       accessor: "id",
-  //     },
-  //     {
-  //       Header: t("history.tno").toString(),
-  //       accessor: "trainNo",
-  //     },
-  //     {
-  //       Header: t("history.cno").toString(),
-  //       accessor: "carNo",
-  //     },
-  //     {
-  //       Header: t("history.wb").toString(),
-  //       accessor: "wb",
-  //     },
-  //     {
-  //       Header: t("history.lr").toString(),
-  //       accessor: "lr",
-  //     },
-  //     {
-  //       Header: t("history.ns").toString(),
-  //       accessor: "ns",
-  //     },
-  //     {
-  //       Header: t("history.ot").toString(),
-  //       accessor: "oneTwo",
-  //     },
-  //     {
-  //       Header: t("history.time").toString(),
-  //       accessor: (item) => {
-  //         const time = item.time ? new Date(item.time) : undefined;
-  //         return time
-  //           ? time.toLocaleDateString("en-CA") +
-  //           " " +
-  //           time.toLocaleTimeString("kr")
-  //           : "-";
-  //       },
-  //     },
-  //   ],
-  //   [t]
-  // );
-  // const conditionDataEngineColumns = useMemo<Column<RailSensorData>[]>(
+  // const SensorEngineDataColumns = useMemo<Column<SensorEngine>[]>(
   //   () => [
   //     {
   //       Header: "예측 결과",
@@ -569,7 +588,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
 
         setSensorTempLifeConditionData((old) =>
             old.map((row) => {
-                const selectedIndex = selectedBearingData!.findIndex(
+                const selectedIndex = selectedTempLifeData!.findIndex(
                     (selectedId) => selectedId.idx === row.idx
                 );
                 if (selectedIndex !== -1) {

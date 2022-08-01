@@ -95,15 +95,15 @@ public class CSVHelper {
 
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingTempLife trainingTempLife = new TrainingTempLife();
-                trainingTempLife.setAcPower(Float.parseFloat(csvRecord.get("ACPOWER")));
-                trainingTempLife.setCoreCycle(Float.parseFloat(csvRecord.get("CORECYCLE")));
-                trainingTempLife.setCpuUtil(Float.parseFloat(csvRecord.get("CPUUTIL")));
-                trainingTempLife.setDiskAccesses(Float.parseFloat(csvRecord.get("DISKACCESSES")));
-                trainingTempLife.setDiskBlocks(Float.parseFloat(csvRecord.get("DISKBLOCKS")));
-                trainingTempLife.setDiskUtil(Float.parseFloat(csvRecord.get("DISKUTIL")));
-                trainingTempLife.setInstRetired(Float.parseFloat(csvRecord.get("INSTRETIRED")));
-                trainingTempLife.setLastLevel(Float.parseFloat(csvRecord.get("LASTLEVEL")));
-                trainingTempLife.setMemoryBus(Float.parseFloat(csvRecord.get("MEMORYBUS")));
+                trainingTempLife.setAcPower(Double.parseDouble(csvRecord.get("ACPOWER")));
+                trainingTempLife.setCoreCycle(Double.parseDouble(csvRecord.get("CORECYCLE")));
+                trainingTempLife.setCpuUtil(Double.parseDouble(csvRecord.get("CPUUTIL")));
+                trainingTempLife.setDiskAccesses(Double.parseDouble(csvRecord.get("DISKACCESSES")));
+                trainingTempLife.setDiskBlocks(Double.parseDouble(csvRecord.get("DISKBLOCKS")));
+                trainingTempLife.setDiskUtil(Double.parseDouble(csvRecord.get("DISKUTIL")));
+                trainingTempLife.setInstRetired(Double.parseDouble(csvRecord.get("INSTRETIRED")));
+                trainingTempLife.setLastLevel(Double.parseDouble(csvRecord.get("LASTLEVEL")));
+                trainingTempLife.setMemoryBus(Double.parseDouble(csvRecord.get("MEMORYBUS")));
                 trainingTempLife.setTime(csvRecord.get("TIME"));
 
 

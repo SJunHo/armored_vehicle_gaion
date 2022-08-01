@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TrainingGearBox {
+public class TrainingGearbox {
     @Id
     @GeneratedValue
     @Column(name="IDX")

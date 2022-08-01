@@ -1,4 +1,4 @@
-_time,ac_power,total-cpu-utilization,total-disk-accesses,total-disk-blocks,total-disk-utilization,total-instructions_retired,total-last_level_cache_references,total-memory_bus_transactions,total-unhalted_core_cycles
+TIME,ACPOWER,CPUUTIL,DISKACCESSES,DISKBLOCKS,DISKUTIL,INSTRETIRED,LASTLEVEL,MEMORYBUS,CORECYCLE
 13:51:28 2008-Apr-14,220,0.99,0,0,0,3924639,75140,5130,4708152
 13:51:29 2008-Apr-14,220,1.15,5.49,214.63,3.66,28433358,590082,180003,40827356
 13:51:30 2008-Apr-14,223,0.99,30.43,817.39,30.43,10417228,360018,111197,21717729
