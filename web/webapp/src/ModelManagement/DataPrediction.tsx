@@ -55,6 +55,38 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         Header: t("table.column.notes").toString(),
         accessor: "description",
       },
+      {
+        Header: t("ml.common.accuracy").toString(),
+        accessor: "accuracy",
+      },
+      // {
+      //   Header: t("ml.common.fsco").toString(),
+      //   accessor: "weightedFMeasure",
+      // },
+      // {
+      //   Header: t("ml.common.wfp").toString(),
+      //   accessor: "weightedFalsePositiveRate",
+      // },
+      // {
+      //   Header: t("ml.common.precision").toString(),
+      //   accessor: "weightedPrecision",
+      // },
+      // {
+      //   Header: t("ml.common.recall").toString(),
+      //   accessor: "weightedRecall",
+      // },
+      // {
+      //   Header: t("ml.common.wtp").toString(),
+      //   accessor: "weightedTruePositiveRate",
+      // },
+      // {
+      //   Header: t("ml.common.r2").toString(),
+      //   accessor: "r2",
+      // },
+      {
+        Header: t("ml.common.rmse").toString(),
+        accessor: "rootMeanSquaredError",
+      },
     ],
     [t]
   );
