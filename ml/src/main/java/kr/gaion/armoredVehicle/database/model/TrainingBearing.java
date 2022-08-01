@@ -7,11 +7,7 @@ import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 
@@ -22,7 +18,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class TrainingBearing {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "train_bearing_generator")
+    @SequenceGenerator(name="train_bearing_generator", sequenceName = "train_bearing_seq")
     @Column(name="IDX")
     private long idx;
 
