@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import { Column, Row as TableRow } from "react-table";
 import {
   DataInputOption,
-  DataProvider,
+  DataProvider, DbDataUpdateInput,
   DbModelResponse,
   OpenApiContext,
   SensorBearing,
@@ -519,17 +519,20 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     }
   }
 
-  // async function handleUpdateData() {
-  //   setSaving(true);
-  //   datasetControllerApi
-  //     ?.updateRailSensorData(
-  //       selectedData!.map((es) => ({
-  //         esId: es.esId,
-  //         gdefectProb: es.defectScore,
-  //       }))
-  //     )
-  //     .finally(() => setSaving(false));
-  // }
+  async function handleUpdateData() {
+    setSaving(true);
+    datasetDatabaseControllerApi
+      ?.updateData(
+        selectedData!.map((inputs) => ({
+          dataType: wb,
+          id : inputs.idx,
+          aiAlgorithm : inputs.aiAlgorithm,
+          aiPredict : inputs.aiPredict,
+          modelName : inputs.aiModel,
+        }))
+      )
+      .finally(() => setSaving(false));
+  }
 
   const handleConditionDataSelected =
     useCallback((v: TableRow<SensorBearing>[]) => {setSelectedData(v?.map((i) => i.original))},[]);
@@ -632,7 +635,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         <Col className="Col col-1 d-grid gap-2">
           <Button
             className="button font-monospace fw-bold"
-            // onClick={handleUpdateData}
+            onClick={handleUpdateData}
             size="sm"
             disabled={predicting}
           >
