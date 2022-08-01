@@ -782,6 +782,43 @@ export enum DataProvider {
 /**
  * 
  * @export
+ * @interface DbDataUpdateInput
+ */
+export interface DbDataUpdateInput {
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    dataType?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbDataUpdateInput
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    aiAlgorithm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    modelName?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbDataUpdateInput
+     */
+    aiPredict?: number;
+}
+/**
+ * 
+ * @export
  * @interface DbModelResponse
  */
 export interface DbModelResponse {
@@ -905,13 +942,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1116,6 +1153,30 @@ export interface PageRailSensorData {
     totalPages?: number;
     /**
      * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageRailSensorData
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
+    /**
+     * 
      * @type {number}
      * @memberof PageRailSensorData
      */
@@ -1143,30 +1204,6 @@ export interface PageRailSensorData {
      * @type {boolean}
      * @memberof PageRailSensorData
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageRailSensorData
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageRailSensorData
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
     empty?: boolean;
 }
 /**
@@ -1175,18 +1212,6 @@ export interface PageRailSensorData {
  * @interface Pageable
  */
 export interface Pageable {
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    offset?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof Pageable
-     */
-    sort?: Sort;
     /**
      * 
      * @type {number}
@@ -1211,6 +1236,18 @@ export interface Pageable {
      * @memberof Pageable
      */
     paged?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    offset?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof Pageable
+     */
+    sort?: Sort;
 }
 /**
  * 
@@ -3554,6 +3591,7 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
+<<<<<<< HEAD
          * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3562,6 +3600,16 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // verify required parameter 'dataType' is not null or undefined
             assertParamExists('getUnlabeledTepmLifeData', 'dataType', dataType)
             const localVarPath = `/api/data/database/get-all-templife-data`;
+=======
+         * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateData: async (dbDataUpdateInput: Array<DbDataUpdateInput>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dbDataUpdateInput' is not null or undefined
+            assertParamExists('updateData', 'dbDataUpdateInput', dbDataUpdateInput)
+            const localVarPath = `/api/data/database/update`;
+>>>>>>> origin/gaion
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3569,7 +3617,11 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
                 baseOptions = configuration.baseOptions;
             }
 
+<<<<<<< HEAD
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+=======
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+>>>>>>> origin/gaion
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -3577,6 +3629,7 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
+<<<<<<< HEAD
             if (dataType !== undefined) {
                 localVarQueryParameter['dataType'] = dataType;
             }
@@ -3586,6 +3639,16 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+=======
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(dbDataUpdateInput, localVarRequestOptions, configuration)
+>>>>>>> origin/gaion
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3658,12 +3721,21 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
+<<<<<<< HEAD
          * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getUnlabeledTepmLifeData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorTempLife>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTepmLifeData(dataType, options);
+=======
+         * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateData(dbDataUpdateInput: Array<DbDataUpdateInput>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateData(dbDataUpdateInput, options);
+>>>>>>> origin/gaion
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3697,12 +3769,21 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
+<<<<<<< HEAD
          * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getUnlabeledTepmLifeData(dataType: string, options?: any): AxiosPromise<Array<SensorTempLife>> {
             return localVarFp.getUnlabeledTepmLifeData(dataType, options).then((request) => request(axios, basePath));
+=======
+         * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateData(dbDataUpdateInput: Array<DbDataUpdateInput>, options?: any): AxiosPromise<string> {
+            return localVarFp.updateData(dbDataUpdateInput, options).then((request) => request(axios, basePath));
+>>>>>>> origin/gaion
         },
         /**
          * 
@@ -3736,13 +3817,22 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
 
     /**
      * 
+<<<<<<< HEAD
      * @param {string} dataType 
+=======
+     * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
+>>>>>>> origin/gaion
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
+<<<<<<< HEAD
     public getUnlabeledTepmLifeData(dataType: string, options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTepmLifeData(dataType, options).then((request) => request(this.axios, this.basePath));
+=======
+    public updateData(dbDataUpdateInput: Array<DbDataUpdateInput>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).updateData(dbDataUpdateInput, options).then((request) => request(this.axios, this.basePath));
+>>>>>>> origin/gaion
     }
 
     /**

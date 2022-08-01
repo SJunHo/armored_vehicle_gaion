@@ -4,17 +4,16 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import kr.gaion.armoredVehicle.database.model.SensorBearing;
 import kr.gaion.armoredVehicle.database.model.SensorTempLife;
+import kr.gaion.armoredVehicle.dataset.dto.DbDataUpdateInput;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.converters.models.PageableAsQueryParam;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,4 +85,8 @@ public class DatasetDatabaseController {
         }
     }
 
+  @PostMapping(path = "/api/data/database/update")
+  public String updateData(@RequestBody ArrayList<DbDataUpdateInput> input) throws IOException {
+    return this.datasetDatabaseService.updatePredictData(input);
+  }
 }

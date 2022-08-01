@@ -122,7 +122,7 @@ public class RandomForestClassifier extends ClassifierAlgorithm<RandomForestClas
 				for (int iter : indices) {
 					++_subIter;
 					try {
-						denseData[_subIter] = Double.parseDouble(rowData.getString(iter));
+						denseData[_subIter] = rowData.getDouble(iter);
 					} catch (Exception e) {
 						denseData[_subIter] = 0;
 					}
