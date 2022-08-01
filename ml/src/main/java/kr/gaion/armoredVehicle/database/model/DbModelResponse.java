@@ -65,7 +65,7 @@ public class DbModelResponse {
     private double r2;
 
     @Type(type="json")
-    @Column(name = "listFeatures")
+    @Column(name = "listFeatures", columnDefinition = "LONGTEXT")
     private String[] listFeatures;
 
     @Type(type = "json")

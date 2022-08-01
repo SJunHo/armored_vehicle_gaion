@@ -167,6 +167,12 @@ export interface BaseAlgorithmPredictInput {
      * @memberof BaseAlgorithmPredictInput
      */
     dimensionalityReduction?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof BaseAlgorithmPredictInput
+     */
+    dataType?: string;
 }
 /**
  * 
@@ -1093,79 +1099,6 @@ export interface ImportESDataFromFileInput {
 /**
  * 
  * @export
- * @interface PageObject
- */
-export interface PageObject {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageObject
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageObject
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageObject
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof PageObject
-     */
-    content?: Array<object>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageObject
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageObject
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageObject
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageObject
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageObject
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageObject
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageObject
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
  * @interface PageRailSensorData
  */
 export interface PageRailSensorData {
@@ -1174,13 +1107,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1936,6 +1869,307 @@ export interface SVMClassificationResponse {
      * @memberof SVMClassificationResponse
      */
     precisionRecallCurve?: Array<object>;
+}
+/**
+ * 
+ * @export
+ * @interface SensorBearing
+ */
+export interface SensorBearing {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearing
+     */
+    carId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearing
+     */
+    operateDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearing
+     */
+    operateTime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearing
+     */
+    operateDateTime?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    timeIndex?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    aiPredict?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearing
+     */
+    aiAlgorithm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearing
+     */
+    aiModel?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbvOverallRMS?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv1x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv6912bpfo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv6912bpfi?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv6912bsf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv6912ftf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32924bpfo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32924bpfi?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32924bsf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32924ftf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32922bpfo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32922bpfi?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32922bsf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbv32922ftf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbvCrestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbvDemodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbsFault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbsFault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    lbtTemperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbvOverallRMS?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv1x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv6912bpfo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv6912bpfi?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv6912bsf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv6912ftf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32924bpfo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32924bpfi?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32924bsf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32924ftf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32922bpfo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32922bpfi?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32922bsf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbv32922ftf?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbvCrestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbvDemodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbsFault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbsFault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    rbtTemperature?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearing
+     */
+    filenm?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearing
+     */
+    wrpm?: number;
 }
 /**
  * 
@@ -3190,23 +3424,13 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         /**
          * 
          * @param {string} dataType 
-         * @param {string} [trainNo] 
-         * @param {string} [carNo] 
-         * @param {string} [fromDate] 
-         * @param {string} [toDate] 
-         * @param {number} [severity] 
-         * @param {boolean} [hasDefectScore] 
-         * @param {number} [hasDefectUser] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllConditionDataDB: async (dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getUnlabeledBearingData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getAllConditionDataDB', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-data`;
+            assertParamExists('getUnlabeledBearingData', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-bearing-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3224,50 +3448,6 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
 
             if (dataType !== undefined) {
                 localVarQueryParameter['dataType'] = dataType;
-            }
-
-            if (trainNo !== undefined) {
-                localVarQueryParameter['train-no'] = trainNo;
-            }
-
-            if (carNo !== undefined) {
-                localVarQueryParameter['car-no'] = carNo;
-            }
-
-            if (fromDate !== undefined) {
-                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
-                    (fromDate as any).toISOString() :
-                    fromDate;
-            }
-
-            if (toDate !== undefined) {
-                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
-                    (toDate as any).toISOString() :
-                    toDate;
-            }
-
-            if (severity !== undefined) {
-                localVarQueryParameter['severity'] = severity;
-            }
-
-            if (hasDefectScore !== undefined) {
-                localVarQueryParameter['has_defect_score'] = hasDefectScore;
-            }
-
-            if (hasDefectUser !== undefined) {
-                localVarQueryParameter['has_defect_user'] = hasDefectUser;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -3338,21 +3518,11 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
         /**
          * 
          * @param {string} dataType 
-         * @param {string} [trainNo] 
-         * @param {string} [carNo] 
-         * @param {string} [fromDate] 
-         * @param {string} [toDate] 
-         * @param {number} [severity] 
-         * @param {boolean} [hasDefectScore] 
-         * @param {number} [hasDefectUser] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllConditionDataDB(dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllConditionDataDB(dataType, trainNo, carNo, fromDate, toDate, severity, hasDefectScore, hasDefectUser, page, size, sort, options);
+        async getUnlabeledBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearing>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingData(dataType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3378,21 +3548,11 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
         /**
          * 
          * @param {string} dataType 
-         * @param {string} [trainNo] 
-         * @param {string} [carNo] 
-         * @param {string} [fromDate] 
-         * @param {string} [toDate] 
-         * @param {number} [severity] 
-         * @param {boolean} [hasDefectScore] 
-         * @param {number} [hasDefectUser] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllConditionDataDB(dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
-            return localVarFp.getAllConditionDataDB(dataType, trainNo, carNo, fromDate, toDate, severity, hasDefectScore, hasDefectUser, page, size, sort, options).then((request) => request(axios, basePath));
+        getUnlabeledBearingData(dataType: string, options?: any): AxiosPromise<Array<SensorBearing>> {
+            return localVarFp.getUnlabeledBearingData(dataType, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3416,22 +3576,12 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
     /**
      * 
      * @param {string} dataType 
-     * @param {string} [trainNo] 
-     * @param {string} [carNo] 
-     * @param {string} [fromDate] 
-     * @param {string} [toDate] 
-     * @param {number} [severity] 
-     * @param {boolean} [hasDefectScore] 
-     * @param {number} [hasDefectUser] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getAllConditionDataDB(dataType: string, trainNo?: string, carNo?: string, fromDate?: string, toDate?: string, severity?: number, hasDefectScore?: boolean, hasDefectUser?: number, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getAllConditionDataDB(dataType, trainNo, carNo, fromDate, toDate, severity, hasDefectScore, hasDefectUser, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getUnlabeledBearingData(dataType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledBearingData(dataType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

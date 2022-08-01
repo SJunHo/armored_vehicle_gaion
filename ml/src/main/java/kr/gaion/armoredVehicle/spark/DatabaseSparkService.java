@@ -1,9 +1,12 @@
 package kr.gaion.armoredVehicle.spark;
 
+import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.FileInput;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.DatabaseConfiguration;
+import kr.gaion.armoredVehicle.database.model.TrainingBearing;
+import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
 import kr.gaion.armoredVehicle.elasticsearch.ESIndexConfig;
 import kr.gaion.armoredVehicle.spark.dto.LabeledData;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
@@ -19,6 +22,7 @@ import org.apache.spark.sql.SparkSession;
 import org.elasticsearch.spark.sql.api.java.JavaEsSparkSQL;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +68,7 @@ public class DatabaseSparkService {
             System.out.println(tname);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
+                    .option("url", "jdbc:mysql://192.168.0.175:3306/AMVHC")
                     .option("dbtable", tname.toUpperCase())
                     .option("user", "AMVHC_U")
                     .option("password", "!Tltmxpa0517")
@@ -180,6 +184,41 @@ public class DatabaseSparkService {
                 .option("password", "gaion")
                 .load();
         return jdbcDF;
+    }
+
+
+    //import Db unlabeled data for predict
+    public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput) {
+        switch(baseAlgorithmPredictInput.getDataType()){
+            case "B": {
+                try{
+                    String tname = "BERDATA";
+                    System.out.println(tname);
+                    Dataset<Row> jdbcDF = spark.read()
+                            .format("jdbc")
+                            .option("url", "jdbc:mysql://192.168.0.175:3306/AMVHC")
+                            .option("dbtable", "(Select * from BERDATA where AI_Predict is Null) as subtest")
+                            .option("user", "AMVHC_U")
+                            .option("password", "!Tltmxpa0517")
+                            .load();
+                    return jdbcDF;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case "W": {
+
+            }
+            case "G": {
+
+            }
+            case "E": {
+
+            }
+        }
+
+
+        return null;
     }
 
 

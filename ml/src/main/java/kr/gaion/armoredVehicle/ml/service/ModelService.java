@@ -150,8 +150,10 @@ public class ModelService {
     DbModelResponse dbModelResponse = new DbModelResponse();
 
     switch (algorithmName) {
-            case "RandomForestClassifier":
-            {
+      case "RandomForestClassifier":
+      case "LogisticRegression":
+      case "SVMClassifier":
+      case "MLPClassifier": {
                 var model= (ClassificationResponse)response;
                 dbModelResponse.setModelName(modelName);
                 dbModelResponse.setType(algorithmName);
@@ -161,67 +163,22 @@ public class ModelService {
                 dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
                 dbModelResponse.setWeightedRecall(model.getWeightedRecall());
                 dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-            }
-            case "SVMClassifier":
-            {
-              var model= (ClassificationResponse)response;
-              dbModelResponse.setModelName(modelName);
-              dbModelResponse.setType(algorithmName);
-              dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
-              dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
-              dbModelResponse.setAccuracy(model.getAccuracy());
-              dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
-              dbModelResponse.setWeightedRecall(model.getWeightedRecall());
-              dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-            }
-            case "LogisticRegression":
-            {
-              var model= (ClassificationResponse)response;
-              dbModelResponse.setModelName(modelName);
-              dbModelResponse.setType(algorithmName);
-              dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
-              dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
-              dbModelResponse.setAccuracy(model.getAccuracy());
-              dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
-              dbModelResponse.setWeightedRecall(model.getWeightedRecall());
-              dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-            }
-            case "MLPClassifier":
-            {
-              var model= (ClassificationResponse)response;
-              dbModelResponse.setModelName(modelName);
-              dbModelResponse.setType(algorithmName);
-              dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
-              dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
-              dbModelResponse.setAccuracy(model.getAccuracy());
-              dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
-              dbModelResponse.setWeightedRecall(model.getWeightedRecall());
-              dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-            }
-            case "LinearRegression":
-            {
-                  var model= (RegressionResponse) response;
-                  dbModelResponse.setModelName(modelName);
-                  dbModelResponse.setType(algorithmName);
-                  dbModelResponse.setCoefficients(model.getCoefficients());
-//                  dbModelResponse.setResiduals(model.getResiduals());
-                  dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
-                  dbModelResponse.setR2(model.getR2());
-                  dbModelResponse.setListFeatures(model.getListFeatures());
-            }
-            case "LassoRegression":
-            {
-                var model= (RegressionResponse) response;
-                dbModelResponse.setModelName(modelName);
-                dbModelResponse.setType(algorithmName);
-                dbModelResponse.setCoefficients(model.getCoefficients());
-//                dbModelResponse.setResiduals(model.getResiduals());
-                dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
-                dbModelResponse.setR2(model.getR2());
                 dbModelResponse.setListFeatures(model.getListFeatures());
-
+                break;
             }
-        }
+      case "LinearRegression":
+      case "LassoRegression": {
+              var model= (RegressionResponse) response;
+              dbModelResponse.setModelName(modelName);
+              dbModelResponse.setType(algorithmName);
+              dbModelResponse.setCoefficients(model.getCoefficients());
+//                  dbModelResponse.setResiduals(model.getResiduals());
+              dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
+              dbModelResponse.setR2(model.getR2());
+              dbModelResponse.setListFeatures(model.getListFeatures());
+              break;
+            }
+    }
     dbModelResponseRepository.save(dbModelResponse);
 
 //		String insertInfo = this.esConnector.insert(gson.toJson(map), this.getAlgorithmESIndex(algorithmName));
