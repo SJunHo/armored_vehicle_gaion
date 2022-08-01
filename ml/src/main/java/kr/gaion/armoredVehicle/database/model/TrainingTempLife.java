@@ -22,31 +22,31 @@ public class TrainingTempLife {
     private Long idx;
 
     @Column(name="ACPOWER")
-    private Float acPower;
+    private Double acPower;
 
     @Column(name="CPUUTIL")
-    private Float cpuUtil;
+    private Double cpuUtil;
 
     @Column(name="DISKACCESSES")
-    private Float diskAccesses;
+    private Double diskAccesses;
 
     @Column(name="DISKBLOCKS")
-    private Float diskBlocks;
+    private Double diskBlocks;
 
     @Column(name="DISKUTIL")
-    private Float diskUtil;
+    private Double diskUtil;
 
     @Column(name="INSTRETIRED")
-    private Float instRetired;
+    private Double instRetired;
 
     @Column(name="LASTLEVEL")
-    private Float lastLevel;
+    private Double lastLevel;
 
     @Column(name="MEMORYBUS")
-    private Float memoryBus;
+    private Double memoryBus;
 
     @Column(name="CORECYCLE")
-    private Float coreCycle;
+    private Double coreCycle;
 
     @Column(name="TIME")
     private String time;

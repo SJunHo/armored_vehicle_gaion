@@ -1,15 +1,9 @@
 package kr.gaion.armoredVehicle.dataset.service;
 import kr.gaion.armoredVehicle.database.DatabaseModule;
-import kr.gaion.armoredVehicle.database.model.SensorBearing;
-import kr.gaion.armoredVehicle.database.model.SensorTempLife;
-import kr.gaion.armoredVehicle.database.repository.SensorBearingRepository;
-import kr.gaion.armoredVehicle.database.repository.SensorTempLifeRepository;
+import kr.gaion.armoredVehicle.database.model.*;
+import kr.gaion.armoredVehicle.database.repository.*;
 import kr.gaion.armoredVehicle.dataset.dto.DbDataUpdateInput;
 import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
-import kr.gaion.armoredVehicle.database.model.TrainingBearing;
-import kr.gaion.armoredVehicle.database.model.TrainingTempLife;
-import kr.gaion.armoredVehicle.database.repository.TrainingBearingRepository;
-import kr.gaion.armoredVehicle.database.repository.TrainingTempLifeRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -38,6 +32,9 @@ public class DatasetDatabaseService {
     @NonNull private final DatabaseModule databaseModule;
     @NonNull private final TrainingBearingRepository trainingBearingRepository;
     @NonNull private final SensorBearingRepository sensorBearingRepository;
+    @NonNull private final SensorWheelRepository sensorWheelRepository;
+    @NonNull private final SensorEngineRepository sensorEngineRepository;
+    @NonNull private final SensorGearboxRepository sensorGearboxRepository;
     @NonNull private final TrainingTempLifeRepository trainingTempLifeRepository;
     @NonNull private final SensorTempLifeRepository sensorTempLifeRepository;
 
@@ -62,7 +59,7 @@ public class DatasetDatabaseService {
                 case "wheel": {
 
                 }
-                case "gearBox": {
+                case "gearbox": {
 
                 }
                 case "engine": {
@@ -84,6 +81,18 @@ public class DatasetDatabaseService {
     //import Table data
     public List<SensorBearing> getUnlabeledBearingData() throws IOException {
         return sensorBearingRepository.findSensorBearingByAiPredictIsNull();
+    }
+
+    public List<SensorWheel> getUnlabeledWheelData() throws IOException {
+        return sensorWheelRepository.findSensorWheelByAiPredictIsNull();
+    }
+
+    public List<SensorGearbox> getUnlabeledGearboxData() throws IOException {
+        return sensorGearboxRepository.findSensorGearboxByAiPredictIsNull();
+    }
+
+    public List<SensorEngine> getUnlabeledEngineData() throws IOException {
+        return sensorEngineRepository.findSensorEngineByAiPredictIsNull();
     }
 
     public List<SensorTempLife> getUnlabeledTempLifeData() throws IOException {

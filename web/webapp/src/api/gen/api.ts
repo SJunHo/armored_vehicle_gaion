@@ -942,13 +942,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
 }
 /**
  * 
@@ -1144,37 +1144,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageRailSensorData
-     */
     totalPages?: number;
     /**
      * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
-    last?: boolean;
-    /**
-     * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageRailSensorData
-     */
-    pageable?: Pageable;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1204,6 +1180,30 @@ export interface PageRailSensorData {
      * @type {boolean}
      * @memberof PageRailSensorData
      */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageRailSensorData
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
     empty?: boolean;
 }
 /**
@@ -1217,13 +1217,25 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    offset?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof Pageable
+     */
+    sort?: Sort;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
     pageNumber?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageSize?: number;
     /**
      * 
      * @type {boolean}
@@ -1236,18 +1248,6 @@ export interface Pageable {
      * @memberof Pageable
      */
     paged?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    offset?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof Pageable
-     */
-    sort?: Sort;
 }
 /**
  * 
@@ -2211,6 +2211,248 @@ export interface SensorBearing {
 /**
  * 
  * @export
+ * @interface SensorEngine
+ */
+export interface SensorEngine {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngine
+     */
+    carId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngine
+     */
+    operateDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngine
+     */
+    operateTime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngine
+     */
+    operateDateTime?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    timeIndex?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    aiPredict?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    aiAlgorithm?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    aiModel?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    evOverallRms?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    ev12x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    ev1x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    evCrestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    ach?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    acv?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    aca?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    la?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    lo?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngine
+     */
+    filenm?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngine
+     */
+    wrpm?: number;
+}
+/**
+ * 
+ * @export
+ * @interface SensorGearbox
+ */
+export interface SensorGearbox {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearbox
+     */
+    carId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearbox
+     */
+    operateDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearbox
+     */
+    operateTime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearbox
+     */
+    operateDateTime?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    timeIndex?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    aiPredict?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    aiAlgorithm?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    aiModel?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    gvOverallRms?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    gvWheel1x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    gvWheel2x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    gvPinion1x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    gvPinion2x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    gvGmf1x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    gvGmf2x?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearbox
+     */
+    filenm?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearbox
+     */
+    wrpm?: number;
+}
+/**
+ * 
+ * @export
  * @interface SensorTempLife
  */
 export interface SensorTempLife {
@@ -2298,6 +2540,115 @@ export interface SensorTempLife {
      * @memberof SensorTempLife
      */
     filenm?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorWheel
+ */
+export interface SensorWheel {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheel
+     */
+    carId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheel
+     */
+    operateDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheel
+     */
+    operateTime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheel
+     */
+    operateDateTime?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    timeIndex?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    aiPredict?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    aiAlgorithm?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    aiModel?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    lwv2x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    lwv3x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    lwsFault3?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    rwv2x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    rwv3x?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    rwvFault3?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheel
+     */
+    filenm?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheel
+     */
+    wrpm?: number;
 }
 /**
  * 
@@ -3591,25 +3942,14 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-<<<<<<< HEAD
          * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTepmLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
+        getUnlabeledEngineData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledTepmLifeData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-templife-data`;
-=======
-         * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateData: async (dbDataUpdateInput: Array<DbDataUpdateInput>, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dbDataUpdateInput' is not null or undefined
-            assertParamExists('updateData', 'dbDataUpdateInput', dbDataUpdateInput)
-            const localVarPath = `/api/data/database/update`;
->>>>>>> origin/gaion
+            assertParamExists('getUnlabeledEngineData', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-engine-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3617,11 +3957,7 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
                 baseOptions = configuration.baseOptions;
             }
 
-<<<<<<< HEAD
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-=======
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
->>>>>>> origin/gaion
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -3629,7 +3965,6 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-<<<<<<< HEAD
             if (dataType !== undefined) {
                 localVarQueryParameter['dataType'] = dataType;
             }
@@ -3639,7 +3974,157 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-=======
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledGearboxData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataType' is not null or undefined
+            assertParamExists('getUnlabeledGearboxData', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-gearbox-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dataType !== undefined) {
+                localVarQueryParameter['dataType'] = dataType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledTepmLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataType' is not null or undefined
+            assertParamExists('getUnlabeledTepmLifeData', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-templife-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dataType !== undefined) {
+                localVarQueryParameter['dataType'] = dataType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledWheelData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataType' is not null or undefined
+            assertParamExists('getUnlabeledWheelData', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-wheel-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dataType !== undefined) {
+                localVarQueryParameter['dataType'] = dataType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateData: async (dbDataUpdateInput: Array<DbDataUpdateInput>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dbDataUpdateInput' is not null or undefined
+            assertParamExists('updateData', 'dbDataUpdateInput', dbDataUpdateInput)
+            const localVarPath = `/api/data/database/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -3648,7 +4133,6 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(dbDataUpdateInput, localVarRequestOptions, configuration)
->>>>>>> origin/gaion
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -3721,21 +4205,52 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
-<<<<<<< HEAD
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledEngineData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorEngine>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledEngineData(dataType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledGearboxData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorGearbox>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledGearboxData(dataType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getUnlabeledTepmLifeData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorTempLife>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTepmLifeData(dataType, options);
-=======
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledWheelData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorWheel>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledWheelData(dataType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async updateData(dbDataUpdateInput: Array<DbDataUpdateInput>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateData(dbDataUpdateInput, options);
->>>>>>> origin/gaion
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -3769,21 +4284,48 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
-<<<<<<< HEAD
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledEngineData(dataType: string, options?: any): AxiosPromise<Array<SensorEngine>> {
+            return localVarFp.getUnlabeledEngineData(dataType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledGearboxData(dataType: string, options?: any): AxiosPromise<Array<SensorGearbox>> {
+            return localVarFp.getUnlabeledGearboxData(dataType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getUnlabeledTepmLifeData(dataType: string, options?: any): AxiosPromise<Array<SensorTempLife>> {
             return localVarFp.getUnlabeledTepmLifeData(dataType, options).then((request) => request(axios, basePath));
-=======
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledWheelData(dataType: string, options?: any): AxiosPromise<Array<SensorWheel>> {
+            return localVarFp.getUnlabeledWheelData(dataType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         updateData(dbDataUpdateInput: Array<DbDataUpdateInput>, options?: any): AxiosPromise<string> {
             return localVarFp.updateData(dbDataUpdateInput, options).then((request) => request(axios, basePath));
->>>>>>> origin/gaion
         },
         /**
          * 
@@ -3817,22 +4359,57 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
 
     /**
      * 
-<<<<<<< HEAD
      * @param {string} dataType 
-=======
-     * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
->>>>>>> origin/gaion
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-<<<<<<< HEAD
+    public getUnlabeledEngineData(dataType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledEngineData(dataType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} dataType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledGearboxData(dataType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledGearboxData(dataType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} dataType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
     public getUnlabeledTepmLifeData(dataType: string, options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTepmLifeData(dataType, options).then((request) => request(this.axios, this.basePath));
-=======
+    }
+
+    /**
+     * 
+     * @param {string} dataType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledWheelData(dataType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledWheelData(dataType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {Array<DbDataUpdateInput>} dbDataUpdateInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
     public updateData(dbDataUpdateInput: Array<DbDataUpdateInput>, options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).updateData(dbDataUpdateInput, options).then((request) => request(this.axios, this.basePath));
->>>>>>> origin/gaion
     }
 
     /**
