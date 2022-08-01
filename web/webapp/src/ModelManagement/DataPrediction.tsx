@@ -15,19 +15,14 @@ import Row from "react-bootstrap/Row";
 import { useTranslation } from "react-i18next";
 import { Column, Row as TableRow } from "react-table";
 import {
-<<<<<<< HEAD
     DataInputOption,
     DataProvider,
+    DbDataUpdateInput,
     DbModelResponse,
     OpenApiContext,
-    SensorBearing, SensorTempLife,
-=======
-  DataInputOption,
-  DataProvider, DbDataUpdateInput,
-  DbModelResponse,
-  OpenApiContext,
-  SensorBearing,
->>>>>>> origin/gaion
+    SensorBearing,
+    SensorTempLife,
+
 } from "../api";
 import { ALGORITHM_INFO } from "../common/Common";
 import { Section } from "../common/Section/Section";
@@ -632,7 +627,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     setSaving(true);
     datasetDatabaseControllerApi
       ?.updateData(
-        selectedData!.map((inputs) => ({
+        selectedBearingData!.map((inputs) => ({
           dataType: wb,
           id : inputs.idx,
           aiAlgorithm : inputs.aiAlgorithm,
@@ -642,6 +637,22 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       )
       .finally(() => setSaving(false));
   }
+
+    async function handleTempLifeUpdateData() {
+        setSaving(true);
+        datasetDatabaseControllerApi
+            ?.updateData(
+                selectedTempLifeData!.map((inputs) => ({
+                    dataType: wb,
+                    id : inputs.idx,
+                    aiAlgorithm : inputs.aiAlgorithm,
+                    // aiPredict : inputs.aiPredict,
+                    aiPredict : inputs.acPower,
+                    modelName : inputs.aiModel,
+                }))
+            )
+            .finally(() => setSaving(false));
+    }
 
   // const handleConditionDataSelected = (algorithmName === "linear" || algorithmName === "lasso"
   //         ? useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedData(v?.map((i) => i.original))}, [])
@@ -751,7 +762,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         <Col className="Col col-1 d-grid gap-2">
           <Button
             className="button font-monospace fw-bold"
-            onClick={handleUpdateData}
+            onClick={wb === "T" ? handleTempLifeUpdateData : handleUpdateData}
             size="sm"
             disabled={predicting}
           >
