@@ -23,6 +23,7 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.linalg.DenseVector;
 import org.apache.spark.ml.linalg.Vector;
+import org.apache.spark.ml.linalg.Vectors;
 import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.ml.regression.LinearRegressionTrainingSummary;
@@ -43,7 +44,7 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
     }
 
     @Override
-    public LinearRegressionTrainResponse train(BaseAlgorithmTrainInput config) throws Exception {
+    public RegressionResponse train(BaseAlgorithmTrainInput config) throws Exception {
         // BaseAlgorithmTrainInput config: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '학습'을 위한 정보들(Request)
 
         log.info("============================ START Lasso Regression ============================");
@@ -146,66 +147,31 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
         // 1. get data
         // JavaRDD<Vector> data = null;
         Dataset<Row> data = this.getUnlabeledData(input); // MLAlgorithm 클래스를 상속받았으니 이 안에 있는 메소드를 this로 호출
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ UnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@");
+        data.show();
 
         // 2. load model
         var model = LinearRegressionModel.load(this.getModelFullPath(modelName));
 
         // 3. predict
         // #PC0002 - Start
-        var response = new LinearRegressionTrainResponse(ResponseType.OBJECT_DATA);
+        var response = new RegressionResponse(ResponseType.OBJECT_DATA);
 
         // get setting
         String[] listCols = data.columns();
         List<String> listColNames = Arrays.asList(listCols);
-        String[] fieldsForPredict = input.getListFieldsForPredict().toArray(new String[0]);
-        int[] indices = new int[fieldsForPredict.length];
+//        String[] fieldsForPredict = input.getListFieldsForPredict().toArray(new String[0]);
+        List<String> fieldsForPredict = input.getListFieldsForPredict();
+        int[] indices = new int[fieldsForPredict.size()];
         int index = 0;
         for(String field : fieldsForPredict) {
             indices[index++] = listColNames.indexOf(field);
         }
 
-        JavaRDD<String> lineData = data.toJavaRDD().map(new Function<>() {
-            private static final long serialVersionUID = -4035135440483467579L;
-            @Override
-            public String call(Row rowData) {
-                // create suitable vector
-                double[] denseData = new double[fieldsForPredict.length];
-                int _subIter = -1;
-                for (int iter : indices) {
-                    ++_subIter;
-                    try {
-                        denseData[_subIter] = Double.parseDouble(rowData.getString(iter));
-                    } catch (Exception e) {
-                        denseData[_subIter] = 0;
-                    }
-                }
-                Vector vector = org.apache.spark.ml.linalg.Vectors.dense(denseData);
+        var lineData = doPredictRegressionData(data, model, input.getListFieldsForPredict());
 
-                StringBuilder lineBuilder = new StringBuilder();
-                //DenseVector dVector = (DenseVector)(rowData.get(0));
-                double predictedVal = model.predict(vector);
-                lineBuilder.append(predictedVal).append(',');
-                //double actualVal = rowData.getDouble(1);
-                //lineBuilder.append(actualVal).append(',');
-
-//				String originalFeaturesT = vector.toString();
-//				lineBuilder.append(originalFeaturesT.substring(1, originalFeaturesT.length() - 1));
-
-                double[] data = new double[rowData.length()];
-                for (int i = 0; i < rowData.length(); i++) {
-                    try {
-                        data[i] = Double.parseDouble(rowData.getString(i));
-                    } catch (Exception e) {
-                        data[i] = 0;
-                    }
-                }
-                Vector vectort = org.apache.spark.ml.linalg.Vectors.dense(data);
-                String originalFeatures = vectort.toString();
-                lineBuilder.append(originalFeatures, 1, originalFeatures.length() - 1);
-
-                return lineBuilder.toString();
-            }
-        });
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ PredictionInfo @@@@@@@@@@@@@@@@@@@@@@@@@");
+        log.info(lineData.collect());
 
         response.setPredictionInfo(lineData.collect()); // #PC0002
         response.setListFeatures(listCols); // #PC0002
@@ -214,10 +180,53 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
         response.setPredictedFeatureLine(response.getPredictionInfo());
         response.setClassCol(input.getClassCol());
 
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ predicted unlabeled data successfully. @@@@@@@@@@@@@@@@@@@@@@@@@");
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Lasso regression model predict to unlabeled data successfully. @@@@@@@@@@@@@@@@@@@@@@@@@");
         response.setStatus(ResponseStatus.SUCCESS);
 
         return response;
+    }
+
+    private static JavaRDD<String> doPredictRegressionData(Dataset<Row> data, LinearRegressionModel model, List<String> fieldsForPredict) {
+        List<String> listColNames = List.of(data.columns());
+        int[] indices = new int[fieldsForPredict.size()];
+        int index = 0;
+        for(String field : fieldsForPredict) {
+            indices[index++] = listColNames.indexOf(field);
+        }
+        return data.toJavaRDD().map(new Function<>() {
+            private static final long serialVersionUID = 7065916945772988691L;
+            @Override
+            public String call(Row rowData) {
+                // create suitable vector
+                double[] denseData = new double[fieldsForPredict.size()];
+                int _subIter = -1;
+                for (int iter : indices) {
+                    ++_subIter;
+                    try {
+                        denseData[_subIter] = rowData.getDouble(iter);
+                    } catch (Exception e) {
+                        denseData[_subIter] = 0;
+                    }
+                }
+                Vector vector = Vectors.dense(denseData);
+
+                // predict
+                StringBuilder lineBuilder = new StringBuilder();
+                var index = Double.valueOf(model.predict(vector));                // index of label								// #PC0026
+                lineBuilder.append('"').append(index).append('"');        // convert to categorical label					// #PC0026
+                lineBuilder.append(",");
+                for (int iter = 0; iter < listColNames.size(); ++iter) {
+                    if (rowData.get(iter) == null) {
+                        lineBuilder.append('"').append('"');
+                    } else {
+                        lineBuilder.append('"').append(rowData.get(iter)).append('"');
+                    }
+                    lineBuilder.append(",");
+                }
+                lineBuilder.deleteCharAt(lineBuilder.length() - 1);  // delete last delimiter (redundant)
+                return lineBuilder.toString();
+            }
+        });
     }
 
     private static Dataset<String> evaluateTest(Dataset<Row> test, LinearRegressionModel lrModel) {
