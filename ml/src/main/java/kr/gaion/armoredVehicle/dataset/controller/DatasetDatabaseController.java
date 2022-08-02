@@ -75,7 +75,7 @@ public class DatasetDatabaseController {
   }
 
   @GetMapping(path = "/api/data/database/get-all-templife-data")
-  public List<SensorTempLife> getUnlabeledTepmLifeData(@RequestParam("dataType") String dataType) {
+  public List<SensorTempLife> getUnlabeledTempLifeData(@RequestParam("dataType") String dataType) {
         try {
             return this.datasetDatabaseService.getUnlabeledTempLifeData();
         } catch (IOException e) {

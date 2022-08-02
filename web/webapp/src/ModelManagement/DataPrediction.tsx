@@ -575,7 +575,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
 
     async function handleRegressionData() {
         const res = await mlControllerApi?.regressionPredict(algorithmName, {
-            // classCol: "Ai_Predict",
             classCol: "AI_Predict",
             modelName: selectedModel?.modelName,
             dataProvider: DataProvider.Ktme,
@@ -592,9 +591,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
                     (selectedId) => selectedId.idx === row.idx
                 );
                 if (selectedIndex !== -1) {
-                    // row.aiPredict = JSON.parse(
-                    //     "[" + predictedData[selectedIndex] + "]"
-                    // )[0];
                     row.aiPredict = JSON.parse(
                         "[" + predictedData[selectedIndex] + "]"
                     )[0];
@@ -616,19 +612,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     });
 
     const predictedData = res?.data.predictionInfo || [];
-    // setRailConditionData((old) =>
-    //   old.map((row) => {
-    //     const selectedIndex = selectedData!.findIndex(
-    //       (selectedId) => selectedId.esId === row.esId
-    //     );
-    //     if (selectedIndex !== -1) {
-    //       row.defectScore = JSON.parse(
-    //         "[" + predictedData[selectedIndex] + "]"
-    //       )[0];
-    //     }
-    //     return row;
-    //   })
-    // );
   }
 
   async function handlePredictData() {
@@ -665,7 +648,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
                     dataType: wb,
                     id : inputs.idx,
                     aiAlgorithm : inputs.aiAlgorithm,
-                    // aiPredict : inputs.aiPredict,
                     aiPredict : inputs.aiPredict,
                     modelName : inputs.aiModel,
                 }))
