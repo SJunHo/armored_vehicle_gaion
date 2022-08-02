@@ -96,7 +96,7 @@ public class DatasetDatabaseService {
     }
 
     public List<SensorTempLife> getUnlabeledTempLifeData() throws IOException {
-        return sensorTempLifeRepository.findSensorTempLifeByAcPowerIsNull();
+        return sensorTempLifeRepository.findSensorTempLifeByAiPredictIsNull();
     }
 
     public String updatePredictData(ArrayList<DbDataUpdateInput> inputs) throws IOException {
@@ -112,6 +112,15 @@ public class DatasetDatabaseService {
         if(inputs.get(0).getDataType().equals("E")){}
         if(inputs.get(0).getDataType().equals("G")){}
         if(inputs.get(0).getDataType().equals("W")){}
+        if(inputs.get(0).getDataType().equals("T")){
+            for(DbDataUpdateInput input : inputs){
+                SensorTempLife sensorTempLife = sensorTempLifeRepository.findById(input.getId()).get();
+                sensorTempLife.setAiPredict(input.getAiPredict());
+                sensorTempLife.setAiAlgorithm(input.getAiAlgorithm());
+                sensorTempLife.setAiModel(input.getModelName());
+                sensorTempLifeRepository.save(sensorTempLife);
+            }
+        }
 
         return "save";
     }
