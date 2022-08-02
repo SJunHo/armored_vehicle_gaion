@@ -95,7 +95,7 @@ public class CSVHelper {
 
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingTempLife trainingTempLife = new TrainingTempLife();
-                trainingTempLife.setAcPower(Double.parseDouble(csvRecord.get("ACPOWER")));
+                trainingTempLife.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
                 trainingTempLife.setCoreCycle(Double.parseDouble(csvRecord.get("CORECYCLE")));
                 trainingTempLife.setCpuUtil(Double.parseDouble(csvRecord.get("CPUUTIL")));
                 trainingTempLife.setDiskAccesses(Double.parseDouble(csvRecord.get("DISKACCESSES")));

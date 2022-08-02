@@ -451,7 +451,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         () => [
             {
                 Header: "예측 결과",
-                accessor: "acPower",
+                accessor: "aiPredict",
             },
             {
                 Header: "알고리즘",
@@ -576,7 +576,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     async function handleRegressionData() {
         const res = await mlControllerApi?.regressionPredict(algorithmName, {
             // classCol: "Ai_Predict",
-            classCol: "ACPOWER",
+            classCol: "AI_Predict",
             modelName: selectedModel?.modelName,
             dataProvider: DataProvider.Ktme,
             dataInputOption: DataInputOption.Db,
@@ -595,7 +595,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
                     // row.aiPredict = JSON.parse(
                     //     "[" + predictedData[selectedIndex] + "]"
                     // )[0];
-                    row.acPower = JSON.parse(
+                    row.aiPredict = JSON.parse(
                         "[" + predictedData[selectedIndex] + "]"
                     )[0];
                     row.aiAlgorithm = algorithmName;
@@ -666,7 +666,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
                     id : inputs.idx,
                     aiAlgorithm : inputs.aiAlgorithm,
                     // aiPredict : inputs.aiPredict,
-                    aiPredict : inputs.acPower,
+                    aiPredict : inputs.aiPredict,
                     modelName : inputs.aiModel,
                 }))
             )

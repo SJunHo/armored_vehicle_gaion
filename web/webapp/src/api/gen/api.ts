@@ -942,13 +942,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1241,13 +1241,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
 }
 /**
  * 
@@ -2464,12 +2464,6 @@ export interface SensorTempLife {
     idx?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    acPower?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorTempLife
      */
@@ -2540,6 +2534,12 @@ export interface SensorTempLife {
      * @memberof SensorTempLife
      */
     filenm?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    aiPredict?: number;
 }
 /**
  * 

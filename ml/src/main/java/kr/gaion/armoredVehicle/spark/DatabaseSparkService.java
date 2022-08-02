@@ -222,7 +222,7 @@ public class DatabaseSparkService {
                             .format("jdbc")
                             .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
 //                            .option("dbtable", "(Select * from TEMPLIFEDATA where AI_Predict is Null) as subtest")
-                            .option("dbtable", "(Select * from TEMPLIFEDATA where ACPOWER is Null) as subtest")
+                            .option("dbtable", "(Select * from TEMPLIFEDATA where AI_Predict is Null) as subtest")
                             .option("user", "AMVHC_U")
                             .option("password", "!Tltmxpa0517")
                             .load();
