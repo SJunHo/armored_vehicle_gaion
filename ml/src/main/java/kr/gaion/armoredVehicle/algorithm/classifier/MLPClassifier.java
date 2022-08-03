@@ -35,6 +35,7 @@ public class MLPClassifier extends ClassifierAlgorithm<MultilayerPerceptronClass
   public MLPClassifier(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
     super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, modelService, "MLPClassifier");
   }
+
 	@Override
 	protected MultilayerPerceptronClassificationModel loadModel(String modelName) throws IOException {
 		return MultilayerPerceptronClassificationModel.load(this.getModelFullPath(modelName));
@@ -72,7 +73,7 @@ public class MLPClassifier extends ClassifierAlgorithm<MultilayerPerceptronClass
 				for (int iter : indices) {
 					++_subIter;
 					try {
-						denseData[_subIter] = Double.parseDouble(rowData.getString(iter));
+						denseData[_subIter] = rowData.getDouble(iter);
 					} catch (Exception e) {
 						denseData[_subIter] = 0;
 					}

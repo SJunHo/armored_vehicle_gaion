@@ -12,4 +12,5 @@ public class ClusterTrainInput extends BaseAlgorithmTrainInput  {
   // IF
   private boolean bootstrap;
   private int maxFeatures;
+  private int maxSamples;
 }

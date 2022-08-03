@@ -1,15 +1,12 @@
 package kr.gaion.armoredVehicle.spark.controller;
 
 import au.com.bytecode.opencsv.CSVReader;
-import kr.gaion.armoredVehicle.algorithm.classifier.LogisticRegressionClassifier;
+import kr.gaion.armoredVehicle.algorithm.classifier.*;
 //import kr.gaion.armoredVehicle.algorithm.classifier.MLPClassifier;
 //import kr.gaion.armoredVehicle.algorithm.classifier.RandomForestClassifier;
 //import kr.gaion.armoredVehicle.algorithm.classifier.SVM;
 //import kr.gaion.armoredVehicle.algorithm.clustering.IsolationForestOutlierDetection;
 //import kr.gaion.armoredVehicle.algorithm.clustering.KmeansClustering;
-import kr.gaion.armoredVehicle.algorithm.classifier.MLPClassifier;
-import kr.gaion.armoredVehicle.algorithm.classifier.RandomForestClassifier;
-import kr.gaion.armoredVehicle.algorithm.classifier.SVM;
 import kr.gaion.armoredVehicle.algorithm.clustering.IsolationForestOutlierDetection;
 import kr.gaion.armoredVehicle.algorithm.clustering.KmeansClustering;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
@@ -31,6 +28,7 @@ import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.spark.ml.classification.LinearSVC;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +51,8 @@ public class MLController {
   @NonNull private final SVM svm;
   @NonNull private final MLPClassifier mlp;
   @NonNull private final LogisticRegressionClassifier lr;
+  @NonNull private final SvcClassifier svc;
+
   @NonNull private final KmeansClustering kmeansClustering;
   @NonNull private final IsolationForestOutlierDetection isolationForestOutlierDetection;
   @NonNull private final EsConnector esConnector;
@@ -74,9 +74,14 @@ public class MLController {
     return (RandomForestClassificationResponse) rfc.train(input);
   }
 
-  @PostMapping(path = "/api/train/svm")
-  public SVMClassificationResponse trainSVM(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
-    return (SVMClassificationResponse) svm.train(input);
+//  @PostMapping(path = "/api/train/svm")
+//  public SVMClassificationResponse trainSVM(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
+//    return (SVMClassificationResponse) svm.train(input);
+//  }
+
+  @PostMapping(path = "/api/train/svc")
+  public SVMClassificationResponse trainSVC(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
+    return (SVMClassificationResponse) svc.train(input);
   }
 
   @PostMapping(path = "/api/train/lr")
@@ -122,7 +127,7 @@ public class MLController {
         return this.rfc.predict(input);
       }
       case "svc": {
-        return this.svm.predict(input);
+        return this.svc.predict(input);
       }
       case "mlp": {
         return this.mlp.predict(input);

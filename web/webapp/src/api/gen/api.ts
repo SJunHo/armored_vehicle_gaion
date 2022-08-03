@@ -704,6 +704,12 @@ export interface ClusterTrainInput {
      * @type {number}
      * @memberof ClusterTrainInput
      */
+    maxSamples?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ClusterTrainInput
+     */
     lseed?: number;
 }
 /**
@@ -942,13 +948,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1226,18 +1232,6 @@ export interface Pageable {
     sort?: Sort;
     /**
      * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    pageNumber?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    pageSize?: number;
-    /**
-     * 
      * @type {boolean}
      * @memberof Pageable
      */
@@ -1248,6 +1242,18 @@ export interface Pageable {
      * @memberof Pageable
      */
     paged?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageSize?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageNumber?: number;
 }
 /**
  * 
@@ -2661,13 +2667,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    sorted?: boolean;
+    unsorted?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * 
      * @type {boolean}
@@ -5065,10 +5071,10 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trainSVM: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
+        trainSVC: async (baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'baseAlgorithmTrainInput' is not null or undefined
-            assertParamExists('trainSVM', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
-            const localVarPath = `/api/train/svm`;
+            assertParamExists('trainSVC', 'baseAlgorithmTrainInput', baseAlgorithmTrainInput)
+            const localVarPath = `/api/train/svc`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5324,8 +5330,8 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trainSVM(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SVMClassificationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.trainSVM(baseAlgorithmTrainInput, options);
+        async trainSVC(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SVMClassificationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.trainSVC(baseAlgorithmTrainInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5503,8 +5509,8 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trainSVM(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<SVMClassificationResponse> {
-            return localVarFp.trainSVM(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
+        trainSVC(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<SVMClassificationResponse> {
+            return localVarFp.trainSVC(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5713,8 +5719,8 @@ export class MlControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MlControllerApi
      */
-    public trainSVM(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any) {
-        return MlControllerApiFp(this.configuration).trainSVM(baseAlgorithmTrainInput, options).then((request) => request(this.axios, this.basePath));
+    public trainSVC(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any) {
+        return MlControllerApiFp(this.configuration).trainSVC(baseAlgorithmTrainInput, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

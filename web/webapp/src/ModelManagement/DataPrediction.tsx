@@ -34,8 +34,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
 
+
   const [sensorBearingConditionData, setSensorBearingConditionData] = useState<SensorBearing[]>([]);
   const [selectedBearingData, setSelectedBearingData] = useState<SensorBearing[]>();
+
 
   const [sensorTempLifeConditionData, setSensorTempLifeConditionData] = useState<SensorTempLife[]>([]);
   const [selectedTempLifeData, setSelectedTempLifeData] = useState<SensorTempLife[]>();
@@ -92,7 +94,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   );
 
 
-  const SensorBearingDataColumns = useMemo<Column<SensorBearing>[]>(
+  const SensorBearingDataColumns = useMemo<Column<any>[]>(
     () => [
       {
         Header: "예측 결과",
@@ -345,6 +347,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     ],
     [t]
   );
+
   // const SensorWheelDataColumns = useMemo<Column<SensorWheel>[]>(
   //   () => [
   //     {
@@ -393,6 +396,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   //   ],
   //   [t]
   // );
+
   // const SensorEngineDataColumns = useMemo<Column<SensorEngine>[]>(
   //   () => [
   //     {
@@ -442,7 +446,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   //   [t]
   // );
 
-    const SensorTempLifeDataColumns = useMemo<Column<SensorTempLife>[]>(
+  const SensorTempLifeDataColumns = useMemo<Column<SensorTempLife>[]>(
         () => [
             {
                 Header: "예측 결과",
@@ -568,62 +572,68 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     );
   }
 
-    async function handleRegressionData() {
-        const res = await mlControllerApi?.regressionPredict(algorithmName, {
-            // classCol: "Ai_Predict",
-            classCol: "ACPOWER",
-            modelName: selectedModel?.modelName,
-            dataProvider: DataProvider.Ktme,
-            dataInputOption: DataInputOption.Db,
-            listFieldsForPredict: selectedModel?.listFeatures,
-            dataType: wb
-        });
+  async function handleRegressionData() {
+      const res = await mlControllerApi?.regressionPredict(algorithmName, {
+          // classCol: "Ai_Predict",
+          classCol: "ACPOWER",
+          modelName: selectedModel?.modelName,
+          dataProvider: DataProvider.Ktme,
+          dataInputOption: DataInputOption.Db,
+          listFieldsForPredict: selectedModel?.listFeatures,
+          dataType: wb
+      });
 
-        const predictedData = res?.data.predictionInfo || [];
+      const predictedData = res?.data.predictionInfo || [];
 
-        setSensorTempLifeConditionData((old) =>
-            old.map((row) => {
-                const selectedIndex = selectedTempLifeData!.findIndex(
-                    (selectedId) => selectedId.idx === row.idx
-                );
-                if (selectedIndex !== -1) {
-                    // row.aiPredict = JSON.parse(
-                    //     "[" + predictedData[selectedIndex] + "]"
-                    // )[0];
-                    row.acPower = JSON.parse(
-                        "[" + predictedData[selectedIndex] + "]"
-                    )[0];
-                    row.aiAlgorithm = algorithmName;
-                    row.aiModel = selectedModel?.modelName;
-                }
-                return row;
-            })
-        );
-    }
+      setSensorTempLifeConditionData((old) =>
+          old.map((row) => {
+              const selectedIndex = selectedTempLifeData!.findIndex(
+                  (selectedId) => selectedId.idx === row.idx
+              );
+              if (selectedIndex !== -1) {
+                  // row.aiPredict = JSON.parse(
+                  //     "[" + predictedData[selectedIndex] + "]"
+                  // )[0];
+                  row.acPower = JSON.parse(
+                      "[" + predictedData[selectedIndex] + "]"
+                  )[0];
+                  row.aiAlgorithm = algorithmName;
+                  row.aiModel = selectedModel?.modelName;
+              }
+              return row;
+          })
+      );
+  }
 
   async function handleOutlierDetectionData() {
     const res = await mlControllerApi?.predictCluster(algorithmName, {
       classCol: "Ai_Predict",
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
-      dataInputOption: DataInputOption.Es,
+      dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
+      dataType: wb
     });
-
+    console.log(res)
     const predictedData = res?.data.predictionInfo || [];
-    // setRailConditionData((old) =>
-    //   old.map((row) => {
-    //     const selectedIndex = selectedData!.findIndex(
-    //       (selectedId) => selectedId.esId === row.esId
-    //     );
-    //     if (selectedIndex !== -1) {
-    //       row.defectScore = JSON.parse(
-    //         "[" + predictedData[selectedIndex] + "]"
-    //       )[0];
-    //     }
-    //     return row;
-    //   })
-    // );
+    setSensorBearingConditionData((old) =>
+      old.map((row) => {
+        const selectedIndex = selectedBearingData!.findIndex(
+          (selectedId) => selectedId.idx === row.idx
+        );
+        console.log(row)
+        if (selectedIndex !== -1) {
+          var score = JSON.parse("[" + predictedData[selectedIndex] + "]")[1];
+          // row.aiPredict = JSON.parse(
+          //   "[" + predictedData[selectedIndex] + "]"
+          // )[2];
+          score > 0.5 ? row.aiPredict = 1 : row.aiPredict = 0
+          row.aiAlgorithm = algorithmName;
+          row.aiModel = selectedModel?.modelName;
+        }
+        return row;
+      })
+    );
   }
 
   async function handlePredictData() {
@@ -666,7 +676,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
     setSelectedModel(v[0]?.original);
   }, []);
-  console.log(selectedModel)
 
   return (
     <Container fluid>

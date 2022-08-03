@@ -50,8 +50,8 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
           newResult = await mlControllerApi?.trainRfc(input);
           break;
         }
-        case "svm": {
-          newResult = await mlControllerApi?.trainSVM(input);
+        case "svc": {
+          newResult = await mlControllerApi?.trainSVC(input);
           break;
         }
         case "lr": {
@@ -306,6 +306,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
           </InputWrapper>
         </>
       )}
+
       {algorithmName === "kmean" && <KmeanSection />}
       {algorithmName === "if" && <IsolationForestSection />}
       {algorithmName === "linear" && <LinearRegression />}
@@ -422,7 +423,7 @@ export const IsolationForestSection: React.FC = () => {
         <Form.Control
           type="number"
           min="0.0"
-          {...register("numClusters", { valueAsNumber: true, value: 4 })}
+          {...register("numClusters", { valueAsNumber: true, value: 2 })}
         />
       </InputWrapper>
       <InputWrapper
@@ -434,8 +435,23 @@ export const IsolationForestSection: React.FC = () => {
         <Form.Control
           type="number"
           min="0.0"
-          {...register("maxFeatures", { valueAsNumber: true, value: 1 })}
+          step="0.1"
+          {...register("maxFeatures", { valueAsNumber: true, value:0.0 })}
         />
+
+      </InputWrapper>
+      <InputWrapper
+        rowLayout
+        labelWidth={6}
+        className={styles.body2Input}
+        title={t("ml.clustering.maxSamples")}
+      >
+        <Form.Control
+          type="number"
+          min="0.0"
+          {...register("maxSamples", { valueAsNumber: true, value: 256 })}
+        />
+
       </InputWrapper>
       <InputWrapper
         rowLayout

@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "FILEINFO")
+@Table(name = "FILEINFO_backup")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -38,6 +38,10 @@ export const ALGORITHM_INFO: { [key: string]: AlgorithmInfo } = {
     name: "Support Vector Machine",
     className: "SVMClassifier",
   },
+  svc: {
+    name: "Linear Support Vector Classifier",
+    className: "SVMClassifier",
+  },
   lr: {
     name: "Logistic Regression",
     className: "LogisticRegression",

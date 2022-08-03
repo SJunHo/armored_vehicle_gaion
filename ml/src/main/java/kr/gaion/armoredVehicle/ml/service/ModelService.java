@@ -3,9 +3,11 @@ package kr.gaion.armoredVehicle.ml.service;
 import com.google.gson.Gson;
 import kr.gaion.armoredVehicle.algorithm.dto.response.AlgorithmResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
+import kr.gaion.armoredVehicle.algorithm.dto.response.ClusterResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.RegressionResponse;
 import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
+
 import kr.gaion.armoredVehicle.database.model.DbModelResponse;
 import kr.gaion.armoredVehicle.database.repository.DBModelResponseRepository;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
@@ -154,30 +156,39 @@ public class ModelService {
       case "LogisticRegression":
       case "SVMClassifier":
       case "MLPClassifier": {
-                var model= (ClassificationResponse)response;
-                dbModelResponse.setModelName(modelName);
-                dbModelResponse.setType(algorithmName);
-                dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
-                dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
-                dbModelResponse.setAccuracy(model.getAccuracy());
-                dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
-                dbModelResponse.setWeightedRecall(model.getWeightedRecall());
-                dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
-                dbModelResponse.setListFeatures(model.getListFeatures());
-                break;
-            }
+            var model= (ClassificationResponse)response;
+            dbModelResponse.setModelName(modelName);
+            dbModelResponse.setType(algorithmName);
+            dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
+            dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
+            dbModelResponse.setAccuracy(model.getAccuracy());
+            dbModelResponse.setWeightedPrecision(model.getWeightedPrecision());
+            dbModelResponse.setWeightedRecall(model.getWeightedRecall());
+            dbModelResponse.setWeightedTruePositiveRate(model.getWeightedTruePositiveRate());
+            dbModelResponse.setListFeatures(model.getListFeatures());
+            break;
+      }
       case "LinearRegression":
       case "LassoRegression": {
-              var model= (RegressionResponse) response;
-              dbModelResponse.setModelName(modelName);
-              dbModelResponse.setType(algorithmName);
-              dbModelResponse.setCoefficients(model.getCoefficients());
+            var model= (RegressionResponse) response;
+            dbModelResponse.setModelName(modelName);
+            dbModelResponse.setType(algorithmName);
+            dbModelResponse.setCoefficients(model.getCoefficients());
 //                  dbModelResponse.setResiduals(model.getResiduals());
-              dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
-              dbModelResponse.setR2(model.getR2());
-              dbModelResponse.setListFeatures(model.getListFeatures());
-              break;
-            }
+            dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
+            dbModelResponse.setR2(model.getR2());
+            dbModelResponse.setListFeatures(model.getListFeatures());
+            break;
+      }
+      case "isolationForestOutlierDetection":{
+          var model= (ClusterResponse)response;
+          dbModelResponse.setModelName(modelName);
+          dbModelResponse.setType(algorithmName);
+          dbModelResponse.setListFeatures(model.getListFeatures());
+
+        break;
+      }
+
     }
     dbModelResponseRepository.save(dbModelResponse);
 

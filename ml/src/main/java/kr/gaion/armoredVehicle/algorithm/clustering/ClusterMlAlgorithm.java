@@ -85,7 +85,8 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
                   .collect(Collectors.toList())).toSeq())
         .drop("features")
         .drop("v2a");
-    var predictionInfo = (Row[]) testClusterDf.take(this.algorithmConfig.getMaxResult());
+    var maxResults = testClusterDf.count();
+    var predictionInfo = (Row[]) testClusterDf.take((int)maxResults);
     response.setPredictionInfo(
         Arrays.stream(predictionInfo)
             .map(row -> row.mkString(","))

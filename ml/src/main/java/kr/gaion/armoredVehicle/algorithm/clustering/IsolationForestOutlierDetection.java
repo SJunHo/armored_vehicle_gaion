@@ -32,12 +32,12 @@ public class IsolationForestOutlierDetection extends ClusterMlAlgorithm<Isolatio
     var isolationForestModel = IsolationForestModel.load(modelDir);
     var result = isolationForestModel.transform(data);
     return result
-        .withColumn("prediction", functions.when(result.col("prediction").equalTo(functions.lit(0)), 20).otherwise(30));
+        .withColumn("prediction", functions.when(result.col("prediction").equalTo(functions.lit(0)), 0).otherwise(1));
   }
 
   @Override
   protected IsolationForestModel trainModel(ClusterTrainInput input, Dataset<Row> trainData) {
-    var outlierCount = trainData.filter(trainData.col("label").gt(20)).count();
+    var outlierCount = trainData.filter(trainData.col("label").gt(1)).count();
     var totalCount = trainData.count();
     var isolationForest = new IsolationForest();
     isolationForest
@@ -48,6 +48,7 @@ public class IsolationForestOutlierDetection extends ClusterMlAlgorithm<Isolatio
         .setBootstrap(input.isBootstrap())
         .setMaxSamples(input.getFraction())
         .setMaxFeatures(input.getMaxFeatures())
+        .setMaxSamples(input.getMaxSamples())
         .setContamination((outlierCount*1.0)/(totalCount*1.0))
         .setPredictionCol("prediction")
         //      .setContaminationError(0.01 * config.contamination)
@@ -59,7 +60,7 @@ public class IsolationForestOutlierDetection extends ClusterMlAlgorithm<Isolatio
   protected Dataset<Row> predictData(Dataset<Row> input, IsolationForestModel isolationForestModel) {
     var result = isolationForestModel.transform(input);
     return result
-        .withColumn("prediction", functions.when(result.col("prediction").equalTo(functions.lit(0)), 20).otherwise(30));
+        .withColumn("prediction", functions.when(result.col("prediction").equalTo(functions.lit(0)), 0).otherwise(1));
   }
 
   @Override

@@ -65,6 +65,7 @@ const resources = {
       "ml.clustering.numEstimators": "Number of Estimators",
       "ml.clustering.bootstrap": "Bootstrap",
       "ml.clustering.maxFeatures": "Max. Number of Features",
+      "ml.clustering.maxSamples": "Max. Number of Samples",
       "ml.clustering.contamination": "Contamination",
 
       "ml.regression.linear":"Linear Regression",
@@ -524,7 +525,8 @@ const resources = {
       "ml.clustering.numClusters": "클러스터 개수",
       "ml.clustering.numEstimators": "Number of Estimators",
       "ml.clustering.contamination": "Contamination",
-      "ml.clustering.maxFeatures": "Max. Number of Features",
+      "ml.clustering.maxFeatures": "최대특징 개수",
+      "ml.clustering.maxSamples": "최대샘플 개수",
       "ml.clustering.bootstrap": "Bootstrap",
       "ml.clustering.numIters": "반복 횟수",
 
