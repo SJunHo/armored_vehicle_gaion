@@ -1150,13 +1150,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1195,16 +1195,16 @@ export interface PageRailSensorData {
     last?: boolean;
     /**
      * 
-     * @type {number}
-     * @memberof PageRailSensorData
-     */
-    numberOfElements?: number;
-    /**
-     * 
      * @type {Pageable}
      * @memberof PageRailSensorData
      */
     pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageRailSensorData
+     */
+    numberOfElements?: number;
     /**
      * 
      * @type {boolean}
@@ -1232,6 +1232,18 @@ export interface Pageable {
     sort?: Sort;
     /**
      * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageNumber?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageSize?: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof Pageable
      */
@@ -1242,18 +1254,6 @@ export interface Pageable {
      * @memberof Pageable
      */
     paged?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    pageSize?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    pageNumber?: number;
 }
 /**
  * 
@@ -1750,169 +1750,6 @@ export enum ResponseType {
     ObjectData = 'OBJECT_DATA'
 }
 
-/**
- * 
- * @export
- * @interface SVMClassificationResponse
- */
-export interface SVMClassificationResponse {
-    /**
-     * 
-     * @type {ResponseType}
-     * @memberof SVMClassificationResponse
-     */
-    type?: ResponseType;
-    /**
-     * 
-     * @type {ResponseStatus}
-     * @memberof SVMClassificationResponse
-     */
-    status?: ResponseStatus;
-    /**
-     * 
-     * @type {string}
-     * @memberof SVMClassificationResponse
-     */
-    message?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SVMClassificationResponse
-     */
-    idCol?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof SVMClassificationResponse
-     */
-    listFeatures?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof SVMClassificationResponse
-     */
-    classCol?: string;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof SVMClassificationResponse
-     */
-    confusionMatrix?: Array<number>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof SVMClassificationResponse
-     */
-    labels?: Array<string>;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    weightedFalsePositiveRate?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    weightedFMeasure?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    accuracy?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    weightedPrecision?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    weightedRecall?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    weightedTruePositiveRate?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof SVMClassificationResponse
-     */
-    predictionInfo?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof SVMClassificationResponse
-     */
-    predictedActualFeatureLine?: Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof SVMClassificationResponse
-     */
-    predictedFeatureLine?: Array<string>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SVMClassificationResponse
-     */
-    rocByThresholds?: Array<object>;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    areaUnderRoc?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SVMClassificationResponse
-     */
-    areaUnderPrecisionRecallCurve?: number;
-    /**
-     * 
-     * @type {Array<number>}
-     * @memberof SVMClassificationResponse
-     */
-    thresholds?: Array<number>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SVMClassificationResponse
-     */
-    precisionByThreshold?: Array<object>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SVMClassificationResponse
-     */
-    recallByThreshold?: Array<object>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SVMClassificationResponse
-     */
-    f1ScoreByThreshold?: Array<object>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SVMClassificationResponse
-     */
-    f2ScoreByThreshold?: Array<object>;
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof SVMClassificationResponse
-     */
-    precisionRecallCurve?: Array<object>;
-}
 /**
  * 
  * @export
@@ -2667,13 +2504,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    sorted?: boolean;
+    unsorted?: boolean;
     /**
      * 
      * @type {boolean}
@@ -5330,7 +5167,7 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trainSVC(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SVMClassificationResponse>> {
+        async trainSVC(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClassificationResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trainSVC(baseAlgorithmTrainInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5509,7 +5346,7 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trainSVC(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<SVMClassificationResponse> {
+        trainSVC(baseAlgorithmTrainInput: BaseAlgorithmTrainInput, options?: any): AxiosPromise<ClassificationResponse> {
             return localVarFp.trainSVC(baseAlgorithmTrainInput, options).then((request) => request(axios, basePath));
         },
         /**

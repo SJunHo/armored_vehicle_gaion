@@ -36,7 +36,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
   const { mlControllerApi } = useContext(OpenApiContext);
   const [result, setResult] = React.useState<RandomForestClassificationResponse>();
   const [result2, setResult2] = React.useState<RegressionResponse>();
-
+  console.log(algorithmName)
 
   async function handleTrain(input: any) {
     setResult(undefined);
@@ -261,7 +261,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
           </InputWrapper>
         </>
       )}
-      {["svm", "lr"].includes(algorithmName) && (
+      {["svc", "lr"].includes(algorithmName) && (
         <InputWrapper
           rowLayout
           labelWidth={6}

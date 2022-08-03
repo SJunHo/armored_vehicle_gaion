@@ -80,8 +80,8 @@ public class MLController {
 //  }
 
   @PostMapping(path = "/api/train/svc")
-  public SVMClassificationResponse trainSVC(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
-    return (SVMClassificationResponse) svc.train(input);
+  public ClassificationResponse trainSVC(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
+    return svc.train(input);
   }
 
   @PostMapping(path = "/api/train/lr")

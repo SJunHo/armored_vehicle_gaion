@@ -154,7 +154,7 @@ public class ModelService {
     switch (algorithmName) {
       case "RandomForestClassifier":
       case "LogisticRegression":
-      case "SVMClassifier":
+      case "SVCClassifier":
       case "MLPClassifier": {
             var model= (ClassificationResponse)response;
             dbModelResponse.setModelName(modelName);
