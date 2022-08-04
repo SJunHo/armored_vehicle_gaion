@@ -948,13 +948,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
 }
 /**
  * 
@@ -1150,13 +1150,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1183,6 +1183,12 @@ export interface PageRailSensorData {
     sort?: Sort;
     /**
      * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
+    /**
+     * 
      * @type {boolean}
      * @memberof PageRailSensorData
      */
@@ -1193,12 +1199,6 @@ export interface PageRailSensorData {
      * @memberof PageRailSensorData
      */
     last?: boolean;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageRailSensorData
-     */
-    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1218,6 +1218,18 @@ export interface PageRailSensorData {
  * @interface Pageable
  */
 export interface Pageable {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    unpaged?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    paged?: boolean;
     /**
      * 
      * @type {number}
@@ -1242,18 +1254,6 @@ export interface Pageable {
      * @memberof Pageable
      */
     pageSize?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    unpaged?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    paged?: boolean;
 }
 /**
  * 
@@ -2307,12 +2307,6 @@ export interface SensorTempLife {
     idx?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    acPower?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorTempLife
      */
@@ -2383,6 +2377,12 @@ export interface SensorTempLife {
      * @memberof SensorTempLife
      */
     filenm?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorTempLife
+     */
+    aiPredict?: number;
 }
 /**
  * 
@@ -2504,13 +2504,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    sorted?: boolean;
+    unsorted?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * 
      * @type {boolean}
@@ -3869,9 +3869,9 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTepmLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
+        getUnlabeledTempLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledTepmLifeData', 'dataType', dataType)
+            assertParamExists('getUnlabeledTempLifeData', 'dataType', dataType)
             const localVarPath = `/api/data/database/get-all-templife-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4072,8 +4072,8 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledTepmLifeData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorTempLife>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTepmLifeData(dataType, options);
+        async getUnlabeledTempLifeData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorTempLife>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTempLifeData(dataType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -4149,8 +4149,8 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTepmLifeData(dataType: string, options?: any): AxiosPromise<Array<SensorTempLife>> {
-            return localVarFp.getUnlabeledTepmLifeData(dataType, options).then((request) => request(axios, basePath));
+        getUnlabeledTempLifeData(dataType: string, options?: any): AxiosPromise<Array<SensorTempLife>> {
+            return localVarFp.getUnlabeledTempLifeData(dataType, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -4229,8 +4229,8 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledTepmLifeData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTepmLifeData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getUnlabeledTempLifeData(dataType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTempLifeData(dataType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -15,11 +15,16 @@ import Row from "react-bootstrap/Row";
 import { useTranslation } from "react-i18next";
 import { Column, Row as TableRow } from "react-table";
 import {
-  DataInputOption,
-  DataProvider, DbDataUpdateInput,
-  DbModelResponse,
-  OpenApiContext,
-  SensorBearing, SensorGearbox, SensorTempLife, SensorWheel, SensorEngine
+    DataInputOption,
+    DataProvider,
+    DbDataUpdateInput,
+    DbModelResponse,
+    OpenApiContext,
+    SensorBearing,
+    SensorGearbox,
+    SensorWheel,
+    SensorEngine,
+    SensorTempLife
 } from "../api";
 import { ALGORITHM_INFO } from "../common/Common";
 import { Section } from "../common/Section/Section";
@@ -450,7 +455,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         () => [
             {
                 Header: "예측 결과",
-                accessor: "acPower",
+                accessor: "aiPredict",
             },
             {
                 Header: "알고리즘",
@@ -536,7 +541,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         .finally(() => setSearchingData(false));
       setTableColumns(SensorBearingDataColumns)
     } else if(wb === "T") {
-        datasetDatabaseControllerApi?.getUnlabeledTepmLifeData(wb)
+        datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb)
             .then((res) => setSensorTempLifeConditionData(res.data || []))
             .finally(() => setSearchingData(false));
         setTableColumns(SensorTempLifeDataColumns)
@@ -572,38 +577,37 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     );
   }
 
-  async function handleRegressionData() {
-      const res = await mlControllerApi?.regressionPredict(algorithmName, {
-          // classCol: "Ai_Predict",
-          classCol: "ACPOWER",
-          modelName: selectedModel?.modelName,
-          dataProvider: DataProvider.Ktme,
-          dataInputOption: DataInputOption.Db,
-          listFieldsForPredict: selectedModel?.listFeatures,
-          dataType: wb
-      });
+
+    async function handleRegressionData() {
+        const res = await mlControllerApi?.regressionPredict(algorithmName, {
+            classCol: "AI_Predict",
+            modelName: selectedModel?.modelName,
+            dataProvider: DataProvider.Ktme,
+            dataInputOption: DataInputOption.Db,
+            listFieldsForPredict: selectedModel?.listFeatures,
+            dataType: wb
+        });
+
 
       const predictedData = res?.data.predictionInfo || [];
 
-      setSensorTempLifeConditionData((old) =>
-          old.map((row) => {
-              const selectedIndex = selectedTempLifeData!.findIndex(
-                  (selectedId) => selectedId.idx === row.idx
-              );
-              if (selectedIndex !== -1) {
-                  // row.aiPredict = JSON.parse(
-                  //     "[" + predictedData[selectedIndex] + "]"
-                  // )[0];
-                  row.acPower = JSON.parse(
-                      "[" + predictedData[selectedIndex] + "]"
-                  )[0];
-                  row.aiAlgorithm = algorithmName;
-                  row.aiModel = selectedModel?.modelName;
-              }
-              return row;
-          })
-      );
-  }
+        setSensorTempLifeConditionData((old) =>
+            old.map((row) => {
+                const selectedIndex = selectedTempLifeData!.findIndex(
+                    (selectedId) => selectedId.idx === row.idx
+                );
+                if (selectedIndex !== -1) {
+                    row.aiPredict = JSON.parse(
+                        "[" + predictedData[selectedIndex] + "]"
+                    )[0];
+                    row.aiAlgorithm = algorithmName;
+                    row.aiModel = selectedModel?.modelName;
+                }
+                return row;
+            })
+        );
+    }
+
 
   async function handleOutlierDetectionData() {
     const res = await mlControllerApi?.predictCluster(algorithmName, {
@@ -616,6 +620,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     });
     console.log(res)
     const predictedData = res?.data.predictionInfo || [];
+
     setSensorBearingConditionData((old) =>
       old.map((row) => {
         const selectedIndex = selectedBearingData!.findIndex(
@@ -634,6 +639,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         return row;
       })
     );
+
   }
 
   async function handlePredictData() {
@@ -661,6 +667,21 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       )
       .finally(() => setSaving(false));
   }
+
+    async function handleTempLifeUpdateData() {
+        setSaving(true);
+        datasetDatabaseControllerApi
+            ?.updateData(
+                selectedTempLifeData!.map((inputs) => ({
+                    dataType: wb,
+                    id : inputs.idx,
+                    aiAlgorithm : inputs.aiAlgorithm,
+                    aiPredict : inputs.aiPredict,
+                    modelName : inputs.aiModel,
+                }))
+            )
+            .finally(() => setSaving(false));
+    }
 
   // const handleConditionDataSelected = (algorithmName === "linear" || algorithmName === "lasso"
   //         ? useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedData(v?.map((i) => i.original))}, [])
@@ -769,7 +790,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         <Col className="Col col-1 d-grid gap-2">
           <Button
             className="button font-monospace fw-bold"
-            onClick={handleUpdateData}
+            onClick={wb === "T" ? handleTempLifeUpdateData : handleUpdateData}
             size="sm"
             disabled={predicting}
           >

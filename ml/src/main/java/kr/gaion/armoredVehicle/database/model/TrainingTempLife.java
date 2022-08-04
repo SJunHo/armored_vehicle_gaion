@@ -21,8 +21,11 @@ public class TrainingTempLife {
     @Column(name="IDX")
     private Long idx;
 
-    @Column(name="ACPOWER")
-    private Double acPower;
+//    @Column(name="ACPOWER")
+//    private Double acPower;
+
+    @Column(name="AI_Predict")
+    private Double AiPredict;
 
     @Column(name="CPUUTIL")
     private Double cpuUtil;

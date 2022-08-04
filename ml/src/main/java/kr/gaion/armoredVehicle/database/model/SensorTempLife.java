@@ -18,11 +18,11 @@ public class SensorTempLife {
     @Column(name="IDX")
     private Long idx;
 
-//    @Column(name="AI_Predict")
-//    private Double AiPredict;
+//    @Column(name="ACPOWER")
+//    private Double acPower;
 
-    @Column(name="ACPOWER")
-    private Double acPower;
+    @Column(name="AI_Predict")
+    private Double AiPredict;
 
     @Column(name="AI_Algorithm")
     private String aiAlgorithm;
