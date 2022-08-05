@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FileInfoRepository extends JpaRepository<FileInfo, String> {
-    @Query(value = "Select FILENM from FILEINFO_backup f where f.FILETYPE = 'T'", nativeQuery = true)
-    String[] findTrainingDataNameList();
+    @Query(value = "Select FILENM from FILEINFO_backup f where f.FILETYPE = 'T' and f.FILEPT = ?1", nativeQuery = true)
+    String[] findTrainingDataNameList(String partType);
 }

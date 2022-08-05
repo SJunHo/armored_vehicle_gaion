@@ -174,6 +174,6 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 		response.setListFeatures(listSelectedFeatures);
 		response.setClassCol(config.getClassCol());
 		response.setStatus(ResponseStatus.SUCCESS);
-		this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName());
+		this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
   }
 }

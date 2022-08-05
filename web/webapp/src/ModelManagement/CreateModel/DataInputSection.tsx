@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,31 @@ type Props = {
   algorithmName: string;
 };
 
+const partTypes = [
+  {
+    value: "B",
+    label: "베어링",
+  },
+  {
+    value: "W",
+    label: "휠",
+  },
+  {
+    value: "E",
+    label: "엔진",
+  },
+  {
+    value: "G",
+    label: "기어박스",
+  },
+  {
+    value: "T",
+    label: "임시데이터",
+  }
+]
+
 export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
+
   const [indices, setIndices] = React.useState<string[]>([]);
   const [columns, setColumns] = React.useState<string[]>([]);
   const { t } = useTranslation();
@@ -20,13 +44,20 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
 
   const { mlControllerApi } = useContext(OpenApiContext);
   const classCol = watch("classCol");
-  const selectedIndice = watch("trainingESIndex");
+  const selectedIndice = watch("fileName");
+  const selectedPart = watch("partType");
 
   useEffect(() => {
-    mlControllerApi?.getTrainingDataList().then((res) => {
-      setIndices(res.data);
-    });
-  }, [mlControllerApi]);
+    if(selectedPart && mlControllerApi){
+
+      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaa')
+      console.log(selectedPart)
+
+      mlControllerApi?.getTrainingDataList(selectedPart).then((res) => {
+        setIndices(res.data);
+      });
+    }
+  }, [mlControllerApi, selectedPart]);
 
   useEffect(() => {
     if (selectedIndice && mlControllerApi) {
@@ -43,9 +74,9 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
       bottomTitle={ALGORITHM_INFO[algorithmName].name}
     >
       <div className={styles.trainInputBody}>
-        <InputWrapper title={t("ml.common.td")}>
+        <InputWrapper title={t("ml.common.pt")}>
           <Controller
-            name="trainingESIndex"
+            name="partType"
             control={control}
             render={({ field }) => (
               <Select2
@@ -55,7 +86,30 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
                     ? { label: field.value, value: field.value }
                     : undefined
                 }
-                onChange={(v) => setValue("trainingESIndex", v?.value)}
+                onChange={(v) => {
+                  setValue("partType", v?.value)
+                }}
+                options={partTypes.map((d) => ({
+                  value: d.value,
+                  label: d.label,
+                }))}
+              />
+            )}
+          />
+        </InputWrapper>
+        <InputWrapper title={t("ml.common.td")}>
+          <Controller
+            name="fileName"
+            control={control}
+            render={({ field }) => (
+              <Select2
+                {...field}
+                value={
+                  field.value
+                    ? { label: field.value, value: field.value }
+                    : undefined
+                }
+                onChange={(v) => setValue("fileName", v?.value)}
                 options={indices.map((indice) => ({
                   value: indice,
                   label: indice,

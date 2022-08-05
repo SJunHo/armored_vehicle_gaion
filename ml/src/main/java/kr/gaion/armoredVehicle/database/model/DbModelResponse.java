@@ -22,11 +22,14 @@ public class DbModelResponse {
     @Column(name = "algorithm_response_id")
     private Long algorithmResponseId;
 
+    @Column(name = "PART_TYPE")
+    private String partType;
+
     @Column(name = "MODEL_NAME")
     private String modelName;
 
     @Column(name = "Algorithm_Type")
-    private String type;
+    private String algorithmType;
 
     @Column(name = "DESCRIPTION")
     private String description;

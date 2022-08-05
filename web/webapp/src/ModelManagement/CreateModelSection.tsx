@@ -19,7 +19,7 @@ import { Section } from "../common/Section/Section";
 import { CreateModelResult } from "./CreateModelResult";
 import styles from "./styles.module.css";
 import {DataInputSection} from "./CreateModel/DataInputSection";
-import {LifeDataInputSection} from "./CreateModel/LifeDataInputSection";
+// import {LifeDataInputSection} from "./CreateModel/LifeDataInputSection";
 
 const SPLIT_TRAIN_TEST_STRATEGIES = ["auto", "all", "sqrt", "log2", "onethird"];
 

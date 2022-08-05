@@ -200,6 +200,18 @@ export interface BaseAlgorithmTrainInput {
     trainingESIndex?: string;
     /**
      * 
+     * @type {string}
+     * @memberof BaseAlgorithmTrainInput
+     */
+    fileName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BaseAlgorithmTrainInput
+     */
+    partType?: string;
+    /**
+     * 
      * @type {number}
      * @memberof BaseAlgorithmTrainInput
      */
@@ -551,6 +563,18 @@ export interface ClusterTrainInput {
     trainingESIndex?: string;
     /**
      * 
+     * @type {string}
+     * @memberof ClusterTrainInput
+     */
+    fileName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ClusterTrainInput
+     */
+    partType?: string;
+    /**
+     * 
      * @type {number}
      * @memberof ClusterTrainInput
      */
@@ -839,13 +863,19 @@ export interface DbModelResponse {
      * @type {string}
      * @memberof DbModelResponse
      */
+    partType?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbModelResponse
+     */
     modelName?: string;
     /**
      * 
      * @type {string}
      * @memberof DbModelResponse
      */
-    type?: string;
+    algorithmType?: string;
     /**
      * 
      * @type {string}
@@ -1183,12 +1213,6 @@ export interface PageRailSensorData {
     sort?: Sort;
     /**
      * 
-     * @type {Pageable}
-     * @memberof PageRailSensorData
-     */
-    pageable?: Pageable;
-    /**
-     * 
      * @type {boolean}
      * @memberof PageRailSensorData
      */
@@ -1207,6 +1231,12 @@ export interface PageRailSensorData {
     numberOfElements?: number;
     /**
      * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
+    /**
+     * 
      * @type {boolean}
      * @memberof PageRailSensorData
      */
@@ -1218,18 +1248,6 @@ export interface PageRailSensorData {
  * @interface Pageable
  */
 export interface Pageable {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    unpaged?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    paged?: boolean;
     /**
      * 
      * @type {number}
@@ -1254,6 +1272,18 @@ export interface Pageable {
      * @memberof Pageable
      */
     pageSize?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    paged?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    unpaged?: boolean;
 }
 /**
  * 
@@ -2101,16 +2131,22 @@ export interface SensorEngine {
     aiPredict?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorEngine
      */
-    aiAlgorithm?: number;
+    aiAlgorithm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngine
+     */
+    aiModel?: string;
     /**
      * 
      * @type {number}
      * @memberof SensorEngine
      */
-    aiModel?: number;
+    wrpm?: number;
     /**
      * 
      * @type {number}
@@ -2171,12 +2207,6 @@ export interface SensorEngine {
      * @memberof SensorEngine
      */
     filenm?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    wrpm?: number;
 }
 /**
  * 
@@ -2228,16 +2258,22 @@ export interface SensorGearbox {
     aiPredict?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorGearbox
      */
-    aiAlgorithm?: number;
+    aiAlgorithm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearbox
+     */
+    aiModel?: string;
     /**
      * 
      * @type {number}
      * @memberof SensorGearbox
      */
-    aiModel?: number;
+    wrpm?: number;
     /**
      * 
      * @type {number}
@@ -2286,12 +2322,6 @@ export interface SensorGearbox {
      * @memberof SensorGearbox
      */
     filenm?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    wrpm?: number;
 }
 /**
  * 
@@ -2434,16 +2464,22 @@ export interface SensorWheel {
     aiPredict?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorWheel
      */
-    aiAlgorithm?: number;
+    aiAlgorithm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheel
+     */
+    aiModel?: string;
     /**
      * 
      * @type {number}
      * @memberof SensorWheel
      */
-    aiModel?: number;
+    wrpm?: number;
     /**
      * 
      * @type {number}
@@ -2479,19 +2515,13 @@ export interface SensorWheel {
      * @type {number}
      * @memberof SensorWheel
      */
-    rwvFault3?: number;
+    rwsFault3?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorWheel
      */
     filenm?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    wrpm?: number;
 }
 /**
  * 
@@ -2504,13 +2534,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    sorted?: boolean;
+    unsorted?: boolean;
     /**
      * 
      * @type {boolean}
@@ -4443,7 +4473,7 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         getTrainingDataColumnList: async (index: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'index' is not null or undefined
             assertParamExists('getTrainingDataColumnList', 'index', index)
-            const localVarPath = `/api/get-trainingData/{index}`
+            const localVarPath = `/api/get-trainingDataColumnList/{index}`
                 .replace(`{${"index"}}`, encodeURIComponent(String(index)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4473,11 +4503,15 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTrainingDataList: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/get-trainingData`;
+        getTrainingDataList: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getTrainingDataList', 'partType', partType)
+            const localVarPath = `/api/get-trainingData/{partType}`
+                .replace(`{${"partType"}}`, encodeURIComponent(String(partType)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5052,11 +5086,12 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTrainingDataList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingDataList(options);
+        async getTrainingDataList(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingDataList(partType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5242,11 +5277,12 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTrainingDataList(options?: any): AxiosPromise<Array<string>> {
-            return localVarFp.getTrainingDataList(options).then((request) => request(axios, basePath));
+        getTrainingDataList(partType: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getTrainingDataList(partType, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5429,12 +5465,13 @@ export class MlControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} partType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MlControllerApi
      */
-    public getTrainingDataList(options?: any) {
-        return MlControllerApiFp(this.configuration).getTrainingDataList(options).then((request) => request(this.axios, this.basePath));
+    public getTrainingDataList(partType: string, options?: any) {
+        return MlControllerApiFp(this.configuration).getTrainingDataList(partType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

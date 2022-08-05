@@ -137,7 +137,7 @@ public class ModelService {
         return dbModelResponseRepository.getModelResponseListByAlgorithm(algorithm);
     }
 
-	public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName) throws IOException {
+	public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName, String partType) throws IOException {
 		// Delete old data
 //		deleteOldMlResponse(algorithmName, modelName);
 
@@ -150,7 +150,7 @@ public class ModelService {
         // modelResponseSaveToDatabase
     System.out.println("algorithmName: " + algorithmName);
     DbModelResponse dbModelResponse = new DbModelResponse();
-
+    dbModelResponse.setPartType(partType);
     switch (algorithmName) {
       case "RandomForestClassifier":
       case "LogisticRegression":
@@ -158,7 +158,7 @@ public class ModelService {
       case "MLPClassifier": {
             var model= (ClassificationResponse)response;
             dbModelResponse.setModelName(modelName);
-            dbModelResponse.setType(algorithmName);
+            dbModelResponse.setAlgorithmType(algorithmName);
             dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
             dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
             dbModelResponse.setAccuracy(model.getAccuracy());
@@ -172,7 +172,7 @@ public class ModelService {
       case "LassoRegression": {
             var model= (RegressionResponse) response;
             dbModelResponse.setModelName(modelName);
-            dbModelResponse.setType(algorithmName);
+            dbModelResponse.setAlgorithmType(algorithmName);
             dbModelResponse.setCoefficients(model.getCoefficients());
 //                  dbModelResponse.setResiduals(model.getResiduals());
             dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
@@ -183,7 +183,7 @@ public class ModelService {
       case "isolationForestOutlierDetection":{
           var model= (ClusterResponse)response;
           dbModelResponse.setModelName(modelName);
-          dbModelResponse.setType(algorithmName);
+          dbModelResponse.setAlgorithmType(algorithmName);
           dbModelResponse.setListFeatures(model.getListFeatures());
 
         break;

@@ -20,7 +20,7 @@ public class TrainingEngine {
     private long idx;
 
     @Column(name="SDAID")
-    private String sdaId;
+    private String carId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name="OPERDATE")
@@ -38,7 +38,7 @@ public class TrainingEngine {
     private long timeIndex;
 
     @Column(name="W_RPM")
-    private double wRPM;
+    private double wrpm;
 
     @Column(name="E_V_OverallRMS")
     private double evOverallRms;
@@ -68,5 +68,5 @@ public class TrainingEngine {
     private double lo;
 
     @Column(name="AI_Predict")
-    private int AiPredict;
+    private double AiPredict;
 }

@@ -176,7 +176,6 @@ public class MLController {
     return modelService.getModelResponse(algorithm);
   }
 
-//  Todo: update 기능
   @PostMapping(path = "/api/ml/{algorithm}/model/{algorithmResponseId}")
   public DbModelResponse updateModel(@PathVariable String algorithm, @PathVariable Long algorithmResponseId, @RequestBody UpdateModelInput update) {
     try {
@@ -196,12 +195,13 @@ public class MLController {
     }
   }
 
-  @GetMapping(path = "/api/get-trainingData")
-  public String[] getTrainingDataList(){
-    return fileInfoRepository.findTrainingDataNameList();
+  @GetMapping(path = "/api/get-trainingData/{partType}")
+  public String[] getTrainingDataList(@PathVariable String partType){
+    System.out.println(partType);
+    return fileInfoRepository.findTrainingDataNameList(partType);
   }
 
-  @GetMapping(path = "/api/get-trainingData/{index}")
+  @GetMapping(path = "/api/get-trainingDataColumnList/{index}")
   public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
 
     String path = storageConfig.getHomeDir()+index+".csv";

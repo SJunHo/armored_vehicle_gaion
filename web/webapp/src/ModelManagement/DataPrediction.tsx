@@ -39,13 +39,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
 
+  const [conditionData, setConditionData] = useState<any[]>([]);
 
-  const [sensorBearingConditionData, setSensorBearingConditionData] = useState<SensorBearing[]>([]);
-  const [selectedBearingData, setSelectedBearingData] = useState<SensorBearing[]>();
-
-
-  const [sensorTempLifeConditionData, setSensorTempLifeConditionData] = useState<SensorTempLife[]>([]);
-  const [selectedTempLifeData, setSelectedTempLifeData] = useState<SensorTempLife[]>();
+  const [selectedData, setSelectedData] = useState<any[]>();
 
   const [tableColumns, setTableColumns] = useState<any>([]);
   const [sensorObject, setSensorObject] = useState<Object>();
@@ -98,8 +94,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     [t]
   );
 
-
-  const SensorBearingDataColumns = useMemo<Column<any>[]>(
+  const SensorBearingDataColumns = useMemo<Column<SensorBearing>[]>(
     () => [
       {
         Header: "예측 결과",
@@ -287,6 +282,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     ],
     []
   );
+
   const SensorGearboxDataColumns = useMemo<Column<SensorGearbox>[]>(
     () => [
       {
@@ -353,159 +349,196 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     [t]
   );
 
-  // const SensorWheelDataColumns = useMemo<Column<SensorWheel>[]>(
-  //   () => [
-  //     {
-  //       Header: "예측 결과",
-  //       accessor: "defectScore",
-  //     },
-  //     {
-  //       Header: "ID",
-  //       accessor: "id",
-  //     },
-  //     {
-  //       Header: t("history.tno").toString(),
-  //       accessor: "trainNo",
-  //     },
-  //     {
-  //       Header: t("history.cno").toString(),
-  //       accessor: "carNo",
-  //     },
-  //     {
-  //       Header: t("history.wb").toString(),
-  //       accessor: "wb",
-  //     },
-  //     {
-  //       Header: t("history.lr").toString(),
-  //       accessor: "lr",
-  //     },
-  //     {
-  //       Header: t("history.ns").toString(),
-  //       accessor: "ns",
-  //     },
-  //     {
-  //       Header: t("history.ot").toString(),
-  //       accessor: "oneTwo",
-  //     },
-  //     {
-  //       Header: t("history.time").toString(),
-  //       accessor: (item) => {
-  //         const time = item.time ? new Date(item.time) : undefined;
-  //         return time
-  //           ? time.toLocaleDateString("en-CA") +
-  //           " " +
-  //           time.toLocaleTimeString("kr")
-  //           : "-";
-  //       },
-  //     },
-  //   ],
-  //   [t]
-  // );
+  const SensorWheelDataColumns = useMemo<Column<SensorWheel>[]>(
+    () => [
+      {
+        Header: "예측 결과",
+        accessor: "aiPredict",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "aiAlgorithm",
+      },
+      {
+        Header: "모델이름",
+        accessor: "aiModel",
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "날짜",
+        accessor: "operateDateTime",
+      },
+      {
+        Header: "carId",
+        accessor: "carId",
+      },
+      {
+        Header: "lwv2x",
+        accessor: "lwv2x",
+      },
+      {
+        Header: "lwv3x",
+        accessor: "lwv3x",
+      },
+      {
+        Header: "lwsFault3",
+        accessor: "lwsFault3",
+      },
+      {
+        Header: "rwv2x",
+        accessor: "rwv2x",
+      },
+      {
+        Header: "rwv3x",
+        accessor: "rwv3x",
+      },
+      {
+        Header: "rwsFault3",
+        accessor: "rwsFault3",
+      },
+      {
+        Header: "filenm",
+        accessor: "filenm",
+      },
+      {
+        Header: "wRpm",
+        accessor: "wrpm",
+      },
+    ],[t]
+  );
 
-  // const SensorEngineDataColumns = useMemo<Column<SensorEngine>[]>(
-  //   () => [
-  //     {
-  //       Header: "예측 결과",
-  //       accessor: "defectScore",
-  //     },
-  //     {
-  //       Header: "ID",
-  //       accessor: "id",
-  //     },
-  //     {
-  //       Header: t("history.tno").toString(),
-  //       accessor: "trainNo",
-  //     },
-  //     {
-  //       Header: t("history.cno").toString(),
-  //       accessor: "carNo",
-  //     },
-  //     {
-  //       Header: t("history.wb").toString(),
-  //       accessor: "wb",
-  //     },
-  //     {
-  //       Header: t("history.lr").toString(),
-  //       accessor: "lr",
-  //     },
-  //     {
-  //       Header: t("history.ns").toString(),
-  //       accessor: "ns",
-  //     },
-  //     {
-  //       Header: t("history.ot").toString(),
-  //       accessor: "oneTwo",
-  //     },
-  //     {
-  //       Header: t("history.time").toString(),
-  //       accessor: (item) => {
-  //         const time = item.time ? new Date(item.time) : undefined;
-  //         return time
-  //           ? time.toLocaleDateString("en-CA") +
-  //           " " +
-  //           time.toLocaleTimeString("kr")
-  //           : "-";
-  //       },
-  //     },
-  //   ],
-  //   [t]
-  // );
+  const SensorEngineDataColumns = useMemo<Column<SensorEngine>[]>(
+    () => [
+      {
+        Header: "예측 결과",
+        accessor: "aiPredict",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "aiAlgorithm",
+      },
+      {
+        Header: "모델이름",
+        accessor: "aiModel",
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "날짜",
+        accessor: "operateDateTime",
+      },
+      {
+        Header: "carId",
+        accessor: "carId",
+      },
+      {
+        Header: "evOverallRms",
+        accessor: "evOverallRms",
+      },
+      {
+        Header: "ev12x",
+        accessor: "ev12x",
+      },
+      {
+        Header: "ev1x",
+        accessor: "ev1x",
+      },
+      {
+        Header: "evCrestfactor",
+        accessor: "evCrestfactor",
+      },
+      {
+        Header: "ach",
+        accessor: "ach",
+      },
+      {
+        Header: "acv",
+        accessor: "acv",
+      },
+      {
+        Header: "aca",
+        accessor: "aca",
+      },
+      {
+        Header: "la",
+        accessor: "la",
+      },
+      {
+        Header: "lo",
+        accessor: "lo",
+      },
+      {
+        Header: "filenm",
+        accessor: "filenm",
+      },
+      {
+        Header: "wrpm",
+        accessor: "wrpm",
+      },
+    ],
+    [t]
+  );
 
   const SensorTempLifeDataColumns = useMemo<Column<SensorTempLife>[]>(
-        () => [
-            {
-                Header: "예측 결과",
-                accessor: "aiPredict",
-            },
-            {
-                Header: "알고리즘",
-                accessor: "aiAlgorithm",
-            },
-            {
-                Header: "모델이름",
-                accessor: "aiModel",
-            },
-            {
-                Header: "ID",
-                accessor: "idx",
-            },
-            {
-                Header: "날짜",
-                accessor: "time",
-            },
-            {
-                Header: "Cpu Util",
-                accessor: "cpuUtil",
-            },
-            {
-                Header: "Disk Accesses",
-                accessor: "diskAccesses",
-            },
-            {
-                Header: "Disk Blocks",
-                accessor: "diskBlocks",
-            },{
-                Header: "Disk Util",
-                accessor: "diskUtil",
-            },
-            {
-                Header: "INST RETIRED",
-                accessor: "instRetired",
-            },
-            {
-                Header: "Last Level",
-                accessor: "lastLevel",
-            },
-            {
-                Header: "Memory Bus",
-                accessor: "memoryBus",
-            },
-            {
-                Header: "Core Cycle",
-                accessor: "coreCycle",
-            },
-        ],
-        []
+      () => [
+          {
+              Header: "예측 결과",
+              accessor: "aiPredict",
+          },
+          {
+              Header: "알고리즘",
+              accessor: "aiAlgorithm",
+          },
+          {
+              Header: "모델이름",
+              accessor: "aiModel",
+          },
+          {
+              Header: "ID",
+              accessor: "idx",
+          },
+          {
+              Header: "날짜",
+              accessor: "time",
+          },
+          {
+              Header: "Cpu Util",
+              accessor: "cpuUtil",
+          },
+          {
+              Header: "Disk Accesses",
+              accessor: "diskAccesses",
+          },
+          {
+              Header: "Disk Blocks",
+              accessor: "diskBlocks",
+          },{
+              Header: "Disk Util",
+              accessor: "diskUtil",
+          },
+          {
+              Header: "INST RETIRED",
+              accessor: "instRetired",
+          },
+          {
+              Header: "Last Level",
+              accessor: "lastLevel",
+          },
+          {
+              Header: "Memory Bus",
+              accessor: "memoryBus",
+          },
+          {
+              Header: "Core Cycle",
+              accessor: "coreCycle",
+          },
+      ],
+      []
     );
 
   const { datasetControllerApi, datasetDatabaseControllerApi, mlControllerApi } = useContext(OpenApiContext);
@@ -522,89 +555,86 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     setSearchingData(true);
     if(wb === "B"){
       datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
-        .then((res) => setSensorBearingConditionData(res.data || []))
+        .then((res) => setConditionData(res.data || []))
         .finally(() => setSearchingData(false));
       setTableColumns(SensorBearingDataColumns)
     }else if(wb ==="W"){
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
-        .then((res) => setSensorBearingConditionData(res.data || []))
+      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb)
+        .then((res) => setConditionData(res.data || []))
         .finally(() => setSearchingData(false));
-      setTableColumns(SensorBearingDataColumns)
+      console.log("123123")
+      setTableColumns(SensorWheelDataColumns)
     }else if(wb ==="G"){
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
-        .then((res) => setSensorBearingConditionData(res.data || []))
+      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb)
+        .then((res) => setConditionData(res.data || []))
         .finally(() => setSearchingData(false));
-      setTableColumns(SensorBearingDataColumns)
+      setTableColumns(SensorGearboxDataColumns)
     }else if(wb ==="E"){
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
-        .then((res) => setSensorBearingConditionData(res.data || []))
+      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb)
+        .then((res) => setConditionData(res.data || []))
         .finally(() => setSearchingData(false));
-      setTableColumns(SensorBearingDataColumns)
+      setTableColumns(SensorEngineDataColumns)
     } else if(wb === "T") {
-        datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb)
-            .then((res) => setSensorTempLifeConditionData(res.data || []))
-            .finally(() => setSearchingData(false));
-        setTableColumns(SensorTempLifeDataColumns)
+      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb)
+        .then((res) => setConditionData(res.data || []))
+        .finally(() => setSearchingData(false));
+      setTableColumns(SensorTempLifeDataColumns)
     }
   }
 
-  async function handleClassificationData() {
-    const res = await mlControllerApi?.classificationPredict(algorithmName, {
-      classCol: "Ai_Predict",
-      modelName: selectedModel?.modelName,
-      dataProvider: DataProvider.Ktme,
-      dataInputOption: DataInputOption.Db,
-      listFieldsForPredict: selectedModel?.listFeatures,
-      dataType: wb
-    });
+    async function handleClassificationData() {
+      const res = await mlControllerApi?.classificationPredict(algorithmName, {
+        classCol: "Ai_Predict",
+        modelName: selectedModel?.modelName,
+        dataProvider: DataProvider.Ktme,
+        dataInputOption: DataInputOption.Db,
+        listFieldsForPredict: selectedModel?.listFeatures,
+        dataType: wb
+      });
 
-    const predictedData = res?.data.predictionInfo || [];
-
-      setSensorBearingConditionData((old) =>
-      old.map((row) => {
-        const selectedIndex = selectedBearingData!.findIndex(
-          (selectedId) => selectedId.idx === row.idx
-        );
-        if (selectedIndex !== -1) {
-          row.aiPredict = JSON.parse(
-            "[" + predictedData[selectedIndex] + "]"
-          )[0];
-          row.aiAlgorithm = algorithmName;
-          row.aiModel = selectedModel?.modelName;
-        }
-        return row;
-      })
-    );
-  }
+      const predictedData = res?.data.predictionInfo || [];
+        setConditionData((old) =>
+        old.map((row) => {
+          const selectedIndex = selectedData!.findIndex(
+            (selectedId) => selectedId.idx === row.idx
+          );
+          if (selectedIndex !== -1) {
+            row.aiPredict = JSON.parse(
+              "[" + predictedData[selectedIndex] + "]"
+            )[0];
+            row.aiAlgorithm = algorithmName;
+            row.aiModel = selectedModel?.modelName;
+          }
+          return row;
+        })
+      );
+    }
 
 
     async function handleRegressionData() {
-        const res = await mlControllerApi?.regressionPredict(algorithmName, {
-            classCol: "AI_Predict",
-            modelName: selectedModel?.modelName,
-            dataProvider: DataProvider.Ktme,
-            dataInputOption: DataInputOption.Db,
-            listFieldsForPredict: selectedModel?.listFeatures,
-            dataType: wb
-        });
-
-
+      const res = await mlControllerApi?.regressionPredict(algorithmName, {
+          classCol: "AI_Predict",
+          modelName: selectedModel?.modelName,
+          dataProvider: DataProvider.Ktme,
+          dataInputOption: DataInputOption.Db,
+          listFieldsForPredict: selectedModel?.listFeatures,
+          dataType: wb
+      });
       const predictedData = res?.data.predictionInfo || [];
-
-        setSensorTempLifeConditionData((old) =>
-            old.map((row) => {
-                const selectedIndex = selectedTempLifeData!.findIndex(
-                    (selectedId) => selectedId.idx === row.idx
-                );
-                if (selectedIndex !== -1) {
-                    row.aiPredict = JSON.parse(
-                        "[" + predictedData[selectedIndex] + "]"
-                    )[0];
-                    row.aiAlgorithm = algorithmName;
-                    row.aiModel = selectedModel?.modelName;
-                }
-                return row;
-            })
+        setConditionData((old) =>
+          old.map((row) => {
+              const selectedIndex = selectedData!.findIndex(
+                  (selectedId) => selectedId.idx === row.idx
+              );
+              if (selectedIndex !== -1) {
+                  row.aiPredict = JSON.parse(
+                      "[" + predictedData[selectedIndex] + "]"
+                  )[0];
+                  row.aiAlgorithm = algorithmName;
+                  row.aiModel = selectedModel?.modelName;
+              }
+              return row;
+          })
         );
     }
 
@@ -620,10 +650,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     });
     console.log(res)
     const predictedData = res?.data.predictionInfo || [];
-
-    setSensorBearingConditionData((old) =>
+    setConditionData((old) =>
       old.map((row) => {
-        const selectedIndex = selectedBearingData!.findIndex(
+        const selectedIndex = selectedData!.findIndex(
           (selectedId) => selectedId.idx === row.idx
         );
         console.log(row)
@@ -657,7 +686,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     setSaving(true);
     datasetDatabaseControllerApi
       ?.updateData(
-        selectedBearingData!.map((inputs) => ({
+        selectedData!.map((inputs) => ({
           dataType: wb,
           id : inputs.idx,
           aiAlgorithm : inputs.aiAlgorithm,
@@ -668,31 +697,28 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       .finally(() => setSaving(false));
   }
 
-    async function handleTempLifeUpdateData() {
-        setSaving(true);
-        datasetDatabaseControllerApi
-            ?.updateData(
-                selectedTempLifeData!.map((inputs) => ({
-                    dataType: wb,
-                    id : inputs.idx,
-                    aiAlgorithm : inputs.aiAlgorithm,
-                    aiPredict : inputs.aiPredict,
-                    modelName : inputs.aiModel,
-                }))
-            )
-            .finally(() => setSaving(false));
-    }
+    // async function handleTempLifeUpdateData() {
+    //     setSaving(true);
+    //     datasetDatabaseControllerApi
+    //         ?.updateData(
+    //             selectedTempLifeData!.map((inputs) => ({
+    //                 dataType: wb,
+    //                 id : inputs.idx,
+    //                 aiAlgorithm : inputs.aiAlgorithm,
+    //                 aiPredict : inputs.aiPredict,
+    //                 modelName : inputs.aiModel,
+    //             }))
+    //         )
+    //         .finally(() => setSaving(false));
+    // }
 
   // const handleConditionDataSelected = (algorithmName === "linear" || algorithmName === "lasso"
   //         ? useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedData(v?.map((i) => i.original))}, [])
   //         : useCallback((v: TableRow<SensorBearing>[]) => {setSelectedData(v?.map((i) => i.original))},[])
   // );
 
-  const handleConditionBearingDataSelected =
-      useCallback((v: TableRow<SensorBearing>[]) => {setSelectedBearingData(v?.map((i) => i.original))},[]);
-
-  const handleConditionTempLifeDataSelected =
-      useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedTempLifeData(v?.map((i) => i.original))}, []);
+  const handleConditionSelected =
+      useCallback((v: TableRow<any[]>[]) => {setSelectedData(v?.map((i) => i.original))},[]);
 
   const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
     setSelectedModel(v[0]?.original);
@@ -782,15 +808,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       </Row>
       <Table
         columns={tableColumns}
-        data={wb === "T" ?  sensorTempLifeConditionData : sensorBearingConditionData}
-        onRowsSelected={wb === "T" ? handleConditionTempLifeDataSelected : handleConditionBearingDataSelected}
+        data={conditionData}
+        onRowsSelected={handleConditionSelected}
       />
 
       <Row className="row justify-content-end">
         <Col className="Col col-1 d-grid gap-2">
           <Button
             className="button font-monospace fw-bold"
-            onClick={wb === "T" ? handleTempLifeUpdateData : handleUpdateData}
+            onClick={handleUpdateData}
             size="sm"
             disabled={predicting}
           >

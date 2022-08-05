@@ -20,7 +20,7 @@ public class TrainingGearbox {
     private long idx;
 
     @Column(name="SDAID")
-    private String sdaId;
+    private String carId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name="OPERDATE")
@@ -38,7 +38,7 @@ public class TrainingGearbox {
     private long timeIndex;
 
     @Column(name="W_RPM")
-    private double wRPM;
+    private double wrpm;
 
     @Column(name="G_V_OverallRMS")
     private double gvOverallRms;
@@ -62,5 +62,5 @@ public class TrainingGearbox {
     private double gvGmf2x;
 
     @Column(name="AI_Predict")
-    private int AiPredict;
+    private double AiPredict;
 }

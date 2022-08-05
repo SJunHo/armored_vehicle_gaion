@@ -28,7 +28,7 @@ public class CSVHelper {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingBearing trainingBearing = new TrainingBearing();
-                trainingBearing.setSdaId(csvRecord.get("SDAID"));
+                trainingBearing.setCarId(csvRecord.get("SDAID"));
                 trainingBearing.setOperateDate(new SimpleDateFormat("yyyy-MM-dd").parse(csvRecord.get("OPERDATE")));
                 trainingBearing.setOperateTime(new SimpleDateFormat("HH:mm:ss").parse(csvRecord.get("OPERTIME")));
                 trainingBearing.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
@@ -74,7 +74,7 @@ public class CSVHelper {
                 trainingBearing.setRbsFault2(Double.parseDouble(csvRecord.get("R_B_S_Fault2")));
                 trainingBearing.setRbtTemperature(Double.parseDouble(csvRecord.get("R_B_T_Temperature")));
 
-                trainingBearing.setAiPredict(Integer.parseInt(csvRecord.get("AI_Predict")));
+                trainingBearing.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
 
                 trainingBearingList.add(trainingBearing);
             }

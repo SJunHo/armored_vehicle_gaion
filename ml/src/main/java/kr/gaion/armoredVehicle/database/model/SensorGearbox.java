@@ -34,22 +34,22 @@ public class SensorGearbox {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="DATE")
-    private DateTime operateDateTime;
+    private Date operateDateTime;
 
     @Column(name="TIME")
     private long timeIndex;
 
     @Column(name="AI_Predict")
-    private double aiPredict;
+    private Double aiPredict;
 
     @Column(name="AI_Algorithm")
-    private double aiAlgorithm;
+    private String aiAlgorithm;
 
     @Column(name="AI_Model")
-    private double aiModel;
+    private String aiModel;
 
     @Column(name="W_RPM")
-    private double wRPM;
+    private double wrpm;
 
     @Column(name="G_V_OverallRMS")
     private double gvOverallRms;

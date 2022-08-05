@@ -35,7 +35,16 @@ public class DatasetDatabaseController {
     }
 
   @GetMapping(path = "/api/data/database/get-all-bearing-data")
-  public List<SensorBearing> getUnlabeledBearingData(@RequestParam("dataType") String dataType) {
+  public List<SensorBearing> getUnlabeledBearingData(@RequestParam("dataType") String partType) {
+//      if(partType.equals("B")){
+//
+//      }else if(partType.equals("W")){
+//
+//      }else if(partType.equals("E")){
+//
+//      }else if(partType.equals("G")){
+//
+//      }
     try {
         return this.datasetDatabaseService.getUnlabeledBearingData();
     } catch (IOException e) {
@@ -47,6 +56,7 @@ public class DatasetDatabaseController {
   @GetMapping(path = "/api/data/database/get-all-wheel-data")
   public List<SensorWheel> getUnlabeledWheelData(@RequestParam("dataType") String dataType) {
     try {
+      System.out.println("123123123123");
       return this.datasetDatabaseService.getUnlabeledWheelData();
     } catch (IOException e) {
       e.printStackTrace();
@@ -76,13 +86,13 @@ public class DatasetDatabaseController {
 
   @GetMapping(path = "/api/data/database/get-all-templife-data")
   public List<SensorTempLife> getUnlabeledTempLifeData(@RequestParam("dataType") String dataType) {
-        try {
-            return this.datasetDatabaseService.getUnlabeledTempLifeData();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+      try {
+          return this.datasetDatabaseService.getUnlabeledTempLifeData();
+      } catch (IOException e) {
+          e.printStackTrace();
+          return null;
+      }
+  }
 
   @PostMapping(path = "/api/data/database/update")
   public String updateData(@RequestBody ArrayList<DbDataUpdateInput> input) throws IOException {

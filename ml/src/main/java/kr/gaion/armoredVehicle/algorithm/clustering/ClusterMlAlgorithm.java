@@ -149,7 +149,7 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
     response.setProcessed(config.isFeaturesSelectionEnableFlg());
 
     this.doSaveModel(model, config);
-    this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName());
+    this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
     this.modelUtil.saveTrainedResults(config, response, this.algorithmName);
 
     enrichTrainResponse(response, model, resultDf, config);

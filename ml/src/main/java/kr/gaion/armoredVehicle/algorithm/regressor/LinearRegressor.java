@@ -134,7 +134,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
        // Service의 역할은 Dao가 DB에서 받아온 데이터를 전달받아 가공하는 것. 즉, Controller가 받은 요청에 대해 알맞는 정보를 가공해서 다시 Controller에게 데이터를 넘기는 것을 의미합니다.
         // 그래서 웹에서 컨트롤러로 들어온 요청에 대한 대답을 서비스가 가공해서 다시 컨트롤러로 주기위해 정보들을 담아주는 것. 그럼 이 정보를 컨트롤러가 웹으로 보내준다.
-        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName());
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
 
         return response;
     }

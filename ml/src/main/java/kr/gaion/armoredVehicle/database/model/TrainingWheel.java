@@ -15,12 +15,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class TrainingWheel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "train_wheel_generator")
+    @SequenceGenerator(name="train_wheel_generator", sequenceName = "train_wheel_seq")
     @Column(name="IDX")
     private long idx;
 
     @Column(name="SDAID")
-    private String sdaId;
+    private String carId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name="OPERDATE")
@@ -38,7 +39,7 @@ public class TrainingWheel {
     private long timeIndex;
 
     @Column(name="W_RPM")
-    private double wRPM;
+    private double wrpm;
 
     @Column(name="L_W_V_2X")
     private double lwv2x;
@@ -55,9 +56,9 @@ public class TrainingWheel {
     @Column(name="R_W_V_3X")
     private double rwv3x;
 
-    @Column(name="R_W_V_Fault3")
+    @Column(name="R_W_S_Fault3")
     private double rwvFault3;
 
     @Column(name="AI_Predict")
-    private int AiPredict;
+    private double AiPredict;
 }

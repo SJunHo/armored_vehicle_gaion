@@ -13,6 +13,11 @@ public class BaseAlgorithmTrainInput extends BaseAlgorithmInput {
   /**
    * Number of classes for classification
    */
+  private String fileName;
+
+  //data type
+  private String partType;
+
   private int numClasses;
 
   /**

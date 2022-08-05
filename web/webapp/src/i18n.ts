@@ -124,6 +124,8 @@ const resources = {
       "ml.common.tab.predict": "Predict Categorical Fields",
       "ml.common.tab.troubleshot": "Troubleshot",
       "ml.common.td": "Training  Dataset :",
+      "ml.common.pt": "Training  Part Type :",
+
       "ml.common.unlbd": "Unlabeled Data",
       "ml.common.vr": "Visualization Results",
       "ml.predict.pv": "Predict Value",
@@ -588,6 +590,7 @@ const resources = {
       "ml.common.tab.lifePredict": "잔존수명 예지 수행",
 
       "ml.common.td": "학습 데이터 선택 :",
+      "ml.common.pt": "부품 선택 :",
       "ml.common.unlbd": "미 분류 데이터",
       "ml.common.vr": "진단 결과",
       "ml.pm.txt.lbl.probability": "The probability of occurrence",

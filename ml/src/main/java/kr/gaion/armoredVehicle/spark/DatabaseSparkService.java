@@ -56,15 +56,28 @@ public class DatabaseSparkService {
 //        log.info("Getting data from ElasticSearch for: " + this.dbIndexConfig.getIndex() + "/" + this.dbIndexConfig.getReadingType() + "/");
         //Todo 부품 별 테이블 선택 로직 구현
         // TODO: 2022-07-14 부품 선택 input 기능 구현
-        var jvRddData = this.getDataRDDFromDb("BERTRNNG");
+
+        System.out.println(input.getPartType() + "ASDFASDFADfa");
+        var jvRddData = this.getDataRDDFromDb(input.getPartType());
 
         var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
         return spark.createDataFrame(esData.rdd(), LabeledData.class);
     }
 
-    public Dataset<Row> getDataRDDFromDb(String tableName){
+    public Dataset<Row> getDataRDDFromDb(String partType){
+        String tname = null;
+        if(partType.equals("B") ){
+            tname= "BERTRANNG";
+        }else if (partType.equals("W")){
+            tname= "WHLTRNNG";
+        }else if (partType.equals("E")){
+            tname= "ENGTRNNG";
+        }else if (partType.equals("G")){
+            tname= "GRBTRNNG";
+        }else if (partType.equals("T")){
+            tname= "TEMPLIFE";
+        }
         try{
-            String tname = tableName;
             System.out.println(tname);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
@@ -188,53 +201,43 @@ public class DatabaseSparkService {
 
     //import Db unlabeled data for predict
     public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput) {
+        String tname = null;
         switch(baseAlgorithmPredictInput.getDataType()){
             case "B": {
-                try{
-                    String tname = "BERDATA";
-                    System.out.println(tname);
-                    Dataset<Row> jdbcDF = spark.read()
-                            .format("jdbc")
-                            .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                            .option("dbtable", "(Select * from BERDATA where AI_Predict is Null) as subtest")
-                            .option("user", "AMVHC_U")
-                            .option("password", "!Tltmxpa0517")
-                            .load();
-                    return jdbcDF;
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                tname = "BERDATA";
+                break;
             }
             case "W": {
-
+                tname = "WHLDATA";
+                break;
             }
             case "G": {
-
+                tname = "GRBDATA";
+                break;
             }
             case "E": {
-
+                tname = "ENGDATA";
+                break;
             }
             case "T": {
-                try {
-                    String tname = "TEMPLIFEDATA";
-                    System.out.println(tname);
-                    Dataset<Row> jdbcDF = spark.read()
-                            .format("jdbc")
-                            .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-//                            .option("dbtable", "(Select * from TEMPLIFEDATA where AI_Predict is Null) as subtest")
-                            .option("dbtable", "(Select * from TEMPLIFEDATA where AI_Predict is Null) as subtest")
-                            .option("user", "AMVHC_U")
-                            .option("password", "!Tltmxpa0517")
-                            .load();
-                    return jdbcDF;
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+                tname = "TEMPLIFEDATA";
+                break;
             }
         }
-
-
-        return null;
+        System.out.println("Select * from "+tname+" where AI_Predict is Null) as subtest");
+        try{
+            System.out.println(tname);
+            Dataset<Row> jdbcDF = spark.read()
+                    .format("jdbc")
+                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
+                    .option("dbtable", "(Select * from "+tname+" where AI_Predict is Null) as subtest")
+                    .option("user", "AMVHC_U")
+                    .option("password", "!Tltmxpa0517")
+                    .load();
+            return jdbcDF;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

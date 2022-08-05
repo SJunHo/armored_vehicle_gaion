@@ -34,22 +34,22 @@ public class SensorWheel {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="DATE")
-    private DateTime operateDateTime;
+    private Date operateDateTime;
 
     @Column(name="TIME")
     private long timeIndex;
 
     @Column(name="AI_Predict")
-    private double aiPredict;
+    private Double aiPredict;
 
     @Column(name="AI_Algorithm")
-    private double aiAlgorithm;
+    private String aiAlgorithm;
 
     @Column(name="AI_Model")
-    private double aiModel;
+    private String aiModel;
 
     @Column(name="W_RPM")
-    private double wRPM;
+    private double wrpm;
 
     @Column(name="L_W_V_2X")
     private double lwv2x;
@@ -66,8 +66,8 @@ public class SensorWheel {
     @Column(name="R_W_V_3X")
     private double rwv3x;
 
-    @Column(name="R_W_V_Fault3")
-    private double rwvFault3;
+    @Column(name="R_W_S_Fault3")
+    private double rwsFault3;
 
     @Column(name="FILENM")
     private String filenm;

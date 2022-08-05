@@ -24,7 +24,7 @@ public class TrainingBearing {
     private long idx;
 
     @Column(name="SDAID")
-    private String sdaId;
+    private String carId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name="OPERDATE")
@@ -155,6 +155,9 @@ public class TrainingBearing {
     @Column(name="R_B_T_Temperature")
     private double rbtTemperature;
 
+    @Column(name="W_RPM")
+    private double wrpm;
+
     @Column(name="AI_Predict")
-    private int AiPredict;
+    private double AiPredict;
 }
