@@ -79,15 +79,16 @@ const UploadPage: React.FC<{
     <>
       <Section title={t("pp.fu.up.subtitle")}>
         <Form>
-          <Row className="d-flex mt-4">
+          <Row className="d-flex mt-2 mb-4">
             <Col md={2}>
               <Form.Select
                 value={selectedDataType}
                 onChange={(v) => setSelectedDataType((v.target as any).value)}
               >
-                <option value={'bearing'}>베어링</option>
-                <option value={'wheel'}>휠</option>
-                <option value={'gearbox'}>기어박스</option>
+                <option value={'B'}>베어링</option>
+                <option value={'W'}>휠</option>
+                <option value={'G'}>기어박스</option>
+                <option value={'E'}>엔진</option>
               </Form.Select>
             </Col>
           </Row>

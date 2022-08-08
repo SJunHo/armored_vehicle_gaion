@@ -57,7 +57,7 @@ public class TrainingWheel {
     private double rwv3x;
 
     @Column(name="R_W_S_Fault3")
-    private double rwvFault3;
+    private double rwsFault3;
 
     @Column(name="AI_Predict")
     private double AiPredict;

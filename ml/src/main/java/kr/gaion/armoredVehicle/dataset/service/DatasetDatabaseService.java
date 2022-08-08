@@ -30,12 +30,17 @@ import java.util.List;
 public class DatasetDatabaseService {
     @NonNull private final StorageService storageService;
     @NonNull private final DatabaseModule databaseModule;
+
     @NonNull private final TrainingBearingRepository trainingBearingRepository;
+    @NonNull private final TrainingWheelRepository trainingWheelRepository;
+    @NonNull private final TrainingEngineRepository trainingEngineRepository;
+    @NonNull private final TrainingGearboxRepository trainingGearboxRepository;
+    @NonNull private final TrainingTempLifeRepository trainingTempLifeRepository;
+
     @NonNull private final SensorBearingRepository sensorBearingRepository;
     @NonNull private final SensorWheelRepository sensorWheelRepository;
     @NonNull private final SensorEngineRepository sensorEngineRepository;
     @NonNull private final SensorGearboxRepository sensorGearboxRepository;
-    @NonNull private final TrainingTempLifeRepository trainingTempLifeRepository;
     @NonNull private final SensorTempLifeRepository sensorTempLifeRepository;
 
     //save file to nas directory
@@ -48,7 +53,7 @@ public class DatasetDatabaseService {
     public String importCSVtoDatabase(List<MultipartFile> files, String dataType){
         for(MultipartFile file : files){
             switch(dataType){
-                case "bearing": {
+                case "B": {
                     try {
                         List<TrainingBearing> trainingBearingList = CSVHelper.csvToBearing(file.getInputStream());
                         trainingBearingRepository.saveAll(trainingBearingList);
@@ -56,14 +61,29 @@ public class DatasetDatabaseService {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
                     }
                 }
-                case "wheel": {
-
+                case "W": {
+                    try {
+                        List<TrainingWheel> trainingWheelList = CSVHelper.csvToWheel(file.getInputStream());
+                        trainingWheelRepository.saveAll(trainingWheelList);
+                    } catch (IOException e) {
+                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
+                    }
                 }
-                case "gearbox": {
-
+                case "G": {
+                    try {
+                        List<TrainingGearbox> trainingGearboxList = CSVHelper.csvToGearbox(file.getInputStream());
+                        trainingGearboxRepository.saveAll(trainingGearboxList);
+                    } catch (IOException e) {
+                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
+                    }
                 }
-                case "engine": {
-
+                case "E": {
+                    try {
+                        List<TrainingEngine> trainingEngineList = CSVHelper.csvToEngine(file.getInputStream());
+                        trainingEngineRepository.saveAll(trainingEngineList);
+                    } catch (IOException e) {
+                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
+                    }
                 }
                 case "tempLife": {
                     try {
