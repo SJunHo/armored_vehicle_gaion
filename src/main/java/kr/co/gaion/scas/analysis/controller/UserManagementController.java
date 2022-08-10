@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.controller;
+package kr.co.gaion.scas.analysis.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.gaion.scas.monitoring.model.Cmncd;
-import kr.co.gaion.scas.monitoring.service.UserManagementService;
+import kr.co.gaion.scas.analysis.model.Cmncd;
+import kr.co.gaion.scas.analysis.service.UserManagementService;
 import kr.co.gaion.scas.security.jwt.model.User;
 
 @CrossOrigin(origins = "*", maxAge = 3600)

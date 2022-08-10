@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.gaion.scas.security.service.UserDetailsImpl;
 import kr.co.gaion.scas.security.service.UserDetailsServiceImpl;
-import kr.co.gaion.scas.monitoring.model.Cmncd;
+import kr.co.gaion.scas.analysis.model.Cmncd;
 import kr.co.gaion.scas.security.jwt.JwtUtils;
 import kr.co.gaion.scas.security.jwt.mapper.UserMapper;
 import kr.co.gaion.scas.security.jwt.mapper.UserRolesMapper;

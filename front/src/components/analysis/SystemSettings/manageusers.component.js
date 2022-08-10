@@ -210,8 +210,8 @@ export default class ManageUsers extends Component {
     }
     userService.update(data)
     .then((response) => {
-      console.log(response.data);
       window.location.href = "/manageusers";
+      console.log(response.data);
     })
     .catch((e) => {
       console.log(e);

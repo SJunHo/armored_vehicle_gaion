@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.controller;
+package kr.co.gaion.scas.analysis.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
-import kr.co.gaion.scas.monitoring.mapper.BoardMapper;
-import kr.co.gaion.scas.monitoring.model.Board;
+import kr.co.gaion.scas.analysis.mapper.BoardMapper;
+import kr.co.gaion.scas.analysis.model.Board;
 
 @CrossOrigin(origins = "http://localhost:8083")
 @RestController

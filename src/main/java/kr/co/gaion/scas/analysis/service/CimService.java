@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.service;
+package kr.co.gaion.scas.analysis.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.gaion.scas.monitoring.mapper.CmncdMapper;
-import kr.co.gaion.scas.monitoring.model.Cmncd;
+import kr.co.gaion.scas.analysis.mapper.CmncdMapper;
+import kr.co.gaion.scas.analysis.model.Cmncd;
 import kr.co.gaion.scas.utils.Paging;
 
 @Service

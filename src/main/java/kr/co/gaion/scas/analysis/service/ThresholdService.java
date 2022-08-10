@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.service;
+package kr.co.gaion.scas.analysis.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.gaion.scas.monitoring.mapper.CmncdMapper;
-import kr.co.gaion.scas.monitoring.mapper.ThresholdMapper;
-import kr.co.gaion.scas.monitoring.model.Cmncd;
-import kr.co.gaion.scas.monitoring.model.Threshold;
-import kr.co.gaion.scas.monitoring.model.ThresholdResponse;
+import kr.co.gaion.scas.analysis.mapper.CmncdMapper;
+import kr.co.gaion.scas.analysis.mapper.ThresholdMapper;
+import kr.co.gaion.scas.analysis.model.Cmncd;
+import kr.co.gaion.scas.analysis.model.Threshold;
+import kr.co.gaion.scas.analysis.model.ThresholdResponse;
 
 @Service
 public class ThresholdService {

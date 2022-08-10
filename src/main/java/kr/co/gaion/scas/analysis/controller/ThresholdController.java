@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.controller;
+package kr.co.gaion.scas.analysis.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import kr.co.gaion.scas.monitoring.model.Threshold;
-import kr.co.gaion.scas.monitoring.model.ThresholdResponse;
-import kr.co.gaion.scas.monitoring.service.ThresholdService;
+
+import kr.co.gaion.scas.analysis.model.Threshold;
+import kr.co.gaion.scas.analysis.model.ThresholdResponse;
+import kr.co.gaion.scas.analysis.service.ThresholdService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8083")

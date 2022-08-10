@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.gaion.scas.monitoring.mapper.ThresholdMapper">
+<mapper namespace="kr.co.gaion.scas.analysis.mapper.ThresholdMapper">
 	
-	<select id="findThresholdList" resultType="kr.co.gaion.scas.monitoring.model.ThresholdResponse">
+	<select id="findThresholdList" resultType="kr.co.gaion.scas.analysis.model.ThresholdResponse">
 		select *
 		from threshold
 	</select>
 	
-	<update id="updateThreshold" parameterType="kr.co.gaion.scas.monitoring.model.ThresholdResponse">
+	<update id="updateThreshold" parameterType="kr.co.gaion.scas.analysis.model.ThresholdResponse">
 		update threshold
 		set min = #{min}, max = #{max}, 
 		    applicability = #{applicability},

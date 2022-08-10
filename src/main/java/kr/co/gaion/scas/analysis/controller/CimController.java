@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.controller;
+package kr.co.gaion.scas.analysis.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.co.gaion.scas.monitoring.model.Cmncd;
-import kr.co.gaion.scas.monitoring.service.CimService;
+import kr.co.gaion.scas.analysis.model.Cmncd;
+import kr.co.gaion.scas.analysis.service.CimService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8083")

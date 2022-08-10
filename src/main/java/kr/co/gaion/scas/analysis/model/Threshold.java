@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.model;
+package kr.co.gaion.scas.analysis.model;
 
 import java.util.Date;
 
@@ -7,10 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ThresholdResponse {
-
+public class Threshold {
+	
 	private String snsrid;
-	private String expln;
 	private double max;
 	private double min;
 	private Date crtdt;
@@ -18,4 +17,6 @@ public class ThresholdResponse {
 	private Date mdfcdt;
 	private String mdfr;
 	private boolean applicability;
+	
+	
 }

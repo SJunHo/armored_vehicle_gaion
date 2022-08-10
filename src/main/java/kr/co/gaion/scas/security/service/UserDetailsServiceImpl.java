@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.co.gaion.scas.monitoring.model.Cmncd;
+import kr.co.gaion.scas.analysis.model.Cmncd;
 import kr.co.gaion.scas.security.jwt.mapper.RoleMapper;
 import kr.co.gaion.scas.security.jwt.mapper.UserMapper;
 import kr.co.gaion.scas.security.jwt.mapper.UserRolesMapper;

@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.service;
+package kr.co.gaion.scas.analysis.service;
 
 import java.util.HashMap;
 import java.util.List;

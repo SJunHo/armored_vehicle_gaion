@@ -1,4 +1,4 @@
-package kr.co.gaion.scas.monitoring.model;
+package kr.co.gaion.scas.analysis.model;
 
 import java.util.Date;
 

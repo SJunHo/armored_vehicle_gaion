@@ -1,11 +1,11 @@
-package kr.co.gaion.scas.monitoring.mapper;
+package kr.co.gaion.scas.analysis.mapper;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.co.gaion.scas.monitoring.model.Board;
+import kr.co.gaion.scas.analysis.model.Board;
 
 @Mapper
 public interface BoardMapper {
