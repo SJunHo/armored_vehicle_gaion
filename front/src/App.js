@@ -11,7 +11,7 @@ import BoardModerator from "./components/board-moderator.component";
 
 
 /*통계정보*/
-import Statistical from "./components/statistical.component";
+import Statistical from "./components/analysis/StatisticalInfo/statistical.component";
 import VehicleInformation from "./components/vehicleinformation.component"
 import DriverCalibration from "./components/drivercalibration.component"
 import PartsReplacementCycle from "./components/partsreplacementcycle.component"
