@@ -206,6 +206,9 @@ class AddUser extends Component {
 
     return (
       <div className="container">
+        <header className="jumbotron">
+        사용자정보 등록
+        </header>  
           <Form
             onSubmit={this.handleRegister}
             ref={(c) => {
@@ -213,7 +216,7 @@ class AddUser extends Component {
             }}
           >
             {!this.state.successful && (
-              <div>
+              <div className="contents02">
                 <div className="form-group">
                   <label htmlFor="id">사용자ID</label>
                   <Input
@@ -334,8 +337,8 @@ class AddUser extends Component {
                 name="usrth"
               />사용자
             </div>
-
-            <button onClick={this.saveCmncd} className="btn btn-success">
+            
+            <button onClick={this.saveCmncd} className="btn btn04 btn-success">
               등록
             </button>
               </div>

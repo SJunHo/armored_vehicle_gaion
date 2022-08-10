@@ -83,7 +83,7 @@ export default class CIM extends Component {
         <header className="jumbotron">
         공통정보 하나
         </header>   
-        <div>
+        <div className="contents02">
             <div className="form-group">
               <label htmlFor="group">그룹</label>
               <input
@@ -154,10 +154,10 @@ export default class CIM extends Component {
               />미사용
             </div>
 
-            <button onClick={this.saveCmncd} className="btn btn-success">
+            <button onClick={this.saveCmncd} className="btn btn04 btn-success">
               수정
             </button>
-            <button onClick={this.deleteCmncd} className="btn btn-danger">
+            <button onClick={this.deleteCmncd} className="btn btn04 btn-danger">
               삭제
             </button>
           </div>   

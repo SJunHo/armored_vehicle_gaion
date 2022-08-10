@@ -46,7 +46,7 @@ export default class AddCIM extends Component {
         <header className="jumbotron">
         공통정보 등록
         </header>  
-        <div>
+        <div className="contents02">
             <div className="form-group">
               <label htmlFor="group">그룹</label>
               <input
@@ -111,7 +111,7 @@ export default class AddCIM extends Component {
               />미사용
             </div>
 
-            <button onClick={this.saveCmncd} className="btn btn-success">
+            <button onClick={this.saveCmncd} className="btn btn04 btn-success">
               생성
             </button>
           </div>

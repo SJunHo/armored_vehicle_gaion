@@ -3,35 +3,35 @@
 <mapper namespace="kr.co.gaion.scas.analysis.mapper.CmncdMapper">
 	<select id="findListByCode" parameterType="String" resultType="kr.co.gaion.scas.analysis.model.Cmncd">
 		select *
-		from cmncd
+		from CMNCD
 		where code like CONCAT(#{code},'%')
 	</select>
 		
 	<select id="findCmncdList" parameterType="Integer" resultType="kr.co.gaion.scas.analysis.model.Cmncd">
 		select *
-		from cmncd
+		from CMNCD
 		order by cmncdid
 		limit #{page}, #{pageSize}
 	</select>
 	
 	<select id="countCmncdAll" resultType="Integer">
 		select IFNULL(count(*),0)
-		from cmncd
+		from CMNCD
 	</select>
 	
 	<update id="insertCmncd" parameterType="kr.co.gaion.scas.analysis.model.Cmncd">
-		insert into cmncd(code, crtdt, expln, mdfcdt, usedvcd, var, groupcode)
+		insert into CMNCD(code, crtdt, expln, mdfcdt, usedvcd, var, groupcode)
 		values(#{code}, #{crtdt}, #{expln}, #{mdfcdt}, #{usedvcd}, #{var}, #{groupcode})
 	</update>
 	
 	<select id="findCmncd" parameterType="Integer" resultType="kr.co.gaion.scas.analysis.model.Cmncd">
 		select *
-		from cmncd
+		from CMNCD
 		where cmncdid = #{id}
 	</select>
 	
 	<update id="updateCmncd" parameterType="kr.co.gaion.scas.analysis.model.Cmncd">
-		update cmncd
+		update CMNCD
 		set code = #{code}, expln = #{expln}
 			, usedvcd = #{usedvcd}, var = #{var}
 			, groupcode = #{groupcode}

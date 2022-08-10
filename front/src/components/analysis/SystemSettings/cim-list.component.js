@@ -80,9 +80,10 @@ export default class CIMList extends Component {
         <header className="jumbotron">
         공통정보 관리
         </header>
-        <Link to={"/cimAdd"} className="btn btn-info">
+        <Link to={"/cimAdd"} className="badge badge-info">
             등록
         </Link>
+        <div className="table-div table03">
         <table>
           <thead>
               <tr>
@@ -101,6 +102,7 @@ export default class CIMList extends Component {
               <tr key={item.cmncdid} onClick={()=>this.handleRowClick(item.cmncdid)}>
                 <td>{item.groupcode}</td>
                 <td>{item.expln}</td>
+                <td>{item.usedvcd}</td>
                 <td>{item.crtdt}</td>
                 <td>{item.mdfcdt}</td>
               </tr>
@@ -108,6 +110,7 @@ export default class CIMList extends Component {
             })}
           </tbody>
         </table>
+        </div>
         <div className="mt-3">
             <Pagination
               className="my-3"

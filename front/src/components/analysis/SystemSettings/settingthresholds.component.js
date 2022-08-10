@@ -75,10 +75,13 @@ class SettingThresholds extends Component {
     settingthresholdService.updateList(this.state.thresholdList)
     .then((response) => {
       console.log(response);
-      alert(response.status);
+      if(response.status == 201){
+        alert("정상등록되었습니다");
+      }
     })
     .catch((e) => {
       console.log(e);
+      alert("에러 발생");
     });
   }
 
@@ -88,6 +91,7 @@ class SettingThresholds extends Component {
         <header className="jumbotron">
         임계값 설정
         </header>
+        <div className="table-div table03">
         <table>
           <thead>
           <tr>
@@ -104,15 +108,16 @@ class SettingThresholds extends Component {
               return(
               <tr key={item.snsrid}>
                 <td>{item.expln}</td>
-                <td><input type="input" name={"max"+index} defaultValue={item.max} onChange={(event)=>{this.onMaxChange(event)}}></input></td>
-                <td><input type="input" name={"min"+index} defaultValue={item.min} onChange={(event)=>{this.onMinChange(event)}}></input></td>
-                <td><input type="checkbox" name={"checkbox"+index} defaultChecked={item.applicability} onChange={(event)=>{this.onApplicabilityChange(event)}}></input></td>
+                <td><input type="input" className="form-control" name={"max"+index} defaultValue={item.max} onChange={(event)=>{this.onMaxChange(event)}}></input></td>
+                <td><input type="input" className="form-control" name={"min"+index} defaultValue={item.min} onChange={(event)=>{this.onMinChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control" name={"checkbox"+index} defaultChecked={item.applicability} onChange={(event)=>{this.onApplicabilityChange(event)}}></input></td>
               </tr>
               );
             })}
           </tbody>
         </table>
-          <button className="submitButton" onClick={this.updateThreshold}>적용</button>
+        </div>
+          <button className="btn btn04 btn-success" onClick={this.updateThreshold}>저장</button>
       </div>
     );
   }

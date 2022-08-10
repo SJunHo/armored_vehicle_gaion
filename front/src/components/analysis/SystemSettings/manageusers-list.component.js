@@ -61,7 +61,7 @@ export default class ManageUsersList extends Component {
     this.setState({
         page: value,
       },() => {
-        this.getCmncdList();
+        this.getUserList();
       });
   }
 
@@ -80,9 +80,10 @@ export default class ManageUsersList extends Component {
         <header className="jumbotron">
         사용자 관리
         </header>
-        <Link to={"/addUser"} className="btn btn-info">
+        <Link to={"/addUser"} className="badge badge-info">
             등록
         </Link>
+        <div className="table-div table03">
         <table>
           <thead>
               <tr>
@@ -116,6 +117,7 @@ export default class ManageUsersList extends Component {
             })}
           </tbody>
         </table>
+        </div>
         <div className="mt-3">
             <Pagination
               className="my-3"

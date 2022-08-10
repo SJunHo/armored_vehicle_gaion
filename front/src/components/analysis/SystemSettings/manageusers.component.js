@@ -244,7 +244,7 @@ export default class ManageUsers extends Component {
             }}
           >
             {!this.state.successful && (
-              <div>
+              <div className="contents02">
                 <div className="form-group">
                   <label htmlFor="id">사용자ID</label>
                   <Input
@@ -365,15 +365,16 @@ export default class ManageUsers extends Component {
                 name="usrth"
               />사용자
             </div>
+            
+              <button onClick={this.handleRegister} className="btn btn04 btn-success">
+                수정
+              </button>
+              <button onClick={this.deleteUser} className="btn btn04 btn-danger">
+                삭제
+              </button>
             </div>
             )}
 
-            <button onClick={this.handleRegister} className="btn btn-success">
-              수정
-            </button>
-            <button onClick={this.deleteUser} className="btn btn-danger">
-              삭제
-            </button>
           </Form>
       </div>
     );

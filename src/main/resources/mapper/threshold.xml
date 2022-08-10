@@ -4,11 +4,11 @@
 	
 	<select id="findThresholdList" resultType="kr.co.gaion.scas.analysis.model.ThresholdResponse">
 		select *
-		from threshold
+		from THRESHOLD
 	</select>
 	
 	<update id="updateThreshold" parameterType="kr.co.gaion.scas.analysis.model.ThresholdResponse">
-		update threshold
+		update THRESHOLD
 		set min = #{min}, max = #{max}, 
 		    applicability = #{applicability},
 			mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
