@@ -13,7 +13,7 @@ import BoardModerator from "./components/board-moderator.component";
 /*통계정보*/
 import Statistical from "./components/analysis/StatisticalInfo/statistical.component";
 import VehicleInformation from "./components/vehicleinformation.component"
-import DriverCalibration from "./components/drivercalibration.component"
+import driverPostureCorrection from  "./components/analysis/StatisticalInfo/driverPostureCorrection.component"
 import PartsReplacementCycle from "./components/partsreplacementcycle.component"
 
 /*학습데이터 수집*/
@@ -117,7 +117,7 @@ class App extends Component {
               {/*통계정보*/}
             <PrivateRoute exact path="/statistical" component={Statistical} />
             <PrivateRoute exact path="/vehicleinformation" component={VehicleInformation} />
-            <PrivateRoute exact path="/drivercalibration" component={DriverCalibration} />
+            <PrivateRoute exact path="/driverPostureCorrection" component={driverPostureCorrection} />
             <PrivateRoute exact path="/partsreplacementcycle" component={PartsReplacementCycle} />
 
               {/*학습 데이터*/}
