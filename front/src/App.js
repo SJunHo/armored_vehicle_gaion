@@ -6,15 +6,12 @@ import "./App.css";
 
 import HeaderComp from "./components/header.component";
 import Login from "./components/login/login.component";
-import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-
 
 /*통계정보*/
 import Statistical from "./components/analysis/StatisticalInfo/statistical.component";
-import VehicleInformation from "./components/vehicleinformation.component"
+import VehicleInformation from "./components/analysis/StatisticalInfo/vehicleinformation.component"
 import driverPostureCorrection from  "./components/analysis/StatisticalInfo/driverPostureCorrection.component"
-import PartsReplacementCycle from "./components/partsreplacementcycle.component"
+import PartsReplacementCycle from "./components/analysis/StatisticalInfo/partsreplacementcycle.component"
 
 /*학습데이터 수집*/
 import LearningData from "./components/analysis/LearningDataCollection/learningdata.component";
@@ -42,9 +39,6 @@ import AddUser from "./components/analysis/SystemSettings/add-user.component";
 
 /*전자 매뉴얼*/
 import Electronmanual from "./components/analysis/ElectronManual/electronmanual.component";
-
-
-
 import { logout } from "./actions/login/auth";
 import { clearMessage } from "./actions/login/message";
 
@@ -111,8 +105,6 @@ class App extends Component {
 
             <Route exact path="/" component={Login}/>
             <Route exact path="/logout" component={LogOutComp}/>
-            <Route exact path="/user" component={BoardUser}/>
-            <Route exact path="/mode" component={BoardModerator}/>
 
               {/*통계정보*/}
             <PrivateRoute exact path="/statistical" component={Statistical} />

@@ -1,9 +1,9 @@
 import axios from "axios";
 import authHeader from "../login/auth-header";
 
-const API_URL = "http://localhost:8082/api/driverPostureCorrection";
+const API_URL = "http://localhost:8082/api/partsreplacementcycle";
 
-class DriverCorrectionService {
+class PartsReplacementCycleService {
 
   getList() {
     return axios.get( API_URL + `/list`, { headers: authHeader() , "Content-type": "application/json", });
@@ -13,9 +13,6 @@ class DriverCorrectionService {
     return axios.post( API_URL + "/update", data , { headers: authHeader() , "Content-type": "application/json", });
   }
 
-  getSnsrList(){
-    return axios.get( API_URL + `/snsrlist`, { headers: authHeader() , "Content-type": "application/json", });
-  }
 }
 
-export default new DriverCorrectionService();
+export default new PartsReplacementCycleService();
