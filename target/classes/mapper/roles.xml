@@ -3,12 +3,12 @@
 <mapper namespace="kr.co.gaion.scas.security.jwt.mapper.RoleMapper">
     <select id="findByName" parameterType="kr.co.gaion.scas.security.jwt.model.ERole" resultType="kr.co.gaion.scas.security.jwt.model.Role">
     	select * 
-    	from roles
+    	from ROLES
     	where name = #{roleUser}
     </select>
     <select id="findById" parameterType="Integer" resultType="kr.co.gaion.scas.security.jwt.model.Role">
     	select *
-    	from roles
+    	from ROLES
     	where id = #{id}
     </select>
 	<insert id="insertRole" parameterType="kr.co.gaion.scas.security.jwt.model.Role">
