@@ -9,7 +9,7 @@ import Login from "./components/login/login.component";
 
 /*통계정보*/
 import Statistical from "./components/analysis/StatisticalInfo/statistical.component";
-import VehicleInformation from "./components/analysis/StatisticalInfo/vehicleinformation.component"
+import searchEachInfo from "./components/analysis/StatisticalInfo/vehicleinformation.component";
 import driverPostureCorrection from  "./components/analysis/StatisticalInfo/driverPostureCorrection.component"
 import PartsReplacementCycle from "./components/analysis/StatisticalInfo/partsreplacementcycle.component"
 
@@ -108,7 +108,8 @@ class App extends Component {
 
               {/*통계정보*/}
             <PrivateRoute exact path="/statistical" component={Statistical} />
-            <PrivateRoute exact path="/vehicleinformation" component={VehicleInformation} />
+            <PrivateRoute exact path="/searchEachInfo" component={searchEachInfo} />
+            <PrivateRoute exact path="/searchEachInfo/:id" component={searchEachInfo} />
             <PrivateRoute exact path="/driverPostureCorrection" component={driverPostureCorrection} />
             <PrivateRoute exact path="/partsreplacementcycle" component={PartsReplacementCycle} />
 

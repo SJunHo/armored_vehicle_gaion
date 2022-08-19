@@ -4,6 +4,8 @@ import {
   UPDATE_TUTORIAL,
   DELETE_TUTORIAL,
   DELETE_ALL_TUTORIALS,
+  SELECT_EACH_INFO,
+  SELECT_ALL_VEHICLE,
 } from "../actions/types";
 
 const initialState = [];
@@ -36,6 +38,12 @@ function tutorialReducer(tutorials = initialState, action) {
     case DELETE_ALL_TUTORIALS:
       return [];
 
+    case SELECT_EACH_INFO:
+      return payload;
+
+    case SELECT_ALL_VEHICLE:
+      return payload;
+      
     default:
       return tutorials;
   }

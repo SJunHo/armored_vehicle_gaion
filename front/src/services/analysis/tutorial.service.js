@@ -31,6 +31,20 @@ class TutorialDataService {
   findByTitle(title) {
     return axios.get( API_URL + `/tutorials?title=${title}` , { headers: authHeader() , "Content-type": "application/json", });
   }
+
+  //김상희 추가
+  
+  getVehicleData(id) {
+    return axios.get( API_URL + `/searchEachInfo/${id}`, { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  getAllVehicleData() {
+    return axios.get(API_URL + `/searchEachInfo/getAll`, {headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  getAllFileWithId(id) {
+    return axios.get(API_URL + `/searchEachInfo/getFile/${id}` , {headers: authHeader(), "Content-type": "application/json", });
+  }
 }
 
 export default new TutorialDataService();

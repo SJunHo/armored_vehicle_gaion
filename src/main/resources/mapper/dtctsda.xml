@@ -19,4 +19,11 @@
 		insert into DTCTSDA(sdaid, snsrid, snsrvle, filenm, dttime)
 		values(#{sdaid}, #{snsrid}, #{snsrvle}, #{filenm}, #{dttime})	
 	</insert>
+	
+	<select id="getDtctsda" parameterType="java.util.Map" resultType="kr.co.gaion.scas.analysis.model.Dtctsda"> 
+	select * 
+	from dtctsda 
+	where filenm = #{fileNm} and snsrid = #{sensorid} and sdaid = #{sdaid} 
+	</select>
+	
 </mapper>

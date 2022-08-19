@@ -67,7 +67,7 @@ class HeaderComp extends Component {
               >
                 <NavDropdown.Item href="/statistical">통계정보 조회</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/vehicleinformation">차량정보 조회</NavDropdown.Item>
+                <NavDropdown.Item href="/searchEachInfo">차량정보 조회</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/driverPostureCorrection">운전자 교정 정보</NavDropdown.Item>
                 <NavDropdown.Divider />

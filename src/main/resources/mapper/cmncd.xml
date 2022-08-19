@@ -43,4 +43,16 @@
 		delete from cmncd
 		where cmncdid = #{id}
 	</delete>
+	
+	<select id="getForBtn1" resultType="kr.co.gaion.scas.analysis.model.Cmncd"> 
+	SELECT expln, var, code 
+	FROM CMNCD 
+	WHERE code LIKE 'PN%' AND var NOT IN ('COOLTEMP', 'ACCPEDAL', 'FUELTEMP', 'ENGSPD', 'SDHSPD', 'FUEL', 'OUTTEMP') 
+	</select>
+	<select id="getForBtn2" resultType="kr.co.gaion.scas.analysis.model.Cmncd"> 
+	SELECT expln, var, code 
+	FROM CMNCD 
+	WHERE code LIKE 'PC%' AND var NOT IN ('ENGSTA', 'CURRTTRANS', 'DETAILTRANS', 'BREAK') 
+	</select>
+
 </mapper>

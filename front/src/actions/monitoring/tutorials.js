@@ -3,10 +3,13 @@ import {
   RETRIEVE_TUTORIALS,
   UPDATE_TUTORIAL,
   DELETE_TUTORIAL,
-  DELETE_ALL_TUTORIALS
+  DELETE_ALL_TUTORIALS,
+  SELECT_EACH_INFO,
+  SELECT_ALL_VEHICLE
 } from "../types";
 
-import TutorialDataService from "../../services/monitoring/tutorial.service";
+import TutorialDataService from "../../services/analysis/tutorial.service";
+import vehicleStatistics from "../../services/analysis/vehicleStatics.service";
 
 export const createTutorial = (title, description) => async (dispatch) => {
   try {
@@ -90,3 +93,26 @@ export const findTutorialsByTitle = (title) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const selectEachInfo = (id) => async (dispatch) => {
+  try {
+    const res = await vehicleStatistics.getVehicleData(id);
+    dispatch({
+      type: SELECT_EACH_INFO,
+      payload: res.data,
+    });
+  } catch(err){
+    console.log(err);
+  }
+};
+export const selectAllVehicle = () => async (dispatch) => {
+  try{
+    const res = await vehicleStatistics.getAllVehicleData();
+    dispatch({
+      type: SELECT_ALL_VEHICLE,
+      payload: res.data,
+    });
+  } catch(err){
+    console.log(err);
+  }
+}
