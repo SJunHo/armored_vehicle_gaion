@@ -79,19 +79,20 @@ export default class CIMList extends Component {
       <div className="container">
         <header className="jumbotron">
         공통정보 관리
-        </header>
         <Link to={"/cimAdd"} className="badge badge-info">
             등록
         </Link>
+        </header>
+        
         <div className="table-div table03">
         <table>
           <thead>
               <tr>
-                <td>코드명</td>
-                <td>설명</td>
-                <td>사용여부</td>
-                <td>생성일</td>
-                <td>수정일</td>
+                <td className="col-2">코드명</td>
+                <td className="col-3">설명</td>
+                <td className="col-1">사용여부</td>
+                <td className="col-3">생성일</td>
+                <td className="col">수정일</td>
               </tr>
           </thead>
           <tbody>

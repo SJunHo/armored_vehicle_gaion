@@ -112,11 +112,11 @@ class Setting_PRC extends Component {
         <table>
           <thead>
           <tr>
-            <td>부품명</td>
-            <td>교환주기(km)</td>
-            <td>교환주기(일)</td>
-            <td>교환주기(횟수)</td>
-            <td>메시지</td>
+            <td className="col-2">부품명</td>
+            <td className="col-2">교환주기(km)</td>
+            <td className="col-2">교환주기(일)</td>
+            <td className="col-2">교환주기(횟수)</td>
+            <td className="col">메시지</td>
           </tr>
           </thead>
           <tbody>

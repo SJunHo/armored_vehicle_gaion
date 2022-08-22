@@ -826,6 +826,37 @@ a.badge-info:focus, a.badge-info:hover{
     margin-top: 20px;
     padding: 10px 60px;
 }
+/* 공통정보관리 > 등록 */
+.radio-box{
+    width: 100%;
+    padding: 10px 0;
+    border: 1px solid #fff;
+    border-radius: 0.25rem;
+    vertical-align: middle;
+}
+.radio-box .radio-use input , .radio-box .radio-use02 input{
+    margin-right: 20px;
+}
+.radio-box .radio-use label, .radio-box .radio-use02 label{
+    display: inline-block;
+}
+.radio-box .radio-use:first-child{
+    border-right: 1px solid #fff;
+}
+.radio-box .radio-use02:nth-child(2){
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+.radio-box .radio-use{
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}
+.radio-box .radio-use02{
+    display: inline-block;
+    width: 33.3%;
+    text-align: center;
+}
 /* 차량정보조회> 상태정보- 차륜형장갑차장비제원 */
 .contents00{
     display: inline-block;
@@ -1186,8 +1217,8 @@ label[class*="btnn"]{
 .choose01{
     display: inline-block;
     width: 100%;
-    padding:0 32px;
-    margin-top: 25px;
+    padding:0 33px;
+    margin-top: 10px;
     text-align: right;
 }
 .choose01 h5, .choose01 button{
@@ -1218,14 +1249,14 @@ label[class*="btnn"]{
 .choose02, .choose03{
     display: inline-block;
     width: 100%;
-    padding:0 32px;
+    padding:0 33px;
 }
 .btn-to h3, .btn-bo h3{
     font-size: 14px;
 }
 .choose03{
     text-align: center;
-    margin-top: 25px;
+    margin-top: 10px;
 }
 .choose03 h5{
     font-size: 0;
@@ -1246,7 +1277,7 @@ label[class*="btnn"]{
     color: #000;
 }
 .btn-bo{
-    margin-top: 25px;
+    margin-top: 10px;
 }
 .buttonList{
     width: 149px;
@@ -1767,6 +1798,25 @@ li .rstm-toggle-icon .rstm-toggle-icon-symbol{
 .table-div table tbody tr > td:nth-child(5){
     border-left: 1px solid #d9d9d9;
 }
+td .form-group{
+    width: 100%;
+    color: #000;
+}
+td .form-group select{
+    width: 80%;
+    padding: 10px;
+    color: #000;
+    border-radius: 0;
+}
+td .form-group option{
+    color: #000;
+}
+td input.form-control{
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 0;
+}
 .amvh-div{
     display: inline-block;
     margin-top: 40px;
@@ -1894,6 +1944,7 @@ li .rstm-toggle-icon .rstm-toggle-icon-symbol{
     border: none;
     background-color: #4a4492;
 }
+
 /* text-color */
 .blue{color: #197BBD;}
 .green{color: #439A86;}

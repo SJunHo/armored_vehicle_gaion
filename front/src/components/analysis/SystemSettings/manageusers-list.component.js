@@ -79,10 +79,10 @@ export default class ManageUsersList extends Component {
       <div className="container">
         <header className="jumbotron">
         사용자 관리
-        </header>
         <Link to={"/addUser"} className="badge badge-info">
             등록
         </Link>
+        </header>
         <div className="table-div table03">
         <table>
           <thead>

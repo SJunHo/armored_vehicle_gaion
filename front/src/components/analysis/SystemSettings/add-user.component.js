@@ -314,34 +314,44 @@ class AddUser extends Component {
                 </div>
 
                 <div className="form-group">
-              <label htmlFor="usrth">권한</label>
-              <input type="radio"
-                id="A"
-                required
-                checked={this.state.usrth === "A"}
-                onChange={(e)=> this.setState({usrth : 'A'})}
-                name="usrth"
-              />관리자
-              <input type="radio"
-                id="M"
-                required
-                checked={this.state.usrth === "M"}
-                onChange={(e)=> this.setState({usrth : 'M'})}
-                name="usrth"
-              />분석가
-              <input type="radio"
-                id="N"
-                required
-                checked={this.state.usrth === "N"}
-                onChange={(e)=> this.setState({usrth : 'N'})}
-                name="usrth"
-              />사용자
-            </div>
-            
-            <button onClick={this.saveCmncd} className="btn btn04 btn-success">
-              등록
-            </button>
+                  <label htmlFor="usrth">권한</label>
+                  <div className="radio-box">
+                      <div className="radio-use02">
+                        <input type="radio"
+                          id="A"
+                          required
+                          checked={this.state.usrth === "A"}
+                          onChange={(e)=> this.setState({usrth : 'A'})}
+                          name="usrth"
+                        />
+                        <label htmlFor="A">관리자</label>
+                      </div>
+                      <div className="radio-use02">
+                        <input type="radio"
+                          id="M"
+                          required
+                          checked={this.state.usrth === "M"}
+                          onChange={(e)=> this.setState({usrth : 'M'})}
+                          name="usrth"
+                        />
+                        <label htmlFor="M">분석가</label>
+                      </div>
+                      <div className="radio-use02">
+                        <input type="radio"
+                          id="N"
+                          required
+                          checked={this.state.usrth === "N"}
+                          onChange={(e)=> this.setState({usrth : 'N'})}
+                          name="usrth"
+                        />
+                        <label htmlFor="N">사용자</label>
+                      </div>
+                  </div>
               </div>
+              <button onClick={this.saveCmncd} className="btn btn04 btn-success">
+                등록
+              </button>
+            </div>
             )}
 
             {message && (

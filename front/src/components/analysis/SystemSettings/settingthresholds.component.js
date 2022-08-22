@@ -95,10 +95,10 @@ class SettingThresholds extends Component {
         <table>
           <thead>
           <tr>
-            <td>센서명</td>
-            <td>최대임계치</td>
-            <td>최소임계치</td>
-            <td>적용여부</td>
+            <td className="col-2">센서명</td>
+            <td className="col-4">최대임계치</td>
+            <td className="col-4">최소임계치</td>
+            <td className="col">적용여부</td>
           </tr>
           </thead>
           <tbody>

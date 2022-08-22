@@ -112,10 +112,10 @@ class Driver_cis extends Component {
         <table>
           <thead>
           <tr>
-            <td>자세교정 이름</td>
-            <td>센서이름</td>
-            <td>기준값</td>
-            <td>메시지</td>
+            <td className="col-2">자세교정 이름</td>
+            <td className="col-3">센서이름</td>
+            <td className="col-2">기준값</td>
+            <td className="col">메시지</td>
           </tr>
           </thead>
           <tbody>
@@ -126,7 +126,7 @@ class Driver_cis extends Component {
               <tr key={index}>
                 <td>{item.danm}</td>
                 <td>
-                <div className="form-group">
+                <div className="form-group m-0">
                 <select name={"sensor"+index} onChange={(e)=>{this.onSensorChange(e)}}
                         value={item.snsrid}>
                 {this.state.snsrList.map((option)=> (

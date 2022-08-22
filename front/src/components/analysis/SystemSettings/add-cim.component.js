@@ -94,21 +94,30 @@ export default class AddCIM extends Component {
                 name="expln"
               />
             </div>
-
             <div className="form-group">
-              <label htmlFor="usedvcd">사용여부</label>
-              <input type="radio"
-                id="useY"
-                required
-                onChange={(e)=> this.setState({changedUsedvcd : 'Y'})}
-                name="usedvcd"
-              />사용
-              <input type="radio"
-                id="useN"
-                required
-                onChange={(e)=> this.setState({changedUsedvcd : 'N'})}
-                name="usedvcd"
-              />미사용
+                <label htmlFor="usedvcd">사용여부</label>
+                <div className="radio-box">
+                  <div className="radio-use">
+                    <input type="radio"
+                      id="useY"
+                      required
+                      checked={this.state.changedUsedvcd === "Y"}
+                      onChange={(e)=> this.setState({changedUsedvcd : 'Y'})}
+                      name="usedvcd"
+                    />
+                    <label htmlFor="useY">사용</label>
+                  </div>
+                  <div className="radio-use">
+                    <input type="radio"
+                      id="useN"
+                      required
+                      checked={this.state.changedUsedvcd === "N"}
+                      onChange={(e)=> this.setState({changedUsedvcd : 'N'})}
+                      name="usedvcd"
+                    />
+                    <label htmlFor="useN">미사용</label>
+                  </div>
+                </div>
             </div>
 
             <button onClick={this.saveCmncd} className="btn btn04 btn-success">
