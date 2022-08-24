@@ -10,14 +10,17 @@ import { history } from '../helpers/history';
 
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "../common/EventBus";
+import { FaChartBar, FaDatabase, FaExclamationTriangle, FaExclamationCircle, FaCog, FaFileAlt, FaAngleDoubleLeft, FaAngleDoubleRight, FaSignOutAlt  } from "react-icons/fa";
 
 class HeaderComp extends Component {
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);
-
+    this.handleSelectedNavbar = this.handleSelectedNavbar.bind(this);
     this.state = {
-      currentUser: undefined,
+        currentUser: undefined,
+        selectedNavbar : false,
+        selectedShow : true,
     };
 
     history.listen((location) => {
@@ -37,8 +40,48 @@ class HeaderComp extends Component {
     EventBus.on("logout", () => {
       this.logOut();
     });
-  }
 
+    window.onclick = function(event) {
+      //.screen-darken이 존재하는 경우에만 remove처리함
+     if(document.querySelector('.screen-darken')){
+         document.body.removeChild(document.querySelector('.screen-darken'));   
+     }
+      if(event.target.closest(".nav-item.dropdown.show")){
+      const el_overlay = document.createElement('span');
+        el_overlay.className = 'screen-darken';
+        document.body.appendChild(el_overlay)
+     }
+    }
+  }
+      componentDidUpdate(prevProps,prevState){
+        if(prevState.selectedNavbar !== this.state.selectedNavbar){
+          let elm = document.getElementsByClassName("dropdown");
+          let seleted = null;
+          console.log(elm);
+          Object.entries(elm).forEach((el)=>{
+            console.log(el[1].classList.value);
+            if(el[1].classList.value.includes("selected")){
+              seleted = el[1].classList.value;
+            }
+          });
+          console.log(seleted);
+          if(seleted === null){
+            this.setState({
+              selectedShow : true
+            });
+          }else{
+            if(seleted.includes("show") === true){
+              this.setState({
+                selectedShow : false
+              });
+            }else{
+              this.setState({
+                selectedShow : true
+              });
+            }
+          }
+        }
+      }
   componentWillUnmount() {
     EventBus.remove("logout");
   }
@@ -50,11 +93,24 @@ class HeaderComp extends Component {
     });
   }
 
+	toggleCollapse(param) {
+		console.log("toggleCollapse", param);
+		const navbar = document.getElementsByClassName('navbar');
+		navbar[0].classList.toggle("active");
+	}
+  
+  handleSelectedNavbar(e){
+    this.setState({
+      selectedNavbar : !this.state.selectedNavbar
+    });
+  }
+
   render() {
     const { currentUser } = this.state;
+    const location = window.location.pathname;
 
     return (
-      <Navbar variant="dark" bg="dark" expand="lg">
+      <Navbar variant="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand href="/">SCAS</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -62,8 +118,15 @@ class HeaderComp extends Component {
             <Nav>
               <NavDropdown
                 id="nav-dropdown-dark"
-                title="통계정보"
+                title={<><FaChartBar /> <span>통계정보 	&gt;</span></>}
                 menuVariant="dark"
+                className={ 
+                  this.state.selectedShow === true &&
+                  (location.includes("/statistical") ? "selected" 
+                  : location.includes("/searchEachInfo") ? "selected"
+                  : location.includes("/driverPostureCorrection") ? "selected"
+                  : location.includes("/partsreplacementcycle") ? "selected" : "")}
+                onClick={(e) => this.handleSelectedNavbar(e)}
               >
                 <NavDropdown.Item href="/statistical">통계정보 조회</NavDropdown.Item>
                 <NavDropdown.Divider />
@@ -76,16 +139,28 @@ class HeaderComp extends Component {
 
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title="학습데이터 수집"
+                title={<><FaDatabase /> <span>학습데이터 수집 	&gt;</span></>}
                 menuVariant="dark"
+                className={ 
+                  this.state.selectedShow === true &&
+                  (location.includes("/learningdata") ? "selected" : "")}
+                onClick={(e) => this.handleSelectedNavbar(e)}
               >
                 <NavDropdown.Item href="/learningdata">학습 데이터</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title="고장진단 모델"
+                title={<><FaExclamationCircle /> <span>고장진단 모델 	&gt;</span></>}
                 menuVariant="dark"
+                className={ 
+                  this.state.selectedShow === true &&
+                  (location.includes("/randomforest") ? "selected" 
+                  : location.includes("/supportvectormachine") ? "selected"
+                  : location.includes("/multilayerneuralnetworks") ? "selected"
+                  : location.includes("/isolateramdhamforest") ? "selected"
+                  : location.includes("/logicicregression") ? "selected" : "")}
+                onClick={(e) => this.handleSelectedNavbar(e)}
               >
                 <NavDropdown.Item href="/randomforest">램덤포레스트</NavDropdown.Item>
                 <NavDropdown.Divider />
@@ -100,18 +175,30 @@ class HeaderComp extends Component {
 
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title="잔존수명예지 모델"
+                title={<><FaExclamationTriangle /> <span>잔존수명예지 모델	&gt;</span></>}
                 menuVariant="dark"
+                className={ 
+                  this.state.selectedShow === true &&
+                  (location.includes("/linearregression") ? "selected" 
+                  : location.includes("/rasoregression") ? "selected" : "")}
+                onClick={(e) => this.handleSelectedNavbar(e)}
               >
                 <NavDropdown.Item href="/linearregression">선형 회귀</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/rasoregression">라소 회귀</NavDropdown.Item>
               </NavDropdown>
 
-
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title="시스템 설정"
+                title={<><FaCog /> <span>시스템 설정	&gt;</span></>}
+                className={ 
+                  this.state.selectedShow === true &&
+                  (location.includes("/driver_cis") ? "selected" 
+                  : location.includes("/Setting_prc") ? "selected" 
+                  : location.includes("/settingthresholds") ? "selected" 
+                  : location.includes("/cimList") ? "selected" 
+                  : location.includes("/manageusers") ? "selected" : "")}
+                onClick={(e) => this.handleSelectedNavbar(e)}
                 menuVariant="dark"
               >
                 <NavDropdown.Item href="/driver_cis">운전자 교정정보 설정</NavDropdown.Item>
@@ -127,18 +214,29 @@ class HeaderComp extends Component {
 
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title="전자메뉴얼"
+                title={<><FaFileAlt /> <span>전자매뉴얼 	&gt;</span></>}
                 menuVariant="dark"
+                className={
+                  this.state.selectedShow === true &&
+                  (location.includes("/electronmanual") ? "selected" : "")}
+                 onClick={(e) => this.handleSelectedNavbar(e)}
+
               >
                 <NavDropdown.Item href="/electronmanual">전자메뉴얼</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-
+            <div className="mt-5"></div>
+              <Nav className="gnb-close">
+              	<Nav.Link className="nav-item-2" onClick={()=>{this.toggleCollapse();}}>
+              		<div className="full"><FaAngleDoubleLeft /> <span>접기</span></div>
+              		<div className="collapse"><FaAngleDoubleRight /></div>
+          		</Nav.Link>
+              </Nav>
             {
               currentUser && (
-                <Nav className="ml-auto">
-                  <Nav.Link href="/" onClick={this.logOut}>
-                    LogOut
+                <Nav className="ml-auto btn01">
+                  <Nav.Link className="nav-item-2" href="/" onClick={this.logOut}>
+                    <FaSignOutAlt /><span>로그아웃</span>
                   </Nav.Link>
                 </Nav>
               )

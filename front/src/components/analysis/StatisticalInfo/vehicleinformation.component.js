@@ -1039,9 +1039,7 @@ class searchEachInfo extends Component {
                   </table>
                 </Col>
                 <Col className="item12" >
-                  <button id="stopNStart" onClick={this.stopChart}>▶</button>
-                  <button id="restart" onClick={this.restart}>■</button>
-                  <br></br>
+                <button className="stopnstart" id="stopNStart" onClick={this.stopChart}>▶</button>
                   <input 
                     id="slider"
                     type="range" 
@@ -1050,10 +1048,12 @@ class searchEachInfo extends Component {
                     list="stepList"
                   />
                   <br></br>
-                  <button onClick={this.slowChart}>-</button>
-                  <button id="speed" value="x1" disabled={true}>x1</button>
-                  <button onClick={this.fastChart}>+</button>
-
+                  <button id="restart" onClick={this.restart}>■</button>
+                  <div className="slider-control">
+                    <button onClick={this.slowChart}>-</button>
+                    <button id="speed" value="x1" disabled={true}>x1</button>
+                    <button onClick={this.fastChart}>+</button>
+                  </div>
                 </Col>
               </div>
             </Col>

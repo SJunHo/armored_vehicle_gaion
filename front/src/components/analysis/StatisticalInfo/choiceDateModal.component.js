@@ -613,18 +613,18 @@ class ChoiceDateModal extends Component {
             <div className="pop01">
                 <h4>choiceDate !!! </h4>
                 <div id="grouplistbox" className="listbox">
-                    <div className="list-top">
-                        <ListBox value={this.state.selectedDiv} options={this.state.divList} onChange={(e) => this.clickDiv(e)} itemTemplate={this.countryTemplate}style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
+                    <div className="list-top row">
+                        <ListBox className="col-1" value={this.state.selectedDiv} options={this.state.divList} onChange={(e) => this.clickDiv(e)} itemTemplate={this.countryTemplate}style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
 
-                        <ListBox value={this.state.selectedBrgd} options={this.state.brgdList} onChange={(e) => this.clickBrgd(e)} itemTemplate={this.brgdTemplate}style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
+                        <ListBox className="col-2" value={this.state.selectedBrgd} options={this.state.brgdList} onChange={(e) => this.clickBrgd(e)} itemTemplate={this.brgdTemplate}style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
 
-                        <ListBox value={this.state.selectedId} options={this.state.idList} onChange={(e) => this.clickId(e)} itemTemplate={this.idTemplate}style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
+                        <ListBox className="col-2" value={this.state.selectedId} options={this.state.idList} onChange={(e) => this.clickId(e)} itemTemplate={this.idTemplate}style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
 
-                        <ListBox value={this.state.selectedYear} options={this.state.yearList} onChange={(e) => this.clickYear(e)} itemTemplate={this.yearTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
+                        <ListBox className="col-2" value={this.state.selectedYear} options={this.state.yearList} onChange={(e) => this.clickYear(e)} itemTemplate={this.yearTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
 
-                        <ListBox value={this.state.selectedMonth} options={this.state.monthList} onChange={(e) => this.clickMonth(e)} itemTemplate={this.monthTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
+                        <ListBox className="col-2" value={this.state.selectedMonth} options={this.state.monthList} onChange={(e) => this.clickMonth(e)} itemTemplate={this.monthTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
 
-                        <ListBox value={this.state.selectedFile} options={this.state.fileList} 
+                        <ListBox className="col-2" value={this.state.selectedFile} options={this.state.fileList} 
                         onChange={(e) => this.clickFile(e)}
                         itemTemplate={this.fileTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
                     </div>
