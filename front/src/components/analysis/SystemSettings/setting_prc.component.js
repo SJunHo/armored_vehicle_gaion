@@ -129,8 +129,8 @@ class Setting_PRC extends Component {
             <td className="col-2">교환주기(km)</td>
             <td className="col-2">교환주기(일)</td>
             <td className="col-2">교환주기(횟수)</td>
-            <td className="col">메시지</td>
-            <td className="col-2">적용여부</td>
+            <td className="col-3">메시지</td>
+            <td className="col-1">적용여부</td>
           </tr>
           </thead>
           <tbody>

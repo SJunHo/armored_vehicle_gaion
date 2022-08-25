@@ -128,8 +128,8 @@ class Driver_cis extends Component {
             <td className="col-2">자세교정 이름</td>
             <td className="col-3">센서이름</td>
             <td className="col-2">기준값</td>
-            <td className="col">메시지</td>
-            <td className="col-2">적용여부</td>
+            <td className="col-4">메시지</td>
+            <td className="col-1">적용여부</td>
           </tr>
           </thead>
           <tbody>
