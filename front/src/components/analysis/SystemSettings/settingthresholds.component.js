@@ -75,7 +75,7 @@ class SettingThresholds extends Component {
     settingthresholdService.updateList(this.state.thresholdList)
     .then((response) => {
       console.log(response);
-      if(response.status == 201){
+      if(response.status === 201){
         alert("정상등록되었습니다");
       }
     })

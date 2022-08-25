@@ -3,7 +3,7 @@
 <mapper namespace="kr.co.gaion.scas.analysis.mapper.CmpntsrplcMapper">
 	<select id="findCmpntsrplcAll" resultType="kr.co.gaion.scas.analysis.model.CmpntsrplcResponse">
 		select c.grid, c1.expln as grnm, c.msg, c.stdval, c.prdval, c.nmval
-		, c.mdfcdt, c.mdfr
+		, c.mdfcdt, c.mdfr, c.applicability
 		from CMPNTSRPLC c, CMNCD c1
 		where c.grid = c1.code
 	</select>
@@ -12,6 +12,7 @@
 		update CMPNTSRPLC
 		set STDVAL = #{stdval}, PRDVAL = #{prdval},
 			MSG = #{msg}, NMVAL = #{nmval},
+			applicability = #{applicability},
 			mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
 		where GRID = #{grid}
 	</update>

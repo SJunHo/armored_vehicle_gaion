@@ -64,7 +64,7 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       dispatch(login(this.state.id, this.state.password))
         .then(() => {
-          history.push("/manageusers");
+          history.push("/statistical");
           window.location.reload();
         })
         .catch(() => {
@@ -83,7 +83,7 @@ class Login extends Component {
     const { isLoggedIn, message } = this.props;
 
     if (isLoggedIn) {
-      return <Redirect to="/manageusers" />;
+      return <Redirect to="/statistical" />;
     }
 
     return (
@@ -136,13 +136,13 @@ class Login extends Component {
                 <span>Login</span>
               </button>
             </div>
-            <button
+            {/* <button
                 className="btn btn-primary btn-block"
                 disabled={this.state.loading}
                 onClick={()=> this.props.history.push("/register")}
               >
                 <span>register</span>
-              </button>
+              </button> */}
             {message && (
               <div className="form-group">
                 <div className="alert alert-danger" role="alert">

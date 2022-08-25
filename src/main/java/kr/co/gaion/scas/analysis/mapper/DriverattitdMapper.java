@@ -13,5 +13,5 @@ public interface DriverattitdMapper {
 	
 	public List<DriverAttitd> findDriverattitdByDaid(String daid);
 	
-	public void insertDriverAttitd(DriverAttitd data);
+	public void updateDriverAttitd(DriverAttitd data);
 }

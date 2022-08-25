@@ -11,6 +11,7 @@ class Setting_PRC extends Component {
     this.onNmValChange = this.onNmValChange.bind(this);
     this.onMessageChange = this.onMessageChange.bind(this);
     this.updatePrcList = this.updatePrcList.bind(this);
+    this.onApplicabilityChange = this.onApplicabilityChange.bind(this);
 
     const {user} = this.props; 
     this.state = {
@@ -88,11 +89,23 @@ class Setting_PRC extends Component {
     console.log(this.state.prcList);
   }
 
+  onApplicabilityChange(e){
+    const {name, checked} = e.target;
+    let index = name.split('checkbox')[1];
+    let prcSet = this.state.prcList;
+    prcSet[index].applicability = checked;
+    prcSet[index].mdfcdt = new Date();
+    prcSet[index].mdfr = this.state.user.username;
+    this.setState({
+      prcList: prcSet
+    });
+  }
+
   updatePrcList(){
     PartsReplacementCycleService.updateList(this.state.prcList)
     .then((response) => {
       console.log(response);
-      if(response.status == 201){
+      if(response.status === 201){
         alert("정상등록되었습니다");
       }
     })
@@ -117,6 +130,7 @@ class Setting_PRC extends Component {
             <td className="col-2">교환주기(일)</td>
             <td className="col-2">교환주기(횟수)</td>
             <td className="col">메시지</td>
+            <td className="col-2">적용여부</td>
           </tr>
           </thead>
           <tbody>
@@ -142,6 +156,7 @@ class Setting_PRC extends Component {
                   <input type="input" className="form-control" name={"msg"+index} defaultValue={item.msg} onChange={(event)=>{this.onMessageChange(event)}}>
                   </input>
                 </td>
+                <td><input type="checkbox" className="form-control" name={"checkbox"+index} defaultChecked={item.applicability} onChange={(event)=>{this.onApplicabilityChange(event)}}></input></td>
               </tr>
               );
             })}

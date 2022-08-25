@@ -12,10 +12,11 @@
 		order by bizlogic
 	</select>
 	
-	<update id="insertDriverAttitd" parameterType="kr.co.gaion.scas.analysis.model.DriverAttitd">
+	<update id="updateDriverAttitd" parameterType="kr.co.gaion.scas.analysis.model.DriverAttitd">
 		update DRIVERATTITD
 		set STDVAL = #{stdval}, msg = #{msg},
 			snsrid = #{snsrid},
+			applicability = #{applicability},
 			mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
 		where daid = #{daid} and bizlogic = #{bizlogic}
 	</update>

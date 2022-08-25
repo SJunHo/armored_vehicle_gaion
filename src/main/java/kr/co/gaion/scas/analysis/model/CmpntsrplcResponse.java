@@ -17,4 +17,5 @@ public class CmpntsrplcResponse {
 	private String nmval;
 	private Date mdfcdt;
 	private String mdfr;
+	private boolean applicability;
 }

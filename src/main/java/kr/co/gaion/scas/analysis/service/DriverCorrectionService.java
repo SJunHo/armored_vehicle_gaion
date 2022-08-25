@@ -127,7 +127,7 @@ public class DriverCorrectionService {
 	
 	public void updateThreshold(List<DriverAttitd> data) {
 		for(DriverAttitd da : data) {
-			driverAttitdMapper.insertDriverAttitd(da);			
+			driverAttitdMapper.updateDriverAttitd(da);			
 		}
 	}
 	
