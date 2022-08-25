@@ -16,7 +16,7 @@ table, table tr{border: none;}
     width: 100%;
     min-width: 1200px;
     height: 100vh;
-    min-height: 1000px;
+    min-height: 780px;
     padding-right: 0;
     padding-left: 0;
     background: url(../images/login-bg.png) no-repeat;
@@ -33,7 +33,7 @@ table, table tr{border: none;}
     width: 500px;
     max-width: inherit !important;
     height: 100vh;
-    min-height: 1000px;
+    min-height: 780px;
     margin: 0;
     margin-top: 0;
     background: #464667;
@@ -122,16 +122,18 @@ table, table tr{border: none;}
 
 .navbar.active .navbar-nav .nav-link{
 	width:138px;
+    padding: 25px 0 25px 20px;
 }
 .navbar.active .nav-item.show .nav-link::before {
-    top: -46px;
-    right: 21.5px;
-    width: 35px;
-    height: 45px;
+    top: -56px;
+    right: 23.5px;
+    width: 91px;
+    height: 57px;
+    box-shadow: 34px 32px 0 #4a4492;
 }
 .navbar.active .nav-item.show .nav-link::after {
-    bottom: -60px;
-    right: 20.5px;
+    bottom: -59px;
+    right: 23.5px;
 }
 .navbar.active .navbar-nav span{
 	display:none;
@@ -206,7 +208,7 @@ nav{
     display: inline-block;
     width: 134px;
     height: 36px;
-    margin: 80px 0;
+    margin: 70px 0;
     background: url(../images/TCMS.png) no-repeat;
     background-size: contain;
     font-size: 0;
@@ -220,22 +222,12 @@ nav{
 }
 .nav-item.selected{
     position: relative;
-    width: 217px;
-    margin-right: -49px;
+    width: 208px;
+    margin-right: -25px;
     background: #2c2c44;
 }
 .navbar-dark .navbar-nav .nav-item.selected .nav-link{
-    width: 182px;
-}
-.nav-item.selected::after{
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: -28px;    
-    right: -5px;
-    width: 22px;
-    height: 182px;
-    background-color: #2c2c44;
+    width: 190px;
 }
 .nav-item.show::after{
     display: none;
@@ -249,13 +241,13 @@ nav{
 .nav-item.selected .nav-link::after{
     content: '';
     position: absolute;
-    bottom: -47px;
-    right: -19.5px;
-    width: 42px;
-    height: 47px;
+    bottom: -49px;
+    right: -17.5px;
+    width: 60px;
+    height: 50px;
     background: none;
     border-radius: 50%;
-    box-shadow: 19px -17px 0 #2c2c44;
+    box-shadow: 19px -18px 0 #2c2c44;
 }
 .nav-item.selected .nav-link::before{
     content: '';
@@ -272,7 +264,7 @@ nav{
     margin-right: 0;
 }
 .navbar-dark.active .nav-item.selected .nav-link{
-    padding: 25px 0 25px 29px;
+    padding: 25px 0 25px 19px;
     width: 97px !important;
 }
 .nav-item.show{
@@ -297,7 +289,7 @@ nav{
 .navbar-dark .navbar-nav .nav-link{
     position: relative;
     width: 201px;
-    padding: 25px 0 25px 25px;
+    padding: 25px 0 25px 15px;
     color: #fff;
     text-align: left;
 }
@@ -468,7 +460,7 @@ nav{
 }
 .container{
     display: inline-block;
-    min-width: 1430px;
+    min-width: 1400px;
     padding: 75px 30px;
     overflow-x: hidden;
 }
@@ -478,7 +470,7 @@ nav{
     flex-wrap: wrap;
     white-space: nowrap;
     justify-content: space-between;
-    min-width: 1400px;
+    min-width: 1380px;
     margin-right: 0;
     margin-left: 0;
 }
@@ -1435,7 +1427,7 @@ label[class*="btnn"]{
     background: url(../images/icon/door-open.png) no-repeat;
     background-size: contain;
 }
-#_BREAK::before{
+#_BREAK::before, #PC030::before{
     background: url(../images/icon/Pedal.png) no-repeat;
     background-size: contain;
 }

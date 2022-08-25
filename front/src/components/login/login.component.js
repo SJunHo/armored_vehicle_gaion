@@ -89,74 +89,78 @@ class Login extends Component {
     return (
       <div className="col-md-12">
         <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
-
-          <Form
-            onSubmit={this.handleLogin}
-            ref={(c) => {
-              this.form = c;
-            }}
-          >
-            <div className="form-group">
-              <label htmlFor="id">Id</label>
-              <Input
-                type="text"
-                className="form-control"
-                name="id"
-                value={this.state.id}
-                onChange={this.onChangeId}
-                validations={[required]}
-              />
+          <div className="card-in">
+            <div className="logo">
+              <a href="#none" className="logo" title="tcms 로고"></a>
+              <p>차륜형 장갑차 센서데이터 분석 시스템</p>
             </div>
+                
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
-                validations={[required]}
-              />
-            </div>
-
-            <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-              >
-                {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
-            {/* <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-                onClick={()=> this.props.history.push("/register")}
-              >
-                <span>register</span>
-              </button> */}
-            {message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {message}
-                </div>
-              </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
+            <Form
+              onSubmit={this.handleLogin}
               ref={(c) => {
-                this.checkBtn = c;
+                this.form = c;
               }}
-            />
-          </Form>
+            >
+              <div className="form-group">
+                <label htmlFor="id">Id</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="id"
+                  placeholder="ID"
+                  value={this.state.id}
+                  onChange={this.onChangeId}
+                  validations={[required]}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
+                  validations={[required]}
+                />
+              </div>
+
+              <div className="form-group">
+                <button
+                  className="btn btn02 btn-primary btn-block"
+                  disabled={this.state.loading}
+                >
+                  {this.state.loading && (
+                    <span className="spinner-border spinner-border-sm"></span>
+                  )}
+                  <span>로그인</span>
+                </button>
+              </div>
+              {/* <button
+                  className="btn btn03 btn-primary btn-block"
+                  disabled={this.state.loading}
+                  onClick={()=> this.props.history.push("/register")}
+                >
+                  <span>회원가입</span>
+                </button> */}
+              {message && (
+                <div className="form-group">
+                  <div className="alert alert-danger" role="alert">
+                    {message}
+                  </div>
+                </div>
+              )}
+              <CheckButton
+                style={{ display: "none" }}
+                ref={(c) => {
+                  this.checkBtn = c;
+                }}
+              />
+            </Form>
+          </div>
         </div>
       </div>
     );
