@@ -16,7 +16,7 @@
 		update DRIVERATTITD
 		set STDVAL = #{stdval}, msg = #{msg},
 			snsrid = #{snsrid},
-			applicability = #{applicability},
+			usedvcd = #{usedvcd},
 			mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
 		where daid = #{daid} and bizlogic = #{bizlogic}
 	</update>

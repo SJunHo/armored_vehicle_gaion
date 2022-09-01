@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "../login/auth-header";
+import { BASE_URL } from "../url";
 
-const API_URL = "http://localhost:8082/api/vehicleStatistics";
+const API_URL = BASE_URL +"/api/vehicleStatistics";
 
 class vehicleStatistics {
   //김상희 추가

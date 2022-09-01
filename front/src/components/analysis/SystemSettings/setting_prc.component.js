@@ -11,7 +11,7 @@ class Setting_PRC extends Component {
     this.onNmValChange = this.onNmValChange.bind(this);
     this.onMessageChange = this.onMessageChange.bind(this);
     this.updatePrcList = this.updatePrcList.bind(this);
-    this.onApplicabilityChange = this.onApplicabilityChange.bind(this);
+    this.onUsedvcdChange = this.onUsedvcdChange.bind(this);
 
     const {user} = this.props; 
     this.state = {
@@ -89,11 +89,17 @@ class Setting_PRC extends Component {
     console.log(this.state.prcList);
   }
 
-  onApplicabilityChange(e){
+  onUsedvcdChange(e){
     const {name, checked} = e.target;
     let index = name.split('checkbox')[1];
+    let usedvcd;
+    if(checked){
+      usedvcd = 'Y';
+    }else{
+      usedvcd = 'N';
+    }
     let prcSet = this.state.prcList;
-    prcSet[index].applicability = checked;
+    prcSet[index].usedvcd = usedvcd;
     prcSet[index].mdfcdt = new Date();
     prcSet[index].mdfr = this.state.user.username;
     this.setState({
@@ -156,7 +162,7 @@ class Setting_PRC extends Component {
                   <input type="input" className="form-control" name={"msg"+index} defaultValue={item.msg} onChange={(event)=>{this.onMessageChange(event)}}>
                   </input>
                 </td>
-                <td><input type="checkbox" className="form-control" name={"checkbox"+index} defaultChecked={item.applicability} onChange={(event)=>{this.onApplicabilityChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control" name={"checkbox"+index} checked={item.usedvcd === 'Y' ? true:false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}

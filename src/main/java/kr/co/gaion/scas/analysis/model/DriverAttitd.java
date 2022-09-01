@@ -21,5 +21,5 @@ public class DriverAttitd {
 	private String snsrid;
 	private String stdval;
 	private String sign;
-	private boolean applicability;
+	private char usedvcd;
 }

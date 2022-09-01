@@ -19,6 +19,6 @@ public class Cmpntsrplc {
 	private String stdval;
 	private String prdval;
 	private String nmval;
-	private boolean applicability;
+	private char usedvcd;
 	
 }

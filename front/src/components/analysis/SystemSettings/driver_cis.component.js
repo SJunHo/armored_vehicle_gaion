@@ -11,7 +11,7 @@ class Driver_cis extends Component {
     this.onMessageChange = this.onMessageChange.bind(this);
     this.updateDriverAttitd = this.updateDriverAttitd.bind(this);
     this.getSnsrList = this.getSnsrList.bind(this);
-    this.onApplicabilityChange = this.onApplicabilityChange.bind(this);
+    this.onUsedvcdChange = this.onUsedvcdChange.bind(this);
 
     const {user} = this.props; 
     this.state = {
@@ -89,16 +89,32 @@ class Driver_cis extends Component {
     });
   }
 
-  onApplicabilityChange(e){
+  onUsedvcdChange(e){
     const {name, checked} = e.target;
     let index = name.split('checkbox')[1];
     let driverAttitdSet = this.state.driverAttitdList;
-    driverAttitdSet[index].applicability = checked;
+    let usedvcd;
+    if(checked){
+      usedvcd = 'Y';
+    }else{
+      usedvcd = 'N';
+    }
+    driverAttitdSet[index].usedvcd = usedvcd;
     driverAttitdSet[index].mdfcdt = new Date();
     driverAttitdSet[index].mdfr = this.state.user.username;
+    for(var i = 0; i < driverAttitdSet.length - 1; i++){
+      if(driverAttitdSet[i].daid === driverAttitdSet[index].daid){
+        driverAttitdSet[i].usedvcd = usedvcd;
+        driverAttitdSet[i].mdfcdt = new Date();
+        driverAttitdSet[i].mdfr = this.state.user.username;
+        const r = document.getElementById("checkbox"+i);
+        r.value = usedvcd;
+      }
+    }
+    this.forceUpdate();
     this.setState({
       driverAttitdList: driverAttitdSet
-    });
+    },()=>{});
   }
 
   updateDriverAttitd(){
@@ -154,9 +170,9 @@ class Driver_cis extends Component {
                   
                 {/* <input type="input" className="form-control" name={"max"+index} defaultValue={item.stdval} onChange={(event)=>{this.onMaxChange(event)}}></input> */}
                 </td>
-                <td><input type="input" className="form-control" name={"stdval"+index} defaultValue={item.stdval} onChange={(event)=>{this.onStdValChange(event)}}></input></td>
-                <td><input type="input" className="form-control" name={"msg"+index} defaultValue={item.msg} onChange={(event)=>{this.onMessageChange(event)}}></input></td>
-                <td><input type="checkbox" className="form-control" name={"checkbox"+index} defaultChecked={item.applicability} onChange={(event)=>{this.onApplicabilityChange(event)}}></input></td>
+                <td><input type="input" className="form-control" name={"stdval"+index} value={item.stdval} onChange={(event)=>{this.onStdValChange(event)}}></input></td>
+                <td><input type="input" className="form-control" name={"msg"+index} value={item.msg} onChange={(event)=>{this.onMessageChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control" name={"checkbox"+index} id={"checkbox"+index} checked={item.usedvcd === 'Y' ? true : false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}
