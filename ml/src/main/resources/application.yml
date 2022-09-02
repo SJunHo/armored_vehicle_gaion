@@ -1,17 +1,17 @@
 data:
   esDatasetIndices:
     - ${ES_TRAINING_INDEX:ai_ktme_wheel_training}
-elasticsearch:
-  index: ${ES_INDEX:ai_ktme_data}
-  host: ${ES_HOST:192.168.0.170}
-  transportPort: 9200
-  readingType: _doc
+#elasticsearch:
+#  index: ${ES_INDEX:ai_ktme_data}
+#  host: ${ES_HOST:192.168.0.170}
+#  transportPort: 9200
+#  readingType: _doc
 spark:
   host: localhost
   port: 7077
   protocol: spark
 server:
-  port: ${PORT:8083}
+  port: ${PORT:8082}
   tomcat:
     max-swallow-size: 20000MB
 storage:
@@ -24,7 +24,7 @@ algorithm:
   maxResult: 20
 database:
   driverClass: org.mariadb.jdbc.Driver
-  url: jdbc:mysql://${DB_HOST:192.168.0.52}:${DB_PORT:3306}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8
+  url: jdbc:mysql://${DB_HOST:221.148.11.152}:${DB_PORT:8012}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8
   user: ${DB_USER:AMVHC_U}
   password: ${DB_PASSWORD:!Tltmxpa0517}
   properties:
