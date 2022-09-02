@@ -1,0 +1,56 @@
+.trainInputWrapper {
+  display: flex;
+}
+
+.trainInputSection {
+  flex: 1;
+}
+
+.page {
+  padding: 18px 12px;
+}
+
+.trainInputBody {
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trainInputBodyDetailSection {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+.body2Input {
+  flex: 1;
+  min-width: 40%;
+  max-width: 50%;
+  margin-right: 8px;
+}
+
+.center {
+  text-align: center;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.predictCell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.resultWrapper {
+  width: 100%;
+  margin-top: 12px;
+  padding: 20px;
+}
+
+.axisSelector {
+  width: 300px;
+  margin-left: 16px;
+  margin-right: 16px;
+}

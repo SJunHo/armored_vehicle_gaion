@@ -1,0 +1,104 @@
+.dashboardPage {
+  height: calc(100vh - 100px);
+  display: grid;
+}
+
+.countStats {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 50%;
+  background-color: #0b8e9d;
+}
+
+.countStats div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding-top: calc(50% - 10px);
+  font-size: 32px;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.gaugeWrapper {
+  display: inline-block;
+  position: relative;
+
+  width: 360px;
+  height: 180px;
+}
+
+.gauge {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+}
+
+.gauge:before,
+.gauge:after,
+.meter {
+  position: absolute;
+  display: block;
+  content: "";
+}
+
+.gauge:before,
+.meter {
+  width: 100%;
+  height: 100%;
+}
+.gauge:before {
+  border-radius: 180px 180px 0 0;
+  background: #0DB0C3;
+}
+
+.gauge:after {
+  position: absolute;
+  bottom: 0;
+  left: 90px;
+  width: 180px;
+  height: 90px;
+  background: white;
+  border-radius: 90px 90px 0 0;
+}
+
+.gaugeScore {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.meter {
+  top: 100%;
+  transition: 1.5s;
+  transform-origin: center top;
+  border-radius: 0 0 216px 216px;
+  background: #469075;
+}
+
+.needle {
+  width: 10px;
+  height: 50%;
+  background: #999999;
+  border-radius: 100% 100% 5px 5px;
+  display: inline-block;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  animation: move 5s infinite;
+  transform: rotate(-53deg);
+  transform-origin: bottom;
+}
+
+.fullHeightCard {
+  height: 100%;
+}
+
+.titleCenter {
+  text-align: center;
+}
