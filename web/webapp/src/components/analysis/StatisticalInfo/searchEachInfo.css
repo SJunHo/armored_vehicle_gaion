@@ -1,0 +1,22 @@
+/* .gaugeChart1 {
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+} */
+
+.vehicleDtlInfo {
+    width:2000; 
+    height:1500; 
+    float:left;
+}
+
+.toastui-chart-wrapper {
+    width:300; 
+    height:200; 
+    float:left;
+}
+
+.categoricSensorInfo {
+    float:left;
+    margin-right: 50;
+}

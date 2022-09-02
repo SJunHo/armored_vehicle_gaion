@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.CmpntsrplcMapper">
+	<select id="findCmpntsrplcAll" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcResponse">
+		select c.grid, c1.expln as grnm, c.msg, c.stdval, c.prdval, c.nmval
+		, c.mdfcdt, c.mdfr, c.usedvcd
+		from CMPNTSRPLC c, CMNCD c1
+		where c.grid = c1.code
+	</select>
+
+	<update id="updateCmpntsrplc" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc">
+		update CMPNTSRPLC
+		set STDVAL = #{stdval}, PRDVAL = #{prdval},
+			MSG = #{msg}, NMVAL = #{nmval},
+			usedvcd = #{usedvcd},
+			mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
+		where GRID = #{grid}
+	</update>
+</mapper>
