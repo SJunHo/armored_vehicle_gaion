@@ -1,10 +1,9 @@
-package kr.gaion.armoredVehicle.web.security.jwt.mapper;
+package kr.gaion.armoredVehicle.security.jwt.mapper;
 
 import java.util.List;
 
+import kr.gaion.armoredVehicle.security.jwt.model.User;
 import org.apache.ibatis.annotations.Mapper;
-
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
 
 
 @Mapper

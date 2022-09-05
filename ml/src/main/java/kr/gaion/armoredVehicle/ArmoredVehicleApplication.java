@@ -19,14 +19,14 @@ public class ArmoredVehicleApplication {
 		SpringApplication.run(ArmoredVehicleApplication.class, args);
 	}
 
-	static {
-		ModelResolver.enumsAsRef = true;
-	}
-	@Bean
-	public OpenAPI customOpenAPI() {
-		return new OpenAPI()
-				.components(new Components().addSecuritySchemes("bearer-key",
-						new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
-				.addSecurityItem(new SecurityRequirement().addList("bearer-key"));
-	}
+//	static {
+//		ModelResolver.enumsAsRef = true;
+//	}
+//	@Bean
+//	public OpenAPI customOpenAPI() {
+//		return new OpenAPI()
+//				.components(new Components().addSecuritySchemes("bearer-key",
+//						new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
+//				.addSecurityItem(new SecurityRequirement().addList("bearer-key"));
+//	}
 }

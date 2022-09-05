@@ -1,4 +1,4 @@
-package kr.gaion.armoredVehicle.web.security.jwt;
+package kr.gaion.armoredVehicle.security.jwt;
 
 import java.io.IOException;
 import java.util.HashMap;

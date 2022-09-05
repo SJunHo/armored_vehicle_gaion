@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.gaion.armoredVehicle.web.security.jwt.mapper.RoleMapper">
-    <select id="findByName" parameterType="kr.gaion.armoredVehicle.web.security.jwt.model.ERole" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.Role">
+<mapper namespace="kr.gaion.armoredVehicle.security.jwt.mapper.RoleMapper">
+    <select id="findByName" parameterType="kr.gaion.armoredVehicle.security.jwt.model.ERole" resultType="kr.gaion.armoredVehicle.security.jwt.model.Role">
     	select * 
     	from ROLES
     	where name = #{roleUser}
     </select>
-    <select id="findById" parameterType="Integer" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.Role">
+    <select id="findById" parameterType="Integer" resultType="kr.gaion.armoredVehicle.security.jwt.model.Role">
     	select *
     	from ROLES
     	where id = #{id}
     </select>
-	<insert id="insertRole" parameterType="kr.gaion.armoredVehicle.web.security.jwt.model.Role">
+	<insert id="insertRole" parameterType="kr.gaion.armoredVehicle.security.jwt.model.Role">
 		INSERT INTO CENTERS 
 		(centerName, register)
 		VALUES (#{centerName}, #{register})

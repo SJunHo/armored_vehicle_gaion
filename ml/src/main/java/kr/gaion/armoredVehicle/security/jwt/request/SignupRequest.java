@@ -1,4 +1,4 @@
-package kr.gaion.armoredVehicle.web.security.jwt.request;
+package kr.gaion.armoredVehicle.security.jwt.request;
 
 public class SignupRequest {
 

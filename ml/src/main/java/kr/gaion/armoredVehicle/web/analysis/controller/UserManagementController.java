@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
 import kr.gaion.armoredVehicle.web.analysis.service.UserManagementService;
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
+import kr.gaion.armoredVehicle.security.jwt.model.User;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

@@ -1,4 +1,4 @@
-package kr.gaion.armoredVehicle.web.security.jwt.model;
+package kr.gaion.armoredVehicle.security.jwt.model;
 
 
 

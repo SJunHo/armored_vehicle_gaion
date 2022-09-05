@@ -1,11 +1,10 @@
-package kr.gaion.armoredVehicle.web.security.service;
+package kr.gaion.armoredVehicle.security.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
+import kr.gaion.armoredVehicle.security.jwt.model.User;
 
 public class UserDetailsImpl implements UserDetails {
   private static final long serialVersionUID = 1L;

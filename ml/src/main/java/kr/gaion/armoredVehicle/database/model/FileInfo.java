@@ -1,7 +1,6 @@
 package kr.gaion.armoredVehicle.database.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import kr.gaion.armoredVehicle.auth.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,9 +43,8 @@ public class FileInfo {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
 
-    @ManyToOne
     @JoinColumn(name="`CRTOR`")
-    private User createdBy;
+    private String createdBy;
 
     @Column(name="`CRTOR`", updatable = false, insertable = false, length = 20)
     private String createdById;
@@ -56,9 +54,8 @@ public class FileInfo {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedAt;
 
-    @ManyToOne
     @JoinColumn(name="`MDFR`")
-    private User updatedBy;
+    private String updatedBy;
 
     @Column(name="`MDFR`", updatable = false, insertable = false, length = 20)
     private String updatedById;

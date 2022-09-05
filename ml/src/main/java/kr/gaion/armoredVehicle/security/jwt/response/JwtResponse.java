@@ -1,4 +1,4 @@
-package kr.gaion.armoredVehicle.web.security.jwt.response;
+package kr.gaion.armoredVehicle.security.jwt.response;
 
 import java.util.List;
 

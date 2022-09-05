@@ -1,24 +1,30 @@
-package kr.gaion.armoredVehicle.web.security.jwt;
+package kr.gaion.armoredVehicle.security.jwt;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import kr.gaion.armoredVehicle.security.service.UserDetailsImpl;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.*;
-import kr.gaion.armoredVehicle.web.security.service.UserDetailsImpl;
 
+@ConfigurationProperties("jwt")
 @Component
+@Getter
+@Setter
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${jwt.secret}")
+  @JsonProperty
   private String jwtSecret;
 
-  @Value("${jwt.jwtExpirationMs}")
+  @JsonProperty
   private int jwtExpirationMs;
 
   public String generateJwtToken(Authentication authentication) {

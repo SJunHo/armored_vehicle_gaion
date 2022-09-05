@@ -1,50 +1,34 @@
 package kr.gaion.armoredVehicle.web.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
-import kr.gaion.armoredVehicle.web.security.jwt.JwtUtils;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.RoleMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserRolesMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.model.ERole;
-import kr.gaion.armoredVehicle.web.security.jwt.model.Role;
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
-import kr.gaion.armoredVehicle.web.security.jwt.model.UserRole;
-import kr.gaion.armoredVehicle.web.security.jwt.request.LoginRequest;
-import kr.gaion.armoredVehicle.web.security.jwt.request.SignupRequest;
-import kr.gaion.armoredVehicle.web.security.jwt.response.JwtResponse;
-import kr.gaion.armoredVehicle.web.security.jwt.response.MessageResponse;
-import kr.gaion.armoredVehicle.web.security.service.UserDetailsImpl;
-import kr.gaion.armoredVehicle.web.security.service.UserDetailsServiceImpl;
+import kr.gaion.armoredVehicle.security.jwt.JwtUtils;
+import kr.gaion.armoredVehicle.security.jwt.mapper.RoleMapper;
+import kr.gaion.armoredVehicle.security.jwt.mapper.UserMapper;
+import kr.gaion.armoredVehicle.security.jwt.mapper.UserRolesMapper;
+import kr.gaion.armoredVehicle.security.jwt.model.User;
+import kr.gaion.armoredVehicle.security.jwt.request.LoginRequest;
+import kr.gaion.armoredVehicle.security.jwt.request.SignupRequest;
+import kr.gaion.armoredVehicle.security.jwt.response.JwtResponse;
+import kr.gaion.armoredVehicle.security.jwt.response.MessageResponse;
+import kr.gaion.armoredVehicle.security.service.UserDetailsImpl;
+import kr.gaion.armoredVehicle.security.service.UserDetailsServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

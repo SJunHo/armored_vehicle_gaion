@@ -1,5 +1,9 @@
-package kr.gaion.armoredVehicle.web.security;
+package kr.gaion.armoredVehicle.security;
 
+import kr.gaion.armoredVehicle.security.jwt.AuthEntryPointJwt;
+import kr.gaion.armoredVehicle.security.jwt.AuthTokenFilter;
+import kr.gaion.armoredVehicle.security.service.UserDetailsServiceImpl;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
@@ -15,14 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import kr.gaion.armoredVehicle.web.security.jwt.AuthEntryPointJwt;
-import kr.gaion.armoredVehicle.web.security.jwt.AuthTokenFilter;
-import kr.gaion.armoredVehicle.web.security.service.UserDetailsServiceImpl;
-
-
-
 
 @Configuration
+@MapperScan(basePackages="kr.gaion.armoredVehicle.security")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
     // securedEnabled = true,

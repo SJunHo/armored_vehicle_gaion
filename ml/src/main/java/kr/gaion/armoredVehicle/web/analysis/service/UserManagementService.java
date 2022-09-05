@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
+import kr.gaion.armoredVehicle.security.jwt.mapper.UserMapper;
+import kr.gaion.armoredVehicle.security.jwt.model.User;
 import kr.gaion.armoredVehicle.web.utils.Paging;
 
 @Service

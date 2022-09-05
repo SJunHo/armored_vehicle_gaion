@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.gaion.armoredVehicle.web.security.jwt.mapper.UserRolesMapper">
-    <insert id="insertUserRoles" parameterType="kr.gaion.armoredVehicle.web.security.jwt.model.UserRole">
+<mapper namespace="kr.gaion.armoredVehicle.security.jwt.mapper.UserRolesMapper">
+    <insert id="insertUserRoles" parameterType="kr.gaion.armoredVehicle.security.jwt.model.UserRole">
          insert into USER_ROLES(user_id, role_id)
          values(#{user_id}, #{role_id})
     </insert>

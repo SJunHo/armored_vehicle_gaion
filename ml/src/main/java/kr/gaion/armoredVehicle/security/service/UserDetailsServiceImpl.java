@@ -1,43 +1,29 @@
-package kr.gaion.armoredVehicle.web.security.service;
+package kr.gaion.armoredVehicle.security.service;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
+import kr.gaion.armoredVehicle.security.jwt.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.RoleMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserRolesMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.model.ERole;
-import kr.gaion.armoredVehicle.web.security.jwt.model.Role;
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
-import kr.gaion.armoredVehicle.web.utils.Paging;
+import kr.gaion.armoredVehicle.security.jwt.mapper.UserMapper;
+import kr.gaion.armoredVehicle.security.jwt.model.ERole;
+import kr.gaion.armoredVehicle.security.jwt.model.Role;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-  @Autowired
-  UserMapper userRepository;
+    @Autowired
+    UserMapper userMapper;
 
-  @Autowired
-  RoleMapper roleRepository;
-  
-  @Autowired
-  UserRolesMapper userRolesRepository;
-  
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
-    User user = userRepository.findById(userid);
+    User user = userMapper.findById(userid);
     //user에 대한 role 가져오기
 //    int roleId = userRolesRepository.findByUserId(user.getId());
 	    Role role = new Role();

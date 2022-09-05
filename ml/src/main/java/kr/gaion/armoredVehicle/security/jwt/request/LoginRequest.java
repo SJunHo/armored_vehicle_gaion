@@ -1,4 +1,4 @@
-package kr.gaion.armoredVehicle.web.security.jwt.request;
+package kr.gaion.armoredVehicle.security.jwt.request;
 
 import lombok.Getter;
 import lombok.Setter;
