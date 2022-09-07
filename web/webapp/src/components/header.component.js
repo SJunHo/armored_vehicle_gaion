@@ -155,22 +155,22 @@ class HeaderComp extends Component {
                 menuVariant="dark"
                 className={ 
                   this.state.selectedShow === true &&
-                  (location.includes("/randomforest") ? "selected" 
-                  : location.includes("/supportvectormachine") ? "selected"
-                  : location.includes("/multilayerneuralnetworks") ? "selected"
-                  : location.includes("/isolateramdhamforest") ? "selected"
-                  : location.includes("/logicicregression") ? "selected" : "")}
+                  (location.includes("/ml/rfc") ? "selected" 
+                  : location.includes("/ml/svc") ? "selected"
+                  : location.includes("/ml/mlp") ? "selected"
+                  : location.includes("/ml/if") ? "selected"
+                  : location.includes("/ml/lr") ? "selected" : "")}
                 onClick={(e) => this.handleSelectedNavbar(e)}
               >
-                <NavDropdown.Item href="/randomforest">램덤포레스트</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/rfc">램덤포레스트</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/supportvectormachine">서포트 벡터 머신</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/svc">서포트 벡터 머신</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/multilayerneuralnetworks">다층 신경망</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/mlp">다층 신경망</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/isolateramdhamforest">Isolate 램덤포레스트</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/if">Isolate 램덤포레스트</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/logicicregression">로직스틱 회귀</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/lr">로직스틱 회귀</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown
@@ -179,13 +179,13 @@ class HeaderComp extends Component {
                 menuVariant="dark"
                 className={ 
                   this.state.selectedShow === true &&
-                  (location.includes("/linearregression") ? "selected" 
-                  : location.includes("/rasoregression") ? "selected" : "")}
+                  (location.includes("/ml/linear") ? "selected" 
+                  : location.includes("/ml/lasso") ? "selected" : "")}
                 onClick={(e) => this.handleSelectedNavbar(e)}
               >
-                <NavDropdown.Item href="/linearregression">선형 회귀</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/linear">선형 회귀</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/rasoregression">라소 회귀</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/lasso">라소 회귀</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown

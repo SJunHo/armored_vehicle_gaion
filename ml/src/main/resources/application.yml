@@ -25,9 +25,12 @@ algorithm:
 database:
 #  driverClass: org.mariadb.jdbc.Driver
   driverClass: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://${DB_HOST:221.148.11.152}:${DB_PORT:8012}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
-  user: ${DB_USER:AMVHC_U}
-  password: ${DB_PASSWORD:!Tltmxpa0517}
+#  url: jdbc:mysql://${DB_HOST:221.148.11.152}:${DB_PORT:8012}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+#  user: ${DB_USER:AMVHC_U}
+#  password: ${DB_PASSWORD:!Tltmxpa0517}
+  url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3308}/${DB_DATABASE:scas_db}?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+  user: ${DB_USER:root}
+  password: ${DB_PASSWORD:root}
   properties:
     hibernate:
       hbm2ddl:

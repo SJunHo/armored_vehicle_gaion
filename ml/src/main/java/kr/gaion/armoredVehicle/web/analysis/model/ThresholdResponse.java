@@ -17,5 +17,5 @@ public class ThresholdResponse {
 	private String crtor;
 	private Date mdfcdt;
 	private String mdfr;
-	private boolean applicability;
+	private char usedvcd;
 }

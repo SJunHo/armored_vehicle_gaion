@@ -162,7 +162,7 @@ class Setting_PRC extends Component {
                   <input type="input" className="form-control" name={"msg"+index} defaultValue={item.msg} onChange={(event)=>{this.onMessageChange(event)}}>
                   </input>
                 </td>
-                <td><input type="checkbox" className="form-control" name={"checkbox"+index} checked={item.usedvcd === 'Y' ? true:false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
+                <td><input type="checkbox" name={"checkbox"+index} checked={item.usedvcd === 'Y' ? true:false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}

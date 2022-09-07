@@ -7,7 +7,7 @@
 		where code like CONCAT(#{code},'%')
 	</select>
 		
-	<select id="findCmncdList" parameterType="Integer" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+	<select id="findCmncdList" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
 		select *
 		from CMNCD
 		order by cmncdid

@@ -52,6 +52,16 @@ import PrivateRoute from "./components/login/PrivateRoute";
 
 import LogOutComp from "./components/login/logout.component";
 
+//gaion
+import { DatasetManagement } from "./DatasetManagement/DatasetManagement";
+import { ModelManagement } from "./ModelManagement/ModelManagement";
+import { DataLookUpList } from "./DataLookUp/DataLookUpList";
+import { DataUpload } from "./DataLookUp/DataUpload";
+import { PredictedResults } from "./ResultPrediction/PredictedResults";
+import { PredictedResultsUserInput } from "./ResultPredictionUserInput/PredictedResultsUserInput";
+import { SavedPredictedResult } from "./SavedResultPrediction/SavedPredictedResult";
+
+import { FeatureSelection } from "./ModelManagement/FeatureSelection";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -126,7 +136,40 @@ class App extends Component {
 
               {/*잔존수명예지 모델*/}
             <PrivateRoute exact path="/linearregression" component={LinearRegression} />
-            <PrivateRoute exact path="/rasoregression" component={RasoRegession} />
+            <PrivateRoute exact path="/rasoregression" component={RasoRegession} /> 
+            {/* //gaion */}
+            <PrivateRoute
+              path="/data/fault_diagnosis_result_history"
+              component={PredictedResults}
+            />
+            <PrivateRoute
+              path="/data/fault_diagnosis_user_input"
+              component={PredictedResultsUserInput}
+            />
+            <PrivateRoute
+              path="/data/fault_diagnosis_history_page"
+              component={SavedPredictedResult}
+            />
+
+            <PrivateRoute
+              path="/ml/fs/:algorithmName"
+              exact
+              component={FeatureSelection}
+            />
+
+            <PrivateRoute
+              path="/ml/:algorithmName/:tab"
+              component={ModelManagement}
+            />
+            <PrivateRoute
+              path="/ml/:algorithmName"
+              exact
+              component={ModelManagement}
+            />
+            <PrivateRoute path="/dataset" component={DatasetManagement} />
+
+            <PrivateRoute path="/data/lookup" component={DataLookUpList} />
+            <PrivateRoute path="/data/upload" component={DataUpload} /> 
 
               {/*시스템 설정*/}
             <PrivateRoute exact path="/driver_cis" component={Driver_CIS} />

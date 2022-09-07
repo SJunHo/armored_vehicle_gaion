@@ -29,8 +29,12 @@ public class UserManagementService {
 			paging.setStartPage(paging.getCurrentblock());
 			paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
 			paging.setTotalPageCount();
-			
-			List<User> userList = userRepository.findUserList(paging.getPagenum()*pageSize, paging.getContentnum());
+
+			Map<String, Integer> param = new HashMap<String, Integer>();
+			param.put("page",paging.getPagenum()*pageSize);
+			param.put("pageSize",paging.getContentnum());
+
+			List<User> userList = userRepository.findUserList(param);
 			
 			Map<String, Object> map = new HashMap<String,Object>();
 			

@@ -40,11 +40,11 @@ public class AuthController {
   @Autowired
   UserMapper userRepository;
 
-  @Autowired
-  RoleMapper roleRepository;
-  
-  @Autowired
-  UserRolesMapper userRoleRepository;
+//  @Autowired
+//  RoleMapper roleRepository;
+//
+//  @Autowired
+//  UserRolesMapper userRoleRepository;
   
   @Autowired
   PasswordEncoder encoder;

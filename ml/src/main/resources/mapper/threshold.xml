@@ -9,10 +9,10 @@
 	
 	<update id="updateThreshold" parameterType="kr.gaion.armoredVehicle.web.analysis.model.ThresholdResponse">
 		update THRESHOLD
-		set min = #{min}, max = #{max}, 
-		    applicability = #{applicability},
-			mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
-		where snsrid = #{snsrid} 
+		set MIN = #{min}, MAX = #{max}, 
+		    USEDVCD = #{usedvcd},
+			MDFR = #{mdfr}, MDFCDT = #{mdfcdt}
+		where SNSRID = #{snsrid} 
 	</update>
 	
 </mapper>
