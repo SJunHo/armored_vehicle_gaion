@@ -70,7 +70,7 @@ function Main() {
 
             <AuthorizedRoute path="/data/lookup" component={DataLookUpList} />
             <AuthorizedRoute path="/data/upload" component={DataUpload} />
-            <AuthorizedRoute path="/" exact component={DatasetManagement} />
+            <AuthorizedRoute path="/" exact component={DataUpload} />
           </Switch>
         </div>
       </OpenApiContextProvider>
