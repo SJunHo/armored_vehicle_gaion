@@ -9,8 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-//@Table(name = "USERS")
-@Table(name = "users")
+@Table(name = "USERS")
 @Getter
 @Setter
 public class User {

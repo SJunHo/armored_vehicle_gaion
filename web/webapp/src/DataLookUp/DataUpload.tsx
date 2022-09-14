@@ -44,7 +44,7 @@ export const DataUpload: React.FC = () => {
           onUploadFile={(files) => {
             setUploading(true);
             datasetDatabaseControllerApi
-              ?.uploadCSVFileAndImportDB(files)
+              ?.uploadCSVFileAndImportDB(files.toString())
               .then(() => setUploadedFiles(files))
               .finally(() => setUploading(false));
           }}

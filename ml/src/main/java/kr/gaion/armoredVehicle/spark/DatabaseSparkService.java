@@ -57,7 +57,7 @@ public class DatabaseSparkService {
         //Todo 부품 별 테이블 선택 로직 구현
         // TODO: 2022-07-14 부품 선택 input 기능 구현
 
-        System.out.println(input.getPartType() + "ASDFASDFADfa");
+        System.out.println("PartType = " + input.getPartType());
         var jvRddData = this.getDataRDDFromDb(input.getPartType());
 
         var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
@@ -67,7 +67,7 @@ public class DatabaseSparkService {
     public Dataset<Row> getDataRDDFromDb(String partType){
         String tname = null;
         if(partType.equals("B") ){
-            tname= "BERTRANNG";
+            tname= "BERTRNNG";
         }else if (partType.equals("W")){
             tname= "WHLTRNNG";
         }else if (partType.equals("E")){
@@ -140,8 +140,8 @@ public class DatabaseSparkService {
     public Dataset<NumericLabeledData> getNumericLabeledDatasetFromDb(BaseAlgorithmTrainInput input) {
         var featureCols = input.getFeatureCols();
         var classCol = input.getClassCol();
-
-        var jvRddData = this.getDataRDDFromDb("TEMPLIFE");
+        // TODO: 추후 part type 수정
+        var jvRddData = this.getDataRDDFromDb("T");
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ jvRddData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
         jvRddData.show();

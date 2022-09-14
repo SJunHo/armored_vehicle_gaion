@@ -1180,13 +1180,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1277,13 +1277,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 
@@ -4014,12 +4014,16 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
+         * @param {string} partType 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadCSVFileAndImportDB: async (files?: Array<any>, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/data/database/upload-dataset-file-to-database`;
+        uploadCSVFileAndImportDB: async (partType: string, files?: Array<any>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('uploadCSVFileAndImportDB', 'partType', partType)
+            const localVarPath = `/api/data/database/upload-dataset-file-to-database/{partType}`
+                .replace(`{${"partType"}}`, encodeURIComponent(String(partType)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -4128,12 +4132,13 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
+         * @param {string} partType 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async uploadCSVFileAndImportDB(files?: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadCSVFileAndImportDB(files, options);
+        async uploadCSVFileAndImportDB(partType: string, files?: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadCSVFileAndImportDB(partType, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -4202,12 +4207,13 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
+         * @param {string} partType 
          * @param {Array<any>} [files] Files to be uploaded
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadCSVFileAndImportDB(files?: Array<any>, options?: any): AxiosPromise<Array<string>> {
-            return localVarFp.uploadCSVFileAndImportDB(files, options).then((request) => request(axios, basePath));
+        uploadCSVFileAndImportDB(partType: string, files?: Array<any>, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.uploadCSVFileAndImportDB(partType, files, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4287,13 +4293,14 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} partType 
      * @param {Array<any>} [files] Files to be uploaded
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public uploadCSVFileAndImportDB(files?: Array<any>, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).uploadCSVFileAndImportDB(files, options).then((request) => request(this.axios, this.basePath));
+    public uploadCSVFileAndImportDB(partType: string, files?: Array<any>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).uploadCSVFileAndImportDB(partType, files, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

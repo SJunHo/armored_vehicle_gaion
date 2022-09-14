@@ -51,7 +51,6 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         // BaseAlgorithmTrainInput config: 웹으로 통해 들어오는 사용자가 선택한 알고리즘의 '학습'을 위한 정보들(Request)
 
         log.info("============================ START Linear Regression ============================");
-        System.out.println(config.getMaxIter());
         // get settings
         int maxIterations = config.getMaxIter();
         double regParam = config.getRegParam();

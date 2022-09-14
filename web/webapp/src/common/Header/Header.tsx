@@ -67,7 +67,7 @@ export const Header: React.FC = () => {
               title={
                 <>
                   <span className="glyphicon glyphicon-road" />
-                  AI 모델 관리
+                  고장 전조 예측(분류)
                   <span className="glyphicon glyphicon-menu-down" />
                 </>
               }
@@ -107,7 +107,7 @@ export const Header: React.FC = () => {
               title={
                 <>
                   <span className="glyphicon glyphicon-road" />
-                  잔존 수명 예지
+                  잔존 수명 예지(회귀)
                   <span className="glyphicon glyphicon-menu-down" />
                 </>
               }

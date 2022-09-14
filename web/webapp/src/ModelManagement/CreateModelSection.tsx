@@ -284,9 +284,8 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title={t("Reg Param")}
           >
             <Form.Control
-              type="number"
               min="0"
-              {...register("regParam", { valueAsNumber: true, value: 0 })}
+              {...register("regParam", { value: 0.3 })}
             />
           </InputWrapper>
           <InputWrapper
@@ -296,12 +295,8 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title={t("Elastic Net Param")}
           >
             <Form.Control
-              type="number"
               min="0"
-              {...register("elasticNetParam", {
-                valueAsNumber: true,
-                value: 0,
-              })}
+              {...register("elasticNetParam", { value: 0.8 })}
             />
           </InputWrapper>
         </>
@@ -433,10 +428,9 @@ export const IsolationForestSection: React.FC = () => {
         title={t("ml.clustering.maxFeatures")}
       >
         <Form.Control
-          type="number"
           min="0.0"
           step="0.1"
-          {...register("maxFeatures", { valueAsNumber: true, value:0.0 })}
+          {...register("maxFeatures", { value:1.0 })}
         />
 
       </InputWrapper>
@@ -479,7 +473,7 @@ export const LinearRegression: React.FC = () => {
       >
         <Form.Control
           type="number"
-          {...register("maxIter", { valueAsNumber: true, value: 1 })}
+          {...register("maxIter", { valueAsNumber: true, value: 100 })}
           placeholder={"default iteration 100"}
         />
       </InputWrapper>
@@ -492,8 +486,8 @@ export const LinearRegression: React.FC = () => {
         <Form.Control
           type="number"
           step="0.01"
-          {...register("regParams", { valueAsNumber: true, value: 0.01 }, )}
-          placeholder={"default value 0.01"}
+          {...register("regParams", { value: 0.3 }, )}
+          placeholder={"default value 0.3"}
         />
       </InputWrapper>
     </>
