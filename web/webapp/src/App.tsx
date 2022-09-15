@@ -1,3 +1,4 @@
+import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { OpenApiContextProvider } from "./api";
@@ -22,8 +23,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/auth/login" component={Login} />
-        <Route path="/auth/logout" component={Logout} />
+        {/*<Route path="/auth/login" component={Login} />*/}
+        {/*<Route path="/auth/logout" component={Logout} />*/}
         <Route path="/" component={Main} />
       </Switch>
     </Router>

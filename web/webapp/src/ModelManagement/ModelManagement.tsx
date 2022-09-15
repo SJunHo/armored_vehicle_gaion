@@ -10,6 +10,7 @@ import { TrainingModelList } from "./TrainingModelList";
 import {DataPrediction} from "./DataPrediction";
 
 export const ModelManagement: React.FC = () => {
+  console.log('aaa')
   const { t } = useTranslation();
   const { algorithmName, tab = "train" } =
     useParams<{ algorithmName: string; tab?: string }>();

@@ -22,9 +22,8 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModels, setSelectedModels] = useState<DbModelResponse[]>([]);
   const { mlControllerApi } = useContext(OpenApiContext);
-  console.log(models);
-
-  const { t } = useTranslation();
+  console.log("bbb");
+  console.log(algorithmName)
 
   useEffect(() => {
     mlControllerApi
@@ -83,19 +82,19 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
         accessor: item => item.weightedTruePositiveRate,
       },
       {
-        Header: t("table.column.notes").toString(),
+        Header: "설명",
         accessor: "description",
         Cell: EditableCell,
         onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
       },
       {
-        Header: t("table.column.broken.register").toString(),
+        Header: "선택",
         accessor: "checked",
         Cell: EditableCheckboxCell,
         onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
       },
     ],
-    [t, handleUpdateRows]
+    [handleUpdateRows]
   );
 
     const regressionColumns = useMemo<Column<DbModelResponse>[]>(
@@ -113,19 +112,19 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
                 accessor: item => item.rootMeanSquaredError,
             },
             {
-                Header: t("table.column.notes").toString(),
+                Header: "설명",
                 accessor: "description",
                 Cell: EditableCell,
                 onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
             },
             {
-                Header:t("table.column.life.register").toString(),
+                Header: "선택",
                 accessor: "checked",
                 Cell: EditableCheckboxCell,
                 onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
             },
         ],
-        [t, handleUpdateRows]
+        [handleUpdateRows]
     );
 
   return (
@@ -156,11 +155,11 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
               });
             }}
           >
-            {t("ml.common.btn.dm")}
+            삭제
           </Button>
         </Col>
         <Col md={1}>
-          <Button>{t("pp.fu.id.btn.save")}</Button>
+          <Button>저장</Button>
         </Col>
       </Row>
     </Section>

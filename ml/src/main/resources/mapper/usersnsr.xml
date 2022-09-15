@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.UsersnsrMapper">
+	<select id="getBookmark" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.analysis.model.UserSnsr">
+		select * 
+		from USERSNSR
+		where userid = #{userid} and grpid = #{grpid} 
+	</select>
+	
+	<insert id="insertBookmark" parameterType="java.util.Map">
+		insert into USERSNSR(grpid, snsrid, userid) 
+		values(#{grpid}, #{snsrid}, #{userid}) 
+	</insert>
+	
+	<update id="deleteBookmark" parameterType="java.util.Map"> 
+		delete 
+		from USERSNSR 
+		where userid = #{userid} and grpid = #{grpid} 
+	</update>
+</mapper>

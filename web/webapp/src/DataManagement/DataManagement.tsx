@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Button, Card, Form, ProgressBar, Row } from "react-bootstrap";
-import Select from "react-select/src/Select";
+import Select from "react-select";
 import { Page } from "../common/Page/Page";
 import { Section, SubSection } from "../common/Section/Section";
 import { TabHeader } from "../common/TabHeader/TabHeader";
@@ -12,9 +12,9 @@ export const DataManagement: React.FC = () => {
     <Card>
       <Form name="searchForm">
         <Row>
-          <Select placeholder="차량선택">
-            
-          </Select>
+          {/*<Select placeholder="차량선택">*/}
+          {/*  */}
+          {/*</Select>*/}
         </Row>
       </Form>
     </Card>

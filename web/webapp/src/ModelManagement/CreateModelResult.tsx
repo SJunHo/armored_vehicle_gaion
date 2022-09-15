@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import {chunk, range, sum, zip} from "lodash";
 import styles from "./styles.module.css";
-import {RegressionResponse, RandomForestClassificationResponse} from "../api/gen";
+import {RegressionResponse, RandomForestClassificationResponse} from "../api";
 import { useParams } from "react-router-dom";
 import { Table } from "../common/Table";
 import { Column } from "react-table";

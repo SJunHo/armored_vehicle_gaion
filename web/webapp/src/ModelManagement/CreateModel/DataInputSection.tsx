@@ -45,14 +45,10 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
   const { mlControllerApi } = useContext(OpenApiContext);
   const classCol = watch("classCol");
   const selectedIndice = watch("fileName");
-  const selectedPart = watch("partType");
+  const [selectedPart, setSelectedPart] = useState("");
 
   useEffect(() => {
     if(selectedPart && mlControllerApi){
-
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaa')
-      console.log(selectedPart)
-
       mlControllerApi?.getTrainingDataList(selectedPart).then((res) => {
         setIndices(res.data);
       });
@@ -88,6 +84,8 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
                 }
                 onChange={(v) => {
                   setValue("partType", v?.value)
+                  setSelectedPart(v?.value)
+                  console.log(selectedPart)
                 }}
                 options={partTypes.map((d) => ({
                   value: d.value,

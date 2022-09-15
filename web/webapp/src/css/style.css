@@ -1,0 +1,2010 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    color: #fff;
+}
+body{background-color: #2c2c44;}
+#root{width: 100%;}
+p{margin-bottom: 0;}
+table, table tr{border: none;}
+/* 로그인 페이지 */
+.col-md-12{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    min-width: 1200px;
+    height: 100vh;
+    min-height: 780px;
+    padding-right: 0;
+    padding-left: 0;
+    background: url(../images/login-bg.png) no-repeat;
+    background-size: cover;
+}
+.card-in{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.card-container.card{
+    float: right;
+    width: 500px;
+    max-width: inherit !important;
+    height: 100vh;
+    min-height: 780px;
+    margin: 0;
+    margin-top: 0;
+    background: #464667;
+    box-shadow: -10px 0px 50px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+.logo a{
+    display: inline-block;
+    width: 164px;
+    height: 44px;
+    margin: 0 auto;
+    background: url(../images/TCMS.png) no-repeat;
+}
+.logo p{
+    margin-top: 40px;
+    margin-bottom: 60px;
+    font-size: 16px;
+    font-weight: 400;
+}
+.card form .form-group label{
+    display: none;
+}
+.card form .form-group input{
+    width: 300px;
+    height: 55px;
+    margin: 0 auto;
+    padding: 0 40px;
+    border-radius: 15px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+}
+.card form .form-group input::placeholder{
+    font-size: 16px;
+    color: #999;
+}
+.btn02{
+    display: inline-block;
+    width: 140px;
+    height: 55px;
+    margin-top: 50px;
+    border: none;
+    border-radius: 15px;
+    background-color: #fff;
+}
+.btn02 span{
+    color: #333;
+}
+.btn02 span::before{
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 10px;
+    background: url(../images/login_icon.png) no-repeat;
+    background-size: contain;
+}
+.btn02:hover span{color:#fff;}
+.btn02:hover span::before{
+    filter: brightness(100);
+ }
+.btn03{
+    display: inline-block;
+    width: 100px;
+    margin-top: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.btn03 span{text-decoration: underline;}
+.btn03:hover{background: none;}
+/* 네비게이션_header */
+ /* 아이콘 네비게이션 */
+.navbar.active{ 
+	width: 150px;
+    min-width: 150px;
+}
+.navbar.active .navbar-brand{
+	width: 100px;
+    min-width: 100px;
+}
+.navbar.active .nav-item {
+	width:117px;
+    margin-right: 0;
+}
+
+.navbar.active .navbar-nav .nav-link{
+	width:138px;
+    padding: 25px 0 25px 20px;
+}
+.navbar.active .nav-item.show .nav-link::before {
+    top: -56px;
+    right: 23.5px;
+    width: 91px;
+    height: 57px;
+    box-shadow: 34px 32px 0 #4a4492;
+}
+.navbar.active .nav-item.show .nav-link::after {
+    bottom: -59px;
+    right: 23.5px;
+}
+.navbar.active .navbar-nav span{
+	display:none;
+}
+.navbar .navbar-nav svg{
+    display: none;
+}
+.navbar.active .navbar-nav svg{
+    display: inline-block;
+	width: 2rem;
+	height: 2rem;
+}
+.navbar.active .navbar-nav .dropdown-menu {
+	left: 134px;	
+}
+.navbar.active .navbar-nav div.full {
+	display:none;
+}
+.navbar.active .navbar-nav div.collapse {
+	display:inline-block;
+}
+.navbar .navbar-nav div.full {
+	display:inline-block;
+}
+.navbar .navbar-nav div.collapse {
+	display:none;
+}
+.navbar.active .nav-item-2 {
+	left: 0px;
+}
+/* 텍스트네비게이션 */
+nav{
+    float: left;
+    position: relative;
+    width: 270px;
+    min-width: 270px;
+    height: 1024px;
+    border-radius:0 35px 35px 0;
+    background-color: #464667;
+    text-align: center;
+}
+.navbar{
+    display: inline-block;
+    z-index: 11;
+}
+.nav_back{
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    min-width: 1080px;
+    height: 100vh;
+    min-height: 1920px;
+    background: #000;
+    z-index: 10;
+}
+.container-fluid{position: relative;}
+.dropdown, .dropleft, .dropright, .dropup{position:inherit;}
+.navbar-expand-lg>.container, .navbar-expand-lg>.container-fluid, .navbar-expand-lg>.container-lg, .navbar-expand-lg>.container-md, .navbar-expand-lg>.container-sm, .navbar-expand-lg>.container-xl{
+    flex-wrap: inherit;
+}
+.navbar .container, .navbar .container-fluid, .navbar .container-lg, .navbar .container-md, .navbar .container-sm, .navbar .container-xl{
+    display: inline-block;
+}
+.navbar-expand-lg .navbar-collapse{
+    display: inline-block !important;
+}
+.navbar-nav{
+    display: inline-block;
+}
+.navbar-brand{
+    display: inline-block;
+    width: 134px;
+    height: 36px;
+    margin: 70px 0;
+    background: url(../images/TCMS.png) no-repeat;
+    background-size: contain;
+    font-size: 0;
+}
+.nav-item{
+    display: inline-block;
+    width: 259px;
+    border-radius: 50px 0 0 50px;
+    font-size: 18px;
+    margin-right: -79px;
+}
+.nav-item.selected{
+    position: relative;
+    width: 208px;
+    margin-right: -25px;
+    background: #2c2c44;
+}
+.navbar-dark .navbar-nav .nav-item.selected .nav-link{
+    width: 190px;
+}
+.nav-item.show::after{
+    display: none;
+}
+.navbar.active .nav-item.selected::after{
+    right: -19.5px;
+}
+.navbar .nav-item.selected .nav-link{
+    width: 183px;
+}
+.nav-item.selected .nav-link::after{
+    content: '';
+    position: absolute;
+    bottom: -49px;
+    right: -17.5px;
+    width: 60px;
+    height: 50px;
+    background: none;
+    border-radius: 50%;
+    box-shadow: 19px -18px 0 #2c2c44;
+}
+.nav-item.selected .nav-link::before{
+    content: '';
+    position: absolute;
+    top: -45px;
+    right: -17.5px;
+    width: 45px;
+    height: 45px;
+    background: none;
+    border-radius: 50%;
+    box-shadow: 20px 22px 0 #2c2c44;
+}
+.navbar.active .nav-item.selected{
+    margin-right: 0;
+}
+.navbar-dark.active .nav-item.selected .nav-link{
+    padding: 25px 0 25px 19px;
+    width: 97px !important;
+}
+.nav-item.show{
+    background-color: #4a4492;
+}
+.nav-item.show .nav-link::before{
+    content: '';
+    position: absolute;
+    top: -46px;
+    right: -4.5px;
+    width: 45px;
+    height: 45px;
+    background: none;
+    border-radius: 50%;
+    box-shadow: 22px 22px 0 #4a4492;
+}
+.navbar-expand-lg .navbar-nav{
+    flex-direction:inherit;
+    display: inline-block;
+    margin-right: -38px;
+}
+.navbar-dark .navbar-nav .nav-link{
+    position: relative;
+    width: 201px;
+    padding: 25px 0 25px 15px;
+    color: #fff;
+    text-align: left;
+}
+.navbar-dark .navbar-nav .nav-link span{
+    font-family: 'Poppins';
+    font-weight: 500;
+}
+.dropdown-toggle::after{
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.nav-item.show .nav-link::after{
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -3.5px;
+    width: 61px;
+    height: 60px;
+    background: none;
+    border-radius: 50%;
+    box-shadow: 32px -28px 0 #4a4492;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu{
+    position: absolute;
+    top: -10px;
+    left: 254px;
+    width: 260px;
+    height: 1024px;
+    padding: 50px 30px 50px 20px;
+    border-left: 11px solid #4a4492;
+    border-radius: 0 35px 35px 0;
+    background-color: #4a4492;
+    z-index: 100;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu::before{
+    content: '';
+    display: inline-block;
+    width: 41px;
+    height: 49px;
+    position: absolute;
+    left: -51px;
+    top: -2px;
+    background-color: #474566;
+    border-radius: 50%;
+    box-shadow: 4px -6px 0 #4d4291;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu::after{
+    content: '';
+    display: inline-block;
+    width: 56px;
+    height: 53px;
+    position: absolute;
+    left: -68px;
+    bottom: -1px;
+    background-color: #474566;
+    border-radius: 50% 0;
+    box-shadow: 22px 0px 0px 0px #4d4291;
+}
+.screen-darken{
+    content: ''; 
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+    z-index:10; opacity:1; 
+    visibility:visible;
+    position: fixed;
+  }
+.dropdown-item{
+    padding: 25px;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+.dropdown-item:focus, .dropdown-item:hover{
+    background-color: #4a4492;
+    text-decoration: underline;
+    color: #fff;
+}
+.dropdown-divider{
+    display: none;
+}
+.navbar .navbar-nav.btn01, .navbar .navbar-nav.gnb-close{
+    display: block;
+    width: 100%;
+    margin-right: 0;
+}
+.navbar .navbar-nav.btn01 > .nav-link{
+    display: inline-block;
+    width: 125px;
+    padding: 10px 15px;
+    margin-top: 100px;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+}
+.navbar .navbar-nav.btn01 > .nav-link svg{
+    display: inline-block;
+    width: 1rem;
+	height: 1rem;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    filter: brightness(0.4);
+}
+.navbar .navbar-nav.gnb-close > .nav-link{
+    display: inline-block;
+    text-align: center;
+    width: 49px;
+    height: 45px;
+    margin: 0 auto;
+    padding: 14px 0;
+    border-radius: 12px;
+    background: #fff;
+}
+.navbar .navbar-nav.gnb-close > .nav-link span{
+    font-size: 0;
+}
+.navbar .navbar-nav.gnb-close svg{
+    display: block;
+    filter: brightness(0.4);
+    width: 1rem;
+	height: 1rem;
+}
+.navbar .navbar-nav.btn01 > .nav-link span{
+    font-family: 'Poppins';
+    font-size: 13px;
+    color: #333;
+    font-weight: 600;
+}
+.navbar.active .navbar-nav.btn01 > .nav-link{
+    width: 50px;
+    height: 42px;
+    padding: 10px 18px;
+}
+.navbar.active .navbar-nav.btn01 > .nav-link svg{
+    width: 1rem;
+	height: 1rem;
+}
+.navbar.active .navbar-nav.gnb-close svg{
+    margin-left: 3px;
+}
+.navbar-toggler{
+    display: none;
+}
+.btn06{
+    display: block;
+    border-radius: 15px;
+}
+.btn06 > a{
+    display: inline-block;
+    width: 20% !important;
+    margin-top: 30px;
+    padding: 10px 15px !important;
+    background: #fff;
+    border-radius: 15px;
+    color: #333 !important;
+    text-align: center !important;
+}
+.btn06 > a:hover{
+    text-decoration: none;
+}
+/*container*/
+#root > div{
+    display: flex;
+}
+.container{
+    display: inline-block;
+    min-width: 1400px;
+    padding: 75px 30px;
+    overflow-x: hidden;
+}
+.row{
+    display: flex;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    white-space: nowrap;
+    justify-content: space-between;
+    min-width: 1380px;
+    margin-right: 0;
+    margin-left: 0;
+}
+.list.row{
+    display: inline-block;
+    min-width: 1200px;
+}
+.list{
+    margin-bottom: 75px;
+}
+.sub_title ,.jumbotron{
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    padding: 0 !important;
+}
+
+.sub_title h1 ,.jumbotron, .sub_title h4{
+    font-size: 21px;
+    font-weight: 700;
+    font-family: 'Poppins';
+}
+.jumbotron{
+    background: none;
+}
+.contents{
+    display: inline-block;
+    width: 83%;
+    min-width: 900px;
+    padding: 0 30px;
+}
+.contents02, .contents03{
+    display: inline-block;
+    position: relative;
+    width: 1000px;
+    min-width: 1000px;
+    padding: 30px;
+    background-color: #464667;
+    border-radius: 20px;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+}
+.contents04{
+    display: flex;
+    white-space: nowrap;
+    justify-content: space-between;
+    vertical-align: middle;
+    position: relative;
+    min-width: 1120px;
+    height: 220px;
+    padding: 55px 60px;
+    background-color: #464667;
+    border-radius: 20px;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    z-index: 4;
+}
+.contents05{ 
+    position: relative;
+    min-width: 1120px;
+    padding: 30px;
+    padding-top: 90px;
+    margin-top: -90px;
+    background: #3A3A5A; 
+    border-radius: 20px;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
+.stable{
+    display: inline-block;
+    width: 100%;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+.stable.col-9{
+    flex: none !important;
+    max-width: none !important;
+}
+.col-md-6{
+    width: 100%;
+    min-width: 1000px;
+    max-width: inherit;
+    padding-right: 0;
+}
+.btnarea{
+    width: 100%;
+    min-width: 1000px;
+}
+.detepicker-div{
+    width: 100%;
+    text-align: right;
+ }
+.form-group{
+    color: #000;
+ }
+.empty{
+    top:200px;
+}
+.sgraph{
+    overflow: hidden;
+    max-width: inherit;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #3A3A5A;
+    border-radius: 20px;
+}
+/* 통계정보>이상치차량조회 */
+.contents04 > .form-group{
+     float: left;
+     margin-bottom: 0 !important;
+     text-align: center;
+}
+.contents04 .form-group label, .contents04 .form-group .start-form p{
+    margin-bottom: 25px;
+    margin-top: 0;
+    font-family: 'Poppins';
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+.contents04 .form-group select{
+    padding: 10px;
+    width: 125px;
+    border-radius:0.25rem; 
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: left;
+    color: #333;
+}
+.contents04 .form-group select option{
+    border-radius: 0 !important;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+.contents04 .form-group:nth-child(2) select{
+    width: 173px;
+}
+.contents04 .form-group .start-form .form-group{
+    display: inline-block;
+    position: relative;
+    width: 337px;
+    margin-right: 0;
+    color: #fff;
+}
+.contents04 .form-group .start-form .form-group em{
+    display: inline-block;
+    float: left;
+    padding: 13px;
+    vertical-align: middle;
+    margin-bottom: 32px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.contents04 .form-group .start-form .form-group .react-datepicker-wrapper{
+    width: 150px;
+    float: left;
+}
+.contents04 .form-group .start-form .form-group .react-datepicker__tab-loop {
+    display: inline-block;
+    position: absolute;
+    float: left;
+    width: 150px;
+    height: 30px;
+}
+.contents04 .form-group .start-form .form-group .react-datepicker__tab-loop:nth-child(2){
+    top: 45px;
+    left: -30px;
+}
+.contents04 .form-group .start-form .form-group .react-datepicker__tab-loop:nth-child(4){
+    top: 45px;
+    right: 30px;
+}
+.contents04 .form-group .start-form .form-group .react-datepicker__tab-loop .react-datepicker-popper[data-placement^=bottom]{
+    transform: translate3d(0, 0, 0) !important;
+}
+.form-datepic .react-datepicker-wrapper .react-datepicker__input-container input{
+    width: 150px !important;
+    position: relative;
+    padding: 11px 15px;
+    border-radius: 0.25rem;
+    background: #fff;
+    color: #333;
+    text-align: left;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+}
+.form-datepic .react-datepicker-wrapper .react-datepicker__input-container::after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 11px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    background: url(../images/calender.png)  no-repeat;
+}
+.btn07{
+    width: 122px;
+    height: 50px;
+    padding: 10px;
+    margin-top: 53px;
+    border: none;
+    border-radius: 0.25rem;
+    background: #2B2B42;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.25);
+}
+.btn07:hover{
+    background: #4a4492;
+}
+.contents05 table{
+    width: 100%;
+    border: none;
+    text-align: center;
+}
+.contents05 table tr, .contents05 table td{border: none;}
+.contents05 table thead > tr td{padding: 30px; font-family: 'Poppins'; font-weight: 600;}
+.contents05 table tbody tr{border-bottom: 1px solid #7a7a8f;}
+.contents05 table tbody tr:last-child{border-bottom: none;}
+.contents05 table tbody tr td{padding: 20px; font-size: 16px;}
+/*시스템 설정 >  차량호기관리 */
+.mt-3{
+    position: relative;
+    min-width: 1200px;
+    height: 100px;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding: 30px 0;
+    white-space: inherit !important;
+    text-align: center;
+}
+.my-3{
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+.mt-3 nav{
+    float: none;
+    position: relative;
+    width: 100%;
+    min-width: 1000px;
+    height: auto;
+    border-radius: 0;
+    background: none;
+}
+.table02 table thead, .table03 table thead{
+    background: #464667;
+    box-shadow: 0px 0px 10px rgb(0 ,0 ,0 , 25%);
+}
+.table-div.table03 table thead tr{height: 80px;}
+.table-div.table03 table thead tr td{border: none;}
+.table-div.table02 table thead tr:first-child{
+    box-shadow: none;
+    display: none;
+}
+.table-div.table02 table tbody tr > td:nth-child(3), .table-div.table03 table tbody tr > td:nth-child(5), .table-div.table03 table tbody tr > td:nth-child(3), .table-div.table02 table tbody tr > td:nth-child(5){
+    border-left: none;
+}.table-div.table02 table tbody tr{
+    position: relative;
+}
+.table-div.table02 table tbody tr::after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96%;
+    height: 1px;
+    background-color: #d9d9d9;
+}
+.table-div.table02 table tbody tr:last-child::after{
+    display: none;
+}
+.MuiPagination-ul{
+    margin: 0 auto !important;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.MuiPaginationItem-ellipsis{
+    margin-top: -8px !important;
+    color: #fff !important;
+    font-size: 16px !important;
+}
+.MuiPagination-ul li button{
+    font-family: 'Poppins';
+    font-size: 16px;
+    color: #fff;
+}
+.MuiPaginationItem-root{
+    color: rgb(81 81 96);
+}
+.MuiPaginationItem-page.Mui-selected{
+    background-color: #2c2c44 !important;
+    color: #FF9B05;
+}
+.MuiPaginationItem-outlined{
+    border: none !important;
+}
+.MuiPaginationItem-icon{
+    filter: invert(58%) sepia(95%) saturate(995%) hue-rotate(353deg) brightness(99%) contrast(106%);
+}
+.MuiPaginationItem-page.Mui-disabled{
+    opacity: 1;
+}
+.MuiPaginationItem-page.Mui-disabled > svg{
+    filter: invert(40%) sepia(0%) saturate(2%) hue-rotate(17deg) brightness(94%) contrast(96%);
+}
+/* add버튼 */
+.badge{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    float: right;
+    padding: 8px 40px;
+    border-radius: 30px;
+}
+.badge-info{
+    background-color: #464667;
+    font-family: 'Noto Sans KR';
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 5px 5px 25px rgb(0 0 0 / 30%);
+}
+a.badge-info:focus, a.badge-info:hover{
+    background: #4a4492;
+}
+ /* 차량호기 관리 수정 */
+.contents02 .form-group label{
+    font-size: 18px;
+    font-weight: 500;
+}
+.contents02 .form-group input, .contents02 .form-group select{
+    padding: 25px;
+}
+.contents02 .form-group select{
+    padding: 15px;
+    border-radius: 0.25rem;
+    width: 350px;
+    color: #333;
+}
+.contents02 .form-group select option{
+    color: #333;
+}
+.btn04{
+    float: right;
+    margin-top: 20px;
+    padding: 10px 60px;
+}
+/* 공통정보관리 > 등록 */
+.radio-box{
+    width: 100%;
+    padding: 10px 0;
+    border: 1px solid #fff;
+    border-radius: 0.25rem;
+    vertical-align: middle;
+}
+.radio-box .radio-use input , .radio-box .radio-use02 input{
+    margin-right: 20px;
+}
+.radio-box .radio-use label, .radio-box .radio-use02 label{
+    display: inline-block;
+}
+.radio-box .radio-use:first-child{
+    border-right: 1px solid #fff;
+}
+.radio-box .radio-use02:nth-child(2){
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+.radio-box .radio-use{
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}
+.radio-box .radio-use02{
+    display: inline-block;
+    width: 33.3%;
+    text-align: center;
+}
+/* 차량정보조회> 상태정보- 차륜형장갑차장비제원 */
+.contents00{
+    display: inline-block;
+    width: 78%;
+    min-width: 800px;
+    padding: 0 30px;
+}
+.item2{
+    display: inline-block;
+    width: 100%;
+}
+.item21.col, .item22.col{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+.col-md-3{
+    width: 22%;
+    min-width: 260px;
+    max-width: none;
+    padding-right: 0;
+    padding-left: 0;
+    flex:none !important;
+}
+.col-md-9{max-width: none; flex: 0 0 0;}
+.contents06{
+    display: inline-block;
+    width: 100%;
+    height: 868px;
+    padding: 40px 10px;
+    background: #3A3A5A;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+.contents07{
+    padding: 40px 30px;
+    background: #3A3A5A;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+.container-fluid{
+    padding-right: 0;
+    padding-left: 0;
+}
+.image{
+    padding: 15px 10px;
+}
+.image span{
+    display: inline-block;
+    width: 240px;
+    height: 200px;
+    background: url(../images/armored_car/ar01.png) no-repeat;
+}
+.info_table{
+    width: 100%;
+    margin: 0 auto;
+    border: none;
+}
+.info_table tr{
+    border: none;
+}
+.info_table tbody tr td{
+    text-align: left;
+    padding: 15px;
+    font-size: 16px;
+}
+.info_table tbody tr td:first-child{
+    font-weight: 700;
+}
+.info_table tbody tr td:last-child{
+    text-align: center;
+}
+.info_table tbody tr:nth-child(2) td{
+    padding-top: 50px ;
+}o
+.info_table tbody tr:last-child td{
+    padding-bottom: 50px ;
+}
+.info_table tbody tr:first-child, .info_table tbody tr:last-child {
+    border-bottom: 1px solid #fff;
+}
+.item12{
+    padding: 25px 15px;
+    text-align: center;
+}
+.item12 button{
+    border: none;
+    background: none;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    padding: 2px 0;
+    border-radius: 8px;
+    color: #000;
+    background-color: #fff;
+}
+.item12 button.stopnstart{
+    width: 16px;
+    height: auto;
+    margin-bottom: 20px;
+    border: none;
+    color: #fff;
+    background:none;
+}
+.slider-control{
+    display: inline-block;
+    width: 81%;
+    text-align: center;
+    border-radius: 8px;
+    background: #fff;
+}
+.slider-control button{
+    width: 60px;
+    margin-right: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+.item12 input{
+    width: 90%;
+}
+.pop-btn{
+    display: inline-block;
+    float: right; 
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    border: none;
+    background: url(../images/gnb05.png) no-repeat;
+    background-size: contain;
+    font-size: 0;
+}
+.toastui-chart-wrapper canvas{
+    width: 240px !important;
+    height: auto !important;
+}
+.con-top{
+    height: 280px;
+    min-width: 900px;
+}
+.vehicleDtlInfo:last-child{
+    margin-right: 0;
+}
+#gaugeChart{
+    display: inline-block;
+    width: 100%;
+    height: 270px;
+}
+.graphes{
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 270px;
+}
+.graphes .graph01{
+    position: absolute;
+    left: -40px;
+    top: 96px;
+}
+.graphes .graph02{
+    position: absolute;
+    right: -40px;
+    top: 96px;
+}
+.graphes .graph01 > div, .graphes .graph02 > div{
+    width: 200px !important;
+    height: 8px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background-color: #000 !important;
+}
+.graphes .graph01 > div span, .graphes .graph02 > div span{
+    display: none;
+}
+.graphes .graph01 > div > div{
+    background-color:#FF4105 !important ;
+}
+.graphes .graph02 > div > div{
+    background-color:#439A86 !important ;
+}
+.vehicleDtlInfo label, .ve-data{
+    font-family: 'lato';
+    font-weight: 500;
+    font-size: 25px;
+}
+.vehicleDtlInfo label.ve-title{
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+}
+.vehicleDtlInfo label:nth-child(2){
+    color: #197BBD;
+}
+.vehicleDtlInfo label:nth-child(4){
+    color: #439A86;
+}
+.vehicleDtlInfo label:nth-child(6){
+    color: #BB4430;
+}
+.con-bottom{
+    height: 40px;
+}
+.con-bottom > .row{
+    display: block;
+    flex-wrap:initial;
+    white-space: inherit;
+    min-width: 100%;
+}
+.ve-label{
+    display: inline-block;
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+.ve-label label{
+    display: inline-block;
+}
+.ve-btn, .ve-label label:nth-child(2){
+    width: 87px;
+    height: 36px;
+    margin-left: 12px;
+    background: #fff;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    line-height: 36px;
+}
+.ve-label:first-child label:nth-child(2){
+    color: #439A86;
+}
+.ve-label:nth-child(2) label:nth-child(2){
+    color: #439A86;
+}
+.ve-label:nth-child(3) label:nth-child(2){
+    color: #FF9B05;
+}
+.ve-label:nth-child(4) label:nth-child(2){
+    color: #3856D1;
+}
+.item23 .row{
+    display: inline-block;
+    flex-wrap: inherit;
+    min-width: 100%;
+}
+.item23 .row > div{
+    width: 100%;
+}
+.item23 .row > div .categoricSensorInfo{
+    display: inline-block;
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+label[class*="btnn"]{
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+}
+.btnn{
+    background-color: #fff;
+}
+.btnn-gr{
+    background-color: #439A86;
+}
+.btnn-re{
+    background-color: #FF4105;
+}
+.btnn-bl{
+    background-color: #3856D1;
+    color: #fff !important;
+}
+.btnn-ye{
+    background-color: #FF9B05;
+}
+/* 정보기준일 설정 */
+.ReactModalPortal{
+    position: relative;
+    z-index: 100;
+}
+.ReactModal__Overlay{
+    background-color: rgb(0, 0, 0, 80%) !important;
+}
+.ReactModal__Content{
+    display: inline-block;
+    inset:unset !important;
+    overflow:initial;
+    top: 50% !important;
+    left: 50% !important;                                                                                                                           
+    transform: translate(-50%,-50%) !important;
+    padding: 0 !important;
+    border: none !important;
+    background: #3A3A5A !important;
+    box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 15px !important;
+}
+.list-top.row{
+    min-width: 1100px;
+}
+.ReactModal__Content .pop02{
+    height: 840px;
+}.ReactModal__Content .pop02 > div{
+    width: 1160px;
+}
+.ReactModal__Content h4{
+    display: inline-block;
+    width: 100%;
+    padding: 27px 0;
+    text-align: center;
+    background: #464667;
+    box-shadow: 0px 7.59677px 18.9919px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    font-size: 19px;
+}
+.listbox{
+    width: 100%;
+    padding: 30px 45px;
+}
+.listbox .list-top, .listbox .list-bottom{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.listbox .list-bottom{margin-top: 30px;}
+.listbox .list-top .p-listbox{
+    float: left;
+    display: inline-block;
+    padding: 0;
+    margin-right: 18px;
+    border: none;
+}
+.listbox .list-top .p-listbox:last-child{
+    margin-right: 0;
+}
+.Listitem div{
+    color: #000;
+    font-size: 12px;
+}
+.p-listbox .p-listbox-list{
+    padding: 0 !important;
+}
+.p-listbox-list-wrapper{
+    max-height: none !important;
+    height: 228px;
+}
+.p-listbox .p-listbox-list li:first-child{
+    border-radius: 6px 6px 0 0 ;
+}
+.p-listbox .p-listbox-list .p-listbox-item.p-highlight{
+    background: #4A4592 !important;
+}
+.p-listbox .p-listbox-list .p-listbox-item.p-highlight div{
+    color: #fff;
+}
+.p-listbox .p-listbox-list li{
+    padding: 18px 5px !important;
+}
+.btn-ch{
+    width: 104.84px;
+    padding: 10px 0;
+    background: #2B2B42;
+    border: none;
+    box-shadow: 0px 0px 7.59677px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    color: #fff;
+}
+/* 스크롤바 */
+.p-listbox-list-wrapper::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 0 50% 50% 0 !important;
+}
+.p-listbox-list-wrapper::-webkit-scrollbar-thumb {
+    background: #757577;
+    border-radius:30px !important;
+}
+.p-listbox-list-wrapper::-webkit-scrollbar-track {
+    background-color: #FAFAFA;
+    border-radius: 0 50% 50% 0 !important;
+}
+/* 차량 센서데이터 선택 */
+.choose01{
+    display: inline-block;
+    width: 100%;
+    padding:0 33px;
+    margin-top: 10px;
+    text-align: right;
+}
+.choose01 h5, .choose01 button{
+    display: inline-block;
+}
+.choose01 h5{
+    font-size: 12px;
+    margin-right: 8px;
+}
+.choose01 button{
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 10px;
+    color: #000;
+    margin-right: 8px;
+}
+.choose01 button.btn-se{
+    width: 80px;
+}
+.choose01 button:hover{
+    color: #fff !important;
+    background: #4A4592 !important;
+}
+.choose02, .choose03{
+    display: inline-block;
+    width: 100%;
+    padding:0 33px;
+}
+.btn-to h3, .btn-bo h3{
+    font-size: 14px;
+}
+.choose03{
+    text-align: center;
+    margin-top: 10px;
+}
+.choose03 h5{
+    font-size: 0;
+}
+.choose01 .cho-select{
+    display: inline-block;
+    width: 62px;
+    height: 36px;
+    padding: 0 0 2px 0;
+    margin-right: 8px;
+    font-size: 10px;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    color: #000;
+}
+.choose01 .cho-select option{
+    color: #000;
+}
+.btn-bo{
+    margin-top: 10px;
+}
+.buttonList{
+    width: 149px;
+    height: 40px;
+    padding: 0 16px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    border: none;
+    border-radius: 8px;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 10px;
+    color: #000;
+}
+.buttonList.red{
+    background-color: #fff !important;
+    color: #000;
+    border: none;
+}
+.buttonList.blue{
+    color: #fff;
+    background: #4A4592 !important;
+}
+.buttonList::before{
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #2c2c44;
+    margin-right: 7px;
+    vertical-align: middle;
+}
+#ENGLOAD::before, #ENGOILPRS::before, #ENGTOK::before, #ENGWARNING::before, #ENGGOV::before, #TRANSOILHEAT::before, #ENGHEAT::before,
+#PN001::before, #PN004::before, #PN010::before, #PC001::before, #PC002::before, #PC010::before, #PC014::before
+{
+    background:  url(../images/icon/Engine.png) no-repeat;
+    background-size: contain;
+}
+#ENGGASTEMP::before, #PN003::before{
+    background: url(../images/icon/ExhaustPipe.png) no-repeat;
+    background-size: contain;
+}
+#ENGOILPRS::before, #FRTBREAKPRS::before, #BACKBREAKPRS::before, #PNEUMATIC::before, #_8BY8::before, #_6BY6::before, 
+#PN030::before, #PN031::before, #PC038::before, #PC039::before, #PC040::before{
+    background:  url(../images/icon/ScubaPressureGauge.png) no-repeat;
+    background-size: contain;
+}
+#OVERREQTOK::before, #RETDCHO::before, #RETDTOK::before, #REQRETDTOK::before, #RETDOILTEMP::before,
+#PN006::before, #PN017::before, #PN027::before, #PN028::before, #PN029::before
+{
+    background:  url(../images/icon/Settings.png) no-repeat;
+    background-size: contain;
+}
+#TRANSOILTEMP::before, #REQENDTOK::before, #TRANSOUTSPD::before, #TRANSINSPD::before, #ENGOVERCTLMD::before, #WINCHCLUTCH::before,
+#PN007::before, #PN011::before, #PN015::before, #PN016::before, #PC016::before, #PC049::before
+{
+    background:  url(../images/icon/Gearbox.png) no-repeat;
+    background-size: contain;
+}
+#FANAIRTEMP::before, #PN008::before{
+    background:  url(../images/icon/FanSpeed.png) no-repeat;
+    background-size: contain;
+}
+#VOLTAGE::before, #BATTSTA::before, #PN019::before, #PC018::before{
+    background: url(../images/icon/Voltage.png) no-repeat;
+    background-size: contain;
+}
+#_2LSPEED::before, #_2AVGSPEED::before, #_2RSPEED::before, #_3LSPEED::before, #_3RSPEED::before, #DMOTION::before, #PROMOTEWATER::before,
+#_1LOCK::before, #_2LOCK::before, #_3LOCK::before, #_4LOCK::before, #_1WHEEL::before, #_2WHEEL::before, #_3WHEEL::before, #_4WHEEL::before,
+#PN020::before, #PN021::before, #PN022::before, #PN023::before, #PN024::before, #PC021::before, #PC022::before, #PC023::before, #PC024::before, #PC025::before
+, #PC041::before, #PC042::before, #PC043::before, #PC044::before, #PC045::before
+{
+    background: url(../images/icon/CoordinateSystem.png) no-repeat;
+    background-size: contain;
+}
+#FANCOOLANTTEMP::before, #FANVVALDUTY::before, #PN025::before, #PC053::before{
+    background: url(../images/icon/AirConditioner.png) no-repeat;
+    background-size: contain;
+}
+#OVERPRS::before, #OVERPRSEQP::before, #PN034::before, #PC051::before{
+    background: url(../images/icon/JetEngine.png) no-repeat;
+    background-size: contain;
+}
+#INDUSTFIL::before, #AIRTANKL::before, #AIRMASTER::before, #PC003::before, #PC017::before, #PC032::before, #PC034::before{
+    background: url(../images/icon/AirShaft.png) no-repeat;
+    background-size: contain;
+}
+#COOLOIL::before, #FANMD::before, #COOLLANT::before, #PC004::before, #PC011::before, #PC015::before{
+    background: url(../images/icon/Cooling.png) no-repeat;
+    background-size: contain;
+}
+#AUTOTRANS::before, #REQTRANS::before, #SHIFTMODE::before, #NORSWITCH::before, #HIGHSWITCH::before, #LOWSWITCH::before, #PBIT::before,
+#PC005::before, #PC007::before, #PC026::before, #PC027::before, #PC028::before, #PC037::before, #PC052::before{
+    background: url(../images/icon/Unicast.png) no-repeat;
+    background-size: contain;
+}
+#EMERTRANSMD::before, #PC009::before{
+    background: url(../images/icon/FastDownload.png) no-repeat;
+    background-size: contain;
+}
+#ENGOILSTA::before, #BREAKOIL::before, #PC013::before, #PC033::before{
+    background: url(../images/icon/EngineOil.png) no-repeat;
+    background-size: contain;
+}
+#ABSOPER::before, #ABSWARNING::before, #ABSYAJI::before, #PC019::before, #PC020::before, #PC036::before{
+    background: url(../images/icon/ABS.png) no-repeat;
+    background-size: contain;
+}
+#PARKSTA::before, #PC029::before{
+    background: url(../images/icon/Parking.png) no-repeat;
+    background-size: contain;
+}
+#RETDBREAK::before, #PC031::before{
+    background: url(../images/icon/BrakeDiscs.png) no-repeat;
+    background-size: contain;
+}
+#AIRTANKR::before, #CTISAIRPRS::before, #FRTAIRTAND::before, #PN026::before, #PC035::before{
+    background: url(../images/icon/PressureGauge.png) no-repeat;
+    background-size: contain;
+}
+#LOCKRELEASE::before, #PC046::before{
+    background: url(../images/icon/lock-open-alt.png) no-repeat;
+    background-size: contain;
+}
+#LOWOILQTY::before, #LOWOILFILTER::before, #LOWOILPRS::before, #LOWOILTEMP::before, #PN032::before, #PN033::before, #PC047::before, #PC048::before{
+    background: url(../images/icon/propane-tank.png) no-repeat;
+    background-size: contain;
+}
+#BACKDOOROPEN::before, #PC050::before{
+    background: url(../images/icon/door-open.png) no-repeat;
+    background-size: contain;
+}
+#_BREAK::before, #PC030::before{
+    background: url(../images/icon/Pedal.png) no-repeat;
+    background-size: contain;
+}
+.buttonList.blue::before{
+    filter: brightness(0) invert(1) !important;
+}
+/* 데이터 수집> 기존센서데이터 */
+.condata_top{
+    display: block;
+    width: 100%;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.condata_top .btn-file{
+    float: left;
+    width: 155px;
+    margin-right: 25px;
+    padding: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background: #3A3A5A;
+    box-shadow: 1px 3px 11px rgb(0, 0, 0, 38%);
+    color: #fff;
+}
+.condata_top .btn-file:hover{
+    background: #4a4492;
+    color: #fff;
+}
+.condata_top .form-group {
+    float: left;
+    margin-bottom: 0;
+}
+.condata_top .form-group label{
+    display: inline-block;
+    border-left: 1px solid #fff;
+    padding: 0 15px;
+}
+.condata_top .form-group select{
+    width: 180px;
+    padding: 10px;
+    border-radius: 8px;
+}
+.dropzone{
+    min-height: 250px;
+    border: none;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    background: none;
+}
+.selected-file{
+    color: #fff;
+    font-weight: 500;
+    text-decoration: underline;
+}
+.btn-success{
+    color: #fff;
+    background-color: #439A86;
+}
+.btn.disabled, .btn:disabled{
+    opacity: 1;
+}
+.btn-success.disabled, .btn-success:disabled{
+    background-color: #28a745;
+}
+.alert.alert-secondary{
+    padding: 20px;
+    margin-bottom: none;
+    background: #3A3A5A;
+    box-shadow: 1px 3px 11px rgb(0 ,0 ,0 , 38%);
+    border: none;
+    border-radius: 8px;
+}
+.alert.alert-secondary ul{
+    margin-bottom: 0;
+    padding: 0 20px;
+}
+.alert.alert-secondary ul li{
+    padding-left: 15px;
+}
+.alert.alert-secondary ul li::marker{
+    content: "-";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* 이상치 경고 > 주기성 데이터 조회 */
+.data_header{
+    min-width: 1200px;
+}
+.button_area{
+    float: right;
+    width: 220px;
+}
+.button_area02{
+    float: right;
+}
+.button_area button, .button_area02 button{
+    display: inline-block;
+    width: 100px;
+    height: 35px;
+    border-radius: 15px;
+    border: none;
+    font-size: 15px;
+    color: #fff;
+    background-color: #474566;
+}
+.button_area button:hover{
+    background: #4a4492;
+}
+.button_area button:first-child{
+    margin-right: 20px;
+}
+.button_area div{
+    display: inline-block;
+}
+.table-div.table03{
+    min-width: 1200px;
+    min-height: 700px;
+}
+.table-div.table03 table tbody tr{
+    position: relative;
+}
+.table-div.table03 table tbody tr::after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96%;
+    height: 1px;
+    background-color: #d9d9d9;
+}
+.table-div.table03 table tbody tr:last-child:after{
+    display: none;
+}
+.btn-do{
+    float: right;
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    padding: 5px 45px;
+    border-radius: 30px;
+    border: none;
+    background-color: #b8b8b8;
+    color: #666;
+    font-size: 16px;
+    box-shadow: 5px 5px 25px rgb(0 0 0 / 30%);
+    transition: all ease-in-out 0.35s;
+}
+.btn-do:hover{
+    background-color: #4a4492;
+    color: #fff;
+}
+/* 고장진단 경고 > 상태 데이터 조회*/
+.search-Bar.contents04 > .form-group{
+    margin-right: 50px;
+}
+.datepicker-div .form-datepic{
+    width: 380px;
+}
+.detepicker-div-start, .detepicker-div-end{
+    width: 170px; 
+    float: left;
+}
+.datepicker-div .form-datepic em{
+    display: inline-block;
+    float: left;
+    padding: 13px;
+    vertical-align: middle;
+    margin-bottom: 32px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.search-Bar .datepicker-div .form-datepic .react-datepicker-wrapper .react-datepicker__input-container::after{
+    top: 14px;
+    right: 20px;
+}
+/* 트리메뉴 */
+.Tree {
+    display: inline-block;
+    width: 17%;
+    min-width: 230px;
+    padding: 40px 10px;
+    background: #3A3A5A;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+.Tree.col-2{
+    flex: none !important;
+    max-width: none !important;
+}
+.Tree ul{
+    list-style: none;
+    font-family: 'Noto Sans KR';
+    text-align: left;
+}
+.rstm-tree-item{
+    border-bottom: none;
+    color: #fff;
+    font-family: 'Noto Sans KR';
+    font-size: 16px;
+}
+.rstm-tree-item:hover{
+    text-decoration: underline;
+}
+li .rstm-toggle-icon .rstm-toggle-icon-symbol{
+    font-size: 0;
+}
+.Opened li .rstm-toggle-icon .rstm-toggle-icon-symbol::before{
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 16px;
+    margin-right: 10px;
+    background: url(../images/gnb-sub.png) no-repeat;
+    transform: rotate(180deg);
+}
+.Closed li .rstm-toggle-icon .rstm-toggle-icon-symbol::before{
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background: url(../images/gnb-sub.png) no-repeat;
+    background-position-y: 4px;
+}
+.tree-item-group ul.index1 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol{
+    display: inline-block;
+    width: 19px;
+    height: 18px;
+    margin-right: 10px;
+    background: url(../images/symbol/sy01.png) no-repeat;
+    background-size: contain;
+}
+.tree-item-group ul.index2 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol{
+    display: inline-block;
+    width: 19px;
+    height: 18px;
+    margin-right: 10px;
+    background: url(../images/symbol/sy02.png) no-repeat;
+    background-size: contain;
+}
+.tree-item-group ul.index3 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background: url(../images/symbol/sy03.png) no-repeat;
+    background-position-x: 2px;
+    background-size: contain;
+}
+.tree-item-group ul.index1 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before,
+.tree-item-group ul.index2 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before,
+.tree-item-group ul.index3 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before{
+    display: none;
+}
+.rstm-tree-item-level2{
+    padding-left: 3.25rem !important;
+}
+.Opened .rstm-tree-item-level3::before,
+.Closed .rstm-tree-item-level3::before
+{
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-bottom: 4px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: #fff;
+}
+.tree-item-group{
+    padding-left: 0;
+}
+.rstm-tree-item-level3{
+    padding-left: 6rem !important;
+    padding-top: 0 !important;
+}
+/* 그래프컨텐츠 */
+.sgraph > div{
+    display: inline-block;
+    width:25%;
+    padding: 25px 0;
+    color: #fff;
+    text-align: center;
+}
+.sgraph > div svg g text{
+    color: #fff;
+    fill: #999 !important;
+    font-family: 'Noto Sans KR' !important;
+    font-weight: 500 !important;
+}
+.sgraph > div svg g line{
+    opacity: 0;
+}
+.sgraph > div svg > g > g:nth-child(2) line:first-child{
+    opacity: 1;
+    stroke: #000;
+    stroke-width: 1;
+}
+.sgraph > div svg g rect{
+    fill: #d9d9d9 !important;
+    position: relative; 
+}
+.sgraph > div svg g rect:hover {
+    fill: #fff !important;
+}
+.graph-box div > div{
+    display: inline-block;
+    border-radius: 8px;
+    background-color: #000;
+}
+.graph-box div > div div {
+    display: inline-block;
+    border-radius: 6px !important;
+    background-color: #000 !important;
+}
+.graph-box div > div div::after{
+    content: '';
+    position: absolute;
+    border-top: 10px solid #000;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    bottom: -9px;
+    left: 5px;
+}
+.graph-box div > div div div span:first-child{
+    display: none !important;
+}
+.graph-box div > div div div span:last-child{
+   color: #fff;
+   font-size: 0;
+}
+.graph-box div > div div div strong{
+    color: #fff;
+    font-size: 12px;
+}
+/* 테이블컨텐츠 */
+.table-div{
+    overflow: hidden;
+    padding-bottom: 40px;
+    background-color: #3A3A5A;
+    border-radius: 20px;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+}
+.table-div table{
+     width:100%;
+     height: 100%;
+     border: none;
+     text-align: center;
+ }
+ .table-div table thead tr , .table-div table tbody tr, .table-div table table tr{
+    border: none;
+ }
+ thead tr th, tbody tr td{
+    font-size: 18px;
+    text-align: center;
+    border: none;
+}
+.table-div table thead tr:first-child{
+    background: #464667;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+.table-div table thead tr:first-child th{
+    padding: 30px 0;
+}
+.table-div table thead tr:last-child th{
+    padding: 25px 0;
+}
+.table-div table tbody tr{
+   line-height: 3;
+}
+.table-div table tbody tr td{
+    padding: 15px 5px 15px 10px;
+    font-size: 14px;
+}
+.table-div table tbody tr td .btn{
+    width: 85px;
+    margin-top: -24px;
+    padding: 20px 0;
+    line-height: 0;
+} 
+.table-div table tbody tr > td:nth-child(3){
+    border-left: 1px solid #d9d9d9;
+}
+.table-div table tbody tr > td:nth-child(5){
+    border-left: 1px solid #d9d9d9;
+}
+td .form-group{
+    width: 100%;
+    color: #000;
+}
+td .form-group select{
+    width: 80%;
+    padding: 10px;
+    color: #000;
+    border-radius: 0;
+}
+td .form-group option{
+    color: #000;
+}
+td input.form-control{
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 0;
+}
+.amvh-div{
+    display: inline-block;
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    margin-left: 30px;
+    border: 1px solid #999;
+    border-radius: 8px;
+}
+.amvh-button button{
+    padding: 19px 30px;
+    margin-top: 25px;
+    line-height: 0;
+    border: none;
+    color: #fff;
+}
+.amvh-button button:nth-child(2){
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.amvh-button button:hover{
+    color: #fff;
+}
+.amvh-button .btn-light:nth-child(1){
+    background-color: #28a745;
+}
+.amvh-button .btn-light:nth-child(2){
+    background-color: #3128a7;
+}
+.amvh-button .btn-light:nth-child(3){
+    background-color: #c82333;
+}
+.btn-light.disabled, .btn-light:disabled{
+    background-color: #b0b0b0!important;
+    color: #5c5c5c;
+}
+.amvh-button .btn-danger{
+    background-color: #c82333;
+}
+.btn-light:not(:disabled):not(.disabled).active, .btn-light:not(:disabled):not(.disabled):active, .show>.btn-light.dropdown-toggle {
+    color: #fff;
+    background-color: #dae0e5;
+    border-color: #d3d9df;
+}
+/* 날짜 */
+.react-datepicker__tab-loop{
+    width: 100%;
+    position: absolute;
+}
+.detepicker-div form .form-group{
+    max-width: inherit;
+}
+.sub-date .react-datepicker-wrapper .react-datepicker__input-container input{
+    float: right;
+    width: 180px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 50px;
+    background-color: #464667;
+    text-align: center;
+    box-shadow: 5px 5px 25px rgb(0 ,0, 0 ,30%);
+    cursor: pointer;
+}
+.react-datepicker{
+    border: 1px solid #4a4492;
+    box-shadow: 5px 5px 25px rgb(0 ,0, 0 ,30%);
+}
+.sub-date .react-datepicker-wrapper .react-datepicker__input-container input:focus{
+    outline:none;
+    background-color: #4a4492;
+}
+.sub-date .react-datepicker__tab-loop .react-datepicker-popper[data-placement^=bottom]{
+    position: inherit !important;
+    inset: none;
+    transform: translate3d(0,0,0) !important;
+    right: 0 !important;
+}
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle{
+    transform: translate3d(160px, 0px, 0px) !important;
+}
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before{
+    border-bottom-color: #4a4492;
+}
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle::after{
+    border-bottom-color: #4a4492;
+}
+.react-datepicker__header{
+    background-color: #4a4492;
+}
+.react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header{
+    color: #fff;
+}
+.react-datepicker__day-name{
+    color: #fff;
+}
+.react-datepicker__day--selected:hover, .react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover, .react-datepicker__month-text--selected:hover, .react-datepicker__month-text--in-selecting-range:hover, .react-datepicker__month-text--in-range:hover, .react-datepicker__quarter-text--selected:hover, .react-datepicker__quarter-text--in-selecting-range:hover, .react-datepicker__quarter-text--in-range:hover, .react-datepicker__year-text--selected:hover, .react-datepicker__year-text--in-selecting-range:hover, .react-datepicker__year-text--in-range:hover{
+    background-color: #4a4492;
+}
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range{
+    background-color: #4a4492;
+}
+.react-datepicker__navigation{
+    height: 44px;
+}
+/* 데이터수집*/
+.contents03 .form-group{
+    display: inline-block;
+    width: 100%;
+    vertical-align:middle;
+}
+.contents03 .form-group label{
+    font-size: 18px;
+    font-weight: 500;
+    float: left;
+}
+.contents03 .form-group select{
+    float: left;
+    padding: 6px 80px;
+    margin-top: 5px;
+    margin-left: 30px;
+    color: #333;
+}
+.btn05{
+    color: #fff;
+    border: none;
+    background-color: #4a4492;
+}
+
+/* text-color */
+.blue{color: #197BBD;}
+.green{color: #439A86;}
+.red{color: #BB4430;}
+.yellow{color:#FF9B05;}
+/* margin */
+.mt24{margin-top: 24px;}
+.mt30{margin-top: 30px;}
+.mr20{margin-right: 20px;}
+/* 반응형 */
+@media (min-width:1200px){
+    .container{max-width: none;}
+}
+@media (min-width:992px){
+    .container{max-width: none;}
+    
+}
+@media (min-width:768px){
+    .container{max-width: none;}
+
+   
+}
+@media (min-width:576px){
+    .container{max-width: none;}
+    
+    
+} 
+@media (min-width:350px){
+    .container{max-width: none;}
+    
+} 
+
+
+
+
+
+

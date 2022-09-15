@@ -1,0 +1,51 @@
+import axios from "axios";
+import authHeader from "../login/auth-header";
+import { BASE_URL } from "../url";
+
+const API_URL = BASE_URL +"/api/board";
+
+class TutorialDataService {
+  getAll() {
+    return axios.get( API_URL + "/tutorials", { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  get(id) {
+    return axios.get( API_URL + `/tutorials/${id}`, { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  create(data) {
+    return axios.post( API_URL + "/tutorials", data , { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  update(id, data) {
+    return axios.put( API_URL + `/tutorials/${id}`, data , { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  delete(id) {
+    return axios.delete( API_URL + `/tutorials/${id}` , { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  deleteAll() {
+    return axios.delete( API_URL + `/tutorials` , { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  findByTitle(title) {
+    return axios.get( API_URL + `/tutorials?title=${title}` , { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  //김상희 추가
+  
+  getVehicleData(id) {
+    return axios.get( API_URL + `/searchEachInfo/${id}`, { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  getAllVehicleData() {
+    return axios.get(API_URL + `/searchEachInfo/getAll`, {headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  getAllFileWithId(id) {
+    return axios.get(API_URL + `/searchEachInfo/getFile/${id}` , {headers: authHeader(), "Content-type": "application/json", });
+  }
+}
+
+export default new TutorialDataService();

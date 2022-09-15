@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.SdaMapper">
+
+	<select id="findSdaByBrgdbnCode" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select *
+		from SDA
+		where brgdbncode = #{brgdbncode}
+	</select>
+
+	<select id="findSdaByDivCode" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select *
+		from SDA
+		where divscode = #{divscode}
+	</select>
+	
+	<select id="findSdaAll" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select *
+		from SDA
+	</select>
+	
+	<select id="findSdalAllPaging" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select *
+		from SDA
+		order by sdaid
+		limit #{page}, #{pageSize}
+	</select>
+	<select id="countSdaAll" resultType="Integer">
+		select count(sdaid)
+		from SDA
+	</select>
+	
+	<select id="countSdaByDivCode" parameterType="String" resultType="Integer">
+		select ifnull(count(divscode),0)
+		from SDA
+		where divscode = #{divscode}
+	</select>
+	
+	<select id="countSdaByBrgdbnCode" parameterType="String" resultType="Integer">
+		select ifnull(count(brgdbncode),0)
+		from SDA
+		where brgdbncode = #{brgdbncode}
+	</select>
+	
+	<select id="findSdaBySdaid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select *
+		from SDA
+		where sdaid = #{sdaid}
+	</select>
+	
+	<insert id="insertSda" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		insert into SDA (sdaid, sdanm, divs, rgstno, sn, acqdt, mfdt, 
+						crtdt, crtor, mdfcdt, mdfr, brgd, bn, 
+						rgstdt, sdatype, divscode, brgdbncode)
+		values(#{sdaid}, #{sdanm}, #{divs}, #{rgstno}, #{sn}, #{acqdt}, #{mfdt},
+			   #{crtdt}, #{crtor}, #{mdfcdt}, #{mdfr}, #{brgd}, #{bn},
+			   #{rgstdt}, #{sdatype}, #{divscode}, #{brgdbncode})
+	</insert>
+	
+	
+	<update id="updateSda" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		update SDA
+		set sdanm = #{sdanm}, divs = #{divs}, brgd = #{brgd}, bn = #{bn}, rgstno = #{rgstno},
+			sn = #{sn}, mfdt = #{mfdt}, rgstdt = #{rgstdt}, acqdt = #{acqdt}, 
+			sdatype = #{sdatype}, crtdt = #{crtdt}, crtor = #{crtor}, mdfcdt = #{mdfcdt},
+			mdfr = #{mdfr}, divscode = #{divscode}, brgdbncode = #{brgdbncode}
+		where sdaid = #{sdaid} 
+	</update>
+	
+	<select id="getEachInfo" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select * 
+		from SDA 
+		where sdaid = #{id} 
+	</select>
+	<select id="getAllVehicleInfo" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda"> 
+		select * 
+		from SDA 
+	</select>
+	
+	<select id="findByDivsCodeGroup" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select *
+		from SDA
+		where divscode = #{divscode}
+		group by divscode
+	</select>
+	
+	<select id="findByBrgdbnCodeGroup" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Sda">
+		select *
+		from SDA
+		where brgdbncode = #{brgdbncode}
+		group by brgdbncode
+	</select>
+</mapper>

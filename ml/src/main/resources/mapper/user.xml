@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.security.jwt.mapper.UserMapper">
+    <insert id="insertUser" parameterType="kr.gaion.armoredVehicle.web.security.jwt.model.User">
+         insert into USERS(id, username, password, email
+         		, usrth, phonenum, mltrank, mltnum, mltunit)
+         values(#{id}, #{username}, #{password}, #{email}
+         		, #{usrth}, #{phonenum}, #{mltrank}, #{mltnum}, #{mltunit})
+    </insert>
+    
+    <select id="findByUsername" parameterType="String" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.User">
+    	select *
+    	from USERS
+    	where username = #{username}
+    </select>
+    
+    <select id="findById" parameterType="String" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.User">
+    	select *
+    	from USERS
+    	where id = #{id}
+    </select>
+    
+    <select id="findUserList" parameterType="Integer" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.User">
+    	select *
+		from USERS
+		limit #{page}, #{pageSize}
+    </select>
+    
+    <select id="countUsers" resultType="Integer">
+    	select ifnull(count(*),0)
+    	from USERS
+    </select>
+    
+    <update id="updateUser" parameterType="kr.gaion.armoredVehicle.web.security.jwt.model.User">
+    	update USERS
+    	set username = #{username},
+    		email = #{email}, usrth = #{usrth},
+    		phonenum = #{phonenum}, mltrank = #{mltrank},
+    		mltnum = #{mltnum}, mltunit = #{mltunit}		
+    		<if test='password != null'>
+    		 ,password = #{password}
+    		</if>
+		where id = #{id}
+    </update>
+    
+    <delete id="deleteUser" parameterType="String">
+    	delete from USERS where id=#{id}
+    </delete>
+</mapper>

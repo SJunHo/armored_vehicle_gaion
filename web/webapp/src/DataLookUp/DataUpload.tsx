@@ -12,10 +12,9 @@ import { DataFormat, ImportESDataFromFileInput, OpenApiContext } from "../api";
 import Select2 from "react-select";
 import { InputWrapper } from "../common/Common";
 import Spinner from "react-bootstrap/Spinner";
-import Select from "react-select/src/Select";
+import Select from "react-select";
 
 export const DataUpload: React.FC = () => {
-  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("upload");
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -28,7 +27,7 @@ export const DataUpload: React.FC = () => {
         headers={[
           {
             id: "upload",
-            title: t("pp.txt.fileUpload"),
+            title: "파일 업로드",
           },
           // {
           //   id: "import",
@@ -44,7 +43,7 @@ export const DataUpload: React.FC = () => {
           onUploadFile={(files) => {
             setUploading(true);
             datasetDatabaseControllerApi
-              ?.uploadCSVFileAndImportDB(files)
+              ?.uploadCSVFileAndImportDB('', files)
               .then(() => setUploadedFiles(files))
               .finally(() => setUploading(false));
           }}
@@ -70,14 +69,13 @@ const UploadPage: React.FC<{
   onUploadFile: (files: File[]) => any;
   uploading: boolean;
 }> = ({ onUploadFile, uploading }) => {
-  const { t } = useTranslation();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedDataType, setSelectedDataType] = useState<any>(null);
 
 
   return (
     <>
-      <Section title={t("pp.fu.up.subtitle")}>
+      <Section title={"학습데이터 업로드"}>
         <Form>
           <Row className="d-flex mt-2 mb-4">
             <Col md={2}>
@@ -117,7 +115,7 @@ const UploadPage: React.FC<{
                   aria-hidden="true"
                 />
               )}
-              {t("ml.common.btn.uf")}
+              파일 업로드
             </Button>
           </Col>
         </Row>
