@@ -2,7 +2,7 @@
 
 import { connect } from "react-redux";
 import React, { Component } from 'react';
-// import "./searchEachInfo.css";
+import "./searchEachInfo.css";
 
 class Categoric extends Component {
     constructor(props) {
@@ -17,6 +17,7 @@ class Categoric extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
         
         this.setState({
             categoricSensor : this.props.data,
@@ -29,11 +30,12 @@ class Categoric extends Component {
         })
     }
     componentDidUpdate(){
+        console.log(this.props);
     }
 
     categoric(el){      //데이터 판별을 위한 함수
-        // console.log(this.props.chartData.length);
-        // console.log(this.props.idx);
+        console.log(this.props.chartData.length);
+        console.log(this.props.idx);
         let value;
         value = this.props.chartData[this.props.idx];
 
@@ -47,7 +49,9 @@ class Categoric extends Component {
 
         switch(el.el){
             case 'ENGWARNING' :
-                value = value.ENGWARNING;                
+                value = value.ENGWARNING;
+                console.log(value);
+                
                 if(value === 0){
                     return (
                         <label className="btnn-gr">정상</label>
@@ -235,7 +239,7 @@ class Categoric extends Component {
                 }
 
             case 'FANVVALDUTY':
-                value = value.FANVVALDUTY;
+                value = value.TRANSOILHEAT;
                 return (
                     <label className="btnn-gr">{value}</label>
                 )
@@ -681,7 +685,6 @@ class Categoric extends Component {
             
             default:
                 value = value.PBIT;
-
                 return(
                     <label className="btnn">{value}</label>
                 )
@@ -691,7 +694,7 @@ class Categoric extends Component {
 
     beforeStart(){  //데이터가 들어오기전 센서만 선택되었을때 null값 세팅
         return(
-            <label className="btnn">null</label>
+            <label className="btnn">-</label>
         );
     }
     
@@ -700,7 +703,7 @@ class Categoric extends Component {
             <div>
             {
                 this.state.categoricSensor.map((el, idx) => {
-
+                    console.log(el);
                     let id=el+"_"+idx;
                     return(
                         <div id={id} key={el} className="categoricSensorInfo">

@@ -1,8 +1,6 @@
-
-
 import { connect } from "react-redux";
 import React, { Component } from 'react';
-import vehicleStatissticsService from "../../../services/analysis/vehicleStatics.service";
+import vehicleStatissticsService from "../../../services/analysis/vehicleStatistics.service";
 
 import SensorBtn from "./createSensorBtn.component";
 import BookmarkBtn from "./bookmarkBtn.component";
@@ -109,6 +107,9 @@ class ChoiceSensorModal extends Component {
         .catch((e) => {
             console.log(e);
         })
+
+
+
     }
 
     selectNummericThings(res) {         //수치형 버튼이 클릭되었을때 배열에 넣음  
@@ -199,7 +200,7 @@ class ChoiceSensorModal extends Component {
                 
                 this.props.func(param);
             }else{
-                alert("버튼을 선택하세요 1개이상");
+                alert("수치형, 범주형 모두 1개 이상 선택");
             }
         }else {
             if(this.state.numBookmarkEng.length > 0 && this.state.catBookmarkEng.length > 0) {
@@ -215,6 +216,7 @@ class ChoiceSensorModal extends Component {
         }
         
     }
+
     getBookmarkBtnEngKor(res){
         console.log(res);
         let arrayEng = [];
@@ -244,7 +246,6 @@ class ChoiceSensorModal extends Component {
             })
         }
     }
-
 
     clickSearchBtn(res) {     //즐찾버튼 1~5클릭시 
         let grpId = Number(res.target.value);
@@ -353,7 +354,6 @@ class ChoiceSensorModal extends Component {
         }
     }
 
-
     searchBookmark(grpId){   //즐겨찾기 ) 선택된 (grpid)와 아이디(userid) 값으로 가져온 ?번항목의 즐겨찾기 데이터 조회하기버튼   
         const {isClicked1, isClicked2, isClicked3, isClicked4, isClicked5} = this.state;
         if(!isClicked1 && !isClicked2 && !isClicked3 && !isClicked4 && !isClicked5) {
@@ -406,11 +406,6 @@ class ChoiceSensorModal extends Component {
         })
         
     }
-
-
-
-
-
 
     setNumBookmarkData(res) {       //즐겨찾기 ) 수치형데이터를 클릭시 저장하는 함수
         console.log(res);
@@ -516,7 +511,8 @@ class ChoiceSensorModal extends Component {
         console.log(this.state.setNumBookmarks);
 
         if(this.state.setCatBookmarks.length === 0 && this.state.setNumBookmarks.length === 0){         //선택된 버튼이 없을때,
-            alert("버튼을 모두 1개 이상 선택");
+            alert("수치형, 범주형 모두 1개 이상 선택");
+
 
         }else if(this.state.setCatBookmarks.length > 0 
             && this.state.setNumBookmarks.length > 0){  //선택된 버튼이 있을때
@@ -544,12 +540,13 @@ class ChoiceSensorModal extends Component {
 
             }
     }
+
     render() {
         const {isClicked1, isClicked2, isClicked3, isClicked4, isClicked5} = this.state;
         return (
             <div className="pop02">
-                <h4>choiceSensor !!!</h4>
-                <div>
+                <h4>차량 센서데이터 선택</h4>
+                <div className="choosebox">
 					<div className="choose01">
 						<h5>즐겨찾기</h5>
 						<button onClick={this.clickSearchBtn} value='1' style={{backgroundColor: isClicked1 ? '#4A4592' : '#fff' , color: isClicked1 ? '#fff' : '#000'}}>1</button>
@@ -564,8 +561,9 @@ class ChoiceSensorModal extends Component {
                                     this.state.BookmarkBtn
                                     ?
                                     <>
+                                    
+                                    <h3>수치형(5개까지만 선택가능)</h3>
                                     <div className="btn-to">
-	                                    <h3>수치형</h3>
 	                                    {
 	                                        this.state.columns1 &&
 	                                        this.state.columns1.map((element) => {
@@ -578,8 +576,9 @@ class ChoiceSensorModal extends Component {
 	                                        })
 	                                    }
                                     </div>
+                                    
+									<h3>범주형(5개까지만 선택가능)</h3>
 									<div className="btn-bo">
-										<h3>범주형</h3>
 										{
 											this.state.columns2 &&
 											this.state.columns2.map((element) => {
@@ -594,8 +593,9 @@ class ChoiceSensorModal extends Component {
                                     </>
                                     : 
                                     <>
+                                    
+									<h3>수치형(5개까지만 선택가능)</h3>
 									<div className="btn-to">
-										<h3>수치형</h3>
 										{
 											this.state.columns1 &&
 											this.state.columns1.map((element) => {
@@ -607,8 +607,9 @@ class ChoiceSensorModal extends Component {
 											})
 										}
 									</div>
+                                    
+									<h3>범주형(5개까지만 선택가능)</h3>
 									<div className="btn-bo">
-										<h3>범주형</h3>
 										{
 											this.state.columns2 &&
 											this.state.columns2.map((element) => {
@@ -625,7 +626,6 @@ class ChoiceSensorModal extends Component {
                             </div>
                             <div className="choose03">
                                 <h5>초기화</h5>
-                                {/* <button onClick={this.resetDisabled}>초기화</button> */}
                                 <button className="btn-ch" onClick={this.finishChoice} >완료</button> 
                             </div>
                 </div>
