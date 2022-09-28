@@ -10,6 +10,7 @@ class AuthService {
         if (response.data.accessToken) {
           console.log(response.data);
           localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("authToken", JSON.stringify(response.data.accessToken));
         }
 
         return response.data;
@@ -18,6 +19,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
   }
 
   register(id, username, email, password, usrth, phonenum, mltrank, mltnum, mltunit) {

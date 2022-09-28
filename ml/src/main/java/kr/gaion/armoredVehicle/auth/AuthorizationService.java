@@ -16,7 +16,9 @@ public class AuthorizationService {
   private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
   public AuthDTO.AuthResponseDTO loginUser(AuthDTO.AuthRequestDTO authRequestDTO) throws AuthenticationException {
-    Optional<User> user = userRepository.findById(authRequestDTO.username);
+    // Optional<User> user = userRepository.findById(authRequestDTO.username);
+    // username -> id 변경
+    Optional<User> user = userRepository.findById(authRequestDTO.id);
     if (user.isEmpty() || !bCryptPasswordEncoder.matches(authRequestDTO.password, user.get().getPassword())) {
       throw new AuthenticationException("Invalid username and password");
     }

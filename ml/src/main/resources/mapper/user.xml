@@ -20,7 +20,7 @@
     	where id = #{id}
     </select>
     
-    <select id="findUserList" parameterType="Integer" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.User">
+    <select id="findUserList" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.User">
     	select *
 		from USERS
 		limit #{page}, #{pageSize}

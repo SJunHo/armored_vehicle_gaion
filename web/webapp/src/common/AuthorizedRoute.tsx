@@ -17,7 +17,8 @@ export const AuthorizedRoute: React.FC<RouteProps> = ({
 
   useEffect(() => {
     if (!AuthProvider.isAuth()) {
-      history.push("/auth/login");
+      //loginPage이동 수정 "/auth/login" -> "/"
+      history.push("/");
     }
   }, [history]);
 

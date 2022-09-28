@@ -17,15 +17,7 @@ import PartsReplacementCycle from "./components/analysis/StatisticalInfo/partsre
 import LearningData from "./components/analysis/LearningDataCollection/learningdata.component";
 
 /*모델관리*/
-import { MeContextProvider } from "./api/MeContext";
-import { AuthorizedRoute } from "./common/AuthorizedRoute";
 import { OpenApiContextProvider } from "./api";
-/*고장진단 모델*/
-import RandomForest from "./components/analysis/FaultDiagnosisModel/randomforest.component";
-import SupportVectorMachine from "./components/analysis/FaultDiagnosisModel/supportvectormachine.component";
-import MultilayerNeuralNetworks from "./components/analysis/FaultDiagnosisModel/multilayerneuralnetworks.component";
-import IsolateRamdhamForest from "./components/analysis/FaultDiagnosisModel/isolateramdhamforest.component";
-import LogicicRegession from "./components/analysis/FaultDiagnosisModel/logicicregression.component";
 
 /*잔존수명예지 모델*/
 import LinearRegression from "./components/analysis/MRLF/linearregression.component";
@@ -55,6 +47,8 @@ import PublicRoute from "./components/login/PublicRoute";
 import PrivateRoute from "./components/login/PrivateRoute";
 
 import LogOutComp from "./components/login/logout.component";
+
+import { AuthorizedRoute } from "./common/AuthorizedRoute";
 import {DataUpload} from "./DataLookUp/DataUpload";
 import {ModelManagement} from "./ModelManagement/ModelManagement";
 import {Dashboard} from "./Dashboard/Dashboard";
@@ -64,7 +58,7 @@ import {SavedPredictedResult} from "./SavedResultPrediction/SavedPredictedResult
 import {FeatureSelection} from "./ModelManagement/FeatureSelection";
 import {DatasetManagement} from "./DatasetManagement/DatasetManagement";
 import {DataLookUpList} from "./DataLookUp/DataLookUpList";
-
+import { MeContextProvider } from "./api/MeContext";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -134,10 +128,46 @@ class App extends Component {
             {/*<PrivateRoute exact path="/ml/mlp" component={MultilayerNeuralNetworks} />*/}
             {/*<PrivateRoute exact path="/ml/if" component={IsolateRamdhamForest} />*/}
             {/*<PrivateRoute exact path="/ml/lr" component={LogicicRegession} />*/}
-            <OpenApiContextProvider>
+            {/* <PrivateRoute path="/dashboard" exact component={Dashboard} />
+            <PrivateRoute
+              path="/data/fault_diagnosis_result_history"
+              component={PredictedResults}
+            />
+            <PrivateRoute
+              path="/data/fault_diagnosis_user_input"
+              component={PredictedResultsUserInput}
+            />
+            <PrivateRoute
+              path="/data/fault_diagnosis_history_page"
+              component={SavedPredictedResult}
+            />
+
+            <PrivateRoute
+              path="/ml/fs/:algorithmName"
+              exact
+              component={FeatureSelection}
+            />
+            <MeContextProvider>
+              <OpenApiContextProvider>
+            <PrivateRoute
+              path="/ml/:algorithmName/:tab"
+              component={ModelManagement}
+            />
+            <Route
+              path="/ml/:algorithmName"
+              exact
+              component={ModelManagement}
+            />
+            </OpenApiContextProvider>
+            </MeContextProvider>
+            <Route path="/dataset" component={DatasetManagement} />
+
+            <PrivateRoute path="/data/lookup" component={DataLookUpList} />
+            <PrivateRoute path="/data/upload" component={DataUpload} /> */}
+            {/* <OpenApiContextProvider>
               <PrivateRoute path="/ml/:algorithmName/:tab" component={ModelManagement} />
               <PrivateRoute path="/ml/:algorithmName" exact component={ModelManagement} />
-            </OpenApiContextProvider>
+            </OpenApiContextProvider> */}
 
 
 
@@ -159,6 +189,48 @@ class App extends Component {
               {/*전자 매뉴얼*/}
             <PrivateRoute exact path="/electronmanual" component={Electronmanual} />
           </Switch>
+        <MeContextProvider>
+        <OpenApiContextProvider>
+          <div className="content-wrapper">
+            <Switch>
+              <AuthorizedRoute path="/dashboard" exact component={Dashboard} />
+              <AuthorizedRoute
+                path="/data/fault_diagnosis_result_history"
+                component={PredictedResults}
+              />
+              <AuthorizedRoute
+                path="/data/fault_diagnosis_user_input"
+                component={PredictedResultsUserInput}
+              />
+              <AuthorizedRoute
+                path="/data/fault_diagnosis_history_page"
+                component={SavedPredictedResult}
+              />
+
+              <AuthorizedRoute
+                path="/ml/fs/:algorithmName"
+                exact
+                component={FeatureSelection}
+              />
+
+              <AuthorizedRoute
+                path="/ml/:algorithmName/:tab"
+                component={ModelManagement}
+              />
+              <Route
+                path="/ml/:algorithmName"
+                exact
+                component={ModelManagement}
+              />
+              <Route path="/dataset" component={DatasetManagement} />
+
+              <AuthorizedRoute path="/data/lookup" component={DataLookUpList} />
+              <AuthorizedRoute path="/data/upload" component={DataUpload} />
+              <AuthorizedRoute path="/" exact component={DataUpload} />
+            </Switch>
+          </div>
+        </OpenApiContextProvider>
+      </MeContextProvider>
         </Router>
       </div>
     );

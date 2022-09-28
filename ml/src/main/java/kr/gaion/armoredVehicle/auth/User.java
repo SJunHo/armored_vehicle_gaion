@@ -9,14 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-//@Table(name = "USERS")
-@Table(name = "users")
+@Table(name = "USERS")
+//@Table(name = "users")
 @Getter
 @Setter
 public class User {
   @Id
   @Column(nullable = false, unique = true)
-  private String username;
+  private String id;
 
   @Column(nullable = false)
   private String password;

@@ -20,7 +20,7 @@ import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
 import kr.gaion.armoredVehicle.web.analysis.service.UserManagementService;
 import kr.gaion.armoredVehicle.web.security.jwt.model.User;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:8083")
 @RestController
 @RequestMapping("/api/user")
 public class UserManagementController {

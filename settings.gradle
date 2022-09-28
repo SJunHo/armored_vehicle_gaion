@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'armoredVehicle'
+rootProject.name = 'armoredvehicle_gaion_analysis'
 
 include 'ml'
 include 'web'

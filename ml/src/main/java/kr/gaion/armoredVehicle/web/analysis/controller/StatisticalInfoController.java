@@ -36,15 +36,15 @@ public class StatisticalInfoController {
 	@Autowired
 	StatisticalTableService sTableService;
 	
-//	@GetMapping("/info")
-//	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-//	public Map<String, Object> getInfo(){
-//
-//		JSONObject json = treeInfoService.findTreeInfo();
-//		Map<String, Object> map = new HashMap<String,Object>();
-//		map.put("tree", json);
-//		return map;
-//	}
+	@GetMapping("/info")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+	public Map<String, Object> getInfo(){
+
+		JSONObject json = treeInfoService.findTreeInfo();
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("tree", json);
+		return map;
+	}
 	
 	@GetMapping("/graph/{level}/{url}/{date}")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")

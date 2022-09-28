@@ -179,13 +179,13 @@ class HeaderComp extends Component {
                 menuVariant="dark"
                 className={ 
                   this.state.selectedShow === true &&
-                  (location.includes("/linearregression") ? "selected" 
-                  : location.includes("/rasoregression") ? "selected" : "")}
+                  (location.includes("/ml/linear") ? "selected" 
+                  : location.includes("/ml/lasso") ? "selected" : "")}
                 onClick={(e) => this.handleSelectedNavbar(e)}
               >
-                <NavDropdown.Item href="/linearregression">선형 회귀</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/linear">선형 회귀</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/rasoregression">라소 회귀</NavDropdown.Item>
+                <NavDropdown.Item href="/ml/lasso">라소 회귀</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown

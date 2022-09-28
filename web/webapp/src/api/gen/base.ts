@@ -18,7 +18,8 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 
-export const BASE_PATH = "http://localhost:8083".replace(/\/+$/, "");
+export const BASE_PATH = "http://localhost:8082".replace(/\/+$/, "");
+// localhost:port port번호 변경
 
 /**
  *

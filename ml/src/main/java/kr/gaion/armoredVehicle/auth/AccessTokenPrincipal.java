@@ -5,6 +5,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.testng.collections.Lists;
 
 import java.util.Collection;
 
@@ -21,7 +23,16 @@ public class AccessTokenPrincipal implements Authentication {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    // usrth에 따른 권한 설정
+    if("M".equals(user.getUsrth())){
+      return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_MODERATOR"));
+    }else if("A".equals(user.getUsrth())){
+      return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    }else if("N".equals(user.getUsrth())) {
+      return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_USER"));
+    }else {
+      return null;
+    }
   }
 
   @Override

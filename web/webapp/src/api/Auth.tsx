@@ -4,6 +4,7 @@ import { baseURL } from "./api";
 export type AuthData = {
   token: string;
   refreshToken: string;
+  accessToken: string;
 };
 
 class Auth {
@@ -22,7 +23,7 @@ class Auth {
       throw new Error("Invalid username or password");
     }
     // eslint-disable-next-line no-undef
-    localStorage.setItem("authToken", res.data.token);
+    localStorage.setItem("authToken", res.data.accessToken);
     // eslint-disable-next-line no-undef
     localStorage.setItem("authRefreshToken", res.data.refreshToken);
     return res.data;

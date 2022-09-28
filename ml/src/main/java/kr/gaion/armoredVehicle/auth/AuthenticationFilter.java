@@ -24,8 +24,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     final String requestTokenHeader = request.getHeader("Authorization");
     if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-      var decodedToken = jwtIssuer.verifyToken(requestTokenHeader.substring(7));
-      var user = this.userRepository.findById(decodedToken.getClaim("username").asString());
+      //var decodedToken = jwtIssuer.verifyToken(requestTokenHeader.substring(7));
+      // token에 "" 가 붙어서 생성된 token과 차이를 보여 replaceAll로 삭제
+      var decodedToken = jwtIssuer.verifyToken(requestTokenHeader.substring(7).replaceAll("\\\"", ""));
+      var user = this.userRepository.findById(decodedToken.getClaim("id").asString());
       if (user.isEmpty()) {
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Username or Password");
       }

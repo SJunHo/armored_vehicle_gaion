@@ -12,7 +12,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "FILEINFO_backup")
+//@Table(name = "FILEINFO_backup")
+// backup -> BACKUP 대문자 변경
+@Table(name = "FILEINFO_BACKUP")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

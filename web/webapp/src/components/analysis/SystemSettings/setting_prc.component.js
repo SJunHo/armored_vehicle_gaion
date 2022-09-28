@@ -151,7 +151,7 @@ class Setting_PRC extends Component {
                 </input>
                 </td>
                 <td>
-                <input type="input" className="form-control" name={"stdval"+index} defaultValue={item.prdval} onChange={(event)=>{this.onPrdValChange(event)}}>
+                <input type="input" className="form-control" name={"prdval"+index} defaultValue={item.prdval} onChange={(event)=>{this.onPrdValChange(event)}}>
                 </input>
                 </td>
                 <td>

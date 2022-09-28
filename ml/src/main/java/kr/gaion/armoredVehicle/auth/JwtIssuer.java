@@ -34,7 +34,9 @@ public class JwtIssuer {
                 LocalDateTime.now().plusHours(authConfiguration.getExpiresAfter()).atZone(ZoneId.systemDefault()).toInstant()
             ))
         .withIssuer(authConfiguration.getIssuer())
-        .withClaim("username", user.getUsername())
+            //.withClaim("username", user.getUsername())
+            // username -> id
+        .withClaim("id", user.getId())
 //        .withClaim("role", user.getRole())
         .withClaim("role", user.getUsrth())
         .sign(Algorithm.HMAC512(authConfiguration.getSecret()));
