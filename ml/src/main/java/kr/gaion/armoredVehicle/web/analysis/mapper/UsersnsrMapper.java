@@ -14,4 +14,5 @@ public interface UsersnsrMapper {
 	public void insertBookmark(Map<String, String> param);
 	
 	public void deleteBookmark(Map<String, String> param);
+	public List<UserSnsr> defaultBookmark(String userid);
 }

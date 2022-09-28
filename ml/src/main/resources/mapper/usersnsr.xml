@@ -17,4 +17,10 @@
 		from USERSNSR 
 		where userid = #{userid} and grpid = #{grpid} 
 	</update>
+
+	<select id="defaultBookmark" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.UserSnsr">
+		select *
+		from USERSNSR
+		where userid = #{userid}
+	</select>
 </mapper>

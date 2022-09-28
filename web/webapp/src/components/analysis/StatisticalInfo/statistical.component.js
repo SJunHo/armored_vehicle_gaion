@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import UserService from "../../../services/login/user.service";
 import TreeMenu, { ItemComponent } from "react-simple-tree-menu";
 import '../../../../node_modules/react-simple-tree-menu/dist/main.css';
 import { Bar } from "@nivo/bar";
@@ -9,14 +8,18 @@ import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
 import {ko} from "date-fns/locale";
 import Table from "./statisticalTable.component";
 import amvhimg from "../../../amvhimg.png";
+
 import '../../../css/fonts.css';
 import '../../../css/style.css';
 
  export default class Statistical extends Component {
   constructor(props) {
     super(props);
+    this.clickOutlierWaning = this.clickOutlierWaning.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
     this.state = {
       content: "",
+      loading: false,
       treeArray: "",
       graphData: "",
       tableData: "",
@@ -86,6 +89,9 @@ import '../../../css/style.css';
   }
 
   componentDidMount() {
+    this.setState({
+      loading : true
+    });
     statisticalService.getTree().then(
       response => {
         this.setState({
@@ -102,11 +108,15 @@ import '../../../css/style.css';
         });
       }
     );
-  
-    statisticalService.getGraph(0,1,this.state.startDate).then(
+    let param = {
+      level : 0,
+      url : 1,
+      date : this.state.startDate
+    }
+    statisticalService.getGraph(param).then(
       response => {
         this.setState({
-          graphData : response.data
+          graphData : response.data,
         });
       },
       error => {
@@ -119,9 +129,10 @@ import '../../../css/style.css';
       }
     );
 
-    statisticalService.getTable(0,1,this.state.startDate).then(
+    statisticalService.getTable(param).then(
       response => {
         this.setState({
+          loading:false,
           tableData : response.data
         });
       },
@@ -153,7 +164,12 @@ import '../../../css/style.css';
   }
 
   getGraphData(level,url,date){
-    statisticalService.getGraph(level,url, date).then(
+    let param = {
+      level : level,
+      url : url,
+      date : date
+    }
+    statisticalService.getGraph(param).then(
       response => {
         this.setState({
           graphData: response.data
@@ -171,9 +187,19 @@ import '../../../css/style.css';
   }
 
   getTableData(level,url,date){
-    statisticalService.getTable(level,url, date).then(
+    this.setState({
+      loading:true,
+    })
+    let param = {
+      level : level,
+      url : url,
+      date : date
+    }
+
+    statisticalService.getTable(param).then(
       response => {
         this.setState({
+          loading:false,
           tableData: response.data
         });
       },
@@ -200,14 +226,22 @@ import '../../../css/style.css';
       this.getGraphData(param.level,param.url,this.state.startDate);
     }
     if(param.level >= 3){
-      window.location.href = "/searchEachInfo/"+param.label;
+      statisticalService.getId(param.label).then((response) => {
+        if(window.confirm("차량정보조회화면으로 이동하시겠습니까?")){
+          window.location.href = "/searchEachInfo/"+response.data;
+        }
+      })
+      .catch((e) => {
+          console.log(e);
+      }); 
     }
-
   }
   
   getPutGraphData(param){
     let output = Object.values(param);
-
+    this.setState({
+      loading : false
+    })
     if(output.length > 0){
       let avgsdtData;
       let engnnldnrateData;
@@ -278,6 +312,7 @@ import '../../../css/style.css';
       }
 
       this.setState({
+        loading:false,
         avgsdtGraphData : avgsdt,
         engnnldnrateGraphData : engnnldnrate,
         mvmtdstcGraphData : mvmtdstc,
@@ -296,25 +331,6 @@ import '../../../css/style.css';
       });
       let tableResultArray = [];
       tableResultArray.push(tabledata[0]);
-      // let amvhTableData = new Map();
-      // let sdaidArray = [];
-      // let sdaStateArray = [];
-      // let sdaStateString = "";
-      // Object.entries(tabledata[1]).forEach((a)=>{
-      //   sdaidArray.push(a[0].split("/")[0]);
-      // })
-      // let sdaidArrayResult = sdaidArray.filter((v, i) => sdaidArray.indexOf(v) === i);
-      // sdaidArrayResult.forEach((r)=>{
-      //   Object.entries(tabledata[1]).forEach((a)=>{
-      //     console.log(a[0].split("/")[0]);
-      //     if(r === a[0].split("/")[0]){
-      //       sdaStateString += a[0].split("/")[1];
-      //     }
-      //   })
-      //   amvhTableData.set(r,sdaStateString);
-      //   sdaStateArray.push(sdaStateString);
-      //   sdaStateString = "";
-      // })
 
       this.setState({
         tableResult : tableResultArray,
@@ -348,24 +364,31 @@ import '../../../css/style.css';
     console.log(main.format('L'));
   }
 
-  getRandomColor(){
-    let letters = '23456789ABD';
-    let color = '#';
-    for(var i = 0; i < 6; i ++){
-      color += letters[Math.floor(Math.random() * 11)];
-    }
-    return color;
+  clickOutlierWaning(param){
+    console.log(param);
+  }
+
+  togglePopup(){
+    this.setState({
+      showPopup : !this.state.showPopup
+    })
   }
 
   render() {
 
-    const color = ({id}) => (this.getRandomColor());
     return (
       <div className="container">
         <div className="sub_title">
               <h1>차륜형 장갑차 센서데이터 수집, 분석 체계</h1>
         </div>
-        <div className="row">
+        <div className="row min" disabled={this.state.loading}>
+          {this.state.loading && (
+              <div class="d-flex justify-content-center loading-box">
+                  <div class="spinner-border loading-in" role="status">
+                      <span class="sr-only">Loading...</span>
+                  </div>
+              </div>
+          )}
           <div className="Tree col-2">
           <TreeMenu data={this.state.treeArray}
               initialOpenNodes={['tree','tree/2','tree/3','tree/4']}
@@ -392,8 +415,8 @@ import '../../../css/style.css';
             )}
           </TreeMenu>
         </div>
-        <div className="contents">
-          <div className="stable col-9">
+        <div className="contents col">
+          <div className="stable">
             <div className="detepicker-div">
             <form className="datepicker-form" onSubmit={this.onFormSubmit}>
               <div className="form-group sub-date">
@@ -407,14 +430,24 @@ import '../../../css/style.css';
               </div>
             </form>
             </div>
-            <div className="table-div">
-              {
+            <div className="table-div" disabled={this.state.loading} >
+              {this.state.loading ? (
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                          </div>
+                      </div>
+              ) 
+              : 
+              (
                 this.state.tableResult &&
                 <Table columns={this.state.columns} data={this.state.tableResult} /> 
-              }
-            {
-              this.state.amvhTable &&
+                )
+            }
 
+            {
+              this.state.loading ? "" :
+              (this.state.amvhTable &&
               Object.entries(this.state.amvhTable).map(amvh => {
                   return <div className="amvh-div" key={amvh[0]}>
                             <div className="amvh-img">
@@ -429,23 +462,24 @@ import '../../../css/style.css';
                             }
 
                             {
-                              amvh[1].includes("B")
-                              ? <button className="btn btn-danger" >고장</button>
-                              : <button className="btn btn-light" disabled>고장</button>
+                              amvh[1].includes("O")
+                              ? <button className="btn btn-danger" onClick={()=>{this.clickOutlierWaning(amvh[0]);}}>이상</button>
+                              : <button className="btn btn-light" disabled>이상</button> 
                             }
 
                             {
-                              amvh[1].includes("O")
-                              ? <button className="btn btn-danger" >이상</button>
-                              : <button className="btn btn-light" disabled>이상</button> 
+                              amvh[1].includes("B")
+                              ? <button className="btn btn-danger" onClick={()=>{this.clickOutlierWaning(amvh[0]);}}>고장</button>
+                              : <button className="btn btn-light" disabled>고장</button>
                             }
                             </div>
                           </div>
               })
+              )
             }
             </div>
           </div>
-          <div className="sgraph col-9">
+          <div className="sgraph">
                   <div className="graph-box">
                     <p>운행거리</p>
                     <Bar
@@ -455,7 +489,7 @@ import '../../../css/style.css';
                       data={this.state.avgsdtGraphData}
                       indexBy="bn"
                       keys={["value"]}
-                      colors={color}
+                      // colors={color}
                       enableGridX={true}
                       enableLabel={false}
                       />
@@ -469,7 +503,7 @@ import '../../../css/style.css';
                       data={this.state.engnnldnrateGraphData}
                       indexBy="bn"
                       keys={["value"]}
-                      colors={color}
+                      // colors={color}
                       labelSkipWidth={5}
                       labelSkipHeight={5}
                       enableGridX={true}
@@ -485,7 +519,7 @@ import '../../../css/style.css';
                       data={this.state.mvmtdstcGraphData}
                       indexBy="bn"
                       keys={["value"]}
-                      colors={color}
+                      //colors={color}
                       enableGridX={true}
                       enableLabel={false}
                     />
@@ -499,7 +533,7 @@ import '../../../css/style.css';
                       data={this.state.mvmttimeGraphData}
                       indexBy="bn"
                       keys={["value"]}
-                      colors={color}
+                      //colors={color}
                       enableGridX={true}
                       enableLabel={false}
                     />

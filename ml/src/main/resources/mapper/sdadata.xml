@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.SdaDataMapper">
+	<select id="findSdaDataByFileNM" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.SdaData">
+		select *
+		from ${tablenm}
+		where filenm = #{filenm}
+	</select>
 
+	<select id="findSpdAvgByFileNM" parameterType="String" resultType="Double">
+		select ifnull(avg(sdhspd),0) as avgsdhspd
+		from ${tablenm}
+		where filenm = #{filenm}
+		and sdhspd > 0;
+	</select>
+
+	<select id="findMvMttimeByFileNM" parameterType="String" resultType="Double">
+		select ifnull(ABS(TIMESTAMPDIFF(second ,(select dttime
+		from ${tablenm}
+		where engsta = '1'
+		and filenm = #{filenm}
+		order by dttime asc
+		limit 1 ),(
+		select dttime
+		from ${tablenm}
+		where engsta = '3'
+		and filenm = #{filenm}
+		order by dttime asc
+		limit 1)
+		)), 0)
+	</select>
+
+	<select id="findEngnnldnRateByFileNM" parameterType="String" resultType="Double">
+		select ifnull(
+		(select count(*)
+		from ${tablenm}
+		where filenm = #{filenm}
+		and engsta = '1') /
+		(select count(*)
+		from ${tablenm}
+		where filenm = #{filenm})
+		* 100, 0)
+	</select>
 	<select id="getFileWithId" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.analysis.model.SdaData"> 
 		SELECT distinct filenm, operdate 
 		FROM ${tableName} 
@@ -13,5 +52,57 @@
 		WHERE filenm = #{fileName} 
 	</select>
 
+	<select id="findSdaDataByTableAndFileNM" parameterType="kr.gaion.armoredVehicle.web.analysis.model.PeriodicDataRequest" resultType="kr.gaion.armoredVehicle.web.analysis.model.SdaData">
+		select *
+		from ${tableName} , SDA s
+		where s.sdaid = ${tableName}.sdaid
+		and filenm = #{filenm}
+		order by opertime
+		limit #{page}, #{size}
+	</select>
 
+	<select id="countSdaDataByTable" parameterType="kr.gaion.armoredVehicle.web.analysis.model.PeriodicDataRequest" resultType="Integer">
+		select ifnull(count(*),0)
+		from ${tableName}
+		where filenm = #{filenm}
+	</select>
+
+	<select id="findSdaDataForExcel" parameterType="kr.gaion.armoredVehicle.web.analysis.model.ExcelDownInfo" resultType="kr.gaion.armoredVehicle.web.analysis.model.SdaData">
+		select ${colName}
+		from ${tableName} , SDA s
+		where s.sdaid = ${tableName}.sdaid
+		and filenm = #{filenm}
+		order by opertime
+	</select>
+
+	<select id="findTimeStampDiffByEngheat" parameterType="String" resultType="Integer">
+		select ifnull(TIMESTAMPDIFF(second ,
+		(select STR_TO_DATE((
+		select concat('20',DTTIME)
+		from ${tablenm}
+		where engheat = '1'
+		and filenm = #{filenm}
+		order by opertime asc
+		limit 1),'%Y-%m-%d %H:%i:%s')),
+		(select STR_TO_DATE((
+		select concat('20',DTTIME)
+		from ${tablenm}
+		where engheat = '1'
+		and filenm = #{filenm}
+		order by opertime desc
+		limit 1),'%Y-%m-%d %H:%i:%s'))),0) as seconddiff
+	</select>
+
+	<select id="findCoolTempAndDttime" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.SdaData">
+		select *
+		from ${tablenm}
+		where engheat = 1
+		and filenm = #{filenm}
+	</select>
+
+	<select id="findRecentFile" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.analysis.model.FilenmDttimeForDefaultBookmark">
+		select filenm, dttime
+		from ${tablenm}
+		group by filenm
+	</select>
 </mapper>

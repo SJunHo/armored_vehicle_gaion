@@ -7,9 +7,9 @@ import Modal from 'react-modal';
 import ChoiceDateModal from "./choiceDateModal.component";
 import ChoiceSensorModal from "./choiceSensorModal.component";
 
-// import {
-//     selectAllVehicle
-// } from "../../../actions/monitoring/vehicleStatics";
+import {
+    selectAllVehicle
+} from "../../../actions/analysis/vehicleStatics";
 Modal.setAppElement("#root");
 
 class OpenModal extends Component {
@@ -105,12 +105,12 @@ class OpenModal extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         allVehicleInfo : state.tutorials,
-//     };
-// };
+const mapStateToProps = (state) => {
+    return {
+        allVehicleInfo : state.tutorials,
+    };
+};
 
-export default connect(null, {
-    // selectAllVehicle
+export default connect(mapStateToProps, {
+    selectAllVehicle
 })(OpenModal);

@@ -10,12 +10,12 @@ class StatisticalService {
     return axios.get( API_URL + `/info`, { headers: authHeader() , "Content-type": "application/json", });
   }
 
-  getGraph(level,url,date){
-    return axios.get( API_URL + `/graph/${level}/${url}/${date}` , { headers: authHeader() , "Content-type": "application/json", });
+  getGraph(data){
+    return axios.post( API_URL + `/graph`, data , { headers: authHeader() , "Content-type": "application/json", });
   }
 
-  getTable(level,url,date){
-    return axios.get( API_URL + `/table/${level}/${url}/${date}` , { headers: authHeader() , "Content-type": "application/json", });
+  getTable(data){
+    return axios.post( API_URL + `/table`, data , { headers: authHeader() , "Content-type": "application/json", });
   }
 }
 

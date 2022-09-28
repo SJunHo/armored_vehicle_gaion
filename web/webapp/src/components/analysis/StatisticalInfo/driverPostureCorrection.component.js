@@ -3,6 +3,7 @@ import driverPostureCorrectionService from "../../../services/analysis/driverPos
 import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import Pagination from "@material-ui/lab/Pagination";
+import {ko} from "date-fns/locale";
 
 export default class driverPostureCorrection extends Component {
   constructor(props) {
@@ -219,6 +220,7 @@ export default class driverPostureCorrection extends Component {
                   selectsStart
                   startDate={this.state.startDate}
                   endDate={this.state.endDate}
+                  locale={ko}
                 />
                 <em>~</em>
                 <DatePicker
@@ -230,6 +232,7 @@ export default class driverPostureCorrection extends Component {
                   startDate={this.state.startDate}
                   endDate={this.state.endDate}
                   minDate={this.state.startDate}
+                  locale={ko}
                 />
               </div>
             </form>
