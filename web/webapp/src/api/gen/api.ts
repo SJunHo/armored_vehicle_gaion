@@ -1678,13 +1678,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 
@@ -3859,6 +3859,31 @@ export interface Sort {
 /**
  * 
  * @export
+ * @interface StatisticalInfo
+ */
+export interface StatisticalInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof StatisticalInfo
+     */
+    level?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StatisticalInfo
+     */
+    url?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof StatisticalInfo
+     */
+    date?: string;
+}
+/**
+ * 
+ * @export
  * @interface Threshold
  */
 export interface Threshold {
@@ -3906,10 +3931,10 @@ export interface Threshold {
     mdfr?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof Threshold
      */
-    applicability?: boolean;
+    usedvcd?: string;
 }
 /**
  * 
@@ -3967,10 +3992,10 @@ export interface ThresholdResponse {
     mdfr?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof ThresholdResponse
      */
-    applicability?: boolean;
+    usedvcd?: string;
 }
 /**
  * 
@@ -8898,23 +8923,14 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
     return {
         /**
          * 
-         * @param {string} level 
-         * @param {string} url 
-         * @param {string} date 
+         * @param {StatisticalInfo} statisticalInfo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getGraph: async (level: string, url: string, date: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'level' is not null or undefined
-            assertParamExists('getGraph', 'level', level)
-            // verify required parameter 'url' is not null or undefined
-            assertParamExists('getGraph', 'url', url)
-            // verify required parameter 'date' is not null or undefined
-            assertParamExists('getGraph', 'date', date)
-            const localVarPath = `/api/statistical/graph/{level}/{url}/{date}`
-                .replace(`{${"level"}}`, encodeURIComponent(String(level)))
-                .replace(`{${"url"}}`, encodeURIComponent(String(url)))
-                .replace(`{${"date"}}`, encodeURIComponent(String(date)));
+        getGraph: async (statisticalInfo: StatisticalInfo, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'statisticalInfo' is not null or undefined
+            assertParamExists('getGraph', 'statisticalInfo', statisticalInfo)
+            const localVarPath = `/api/statistical/graph`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8922,7 +8938,7 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8932,9 +8948,12 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(statisticalInfo, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8976,23 +8995,14 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} level 
-         * @param {string} url 
-         * @param {string} date 
+         * @param {StatisticalInfo} statisticalInfo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTable: async (level: string, url: string, date: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'level' is not null or undefined
-            assertParamExists('getTable', 'level', level)
-            // verify required parameter 'url' is not null or undefined
-            assertParamExists('getTable', 'url', url)
-            // verify required parameter 'date' is not null or undefined
-            assertParamExists('getTable', 'date', date)
-            const localVarPath = `/api/statistical/table/{level}/{url}/{date}`
-                .replace(`{${"level"}}`, encodeURIComponent(String(level)))
-                .replace(`{${"url"}}`, encodeURIComponent(String(url)))
-                .replace(`{${"date"}}`, encodeURIComponent(String(date)));
+        getTable: async (statisticalInfo: StatisticalInfo, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'statisticalInfo' is not null or undefined
+            assertParamExists('getTable', 'statisticalInfo', statisticalInfo)
+            const localVarPath = `/api/statistical/table`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9000,7 +9010,7 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9010,9 +9020,12 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(statisticalInfo, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9031,14 +9044,12 @@ export const StatisticalInfoControllerApiFp = function(configuration?: Configura
     return {
         /**
          * 
-         * @param {string} level 
-         * @param {string} url 
-         * @param {string} date 
+         * @param {StatisticalInfo} statisticalInfo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getGraph(level: string, url: string, date: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getGraph(level, url, date, options);
+        async getGraph(statisticalInfo: StatisticalInfo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGraph(statisticalInfo, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9052,14 +9063,12 @@ export const StatisticalInfoControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
-         * @param {string} level 
-         * @param {string} url 
-         * @param {string} date 
+         * @param {StatisticalInfo} statisticalInfo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTable(level: string, url: string, date: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTable(level, url, date, options);
+        async getTable(statisticalInfo: StatisticalInfo, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTable(statisticalInfo, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9074,14 +9083,12 @@ export const StatisticalInfoControllerApiFactory = function (configuration?: Con
     return {
         /**
          * 
-         * @param {string} level 
-         * @param {string} url 
-         * @param {string} date 
+         * @param {StatisticalInfo} statisticalInfo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getGraph(level: string, url: string, date: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getGraph(level, url, date, options).then((request) => request(axios, basePath));
+        getGraph(statisticalInfo: StatisticalInfo, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getGraph(statisticalInfo, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9093,14 +9100,12 @@ export const StatisticalInfoControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
-         * @param {string} level 
-         * @param {string} url 
-         * @param {string} date 
+         * @param {StatisticalInfo} statisticalInfo 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTable(level: string, url: string, date: string, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getTable(level, url, date, options).then((request) => request(axios, basePath));
+        getTable(statisticalInfo: StatisticalInfo, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTable(statisticalInfo, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9114,15 +9119,13 @@ export const StatisticalInfoControllerApiFactory = function (configuration?: Con
 export class StatisticalInfoControllerApi extends BaseAPI {
     /**
      * 
-     * @param {string} level 
-     * @param {string} url 
-     * @param {string} date 
+     * @param {StatisticalInfo} statisticalInfo 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StatisticalInfoControllerApi
      */
-    public getGraph(level: string, url: string, date: string, options?: any) {
-        return StatisticalInfoControllerApiFp(this.configuration).getGraph(level, url, date, options).then((request) => request(this.axios, this.basePath));
+    public getGraph(statisticalInfo: StatisticalInfo, options?: any) {
+        return StatisticalInfoControllerApiFp(this.configuration).getGraph(statisticalInfo, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9137,15 +9140,13 @@ export class StatisticalInfoControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} level 
-     * @param {string} url 
-     * @param {string} date 
+     * @param {StatisticalInfo} statisticalInfo 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StatisticalInfoControllerApi
      */
-    public getTable(level: string, url: string, date: string, options?: any) {
-        return StatisticalInfoControllerApiFp(this.configuration).getTable(level, url, date, options).then((request) => request(this.axios, this.basePath));
+    public getTable(statisticalInfo: StatisticalInfo, options?: any) {
+        return StatisticalInfoControllerApiFp(this.configuration).getTable(statisticalInfo, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -9928,6 +9929,80 @@ export const VehicleStatisticsControllerApiAxiosParamCreator = function (configu
     return {
         /**
          * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        defaultBookmark: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('defaultBookmark', 'id', id)
+            const localVarPath = `/api/vehicleStatistics/allBookmarkForDefault/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} sdaid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findRecentFile: async (sdaid: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sdaid' is not null or undefined
+            assertParamExists('findRecentFile', 'sdaid', sdaid)
+            const localVarPath = `/api/vehicleStatistics/findRecentFile/{sdaid}`
+                .replace(`{${"sdaid"}}`, encodeURIComponent(String(sdaid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9974,6 +10049,51 @@ export const VehicleStatisticsControllerApiAxiosParamCreator = function (configu
             const localVarPath = `/api/vehicleStatistics/searchEachInfo/getBookmark/{id}/{grpid}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)))
                 .replace(`{${"grpid"}}`, encodeURIComponent(String(grpid)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {Array<object>} param1 
+         * @param {Array<object>} param2 
+         * @param {Array<object>} param3 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChartData: async (param1: Array<object>, param2: Array<object>, param3: Array<object>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'param1' is not null or undefined
+            assertParamExists('getChartData', 'param1', param1)
+            // verify required parameter 'param2' is not null or undefined
+            assertParamExists('getChartData', 'param2', param2)
+            // verify required parameter 'param3' is not null or undefined
+            assertParamExists('getChartData', 'param3', param3)
+            const localVarPath = `/api/vehicleStatistics/searchEachInfo/getChartData/{param1}/{param2}/{param3}`
+                .replace(`{${"param1"}}`, encodeURIComponent(String(param1)))
+                .replace(`{${"param2"}}`, encodeURIComponent(String(param2)))
+                .replace(`{${"param3"}}`, encodeURIComponent(String(param3)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10236,6 +10356,26 @@ export const VehicleStatisticsControllerApiFp = function(configuration?: Configu
     return {
         /**
          * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async defaultBookmark(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.defaultBookmark(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} sdaid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findRecentFile(sdaid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findRecentFile(sdaid, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10252,6 +10392,18 @@ export const VehicleStatisticsControllerApiFp = function(configuration?: Configu
          */
         async getBookmark(id: string, grpid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserSnsr>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBookmark(id, grpid, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {Array<object>} param1 
+         * @param {Array<object>} param2 
+         * @param {Array<object>} param3 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getChartData(param1: Array<object>, param2: Array<object>, param3: Array<object>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SdaData>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getChartData(param1, param2, param3, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10326,6 +10478,24 @@ export const VehicleStatisticsControllerApiFactory = function (configuration?: C
     return {
         /**
          * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        defaultBookmark(id: string, options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.defaultBookmark(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} sdaid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findRecentFile(sdaid: string, options?: any): AxiosPromise<string> {
+            return localVarFp.findRecentFile(sdaid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -10341,6 +10511,17 @@ export const VehicleStatisticsControllerApiFactory = function (configuration?: C
          */
         getBookmark(id: string, grpid: string, options?: any): AxiosPromise<Array<UserSnsr>> {
             return localVarFp.getBookmark(id, grpid, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {Array<object>} param1 
+         * @param {Array<object>} param2 
+         * @param {Array<object>} param3 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChartData(param1: Array<object>, param2: Array<object>, param3: Array<object>, options?: any): AxiosPromise<Array<SdaData>> {
+            return localVarFp.getChartData(param1, param2, param3, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10408,6 +10589,28 @@ export const VehicleStatisticsControllerApiFactory = function (configuration?: C
 export class VehicleStatisticsControllerApi extends BaseAPI {
     /**
      * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VehicleStatisticsControllerApi
+     */
+    public defaultBookmark(id: string, options?: any) {
+        return VehicleStatisticsControllerApiFp(this.configuration).defaultBookmark(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} sdaid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VehicleStatisticsControllerApi
+     */
+    public findRecentFile(sdaid: string, options?: any) {
+        return VehicleStatisticsControllerApiFp(this.configuration).findRecentFile(sdaid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VehicleStatisticsControllerApi
@@ -10426,6 +10629,19 @@ export class VehicleStatisticsControllerApi extends BaseAPI {
      */
     public getBookmark(id: string, grpid: string, options?: any) {
         return VehicleStatisticsControllerApiFp(this.configuration).getBookmark(id, grpid, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {Array<object>} param1 
+     * @param {Array<object>} param2 
+     * @param {Array<object>} param3 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VehicleStatisticsControllerApi
+     */
+    public getChartData(param1: Array<object>, param2: Array<object>, param3: Array<object>, options?: any) {
+        return VehicleStatisticsControllerApiFp(this.configuration).getChartData(param1, param2, param3, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
