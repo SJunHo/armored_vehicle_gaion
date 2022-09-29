@@ -16,7 +16,7 @@ export const InputWrapper: React.FC<
       as={rowLayout ? Row : Col}
       className={`mb-3 ${className || ""}`}
     >
-      <Form.Label column sm={labelWidth}>
+      <Form.Label column sm={labelWidth} style={{color:"white"}}>
         {title}
       </Form.Label>
       <Col sm={12 - (labelWidth || 0)}>{children}</Col>

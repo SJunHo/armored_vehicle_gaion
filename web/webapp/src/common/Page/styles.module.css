@@ -1,11 +1,11 @@
 .wrapper {
   padding: 8px;
-  background-color: #ecf5fa;
+  background-color: #2c2c44;
   height: 100%;
 }
 
 .childrenWrapper {
-  background-color: white;
+  background-color: #2c2c44;
 }
 
 /*공통 영역부분 주석 처리*/

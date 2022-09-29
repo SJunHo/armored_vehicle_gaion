@@ -2,7 +2,7 @@ package kr.gaion.armoredVehicle.web.utils;
 
 public class Paging {
 
-	private int totalcount; // 페이징에 적용할 전체 데이터 갯수
+	private int totalcount; // 페이징에 적용할 전체 데이터 개수
     private int pagenum; // 현재 페이지 번호
     private int contentnum; // 한페이지에 몇개 표시할지
     private int startPage=1; // 현재 페이지 블록의 시작 페이지

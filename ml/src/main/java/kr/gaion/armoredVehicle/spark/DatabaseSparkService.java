@@ -67,7 +67,7 @@ public class DatabaseSparkService {
     public Dataset<Row> getDataRDDFromDb(String partType){
         String tname = null;
         if(partType.equals("B") ){
-            tname= "BERTRANNG";
+            tname= "BERTRNNG";
         }else if (partType.equals("W")){
             tname= "WHLTRNNG";
         }else if (partType.equals("E")){
@@ -81,7 +81,7 @@ public class DatabaseSparkService {
             System.out.println(tname);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://221.148.11.152:8012/AMVHC")
+                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
                     .option("dbtable", tname.toUpperCase())
                     .option("user", "AMVHC_U")
                     .option("password", "!Tltmxpa0517")

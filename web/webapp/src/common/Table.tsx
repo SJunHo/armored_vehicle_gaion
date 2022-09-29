@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, {useEffect, useRef} from "react";
 import BootstrapTable from "react-bootstrap/Table";
 import {
   Column,
@@ -10,7 +10,7 @@ import {
   UseRowSelectOptions,
   useTable,
 } from "react-table";
-import { Paginator } from "./Paginator";
+import {Paginator} from "./Paginator";
 // import styles from "./table.module.css";
 
 type TableProps<T extends Object> = {
@@ -26,7 +26,7 @@ type TableProps<T extends Object> = {
   UseRowSelectOptions<T>;
 
 const IndeterminateCheckbox = React.forwardRef<{}, { indeterminate?: boolean }>(
-  ({ indeterminate, ...rest }, ref) => {
+  ({indeterminate, ...rest}, ref) => {
     const defaultRef = React.useRef();
     const resolvedRef =
       (ref as React.RefObject<HTMLInputElement>) || defaultRef;
@@ -51,16 +51,16 @@ const IndeterminateCheckbox = React.forwardRef<{}, { indeterminate?: boolean }>(
 );
 
 export function Table<T extends Object>({
-  data,
-  total,
-  columns,
-  onRowClick,
-  paginationOptions,
-  onChangePage,
-  onRowsSelected,
-  isSingleRowSelect = false,
-  ...props
-}: TableProps<T>): React.ReactElement {
+                                          data,
+                                          total,
+                                          columns,
+                                          onRowClick,
+                                          paginationOptions,
+                                          onChangePage,
+                                          onRowsSelected,
+                                          isSingleRowSelect = false,
+                                          ...props
+                                        }: TableProps<T>): React.ReactElement {
   const selectedRowsChangedKey = useRef<number>();
   const {
     pageCount,
@@ -70,7 +70,7 @@ export function Table<T extends Object>({
     headers,
     getTableBodyProps,
     page,
-    state: { pageSize, pageIndex },
+    state: {pageSize, pageIndex},
     gotoPage,
     setPageSize,
     selectedFlatRows,
@@ -106,14 +106,14 @@ export function Table<T extends Object>({
             width: "20px",
             // The header can use the table's getToggleAllRowsSelectedProps method
             // to render a checkbox
-            Header: ({ getToggleAllRowsSelectedProps }) => (
+            Header: ({getToggleAllRowsSelectedProps}) => (
               <div>
                 <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
               </div>
             ),
             // The cell can use the individual row's getToggleRowSelectedProps method
             // to the render a checkbox
-            Cell: ({ row }: any) => (
+            Cell: ({row}: any) => (
               <div>
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
               </div>
@@ -139,38 +139,38 @@ export function Table<T extends Object>({
     <>
       <BootstrapTable
         striped
-        className="table align-middle text-center overflow-visible"
+        className="table align-middle text-center overflow-visible text-white"
         {...getTableProps()}
       >
         <thead className="bg-secondary text-light border-right-success">
-          <tr className="container overflow-hidden" >
-            {headers.map(header => (
-              <th
-                style={{ position: "sticky", top: 0 }}
-                {...header.getHeaderProps()}
-              >
-                {header.render("Header")}
-              </th>
-            ))}
-          </tr>
+        <tr>
+          {headers.map(header => (
+            <th
+              style={{position: "sticky", top: 0}}
+              {...header.getHeaderProps()}
+            >
+              {header.render("Header")}
+            </th>
+          ))}
+        </tr>
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {(paginationOptions ? page : rows).map(row => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => onRowClick && onRowClick(row)}
-              >
-                {row.cells.map(cell => (
-                  <td {...cell.getCellProps()} >
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
+        {(paginationOptions ? page : rows).map(row => {
+          prepareRow(row);
+          return (
+            <tr
+              {...row.getRowProps()}
+              onClick={() => onRowClick && onRowClick(row)}
+            >
+              {row.cells.map(cell => (
+                <td {...cell.getCellProps()} >
+                  {cell.render("Cell")}
+                </td>
+              ))}
+            </tr>
+          );
+        })}
         </tbody>
       </BootstrapTable>
       {paginationOptions && (

@@ -79,6 +79,25 @@ export interface AllTimeESStats {
 /**
  * 
  * @export
+ * @interface AuthRequestDTO
+ */
+export interface AuthRequestDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof AuthRequestDTO
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AuthRequestDTO
+     */
+    password: string;
+}
+/**
+ * 
+ * @export
  * @interface BaseAlgorithmPredictInput
  */
 export interface BaseAlgorithmPredictInput {
@@ -4211,6 +4230,45 @@ export const AuthControllerApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {AuthRequestDTO} authRequestDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userLogin: async (authRequestDTO: AuthRequestDTO, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'authRequestDTO' is not null or undefined
+            assertParamExists('userLogin', 'authRequestDTO', authRequestDTO)
+            const localVarPath = `/auth/login`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(authRequestDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4241,6 +4299,16 @@ export const AuthControllerApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.registerUser(signupRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {AuthRequestDTO} authRequestDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userLogin(authRequestDTO: AuthRequestDTO, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userLogin(authRequestDTO, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -4268,6 +4336,15 @@ export const AuthControllerApiFactory = function (configuration?: Configuration,
          */
         registerUser(signupRequest: SignupRequest, options?: any): AxiosPromise<object> {
             return localVarFp.registerUser(signupRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {AuthRequestDTO} authRequestDTO 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userLogin(authRequestDTO: AuthRequestDTO, options?: any): AxiosPromise<string> {
+            return localVarFp.userLogin(authRequestDTO, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4299,6 +4376,17 @@ export class AuthControllerApi extends BaseAPI {
      */
     public registerUser(signupRequest: SignupRequest, options?: any) {
         return AuthControllerApiFp(this.configuration).registerUser(signupRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {AuthRequestDTO} authRequestDTO 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthControllerApi
+     */
+    public userLogin(authRequestDTO: AuthRequestDTO, options?: any) {
+        return AuthControllerApiFp(this.configuration).userLogin(authRequestDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

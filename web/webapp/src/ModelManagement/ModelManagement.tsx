@@ -26,15 +26,15 @@ export const ModelManagement: React.FC = () => {
         headers={[
           {
             id: "train",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? t("ml.common.tab.lifeCreate") : t("ml.common.tab.mg"),
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 생성" : "고장전조 예측 모델 생성",
           },
           {
             id: "models",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? t("ml.common.tab.lifeMg") : t("table.column.broken.manage"),
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 관리" : "고장전조 예측 모델 관리",
           },
           {
             id: "predict",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? t("ml.common.tab.lifePredict") : t("ml.common.tab.troubleshot"),
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 수행" : "고장전조 예측 수행",
           },
         ]}
         activeTabId={tab}

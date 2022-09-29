@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
-import { FormControl } from "react-bootstrap";
+import React, {useContext, useState} from "react";
+import {FormControl} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { useTranslation } from "react-i18next";
-import { Page } from "../common/Page/Page";
-import { Section } from "../common/Section/Section";
-import { TabHeader } from "../common/TabHeader/TabHeader";
-import { DataFormat, ImportESDataFromFileInput, OpenApiContext } from "../api";
+import {useTranslation} from "react-i18next";
+import {Page} from "../common/Page/Page";
+import {Section} from "../common/Section/Section";
+import {TabHeader} from "../common/TabHeader/TabHeader";
+import {DataFormat, ImportESDataFromFileInput, OpenApiContext} from "../api";
 import Select2 from "react-select";
-import { InputWrapper } from "../common/Common";
+import {InputWrapper} from "../common/Common";
 import Spinner from "react-bootstrap/Spinner";
 import Select from "react-select";
 
@@ -19,7 +19,7 @@ export const DataUpload: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [importing, setImporting] = useState(false);
-  const { datasetControllerApi, datasetDatabaseControllerApi } = useContext(OpenApiContext);
+  const {datasetControllerApi, datasetDatabaseControllerApi} = useContext(OpenApiContext);
 
   return (
     <Page>
@@ -68,7 +68,7 @@ export const DataUpload: React.FC = () => {
 const UploadPage: React.FC<{
   onUploadFile: (files: File[]) => any;
   uploading: boolean;
-}> = ({ onUploadFile, uploading }) => {
+}> = ({onUploadFile, uploading}) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedDataType, setSelectedDataType] = useState<any>(null);
 

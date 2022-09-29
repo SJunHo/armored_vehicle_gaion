@@ -70,12 +70,13 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
       bottomTitle={ALGORITHM_INFO[algorithmName].name}
     >
       <div className={styles.trainInputBody}>
-        <InputWrapper title={t("ml.common.pt")}>
+        <InputWrapper title={"부품 선택"}>
           <Controller
             name="partType"
             control={control}
             render={({ field }) => (
               <Select2
+                className="text-black"
                 {...field}
                 value={
                   field.value
@@ -95,7 +96,7 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
             )}
           />
         </InputWrapper>
-        <InputWrapper title={t("ml.common.td")}>
+        <InputWrapper title="학습데이터 선택">
           <Controller
             name="fileName"
             control={control}
@@ -116,7 +117,7 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
             )}
           />
         </InputWrapper>
-        <InputWrapper title={t("ml.common.cf")}>
+        <InputWrapper title="클래스 레이블 :">
           <Controller
             name="classCol"
             control={control}
@@ -140,8 +141,9 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
         <InputWrapper
           title={
             <div className="d-flex gap-3">
-              <div className="">{t("ml.common.ff")}</div>
+              <div className="">특징 벡터 : </div>
               <Button
+                className="ml-1"
                 size="sm"
                 onClick={() =>
                   setValue(
@@ -150,14 +152,15 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
                   )
                 }
               >
-                {t("ml.common.btn.sa")}
+                모두선택
               </Button>
               <Button
+                className="ml-1"
                 size="sm"
                 onClick={() => setValue("featureCols", [])}
                 variant="secondary"
               >
-                {t("ml.common.btn.ca")}
+                모두삭제
               </Button>
             </div>
           }
@@ -190,3 +193,21 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
     </Section>
   );
 };
+function CustomSelect(props: any) {
+  return (
+    <>
+      <style type="text/css">
+        {`.table_style table td {
+            font-size: 11px;
+            color: #cfdee7;
+            padding: 7px 10px;
+            text-align: center;
+            border-bottom: 1px solid #1e313d;
+            /*background: #325165;*/
+          }`}
+      </style>
+
+      <Select2 {...props}/>
+    </>
+  );
+}

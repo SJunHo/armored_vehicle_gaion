@@ -728,8 +728,8 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     <Container fluid>
       <Section title="고장전조 예측 수행" className="mb-2">
         <Row className="row mb-2">
-          <Col xs={1} className="Col pe-0">
-            {t("pp.tsg.parts")}
+          <Col xs={1} className="Col pe-0 text-white">
+            부품선택
           </Col>
           <Col xs={3} className="Col ps-0">
             <Form.Select
@@ -768,7 +768,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
                   aria-hidden="true"
                 />
               )}
-              {t("btn.search")}
+              조회
             </Button>
           </Col>
         </Row>
@@ -783,7 +783,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
           </Col>
           <Col className="Col d-grid gap-2">
             <Button
-              className="button font-monospace fw-bold"
+              className="button font-monospace fw-bold w-100"
               onClick={handlePredictData}
               size="sm"
               variant="danger"
@@ -798,7 +798,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
                   aria-hidden="true"
                 />
               )}
-              {t("ml.run.predict")}
+              예측 수행
             </Button>
           </Col>
         </Row>
@@ -829,7 +829,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
                 aria-hidden="true"
               />
             )}
-            {t("pp.fu.db.save")}
+            결과 저장
           </Button>
         </Col>
       </Row>

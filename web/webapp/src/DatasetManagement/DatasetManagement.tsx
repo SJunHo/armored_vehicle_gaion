@@ -253,7 +253,7 @@ export const DatasetManagement: React.FC<{ algorithmName: string }> = () => {
                 )
               }
             >
-              {t("btn.search")}
+              조회
             </Button>
           </Col>
         </Row>

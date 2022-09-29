@@ -225,7 +225,6 @@ class App extends Component {
               <Route path="/dataset" component={DatasetManagement} />
 
               <AuthorizedRoute path="/data/lookup" component={DataLookUpList} />
-              <AuthorizedRoute path="/data/upload" component={DataUpload} />
               <AuthorizedRoute path="/" exact component={DataUpload} />
             </Switch>
           </div>
