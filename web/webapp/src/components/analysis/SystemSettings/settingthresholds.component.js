@@ -8,7 +8,7 @@ class SettingThresholds extends Component {
     this.retrieveThresholdList = this.retrieveThresholdList.bind(this);
     this.onMaxChange = this.onMaxChange.bind(this);
     this.onMinChange = this.onMinChange.bind(this);
-    this.onApplicabilityChange = this.onApplicabilityChange.bind(this);
+    this.onUsedvcdChange = this.onUsedvcdChange.bind(this);
     this.updateThreshold = this.updateThreshold.bind(this);
 
     const {user} = this.props; 
@@ -59,11 +59,11 @@ class SettingThresholds extends Component {
     });
   }
 
-  onApplicabilityChange(e){
+  onUsedvcdChange(e){
     const {name, checked} = e.target;
     let index = name.split('checkbox')[1];
     let thresholdSet = this.state.thresholdList;
-    thresholdSet[index].applicability = checked;
+    thresholdSet[index].usedvcd = checked;
     thresholdSet[index].mdfcdt = new Date();
     thresholdSet[index].mdfr = this.state.user.username;
     this.setState({
@@ -110,7 +110,7 @@ class SettingThresholds extends Component {
                 <td>{item.expln}</td>
                 <td><input type="input" className="form-control" name={"max"+index} defaultValue={item.max} onChange={(event)=>{this.onMaxChange(event)}}></input></td>
                 <td><input type="input" className="form-control" name={"min"+index} defaultValue={item.min} onChange={(event)=>{this.onMinChange(event)}}></input></td>
-                <td><input type="checkbox" className="form-control" name={"checkbox"+index} defaultChecked={item.applicability} onChange={(event)=>{this.onApplicabilityChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control" name={"checkbox"+index} checked={item.usedvcd} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}

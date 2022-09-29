@@ -42,6 +42,14 @@ class vehicleStatistics {
     return axios.get( API_URL + `/getDtctsdaData/${params1}/${params2}/${params3}`, {headers: authHeader(), "Content-type" : "application/json", });
   }
 
+  searchAllBookmarkForDefault(id) {
+    return axios.get( API_URL + `/allBookmarkForDefault/${id}`, {headers: authHeader(), "Content-type" : "application/json", });
+  }
+
+  searchRecentFile(sdaid){
+    return axios.get( API_URL + `/findRecentFile/${sdaid}`, {headers: authHeader(), "Content-type" : "application/json", });
+  }
+
 }
 
 

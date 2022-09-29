@@ -2,8 +2,8 @@ import React, { Component} from "react";
 import { connect } from "react-redux";
 import {
   selectEachInfo,
-} from "../../../actions/monitoring/tutorials";
-import vehicleStatistics from "../../../services/analysis/vehicleStatics.service";
+} from "../../../actions/analysis/tutorials";
+import vehicleStatistics from "../../../services/analysis/vehicleStatistics.service";
 
 import Chart from 'chart.js/auto';
 //npm install chart.js
@@ -17,11 +17,11 @@ import Categoric from "./categoricDistinction.component";
 import "./searchEachInfo.css";
 
 class searchEachInfo extends Component {
-
   constructor(props) {
     super(props);
 
     this.liveChartRef = React.createRef();
+
 
     this.drawingChart = this.drawingChart.bind(this);
     this.stopChart = this.stopChart.bind(this);
@@ -48,17 +48,22 @@ class searchEachInfo extends Component {
     this.categoricSensorIsChange = this.categoricSensorIsChange.bind(this);
     this.slowChart = this.slowChart.bind(this);
     this.fastChart = this.fastChart.bind(this);
+    this.defaultBookmark = this.defaultBookmark.bind(this);
 
     this.state = {
       isStart: true,      //스탑버튼클릭시 체크하기위한
       setData: false,     //data가 들어오면 실행위한
       allStop: false,        //그래프다시그리기 위한
       resetChart: false,     //차트가 끝나면 다시시작위한
-      
+      loading:true,
       setModal: false,  //모달창 생성위한
       setModal2: false,
 
       fileNameAndId : [],
+      // nummericSensor: ["RETDCHO","VOLTAGE","_2AVGSPEED","RETDTOK","REQRETDTOK"],
+      // categoricSensor: ["ENGHEAT","COOLLANT","ENGOVERCTLMD","_1LOCK","_2LOCK"],
+      // nummericSensorWithKor : ['리타더선택', '전압', '2축 평균속도', '리타더 토크', '요구리타더토크'],
+      // categoricSensorWithKor: ['엔진예열','냉각수량','엔진오버라이드제어모드','1축 차동잠금', '2축 차동잠금'],
       nummericSensor: [],
       categoricSensor: [],
       nummericSensorWithKor : [],
@@ -82,9 +87,44 @@ class searchEachInfo extends Component {
 
   componentDidMount() {
     this.props.selectEachInfo(this.props.match.params.id);
-    console.log(this.props.eachInfo);
-    console.log(this.props.match.params.id);
+
+    this.defaultBookmark(); 
     this.interval = setInterval(this.liveStream, 100);
+ 
+    if(this.props.match.params.id === undefined){   //통계화면이 아닌 직접 차량정보조회버튼을 클릭해서 ID가 넘어오지 않을때, 바로 팝업으로 선택하게 하기 위함
+      this.setState({
+        setModal : true,
+      }, () => {
+        return(
+          <OpenModal name={this.props.eachInfo.sdaid} modalDiv="choiceDate" data={this.props.eachInfo} modalFunc={this.changeModal} fileIdFunc={this.forInputFileName} />
+        );
+      })
+    }else{      //통계화면에서 넘어온 경우 최근파일이름위함
+      console.log(this.props.match.params.id);
+      vehicleStatistics.searchRecentFile(this.props.match.params.id)
+      .then((response) => {
+        console.log(response.data);
+        let filenm = String(response.data);
+        let filenameAddId = [this.props.match.params.id , filenm];
+        this.setState({
+          fileNameAndId : [...filenameAddId],
+          i: 0,
+          resetChart: true,
+          isStart: false,
+        },() => {
+          console.log(this.state.fileNameAndId);
+          if(this.state.fileNameAndId.length > 1){
+            this.setChartData();
+          }
+        })
+      })
+      .catch((e) => {
+        console.log(e);
+        this.setState({
+          loading:true,
+        })
+      })
+    }
 
     const liveChart = this.liveChartRef.current.getContext('2d');
     this.myLiveChart = new Chart(liveChart, {
@@ -111,7 +151,6 @@ class searchEachInfo extends Component {
 
     const el = document.getElementById('gaugeChart');
     console.log(el);
-    
     this.gaugeChart1 = new GaugeChart({ el, 
     data: {
       series: [{
@@ -126,18 +165,19 @@ class searchEachInfo extends Component {
       exportMenu: {
         visible: false,
       },
-      
       chart: { 
-        width: 550, 
-        height: 500,
+        width: 750, 
+        height: 750,
       },
       series: {
+        selectable: false,
         solid: true,
         dataLabels: { visible: true, offsetY: -30, formatter: (value) => `${value} RPM` },
       },
       theme: {
         chart: {
           backgroundColor: "",
+          color:'#fff',
         },
         circularAxis: {
           lineWidth: 0,
@@ -152,10 +192,10 @@ class searchEachInfo extends Component {
         },
         series: {
           dataLabels: {
-            fontSize: 40,
-            fontFamily: 'Impact',
+            fontSize: 75,
+            fontFamily: 'Noto Sans KR',
             fontWeight: 600,
-            color: '#00a9ff',
+            color: '#fff',
             textBubble: {
               visible: false,
             },
@@ -180,12 +220,15 @@ class searchEachInfo extends Component {
           visible: false,
         },
         
-        chart: { width: 550, height: 500 },
+        chart: { width: 750, height: 750 },
         series: {
           solid: true,
           dataLabels: { visible: true, offsetY: -30, formatter: (value) => `${value}km/h` },
         },
         theme: {
+          solid:{
+            lineWidth:5,
+          },
           chart: {
             backgroundColor: "",
           },
@@ -202,10 +245,10 @@ class searchEachInfo extends Component {
           },
           series: {
             dataLabels: {
-              fontSize: 40,
-              fontFamily: 'Impact',
+              fontSize: 75,
+              fontFamily: 'Noto Sans KR',
               fontWeight: 600,
-              color: '#00a9ff',
+              color: '#fff',
               textBubble: {
                 visible: false,
               },
@@ -216,6 +259,8 @@ class searchEachInfo extends Component {
     });
 
   }
+
+
   componentDidUpdate(prevProps, prevState) {
     if(prevState.categoricSensor !== this.state.categoricSensor){
       this.categoricSensorIsChange();
@@ -228,6 +273,74 @@ class searchEachInfo extends Component {
     clearInterval(this.interval);
   }
 
+  defaultBookmark() {       //화면 최초 랜더링시, 센서데이터 자동으로 즐겨찾기된 버튼으로 선택위함
+    console.log(this.props.user);
+    let pnEng = [];
+    let pnKor = [];
+    let pcEng = [];
+    let pcKor = [];
+
+    vehicleStatistics.searchAllBookmarkForDefault(this.props.user.id)
+    .then((response) => {
+      console.log(response);
+      if(response.data.length > 0){
+        response.data.forEach((el, idx) => {
+          if(el.code.includes('PN')){
+            pnEng.push(el.var);
+            pnKor.push(el.expln);
+          }else{
+            pcEng.push(el.var);
+            pcKor.push(el.expln);
+          }
+        })
+        this.setState({
+          nummericSensor: [...pnEng],
+          nummericSensorWithKor: [...pnKor],
+          categoricSensor: [...pcEng],
+          categoricSensorWithKor: [...pcKor],      
+          i: 0,
+          resetChart: true,
+          changeSensorForChart: true,
+        }, () => {
+
+          this.myLiveChart.destroy();
+          this.drawExtraLiveChart();
+          this.drawingChart();
+    
+          if(this.state.fileNameAndId.length > 0 
+            && this.state.nummericSensor.length > 0 
+            && this.state.categoricSensor.length > 0){
+              this.setChartData();
+          }
+        })
+      }else{
+        this.setState({
+          nummericSensor: ['VOLTAGE', 'FRTBREAKPRS', 'BACKBREAKPRS', 'LOWOILPRS', 'LOWOILTEMP'],
+          nummericSensorWithKor: ['전압', '전방제동공압', '후방제동공압', '저유기 유압유 압력', '저유기 유압유 온도'],
+          categoricSensor: ['ENGWARNING', 'ENGGOV', 'ENGOILSTA', 'ENGHEAT', 'COOLLANT'],
+          categoricSensorWithKor: ['엔진경고', '엔진거버너', '엔진오일압력상태', '엔진예열', '냉각수량'],      
+          i: 0,
+          resetChart: true,
+          changeSensorForChart: true,
+        }, () => {
+
+          this.myLiveChart.destroy();
+          this.drawExtraLiveChart();
+          this.drawingChart();
+    
+          if(this.state.fileNameAndId.length > 0 
+            && this.state.nummericSensor.length > 0 
+            && this.state.categoricSensor.length > 0){
+              this.setChartData();
+          }
+        })
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    })
+  }
+  //0.1초마다 실행되는 함수
   liveStream(){     // interval()
 
     let chartData = [];
@@ -263,15 +376,10 @@ class searchEachInfo extends Component {
         let yData3 = this.state.forChartData[this.state.i][this.state.nummericSensor[3]];
         let yData4 = this.state.forChartData[this.state.i][this.state.nummericSensor[4]];
 
-        let snsrid0 = this.state.nummericSensor[0];
-        let snsrid1 = this.state.nummericSensor[1];
-        let snsrid2 = this.state.nummericSensor[2];
-        let snsrid3 = this.state.nummericSensor[3];
-        let snsrid4 = this.state.nummericSensor[4];
         this.state.nummericSensor.forEach((el, idx) => {
           if(idx === 0){   //기존그래프에 그려지는 index 0 은 패스
           }else{
-            switch(idx){
+            switch(idx){    //데이터 50개 넘어가면 쉬프트를 위함
               case 1:        
                 if(this.liveChart0.data.datasets[0].data.length >= 50){
                   this.liveChart0.data.labels.shift();
@@ -387,16 +495,11 @@ class searchEachInfo extends Component {
           this.destroyChart();
           this.drawExtraLiveChart();
           this.drawingChart();
-        })
+        });
       }else{      //센서가 바뀌지 않았을때
         this.setState({
           i: Number(sliderValue)
-        }, () => {
-          // this.myLiveChart.destroy();
-          // this.destroyChart();
-          // this.drawExtraLiveChart();
-          // this.drawingChart();
-        })
+        });
       }
       
     }
@@ -404,12 +507,12 @@ class searchEachInfo extends Component {
     if(this.state.fileNameAndId.length > 0 
       && this.state.nummericSensor.length > 0 
       && this.state.categoricSensor.length > 0){
-      if(!this.state.isStart){    //정지상태
+      if(!this.state.isStart){    //정지상태 => 재생
         changeText.innerText = "][";
         this.setState({ 
           isStart: true
         });
-      }else{      //재생상태
+      }else{      //재생상태 ==> 정지
         changeText.innerText = "▶";
         this.setState({ 
           isStart: false,
@@ -444,7 +547,8 @@ class searchEachInfo extends Component {
     let chartData = [];
     chartData = this.state.forChartData;
     const rangeSlider = document.getElementById('slider');
-    if(this.state.resetChart){    //리셋버튼 눌렀을때.
+
+    if(this.state.resetChart){    //리셋버튼 눌렀을때.  (그래프를 삭제하고 그래프를 다시그린다(하나의 캔버스에 여러개의 그래프를 그릴 수 없어))
       rangeSlider.value = 0;
       rangeSlider.max = chartData.length - 1;
       this.myLiveChart.destroy();
@@ -469,16 +573,16 @@ class searchEachInfo extends Component {
 
     } else{   //리셋상태가 아닐때
 
-      if(this.state.i === 0){   //슬라이더바를ㄹ 처음으로 돌리면 0이 아니라 1부터 시작하기때문에 
+      if(this.state.i === 0){   //슬라이더바를ㄹ 처음으로 돌리면 0이 아니라 1부터 시작하기때문에 0으로 설정해준다.
         rangeSlider.value = 0;
       
       
-      }else{      //슬라이더바를 증가시키기위해 //일반재생상태
+      }else{      //일반재생상태로 슬라이더바의 값을 증가시키기 위함
         rangeSlider.value = Number(rangeSlider.value) + 1;
       }
       rangeSlider.max = chartData.length -1;
 
-      if(this.state.i !== Number(rangeSlider.value)){   //드래그로 슬라이더바를 움직였을때. (드래그로 움직인게 아니라 단순정지재생이면 차트를 리셋할 필요없기 떄문)
+      if(this.state.i !== Number(rangeSlider.value)){   //드래그로 슬라이더바를 움직였을때. 
         this.setState({ 
           i: Number(rangeSlider.value),
         });
@@ -500,20 +604,48 @@ class searchEachInfo extends Component {
         labels: [],
         datasets: [{
           pointRadius: 3,
-          borderColor: 'white',
+          pointBackgroundColor:[],
+          pointBorderColor:[],
+          backgroundColor:'rgba(125, 136, 253, 1)',
+          borderColor: 'rgba(125, 136, 253, 1)',
           label: this.state.nummericSensorWithKor[0],
           data: [],
         }],
       },
       options: {
+        maintainAspectRatio :false,
+        plugins: {
+          legend: {
+            display:false
+          },
+          title:{
+            display:true,
+            text: this.state.nummericSensorWithKor[0],
+            padding: {
+                top: 15,
+                bottom: 30
+            },
+            color:'#ffffff',
+            font:{
+              family:'Noto Sans KR',
+              size:16,
+              weight:400
+            },
+            position:'bottom'
+          }
+        },
         animation:{
           duration: 0
         },
         responsive: false,
-        title:{
-          fontSize:12,
-          fontColor:"#000000",
-        },
+        scales: {
+          y:{
+            ticks: {color: "white", beginAtZero: true},
+          },
+          x: {
+            ticks: {color: "white", beginAtZero: true}
+          },
+        }
       }
     });
     this.setState({ resetChart : false});
@@ -521,7 +653,6 @@ class searchEachInfo extends Component {
   }
 
   drawExtraLiveChart(){ //추가그래프그려주는 함수
-    console.log(this.state.nummericSensorWithKor);
     this.state.nummericSensor.forEach((element, idx) => {
       if(idx === 0){
         //0일때는 그려져있는 차트에 그리기 떄문에 빼고 진행
@@ -537,19 +668,51 @@ class searchEachInfo extends Component {
                 labels: [],
                 datasets: [{
                   pointRadius: 3,
-                  borderColor: 'white',
+                  pointBackgroundColor: [],
+                  pointBorderColor: [],
+                  backgroundColor:'rgba(125, 136, 253, 1)',
+                  borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
                   data: [],
                 }],
               },
               options: {
+                maintainAspectRatio :false,
+                plugins: {
+                  legend: {
+                    display:false
+                  },
+                  title:{
+                    display:true,
+                    text: this.state.nummericSensorWithKor[idx],
+                        padding: {
+                          top: 15,
+                          bottom: 30
+                        },
+                        color:'#ffffff',
+                        font:{
+                          family:'Noto Sans KR',
+                          size:16,
+                          weight:400
+                        },
+                        position:'bottom'
+                  }
+                },
                 animation: {
                   duration: 0
                 },
                 responsive: false,
                 title:{
                   fontSize:12,
-                  fontColor:"#000000",
+                  fontColor:"#ffffff",
+                },
+                scales: {
+                  y:{
+                    ticks: {color: "white", beginAtZero: true}
+                  },
+                  x: {
+                    ticks: {color: "white", beginAtZero: true}
+                  }
                 },
               }
             });
@@ -563,12 +726,36 @@ class searchEachInfo extends Component {
                 labels: [] ,
                 datasets: [{
                   pointRadius: 3,
-                  borderColor: 'white',
+                  pointBackgroundColor: [],
+                  pointBorderColor: [],
+                  backgroundColor:'rgba(125, 136, 253, 1)',
+                  borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
                   data: [],
                 }],
               },
               options: {
+                maintainAspectRatio :false,
+                plugins: {
+                  legend: {
+                    display:false
+                  },
+                  title:{
+                    display:true,
+                    text: this.state.nummericSensorWithKor[idx],
+                    padding: {
+                      top: 15,
+                      bottom: 30
+                    },
+                    color:'#ffffff',
+                    font:{
+                      family:'Noto Sans KR',
+                      size:16,
+                      weight:400
+                    },
+                    position:'bottom'
+                  }
+                },
                 animation: {
                   duration: 0
                 },
@@ -577,6 +764,14 @@ class searchEachInfo extends Component {
                   fontSize:12,
                   fontColor:"#000000",
                 },
+                scales: {
+                  y:{
+                    ticks: {color: "white", beginAtZero: true}
+                  },
+                  x: {
+                    ticks: {color: "white", beginAtZero: true}
+                  }
+                }
               }
             });
 
@@ -589,20 +784,48 @@ class searchEachInfo extends Component {
                 labels: [],
                 datasets: [{
                   pointRadius: 3,
-                  borderColor: 'white',
+                  pointBackgroundColor: [],
+                  pointBorderColor: [],
+                  backgroundColor:'rgba(125, 136, 253, 1)',
+                  borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
                   data: [],
                 }],
               },
               options: {
+                maintainAspectRatio :false,
+                plugins: {
+                  legend: {
+                    display:false
+                  },
+                  title:{
+                    display:true,
+                    text: this.state.nummericSensorWithKor[idx],
+                    padding: {
+                      top: 15,
+                      bottom: 30
+                    },
+                    color:'#ffffff',
+                    font:{
+                      family:'Noto Sans KR',
+                      size:16,
+                      weight:400
+                    },
+                    position:'bottom'
+                  }
+                },
                 animation: {
                   duration: 0
                 },
                 responsive: false,
-                title:{
-                  fontSize:12,
-                  fontColor:"#000000",
-                },
+                scales: {
+                  y:{
+                    ticks: {color: "white", beginAtZero: true}
+                  },
+                  x: {
+                    ticks: {color: "white", beginAtZero: true}
+                  }
+                }
               }
             });
             break;
@@ -614,20 +837,48 @@ class searchEachInfo extends Component {
                 labels: [],
                 datasets: [{
                   pointRadius: 3,
-                  borderColor: 'white',
+                  pointBackgroundColor: [],
+                  pointBorderColor: [],
+                  backgroundColor:'rgba(125, 136, 253, 1)',
+                  borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
                   data: [],
                 }],
               },
               options: {
+                maintainAspectRatio :false,
+                plugins: {
+                  legend: {
+                    display:false
+                  },
+                  title:{
+                    display:true,
+                    text: this.state.nummericSensorWithKor[idx],
+                    padding: {
+                      top: 15,
+                      bottom: 30
+                    },
+                    color:'#ffffff',
+                    font:{
+                      family:'Noto Sans KR',
+                      size:16,
+                      weight:400
+                    },
+                    position:'bottom'
+                  }
+                },
                 animation: {
                   duration: 0
                 },
                 responsive: false,
-                title:{
-                  fontSize:12,
-                  fontColor:"#000000",
-                },
+                scales: {
+                  y:{
+                    ticks: {color: "white", beginAtZero: true}
+                  },
+                  x: {
+                    ticks: {color: "white", beginAtZero: true}
+                  }
+                }
               }
             });
         }
@@ -636,12 +887,20 @@ class searchEachInfo extends Component {
     this.setState({ resetChart : false});
   }
 
-  setChartData(){
+  setChartData(){     //차트데이터세팅 (범주, 수치 센서들에 해당하는 값들을 가져온다.)
+    this.setState({
+      loading : true
+    });
+    console.log(this.state.nummericSensor);
+    console.log(this.state.categoricSensor);
+    console.log(this.state.nummericSensorWithKor);
+    console.log(this.state.categoricSensorWithKor);
     vehicleStatistics.getChartData(this.state.fileNameAndId, this.state.nummericSensor, this.state.categoricSensor)
     .then((response) => {
-      console.log(response)
+      console.log(response);
       this.setState({
         forChartData: response.data,
+        loading:false,
         setData : true,
       }, () => {
         console.log(this.state.forChartData);
@@ -655,7 +914,7 @@ class searchEachInfo extends Component {
     })
   }
 
-  vehicleStatInfo(value) {    //차량상태의 데이터세팅
+  vehicleStatInfo(value) {    //우측상단의 차량상태 데이터세팅
     if(this.state.forChartData.length === this.state.i){
       return(<label>finish</label>);
     } else{
@@ -709,20 +968,22 @@ class searchEachInfo extends Component {
     }
   }
 
-  openModal(){   //파일선택 팝업을 클릭했을때 함수
+  openModal(){   //파일선택 팝업을 클릭하자마자 실행되는 함수
     this.setState({ 
       setModal : !this.state.setModal,
       isStart: false,
+      loading:true,
     }, () => {
       const changeText = document.getElementById('stopNStart');
       changeText.innerText = "▷";
     });
   }
   
-  openModal2(){   //센서데이터 팝업을 클릭시 실행 함수
+  openModal2(){   //센서데이터 팝업을 클릭하자마자 실행되는 함수
     this.setState({ 
       setModal2: !this.state.setModal2,
       isStart: false,
+      loading:true,
     }, () => {
       
       const changeText = document.getElementById('stopNStart');
@@ -730,7 +991,7 @@ class searchEachInfo extends Component {
     });
   }
   
-  changeModal(res) {    //파일선택팝업창을 클릭하면 바로 실행되기 위해 props를 modal에서 받아오는 함수
+  changeModal(res) {    //modal컴포넌트에서 false를 받아와 false일때 오픈되는 파일선택화면의 setModal을 바꿔준다.
     console.log(res);
     this.setState({
       setModal: res,
@@ -739,7 +1000,7 @@ class searchEachInfo extends Component {
     });
   }
   
-  changeModal2(res){    //센서선택팝업창을 클릭하면 바로 실행되기 위해 prosp를 modal에서 받아오는 함수
+  changeModal2(res){    //modal컴포넌트에서 false를 받아와 false일때 실행되는 센서선택팝업의 setModal2를 바꿔준다.
     console.log(res);
     this.setState({
       setModal2: res,
@@ -748,7 +1009,7 @@ class searchEachInfo extends Component {
     });
   }
 
-  forInputFileName(res){  //팝업창에서 파일이름과 SDAID를 받아오는 함수
+  forInputFileName(res){  //팝업창에서 가져온 파일이름과 SDAID를 저장하는 함수
     this.setState({
       fileNameAndId: res,
       i: 0,
@@ -790,7 +1051,7 @@ class searchEachInfo extends Component {
       }
     })
   }
-  progressBar(value){   //프로그래스바
+  progressBar(value){   //게이지차트 우측의 프로그래스바
 
     const containerStyles = {
       height: 50,
@@ -909,11 +1170,11 @@ class searchEachInfo extends Component {
     })
   }
 
-  categoricSensorIsChange(){
+  categoricSensorIsChange(){    //범주형센서가 바뀌었을때 실행
     if(this.state.categoricSensor.length > 0 ){
       if(this.state.changeSensorForChart){
         return ( 
-          <label className="btnn">Data null</label>
+          <label className="btnn">-</label>
         );
       }else{
         return( 
@@ -922,10 +1183,11 @@ class searchEachInfo extends Component {
       }
     } else{
       return ( 
-        <label className="btnn">Data null</label>
+        <label className="btnn">-</label>
       );
     }
   }
+  //속도 느리게
   slowChart() {
     let speed = document.getElementById('speed');
     
@@ -954,6 +1216,7 @@ class searchEachInfo extends Component {
 
     }
   }
+  //속도 빠르게
   fastChart(){
     let speed = document.getElementById('speed');
     
@@ -984,18 +1247,37 @@ class searchEachInfo extends Component {
       default:
     }
   }
+
   render() {
-    // console.log(this.props.eachInfo);
+    let selectedFile = null;
+    if(this.state.fileNameAndId[1]){
+      let year = this.state.fileNameAndId[1].substring(0,4);
+      let month = this.state.fileNameAndId[1].substring(4,6);
+      let day = this.state.fileNameAndId[1].substring(6,8);
+      let hour = this.state.fileNameAndId[1].substring(8,10);
+      let miniute = this.state.fileNameAndId[1].substring(10,12);
+      let seconds = this.state.fileNameAndId[1].substring(12,14);
+      selectedFile = year + "/" + month + "/" + day + " " + hour + ":" + miniute + ":" + seconds;
+    }
     return (
-      <div className="container">
+      <div className="container"  disabled={this.state.loading}>
+         {this.state.loading && (
+            <div class="d-flex justify-content-center loading-box">
+                <div class="spinner-border loading-in" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+             </div>
+           )}
         <Container fluid className="item">
-          <Row>
-            <Col className="item1" md="3">
+          <Row className="min">
+            <div className="item1 col-3">
               <div className="jumbotron">
                 차륜형 장갑차 장비 제원
               </div>
-              <div className="contents06">
-                <Col className="item11" >
+              <div className="contents06" >
+               
+                <Col className="item11">
+                 
                   <table className="table02 info_table">
                     <tbody>
                       <tr>
@@ -1039,30 +1321,37 @@ class searchEachInfo extends Component {
                   </table>
                 </Col>
                 <Col className="item12" >
-                <button className="stopnstart" id="stopNStart" onClick={this.stopChart}>▶</button>
-                  <input 
-                    id="slider"
-                    type="range" 
-                    defaultValue = '0'
-                    max='100'
-                    list="stepList"
-                  />
-                  <br></br>
-                  <button id="restart" onClick={this.restart}>■</button>
-                  <div className="slider-control">
-                    <button onClick={this.slowChart}>-</button>
-                    <button id="speed" value="x1" disabled={true}>x1</button>
-                    <button onClick={this.fastChart}>+</button>
+                  <div className="item_top">
+                    <button className="stopnstart" id="stopNStart" onClick={this.stopChart}>▶</button>
+                    <input 
+                      id="slider"
+                      type="range"   
+                      defaultValue = '0'
+                      max='100'
+                      list="stepList"
+                    />
+                  </div>
+                  <div className="item_bottom">
+                    <button id="restart" onClick={this.restart}>■</button>
+                    <div className="slider-control">
+                      <button onClick={this.slowChart}>-</button>
+                      <button id="speed" value="x1" disabled={true}>x1</button>
+                      <button onClick={this.fastChart}>+</button>
+                    </div>
                   </div>
                 </Col>
               </div>
-            </Col>
-            <div className="contents00">
+            </div>
+            <div className="contents00 col-9">
               <div className="item2" md="7">
                 <Col className="item21">
                   <div className="jumbotron">
                     차량 상태 정보
+                    <div className="dateModalButton">
+                    <p className="info_date" style={{display:'inline-block'}}>
+                      {selectedFile !== null && selectedFile}</p>
                     <button className="pop-btn" onClick={this.openModal}>mdl1</button>
+                    </div>
                     {
                       this.state.setModal === true
                       ? this.props.eachInfo.sdaid !== null 
@@ -1076,32 +1365,32 @@ class searchEachInfo extends Component {
                   </div>
                   <div className="contents07">
                     <div className="con-top row">
-                        <div className="vehicleDtlInfo">
+                        <div className="vehicleDtlInfo col-2">
                           <label className="ve-title">엔진상태</label>
                           {
                             this.state.forChartData.length > 0
                             ? this.vehicleStatInfo('engsta')
-                            : <label className="ve-data blue">데이터null</label>
+                            : <label className="ve-data blue">-</label>
                           }
                           <label className="ve-title">현재변속</label>
                           {
                             this.state.forChartData.length > 0
                             ? this.vehicleStatInfo('currttrans')
-                            : <label className="ve-data green">데이터null</label>
+                            : <label className="ve-data green">-</label>
                           }
                           <label className="ve-title">상세변속</label>
                           {
                             this.state.forChartData.length > 0
                             ? this.vehicleStatInfo('detailtrans')
-                            : <label className="ve-data red">데이터null</label>
+                            : <label className="ve-data red">-</label>
                           }
                         </div>
 
-                        <div className="vehicleDtlInfo">
+                        <div className="vehicleDtlInfo col-7">
                           <div id="gaugeChart"/>
                         </div>
 
-                        <div className="vehicleDtlInfo">
+                        <div className="vehicleDtlInfo col-3">
                           <div className="graphes">
                             <div className="graph01">
                               {
@@ -1127,7 +1416,7 @@ class searchEachInfo extends Component {
                           {
                             this.state.forChartData.length > 0
                             ? this.vehicleStatInfo('break')
-                            : <label className="ve-btn green">데이터null</label>
+                            : <label className="ve-btn green">-</label>
                           }
                         </div>
                         <div className="ve-label">
@@ -1135,7 +1424,7 @@ class searchEachInfo extends Component {
                           {
                             this.state.forChartData.length > 0
                             ? this.vehicleStatInfo('cooltemp')
-                            : <label className="ve-btn green">데이터null</label>
+                            : <label className="ve-btn green">-</label>
                           }
                         </div>
                         <div className="ve-label">
@@ -1143,7 +1432,7 @@ class searchEachInfo extends Component {
                           {
                             this.state.forChartData.length > 0
                             ? this.vehicleStatInfo('accpedal')
-                            : <label className="ve-btn yellow">데이터null</label>
+                            : <label className="ve-btn yellow">-</label>
                           }
                         </div>
                         <div className="ve-label">
@@ -1151,7 +1440,7 @@ class searchEachInfo extends Component {
                           {
                             this.state.forChartData.length > 0
                             ? this.vehicleStatInfo('fueltemp')
-                            : <label className="ve-btn blue">데이터null</label>
+                            : <label className="ve-btn blue">-</label>
                           }
                         </div>
                       </Row>
@@ -1172,9 +1461,6 @@ class searchEachInfo extends Component {
                     <Col className="item23" >
                       <Row>
                       { 
-                        // this.state.categoricSensor.length > 0
-                        // ?<Categoric idx={this.state.i} chartData={this.state.forChartData} data={this.state.categoricSensor} data2={this.state.categoricSensorWithKor} />
-                        // :<label className="btnn">Data null</label>
                         this.categoricSensorIsChange()
                       }
                       </Row>
@@ -1182,7 +1468,7 @@ class searchEachInfo extends Component {
                   </div>
                   <div className="contents07 mt24">
                     <Col className="item24">
-                      <canvas id="liveChart" ref={this.liveChartRef} width="900vw" height="300vw" />
+                      <canvas id="liveChart" className="livechart"  ref={this.liveChartRef} width="900vw" height="300vw" />
                       <div>
                         {
                           this.state.nummericSensor && 
@@ -1192,21 +1478,21 @@ class searchEachInfo extends Component {
                               switch(idx){
                                 case 1:
                                   return(
-                                    <canvas id={id} key={element}  width="900vw" height="300vw"/>
+                                    <canvas id={id} className="livechart"  key={element}  width="900vw" height="300vw"/>
                                   );
                                 case 2:
                                   return(
-                                    <canvas id={id} key={element} width="900vw" height="300vw" />
+                                    <canvas id={id} className="livechart"  key={element} width="900vw" height="300vw" />
                                   );
                                   
                                 case 3:
                                   return(
-                                    <canvas id={id} key={element}  width="900vw" height="300vw" />
+                                    <canvas id={id} className="livechart"  key={element}  width="900vw" height="300vw" />
                                   );
 
                                 default:
                                   return(
-                                    <canvas id={id} key={element} width="900vw" height="300vw" />
+                                    <canvas id={id} className="livechart"  key={element} width="900vw" height="300vw" />
                                     );
                                 }
                               }
@@ -1226,8 +1512,10 @@ class searchEachInfo extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const {user} = state.auth;
   return {
     eachInfo: state.tutorials,
+    user,
   };
 };
 

@@ -31,8 +31,12 @@ public class CimService {
 		paging.setStartPage(paging.getCurrentblock());
 		paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
 		paging.setTotalPageCount();
-		
-		List<Cmncd> sdaList = cmncdMapper.findCmncdList(paging.getPagenum()*pageSize, paging.getContentnum());
+
+		Map<String, Integer> parameter = new HashMap<String, Integer>();
+		parameter.put("page",paging.getPagenum()*pageSize);
+		parameter.put("pageSize", paging.getContentnum());
+
+		List<Cmncd> sdaList = cmncdMapper.findCmncdList(parameter);
 		
 		Map<String, Object> map = new HashMap<String,Object>();
 		

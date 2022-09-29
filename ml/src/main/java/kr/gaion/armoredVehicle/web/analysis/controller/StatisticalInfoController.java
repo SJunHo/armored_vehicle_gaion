@@ -5,8 +5,10 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import kr.gaion.armoredVehicle.web.analysis.model.StatisticalInfo;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,13 +31,13 @@ public class StatisticalInfoController {
 
 	@Autowired
 	StatisticalTreeInfoService treeInfoService;
-	
+
 	@Autowired
 	StatisticalGraphService sGraphService;
-	
+
 	@Autowired
 	StatisticalTableService sTableService;
-	
+
 	@GetMapping("/info")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public Map<String, Object> getInfo(){
@@ -45,23 +47,19 @@ public class StatisticalInfoController {
 		map.put("tree", json);
 		return map;
 	}
-	
-	@GetMapping("/graph/{level}/{url}/{date}")
+
+	@PostMapping("/graph")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-	public Map<String, Object> getGraph(@PathVariable("level") String level,
-										@PathVariable("url") String url,
-										@PathVariable("date") Date date){
-		JSONObject json = sGraphService.findGraph(level, url, date);
+	public Map<String, Object> getGraph(@RequestBody StatisticalInfo info){
+		JSONObject json = sGraphService.findGraph(info.getLevel(), info.getUrl(), info.getDate());
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("graph", json);
 		return map;
 	}
-	
-	@GetMapping("/table/{level}/{url}/{date}")
-	public Map<String, Object> getTable(@PathVariable("level") String level,
-										@PathVariable("url") String url,
-										@PathVariable("date") Date date){
-		JSONObject json = sTableService.findTable(level, url, date);
+
+	@PostMapping("/table")
+	public Map<String, Object> getTable(@RequestBody StatisticalInfo info){
+		JSONObject json = sTableService.findTable(info.getLevel(), info.getUrl(), info.getDate());
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("table", json);
 		return map;

@@ -9,7 +9,7 @@ import {
 } from "../types";
 
 import TutorialDataService from "../../services/analysis/tutorial.service";
-import vehicleStatistics from "../../services/analysis/vehicleStatics.service";
+import vehicleStatistics from "../../services/analysis/vehicleStatistics.service";
 
 export const createTutorial = (title, description) => async (dispatch) => {
   try {
