@@ -5,7 +5,7 @@
     font-weight: 400;
     color: #fff;
 }
-body{background-color: #2c2c44;}
+body{background-color: #2a2a41;}
 #root{width: 100%;}
 p{margin-bottom: 0;}
 table, table tr{border: none;}
@@ -107,7 +107,7 @@ table, table tr{border: none;}
 .btn03:hover{background: none;}
 /* 네비게이션_header */
  /* 아이콘 네비게이션 */
-.navbar.active{ 
+ .navbar.active{ 
 	width: 150px;
     min-width: 150px;
 }
@@ -116,24 +116,23 @@ table, table tr{border: none;}
     min-width: 100px;
 }
 .navbar.active .nav-item {
-	width:117px;
+	width:114px;
     margin-right: 0;
 }
 
 .navbar.active .navbar-nav .nav-link{
 	width:138px;
-    padding: 25px 0 25px 20px;
 }
 .navbar.active .nav-item.show .nav-link::before {
-    top: -56px;
-    right: 23.5px;
-    width: 91px;
-    height: 57px;
-    box-shadow: 34px 32px 0 #4a4492;
+    top: -38px;
+    right: 25px;
+    width: 41px;
+    height: 38px;
+    box-shadow: 21px 19px 0 #4a4492;
 }
 .navbar.active .nav-item.show .nav-link::after {
-    bottom: -59px;
-    right: 23.5px;
+    bottom: -38px;
+    right: 25px;
 }
 .navbar.active .navbar-nav span{
 	display:none;
@@ -168,8 +167,8 @@ table, table tr{border: none;}
 nav{
     float: left;
     position: relative;
-    width: 270px;
-    min-width: 270px;
+    width: 260px;
+    min-width: 260px;
     height: 1024px;
     border-radius:0 35px 35px 0;
     background-color: #464667;
@@ -208,7 +207,7 @@ nav{
     display: inline-block;
     width: 134px;
     height: 36px;
-    margin: 70px 0;
+    margin: 80px 0;
     background: url(../images/TCMS.png) no-repeat;
     background-size: contain;
     font-size: 0;
@@ -222,12 +221,12 @@ nav{
 }
 .nav-item.selected{
     position: relative;
-    width: 208px;
-    margin-right: -25px;
-    background: #2c2c44;
+    width: 217px;
+    margin-right: -39px;
+    background: #2a2a41;
 }
 .navbar-dark .navbar-nav .nav-item.selected .nav-link{
-    width: 190px;
+    width: 182px;
 }
 .nav-item.show::after{
     display: none;
@@ -241,31 +240,35 @@ nav{
 .nav-item.selected .nav-link::after{
     content: '';
     position: absolute;
-    bottom: -49px;
-    right: -17.5px;
-    width: 60px;
-    height: 50px;
+    bottom: -40px;
+    right: -17.9px;
+    width: 41px;
+    height: 40px;
     background: none;
     border-radius: 50%;
-    box-shadow: 19px -18px 0 #2c2c44;
+    box-shadow: 21px -21px 0 #2a2a41;
 }
 .nav-item.selected .nav-link::before{
     content: '';
     position: absolute;
     top: -45px;
-    right: -17.5px;
+    right: -17.9px;
     width: 45px;
     height: 45px;
     background: none;
     border-radius: 50%;
-    box-shadow: 20px 22px 0 #2c2c44;
+    box-shadow: 20px 22px 0 #2a2a41;
 }
 .navbar.active .nav-item.selected{
     margin-right: 0;
+    background: #2a2a41;
+}
+.navbar-dark.active  .nav-item.selected .nav-link::before{
+    box-shadow: 20px 22px 0 #2a2a41;
 }
 .navbar-dark.active .nav-item.selected .nav-link{
-    padding: 25px 0 25px 19px;
-    width: 97px !important;
+    padding: 25px 0 25px 29px;
+    width: 95px !important;
 }
 .nav-item.show{
     background-color: #4a4492;
@@ -273,13 +276,13 @@ nav{
 .nav-item.show .nav-link::before{
     content: '';
     position: absolute;
-    top: -46px;
-    right: -4.5px;
-    width: 45px;
+    top: -45px;
+    right: -0.2px;
+    width: 47px;
     height: 45px;
     background: none;
     border-radius: 50%;
-    box-shadow: 22px 22px 0 #4a4492;
+    box-shadow: 26px 25px 0 #4a4492;
 }
 .navbar-expand-lg .navbar-nav{
     flex-direction:inherit;
@@ -289,7 +292,7 @@ nav{
 .navbar-dark .navbar-nav .nav-link{
     position: relative;
     width: 201px;
-    padding: 25px 0 25px 15px;
+    padding: 25px 0 25px 25px;
     color: #fff;
     text-align: left;
 }
@@ -305,22 +308,22 @@ nav{
 .nav-item.show .nav-link::after{
     content: '';
     position: absolute;
-    bottom: -60px;
-    right: -3.5px;
-    width: 61px;
-    height: 60px;
+    bottom: -37.5px;
+    right: -0.2px;
+    width: 43px;
+    height: 38px;
     background: none;
     border-radius: 50%;
-    box-shadow: 32px -28px 0 #4a4492;
+    box-shadow: 17px -15px 0 #4a4492;
 }
 .navbar-expand-lg .navbar-nav .dropdown-menu{
     position: absolute;
     top: -10px;
-    left: 254px;
+    left: 244px;
     width: 260px;
     height: 1024px;
     padding: 50px 30px 50px 20px;
-    border-left: 11px solid #4a4492;
+    border: 1px solid #4a4492;
     border-radius: 0 35px 35px 0;
     background-color: #4a4492;
     z-index: 100;
@@ -328,26 +331,26 @@ nav{
 .navbar-expand-lg .navbar-nav .dropdown-menu::before{
     content: '';
     display: inline-block;
-    width: 41px;
-    height: 49px;
+    width: 64px;
+    height: 70px;
     position: absolute;
-    left: -51px;
-    top: -2px;
+    left: -65px;
+    top: -1px;
     background-color: #474566;
     border-radius: 50%;
-    box-shadow: 4px -6px 0 #4d4291;
+    box-shadow: 35px -36px 0 #4d4292;
 }
 .navbar-expand-lg .navbar-nav .dropdown-menu::after{
     content: '';
     display: inline-block;
-    width: 56px;
-    height: 53px;
+    width: 66px;
+    height: 70px;
     position: absolute;
-    left: -68px;
+    left: -67px;
     bottom: -1px;
     background-color: #474566;
     border-radius: 50% 0;
-    box-shadow: 22px 0px 0px 0px #4d4291;
+    box-shadow: 34px 0.2px 0px 0px #4d4292;
 }
 .screen-darken{
     content: ''; 
@@ -459,18 +462,16 @@ nav{
     display: flex;
 }
 .container{
+    position: relative;
     display: inline-block;
-    min-width: 1400px;
-    padding: 75px 30px;
-    overflow-x: hidden;
+    padding: 75px 25px;
 }
-.row{
-    display: flex;
-    overflow-x: hidden;
-    flex-wrap: wrap;
-    white-space: nowrap;
-    justify-content: space-between;
-    min-width: 1380px;
+.container.min{
+    min-width: 1200px;
+}
+.min.row{
+    max-width: 1600px;
+    min-width: 1200px;
     margin-right: 0;
     margin-left: 0;
 }
@@ -487,7 +488,6 @@ nav{
     width: 100%;
     padding: 0 !important;
 }
-
 .sub_title h1 ,.jumbotron, .sub_title h4{
     font-size: 21px;
     font-weight: 700;
@@ -495,6 +495,15 @@ nav{
 }
 .jumbotron{
     background: none;
+}
+.dateModalButton{
+    display: inline-block;
+    float: right;
+}
+.dateModalButton .info_date{
+    font-size: 14px;
+    margin-right: 15px;
+    margin-top: -5px;
 }
 .contents{
     display: inline-block;
@@ -510,7 +519,7 @@ nav{
     padding: 30px;
     background-color: #464667;
     border-radius: 20px;
-    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 14px -3px 21px -13px rgba(0, 0, 0, 0.3);
 }
 .contents04{
     display: flex;
@@ -523,18 +532,17 @@ nav{
     padding: 55px 60px;
     background-color: #464667;
     border-radius: 20px;
-    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 4;
 }
 .contents05{ 
     position: relative;
     min-width: 1120px;
-    padding: 30px;
-    padding-top: 90px;
-    margin-top: -90px;
+    padding: 40px 10px 30px 10px;
+    margin-top: -30px;
     background: #3A3A5A; 
     border-radius: 20px;
-    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 14px -3px 21px -13px rgba(0, 0, 0, 0.3);
     z-index: 3;
 }
 .stable{
@@ -675,7 +683,7 @@ nav{
     width: 122px;
     height: 50px;
     padding: 10px;
-    margin-top: 53px;
+    margin-top: 50px;
     border: none;
     border-radius: 0.25rem;
     background: #2B2B42;
@@ -765,6 +773,11 @@ nav{
 }
 .MuiPaginationItem-root{
     color: rgb(81 81 96);
+}
+.MuiPaginationItem-ellipsis{
+    margin-top: -8px !important;
+    color: #fff !important;
+    font-size: 16px !important;
 }
 .MuiPaginationItem-page.Mui-selected{
     background-color: #2c2c44 !important;
@@ -856,10 +869,7 @@ a.badge-info:focus, a.badge-info:hover{
 }
 /* 차량정보조회> 상태정보- 차륜형장갑차장비제원 */
 .contents00{
-    display: inline-block;
-    width: 78%;
-    min-width: 800px;
-    padding: 0 30px;
+    min-width: 820px;
 }
 .item2{
     display: inline-block;
@@ -869,25 +879,18 @@ a.badge-info:focus, a.badge-info:hover{
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
-.col-md-3{
-    width: 22%;
-    min-width: 260px;
-    max-width: none;
-    padding-right: 0;
-    padding-left: 0;
-    flex:none !important;
-}
 .col-md-9{max-width: none; flex: 0 0 0;}
 .contents06{
     display: inline-block;
     width: 100%;
     height: 868px;
-    padding: 40px 10px;
+    padding: 20px 10px;
     background: #3A3A5A;
     box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
 }
 .contents07{
+    position: relative;
     padding: 40px 30px;
     background: #3A3A5A;
     box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
@@ -902,9 +905,10 @@ a.badge-info:focus, a.badge-info:hover{
 }
 .image span{
     display: inline-block;
-    width: 240px;
-    height: 200px;
+    width: 100%;
+    height: 250px;
     background: url(../images/armored_car/ar01.png) no-repeat;
+    background-size: contain;
 }
 .info_table{
     width: 100%;
@@ -916,7 +920,7 @@ a.badge-info:focus, a.badge-info:hover{
 }
 .info_table tbody tr td{
     text-align: left;
-    padding: 15px;
+    padding: 8px;
     font-size: 16px;
 }
 .info_table tbody tr td:first-child{
@@ -926,13 +930,16 @@ a.badge-info:focus, a.badge-info:hover{
     text-align: center;
 }
 .info_table tbody tr:nth-child(2) td{
-    padding-top: 50px ;
+    padding-top: 30px ;
 }o
 .info_table tbody tr:last-child td{
-    padding-bottom: 50px ;
+    padding-bottom: 30px ;
 }
 .info_table tbody tr:first-child, .info_table tbody tr:last-child {
     border-bottom: 1px solid #fff;
+}
+.item1 {
+    min-width: 300px;
 }
 .item12{
     padding: 25px 15px;
@@ -941,15 +948,61 @@ a.badge-info:focus, a.badge-info:hover{
 .item12 button{
     border: none;
     background: none;
-    width: 40px;
     height: 40px;
-    margin-right: 15px;
     padding: 2px 0;
     border-radius: 8px;
     color: #000;
     background-color: #fff;
 }
+.playbtn{
+    width: 40px;
+}
+.item_top, .item_bottom{
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.item_bottom{
+    margin-top: 20px;
+    text-align: left;
+}
+.box-alarm, .box-simulation{
+    display: inline-block;
+    vertical-align: middle;
+    width: 48%;
+}
+.box-alarm{
+    border: 1px solid #fff;
+    padding: 6px 4px;
+    height: 40px;
+    float: left;
+    border-radius: 8px;
+}
+.box-alarm span{
+    display: inline-block;
+}
+.box-alarm .react-toggle{
+    float: right;
+}
+.box-simulation{
+    float: right;
+}
+.btn-simulation{
+    width: 100%;
+}
+.item12 .btn-simulation:hover{
+    background: #4a4492;
+    color: #fff;
+}
+.css-1aznpnh-MuiSlider-root{
+    float: right;
+    width: 85% !important;
+}
+.css-1gv0vcd-MuiSlider-track{
+    color: #197BBD !important;
+}
 .item12 button.stopnstart{
+    float: left;
     width: 16px;
     height: auto;
     margin-bottom: 20px;
@@ -958,39 +1011,44 @@ a.badge-info:focus, a.badge-info:hover{
     background:none;
 }
 .slider-control{
+    float: right;
     display: inline-block;
-    width: 81%;
+    width: 80%;
     text-align: center;
     border-radius: 8px;
     background: #fff;
 }
 .slider-control button{
-    width: 60px;
     margin-right: 0;
     font-size: 16px;
     font-weight: 500;
 }
 .item12 input{
-    width: 90%;
+    float: right;
+    width: 85%;
+    margin-top: 6px;
 }
 .pop-btn{
     display: inline-block;
     float: right; 
     width: 20px;
     height: 20px;
-    margin-top: 5px;
+    margin-top: 8px;
     border: none;
     background: url(../images/gnb05.png) no-repeat;
     background-size: contain;
     font-size: 0;
 }
-.toastui-chart-wrapper canvas{
-    width: 240px !important;
-    height: auto !important;
+.toastui-chart-wrapper{
+    width: 46%;
+    height: 100%;
+}
+.toastui-chart-wrapper:first-child{
+    margin-right: 20px;
 }
 .con-top{
     height: 280px;
-    min-width: 900px;
+    min-width: 800px;
 }
 .vehicleDtlInfo:last-child{
     margin-right: 0;
@@ -999,22 +1057,69 @@ a.badge-info:focus, a.badge-info:hover{
     display: inline-block;
     width: 100%;
     height: 270px;
+    position: relative;
+}
+
+#gaugeChart .toastui-chart-wrapper{
+    position: relative;
+}
+#gaugeChart .toastui-chart-wrapper canvas{
+    display: inline-block;
+    width: 100% !important;
+    height: 100% !important;
+    margin-top: -18px;
+}
+#gaugeChart .toastui-chart-wrapper:first-child::after{
+    content: '엔진속도';
+    display: inline-block;
+    position: absolute;
+    bottom:3px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 600;
+}
+#gaugeChart .toastui-chart-wrapper:last-child:after{
+    content: '차량속도';
+    display: inline-block;
+    position: absolute;
+    bottom:3px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 600;
 }
 .graphes{
     display: inline-block;
     position: relative;
-    width: 200px;
+    width: 100%;
     height: 270px;
 }
 .graphes .graph01{
     position: absolute;
-    left: -40px;
-    top: 96px;
+    left: -42px;
+    top: 42%;
 }
 .graphes .graph02{
     position: absolute;
-    right: -40px;
-    top: 96px;
+    right: -30px;
+    top: 42%;
+}
+.graphes .graph01 > div::after{
+    content: '연료수준';
+    display: inline-block;
+    position: absolute;
+    transform: rotate(-270deg);
+    bottom: -10px;
+    left: -61px;
+    font-weight: 600;
+}
+.graphes .graph02 > div::after{
+    content: '외기온도';
+    display: inline-block;
+    position: absolute;
+    transform: rotate(-270deg);
+    bottom: -10px;
+    left: -61px;
+    font-weight: 600;
 }
 .graphes .graph01 > div, .graphes .graph02 > div{
     width: 200px !important;
@@ -1031,6 +1136,18 @@ a.badge-info:focus, a.badge-info:hover{
 }
 .graphes .graph02 > div > div{
     background-color:#439A86 !important ;
+}
+.item24 canvas{
+    width: 100%;
+}
+.livechart{
+    max-width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid #fff;
+    padding-top: 25px;
+}
+.livechart:last-child{
+    border-bottom: none;
 }
 .vehicleDtlInfo label, .ve-data{
     font-family: 'lato';
@@ -1132,33 +1249,36 @@ label[class*="btnn"]{
     background-color: #FF9B05;
 }
 /* 정보기준일 설정 */
-.ReactModalPortal{
-    position: relative;
-    z-index: 100;
-}
 .ReactModal__Overlay{
+    z-index: 1000;
     background-color: rgb(0, 0, 0, 80%) !important;
 }
 .ReactModal__Content{
-    display: inline-block;
-    inset:unset !important;
-    overflow:initial;
-    top: 50% !important;
-    left: 50% !important;                                                                                                                           
-    transform: translate(-50%,-50%) !important;
-    padding: 0 !important;
+    overflow: auto !important;
+    padding: 0!important;
     border: none !important;
+    background: none !important;
+}
+.pop01{
+    width: 63%;
+    margin: 0 auto;
+    margin-top: 200px;
+    border-radius: 15px;
+    overflow: auto;
     background: #3A3A5A !important;
     box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);
-    border-radius: 15px !important;
 }
-.list-top.row{
-    min-width: 1100px;
+.pop02{
+    width: 91%;
+    margin: 0 auto;
+    margin-top: 40px;
+    overflow: auto;
+    border-radius: 15px;
+    background: #3A3A5A !important;
+    box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.5);
 }
-.ReactModal__Content .pop02{
-    height: 840px;
-}.ReactModal__Content .pop02 > div{
-    width: 1160px;
+.choosebox{
+    padding: 15px;
 }
 .ReactModal__Content h4{
     display: inline-block;
@@ -1172,15 +1292,23 @@ label[class*="btnn"]{
 }
 .listbox{
     width: 100%;
-    padding: 30px 45px;
+    padding: 30px;
+    text-align: center;
 }
-.listbox .list-top, .listbox .list-bottom{
+.listbox .list-top{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.listbox .list-bottom{
     display: inline-block;
     width: 100%;
     text-align: center;
 }
 .listbox .list-bottom{margin-top: 30px;}
 .listbox .list-top .p-listbox{
+    min-width: 15%;
     float: left;
     display: inline-block;
     padding: 0;
@@ -1198,8 +1326,9 @@ label[class*="btnn"]{
     padding: 0 !important;
 }
 .p-listbox-list-wrapper{
+    min-width: 100px;
     max-height: none !important;
-    height: 228px;
+    height: 200px;
 }
 .p-listbox .p-listbox-list li:first-child{
     border-radius: 6px 6px 0 0 ;
@@ -1223,11 +1352,16 @@ label[class*="btnn"]{
     color: #fff;
 }
 /* 스크롤바 */
-.p-listbox-list-wrapper::-webkit-scrollbar {
+.p-listbox-list-wrapper::-webkit-scrollbar{
     width: 10px;
     border-radius: 0 50% 50% 0 !important;
 }
-.p-listbox-list-wrapper::-webkit-scrollbar-thumb {
+.horizonbar::-webkit-scrollbar{
+    width: 10px;
+    height: 10px;
+    border-radius: 50% !important;
+}
+.p-listbox-list-wrapper::-webkit-scrollbar-thumb, .horizonbar::-webkit-scrollbar-thumb {
     background: #757577;
     border-radius:30px !important;
 }
@@ -1235,12 +1369,14 @@ label[class*="btnn"]{
     background-color: #FAFAFA;
     border-radius: 0 50% 50% 0 !important;
 }
+.horizonbar::-webkit-scrollbar-track {
+    background-color: #fafafa;
+    border-radius: 30px;
+}
 /* 차량 센서데이터 선택 */
 .choose01{
     display: inline-block;
     width: 100%;
-    padding:0 33px;
-    margin-top: 10px;
     text-align: right;
 }
 .choose01 h5, .choose01 button{
@@ -1271,14 +1407,12 @@ label[class*="btnn"]{
 .choose02, .choose03{
     display: inline-block;
     width: 100%;
-    padding:0 33px;
 }
-.btn-to h3, .btn-bo h3{
+.choose02 h3, .choose02 h3{
     font-size: 14px;
 }
 .choose03{
     text-align: center;
-    margin-top: 10px;
 }
 .choose03 h5{
     font-size: 0;
@@ -1298,11 +1432,15 @@ label[class*="btnn"]{
 .choose01 .cho-select option{
     color: #000;
 }
+.btn-bo, .btn-to{
+    width: 96%;
+    margin: 0 auto;
+}
 .btn-bo{
     margin-top: 10px;
 }
 .buttonList{
-    width: 149px;
+    width: 148px;
     height: 40px;
     padding: 0 16px;
     margin-right: 7px;
@@ -1439,12 +1577,44 @@ label[class*="btnn"]{
 .buttonList.blue::before{
     filter: brightness(0) invert(1) !important;
 }
+/* 로딩창 */
+.loading-box, .loading-box02{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    vertical-align:middle;
+    background: #2B2B42;
+    padding: 400px 0;
+}
+.contents{position: relative;}
+.loading-box03{
+    position: absolute;
+    z-index: 10;
+    left: 20px;
+    top: 0;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    padding: 300px 0;   
+    min-width: 900px;
+    height: 100%;
+    background-color: #2a2a41; 
+}
+.loading-box02{
+    padding:250px 0;
+    text-align: center;
+    top: 85px;
+    background: #3a3a5a;
+}
 /* 데이터 수집> 기존센서데이터 */
 .condata_top{
     display: block;
     width: 100%;
+    height: 48px;
     margin-bottom: 30px;
-    overflow: hidden;
 }
 .condata_top .btn-file{
     float: left;
@@ -1519,7 +1689,6 @@ label[class*="btnn"]{
     font-weight: 700;
     font-size: 20px;
 }
-
 /* 이상치 경고 > 주기성 데이터 조회 */
 .data_header{
     min-width: 1200px;
@@ -1617,12 +1786,13 @@ label[class*="btnn"]{
 .Tree {
     display: inline-block;
     width: 17%;
-    min-width: 230px;
+    min-width: 240px;
     padding: 40px 10px;
     background: #3A3A5A;
     box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
 }
+
 .Tree.col-2{
     flex: none !important;
     max-width: none !important;
@@ -1693,7 +1863,7 @@ li .rstm-toggle-icon .rstm-toggle-icon-symbol{
     display: none;
 }
 .rstm-tree-item-level2{
-    padding-left: 3.25rem !important;
+    padding-left: 2.8rem !important;
 }
 .Opened .rstm-tree-item-level3::before,
 .Closed .rstm-tree-item-level3::before
@@ -1889,11 +2059,12 @@ td input.form-control{
 }
 /* 날짜 */
 .react-datepicker__tab-loop{
-    width: 100%;
     position: absolute;
+    right: 22%;
 }
 .detepicker-div form .form-group{
     max-width: inherit;
+    position: relative;
 }
 .sub-date .react-datepicker-wrapper .react-datepicker__input-container input{
     float: right;
@@ -1970,7 +2141,6 @@ td input.form-control{
     border: none;
     background-color: #4a4492;
 }
-
 /* text-color */
 .blue{color: #197BBD;}
 .green{color: #439A86;}
@@ -1981,17 +2151,31 @@ td input.form-control{
 .mt30{margin-top: 30px;}
 .mr20{margin-right: 20px;}
 /* 반응형 */
-@media (min-width:1200px){
-    .container{max-width: none;}
+@media (max-width:1730px){
+    .ReactModal__Content .pop02{width: 98%; margin-top: 70px;}
+    .choosebox{padding: 10px;}
+    .buttonList{width: 140px;}
 }
-@media (min-width:992px){
+@media (max-width:1200px){
     .container{max-width: none;}
-    
+    .pop01{width: 100%;}
+    .listbox{width: 100%; padding: 10px;}
+    .ReactModal__Content .pop02{width: 100%; margin-top: 0px;}
+    .choosebox{padding: 10px;}
+    .btn-bo, .btn-to{width: 100%;}
 }
-@media (min-width:768px){
+@media (max-width:992px){
     .container{max-width: none;}
-
-   
+    .listbox{width: 100%;}
+    .listbox .list-top{width: 95%;}
+}
+@media (max-width:768px){
+    .container{max-width: none;}
+    .pop01{width: 100%; margin-top: 10px;}
+    .listbox .list-top{display: inline-block; text-align: center;}
+    .p-listbox-list-wrapper{height: 70px;}
+    .listbox .list-top .p-listbox{min-width: 100%; margin-right: 0; margin-bottom: 10px;}
+    .listbox .list-bottom{margin-top: 5px;}
 }
 @media (min-width:576px){
     .container{max-width: none;}

@@ -159,6 +159,10 @@ class searchEachInfo extends Component {
       },],
     },
     options: {
+      tooltip:{
+        template:false,
+        visible:false
+      },
       responsive:{
         animation: false
       },
@@ -166,8 +170,8 @@ class searchEachInfo extends Component {
         visible: false,
       },
       chart: { 
-        width: 750, 
-        height: 750,
+        width: 700, 
+        height: 700,
       },
       series: {
         selectable: false,
@@ -191,8 +195,12 @@ class searchEachInfo extends Component {
           },
         },
         series: {
+          colors:['#3856D1'],
+          solid:{
+            backgroundSector:{color:'rgba(0, 0, 0, 0.1)'}
+          },
           dataLabels: {
-            fontSize: 75,
+            fontSize: 65,
             fontFamily: 'Noto Sans KR',
             fontWeight: 600,
             color: '#fff',
@@ -204,7 +212,7 @@ class searchEachInfo extends Component {
       },
     }
     });
-
+    this.gaugeChart1.hideTooltip();
     this.gaugeChart2 = new GaugeChart({ el, 
       data: {
         series: [{
@@ -213,6 +221,10 @@ class searchEachInfo extends Component {
         },],
       },
       options: {
+        tooltip:{
+          template:false,
+          visible:false
+        },
         responsive:{
           animation: false
         },
@@ -220,7 +232,7 @@ class searchEachInfo extends Component {
           visible: false,
         },
         
-        chart: { width: 750, height: 750 },
+        chart: { width: 700, height: 700 },
         series: {
           solid: true,
           dataLabels: { visible: true, offsetY: -30, formatter: (value) => `${value}km/h` },
@@ -244,8 +256,12 @@ class searchEachInfo extends Component {
             },
           },
           series: {
+            colors:['#FF9B05'],
+            solid:{
+              backgroundSector:{color:'rgba(0, 0, 0, 0.1)'}
+            },
             dataLabels: {
-              fontSize: 75,
+              fontSize: 65,
               fontFamily: 'Noto Sans KR',
               fontWeight: 600,
               color: '#fff',
@@ -604,8 +620,8 @@ class searchEachInfo extends Component {
         labels: [],
         datasets: [{
           pointRadius: 3,
-          pointBackgroundColor:[],
-          pointBorderColor:[],
+          pointBackgroundColor:['rgba(125, 136, 253, 1)'],
+          pointBorderColor:['rgba(125, 136, 253, 1)'],
           backgroundColor:'rgba(125, 136, 253, 1)',
           borderColor: 'rgba(125, 136, 253, 1)',
           label: this.state.nummericSensorWithKor[0],
@@ -668,8 +684,8 @@ class searchEachInfo extends Component {
                 labels: [],
                 datasets: [{
                   pointRadius: 3,
-                  pointBackgroundColor: [],
-                  pointBorderColor: [],
+                  pointBackgroundColor:['rgba(125, 136, 253, 1)'],
+                  pointBorderColor:['rgba(125, 136, 253, 1)'],
                   backgroundColor:'rgba(125, 136, 253, 1)',
                   borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
@@ -726,8 +742,8 @@ class searchEachInfo extends Component {
                 labels: [] ,
                 datasets: [{
                   pointRadius: 3,
-                  pointBackgroundColor: [],
-                  pointBorderColor: [],
+                  pointBackgroundColor:['rgba(125, 136, 253, 1)'],
+                  pointBorderColor:['rgba(125, 136, 253, 1)'],
                   backgroundColor:'rgba(125, 136, 253, 1)',
                   borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
@@ -784,8 +800,8 @@ class searchEachInfo extends Component {
                 labels: [],
                 datasets: [{
                   pointRadius: 3,
-                  pointBackgroundColor: [],
-                  pointBorderColor: [],
+                  pointBackgroundColor:['rgba(125, 136, 253, 1)'],
+                  pointBorderColor:['rgba(125, 136, 253, 1)'],
                   backgroundColor:'rgba(125, 136, 253, 1)',
                   borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
@@ -837,8 +853,8 @@ class searchEachInfo extends Component {
                 labels: [],
                 datasets: [{
                   pointRadius: 3,
-                  pointBackgroundColor: [],
-                  pointBorderColor: [],
+                  pointBackgroundColor:['rgba(125, 136, 253, 1)'],
+                  pointBorderColor:['rgba(125, 136, 253, 1)'],
                   backgroundColor:'rgba(125, 136, 253, 1)',
                   borderColor: 'rgba(125, 136, 253, 1)',
                   label: this.state.nummericSensorWithKor[idx],
@@ -1322,7 +1338,7 @@ class searchEachInfo extends Component {
                 </Col>
                 <Col className="item12" >
                   <div className="item_top">
-                    <button className="stopnstart" id="stopNStart" onClick={this.stopChart}>▶</button>
+                    <button className="stopnstart playbtn" id="stopNStart" onClick={this.stopChart}>▶</button>
                     <input 
                       id="slider"
                       type="range"   
@@ -1332,11 +1348,11 @@ class searchEachInfo extends Component {
                     />
                   </div>
                   <div className="item_bottom">
-                    <button id="restart" onClick={this.restart}>■</button>
+                    <button className="playbtn" id="restart" onClick={this.restart}>■</button>
                     <div className="slider-control">
-                      <button onClick={this.slowChart}>-</button>
-                      <button id="speed" value="x1" disabled={true}>x1</button>
-                      <button onClick={this.fastChart}>+</button>
+                      <button className="playbtn" onClick={this.slowChart}>-</button>
+                      <button className="playbtn" id="speed" value="x1" disabled={true}>x1</button>
+                      <button className="playbtn" onClick={this.fastChart}>+</button>
                     </div>
                   </div>
                 </Col>
