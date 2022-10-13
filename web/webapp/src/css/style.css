@@ -3,12 +3,19 @@
   padding: 0;
   font-family: 'Noto Sans KR';
   font-weight: 400;
-  color: #fff;
+  color: #fff; 
 }
 body{background-color: #2a2a41;}
 #root{width: 100%;}
 p{margin-bottom: 0;}
 table, table tr{border: none;}
+/* 고장진단모델 텍스트 */
+select {color: #000;}
+select option{color: #000;}
+td input{color: #000;}
+option{color:#000}
+.css-tj5bde-Svg{filter: brightness(0.5);}
+.css-26l3qy-menu div{color: #333;}
 /* 로그인 페이지 */
 .col-md-12{
   display: inline-block;
