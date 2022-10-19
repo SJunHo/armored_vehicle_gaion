@@ -13,4 +13,9 @@ public interface CmpntsrplcMapper {
 
 	public List<CmpntsrplcResponse> findCmpntsrplcAll();
 	public void updateCmpntsrplc(Cmpntsrplc cmpntsrplc);
+
+	public List<Cmpntsrplc> findCmpntsrplcbyGrid(String grid);
+	public List<Cmpntsrplc> findCmpntsrplcByGrid(String grid);
+	public List<String> findGridAll();
+
 }

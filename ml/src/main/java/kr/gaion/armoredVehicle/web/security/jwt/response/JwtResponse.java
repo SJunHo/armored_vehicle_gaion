@@ -2,19 +2,18 @@ package kr.gaion.armoredVehicle.web.security.jwt.response;
 
 import java.util.List;
 
+
 public class JwtResponse {
   private String token;
   private String type = "Bearer";
-  private String id;
-  private String username;
-  private String email;
+  private String userid;
+  private String name;
   private List<String> roles;
 
-  public JwtResponse(String accessToken, String id, String username, String email, List<String> roles) {
+  public JwtResponse(String accessToken, String userid, String name, List<String> roles) {
     this.token = accessToken;
-    this.id = id;
-    this.username = username;
-    this.email = email;
+    this.userid = userid;
+    this.name = name;
     this.roles = roles;
   }
 
@@ -35,27 +34,19 @@ public class JwtResponse {
   }
 
   public String getId() {
-    return id;
+    return userid;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
+  public void setId(String userid) {
+    this.userid = userid;
   }
 
   public String getUsername() {
-    return username;
+    return name;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUsername(String name) {
+    this.name = name;
   }
 
   public List<String> getRoles() {

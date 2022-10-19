@@ -1,7 +1,9 @@
 package kr.gaion.armoredVehicle.web.analysis.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -43,7 +45,9 @@ public class StatisticalTreeInfoService {
 				JSONArray sNodes = new JSONArray();
 				List<Sda> sdaList = new ArrayList<Sda>();
 
-				sdaList = sdaMapper.findSdaByBrgdbnCode(treeInfoCode);
+				Map<String, Object> search = new HashMap<String, Object>();
+				search.put("brgdbncode", treeInfoCode);
+				sdaList = sdaMapper.findSda(search);
 				for(Sda s : sdaList) {
 					JSONObject sDJson = new JSONObject();
 					sDJson.put("key", s.getSdaid());

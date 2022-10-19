@@ -35,9 +35,6 @@ export default class driverPostureCorrection extends Component {
 
   componentDidMount() {
     this.getDivsList();
-    //this.getBnList();
-    // this.getsdaList();
-    // this.getdiList();
   }
 
   componentDidUpdate(prevProps, prevState) {

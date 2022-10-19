@@ -2,7 +2,6 @@
 
 import { connect } from "react-redux";
 import React, { Component } from 'react';
-
 class BookmarkBtn extends Component {
     constructor(props) {
         super(props);
@@ -15,25 +14,6 @@ class BookmarkBtn extends Component {
     }
 
     componentDidMount() {
-        console.log("DIDMount================");
-        console.log(this.props);
-        // this.setState({
-        //     bookmarkList: this.props.bookmark
-        // }, () => {
-        //     // console.log(this.props);
-        //     console.log(this.state.bookmarkList);
-        //     console.log(this.props.content.code);
-        //     this.state.bookmarkList.forEach((el, idx) => {
-        //         if(el.snsrid === this.props.content.code){
-        //             this.setState({
-        //                 isClicked: true,
-        //             })
-        //         }
-        //     })
-
-
-
-        // });
     }
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.bookmark !== this.props.bookmark){

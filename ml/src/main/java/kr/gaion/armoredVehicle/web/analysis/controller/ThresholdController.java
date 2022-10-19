@@ -21,7 +21,7 @@ import kr.gaion.armoredVehicle.web.analysis.model.ThresholdResponse;
 import kr.gaion.armoredVehicle.web.analysis.service.ThresholdService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8083")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/threshold")
 public class ThresholdController {
 

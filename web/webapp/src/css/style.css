@@ -629,7 +629,6 @@ height: 1rem;
 .contents04 .form-group .start-form .form-group{
   display: inline-block;
   position: relative;
-  width: 337px;
   margin-right: 0;
   color: #fff;
 }
@@ -2194,3 +2193,18 @@ td input.form-control{
   
 } 
 
+/*sidebar 추가*/
+.sidebar-menu-none {
+  display : none;
+}
+.sidebar-menu-open {
+  width: 350px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}

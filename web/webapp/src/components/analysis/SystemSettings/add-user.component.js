@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
 
 import { connect } from "react-redux";
 import { register } from "../../../actions/login/auth";
+import userService from "../../../services/login/user.service";
 
 const required = (value) => {
   if (!value) {
@@ -17,15 +17,6 @@ const required = (value) => {
   }
 };
 
-const email = (value) => {
-  if (!isEmail(value)) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This is not a valid email.
-      </div>
-    );
-  }
-};
 
 const vuserid = (value) => {
   if (value.length < 3 || value.length > 20) {
@@ -57,7 +48,7 @@ const vpassword = (value) => {
   }
 };
 
-const vphonenum = (value) =>{
+const vtelno1 = (value) =>{
   if (value.length < 10 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -67,31 +58,41 @@ const vphonenum = (value) =>{
   }
 };
 
-const vmltnum = (value) =>{
+const vtelno2 = (value) =>{
+  if (value.length < 10 || value.length > 40) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The phonenum must be between 10 and 40 characters.
+      </div>
+    );
+  }
+};
+
+const vsrvno = (value) =>{
   if (value.length < 4 || value.length > 10) {
     return (
       <div className="alert alert-danger" role="alert">
-        The vmltnum must be between 4 and 10 characters.
+        The vsrvno must be between 4 and 10 characters.
       </div>
     );
   }
 };
 
-const vmltrank = (value) =>{
+const vrnkcd = (value) =>{
   if (value.length < 2 || value.length > 10) {
     return (
       <div className="alert alert-danger" role="alert">
-        The vmltrank must be between 2 and 10 characters.
+        The vrnkcd must be between 2 and 10 characters.
       </div>
     );
   }
 };
 
-const vmltunit = (value) =>{
+const vrspofc = (value) =>{
   if (value.length < 2 || value.length > 6) {
     return (
       <div className="alert alert-danger" role="alert">
-        The vmltunit must be between 2 and 6 characters.
+        The vrspofc must be between 2 and 6 characters.
       </div>
     );
   }
@@ -104,72 +105,123 @@ class AddUser extends Component {
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeId = this.onChangeId.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangePhonenum = this.onChangePhonenum.bind(this);
-    this.onChangeMltnum = this.onChangeMltnum.bind(this);
-    this.onChangeMltrank = this.onChangeMltrank.bind(this);
-    this.onChangeMltunit = this.onChangeMltunit.bind(this);
+    this.onChangeDivs = this.onChangeDivs.bind(this);
+    this.onChangeBrgdbn = this.onChangeBrgdbn.bind(this);
+    this.getBrgnbnList = this.getBrgnbnList.bind(this);
+    this.onChangeTelno1 = this.onChangeTelno1.bind(this);
+    this.onChangeTelno2 = this.onChangeTelno2.bind(this);
+    this.onChangeSrvno = this.onChangeSrvno.bind(this);
+    this.onChangeRnkcd = this.onChangeRnkcd.bind(this);
+    this.onChangeRspofc = this.onChangeRspofc.bind(this);
 
     this.state = {
-      id: "",
-      username: "",
-      email: "",
-      password: "",
+      userid: "",
+      pwd: "",
+      name: "",
+      divs : "",
+      brgd : "",
+      bn : "",
+
+      rnkcd: "",
+      rspofc: "",
+      srvno: "",
+
+      telno1: "",
+      telno2: "",
       usrth: "",
-      phonenum: "",
-      mltrank: "",
-      mltnum: "",
-      mltunit: "",
+
+      divsList : [],
+      brgdbnList : [],
+      brgdbn : "",
+
       successful: false,
     };
   }
 
+  componentDidMount(){
+    userService.getDivsList().then((response) => {
+      this.setState({
+        divsList : response.data,
+        divs : response.data[0].expln,
+      })
+    });
+
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.divs !== this.state.divs){
+      this.getBrgnbnList(this.state.divs);
+    }
+  }
+
+  getBrgnbnList(value){
+    userService.getBnList(value)
+    .then((response)=>{
+      this.setState({
+        brgdbnList : response.data,
+        brgdbn : response.data[0].trinfoname,
+      })
+    });
+  }
+
   onChangeId(e){
     this.setState({
-      id: e.target.value,
+      userid: e.target.value,
     });
   }
 
   onChangeUsername(e) {
     this.setState({
-      username: e.target.value,
-    });
-  }
-
-  onChangeEmail(e) {
-    this.setState({
-      email: e.target.value,
+      name: e.target.value,
     });
   }
 
   onChangePassword(e) {
     this.setState({
-      password: e.target.value,
+      pwd: e.target.value,
     });
   }
 
-  onChangePhonenum(e){
+  onChangeDivs(e){
     this.setState({
-      phonenum : e.target.value,
+      divs : e.target.value
+    },()=>{this.getBrgnbnList(this.state.divs)});
+  }
+
+  onChangeBrgdbn(e){
+    this.setState({
+      brgdbn : e.target.value
     });
   }
 
-  onChangeMltnum(e){
+  onChangeRnkcd(e){
     this.setState({
-      mltnum : e.target.value,
+      rnkcd : e.target.value
     });
   }
 
-  onChangeMltunit(e){
+  onChangeRspofc(e){
     this.setState({
-      mltunit : e.target.value,
+      rspofc : e.target.value
     });
   }
 
-  onChangeMltrank(e){
+  onChangeSrvno(e){
     this.setState({
-      mltrank : e.target.value,
+      srvno : e.target.value
+    });
+  }
+
+  onChangeTelno1(e){
+    this.setState({
+      telno1 : e.target.value
+    });
+  }
+
+  onChangeTelno2(e){
+    this.setState({
+      telno2 : e.target.value
     });
   }
 
@@ -182,12 +234,34 @@ class AddUser extends Component {
 
     this.form.validateAll();
 
+    let brgdbn = this.state.brgdbn;
+    let brgd = null;
+    let bn = null;
+    if(brgdbn.includes(" ")){
+      brgd = brgdbn.split(" ")[0];
+      bn = brgdbn.split(" ")[1];
+    }else{
+      bn = brgdbn;
+    }
+
+    var data = {
+      userid : this.state.userid,
+      name : this.state.name,
+      pwd : this.state.pwd,
+      usrth : this.state.usrth,
+      rnkcd : this.state.rnkcd,
+      srvno : this.state.srvno,
+      divs : this.state.divs,
+      brgd : brgd,
+      bn : bn,
+      rspofc : this.state.rspofc,
+      telno1 : this.state.telno1,
+      telno2 : this.state.telno2,
+    }
     if (this.checkBtn.context._errors.length === 0) {
       this.props
         .dispatch(
-          register(this.state.id,this.state.username, this.state.email, 
-                    this.state.password, this.state.usrth, this.state.phonenum, 
-                    this.state.mltrank, this.state.mltnum, this.state.mltunit)
+          register(data)
         )
         .then(() => {
           alert("등록되었습니다");
@@ -241,75 +315,102 @@ class AddUser extends Component {
                   />
                 </div>
 
+                
                 <div className="form-group">
-                  <label htmlFor="email">이메일</label>
+                  <label htmlFor="pwd">비밀번호</label>
                   <Input
-                    type="text"
+                    type="pwd"
                     className="form-control"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                    validations={[required, email]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">비밀번호</label>
-                  <Input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={this.state.password}
+                    name="pwd"
+                    value={this.state.pwd}
                     onChange={this.onChangePassword}
                     validations={[required, vpassword]}
                   />
+                </div> 
+
+                <div className="form-group">
+                  <label htmlFor="description">사단</label>
+                  <select value={this.state.divs || ""}
+                    onChange={(e) => this.onChangeDivs(e)}>
+                    {this.state.divsList.map((option) => (
+                      <option key={option.expln}
+                        value={option.expln}>
+                        {option.expln}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="phonenum">핸드폰</label>
+                  <label htmlFor="description">연대&부대</label>
+                  <select value={this.state.brgdbn || ""}
+                    onChange={(e) => this.onChangeBrgdbn(e)}>
+                    {this.state.brgdbnList.map((option) => (
+                      <option key={option.trinfoname}
+                        value={option.trinfoname}>
+                        {option.trinfoname}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="telno1">핸드폰1</label>
                   <Input
-                    type="phonenum"
+                    type="telno1"
                     className="form-control"
-                    name="phonenum"
-                    value={this.state.phonenum}
-                    onChange={this.onChangePhonenum}
-                    validations={[required, vphonenum]}
+                    name="telno1"
+                    value={this.state.telno1}
+                    onChange={this.onChangeTelno1}
+                    validations={[required, vtelno1]}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="mltnum">군번</label>
+                  <label htmlFor="telno2">핸드폰2</label>
                   <Input
-                    type="mltnum"
+                    type="telno2"
                     className="form-control"
-                    name="mltnum"
-                    value={this.state.mltnum}
-                    onChange={this.onChangeMltnum}
-                    validations={[required, vmltnum]}
+                    name="telno2"
+                    value={this.state.telno2}
+                    onChange={this.onChangeTelno2}
+                    validations={[required, vtelno2]}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="mltrank">계급</label>
+                  <label htmlFor="srvno">군번</label>
                   <Input
-                    type="mltrank"
+                    type="srvno"
                     className="form-control"
-                    name="mltrank"
-                    value={this.state.mltrank}
-                    onChange={this.onChangeMltrank}
-                    validations={[required, vmltrank]}
+                    name="srvno"
+                    value={this.state.srvno}
+                    onChange={this.onChangeSrvno}
+                    validations={[required, vsrvno]}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="mltunit">소속</label>
+                  <label htmlFor="rnkcd">계급</label>
                   <Input
-                    type="mltunit"
+                    type="rnkcd"
                     className="form-control"
-                    name="mltunit"
-                    value={this.state.mltunit}
-                    onChange={this.onChangeMltunit}
-                    validations={[required, vmltunit]}
+                    name="rnkcd"
+                    value={this.state.rnkcd}
+                    onChange={this.onChangeRnkcd}
+                    validations={[required, vrnkcd]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="rspofc">직책</label>
+                  <Input
+                    type="rspofc"
+                    className="form-control"
+                    name="rspofc"
+                    value={this.state.rspofc}
+                    onChange={this.onChangeRspofc}
+                    validations={[required, vrspofc]}
                   />
                 </div>
 

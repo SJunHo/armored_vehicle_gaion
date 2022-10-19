@@ -57,14 +57,11 @@ class HeaderComp extends Component {
         if(prevState.selectedNavbar !== this.state.selectedNavbar){
           let elm = document.getElementsByClassName("dropdown");
           let seleted = null;
-          console.log(elm);
           Object.entries(elm).forEach((el)=>{
-            console.log(el[1].classList.value);
             if(el[1].classList.value.includes("selected")){
               seleted = el[1].classList.value;
             }
           });
-          console.log(seleted);
           if(seleted === null){
             this.setState({
               selectedShow : true
@@ -94,7 +91,6 @@ class HeaderComp extends Component {
   }
 
 	toggleCollapse(param) {
-		console.log("toggleCollapse", param);
 		const navbar = document.getElementsByClassName('navbar');
 		navbar[0].classList.toggle("active");
 	}

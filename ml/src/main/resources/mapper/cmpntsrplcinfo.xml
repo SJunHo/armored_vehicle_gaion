@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.CmpntsrplcinfoMapper">
+	
+	<select id="find" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcInfo">
+		select
+			ci.criid
+			, s.divs -- 사단
+			, s.brgd -- 연대
+			, s.bn -- 대대
+			, ci.sdaid -- 차량호기
+			, s.sdanm -- 차량이름
+			, s.sdatype -- 차량타입
+			, ci.grid -- 발생센서ID
+			, cd.expln -- 발생센서명
+			, ci.stdvle -- 교체이후 누적거리
+			, c.stdval -- 기준값(km)
+			, TIMESTAMPDIFF(day, (select ch.rplcdate from CMPNTSRPLCHISTRY ch where ci.sdaid = ch.sdaid and ci.grid = ch.grid order by rplcdate desc limit 1) , now()) as prdvle -- 교체이후 도래일
+			, c.prdval -- 기준값(일)
+			, ci.nmvle -- 교체이후 횟수
+			, c.nmval -- 기준값(횟수)
+			, c.msg -- 교환정보
+			, date_format(ci.dttime, '%Y-%m-%d %H:%i:%s') as dttime -- 최근 파일 업로드 일시
+		from
+			CMPNTSRPLCINFO ci -- 차량별 부품교환 현황
+			left join SDA s on ci.sdaid = s.sdaid
+			left join CMNCD cd on ci.grid = cd.code
+			left join CMPNTSRPLC c on ci.grid = c.grid
+		where
+			1=1
+			<if test="sdaid != null">
+				and ci.sdaid = #{sdaid}
+			</if>
+			<if test="grid != null">
+				and ci.grid = #{grid}
+			</if>
+			<if test="startDate != null and endDate != null">
+				and ci.dttime between #{startDate} and #{endDate}
+			</if>
+	</select>
+	
+	
+	
+	<select id="findCmpntsrplcinfoAll" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcInfo">
+		select *
+		from CMPNTSRPLCINFO
+	</select>
+	<select id="findCmpntsrplcinfoByGrid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcInfo">
+		select *
+		from CMPNTSRPLCINFO
+		where grid = #{grid}
+	</select>
+	<select id="findCmpntsrplcinfoBySdaidAndGrid" parameterType="java.util.Map"
+	 resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcInfo">
+		select *
+		from CMPNTSRPLCINFO
+		where sdaid = #{sdaid}
+		and grid = #{grid}
+	</select>
+	<insert id="insertCmpntsrplcinfo" parameterType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcInfo">
+		insert into CMPNTSRPLCINFO(dttime, sdaid, grid, stdvle, nmvle)
+		values (#{dttime}, #{sdaid}, #{grid}, #{stdvle}, #{nmvle})
+	</insert>
+	<update id="updateCmpntsrplcinfo" parameterType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcInfo">
+		update CMPNTSRPLCINFO
+		SET stdvle = #{stdvle}, nmvle = #{nmvle}, dttime = #{dttime}
+		WHERE sdaid = #{sdaid}
+		AND grid = #{grid}
+	</update>
+</mapper>

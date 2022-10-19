@@ -41,13 +41,15 @@ public class VehicleStaticsService {
 
 	public Sda getEachInfo(String id) {
 
-		Sda sda = sdaMapper.getEachInfo(id);
-		System.out.println(id);
+		Map<String, Object> search = new HashMap<String, Object>();
+		search.put("sdaid", id);
+		List<Sda> sdaList = sdaMapper.findSda(search);
+		Sda sda = sdaList.get(0);
 		return sda;
 	}
 
 	public List<Sda> getAllVehicleInfo(){
-		List<Sda> sda = sdaMapper.getAllVehicleInfo();
+		List<Sda> sda = sdaMapper.findSda(null);
 		return sda;
 	}
 
@@ -238,7 +240,7 @@ public class VehicleStaticsService {
 	}
 }
 
-class MiniComparator implements Comparator<SdaDataWithDtctsda> {
+class MiniComparator implements Comparator<SdaDataWithDtctsda>{
 
 	@Override
 	public int compare(SdaDataWithDtctsda first, SdaDataWithDtctsda second) {

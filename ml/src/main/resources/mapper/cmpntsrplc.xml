@@ -11,9 +11,32 @@
 	<update id="updateCmpntsrplc" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc">
 		update CMPNTSRPLC
 		set STDVAL = #{stdval}, PRDVAL = #{prdval},
-			MSG = #{msg}, NMVAL = #{nmval},
-			usedvcd = #{usedvcd},
-			mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
+		MSG = #{msg}, NMVAL = #{nmval},
+		usedvcd = #{usedvcd},
+		mdfr = #{mdfr}, mdfcdt = #{mdfcdt}
 		where GRID = #{grid}
 	</update>
+
+	<select id="findCmpntsrplcbyGrid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc">
+		select *
+		from CMPNTSRPLC
+		where 1 = 1
+		<if test="grid != null">
+			and grid = #{grid}
+		</if>
+		and usedvcd = 'Y'
+	</select>
+
+	<select id="findCmpntsrplcByGrid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc">
+		select *
+		from CMPNTSRPLC
+		where grid = #{grid}
+	</select>
+
+	<select id="findGridAll" resultType="String">
+		select grid
+		from CMPNTSRPLC
+	</select>
+
+
 </mapper>

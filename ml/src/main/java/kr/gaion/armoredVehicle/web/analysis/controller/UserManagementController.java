@@ -1,11 +1,16 @@
 package kr.gaion.armoredVehicle.web.analysis.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
+import kr.gaion.armoredVehicle.web.analysis.model.TreeInfo;
+import kr.gaion.armoredVehicle.web.security.jwt.model.Usercd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
 import kr.gaion.armoredVehicle.web.analysis.service.UserManagementService;
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
 
-@CrossOrigin(origins = "http://localhost:8083")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/user")
 public class UserManagementController {
@@ -52,12 +55,12 @@ public class UserManagementController {
 	  }
 	  
 	  	@GetMapping("/info/{id}")
-		public ResponseEntity<User> getUser(@PathVariable("id") String id){
+		public ResponseEntity<Usercd> getUser(@PathVariable("id") String id){
 			try {
-				User user = userManagementService.findById(id);
+				Usercd usercd = userManagementService.findById(id);
 				String password = null;
-				user.setPassword(password);
-				return new ResponseEntity<>(user, HttpStatus.OK);
+				usercd.setPwd(password);
+				return new ResponseEntity<>(usercd, HttpStatus.OK);
 			}catch(Exception e) {
 				e.printStackTrace();
 				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -65,14 +68,14 @@ public class UserManagementController {
 		}
 	  	
 	  	@PostMapping("/update")
-		public ResponseEntity<User> updateUser(@RequestBody User user){
+		public ResponseEntity<Usercd> updateUser(@RequestBody Usercd usercd){
 			try {
-					if(user.getPassword() != null) {
-						String password = encoder.encode(user.getPassword());
-						user.setPassword(password);
+					if(usercd.getPwd() != null) {
+						String password = encoder.encode(usercd.getPwd());
+						usercd.setPwd(password);
 					}
-					userManagementService.updateUser(user);
-				  return new ResponseEntity<>(user, HttpStatus.OK);
+					userManagementService.updateUser(usercd);
+				  return new ResponseEntity<>(usercd, HttpStatus.OK);
 			  } catch (Exception e) {
 				  e.printStackTrace();
 			    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,7 +83,7 @@ public class UserManagementController {
 		}
 	  	
 	  	@GetMapping("/delete/{id}")
-		public ResponseEntity<Cmncd> deleteUser(@PathVariable("id") String id){
+		public ResponseEntity<Usercd> deleteUser(@PathVariable("id") String id){
 			try {
 				userManagementService.deleteUser(id);
 				return new ResponseEntity<>(null, HttpStatus.OK);
@@ -89,4 +92,30 @@ public class UserManagementController {
 				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
+	@GetMapping("/divsList")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+	public ResponseEntity<List<Cmncd>> getDivList() {
+		try {
+
+			List<Cmncd> cmncd = userManagementService.getDivsList();
+			return new ResponseEntity<>(cmncd, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/bnList/{data}") // date -> service
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+	public ResponseEntity<List<TreeInfo>> getBnList(@PathVariable("data") String data) {
+		try {
+
+			List<TreeInfo> cmncd = userManagementService.getBnList(data);
+
+			return new ResponseEntity<>(cmncd, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

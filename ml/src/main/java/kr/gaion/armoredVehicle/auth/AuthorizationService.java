@@ -19,7 +19,7 @@ public class AuthorizationService {
     // Optional<User> user = userRepository.findById(authRequestDTO.username);
     // username -> id 변경
     Optional<User> user = userRepository.findById(authRequestDTO.id);
-    if (user.isEmpty() || !bCryptPasswordEncoder.matches(authRequestDTO.password, user.get().getPassword())) {
+    if (user.isEmpty() || !bCryptPasswordEncoder.matches(authRequestDTO.password, user.get().getPwd())) {
       throw new AuthenticationException("Invalid username and password");
     }
 

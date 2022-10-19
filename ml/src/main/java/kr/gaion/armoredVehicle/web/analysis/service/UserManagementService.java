@@ -4,22 +4,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.gaion.armoredVehicle.web.analysis.mapper.CmncdMapper;
+import kr.gaion.armoredVehicle.web.analysis.mapper.SdaMapper;
+import kr.gaion.armoredVehicle.web.analysis.mapper.TreeInfoMapper;
+import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
+import kr.gaion.armoredVehicle.web.analysis.model.TreeInfo;
+import kr.gaion.armoredVehicle.web.security.jwt.mapper.UsercdMapper;
+import kr.gaion.armoredVehicle.web.security.jwt.model.Usercd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
 import kr.gaion.armoredVehicle.web.utils.Paging;
 
 @Service
 public class UserManagementService {
 	 @Autowired
-	 UserMapper userRepository;
+	 UsercdMapper usercdRepository;
+
+	@Autowired
+	CmncdMapper cmncdMapper;
+
+	@Autowired
+	TreeInfoMapper treeinfoMapper;
 
 	 public Map<String,Object> findUserList(int page, int pageSize){
 		  	Paging paging = new Paging();
 			
-			paging.setTotalcount(userRepository.countUsers());
+			paging.setTotalcount(usercdRepository.countUsers());
 			paging.setPagenum(page-1);
 			paging.setContentnum(pageSize);
 			paging.setCurrentblock(page);
@@ -32,7 +43,7 @@ public class UserManagementService {
 			Map<String, Integer> parameter = new HashMap<String, Integer>();
 			parameter.put("page",paging.getPagenum()*pageSize);
 			parameter.put("pageSize", paging.getContentnum());
-			List<User> userList = userRepository.findUserList(parameter);
+			List<Usercd> userList = usercdRepository.findUserList(parameter);
 			
 			Map<String, Object> map = new HashMap<String,Object>();
 			
@@ -41,14 +52,27 @@ public class UserManagementService {
 			return map;
 		  
 	  }
-	 public User findById(String id) {
-		 return userRepository.findById(id);
+	 public Usercd findById(String id) {
+		 return usercdRepository.findByUserid(id);
 	 }
 	 
-	 public void updateUser(User user) {
-		 userRepository.updateUser(user);
+	 public void updateUser(Usercd usercd) {
+		 usercdRepository.updateUser(usercd);
 	 }
 	 public void deleteUser(String id) {
-		 userRepository.deleteUser(id);
+		 usercdRepository.deleteUser(id);
 	 }
+
+	public List<Cmncd> getDivsList() {
+		String code="B";
+		return cmncdMapper.findListByCode(code);
+	}
+
+	public List<TreeInfo> getBnList(String treeinfoname) {
+
+		int treeinfoid = treeinfoMapper.findTreeInfoIdByTreeinfoname(treeinfoname);
+		List<TreeInfo> treeList = treeinfoMapper.findHeader(treeinfoid);
+
+		return treeList;
+	}
 }

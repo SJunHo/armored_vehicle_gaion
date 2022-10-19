@@ -90,7 +90,7 @@ export default class ManageUsersList extends Component {
                 <td>사용자 ID</td>
                 <td>사용자명</td>
                 <td>연락처</td>
-                <td>소속</td>
+                <td>사단</td>
                 <td>군번</td>
                 <td>계급</td>
                 <td>권한</td>
@@ -101,13 +101,13 @@ export default class ManageUsersList extends Component {
           this.state.userList && 
             this.state.userList.map((item, index) => {
               return(
-              <tr key={item.id} onClick={()=>this.handleRowClick(item.id)}>
-                <td>{item.id}</td>
-                <td>{item.username}</td>
-                <td>{item.phonenum}</td>
-                <td>{item.mltunit}</td>
-                <td>{item.mltnum}</td>
-                <td>{item.mltrank}</td>
+              <tr key={item.userid} onClick={()=>this.handleRowClick(item.userid)}>
+                <td>{item.userid}</td>
+                <td>{item.name}</td>
+                <td>{item.telno1}</td>
+                <td>{item.divs}</td>
+                <td>{item.srvno}</td>
+                <td>{item.rnkcd}</td>
                 <td>{item.usrth === 'M' 
                             ? '분석가' : ( item.usrth === 'N' 
                             ? '사용자' : '관리자'

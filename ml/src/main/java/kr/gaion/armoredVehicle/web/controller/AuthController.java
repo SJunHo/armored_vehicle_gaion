@@ -1,44 +1,30 @@
 package kr.gaion.armoredVehicle.web.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.*;
 
+import kr.gaion.armoredVehicle.web.security.jwt.mapper.UsercdMapper;
+import kr.gaion.armoredVehicle.web.security.jwt.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
 import kr.gaion.armoredVehicle.web.security.jwt.JwtUtils;
 import kr.gaion.armoredVehicle.web.security.jwt.mapper.RoleMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.mapper.UserRolesMapper;
-import kr.gaion.armoredVehicle.web.security.jwt.model.ERole;
-import kr.gaion.armoredVehicle.web.security.jwt.model.Role;
-import kr.gaion.armoredVehicle.web.security.jwt.model.User;
-import kr.gaion.armoredVehicle.web.security.jwt.model.UserRole;
 import kr.gaion.armoredVehicle.web.security.jwt.request.LoginRequest;
 import kr.gaion.armoredVehicle.web.security.jwt.request.SignupRequest;
 import kr.gaion.armoredVehicle.web.security.jwt.response.JwtResponse;
@@ -54,18 +40,13 @@ public class AuthController {
   AuthenticationManager authenticationManager;
 
   @Autowired
-  UserMapper userRepository;
-
-  @Autowired
   RoleMapper roleRepository;
-  
-  @Autowired
-  UserRolesMapper userRoleRepository;
-  
+
   @Autowired
   PasswordEncoder encoder;
   
-  
+  @Autowired
+  UsercdMapper usercdRepository;
 
   @Autowired
   UserDetailsServiceImpl userService;
@@ -79,27 +60,26 @@ public class AuthController {
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginRequest.getId(), loginRequest.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    User user= userRepository.findById(loginRequest.getId());
-    String jwt = jwtUtils.generateJwtToken(user);
-    
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();    
+    Usercd usercd= usercdRepository.findByUserid(loginRequest.getId());
+    String jwt = jwtUtils.generateJwtToken(usercd);
+
+    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
     List<String> roles = userDetails.getAuthorities().stream()
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
     System.out.println(roles);
-    return ResponseEntity.ok(new JwtResponse(jwt, 
-                         userDetails.getId(), 
-                         userDetails.getUsername(), 
-                         userDetails.getEmail(), 
+    return ResponseEntity.ok(new JwtResponse(jwt,
+                         userDetails.getUserId(),
+                         userDetails.getUsername(),
                          roles));
   }
 
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-    if (userRepository.findByUsername(signUpRequest.getId()) != null) {
+    if (usercdRepository.findByUserid(signUpRequest.getUserid()) != null) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Error: Username is already taken!"));
+          .body(new MessageResponse("Error: UserId is already taken!"));
     }
 
 	/*
@@ -108,19 +88,30 @@ public class AuthController {
 	 * MessageResponse("Error: Email is already in use!")); }
 	 */
 
+    Date today = new Date();
+    SimpleDateFormat sformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date crtdt = null;
+    try {
+      crtdt = sformat.parse(sformat.format(today));
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
     // Create new user's account
-    User user = new User(signUpRequest.getId(),signUpRequest.getUsername(), 
-               signUpRequest.getEmail(),
-               encoder.encode(signUpRequest.getPassword()),
-               signUpRequest.getPhonenum(), 
-               signUpRequest.getMltrank(),
-               signUpRequest.getMltnum(),
-               signUpRequest.getMltunit());
 
-    char strRoles = signUpRequest.getUsrth();    
-
-    user.setUsrth(strRoles);
-    userRepository.insertUser(user);
+    Usercd usercd = new Usercd(signUpRequest.getUserid(),signUpRequest.getName(),
+               encoder.encode(signUpRequest.getPwd()),
+               signUpRequest.getUsrth(),
+               signUpRequest.getRnkcd(),
+               signUpRequest.getSrvno(),
+               crtdt,
+               signUpRequest.getDivs(),
+               signUpRequest.getBrgd(),
+               signUpRequest.getBn(),
+               signUpRequest.getRspofc(),
+               signUpRequest.getTelno1(),
+               signUpRequest.getTelno2());
+    usercd.setUsedvcd('Y');
+    usercdRepository.insertUsercd(usercd);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }

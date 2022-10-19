@@ -40,19 +40,19 @@
 	</update>
 	
 	<delete id="deleteCmncd" parameterType="Integer">
-		delete from cmncd
+		delete from CMNCD
 		where cmncdid = #{id}
 	</delete>
 	
-	<select id="getForBtn1" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd"> 
-	SELECT expln, var, code 
-	FROM CMNCD 
-	WHERE code LIKE 'PN%' AND var NOT IN ('COOLTEMP', 'ACCPEDAL', 'FUELTEMP', 'ENGSPD', 'SDHSPD', 'FUEL', 'OUTTEMP') 
+	<select id="getForBtn1" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		SELECT expln, var, code
+		FROM CMNCD
+		WHERE code LIKE 'PN%' AND var NOT IN ('COOLTEMP', 'ACCPEDAL', 'FUELTEMP', 'ENGSPD', 'SDHSPD', 'FUEL', 'OUTTEMP')
 	</select>
-	<select id="getForBtn2" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd"> 
-	SELECT expln, var, code 
-	FROM CMNCD 
-	WHERE code LIKE 'PC%' AND var NOT IN ('ENGSTA', 'CURRTTRANS', 'DETAILTRANS', 'BREAK') 
+	<select id="getForBtn2" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		SELECT expln, var, code
+		FROM CMNCD
+		WHERE code LIKE 'PC%' AND var NOT IN ('ENGSTA', 'CURRTTRANS', 'DETAILTRANS', 'BREAK')
 	</select>
 	<select id="getDefaultBookmark" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
 		SELECT *
@@ -62,7 +62,7 @@
 
 	<select id="findPartData" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
 		select *
-		from cmncd
+		from CMNCD
 		where code like 'G%'
 	</select>
 </mapper>

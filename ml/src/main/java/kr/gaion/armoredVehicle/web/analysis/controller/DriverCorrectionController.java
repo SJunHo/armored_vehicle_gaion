@@ -22,7 +22,7 @@ import kr.gaion.armoredVehicle.web.analysis.model.SearchRequest;
 import kr.gaion.armoredVehicle.web.analysis.model.TreeInfo;
 import kr.gaion.armoredVehicle.web.analysis.service.DriverCorrectionService;
 
-@CrossOrigin(origins = "http://localhost:8083")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/drivercorrection")
 public class DriverCorrectionController {

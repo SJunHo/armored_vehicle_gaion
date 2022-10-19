@@ -24,7 +24,7 @@ import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
 import kr.gaion.armoredVehicle.web.analysis.service.CimService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8083")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/cim")
 public class CimController {
 

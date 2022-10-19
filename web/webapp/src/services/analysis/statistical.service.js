@@ -17,6 +17,14 @@ class StatisticalService {
   getTable(data){
     return axios.post( API_URL + `/table`, data , { headers: authHeader() , "Content-type": "application/json", });
   }
+
+  getId(name) {
+    return axios.get( API_URL + `/getId/${name}`, { headers: authHeader() , "Content-type": "application/json", });
+  }
+
+  getPopUpInfo(userid){
+    return axios.get( API_URL + `/getPopUpInfo/${userid}`, { headers: authHeader() , "Content-type": "application/json", });
+  }
 }
 
 export default new StatisticalService();

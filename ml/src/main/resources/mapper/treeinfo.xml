@@ -29,4 +29,10 @@
 		from TREEINFO
 		where trinfocode = #{code}
 	</select>
+
+	<select id="findTreeInfoIdByTreeinfoname" parameterType="String" resultType="Integer">
+		select trinfoid
+		from TREEINFO
+		where trinfoname = #{treeinfoname}
+	</select>
 </mapper>

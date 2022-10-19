@@ -26,24 +26,24 @@ public class StatisticalGraphService {
 
 	@Autowired
 	StatsdaMapper statsdaMapper;
-	
+
 	@Autowired
 	SdaMapper sdaMapper;
-	
+
 	@Autowired
 	TreeInfoMapper treeInfoMapper;
-	
+
 	public JSONObject findGraph(String level, String url, Date date) {
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String operdate = dateFormat.format(date);
-		
+
 		JSONObject json = new JSONObject();
-		
-		JSONArray graphNode = new JSONArray();	
+
+		JSONArray graphNode = new JSONArray();
 		List<Sda> sdaList = new ArrayList<Sda>();
 		List<String> sdaidList = new ArrayList<String>();
-		
+
 		TreeInfo treeInfo = treeInfoMapper.findFirstHeader(Integer.parseInt(url));
 		JSONObject avgspd = new JSONObject();
 		JSONObject engnnldnrate = new JSONObject();
@@ -91,38 +91,49 @@ public class StatisticalGraphService {
 				}
 			}
 		}else if(level.equals("2")) {
-			sdaList = sdaMapper.findSdaByBrgdbnCode(treeInfo.getTrinfocode());
+			Map<String, Object> search = new HashMap<String, Object>();
+			search.put("brgdbncode", treeInfo.getTrinfocode());
+			sdaList = sdaMapper.findSda(search);
 			for(Sda s : sdaList) {
 				sdaidList.add(s.getSdaid());
 			}
-			
+
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("sdaidList",sdaidList);
 			param.put("operdate", operdate);
 			List<Statsda> statsdaList = statsdaMapper.findStatsdaByListSdaid(param);
+
 			if(!statsdaList.isEmpty()) {
 				for(Statsda s : statsdaList) {
-					avgspd.put(s.getSdaid(),s.getAvgspd());
-					engnnldnrate.put(s.getSdaid(), s.getEngnnldnrate());
-					mvmtdstc.put(s.getSdaid(), s.getMvmtdstc());
-					mvmttime.put(s.getSdaid(), s.getMvmttime());
+					Map<String, Object> idSearch = new HashMap<String, Object>();
+					idSearch.put("sdaid", s.getSdaid());
+					List<Sda> getSdaList = sdaMapper.findSda(idSearch);
+					Sda sda = getSdaList.get(0);
+					avgspd.put(sda.getSdanm(),s.getAvgspd());
+					engnnldnrate.put(sda.getSdanm(), s.getEngnnldnrate());
+					mvmtdstc.put(sda.getSdanm(), s.getMvmtdstc());
+					mvmttime.put(sda.getSdanm(), s.getMvmttime());
 				}
 			}else {
 				for(String sdaid : sdaidList) {
-					avgspd.put(sdaid,0);
-					engnnldnrate.put(sdaid, 0);
-					mvmtdstc.put(sdaid,0);
-					mvmttime.put(sdaid,0);
+					Map<String, Object> idSearch = new HashMap<String, Object>();
+					idSearch.put("sdaid", sdaid);
+					List<Sda> getSdaList = sdaMapper.findSda(idSearch);
+					Sda sda = getSdaList.get(0);
+					avgspd.put(sda.getSdanm(),0);
+					engnnldnrate.put(sda.getSdanm(), 0);
+					mvmtdstc.put(sda.getSdanm(),0);
+					mvmttime.put(sda.getSdanm(),0);
 				}
 			}
 		}
-		
+
 
 		json.put("avgspd", avgspd);
 		json.put("engnnldnrate", engnnldnrate);
 		json.put("mvmtdstc", mvmtdstc);
 		json.put("mvmttime", mvmttime);
-		
+
 		return json;
 	}
 }

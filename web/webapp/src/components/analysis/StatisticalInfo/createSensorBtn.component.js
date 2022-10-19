@@ -2,9 +2,6 @@
 
 import { connect } from "react-redux";
 import React, { Component } from 'react';
-// import {
-//     retrieveTutorials
-// } from "../../actions/monitoring/tutorials";
 
 class SensorBtn extends Component {
     constructor(props) {
@@ -91,3 +88,4 @@ class SensorBtn extends Component {
 
 export default connect(null, {
 })(SensorBtn);
+

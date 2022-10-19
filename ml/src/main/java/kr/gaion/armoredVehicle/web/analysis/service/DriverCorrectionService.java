@@ -30,10 +30,10 @@ public class DriverCorrectionService {
 
 	@Autowired
 	DriverattitdMapper driverAttitdMapper;
-	
+
 	@Autowired
 	SnsrMapper snsrMapper;
-	
+
 	@Autowired
 	CmncdMapper cmncdMapper;
 	
@@ -52,16 +52,16 @@ public class DriverCorrectionService {
 	}
 
 	public List<TreeInfo> getBnList(String treeinfocode) {
-		
+
 		int treeinfoid = treeinfoMapper.findTreeInfoIdByCode(treeinfocode);
 		List<TreeInfo> treeList = treeinfoMapper.findHeader(treeinfoid);
 
 		return treeList;
 	}
-
 	public List<Sda> getSdaList(String brgdbncode) {
-	
-		List<Sda> sdaid = sdaMapper.findSdaByBrgdbnCode(brgdbncode);
+		Map<String, Object> search = new HashMap<String, Object>();
+		search.put("brgdbncode",brgdbncode);
+		List<Sda> sdaid = sdaMapper.findSda(search);
 		return sdaid;
 	}
 

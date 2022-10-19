@@ -170,7 +170,7 @@ class searchEachInfo extends Component {
         visible: false,
       },
       chart: { 
-        width: 700, 
+        width: 750, 
         height: 700,
       },
       series: {
@@ -232,7 +232,7 @@ class searchEachInfo extends Component {
           visible: false,
         },
         
-        chart: { width: 700, height: 700 },
+        chart: { width: 750, height: 700 },
         series: {
           solid: true,
           dataLabels: { visible: true, offsetY: -30, formatter: (value) => `${value}km/h` },
@@ -273,7 +273,7 @@ class searchEachInfo extends Component {
         },
       }
     });
-
+    this.gaugeChart2.hideTooltip();
   }
 
 
@@ -1278,9 +1278,9 @@ class searchEachInfo extends Component {
     return (
       <div className="container"  disabled={this.state.loading}>
          {this.state.loading && (
-            <div class="d-flex justify-content-center loading-box">
-                <div class="spinner-border loading-in" role="status">
-                    <span class="sr-only">Loading...</span>
+            <div className="d-flex justify-content-center loading-box">
+                <div className="spinner-border loading-in" role="status">
+                    <span className="sr-only">Loading...</span>
                 </div>
              </div>
            )}
@@ -1538,4 +1538,3 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   selectEachInfo,
 })(searchEachInfo);
-

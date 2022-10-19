@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "../url";
 
-const API_URL = "http://localhost:8082/api/auth/";
+const API_URL = BASE_URL + "/api/auth/";
 
 class AuthService {
   login(id, password) {
@@ -22,18 +23,8 @@ class AuthService {
     localStorage.removeItem("authToken");
   }
 
-  register(id, username, email, password, usrth, phonenum, mltrank, mltnum, mltunit) {
-    return axios.post(API_URL + "signup", {
-      id,
-      username,
-      email,
-      password,
-      usrth,
-      phonenum,
-      mltrank,
-      mltnum,
-      mltunit
-    });
+  register(data) {
+    return axios.post(API_URL + "signup", data , {"Content-type": "application/json", });
   }
 }
 

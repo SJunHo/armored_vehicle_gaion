@@ -726,3 +726,4 @@ class Categoric extends Component {
 
 export default connect(null, {
 })(Categoric);
+

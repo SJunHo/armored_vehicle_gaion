@@ -13,9 +13,6 @@ import searchEachInfo from "./components/analysis/StatisticalInfo/vehicleinforma
 import driverPostureCorrection from  "./components/analysis/StatisticalInfo/driverPostureCorrection.component"
 import PartsReplacementCycle from "./components/analysis/StatisticalInfo/partsreplacementcycle.component"
 
-/*학습데이터 수집*/
-import LearningData from "./components/analysis/LearningDataCollection/learningdata.component";
-
 /*모델관리*/
 import { OpenApiContextProvider } from "./api";
 
@@ -43,7 +40,6 @@ import { history } from './helpers/history';
 // import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import ManageUsersList from "./components/analysis/SystemSettings/manageusers-list.component";
-import PublicRoute from "./components/login/PublicRoute";
 import PrivateRoute from "./components/login/PrivateRoute";
 
 import LogOutComp from "./components/login/logout.component";

@@ -24,7 +24,7 @@ import kr.gaion.armoredVehicle.web.analysis.model.SdaDataWithDtctsda;
 import kr.gaion.armoredVehicle.web.analysis.model.UserSnsr;
 import kr.gaion.armoredVehicle.web.analysis.service.VehicleStaticsService;
 
-@CrossOrigin(origins = "http://localhost:8083")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/vehicleStatistics")
 public class VehicleStatisticsController {

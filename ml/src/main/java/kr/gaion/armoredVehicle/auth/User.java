@@ -9,17 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERCD")
 //@Table(name = "users")
 @Getter
 @Setter
 public class User {
   @Id
   @Column(nullable = false, unique = true)
-  private String id;
+  private String userid;
 
   @Column(nullable = false)
-  private String password;
+  private String pwd;
 
   @Column
 //  private String role;

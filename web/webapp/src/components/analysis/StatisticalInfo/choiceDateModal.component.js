@@ -240,7 +240,6 @@ class ChoiceDateModal extends Component {
             })
 
             let latestFile = fileArr[0];
-            let count = 0;
             for(let i = 1; i < fileArr.length; i++){
 
                 for(let j = 0; j < fileArr[i].length; j++){
@@ -599,12 +598,5 @@ class ChoiceDateModal extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         allVehicleInfo : state.tutorials,
-//     };
-// };
-
 export default connect(null, {
-    // selectAllVehicle
 })(ChoiceDateModal);

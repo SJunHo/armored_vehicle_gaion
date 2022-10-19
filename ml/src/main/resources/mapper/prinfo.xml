@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.PrinfoMapper">
+
+	<select id="findPhinfo" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Prinfo">
+		select s.DIVS , s.BN , s.BRGD , s.SDAID ,c2.dttime , c.grid , c.stdval , c2.stdvle , c.prdval, c.msg, c3.expln, datediff(now(),
+		ifnull(
+		(select rplcdate from CMPNTSRPLCHISTRY c4 where c4.sdaid = c2.sdaid and
+		c4.grid = c2.grid),
+		<![CDATA[(STR_TO_DATE((select mfdt from sda s2 where s2.SDAID = s.SDAID),'%Y-%m-%d'))]]>
+		)
+		) as prdvle, c.nmval , c2.nmvle
+		from sda s , cmpntsrplc c , cmpntsrplcinfo c2 , cmncd c3
+		where s.SDAID = c2.sdaid and c2.grid = c.grid and c3.code = c.grid
+	</select>
+
+	<select id="findSearchData" parameterType="kr.gaion.armoredVehicle.web.analysis.model.PrinfoRequest" resultType="kr.gaion.armoredVehicle.web.analysis.model.Prinfo">
+		select s.DIVS , s.BN , s.BRGD , s.SDAID ,c2.dttime , c.grid , c.stdval , c2.stdvle , c.prdval, c.msg, c3.expln, datediff(now(),
+		ifnull(
+		(select rplcdate from CMPNTSRPLCHISTRY c4 where c4.sdaid = c2.sdaid and
+		c4.grid = c2.grid),
+		(STR_TO_DATE((select mfdt from sda s2 where s2.SDAID = s.SDAID),'%Y-%m-%d'))
+		)
+		) as prdvle, c.nmval , c2.nmvle
+		from SDA s , CMPNTSRPLC c , CMPNTSRPLCINFOcmpntsrplcinfo c2 , CMNCD c3
+		where s.SDAID = c2.sdaid and c2.grid = c.grid and c3.code = c.grid
+		and <![CDATA[ STR_TO_DATE(c2.dttime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d') and STR_TO_DATE(c2.dttime, '%Y-%m-%d')  <= DATE_FORMAT(#{endDate}, '%Y-%m-%d')]]>
+		and s.sdaid = #{sdaid}
+		and s.divscode = #{divscode}
+		and s.brgdbncode = #{brgdbncode}
+	</select>
+	
+	</mapper>

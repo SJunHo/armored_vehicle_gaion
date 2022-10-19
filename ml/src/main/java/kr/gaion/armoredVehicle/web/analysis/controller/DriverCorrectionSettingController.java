@@ -21,7 +21,7 @@ import kr.gaion.armoredVehicle.web.analysis.model.Threshold;
 import kr.gaion.armoredVehicle.web.analysis.model.ThresholdResponse;
 import kr.gaion.armoredVehicle.web.analysis.service.DriverCorrectionService;
 
-@CrossOrigin(origins = "http://localhost:8083")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/driverPostureCorrection")
 public class DriverCorrectionSettingController {

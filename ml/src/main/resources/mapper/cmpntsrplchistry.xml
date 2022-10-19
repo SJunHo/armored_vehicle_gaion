@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.CmpntsrplcHistryMapper">
+	<select id="find" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcHistry">
+		select
+			CRIID
+			, SDAID
+			, GRID
+			, WORKR
+			, date_format(RPLCDATE, '%Y-%m-%d %H:%i:%s') as RPLCDATE
+			, MSG
+			, MDFCDT
+			, MDFR
+		from
+			CMPNTSRPLCHISTRY
+		where
+			1=1
+			and sdaid = #{sdaid}
+			and grid = #{grid}
+	</select>
+	
+	<select id="findCmpntsrplchistryAll" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcHistry">
+		select *
+		from CMPNTSRPLCHISTRY
+	</select>
+	<select id="findCmpntsrplchistryBySdaid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcHistry">
+		select *
+		from CMPNTSRPLCHISTRY
+		where sdaid = #{sdaid}
+	</select>
+	<select id="findCmpntsrplchistryBySdaidAndGrid" parameterType="hashmap" 
+	resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcHistry">
+		select *
+		from CMPNTSRPLCHISTRY
+		where sdaid = #{sdaid}
+		and grid = #{grid}
+		order by rplcdate DESC
+		limit 1
+	</select>
+</mapper>

@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import { BASE_URL } from "../url";
 
-const API_URL = "http://192.168.0.175:8082/api/user";
+const API_URL = BASE_URL + "/api/user";
 
 class UserService {
 	get(id) {
@@ -18,6 +19,14 @@ class UserService {
 
 	delete(id) {
 		return axios.get(API_URL + `/delete/${id}`, {headers: authHeader(), "Content-type": "application/json",});
+	}
+
+	getDivsList() {
+		return axios.get(API_URL + `/divsList`, { headers: authHeader(),  });
+	}
+	
+	getBnList(data) {
+	return axios.get(API_URL + `/bnList/${data}`, { headers: authHeader(),'Content-type': "application/json",});
 	}
 }
 

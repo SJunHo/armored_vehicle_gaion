@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import TreeMenu, { ItemComponent } from "react-simple-tree-menu";
 import '../../../../node_modules/react-simple-tree-menu/dist/main.css';
 import { Bar } from "@nivo/bar";
@@ -9,15 +10,21 @@ import {ko} from "date-fns/locale";
 import Table from "./statisticalTable.component";
 import amvhimg from "../../../amvhimg.png";
 
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 import '../../../css/fonts.css';
 import '../../../css/style.css';
-
- export default class Statistical extends Component {
+import {FaBell} from "react-icons/fa";
+ 
+class Statistical extends Component {
   constructor(props) {
     super(props);
     this.clickOutlierWaning = this.clickOutlierWaning.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
+    const {user} = this.props; 
     this.state = {
+      user : user,
       content: "",
       loading: false,
       treeArray: "",
@@ -33,6 +40,9 @@ import '../../../css/style.css';
       date : "",
       graphLevel : "0",
       graphUrl : "1",
+      popUpList : [],
+      popUpState : true,
+      popUpdateSet : false,
       columns : [
         {
           Header: '구분',
@@ -86,6 +96,8 @@ import '../../../css/style.css';
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.createNotification = this.createNotification.bind(this);
+    this.popUpClear = this.popUpClear.bind(this);
   }
 
   componentDidMount() {
@@ -145,6 +157,27 @@ import '../../../css/style.css';
         });
       }
     );
+
+    statisticalService.getPopUpInfo(this.state.user.id).then(
+      response => {
+        this.setState({
+          popUpdateSet : true,
+          popUpList : response.data
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    ,()=>{});
+
+      setInterval(()=>{
+        if(NotificationManager.listNotify.length === 0 && this.state.popUpdateSet && this.state.popUpState){
+          console.log("empty");
+          this.setState({
+            popUpState : false,
+          });
+        }
+      },1000);
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -160,6 +193,9 @@ import '../../../css/style.css';
     }
     if(prevState.amvhTable !== this.state.amvhTable){
       this.getPutTableData(this.state.tableData);
+    }
+    if(prevState.popUpList !== this.state.popUpList){
+      this.createNotification();
     }
   }
 
@@ -349,7 +385,7 @@ import '../../../css/style.css';
         amvhTable : ""
       });
     }
-    console.log(this.state.tableResult);
+
   }
 
   handleChange(date){
@@ -366,6 +402,15 @@ import '../../../css/style.css';
 
   clickOutlierWaning(param){
     console.log(param);
+    statisticalService.getId(param).then((response) => {
+      if(window.confirm("이상치경고모니터링으로 이동하시겠습니까?")){
+        window.location.href = "/monitoroutlierwarning/"+response.data;
+      }
+    })
+    .catch((e) => {
+        console.log(e);
+    }); 
+    
   }
 
   togglePopup(){
@@ -374,21 +419,47 @@ import '../../../css/style.css';
     })
   }
 
-  render() {
+  createNotification(){
+    this.setState({
+      popUpState : true
+    });
+    if(this.state.popUpList.length > 0){
+      this.state.popUpList.forEach(v => {
+        if(v.includes("경고")){
+          NotificationManager.error(v, 'Notice', 40000);
+        }else{
+          NotificationManager.warning(v, 'Notice', 40000);
+        }
+      });      
+    }
+  }
 
+  popUpClear(){
+    this.setState({
+      popUpState : false
+    });
+    NotificationManager.removeAll();
+  }
+
+
+  render() {
     return (
       <div className="container">
         <div className="sub_title">
-              <h1>차륜형 장갑차 센서데이터 수집, 분석 체계</h1>
+              <h1 style={{display : "inline-block"}}>차륜형 장갑차 센서데이터 수집, 분석 체계</h1>
+              { this.state.popUpList &&
+                <button style={{display : this.state.popUpState ? "none" : "inline", float:"right"}} onClick={this.createNotification}className="btn"><FaBell/></button>
+              }
         </div>
         <div className="row min" disabled={this.state.loading}>
           {this.state.loading && (
-              <div class="d-flex justify-content-center loading-box">
-                  <div class="spinner-border loading-in" role="status">
-                      <span class="sr-only">Loading...</span>
+              <div className="d-flex justify-content-center loading-box">
+                  <div className="spinner-border loading-in" role="status">
+                      <span className="sr-only">Loading...</span>
                   </div>
               </div>
           )}
+
           <div className="Tree col-2">
           <TreeMenu data={this.state.treeArray}
               initialOpenNodes={['tree','tree/2','tree/3','tree/4']}
@@ -432,9 +503,9 @@ import '../../../css/style.css';
             </div>
             <div className="table-div" disabled={this.state.loading} >
               {this.state.loading ? (
-                        <div class="d-flex justify-content-center">
-                            <div class="spinner-border" role="status">
-                              <span class="sr-only">Loading...</span>
+                        <div className="d-flex justify-content-center">
+                            <div className="spinner-border" role="status">
+                              <span className="sr-only">Loading...</span>
                           </div>
                       </div>
               ) 
@@ -541,8 +612,23 @@ import '../../../css/style.css';
                 
           </div> 
         </div>
-      </div>            
+        { this.state.popUpList &&
+          (<div className={`sidebar-menu${this.state.popUpState === true ? '-open' : '-none'}`}>
+            <button className="button small float-left" style={{display : !this.state.popUpState ? "none" : "inline"}} onClick={this.popUpClear}>X</button>
+          <NotificationContainer/>     
+          </div>) 
+        }     
+      </div>  
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(Statistical);

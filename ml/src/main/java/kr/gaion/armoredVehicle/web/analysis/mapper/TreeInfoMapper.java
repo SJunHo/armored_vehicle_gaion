@@ -14,4 +14,6 @@ public interface TreeInfoMapper {
 	public List<TreeInfo> findHeader(int trinfohead);
 	public TreeInfo findByCode(String code);
 	public Integer findTreeInfoIdByCode(String treeinfocode);
+
+	public Integer findTreeInfoIdByTreeinfoname(String treeinfoname);
 }
