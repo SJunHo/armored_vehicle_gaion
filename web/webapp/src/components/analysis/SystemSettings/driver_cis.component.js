@@ -102,13 +102,13 @@ class Driver_cis extends Component {
     driverAttitdSet[index].usedvcd = usedvcd;
     driverAttitdSet[index].mdfcdt = new Date();
     driverAttitdSet[index].mdfr = this.state.user.username;
-    for(var i = 0; i < driverAttitdSet.length - 1; i++){
+    for(var i = 0; i < driverAttitdSet.length; i++){
       if(driverAttitdSet[i].daid === driverAttitdSet[index].daid){
         driverAttitdSet[i].usedvcd = usedvcd;
         driverAttitdSet[i].mdfcdt = new Date();
         driverAttitdSet[i].mdfr = this.state.user.username;
         const r = document.getElementById("checkbox"+i);
-        r.value = usedvcd;
+        r.checked = checked;
       }
     }
     this.forceUpdate();

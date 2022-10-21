@@ -448,7 +448,7 @@ class Statistical extends Component {
         <div className="sub_title">
               <h1 style={{display : "inline-block"}}>차륜형 장갑차 센서데이터 수집, 분석 체계</h1>
               { this.state.popUpList &&
-                <button style={{display : this.state.popUpState ? "none" : "inline", float:"right"}} onClick={this.createNotification}className="btn"><FaBell/></button>
+                <button style={{display : this.state.popUpState ? "none" : "inline", float:"right"}} onClick={this.createNotification} className="btn btn-alarm"><FaBell/></button>
               }
         </div>
         <div className="row min" disabled={this.state.loading}>
