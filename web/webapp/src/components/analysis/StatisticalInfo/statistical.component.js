@@ -308,7 +308,7 @@ class Statistical extends Component {
         Object.entries(avgsdtData).forEach(two => {
             let avgs = {
             bn : two[0],
-            value : two[1]
+            value : Math.round(two[1])
           }
           avgsdt.push(avgs);
         });
@@ -319,7 +319,7 @@ class Statistical extends Component {
         Object.entries(engnnldnrateData).forEach(two => {
             let engnnldn = {
             bn : two[0],
-            value : two[1]
+            value : Math.round(two[1])
           }
           engnnldnrate.push(engnnldn);
         });
@@ -330,7 +330,7 @@ class Statistical extends Component {
         Object.entries(mvmtdstcData).forEach(two => {
             let mvmtd = {
             bn : two[0],
-            value : two[1]
+            value : Math.round(two[1])
           }
           mvmtdstc.push(mvmtd);
         });
@@ -341,7 +341,7 @@ class Statistical extends Component {
         Object.entries(mvmttimeData).forEach(two => {
             let mvmtt = {
             bn : two[0],
-            value : two[1]
+            value : Math.round(two[1])
           }
           mvmttime.push(mvmtt);
         });

@@ -25,6 +25,7 @@
 		<if test='sdaid != null'>
 			and sdaid = #{sdaid}
 		</if>
+			order by divscode, brgdbncode
 		<if test='page != null and pageSize != null'>
 			limit #{page}, #{pageSize}
 		</if>

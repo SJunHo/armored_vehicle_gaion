@@ -14,7 +14,6 @@ class ChoiceSensorModal extends Component {
         this.selectCategoricThings = this.selectCategoricThings.bind(this);
         this.disableBtn = this.disableBtn.bind(this);
 
-        this.resetDisabled = this.resetDisabled.bind(this);
         this.finishChoice = this.finishChoice.bind(this);
 
         this.searchBookmark = this.searchBookmark.bind(this);
@@ -73,21 +72,16 @@ class ChoiceSensorModal extends Component {
     }
     componentDidMount() {
         this.getColumnForBtn();
-        console.log(this.props);
-        console.log(this.state.user.id);
         this.setState({
             userId: this.props.user.id
         })
     }
-    componentDidUpdate(prevProps, prevState) {
-        console.log(this.state.selectedGrpid);
-    }
+
 
     getColumnForBtn(){
 
         vehicleStatissticsService.getColumnsForBtnNummeric()
         .then((response) => {
-            console.log(response);
             this.setState({
                 columns1: response.data
             })
@@ -98,11 +92,9 @@ class ChoiceSensorModal extends Component {
 
         vehicleStatissticsService.getColumnsForBtnCategoric()
         .then((response) => {
-            console.log(response);
             this.setState({
                 columns2: response.data
             })
-
         })
         .catch((e) => {
             console.log(e);
@@ -113,7 +105,6 @@ class ChoiceSensorModal extends Component {
     }
 
     selectNummericThings(res) {         //수치형 버튼이 클릭되었을때 배열에 넣음  
-        console.log(res);
         if(res[0] === 1){   //list에 더해야하는 상황
             this.setState({
                 selectNummeric: [...this.state.selectNummeric, res[1]],
@@ -142,8 +133,6 @@ class ChoiceSensorModal extends Component {
                 selectCategoricWithKor: [...this.state.selectCategoricWithKor, res[2]]
 
             }, () => {
-                console.log(this.state.selectCategoric);
-                console.log(this.state.selectCategoricWithKor);
                 this.disableBtn(this.state.selectCategoric, this.state.columns2)
             })
 
@@ -179,10 +168,6 @@ class ChoiceSensorModal extends Component {
                 abledBtn.disabled = false;
             })
         }
-    } 
-
-    resetDisabled(){
-        console.log("즐찾설정");
     }
 
     finishChoice(){     //완료버튼 클릭시 데이터를 모달로 보냄
@@ -196,7 +181,6 @@ class ChoiceSensorModal extends Component {
                 param.push(this.state.selectCategoric);
                 param.push(this.state.selectNummericWithKor);
                 param.push(this.state.selectCategoricWithKor);
-                console.log(param);
                 
                 this.props.func(param);
             }else{
@@ -210,7 +194,6 @@ class ChoiceSensorModal extends Component {
                 param.push(this.state.catBookmarkEng);
                 param.push(this.state.numBookmarkKor);
                 param.push(this.state.catBookmarkKor);
-                console.log(param);
                 this.props.func(param);
             }
         }
@@ -218,7 +201,6 @@ class ChoiceSensorModal extends Component {
     }
 
     getBookmarkBtnEngKor(res){
-        console.log(res);
         let arrayEng = [];
         let arrayKor = [];
         if(res[0].includes('PN')){  //즐찾되어있어서 세팅되어있는 값이 수치형일때 
@@ -234,7 +216,6 @@ class ChoiceSensorModal extends Component {
 
             arrayEng = this.state.catBookmarkEng;
             arrayEng.push(res[1]);
-            console.log(arrayEng);
             arrayKor = this.state.catBookmarkKor;
             arrayKor.push(res[2]);
             this.setState({
@@ -242,7 +223,6 @@ class ChoiceSensorModal extends Component {
                 catBookmarkKor: arrayKor,
             }, () => {
                 console.log(this.state.catBookmarkEng);
-                console.log(this.state.catBookmarkKor);
             })
         }
     }
@@ -357,7 +337,6 @@ class ChoiceSensorModal extends Component {
     searchBookmark(grpId){   //즐겨찾기 ) 선택된 (grpid)와 아이디(userid) 값으로 가져온 ?번항목의 즐겨찾기 데이터 조회하기버튼   
         const {isClicked1, isClicked2, isClicked3, isClicked4, isClicked5} = this.state;
         if(!isClicked1 && !isClicked2 && !isClicked3 && !isClicked4 && !isClicked5) {
-            console.log("+===================모두삭제~~~~~~~~flase");
             this.setState({
                 BookmarkBtn: false,
             });
@@ -384,8 +363,6 @@ class ChoiceSensorModal extends Component {
                     catMarkSnsrCode.push(el.snsrid);
                 }
             })
-            console.log(numSnsr);
-            console.log(catSnsr);
             this.setState({
                 totalBookmark: response.data,
                 takeNummericBookmark: numSnsr,
@@ -395,10 +372,6 @@ class ChoiceSensorModal extends Component {
             },() => {
                 this.disableBtnForBookmark(this.state.setNumBookmarks, this.state.columns1);
                 this.disableBtnForBookmark(this.state.setCatBookmarks, this.state.columns2);
-                console.log(this.state.setNumBookmarks);
-                console.log(this.state.setCatBookmarks);
-                console.log(this.state.takeCategoricBookmark);
-                console.log(this.state.takeNummericBookmark);
             })
         })
         .catch((e) => {
@@ -408,12 +381,7 @@ class ChoiceSensorModal extends Component {
     }
 
     setNumBookmarkData(res) {       //즐겨찾기 ) 수치형데이터를 클릭시 저장하는 함수
-        console.log(res);
-        console.log(this.state.takeNummericBookmark);
-        console.log(this.state.setNumBookmarks);
         if(res[0] === -1){
-            console.log("제거해야됌");
-
             let btnArray = this.state.setNumBookmarks;
             btnArray = btnArray.filter((element) => element !== res[2]);
             let btnEngArray = this.state.numBookmarkEng;
@@ -426,8 +394,6 @@ class ChoiceSensorModal extends Component {
                 numBookmarkEng: btnEngArray,
                 numBookmarkKor: btnKorArray,
             }, () => {this.disableBtnForBookmark(this.state.setNumBookmarks, this.state.columns1)})
-            console.log(this.state.numBookmarkEng);
-            console.log(this.state.numBookmarkKor);
         
         
         }else{
@@ -438,19 +404,14 @@ class ChoiceSensorModal extends Component {
                 
             }, () => {
                 this.disableBtnForBookmark(this.state.setNumBookmarks, this.state.columns1);
-                console.log(this.state.numBookmarkEng);
-                console.log(this.state.numBookmarkKor);
+
             })
         }
     }
 
     setCatBookmarkData(res) {       //즐겨찾기 ) 범주형데이터를 클릭시 저장하는 함수
-        console.log(res);
-        console.log(this.state.takeCategoricBookmark);
-        console.log(this.state.setCatBookmarks);
-        if(res[0] === -1){
-            console.log("!!!!!!!!!!!!!!!!!");
 
+        if(res[0] === -1){
             let btnArray = this.state.setCatBookmarks;
             btnArray = btnArray.filter((element) => element !== res[2]);
             let btnEngArray = this.state.catBookmarkEng;
@@ -463,9 +424,6 @@ class ChoiceSensorModal extends Component {
                 catBookmarkKor: btnKorArray,
             }, () => {
                 this.disableBtnForBookmark(this.state.setCatBookmarks, this.state.columns2);
-                
-                console.log(this.state.catBookmarkEng);
-                console.log(this.state.catBookmarkKor);
             })
         }
         else{
@@ -476,15 +434,11 @@ class ChoiceSensorModal extends Component {
                 catBookmarkKor: [...this.state.catBookmarkKor, res[3]],
             }, () => {
                 this.disableBtnForBookmark(this.state.setCatBookmarks, this.state.columns2);
-                console.log(this.state.setCatBookEng);
-                console.log(this.state.setCatBookKor);
             })
         }
     }
 
     disableBtnForBookmark(selectArray, totalColumns){       //즐겨찾기 버튼에서 5개이상 클릭시 버튼을 비활성화하는 함수
-        console.log(this.state.totalBookmark);
-        console.log(selectArray);
         if(selectArray.length === 5){   //5개선택되어서 버튼비활
             totalColumns.forEach(element => {
                 let disabledBtn = document.getElementById(element.code);
@@ -507,9 +461,6 @@ class ChoiceSensorModal extends Component {
             alert("즐겨찾기추가할 숫자를 클릭하세요");
             return;
         }
-        console.log(this.state.setCatBookmarks);
-        console.log(this.state.setNumBookmarks);
-
         if(this.state.setCatBookmarks.length === 0 && this.state.setNumBookmarks.length === 0){         //선택된 버튼이 없을때,
             alert("수치형, 범주형 모두 1개 이상 선택");
 
@@ -523,16 +474,9 @@ class ChoiceSensorModal extends Component {
                 allAddBookmarks.forEach(el => {
                     const afterData = { grpid: this.state.selectedGrpid, snsrid: el, userid: this.state.userId };
                     data.push(afterData);
-                    console.log(el);
-                    console.log(afterData);
                 })
-                console.log(data);
-        
-                console.log(allAddBookmarks);
-
                 vehicleStatissticsService.insertBookmark(data)
                 .then((response) => {
-                    // console.log(response);
                 })
                 .catch((e) => {
                     console.log(e);

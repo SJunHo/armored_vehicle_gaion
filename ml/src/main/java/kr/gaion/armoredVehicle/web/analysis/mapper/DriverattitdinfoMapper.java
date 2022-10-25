@@ -15,4 +15,6 @@ public interface DriverattitdinfoMapper {
 	public List<DriverCorrectInfo> findDriverInfoBySearch(SearchRequest search);
 	
 	public int countDriverInfoBySearch(SearchRequest search);
+
+	public int countDriverPopUpInfo(SearchRequest search);
 }

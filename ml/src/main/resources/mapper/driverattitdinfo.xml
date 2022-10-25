@@ -8,28 +8,41 @@
 	
 	<select id="findDriverInfoBySearch" parameterType="kr.gaion.armoredVehicle.web.analysis.model.SearchRequest"
 	 resultType="kr.gaion.armoredVehicle.web.analysis.model.DriverCorrectInfo">
-	 	select s.DIVS as divs, concat(s.BRGD,s.BN) as bn, s.SDANM as sdanm, d2.dttime as dttime, s2.snsrnm as snsrnm ,d2.snsrvle as snsrvle ,d.STDVAL as stdval , d.msg as msg 
-		from DRIVERATTITD d ,DRIVERATTITDINFO d2 , SDA s ,SNSR s2 
-		where d2.daid = d.daid and s.SDAID = d2.sdaid and d.snsrid = s2.snsrid 
-		and (d.snsrid = 'ACCPEDAL' or d.snsrid = 'SDHSPD' or d.snsrid = 'VOLTAGE' or d.snsrid ='ENGHEAT')
-		<![CDATA[and STR_TO_DATE(d2.dttime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d') 
+		select s.DIVS as divs, concat(s.BRGD,s.BN) as bn, s.SDANM as sdanm, d2.dttime as dttime, s2.snsrnm as snsrnm ,d2.snsrvle as snsrvle ,d.STDVAL as stdval , d.msg as msg
+		from DRIVERATTITDINFO d2
+		left join DRIVERATTITD d on d2.daid = d.daid
+		left join SDA s on d2.sdaid = s.SDAID
+		left join SNSR s2 on s2.snsrid = d2.snsrid
+		<![CDATA[where STR_TO_DATE(d2.dttime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
 							  and STR_TO_DATE(d2.dttime, '%Y-%m-%d')  <= DATE_FORMAT(#{endDate}, '%Y-%m-%d')]]>
 		and s.sdaid = #{sdaid}
 		and s.divscode = #{divscode}
 		and s.brgdbncode = #{brgdbncode}
+		group by d2.daid, d2.dttime
+		order by dttime desc
 		limit #{page}, #{size}
 	 </select>
 	 
 	 <select id="countDriverInfoBySearch" parameterType="kr.gaion.armoredVehicle.web.analysis.model.SearchRequest"
 	 	resultType="Integer">
-		 	select ifnull(count(d2.dttime),0)
-			from DRIVERATTITD d ,DRIVERATTITDINFO d2 , SDA s ,SNSR s2 
-			where d2.daid = d.daid and s.SDAID = d2.sdaid and d.snsrid = s2.snsrid 
-			and (d.snsrid = 'ACCPEDAL' or d.snsrid = 'SDHSPD' or d.snsrid = 'VOLTAGE' or d.snsrid ='ENGHEAT')
-			<![CDATA[and STR_TO_DATE(d2.dttime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d') 
+		 select ifnull(count(distinct d2.dttime),0)
+		 from DRIVERATTITDINFO d2
+		 left join DRIVERATTITD d on d2.daid = d.daid
+		 left join SDA s on d2.sdaid = s.SDAID
+		 left join SNSR s2 on s2.snsrid = d2.snsrid
+		 <![CDATA[where STR_TO_DATE(d2.dttime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
 								  and STR_TO_DATE(d2.dttime, '%Y-%m-%d')  <= DATE_FORMAT(#{endDate}, '%Y-%m-%d')]]>
-			and s.sdaid = #{sdaid}
-			and s.divscode = #{divscode}
-			and s.brgdbncode = #{brgdbncode}
-	 	</select>
+		 and s.sdaid = #{sdaid}
+		 and s.divscode = #{divscode}
+		 and s.brgdbncode = #{brgdbncode}
+	 </select>
+
+	<select id="countDriverPopUpInfo" parameterType="kr.gaion.armoredVehicle.web.analysis.model.SearchRequest"
+			resultType="Integer">
+		select ifnull(count(*),0)
+		from DRIVERATTITDINFO d2
+		<![CDATA[where STR_TO_DATE(d2.dttime, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+								  and STR_TO_DATE(d2.dttime, '%Y-%m-%d')  <= DATE_FORMAT(#{endDate}, '%Y-%m-%d')]]>
+		and d2.sdaid = #{sdaid}
+	</select>
 </mapper>

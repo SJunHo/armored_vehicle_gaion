@@ -18,11 +18,6 @@ class SensorBtn extends Component {
 
     }
     componentDidUpdate(prevProps, prevState) {
-        console.log(this.props);
-        console.log(this.props.clearData);
-        if(this.props.clearData){
-            // this.clearBtn();
-        }
     }
     clearBtn(){
         this.setState({
@@ -33,7 +28,6 @@ class SensorBtn extends Component {
 
     clickBtn(res){
         let param = [];
-        console.log(res)
         this.setState({
             isClicked : !this.state.isClicked
         })
@@ -70,9 +64,6 @@ class SensorBtn extends Component {
     render() {
         const {isClicked} = this.state;
         const {content} =this.props;
-        if(this.props.clearData){
-            // this.clearBtn();
-        }
         return (
             <button 
                 className={`buttonList ${isClicked? 'blue': 'red'}`}
@@ -85,7 +76,5 @@ class SensorBtn extends Component {
     }
 }
 
-
 export default connect(null, {
 })(SensorBtn);
-

@@ -17,31 +17,21 @@ class Categoric extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-        
         this.setState({
             categoricSensor : this.props.data,
             forChartData: this.props.chartData,
             i: this.props.idx
         }, () => {
             console.log(this.state.categoricSensor);
-            console.log(this.state.forChartData);
-            console.log(this.state.i);
         })
-    }
-    componentDidUpdate(){
-        console.log(this.props);
     }
 
     categoric(el){      //데이터 판별을 위한 함수
-        console.log(this.props.chartData.length);
-        console.log(this.props.idx);
         let value;
         value = this.props.chartData[this.props.idx];
 
         if(this.props.chartData.length === this.props.idx){
             let lastValue = this.props.chartData[this.props.idx -1][el.el];
-            console.log(lastValue);
             return(
                 <label>finish</label>
             );
@@ -50,7 +40,6 @@ class Categoric extends Component {
         switch(el.el){
             case 'ENGWARNING' :
                 value = value.ENGWARNING;
-                console.log(value);
                 
                 if(value === 0){
                     return (
@@ -703,7 +692,6 @@ class Categoric extends Component {
             <div>
             {
                 this.state.categoricSensor.map((el, idx) => {
-                    console.log(el);
                     let id=el+"_"+idx;
                     return(
                         <div id={id} key={el} className="categoricSensorInfo">
@@ -726,4 +714,3 @@ class Categoric extends Component {
 
 export default connect(null, {
 })(Categoric);
-

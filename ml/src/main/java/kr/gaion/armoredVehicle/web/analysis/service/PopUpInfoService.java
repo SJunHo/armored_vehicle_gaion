@@ -139,7 +139,7 @@ public class PopUpInfoService {
 			search.setStartDate(dCmpDate);
 			search.setEndDate(dToday);
 
-			int value = driverattitdInfoMapper.countDriverInfoBySearch(search);
+			int value = driverattitdInfoMapper.countDriverPopUpInfo(search);
 
 			if(value > 0) {
 				String comment = s.getSdanm() + "차량의 운전자 자세교정 정보가 "+ value + "건 확인되었습니다.";

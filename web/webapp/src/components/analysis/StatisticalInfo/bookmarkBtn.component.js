@@ -15,6 +15,7 @@ class BookmarkBtn extends Component {
 
     componentDidMount() {
     }
+
     componentDidUpdate(prevProps, prevState) {
         if(prevProps.bookmark !== this.props.bookmark){
             if(this.props.bookmark.length > 0){
@@ -48,23 +49,19 @@ class BookmarkBtn extends Component {
         this.setState({
             isClicked : !this.state.isClicked
         })
-        console.log(this.props.content);
-        console.log(this.state.isClicked);
-        console.log(this.props.content.code);
+
         if(this.props.name === "nummeric"){
             if(this.state.isClicked){
                 param.push(-1);
                 param.push(this.props.content.var);
                 param.push(this.props.content.code);
                 param.push(this.props.content.expln);
-                console.log(param);
                 this.props.setBookmark(param);
             }else{
                 param.push(1);
                 param.push(this.props.content.var);
                 param.push(this.props.content.code);
                 param.push(this.props.content.expln);
-                console.log(param);
                 this.props.setBookmark(param);
             }
         }else{
@@ -73,14 +70,12 @@ class BookmarkBtn extends Component {
                 param.push(this.props.content.var);
                 param.push(this.props.content.code);
                 param.push(this.props.content.expln);
-                console.log(param);
                 this.props.setBookmark(param);
             }else{
                 param.push(1);
                 param.push(this.props.content.var);
                 param.push(this.props.content.code);
                 param.push(this.props.content.expln);
-                console.log(param);
                 this.props.setBookmark(param);
             }
         }

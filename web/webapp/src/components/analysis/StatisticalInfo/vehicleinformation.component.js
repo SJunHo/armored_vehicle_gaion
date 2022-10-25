@@ -55,7 +55,7 @@ class searchEachInfo extends Component {
       setData: false,     //data가 들어오면 실행위한
       allStop: false,        //그래프다시그리기 위한
       resetChart: false,     //차트가 끝나면 다시시작위한
-      loading:true,
+      loading:false,
       setModal: false,  //모달창 생성위한
       setModal2: false,
 
@@ -86,7 +86,7 @@ class searchEachInfo extends Component {
   }
 
   componentDidMount() {
-    this.props.selectEachInfo(this.props.match.params.id);
+    //this.props.selectEachInfo(this.props.match.params.id);
 
     this.defaultBookmark(); 
     this.interval = setInterval(this.liveStream, 100);
@@ -94,16 +94,18 @@ class searchEachInfo extends Component {
     if(this.props.match.params.id === undefined){   //통계화면이 아닌 직접 차량정보조회버튼을 클릭해서 ID가 넘어오지 않을때, 바로 팝업으로 선택하게 하기 위함
       this.setState({
         setModal : true,
+        loading : true,
       }, () => {
         return(
           <OpenModal name={this.props.eachInfo.sdaid} modalDiv="choiceDate" data={this.props.eachInfo} modalFunc={this.changeModal} fileIdFunc={this.forInputFileName} />
         );
       })
     }else{      //통계화면에서 넘어온 경우 최근파일이름위함
-      console.log(this.props.match.params.id);
+      this.setState({
+        loading : true,
+      });
       vehicleStatistics.searchRecentFile(this.props.match.params.id)
       .then((response) => {
-        console.log(response.data);
         let filenm = String(response.data);
         let filenameAddId = [this.props.match.params.id , filenm];
         this.setState({
@@ -112,7 +114,6 @@ class searchEachInfo extends Component {
           resetChart: true,
           isStart: false,
         },() => {
-          console.log(this.state.fileNameAndId);
           if(this.state.fileNameAndId.length > 1){
             this.setChartData();
           }
@@ -121,7 +122,7 @@ class searchEachInfo extends Component {
       .catch((e) => {
         console.log(e);
         this.setState({
-          loading:true,
+          loading:false,
         })
       })
     }
@@ -150,7 +151,6 @@ class searchEachInfo extends Component {
     });
 
     const el = document.getElementById('gaugeChart');
-    console.log(el);
     this.gaugeChart1 = new GaugeChart({ el, 
     data: {
       series: [{
@@ -170,7 +170,7 @@ class searchEachInfo extends Component {
         visible: false,
       },
       chart: { 
-        width: 750, 
+        width: 700, 
         height: 700,
       },
       series: {
@@ -232,7 +232,7 @@ class searchEachInfo extends Component {
           visible: false,
         },
         
-        chart: { width: 750, height: 700 },
+        chart: { width: 700, height: 700 },
         series: {
           solid: true,
           dataLabels: { visible: true, offsetY: -30, formatter: (value) => `${value}km/h` },
@@ -290,7 +290,6 @@ class searchEachInfo extends Component {
   }
 
   defaultBookmark() {       //화면 최초 랜더링시, 센서데이터 자동으로 즐겨찾기된 버튼으로 선택위함
-    console.log(this.props.user);
     let pnEng = [];
     let pnKor = [];
     let pcEng = [];
@@ -298,7 +297,6 @@ class searchEachInfo extends Component {
 
     vehicleStatistics.searchAllBookmarkForDefault(this.props.user.id)
     .then((response) => {
-      console.log(response);
       if(response.data.length > 0){
         response.data.forEach((el, idx) => {
           if(el.code.includes('PN')){
@@ -364,7 +362,6 @@ class searchEachInfo extends Component {
     if(this.state.isStart){     //재생상태일때
 
       if(this.state.i === chartData.length){    //슬라이더바가 끝에 도달시, ( 그래프가 끝났을 때 )
-        console.log("차트길이와 배열길이가 같음");
         
         const changeText = document.getElementById('stopNStart');
         changeText.innerText = "▶";
@@ -374,18 +371,9 @@ class searchEachInfo extends Component {
         });
         
       }else {         //슬라이더바가 끝이 아닐때 ( 그래프 재생가능할 떄 ) 업데이트.
-        console.log("liveStream---------------");
-        console.log(this.state.i);
         this.categoricLabel();
         this.rangeSliderPlus();
-        // this.setState({
-        //   xData : this.state.forChartData[this.state.i].DTTIME,
-        //   yData : this.state.forChartData[this.state.i][this.state.nummericSensor[0]],
-        // });
-        console.log(this.state.i);
-        console.log("-----------------------");
-        let xData = this.state.forChartData[this.state.i].DTTIME;
-        
+        let xData = this.state.forChartData[this.state.i].DTTIME.split(' ')[1];
         let yData = this.state.forChartData[this.state.i][this.state.nummericSensor[0]];
         let yData1 = this.state.forChartData[this.state.i][this.state.nummericSensor[1]];
         let yData2 = this.state.forChartData[this.state.i][this.state.nummericSensor[2]];
@@ -473,8 +461,6 @@ class searchEachInfo extends Component {
 
   stopChart() {   //그래프의 정지버튼 재생상태를 컨트롤
     
-    console.log("stopchartbtn---------------");
-    console.log(this.state.i);
     const changeText = document.getElementById('stopNStart');
     let sliderValue = document.getElementById('slider');
     // sliderValue = Number(sliderValue.value) + 1;
@@ -489,7 +475,6 @@ class searchEachInfo extends Component {
         });
 
       }else{    //슬라이더바는 100이나 드래그로 슬라이더바의 값을 수정할때
-        console.log(sliderValue);
         this.setState({
           i: Number(sliderValue)
         },() => {
@@ -558,8 +543,7 @@ class searchEachInfo extends Component {
   }
 
   rangeSliderPlus() {   //슬라이더바값을 세팅하고 그래프를 삭제한후 그래프 그려주는 함수 호출
-    console.log("rangesliderplus---------------");
-    console.log(this.state.i);
+
     let chartData = [];
     chartData = this.state.forChartData;
     const rangeSlider = document.getElementById('slider');
@@ -613,7 +597,6 @@ class searchEachInfo extends Component {
 
   drawingChart() {
     const liveChart = this.liveChartRef.current.getContext('2d');
-    console.log(liveChart);
     this.myLiveChart = new Chart(liveChart, {
       type: 'line',
       data: {
@@ -675,7 +658,6 @@ class searchEachInfo extends Component {
       } else{
         let id = 'liveChart'+idx;
         let chart = document.getElementById(id).getContext('2d');
-        console.log(element);
         switch(idx){
           case 1:
             this.liveChart0 = new Chart(chart, {
@@ -905,23 +887,15 @@ class searchEachInfo extends Component {
 
   setChartData(){     //차트데이터세팅 (범주, 수치 센서들에 해당하는 값들을 가져온다.)
     this.setState({
-      loading : true
+      loading : true,
     });
-    console.log(this.state.nummericSensor);
-    console.log(this.state.categoricSensor);
-    console.log(this.state.nummericSensorWithKor);
-    console.log(this.state.categoricSensorWithKor);
     vehicleStatistics.getChartData(this.state.fileNameAndId, this.state.nummericSensor, this.state.categoricSensor)
     .then((response) => {
-      console.log(response);
       this.setState({
         forChartData: response.data,
         loading:false,
         setData : true,
       }, () => {
-        console.log(this.state.forChartData);
-        console.log(this.state.setData);
-        
         this.rangeSliderPlus();
       })
     })
@@ -988,7 +962,6 @@ class searchEachInfo extends Component {
     this.setState({ 
       setModal : !this.state.setModal,
       isStart: false,
-      loading:true,
     }, () => {
       const changeText = document.getElementById('stopNStart');
       changeText.innerText = "▷";
@@ -999,7 +972,6 @@ class searchEachInfo extends Component {
     this.setState({ 
       setModal2: !this.state.setModal2,
       isStart: false,
-      loading:true,
     }, () => {
       
       const changeText = document.getElementById('stopNStart');
@@ -1008,7 +980,6 @@ class searchEachInfo extends Component {
   }
   
   changeModal(res) {    //modal컴포넌트에서 false를 받아와 false일때 오픈되는 파일선택화면의 setModal을 바꿔준다.
-    console.log(res);
     this.setState({
       setModal: res,
     }, () => {
@@ -1017,7 +988,6 @@ class searchEachInfo extends Component {
   }
   
   changeModal2(res){    //modal컴포넌트에서 false를 받아와 false일때 실행되는 센서선택팝업의 setModal2를 바꿔준다.
-    console.log(res);
     this.setState({
       setModal2: res,
     }, () => {
@@ -1055,7 +1025,6 @@ class searchEachInfo extends Component {
       resetChart: true,
       changeSensorForChart: true,
     }, () =>{
-      console.log(this.state.resetChart);
       this.myLiveChart.destroy();
       this.drawExtraLiveChart();
       this.drawingChart();
@@ -1305,7 +1274,7 @@ class searchEachInfo extends Component {
                       </tr>
                       <tr>
                         <td>부대명</td>
-                        <td>{this.props.eachInfo.div} {this.props.eachInfo.brgd} {this.props.eachInfo.bn}</td>
+                        <td>{this.props.eachInfo.divs} {this.props.eachInfo.brgd} {this.props.eachInfo.bn}</td>
                       </tr>
                       <tr>
                         <td>등록번호</td>
@@ -1376,7 +1345,7 @@ class searchEachInfo extends Component {
                         fileIdFunc={this.forInputFileName} 
                         />
                         : <OpenModal name="noName" />
-                      : console.log("openmodal false ")
+                      : null
                     }
                   </div>
                   <div className="contents07">
@@ -1470,7 +1439,7 @@ class searchEachInfo extends Component {
                     {
                       this.state.setModal2 === true
                       ? <OpenModal name="choiceSensor" modalDiv="choiceSensor" modalFunc={this.changeModal2} sensorFunc={this.forUseSensor}/>
-                      : console.log("false")
+                      : null
                     }
                   </div>
                   <div className="contents07">

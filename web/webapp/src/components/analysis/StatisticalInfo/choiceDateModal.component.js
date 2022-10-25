@@ -73,6 +73,7 @@ class ChoiceDateModal extends Component {
                 divcode : "",
                 brgdbncode : "",
             },
+            loading : false,
         }
 
 
@@ -81,7 +82,7 @@ class ChoiceDateModal extends Component {
     componentDidMount() {
 
         this.setState({
-            choiceVehicle : this.props.data
+            choiceVehicle : this.props.data,
         }, () => {console.log(this.state.choiceVehicle)})
 
 
@@ -170,8 +171,8 @@ class ChoiceDateModal extends Component {
                         nameArray.push(element.sdanm);
                     }
                 }
-                this.getFileData(this.state.selectedId);
             })
+            this.getFileData(this.state.selectedId);
             const brgdBnSet = new Set(brgdArray);
             const uniqueArr = [...brgdBnSet];
             this.setState({
@@ -185,7 +186,9 @@ class ChoiceDateModal extends Component {
 
 
     getFileData(id){
-        
+        this.setState({
+            loading : true,
+        });
         let yearMonthArr = [];
         let yearArray = [];
         let monthArray = [];
@@ -197,7 +200,7 @@ class ChoiceDateModal extends Component {
             this.setState({
                 file : response.data,
             });            
-            this.state.file.forEach(element => {
+            response.data.forEach(element => {
                 let yearMonth = element.operdate;
                 let splitYear = yearMonth.split("-");
                 yearMonthArr.push(splitYear);
@@ -207,8 +210,7 @@ class ChoiceDateModal extends Component {
             const yearSet = new Set(yearArray);
             const yearUnqArr = [...yearSet];
             yearUnqArr.sort((a, b) => b-a);
-
-            latestYear = yearArray[0];
+            latestYear = yearUnqArr[0];
             for(let i = 1; i < yearUnqArr.length; i++){
                 if(latestYear < yearUnqArr[i]){
                     latestYear = yearUnqArr[i];
@@ -233,7 +235,7 @@ class ChoiceDateModal extends Component {
             
             const yearMonth = latestYear+ "-" + latestMonth;
             let fileArr = [];
-            this.state.file.forEach(element => {
+            response.data.forEach(element => {
                 if(element.operdate.includes(yearMonth)){
                     fileArr.push(element.filenm);
                 }
@@ -255,7 +257,6 @@ class ChoiceDateModal extends Component {
                 }
             }
             fileArr.sort((a, b) => b - a);
-
             this.setState({
                 selectedYear: latestYear,
                 selectedMonth: latestMonth,
@@ -263,7 +264,7 @@ class ChoiceDateModal extends Component {
                 monthList: monthUnqArr,
                 fileList: fileArr,
                 selectedFile: latestFile,
-
+                loading : false,
             })
 
         })
@@ -389,7 +390,6 @@ class ChoiceDateModal extends Component {
         let value = e;
         if(value === this.state.selectedId){
             this.getFileData(this.state.selectedId);
-
         } else{
             value = e;
             if(value === null){
@@ -402,10 +402,7 @@ class ChoiceDateModal extends Component {
     }
 
     clickYear(e) {
-        console.log(this.state.file);
-        
         const value = e.target.value;
-        console.log(value);
         if(value === null){
             return;
         }
@@ -413,20 +410,17 @@ class ChoiceDateModal extends Component {
         const monthArr = [];
         this.state.file.forEach(element => {
             let operdate = element.operdate.split("-");
-            console.log(operdate);
             operdateArr.push(operdate);
         })
-        console.log(operdateArr);
         operdateArr.forEach(element => {
             if(value === element[0]){
                 monthArr.push(element[1]);
             }
         })
-        console.log(monthArr);
-
         const monthSet = new Set(monthArr);
         const monthUnqArr = [...monthSet];
-        
+        monthUnqArr.sort((a,b) => b-a);
+
         let latestMonth = monthUnqArr[0];
         for(let i = 1; i < monthUnqArr.length; i++){
             if(latestMonth < monthUnqArr[i]){
@@ -437,29 +431,23 @@ class ChoiceDateModal extends Component {
         this.setState({
             selectedYear : value,
             monthList : monthUnqArr,
-            selectedMonth : latestMonth
+            selectedMonth : latestMonth,
         }, () => {this.clickMonth(this.state.selectedMonth)})
     }
 
     clickMonth(e){
 
-        console.log(e);
         let value = e;
-
         let yearMonth = "";
         const filenmArr = [];
         if(this.state.selectedMonth === value){
-            console.log("해리스트 클릭");
             yearMonth = this.state.selectedYear+"-"+this.state.selectedMonth;
-            console.log(yearMonth);
             this.state.file.forEach(element => {
                 if(element.operdate.includes(yearMonth)){
                     filenmArr.push(element.filenm);
                 }
             })
             
-            console.log(this.state.selectedFile);
-            console.log(filenmArr);
             filenmArr.sort((a, b) => b - a);
             this.setState({
                 selectedFile: filenmArr[0],
@@ -468,9 +456,7 @@ class ChoiceDateModal extends Component {
             })
 
         }else{
-            console.log("월 클릭");
             value = e.target.value;
-            console.log(yearMonth);
             if(value === null){
                 return; 
             }
@@ -480,21 +466,15 @@ class ChoiceDateModal extends Component {
                     filenmArr.push(element.filenm);
                 }
             })
-            console.log(this.state.selectedFile);
-            console.log(filenmArr);
             filenmArr.sort((a, b) => b - a);
             this.setState({
                 selectedFile: filenmArr[0],
                 fileList: filenmArr,
-                selectedMonth: value
+                selectedMonth: value,
             })
         }
-
-        console.log(filenmArr);
     }
     clickFile(e){
-        console.log(this.state.fileList);
-        console.log(this.state.selectedFile);
         if(e.target.value === null){
             return;
         }
@@ -503,14 +483,9 @@ class ChoiceDateModal extends Component {
         })
     }
     click(){
-        console.log("확인");
-        console.log(this.state.selectedFile);
-        if(this.state.selectedFile === ""){
-            console.log("xxxxx");
+        if(this.state.selectedFile === "" || this.state.selectedFile === undefined){
             alert("파일을 선택하세요");
         }else{
-            console.log("ooooo");
-            console.log(this.props);
             let param = [];
             param.push(this.state.selectedId);
             param.push(this.state.selectedFile);
@@ -575,19 +550,19 @@ class ChoiceDateModal extends Component {
                 <h4>정보기준일 설정</h4>
                 <div id="grouplistbox" className="listbox">
                     <div className="list-top">
-                        <ListBox value={this.state.selectedDiv} options={this.state.divList} onChange={(e) => this.clickDiv(e)} itemTemplate={this.countryTemplate} />
+                        <ListBox value={this.state.selectedDiv} options={this.state.divList} onChange={(e) => this.clickDiv(e)} itemTemplate={this.countryTemplate} disabled={this.state.loading}/>
 
-                        <ListBox value={this.state.selectedBrgd} options={this.state.brgdList} onChange={(e) => this.clickBrgd(e)} itemTemplate={this.brgdTemplate}/>
+                        <ListBox value={this.state.selectedBrgd} options={this.state.brgdList} onChange={(e) => this.clickBrgd(e)} itemTemplate={this.brgdTemplate} disabled={this.state.loading}/>
 
-                        <ListBox value={this.state.selectedName} options={this.state.nameList} onChange={(e) => this.clickName(e)} itemTemplate={this.idTemplate}/>
+                        <ListBox value={this.state.selectedName} options={this.state.nameList} onChange={(e) => this.clickName(e)} itemTemplate={this.idTemplate} disabled={this.state.loading}/>
 
-                        <ListBox value={this.state.selectedYear} options={this.state.yearList} onChange={(e) => this.clickYear(e)} itemTemplate={this.yearTemplate} />
-
-                        <ListBox value={this.state.selectedMonth} options={this.state.monthList} onChange={(e) => this.clickMonth(e)} itemTemplate={this.monthTemplate}  />
+                        <ListBox value={this.state.selectedYear} options={this.state.yearList} onChange={(e) => this.clickYear(e)} itemTemplate={this.yearTemplate}/>
+                        
+                        <ListBox value={this.state.selectedMonth} options={this.state.monthList} onChange={(e) => this.clickMonth(e)} itemTemplate={this.monthTemplate}/>
 
                         <ListBox value={this.state.selectedFile} options={this.state.fileList} 
                         onChange={(e) => this.clickFile(e)}
-                        itemTemplate={this.fileTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }} />
+                        itemTemplate={this.fileTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }}/>
                     </div>
                     <div className="list-bottom">
                         <button className="btn-ch" onClick={this.click} > 선택완료 </button>

@@ -83,10 +83,6 @@ public class DriverCorrectionService {
 			
 			endst = simpleDateFormat.format(end);
 			endResult = simpleDateFormat.parse(endst);
-			
-			System.out.println(startResult);
-			
-			System.out.println(endResult);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
