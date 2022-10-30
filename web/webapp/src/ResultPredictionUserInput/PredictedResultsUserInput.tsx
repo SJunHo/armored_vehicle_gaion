@@ -6,60 +6,52 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import {useTranslation} from "react-i18next";
 import {Column} from "react-table";
-import {OpenApiContext, Pageable, RailSensorData} from "../api";
+import {OpenApiContext, Pageable, SensorBearing, SensorEngine, SensorGearbox, SensorWheel, SensorTempLife } from "../api";
 import {RailSensorDataDetail} from "../common/RailSensorDataDetail";
 import {Paginator} from "../common/Paginator";
 import {Table} from "../common/Table";
 
 export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = () => {
-    const [trainsList, setTrainsList] = useState<string[]>([]);
-    const [carsList, setCarsList] = useState<string[]>([]);
+    const [searchingData, setSearchingData] = useState(false);
+    const [tableColumns, setTableColumns] = useState<any>([]);
 
-    const [selectedTrain, setSelectedTrain] = useState<string>();
-    const [selectedCar, setSelectedCar] = useState<string>();
+    const [sdaList, setSdaList] = useState<string[]>([]);
+
+    const [selectedPart, setSelectedPart] = useState<string>();
+    const [selectedSda, setSelectedSda] = useState<string>();
+
     const [severity, setSeverity] = useState<number>();
-    const [wb, setWb] = useState<string>("W");
-    const [fromDate, setFromDate] = useState<Date>();
+    const [part, setPart] = useState<string>("W");
+    const [partState, setPartState] = useState<string>("정상");
+
+    const [fromDate, setFromDate] = useState<Date>(new Date('2000-01-01'));
     const [toDate, setToDate] = useState<Date>(new Date());
 
-    const [railConditionData, setRailConditionData] = useState<RailSensorData[]>([]);
+    const [sensorConditionData, setSensorConditionData] = useState<any>([]);
 
     const [paginate, setPaginate] = useState<Pageable>();
     const [totalPage, setTotalPage] = useState<number>(1);
-    const [selectedData, setSelectedData] = useState<RailSensorData>();
+    const [selectedData, setSelectedData] = useState<any[]>();
 
+    const { predictedResultDatabaseControllerApi, datasetControllerApi } = useContext(OpenApiContext);
     const { t } = useTranslation();
 
     // Part that receives and stores defectUser values.
     const [updateDefectUserList, setUpdateDefectUserList] = useState< { esId: string; defectUser: number; }[] >([]);
     const [totalUpdateDefectUserList, setTotalUpdateDefectUserList] = useState<{ esId: string; defectUser: number; }[] >([]);
 
-    const { datasetControllerApi } = useContext(OpenApiContext);
-
-    const columns = useMemo<Column<RailSensorData>[]>(
+    const SensorBearingColumns = useMemo<Column<SensorBearing>[]>(
         () => [
             {
-                Header: t("history.defect_score").toString(),
+                Header: t("history.aiPredict").toString(),
                 accessor: (v: any) => {
                     let result
                     let color
-
-                    if (v.defectScore === 0) {
-                        result = "0"
-                    } else if (v.defectScore === 10){
-                        result = "매우 양호"
+                    if (v.aiPredict === 0) {
+                        result = "정상"
                         color = "#73CAF5"
-                    } else if (v.defectScore === 20) {
-                        result = "양호"
-                        color = "#78FF9E"
-                    } else if (v.defectScore === 30) {
-                        result = "적정"
-                        color = "#E4E86D"
-                    } else if (v.defectScore === 40) {
-                        result = "심각"
-                        color = "#FFD285"
-                    } else {
-                        result = "매우 심각"
+                    } else if (v.aiPredict === 1){
+                        result = "고장"
                         color = "#F59287"
                     }
                     return (
@@ -82,65 +74,26 @@ export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = ()
                                         type="radio"
                                         name="defectUser"
                                         key={value.row.original.esId}
-                                        value={10}
+                                        value={0}
                                         onClick={() =>
-                                           onClickHandler(10, value.data, value.row.original.esId)
+                                           onClickHandler(0, value.data, value.row.original.esId)
                                         }
                                         style={{border: '0px', width: '100%', height: '1em'}}
                                     />
-                                    <label className="m-1"> 매우 양호 </label>
+                                    <label className="m-1"> 정상 </label>
                                 </div>
                                 <div className="m-1">
                                     <input
                                         type="radio"
                                         name="defectUser"
                                         key={value.row.original.esId}
-                                        value={20}
+                                        value={1}
                                         onClick={() =>
-                                            onClickHandler(20, value.data, value.row.original.esId)
+                                            onClickHandler(1, value.data, value.row.original.esId)
                                         }
                                         style={{border: '0px', width: '100%', height: '1em'}}
                                     />
-                                    <label className="m-1"> 양호 </label>
-                                </div>
-                                <div className="m-1">
-                                    <input
-                                        type="radio"
-                                        name="defectUser"
-                                        key={value.row.original.esId}
-                                        value={30}
-                                        onClick={() =>
-                                            onClickHandler(30, value.data, value.row.original.esId)
-                                        }
-                                        style={{border: '0px', width: '100%', height: '1em'}}
-                                    />
-                                    <label className="m-1"> 적정 </label>
-                                </div>
-                                <div className="m-1">
-                                    <input
-                                        type="radio"
-                                        name="defectUser"
-                                        key={value.row.original.esId}
-                                        value={40}
-                                        onClick={() =>
-                                            onClickHandler(40, value.data, value.row.original.esId)
-                                        }
-                                        style={{border: '0px', width: '100%', height: '1em'}}
-                                    />
-                                    <label className="m-1"> 심각 </label>
-                                </div>
-                                <div className="m-1">
-                                    <input
-                                        type="radio"
-                                        name="defectUser"
-                                        key={value.row.original.esId}
-                                        value={50}
-                                        onClick={() =>
-                                            onClickHandler(50, value.data, value.row.original.esId)
-                                        }
-                                        style={{border: '0px', width: '100%', height: '1em'}}
-                                    />
-                                    <label className="m-1"> 매우 심각 </label>
+                                    <label className="m-1"> 고장 </label>
                                 </div>
                             </form>
                         </>
@@ -148,133 +101,211 @@ export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = ()
                     },
             },
             {
-                Header: t("history.type").toString(),
-                accessor: "type",
+                Header: t("history.carId").toString(),
+                accessor: "carId",
             },
             {
-                Header: t("history.tno").toString(),
-                accessor: "trainNo",
+                Header: t("history.timeIndex").toString(),
+                accessor: "timeIndex",
             },
             {
-                Header: t("history.cno").toString(),
-                accessor: "carNo",
+                Header: t("history.aiAlgorithm").toString(),
+                accessor: "aiAlgorithm",
             },
             {
-                Header: t("history.wb").toString(),
-                accessor: "wb",
+                Header: t("history.aiModel").toString(),
+                accessor: "aiModel",
             },
             {
-                Header: t("history.lr").toString(),
-                accessor: "lr",
+                Header: t("history.lbvOverallRMS").toString(),
+                accessor: "lbvOverallRMS",
             },
             {
-                Header: t("history.ns").toString(),
-                accessor: "ns",
+                Header: t("history.lbv1x").toString(),
+                accessor: "lbv1x",
             },
             {
-                Header: t("history.ot").toString(),
-                accessor: "oneTwo",
+                Header: t("history.lbv6912bpfo").toString(),
+                accessor: "lbv6912bpfo",
             },
             {
-                Header: t("history.airtemp").toString(),
-                accessor: "airTemp",
+                Header: t("history.lbv6912bpfi").toString(),
+                accessor: "lbv6912bpfi",
             },
             {
-                Header: t("history.temp_v").toString(),
-                accessor: "tempV",
+                Header: t("history.lbv6912bsf").toString(),
+                accessor: "lbv6912bsf",
             },
             {
-                Header: t("history.temp_c").toString(),
-                accessor: "tempC",
+                Header: t("history.lbv6912ftf").toString(),
+                accessor: "lbv6912ftf",
             },
             {
-                Header: t("history.entry_speed").toString(),
-                accessor: "entrySpeed",
+                Header: t("history.lbv32924bpfo").toString(),
+                accessor: "lbv32924bpfo",
             },
             {
-                Header: t("history.AE_v").toString(),
-                accessor: "aeV",
+                Header: t("history.lbv32924bpfi").toString(),
+                accessor: "lbv32924bpfi",
             },
             {
-                Header: t("history.AE_c").toString(),
-                accessor: "aeC",
+                Header: t("history.lbv32924bsf").toString(),
+                accessor: "lbv32924bsf",
             },
             {
-                Header: t("history.vib_v").toString(),
-                accessor: "vibV",
+                Header: t("history.lbv32924ftf").toString(),
+                accessor: "lbv32924ftf",
             },
             {
-                Header: t("history.vib_c").toString(),
-                accessor: "vibC",
+                Header: t("history.lbv32922bpfo").toString(),
+                accessor: "lbv32922bpfo",
             },
             {
-                Header: t("history.total_value").toString(),
-                accessor: "totalValue",
+                Header: t("history.lbv32922bpfi").toString(),
+                accessor: "lbv32922bpfi",
             },
             {
-                Header: t("history.total_count").toString(),
-                accessor: "totalCount",
+                Header: t("history.lbv32922bsf").toString(),
+                accessor: "lbv32922bsf",
             },
             {
-                Header: t("history.sound_v").toString(),
-                accessor: "soundV",
+                Header: t("history.lbv32922ftf").toString(),
+                accessor: "lbv32922ftf",
             },
             {
-                Header: t("history.sound_c").toString(),
-                accessor: "soundC",
+                Header: t("history.lbvCrestfactor").toString(),
+                accessor: "lbvCrestfactor",
             },
             {
-                Header: t("history.load_v").toString(),
-                accessor: "loadV",
+                Header: t("history.lbvDemodulation").toString(),
+                accessor: "lbvDemodulation",
             },
             {
-                Header: t("history.load_c").toString(),
-                accessor: "loadC",
+                Header: t("history.lbsFault1").toString(),
+                accessor: "lbsFault1",
             },
             {
-                Header: t("history.round").toString(),
-                accessor: "round",
+                Header: t("history.lbsFault2").toString(),
+                accessor: "lbsFault2",
             },
             {
-                Header: t("history.weighting_state_equation").toString(),
-                accessor: "weightingStateEquation",
+                Header: t("history.lbtTemperature").toString(),
+                accessor: "lbtTemperature",
             },
             {
-                Header: t("history.time").toString(),
+                Header: t("history.rbvOverallRMS").toString(),
+                accessor: "rbvOverallRMS",
+            },
+            {
+                Header: t("history.rbv1x").toString(),
+                accessor: "rbv1x",
+            },
+            {
+                Header: t("history.rbv6912bpfo").toString(),
+                accessor: "rbv6912bpfo",
+            },
+            {
+                Header: t("history.rbv6912bpfi").toString(),
+                accessor: "rbv6912bpfi",
+            },
+            {
+                Header: t("history.rbv6912bsf").toString(),
+                accessor: "rbv6912bsf",
+            },
+            {
+                Header: t("history.rbv6912ftf").toString(),
+                accessor: "rbv6912ftf",
+            },
+            {
+                Header: t("history.rbv32924bpfo").toString(),
+                accessor: "rbv32924bpfo",
+            },
+            {
+                Header: t("history.rbv32924bpfi").toString(),
+                accessor: "rbv32924bpfi",
+            },
+            {
+                Header: t("history.rbv32924bsf").toString(),
+                accessor: "rbv32924bsf",
+            },
+            {
+                Header: t("history.rbv32924ftf").toString(),
+                accessor: "rbv32924ftf",
+            },
+            {
+                Header: t("history.rbv32922bpfo").toString(),
+                accessor: "rbv32922bpfo",
+            },
+            {
+                Header: t("history.rbv32922bpfi").toString(),
+                accessor: "rbv32922bpfi",
+            },
+            {
+                Header: t("history.rbv32922bsf").toString(),
+                accessor: "rbv32922bsf",
+            },
+            {
+                Header: t("history.rbv32922ftf").toString(),
+                accessor: "rbv32922ftf",
+            },
+            {
+                Header: t("history.rbvCrestfactor").toString(),
+                accessor: "rbvCrestfactor",
+            },
+            {
+                Header: t("history.rbvDemodulation").toString(),
+                accessor: "rbvDemodulation",
+            },
+            {
+                Header: t("history.rbsFault1").toString(),
+                accessor: "rbsFault1",
+            },
+            {
+                Header: t("history.rbsFault2").toString(),
+                accessor: "rbsFault2",
+            },
+            {
+                Header: t("history.rbtTemperature").toString(),
+                accessor: "rbtTemperature",
+            },
+            {
+                Header: t("history.wrpm").toString(),
+                accessor: "wrpm",
+            },
+            {
+                Header: t("history.operateDateTime").toString(),
                 accessor: (item) => {
-                    const time = item.measurementTime
-                        ? new Date(item.measurementTime)
+                    const time = item.operateDateTime
+                        ? new Date(item.operateDateTime)
                         : undefined;
                     return time
                         ? time.toLocaleDateString("en-CA") +
                         " " +
-                time.toLocaleTimeString("kr")
-            : "-";
-        },
-      },
+                        time.toLocaleTimeString("kr")
+                        : "-";
+                },
+            },
     ],
     [t]
   );
 
+    // 검색 기간
   useEffect(() => {
     const thisDate = new Date();
     thisDate.setMonth(thisDate.getMonth() - 6);
     setFromDate(thisDate);
   }, []);
 
-  useEffect(() => {
-    if (selectedTrain) {
-      datasetControllerApi
-        ?.getCarLists(selectedTrain)
-        .then((res) => setCarsList(res.data));
-    }
-  }, [selectedTrain, datasetControllerApi]);
+    // 차량 선택
+    useEffect(() => {
+        predictedResultDatabaseControllerApi
+            ?.getSdaList(selectedSda)
+            .then((res) => setSdaList(res.data));
+    }, [predictedResultDatabaseControllerApi]);
 
-  useEffect(() => {
-    datasetControllerApi
-      ?.getTrainLists()
-      .then((res) => setTrainsList(res.data));
-  }, [datasetControllerApi]);
+    // 부품 선택
+
+    // 부품 고장 여부
 
   function onClickHandler(score: any, valueArr: any, esId: any) {
       // Whenever defectUser value comes in through radio button,
@@ -329,73 +360,92 @@ export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = ()
           await timeout(3000)
           console.log("done")
 
-          handleSearchData()
+          // handleSearchData()
       }
   }
 
     console.log("totalUpdateList", totalUpdateDefectUserList)
 
-  function handleSearchData(pageable?: Pageable) {
-      datasetControllerApi
-          ?.getAllConditionData(
-              wb,
-              selectedTrain,
-              selectedCar,
-              fromDate?.toLocaleDateString("en-US"),
-              toDate?.toLocaleDateString("en-US"),
-              severity,
-              // defectScore is must above 0.
-              true,
-              // state 0 mean select defectUser is must 0 data.
-              0,
-              pageable?.pageNumber,
-              pageable?.pageSize
-          )
-          .then((res) => {
-              setRailConditionData(res.data.content || []);
-              setPaginate(res.data.pageable);
-              setTotalPage(res.data.totalPages || 1);
-              // Save previous page state when moving a page
-              onPaginationHandler(updateDefectUserList)
-          });
-  }
+    function handleSearchConditionData(part:any) {
+        setSearchingData(true);
+        if(part === "B"){
+            predictedResultDatabaseControllerApi?.getSensorData(part, fromDate?.toLocaleDateString("en-CA"), toDate?.toLocaleDateString("en-CA"))
+                .then((res) => setSensorConditionData(res.data.sensorBearing?.content || []))
+                .finally(() => setSearchingData(false));
+            console.log(sensorConditionData)
+            setTableColumns(SensorBearingColumns)
+        } else if(part ==="W"){
+            predictedResultDatabaseControllerApi?.getSensorData(part, fromDate?.toLocaleDateString("en-CA"), toDate?.toLocaleDateString("en-CA"))
+                .then((res) => setSensorConditionData(res.data.sensorWheel?.content || []))
+                .finally(() => setSearchingData(false));
+            setTableColumns(SensorWheelDataColumns)
+        }else if(part ==="G"){
+            predictedResultDatabaseControllerApi?.getSensorData(part, fromDate?.toLocaleDateString("en-CA"), toDate?.toLocaleDateString("en-CA"))
+                .then((res) => setSensorConditionData(res.data.sensorGearbox?.content || []))
+                .finally(() => setSearchingData(false));
+            setTableColumns(SensorGearboxDataColumns)
+        }else if(part ==="E"){
+            predictedResultDatabaseControllerApi?.getSensorData(part, fromDate?.toLocaleDateString("en-CA"), toDate?.toLocaleDateString("en-CA"))
+                .then((res) => setSensorConditionData(res.data.sensorEngine?.content || []))
+                .finally(() => setSearchingData(false));
+            setTableColumns(SensorEngineDataColumns)
+        } else if(part === "T") {
+            predictedResultDatabaseControllerApi?.getSensorData(part, fromDate?.toLocaleDateString("en-CA"), toDate?.toLocaleDateString("en-CA"))
+                .then((res) => setSensorConditionData(res.data.sensorTempLife?.content || []))
+                .finally(() => setSearchingData(false));
+            setTableColumns(SensorTempLifeDataColumns)
+        }
+    }
 
   return (
     <>
       <Container fluid className="p-3 pt-5">
         <Row className="row mb-2">
           <Col xs={1} className="Col pe-0">
-            {t("scd.trainno")}
-          </Col>
-          <Col xs={2} className="Col ps-0">
-            <Form.Select
-              size="sm"
-              value={selectedTrain}
-              onChange={(v) => {
-                setSelectedTrain((v.target as any).value);
-              }}
-            >
-              <option value={undefined}>{t("combo.all")}</option>
-              {trainsList.map((trainNumber) => (
-                <option value={trainNumber}>{trainNumber}</option>
-              ))}
-            </Form.Select>
-          </Col>
-          <Col xs={1} className="Col pe-0">
             {t("scd.carno")}
           </Col>
           <Col xs={2} className="Col ps-0">
             <Form.Select
               size="sm"
-              value={selectedCar}
-              onChange={(v) => setSelectedCar((v.target as any).value)}
+              value={selectedSda}
+              onChange={(v) => setSelectedSda((v.target as any).value)}
             >
-              <option>{t("combo.all")}</option>
-              {carsList.map((car) => (
-                <option value={car}>{car}</option>
+              <option value={undefined}>{t("combo.all")}</option>
+              {sdaList.map((sda) => (
+                <option value={sda}>{sda}</option>
               ))}
             </Form.Select>
           </Col>
+            <Col xs={1} className="Col pe-0">
+                {t("scd.parts")}
+            </Col>
+            <Col xs={1} className="Col ps-0">
+                <Form.Select
+                    size="sm"
+                    value={part}
+                    onChange={(v) => setPart((v.target as any).value)}
+                >
+                    <option value="W">차륜(휠)</option>
+                    <option value="B">차축(베어링)</option>
+                    <option value="E">엔진(윤활)</option>
+                    <option value="G">감속기(기어박스)</option>
+                    <option value="T">잔존수명(임시)</option>
+                </Form.Select>
+            </Col>
+            <Col xs={1} className="Col pe-0">
+                {t("scd.partstate")}
+            </Col>
+            <Col xs={1} className="Col ps-0">
+                <Form.Select
+                    size="sm"
+                    value={partState}
+                    onChange={(v) => setPartState((v.target as any).value)}
+                >
+                    <option>{t("combo.all")}</option>
+                    <option value="0">정상</option>
+                    <option value="1">고장</option>
+                </Form.Select>
+            </Col>
           <Col xs={1} className="Col pe-0">
             {t("dashboard.sp")}
           </Col>
@@ -407,55 +457,38 @@ export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = ()
               onChange={(v) => setSeverity((v.target as any).value)}
             />
           </Col>
-        </Row>
-        <Row className="row mb-2">
-          <Col xs={1} className="Col pe-0">
-            {t("scd.parts")}
-          </Col>
-          <Col xs={2} className="Col ps-0">
-            <Form.Select
-              size="sm"
-              value={wb}
-              onChange={(v) => setWb((v.target as any).value)}
-            >
-              <option value="W">W</option>
-              <option value="B">B</option>
-            </Form.Select>
-          </Col>
-          <Col xs={1}>{t("scd.time")}</Col>
-          <Col xs={2} className="col ps-0">
-            <Form.Control
-              size="sm"
-              type="date"
-              value={fromDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setFromDate(new Date((v.target as any).value))}
-            />
-          </Col>
-
-          <div className="fixed">~</div>
-
-          <Col xs={2} className="col pe-0">
-            <Form.Control
-              type="date"
-              size="sm"
-              value={toDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setToDate(new Date((v.target as any).value))}
-            />
-          </Col>
-          <Col xs={2}>
-            <Button type="button" onClick={
-                () => handleSearchData(paginate)
-            }>
-              {t("btn.search")}
-            </Button>
-          </Col>
+            <Col xs={1}>{t("scd.time")}</Col>
+            <Col xs={2} className="col ps-0">
+                <Form.Control
+                    size="sm"
+                    type="date"
+                    value={fromDate?.toLocaleDateString("en-CA")}
+                    onChange={(v) => setFromDate(new Date((v.target as any).value))}
+                />
+            </Col>
+            <div className="fixed">~</div>
+            <Col xs={2} className="col pe-0">
+                <Form.Control
+                    type="date"
+                    size="sm"
+                    value={toDate?.toLocaleDateString("en-CA")}
+                    onChange={(v) => setToDate(new Date((v.target as any).value))}
+                />
+            </Col>
+            <Col xs={2}>
+                <Button type="button" onClick={
+                    () => handleSearchConditionData(paginate)
+                }>
+                    {t("btn.search")}
+                </Button>
+            </Col>
         </Row>
 
         <div>
           <div style={{ width: "145%" }}>
             <Table
-              columns={columns}
-              data={railConditionData}
+              columns={tableColumns}
+              data={sensorConditionData}
             />
               <div>
                   <div style={{display : 'inline-block'}}>
@@ -469,7 +502,7 @@ export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = ()
                                   pageNumber: v,
                               };
                               setPaginate(newPaginate);
-                              handleSearchData(newPaginate);
+                              sensorConditionData(newPaginate);
                           }}
                       />
                   </div>
@@ -483,11 +516,11 @@ export const PredictedResultsUserInput: React.FC<{ algorithmName: string }> = ()
                   </div>
               </div>
               </div>
-          {selectedData && (
-            <div style={{ flex: 1, padding: "1em" }}>
-              <RailSensorDataDetail data={selectedData} />
-            </div>
-          )}
+          {/*{selectedData && (*/}
+          {/*  <div style={{ flex: 1, padding: "1em" }}>*/}
+          {/*    <RailSensorDataDetail data={selectedData} />*/}
+          {/*  </div>*/}
+          {/*)}*/}
         </div>
       </Container>
     </>

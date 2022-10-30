@@ -37,7 +37,7 @@ public class SensorGearbox {
     private Date operateDateTime;
 
     @Column(name="TIME")
-    private long timeIndex;
+    private Long timeIndex;
 
     @Column(name="AI_Predict")
     private Double aiPredict;
@@ -49,28 +49,28 @@ public class SensorGearbox {
     private String aiModel;
 
     @Column(name="W_RPM")
-    private double wrpm;
+    private Double wrpm;
 
     @Column(name="G_V_OverallRMS")
-    private double gvOverallRms;
+    private Double gvOverallRms;
 
     @Column(name="G_V_Wheel1X")
-    private double gvWheel1x;
+    private Double gvWheel1x;
 
     @Column(name="G_V_Wheel2X")
-    private double gvWheel2x;
+    private Double gvWheel2x;
 
     @Column(name="G_V_Pinion1X")
-    private double gvPinion1x;
+    private Double gvPinion1x;
 
     @Column(name="G_V_Pinion2X")
-    private double gvPinion2x;
+    private Double gvPinion2x;
 
     @Column(name="G_V_GMF1X")
-    private double gvGmf1x;
+    private Double gvGmf1x;
 
     @Column(name="G_V_GMF2X")
-    private double gvGmf2x;
+    private Double gvGmf2x;
 
     @Column(name="FILENM")
     private String filenm;

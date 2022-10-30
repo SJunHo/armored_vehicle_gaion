@@ -37,7 +37,7 @@ public class SensorWheel {
     private Date operateDateTime;
 
     @Column(name="TIME")
-    private long timeIndex;
+    private Long timeIndex;
 
     @Column(name="AI_Predict")
     private Double aiPredict;
@@ -49,25 +49,25 @@ public class SensorWheel {
     private String aiModel;
 
     @Column(name="W_RPM")
-    private double wrpm;
+    private Double wrpm;
 
     @Column(name="L_W_V_2X")
-    private double lwv2x;
+    private Double lwv2x;
 
     @Column(name="L_W_V_3X")
-    private double lwv3x;
+    private Double lwv3x;
 
     @Column(name="L_W_S_Fault3")
-    private double lwsFault3;
+    private Double lwsFault3;
 
     @Column(name="R_W_V_2X")
-    private double rwv2x;
+    private Double rwv2x;
 
     @Column(name="R_W_V_3X")
-    private double rwv3x;
+    private Double rwv3x;
 
     @Column(name="R_W_S_Fault3")
-    private double rwsFault3;
+    private Double rwsFault3;
 
     @Column(name="FILENM")
     private String filenm;

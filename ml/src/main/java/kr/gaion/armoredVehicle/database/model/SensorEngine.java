@@ -34,10 +34,10 @@ public class SensorEngine {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name="DATE")
-    private DateTime operateDateTime;
+    private Date operateDateTime;
 
     @Column(name="TIME")
-    private long timeIndex;
+    private Long timeIndex;
 
     @Column(name="AI_Predict")
     private Double aiPredict;
@@ -49,34 +49,34 @@ public class SensorEngine {
     private String aiModel;
 
     @Column(name="W_RPM")
-    private double wrpm;
+    private Double wrpm;
 
     @Column(name="E_V_OverallRMS")
-    private double evOverallRms;
+    private Double evOverallRms;
 
     @Column(name="E_V_1-2X")
-    private double ev12x;
+    private Double ev12x;
 
     @Column(name="E_V_1X")
-    private double ev1x;
+    private Double ev1x;
 
     @Column(name="E_V_Crestfactor")
-    private double evCrestfactor;
+    private Double evCrestfactor;
 
     @Column(name="AC_h")
-    private double ach;
+    private Double ach;
 
     @Column(name="AC_v")
-    private double acv;
+    private Double acv;
 
     @Column(name="AC_a")
-    private double aca;
+    private Double aca;
 
     @Column(name="LA")
-    private double la;
+    private Double la;
 
     @Column(name="LO")
-    private double lo;
+    private Double lo;
 
     @Column(name="FILENM")
     private String filenm;

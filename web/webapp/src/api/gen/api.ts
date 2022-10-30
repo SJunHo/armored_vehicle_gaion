@@ -978,13 +978,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1180,13 +1180,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1239,6 +1239,371 @@ export interface PageRailSensorData {
      * 
      * @type {boolean}
      * @memberof PageRailSensorData
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearing
+ */
+export interface PageSensorBearing {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearing
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearing
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearing
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearing>}
+     * @memberof PageSensorBearing
+     */
+    content?: Array<SensorBearing>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearing
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearing
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearing
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearing
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearing
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearing
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearing
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorEngine
+ */
+export interface PageSensorEngine {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngine
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngine
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngine
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorEngine>}
+     * @memberof PageSensorEngine
+     */
+    content?: Array<SensorEngine>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngine
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorEngine
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngine
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngine
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngine
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorEngine
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngine
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorGearbox
+ */
+export interface PageSensorGearbox {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearbox
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearbox
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearbox
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorGearbox>}
+     * @memberof PageSensorGearbox
+     */
+    content?: Array<SensorGearbox>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearbox
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorGearbox
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearbox
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearbox
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearbox
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorGearbox
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearbox
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorTempLife
+ */
+export interface PageSensorTempLife {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorTempLife>}
+     * @memberof PageSensorTempLife
+     */
+    content?: Array<SensorTempLife>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorTempLife
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorTempLife
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorWheel
+ */
+export interface PageSensorWheel {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheel
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheel
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheel
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorWheel>}
+     * @memberof PageSensorWheel
+     */
+    content?: Array<SensorWheel>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheel
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorWheel
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheel
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheel
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheel
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorWheel
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheel
      */
     empty?: boolean;
 }
@@ -2322,6 +2687,43 @@ export interface SensorGearbox {
      * @memberof SensorGearbox
      */
     filenm?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorPredictedData
+ */
+export interface SensorPredictedData {
+    /**
+     * 
+     * @type {PageSensorBearing}
+     * @memberof SensorPredictedData
+     */
+    sensorBearing?: PageSensorBearing;
+    /**
+     * 
+     * @type {PageSensorWheel}
+     * @memberof SensorPredictedData
+     */
+    sensorWheel?: PageSensorWheel;
+    /**
+     * 
+     * @type {PageSensorGearbox}
+     * @memberof SensorPredictedData
+     */
+    sensorGearbox?: PageSensorGearbox;
+    /**
+     * 
+     * @type {PageSensorEngine}
+     * @memberof SensorPredictedData
+     */
+    sensorEngine?: PageSensorEngine;
+    /**
+     * 
+     * @type {PageSensorTempLife}
+     * @memberof SensorPredictedData
+     */
+    sensorTempLife?: PageSensorTempLife;
 }
 /**
  * 
@@ -5615,6 +6017,194 @@ export class MlControllerApi extends BaseAPI {
      */
     public updateModel(algorithm: string, algorithmResponseId: number, updateModelInput: UpdateModelInput, options?: any) {
         return MlControllerApiFp(this.configuration).updateModel(algorithm, algorithmResponseId, updateModelInput, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * PredictedResultDatabaseControllerApi - axios parameter creator
+ * @export
+ */
+export const PredictedResultDatabaseControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSdaList: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/get-sda-id-list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} part 
+         * @param {string} fromDate 
+         * @param {string} toDate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSensorData: async (part: string, fromDate: string, toDate: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'part' is not null or undefined
+            assertParamExists('getSensorData', 'part', part)
+            // verify required parameter 'fromDate' is not null or undefined
+            assertParamExists('getSensorData', 'fromDate', fromDate)
+            // verify required parameter 'toDate' is not null or undefined
+            assertParamExists('getSensorData', 'toDate', toDate)
+            const localVarPath = `/get-sensor-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (part !== undefined) {
+                localVarQueryParameter['part'] = part;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['fromDate'] = fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['toDate'] = toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PredictedResultDatabaseControllerApi - functional programming interface
+ * @export
+ */
+export const PredictedResultDatabaseControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PredictedResultDatabaseControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSdaList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSdaList(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} part 
+         * @param {string} fromDate 
+         * @param {string} toDate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSensorData(part: string, fromDate: string, toDate: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SensorPredictedData>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSensorData(part, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * PredictedResultDatabaseControllerApi - factory interface
+ * @export
+ */
+export const PredictedResultDatabaseControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PredictedResultDatabaseControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSdaList(options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getSdaList(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} part 
+         * @param {string} fromDate 
+         * @param {string} toDate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSensorData(part: string, fromDate: string, toDate: string, options?: any): AxiosPromise<SensorPredictedData> {
+            return localVarFp.getSensorData(part, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * PredictedResultDatabaseControllerApi - object-oriented interface
+ * @export
+ * @class PredictedResultDatabaseControllerApi
+ * @extends {BaseAPI}
+ */
+export class PredictedResultDatabaseControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PredictedResultDatabaseControllerApi
+     */
+    public getSdaList(options?: any) {
+        return PredictedResultDatabaseControllerApiFp(this.configuration).getSdaList(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} part 
+     * @param {string} fromDate 
+     * @param {string} toDate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PredictedResultDatabaseControllerApi
+     */
+    public getSensorData(part: string, fromDate: string, toDate: string, options?: any) {
+        return PredictedResultDatabaseControllerApiFp(this.configuration).getSensorData(part, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

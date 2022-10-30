@@ -30,7 +30,7 @@ database:
   properties:
     hibernate:
       hbm2ddl:
-        auto: update
+#        auto: update
       connection:
         charSet: UTF-8
       dialect: org.hibernate.dialect.MariaDBDialect

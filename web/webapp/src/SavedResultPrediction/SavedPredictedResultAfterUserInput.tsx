@@ -6,12 +6,12 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useTranslation } from "react-i18next";
 import { Column } from "react-table";
-import { OpenApiContext, Pageable, RailSensorData } from "../api";
+import { OpenApiContext, Pageable, RailSensorData, SensorBearing } from "../api";
 import { RailSensorDataDetail } from "../common/RailSensorDataDetail";
 import { Paginator } from "../common/Paginator";
 import { Table } from "../common/Table";
 
-export const SavedPredictedResult: React.FC<{ algorithmName: string }> = () => {
+export const SavedPredictedResultAfterUserInput: React.FC<{ algorithmName: string }> = () => {
   const [trainsList, setTrainsList] = useState<string[]>([]);
   const [carsList, setCarsList] = useState<string[]>([]);
 

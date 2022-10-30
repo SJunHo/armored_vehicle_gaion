@@ -14,7 +14,7 @@ import { DataLookUpList } from "./DataLookUp/DataLookUpList";
 import { DataUpload } from "./DataLookUp/DataUpload";
 import { PredictedResults } from "./ResultPrediction/PredictedResults";
 import { PredictedResultsUserInput } from "./ResultPredictionUserInput/PredictedResultsUserInput";
-import { SavedPredictedResult } from "./SavedResultPrediction/SavedPredictedResult";
+import { SavedPredictedResultAfterUserInput } from "./SavedResultPrediction/SavedPredictedResultAfterUserInput";
 
 import { FeatureSelection } from "./ModelManagement/FeatureSelection";
 import { Dashboard } from "./Dashboard/Dashboard";
@@ -48,7 +48,7 @@ function Main() {
             />
             <AuthorizedRoute
               path="/data/fault_diagnosis_history_page"
-              component={SavedPredictedResult}
+              component={SavedPredictedResultAfterUserInput}
             />
 
             <AuthorizedRoute

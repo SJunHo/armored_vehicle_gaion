@@ -35,7 +35,7 @@ public class SensorBearing {
     private Date operateDateTime;
 
     @Column(name="TIME")
-    private long timeIndex;
+    private Long timeIndex;
 
     @Column(name="AI_Predict")
     private Double aiPredict;
@@ -47,119 +47,121 @@ public class SensorBearing {
     private String aiModel;
 
     @Column(name="L_B_V_OverallRMS")
-    private double lbvOverallRMS;
+    private Double lbvOverallRMS;
 
     @Column(name="L_B_V_1X")
-    private double lbv1x;
+    private Double lbv1x;
 
     @Column(name="L_B_V_6912BPFO")
-    private double lbv6912bpfo;
+    private Double lbv6912bpfo;
 
     @Column(name="L_B_V_6912BPFI")
-    private double lbv6912bpfi;
+    private Double lbv6912bpfi;
 
     @Column(name="L_B_V_6912BSF")
-    private double lbv6912bsf;
+    private Double lbv6912bsf;
 
     @Column(name="L_B_V_6912FTF")
-    private double lbv6912ftf;
+    private Double lbv6912ftf;
 
     @Column(name="L_B_V_32924BPFO")
-    private double lbv32924bpfo;
+    private Double lbv32924bpfo;
 
     @Column(name="L_B_V_32924BPFI")
-    private double lbv32924bpfi;
+    private Double lbv32924bpfi;
 
     @Column(name="L_B_V_32924BSF")
-    private double lbv32924bsf;
+    private Double lbv32924bsf;
 
     @Column(name="L_B_V_32924FTF")
-    private double lbv32924ftf;
+    private Double lbv32924ftf;
 
     @Column(name="L_B_V_32922BPFO")
-    private double lbv32922bpfo;
+    private Double lbv32922bpfo;
 
     @Column(name="L_B_V_32922BPFI")
-    private double lbv32922bpfi;
+    private Double lbv32922bpfi;
 
     @Column(name="L_B_V_32922BSF")
-    private double lbv32922bsf;
+    private Double lbv32922bsf;
 
     @Column(name="L_B_V_32922FTF")
-    private double lbv32922ftf;
+    private Double lbv32922ftf;
 
     @Column(name="L_B_V_Crestfactor")
-    private double lbvCrestfactor;
+    private Double lbvCrestfactor;
 
     @Column(name="L_B_V_Demodulation")
-    private double lbvDemodulation;
+    private Double lbvDemodulation;
 
     @Column(name="L_B_S_Fault1")
-    private double lbsFault1;
+    private Double lbsFault1;
+
     @Column(name="L_B_S_Fault2")
+    private Double lbsFault2;
 
-    private double lbsFault2;
     @Column(name="L_B_T_Temperature")
+    private Double lbtTemperature;
 
-    private double lbtTemperature;
     @Column(name="R_B_V_OverallRMS")
+    private Double rbvOverallRMS;
 
-    private double rbvOverallRMS;
     @Column(name="R_B_V_1X")
-    private double rbv1x;
+    private Double rbv1x;
 
     @Column(name="R_B_V_6912BPFO")
-    private double rbv6912bpfo;
+    private Double rbv6912bpfo;
 
     @Column(name="R_B_V_6912BPFI")
-    private double rbv6912bpfi;
+    private Double rbv6912bpfi;
 
     @Column(name="R_B_V_6912BSF")
-    private double rbv6912bsf;
+    private Double rbv6912bsf;
+
     @Column(name="R_B_V_6912FTF")
+    private Double rbv6912ftf;
 
-    private double rbv6912ftf;
     @Column(name="R_B_V_32924BPFO")
+    private Double rbv32924bpfo;
 
-    private double rbv32924bpfo;
     @Column(name="R_B_V_32924BPFI")
+    private Double rbv32924bpfi;
 
-    private double rbv32924bpfi;
     @Column(name="R_B_V_32924BSF")
+    private Double rbv32924bsf;
 
-    private double rbv32924bsf;
     @Column(name="R_B_V_32924FTF")
+    private Double rbv32924ftf;
 
-    private double rbv32924ftf;
     @Column(name="R_B_V_32922BPFO")
-    private double rbv32922bpfo;
+    private Double rbv32922bpfo;
 
     @Column(name="R_B_V_32922BPFI")
-    private double rbv32922bpfi;
+    private Double rbv32922bpfi;
 
     @Column(name="R_B_V_32922BSF")
-    private double rbv32922bsf;
+    private Double rbv32922bsf;
 
     @Column(name="R_B_V_32922FTF")
-    private double rbv32922ftf;
+    private Double rbv32922ftf;
 
     @Column(name="R_B_V_Crestfactor")
-    private double rbvCrestfactor;
+    private Double rbvCrestfactor;
 
     @Column(name="R_B_V_Demodulation")
-    private double rbvDemodulation;
+    private Double rbvDemodulation;
 
     @Column(name="R_B_S_Fault1")
-    private double rbsFault1;
+    private Double rbsFault1;
 
     @Column(name="R_B_S_Fault2")
-    private double rbsFault2;
+    private Double rbsFault2;
 
     @Column(name="R_B_T_Temperature")
-    private double rbtTemperature;
+    private Double rbtTemperature;
 
     @Column(name="W_RPM")
-    private double wRpm;
+    private Double wRpm;
 
     @Column(name="FILENM")
     private String filenm;
