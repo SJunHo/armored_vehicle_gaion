@@ -28,7 +28,6 @@ import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.spark.ml.classification.LinearSVC;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +50,7 @@ public class MLController {
   @NonNull private final SVM svm;
   @NonNull private final MLPClassifier mlp;
   @NonNull private final LogisticRegressionClassifier lr;
-  @NonNull private final SvcClassifier svc;
+  @NonNull private final SupportVectorClassifier svc;
 
   @NonNull private final KmeansClustering kmeansClustering;
   @NonNull private final IsolationForestOutlierDetection isolationForestOutlierDetection;

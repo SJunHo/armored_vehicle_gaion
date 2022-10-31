@@ -49,9 +49,9 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 			config.setFeatureCols(Arrays.asList(this.chiSqSelector.selectFeaturesDataframeApi(config)));
 		}
 
-//		Dataset<Row> originalData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config); 												// #PC0023
-		Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config); 												// #PC0023
-		StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);						// #PC0026
+//		Dataset<Row> originalData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
+		Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+		StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
 		Dataset<Row> indexedData = labelIndexer.transform(originalData);
 		String[] indicesLabelsMapping = labelIndexer.labels();
 
@@ -65,8 +65,6 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 		log.info("Saving model ..");
 		var modelFullPathName = this.saveTrainedModel(config, model);
 		labelIndexer.save(modelFullPathName);
-
-		// model evaluation
 
     var response = createModelResponse(model, test, config);
 
