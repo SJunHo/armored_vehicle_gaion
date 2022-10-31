@@ -7,7 +7,9 @@ import javax.validation.constraints.NotNull;
 @JsonSerialize
 public class AuthDTO {
   public static class AuthRequestDTO {
-    public @NotNull String username;
+    //public @NotNull String username;
+    // username -> id 변경
+    public @NotNull String id;
 
     public @NotNull String password;
   }

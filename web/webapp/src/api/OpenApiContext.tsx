@@ -29,6 +29,7 @@ export const OpenApiContextProvider: React.FC = ({ children }) => {
       },
       isJsonMime: true,
     };
+    console.log(baseOptions);
     setValue({
       mlControllerApi: new MlControllerApi({
         baseOptions,

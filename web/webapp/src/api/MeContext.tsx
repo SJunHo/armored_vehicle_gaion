@@ -20,7 +20,7 @@ type MeContextProps = {
 
 export const MeContext = React.createContext<MeContextProps>({});
 
-export const MeContextProvider: React.FC = ({ children }) => {
+export const MeContextProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<Partial<User>>({});
 
   useEffect(() => {

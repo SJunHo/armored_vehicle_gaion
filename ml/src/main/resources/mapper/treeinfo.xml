@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.TreeInfoMapper">
+	<select id="findTree" resultType="kr.gaion.armoredVehicle.web.analysis.model.TreeInfo">
+		select * 
+		from TREEINFO
+	</select>
+	
+	<select id="findFirstHeader" parameterType="Integer" resultType="kr.gaion.armoredVehicle.web.analysis.model.TreeInfo">
+		select * 
+		from TREEINFO
+		where trinfoid = #{trinfoid}
+	</select>
+	
+	<select id="findHeader" parameterType="Integer" resultType="kr.gaion.armoredVehicle.web.analysis.model.TreeInfo">
+		select * 
+		from TREEINFO
+		where trinfohead = #{trinfohead}
+	</select>
+	
+	<select id="findTreeInfoIdByCode" parameterType="String" resultType="Integer">
+		select trinfoid
+		from TREEINFO
+		where trinfocode = #{treeinfocode}
+	</select>
+	
+	<select id="findByCode" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.TreeInfo">
+		select *
+		from TREEINFO
+		where trinfocode = #{code}
+	</select>
+
+	<select id="findTreeInfoIdByTreeinfoname" parameterType="String" resultType="Integer">
+		select trinfoid
+		from TREEINFO
+		where trinfoname = #{treeinfoname}
+	</select>
+</mapper>

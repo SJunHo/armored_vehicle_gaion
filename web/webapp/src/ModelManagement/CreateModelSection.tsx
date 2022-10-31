@@ -9,7 +9,6 @@ import {
   useForm,
   useFormContext,
 } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import Select2 from "react-select";
 import {RegressionResponse, RandomForestClassificationResponse} from "../api";
 import { OpenApiContext } from "../api/OpenApiContext";
@@ -19,6 +18,7 @@ import { Section } from "../common/Section/Section";
 import { CreateModelResult } from "./CreateModelResult";
 import styles from "./styles.module.css";
 import {DataInputSection} from "./CreateModel/DataInputSection";
+import {useTranslation} from "react-i18next";
 // import {LifeDataInputSection} from "./CreateModel/LifeDataInputSection";
 
 const SPLIT_TRAIN_TEST_STRATEGIES = ["auto", "all", "sqrt", "log2", "onethird"];
@@ -111,18 +111,19 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
             <Section
                 className={styles.trainInputSection}
                 title={"모델 파라미터 설정"}
-                bottomTitle=""
+                bottomTitle="Training Model"
             >
               <div className={styles.trainInputBody}>
-                <InputWrapper title={t("ml.common.stt")}>
+                <InputWrapper title="학습 / 테스트 데이터셋 구성비">
                   <Form.Range
                       {...register("fraction")}
                       step={10}
                       min={0}
                       max={100}
+                      style={{width:'100%'}}
                   />
-                  <span>
-                    {t("ml.common.ratio")} {watch("fraction")}/
+                  <span className="text-white">
+                    비율 {watch("fraction")}/
                     {100 - watch("fraction")}
                   </span>
                 </InputWrapper>
@@ -141,8 +142,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
                   aria-hidden="true"
                 />
               )}
-              {t("ml.predict.train")}
-            </Button>
+              모델생성            </Button>
           </div>
         </Form>
       </FormProvider>
@@ -166,7 +166,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title={t("ml.common.fss")}
+            title={"특징부분 집합 전략"}
           >
             <Controller
               defaultValue="auto"
@@ -175,7 +175,8 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
               render={({ field }) => (
                 <Select2
                   isClearable
-                  placeholder={t("ml.common.psop")}
+                  placeholder={t("ml.common.p" +
+                    "sop")}
                   options={SPLIT_TRAIN_TEST_STRATEGIES.map((strategy) => ({
                     value: strategy,
                     label: strategy,
@@ -194,7 +195,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title={t("ml.common.imp")}
+            title="불순도"
           >
             <Form.Control {...register("impurity", { value: "gini" })} />
           </InputWrapper>
@@ -202,7 +203,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title={t("ml.common.mbin")}
+            title="최대 빈 크기"
           >
             <Form.Control
               type="number"
@@ -213,7 +214,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             labelWidth={6}
             rowLayout
             className={styles.body2Input}
-            title={t("ml.common.not")}
+            title="트리 수"
           >
             <Form.Control
               type="number"
@@ -224,7 +225,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             labelWidth={6}
             rowLayout
             className={styles.body2Input}
-            title={t("ml.common.mdof")}
+            title="최대 트리 깊이"
           >
             <Form.Control
               {...register("maxDepths", { valueAsNumber: true, value: 4 })}
@@ -239,7 +240,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title={t("ml.common.bls")}
+            title="블록 크기"
           >
             <Form.Control
               type="number"
@@ -251,7 +252,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title={t("ml.common.maxit")}
+            title="최대 반복"
           >
             <Form.Control
               type="number"
@@ -266,7 +267,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
           rowLayout
           labelWidth={6}
           className={styles.body2Input}
-          title={t("ml.common.maxit")}
+          title="최대 반복"
         >
           <Form.Control
             type="number"
@@ -281,7 +282,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title={t("Reg Param")}
+            title="파라미터"
           >
             <Form.Control
               min="0"
@@ -292,7 +293,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title={t("Elastic Net Param")}
+            title="엘라스틱 넷 파라미터"
           >
             <Form.Control
               min="0"
@@ -311,7 +312,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
         labelWidth={6}
         className={styles.body2Input}
         rowLayout
-        title={t("ml.common.sm")}
+        title="모델 이름"
       >
         <Form.Control {...register("modelName", { value: "DefaultModel" })} />
       </InputWrapper>
@@ -413,7 +414,7 @@ export const IsolationForestSection: React.FC = () => {
         rowLayout
         labelWidth={6}
         className={styles.body2Input}
-        title={t("ml.clustering.numClusters")}
+        title="클러스터 개수"
       >
         <Form.Control
           type="number"
@@ -425,7 +426,7 @@ export const IsolationForestSection: React.FC = () => {
         rowLayout
         labelWidth={6}
         className={styles.body2Input}
-        title={t("ml.clustering.maxFeatures")}
+        title="최대 특징 개수"
       >
         <Form.Control
           min="0.0"
@@ -438,7 +439,7 @@ export const IsolationForestSection: React.FC = () => {
         rowLayout
         labelWidth={6}
         className={styles.body2Input}
-        title={t("ml.clustering.maxSamples")}
+        title="최대 샘플 개수"
       >
         <Form.Control
           type="number"
@@ -451,7 +452,7 @@ export const IsolationForestSection: React.FC = () => {
         rowLayout
         labelWidth={6}
         className={styles.body2Input}
-        title={t("ml.clustering.bootstrap")}
+        title="부스트스랩"
       >
         <Form.Check {...register("bootstrap")} />
       </InputWrapper>
@@ -469,7 +470,7 @@ export const LinearRegression: React.FC = () => {
         rowLayout
         labelWidth={6}
         className={styles.body2Input}
-        title={t("ml.regression.maxIter")}
+        title="최대 반복 횟수"
       >
         <Form.Control
           type="number"
@@ -481,7 +482,7 @@ export const LinearRegression: React.FC = () => {
         rowLayout
         labelWidth={6}
         className={styles.body2Input}
-        title={t("ml.regression.regParams")}
+        title="파라미터"
       >
         <Form.Control
           type="number"

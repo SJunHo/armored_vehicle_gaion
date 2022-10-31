@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.security.jwt.mapper.UsercdMapper">
+    <insert id="insertUsercd" parameterType="kr.gaion.armoredVehicle.web.security.jwt.model.Usercd">
+         insert into USERCD(userid, pwd, name, rnkcd, srvno, usedvcd, crtdt, divs, brgd, bn, rspofc, telno1, telno2, usrth)
+         values(#{userid}, #{pwd}, #{name}, #{rnkcd}, #{srvno}, #{usedvcd},
+         		#{crtdt}, #{divs}, #{brgd}, #{bn}, #{rspofc}, #{telno1}, #{telno2}, #{usrth})
+    </insert>
+    
+    <select id="findByName" parameterType="String" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.Usercd">
+    	select *
+    	from USERCD
+    	where name = #{name}
+    </select>
+    <select id="findByUserid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.Usercd">
+    	select *
+    	from USERCD
+    	where userid = #{userid}
+    </select>
+
+    <select id="findUserList" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.security.jwt.model.Usercd">
+        select *
+        from USERCD
+        limit #{page}, #{pageSize}
+    </select>
+
+    <select id="countUsers" resultType="Integer">
+        select ifnull(count(*),0)
+        from USERCD
+    </select>
+
+    <update id="updateUser" parameterType="kr.gaion.armoredVehicle.web.security.jwt.model.Usercd">
+        update USERCD
+        set name = #{name},
+        rnkcd = #{rnkcd},
+        srvno = #{srvno},
+        divs = #{divs},
+        brgd = #{brgd},
+        bn = #{bn},
+        rspofc = #{rspofc},
+        telno1 = #{telno1},
+        telno2 = #{telno2},
+        usrth = #{usrth},
+        mdfcdt = #{mdfcdt}
+        <if test='pwd != null'>
+            ,pwd = #{pwd}
+        </if>
+        where userid = #{userid}
+    </update>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from USERCD where userid = #{userid}
+    </delete>
+</mapper>

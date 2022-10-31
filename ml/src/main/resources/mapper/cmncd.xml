@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.CmncdMapper">
+	<select id="findListByCode" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		select *
+		from CMNCD
+		where code like CONCAT(#{code},'%')
+	</select>
+		
+	<select id="findCmncdList" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		select *
+		from CMNCD
+		order by cmncdid
+		limit #{page}, #{pageSize}
+	</select>
+	
+	<select id="countCmncdAll" resultType="Integer">
+		select IFNULL(count(*),0)
+		from CMNCD
+	</select>
+	
+	<update id="insertCmncd" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		insert into CMNCD(code, crtdt, expln, mdfcdt, usedvcd, var, groupcode)
+		values(#{code}, #{crtdt}, #{expln}, #{mdfcdt}, #{usedvcd}, #{var}, #{groupcode})
+	</update>
+	
+	<select id="findCmncd" parameterType="Integer" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		select *
+		from CMNCD
+		where cmncdid = #{id}
+	</select>
+	
+	<update id="updateCmncd" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		update CMNCD
+		set code = #{code}, expln = #{expln}
+			, usedvcd = #{usedvcd}, var = #{var}
+			, groupcode = #{groupcode}
+			, mdfcdt = #{mdfcdt}
+		where cmncdid = #{cmncdid}
+	</update>
+	
+	<delete id="deleteCmncd" parameterType="Integer">
+		delete from CMNCD
+		where cmncdid = #{id}
+	</delete>
+	
+	<select id="getForBtn1" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		SELECT expln, var, code
+		FROM CMNCD
+		WHERE code LIKE 'PN%' AND var NOT IN ('COOLTEMP', 'ACCPEDAL', 'FUELTEMP', 'ENGSPD', 'SDHSPD', 'FUEL', 'OUTTEMP')
+	</select>
+	<select id="getForBtn2" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		SELECT expln, var, code
+		FROM CMNCD
+		WHERE code LIKE 'PC%' AND var NOT IN ('ENGSTA', 'CURRTTRANS', 'DETAILTRANS', 'BREAK')
+	</select>
+	<select id="getDefaultBookmark" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		SELECT *
+		FROM CMNCD
+		WHERE code = #{code}
+	</select>
+
+	<select id="findPartData" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmncd">
+		select *
+		from CMNCD
+		where code like 'G%'
+	</select>
+</mapper>
