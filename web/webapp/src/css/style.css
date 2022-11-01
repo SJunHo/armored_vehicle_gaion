@@ -466,6 +466,9 @@ height: 1rem;
   text-decoration: none;
 }
 /*container*/
+.contain{
+  width: 100%;
+}
 #root > div{
   display: flex;
 }
@@ -552,6 +555,15 @@ height: 1rem;
   border-radius: 20px;
   box-shadow: 14px -3px 21px -13px rgba(0, 0, 0, 0.3);
   z-index: 3;
+}
+.contents08{
+  position: relative;
+  min-width: 1300px;
+  text-align: right;
+  padding: 30px 60px;
+  background-color: #3A3A5A;
+  border-radius: 20px;
+  box-shadow: 14px -3px 21px -13px rgba(0, 0, 0, 0.3);
 }
 .stable{
   display: inline-block;
@@ -665,6 +677,9 @@ height: 1rem;
 .contents04 .form-group .start-form .form-group .react-datepicker__tab-loop .react-datepicker-popper[data-placement^=bottom]{
   transform: translate3d(0, 0, 0) !important;
 }
+.react-datepicker__input-container{
+  width: auto;
+}
 .form-datepic .react-datepicker-wrapper .react-datepicker__input-container input{
   width: 150px !important;
   position: relative;
@@ -711,6 +726,7 @@ height: 1rem;
 .contents05 table tbody tr{border-bottom: 1px solid #7a7a8f;}
 .contents05 table tbody tr:last-child{border-bottom: none;}
 .contents05 table tbody tr td{padding: 10px 7px; font-size: 14px;}
+.contents05 table tbody tr td button{min-width: 80px;}
 /*시스템 설정 >  차량호기관리 */
 .mt-3{
   position: relative;
@@ -1790,6 +1806,31 @@ label[class*="btnn"]{
 .search-Bar .datepicker-div .form-datepic .react-datepicker-wrapper .react-datepicker__input-container::after{
   top: 14px;
   right: 20px;
+}
+/* 고장진단경고> 고장진단경고모니터링 */
+.chart{
+  width: 100%;
+  justify-content: space-between;
+}
+.table04{
+  width: 100%;
+  text-align: center;
+}
+table.table04 ,table.table04 td, table.table04 tr{
+  border:none;
+  font-size: 18px;
+}
+table.table04 thead, table.table04 tr{
+  border-bottom: 1px solid #d9d9d9;
+}
+table.table04 td{
+  padding: 15px 20px;
+}
+table.table04 td{
+  border-right: 1px solid #d9d9d9;
+}
+table.table04 td:last-child, table.table04 tr:last-child{
+  border: none;
 }
 /* 트리메뉴 */
 .Tree {

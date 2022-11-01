@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.WhldataMapper">
+
+	<insert id="insertWhldata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Whldata">
+		insert into WHLDATA(SDAID, OPERDATE, OPERTIME, DATE, TIME, W_RPM, L_W_V_2X, 
+		L_W_V_3X, L_W_S_Fault3, R_W_V_2X, R_W_V_3X, R_W_S_Fault3, AI_Predict, FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{W_RPM}, 
+		#{L_W_V_2X}, #{L_W_V_3X}, #{L_W_S_Fault3}, #{R_W_V_2X}, #{R_W_V_3X}, 
+		#{R_W_S_Fault3}, #{AI_Predict}, #{filenm})
+	</insert>
+	
+	<insert id="insertWhlsim" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Whldata">
+		insert into WHLSIM(SDAID, OPERDATE, OPERTIME, DATE, TIME, W_RPM, L_W_V_2X, 
+		L_W_V_3X, L_W_S_Fault3, R_W_V_2X, R_W_V_3X, R_W_S_Fault3, AI_Predict, FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{W_RPM}, 
+		#{L_W_V_2X}, #{L_W_V_3X}, #{L_W_S_Fault3}, #{R_W_V_2X}, #{R_W_V_3X}, 
+		#{R_W_S_Fault3}, #{AI_Predict}, #{filenm})
+	</insert>
+	
+	<select id="findWhldataBySdaidAndFilenm" parameterType="java.util.Map" 
+	resultType="kr.gaion.armoredVehicle.web.analysis.model.Whldata">
+		select *
+		from WHLDATA
+		where SDAID = #{sdaid}
+		and FILENM = #{filenm}
+		order by date
+	</select>
+	
+	<select id="countWhldataByTable" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="Integer">
+		select ifnull(count(w.DATE),0)
+		from WHLDATA w 
+		left join SDA s on w.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = w.DATE
+		where w.SDAID = #{sdaid}
+		and w.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+	</select>
+	
+	<select id="findWhldata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="kr.gaion.armoredVehicle.web.analysis.model.Whldata">
+		select s.SDANM, w.*,  e.AC_h , e.AC_v , e.AC_a 
+		from WHLDATA w
+		left join SDA s on w.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = w.DATE
+		and w.SDAID = #{sdaid}
+		and w.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by w.DATE
+		limit #{page}, #{size}
+	</select>
+	
+	<select id="findWhldataForExcel" parameterType="kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos" resultType="kr.gaion.armoredVehicle.web.analysis.model.Whldata">
+		select s.SDANM, w.*,  e.AC_h , e.AC_v , e.AC_a 
+		from WHLDATA w
+		left join SDA s on w.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = w.DATE
+		and w.SDAID = #{sdaid}
+		and w.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by w.DATE
+	</select>
+	
+</mapper>

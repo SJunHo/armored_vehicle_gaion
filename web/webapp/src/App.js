@@ -16,10 +16,13 @@ import PartsReplacementCycle from "./components/analysis/StatisticalInfo/partsre
 /*모델관리*/
 import { OpenApiContextProvider } from "./api";
 
+/* */
+import MonitorDiagnosTictroubleAlerts from "./components/analysis/FaultDiagnosisModel/MonitorDiagnosTictroubleAlerts.component";
+
 /*잔존수명예지 모델*/
 import LinearRegression from "./components/analysis/MRLF/linearregression.component";
 import RasoRegession from "./components/analysis/MRLF/rasoregession.component";
-
+import MonitorRemainingUsefulLife from "./components/analysis/LearningDataCollection/monitorremainingusefullife.component";
 /*시스템 설정*/
 import Driver_CIS from "./components/analysis/SystemSettings/driver_cis.component";
 import Setting_PRC from "./components/analysis/SystemSettings/setting_prc.component";
@@ -119,58 +122,12 @@ class App extends Component {
             <PrivateRoute exact path="/data/upload" component={DataUpload} />
 
               {/*고장진단 모델*/}
-            {/*<PrivateRoute exact path="/ml/rfc" component={Model} />*/}
-            {/*<PrivateRoute exact path="/ml/svc" component={SupportVectorMachine} />*/}
-            {/*<PrivateRoute exact path="/ml/mlp" component={MultilayerNeuralNetworks} />*/}
-            {/*<PrivateRoute exact path="/ml/if" component={IsolateRamdhamForest} />*/}
-            {/*<PrivateRoute exact path="/ml/lr" component={LogicicRegession} />*/}
-            {/* <PrivateRoute path="/dashboard" exact component={Dashboard} />
-            <PrivateRoute
-              path="/data/fault_diagnosis_result_history"
-              component={PredictedResults}
-            />
-            <PrivateRoute
-              path="/data/fault_diagnosis_user_input"
-              component={PredictedResultsUserInput}
-            />
-            <PrivateRoute
-              path="/data/fault_diagnosis_history_page"
-              component={SavedPredictedResult}
-            />
-
-            <PrivateRoute
-              path="/ml/fs/:algorithmName"
-              exact
-              component={FeatureSelection}
-            />
-            <MeContextProvider>
-              <OpenApiContextProvider>
-            <PrivateRoute
-              path="/ml/:algorithmName/:tab"
-              component={ModelManagement}
-            />
-            <Route
-              path="/ml/:algorithmName"
-              exact
-              component={ModelManagement}
-            />
-            </OpenApiContextProvider>
-            </MeContextProvider>
-            <Route path="/dataset" component={DatasetManagement} />
-
-            <PrivateRoute path="/data/lookup" component={DataLookUpList} />
-            <PrivateRoute path="/data/upload" component={DataUpload} /> */}
-            {/* <OpenApiContextProvider>
-              <PrivateRoute path="/ml/:algorithmName/:tab" component={ModelManagement} />
-              <PrivateRoute path="/ml/:algorithmName" exact component={ModelManagement} />
-            </OpenApiContextProvider> */}
-
-
+            <PrivateRoute exact path="/monitordiagnostictroublealerts" component={MonitorDiagnosTictroubleAlerts} />
 
               {/*잔존수명예지 모델*/}
             <PrivateRoute exact path="/linearregression" component={LinearRegression} />
             <PrivateRoute exact path="/rasoregression" component={RasoRegession} />
-
+            <PrivateRoute exact path="/monitorremainingusefullife" component={MonitorRemainingUsefulLife} />
               {/*시스템 설정*/}
             <PrivateRoute exact path="/driver_cis" component={Driver_CIS} />
             <PrivateRoute exact path="/setting_prc" component={Setting_PRC} />

@@ -104,6 +104,7 @@ class searchEachInfo extends Component {
       this.setState({
         loading : true,
       });
+      this.props.selectEachInfo(this.props.match.params.id);
       vehicleStatistics.searchRecentFile(this.props.match.params.id)
       .then((response) => {
         let filenm = String(response.data);

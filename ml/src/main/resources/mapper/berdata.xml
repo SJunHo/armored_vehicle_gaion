@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.BerdataMapper">
+
+	<insert id="insertBerdata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Berdata">
+		insert into BERDATA(SDAID, OPERDATE, OPERTIME, DATE, TIME,W_RPM, L_B_V_OverallRMS, 
+		L_B_V_1X, L_B_V_6912BPFO, L_B_V_6912BPFI, L_B_V_6912BSF, L_B_V_6912FTF, L_B_V_32924BPFO,
+		 L_B_V_32924BPFI, L_B_V_32924BSF, L_B_V_32924FTF, L_B_V_32922BPFO, L_B_V_32922BPFI, 
+		 L_B_V_32922BSF, L_B_V_32922FTF, L_B_V_Crestfactor, L_B_V_Demodulation, L_B_S_Fault1, 
+		 L_B_S_Fault2, L_B_T_Temperature, R_B_V_OverallRMS, R_B_V_1X, R_B_V_6912BPFO, R_B_V_6912BPFI, 
+		 R_B_V_6912BSF, R_B_V_6912FTF, R_B_V_32924BPFO, R_B_V_32924BPFI, R_B_V_32924BSF, R_B_V_32924FTF, 
+		 R_B_V_32922BPFO, R_B_V_32922BPFI, R_B_V_32922BSF, R_B_V_32922FTF, R_B_V_Crestfactor, 
+		 R_B_V_Demodulation, R_B_S_Fault1, R_B_S_Fault2, R_B_T_Temperature, FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{W_RPM}, #{L_B_V_OverallRMS}, 
+		#{L_B_V_1X}, #{L_B_V_6912BPFO}, #{L_B_V_6912BPFI}, #{L_B_V_6912BSF}, #{L_B_V_6912FTF},
+		#{L_B_V_32924BPFO}, #{L_B_V_32924BPFI}, #{L_B_V_32924BSF}, #{L_B_V_32924FTF}, #{L_B_V_32922BPFO},
+		#{L_B_V_32922BPFI}, #{L_B_V_32922BSF}, #{L_B_V_32922FTF}, #{L_B_V_Crestfactor}, 
+		#{L_B_V_Demodulation}, #{L_B_S_Fault1}, #{L_B_S_Fault2}, #{L_B_T_Temperature}, 
+		#{R_B_V_OverallRMS}, #{R_B_V_1X}, #{R_B_V_6912BPFO}, #{R_B_V_6912BPFI}, #{R_B_V_6912BSF}, 
+		#{R_B_V_6912FTF}, #{R_B_V_32924BPFO}, #{R_B_V_32924BPFI}, #{R_B_V_32924BSF}, #{R_B_V_32924FTF}, 
+		#{R_B_V_32922BPFO}, #{R_B_V_32922BPFI}, #{R_B_V_32922BSF}, #{R_B_V_32922FTF}, 
+		#{R_B_V_Crestfactor}, #{R_B_V_Demodulation}, #{R_B_S_Fault1}, #{R_B_S_Fault2}, 
+		#{R_B_T_Temperature}, #{filenm})
+	</insert>
+	
+	<insert id="insertBersim" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Berdata">
+		insert into BERSIM(SDAID, OPERDATE, OPERTIME, DATE, TIME,W_RPM, L_B_V_OverallRMS, 
+		L_B_V_1X, L_B_V_6912BPFO, L_B_V_6912BPFI, L_B_V_6912BSF, L_B_V_6912FTF, L_B_V_32924BPFO,
+		 L_B_V_32924BPFI, L_B_V_32924BSF, L_B_V_32924FTF, L_B_V_32922BPFO, L_B_V_32922BPFI, 
+		 L_B_V_32922BSF, L_B_V_32922FTF, L_B_V_Crestfactor, L_B_V_Demodulation, L_B_S_Fault1, 
+		 L_B_S_Fault2, L_B_T_Temperature, R_B_V_OverallRMS, R_B_V_1X, R_B_V_6912BPFO, R_B_V_6912BPFI, 
+		 R_B_V_6912BSF, R_B_V_6912FTF, R_B_V_32924BPFO, R_B_V_32924BPFI, R_B_V_32924BSF, R_B_V_32924FTF, 
+		 R_B_V_32922BPFO, R_B_V_32922BPFI, R_B_V_32922BSF, R_B_V_32922FTF, R_B_V_Crestfactor, 
+		 R_B_V_Demodulation, R_B_S_Fault1, R_B_S_Fault2, R_B_T_Temperature, FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{W_RPM}, #{L_B_V_OverallRMS}, 
+		#{L_B_V_1X}, #{L_B_V_6912BPFO}, #{L_B_V_6912BPFI}, #{L_B_V_6912BSF}, #{L_B_V_6912FTF},
+		#{L_B_V_32924BPFO}, #{L_B_V_32924BPFI}, #{L_B_V_32924BSF}, #{L_B_V_32924FTF}, #{L_B_V_32922BPFO},
+		#{L_B_V_32922BPFI}, #{L_B_V_32922BSF}, #{L_B_V_32922FTF}, #{L_B_V_Crestfactor}, 
+		#{L_B_V_Demodulation}, #{L_B_S_Fault1}, #{L_B_S_Fault2}, #{L_B_T_Temperature}, 
+		#{R_B_V_OverallRMS}, #{R_B_V_1X}, #{R_B_V_6912BPFO}, #{R_B_V_6912BPFI}, #{R_B_V_6912BSF}, 
+		#{R_B_V_6912FTF}, #{R_B_V_32924BPFO}, #{R_B_V_32924BPFI}, #{R_B_V_32924BSF}, #{R_B_V_32924FTF}, 
+		#{R_B_V_32922BPFO}, #{R_B_V_32922BPFI}, #{R_B_V_32922BSF}, #{R_B_V_32922FTF}, 
+		#{R_B_V_Crestfactor}, #{R_B_V_Demodulation}, #{R_B_S_Fault1}, #{R_B_S_Fault2}, 
+		#{R_B_T_Temperature}, #{filenm})
+	</insert>
+	
+	<select id="findBerdataBySdaidAndFilenm" parameterType="java.util.Map" 
+	resultType="kr.gaion.armoredVehicle.web.analysis.model.Berdata">
+		select *
+		from BERDATA 
+		where SDAID = #{sdaid}
+		and FILENM = #{filenm}
+		order by date
+	</select>
+	
+	<select id="countBerdataByTable" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="Integer">
+		select ifnull(count(b.DATE),0)
+		from BERDATA b 
+		left join SDA s on b.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = b.DATE
+		where b.SDAID = #{sdaid}
+		and b.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+	</select>
+	
+	<select id="findBerdata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="kr.gaion.armoredVehicle.web.analysis.model.Berdata">
+		select s.SDANM , b.*, e.AC_h , e.AC_v , e.AC_a 
+		from BERDATA b 
+		left join SDA s on b.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = b.DATE
+		where b.SDAID = #{sdaid}
+		and b.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by b.DATE
+		limit #{page}, #{size}
+	</select>
+		
+	<select id="findBerdataForExcel" parameterType="kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos" resultType="kr.gaion.armoredVehicle.web.analysis.model.Berdata">
+		select s.SDANM , b.*, e.AC_h , e.AC_v , e.AC_a 
+		from BERDATA b 
+		left join SDA s on b.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = b.DATE
+		where b.SDAID = #{sdaid}
+		and b.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by b.DATE
+	</select>
+	
+	
+
+
+	
+	
+</mapper>

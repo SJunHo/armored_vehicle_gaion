@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.EngdataMapper">
+
+	<insert id="insertEngdata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Engdata">
+		insert into ENGDATA(SDAID ,OPERDATE ,OPERTIME ,DATE ,TIME ,AI_Predict 
+		,W_RPM ,E_V_OverallRMS ,`E_V_1-2X` ,E_V_1X ,E_V_Crestfactor ,AC_h ,AC_v ,AC_a ,LA ,LO ,FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{AI_Predict}
+		, #{W_RPM}, #{E_V_OverallRMS}, #{E_V_1_2X}, #{E_V_1X}, #{E_V_Crestfactor}
+		, #{AC_h}, #{AC_v}, #{AC_a}, #{LA}, #{LO}, #{filenm})
+	</insert>
+	
+	<insert id="insertEngsim" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Engdata">
+		insert into ENGSIM(SDAID, OPERDATE, OPERTIME, DATE, TIME, AI_Predict,
+		 W_RPM, E_V_OverallRMS,`E_V_1-2X` , E_V_1X, E_V_Crestfactor, AC_h, AC_v, AC_a, LA, LO, FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{AI_Predict}, 
+		#{W_RPM}, #{E_V_OverallRMS}, #{E_V_1_2X}, #{E_V_1X}, #{E_V_Crestfactor}, #{AC_h},
+		#{AC_v}, #{AC_a}, #{LA}, #{LO}, #{filenm})
+	</insert>
+	
+	<select id="findEngdataBySdaidAndFilenm" parameterType="java.util.Map" 
+	resultType="kr.gaion.armoredVehicle.web.analysis.model.Engdata">
+		select *
+		from ENGDATA
+		where SDAID = #{sdaid}
+		and FILENM = #{filenm}
+	</select>
+	
+	<select id="countEngdataByTable" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="Integer">
+		select ifnull(count(*),0)
+		from ENGDATA
+		where sdaid = #{sdaid} 
+		and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+	</select>
+	
+	<select id="findEngdata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="kr.gaion.armoredVehicle.web.analysis.model.Engdata">
+		select s.SDANM, e.*
+		from ENGDATA e, SDA s
+		where e.SDAID = s.SDAID
+		and e.SDAID = #{sdaid} 
+		and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by DATE
+		limit #{page}, #{size}
+	</select>
+		
+	<select id="findEngdataForExcel" parameterType="kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos" resultType="kr.gaion.armoredVehicle.web.analysis.model.Engdata">
+		select s.SDANM, e.*
+		from ENGDATA e, SDA s
+		where e.SDAID = s.SDAID
+		and e.SDAID = #{sdaid} 
+		and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by DATE
+	</select>
+	
+	
+</mapper>

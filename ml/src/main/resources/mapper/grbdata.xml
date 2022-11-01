@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.GrbdataMapper">
+
+	<insert id="insertGrbdata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Grbdata">
+		insert into GRBDATA(SDAID, OPERDATE, OPERTIME, DATE, TIME, W_RPM, G_V_OverallRMS, 
+		G_V_Wheel1X, G_V_Wheel2X, G_V_Pinion1X, G_V_Pinion2X, G_V_GMF1X, G_V_GMF2X, 
+		AI_Predict, FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{W_RPM}, #{G_V_OverallRMS}, 
+		#{G_V_Wheel1X}, #{G_V_Wheel2X}, #{G_V_Pinion1X}, #{G_V_Pinion2X}, #{G_V_GMF1X}, 
+		#{G_V_GMF2X}, #{AI_Predict}, #{filenm})
+	</insert>
+	
+	<insert id="insertGrbsim" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Grbdata">
+		insert into GRBSIM(SDAID, OPERDATE, OPERTIME, DATE, TIME, W_RPM, G_V_OverallRMS, 
+		G_V_Wheel1X, G_V_Wheel2X, G_V_Pinion1X, G_V_Pinion2X, G_V_GMF1X, G_V_GMF2X, 
+		AI_Predict, FILENM)
+		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{W_RPM}, #{G_V_OverallRMS}, 
+		#{G_V_Wheel1X}, #{G_V_Wheel2X}, #{G_V_Pinion1X}, #{G_V_Pinion2X}, #{G_V_GMF1X}, 
+		#{G_V_GMF2X}, #{AI_Predict}, #{filenm})
+	</insert>
+	
+	<select id="findGrbdataBySdaidAndFilenm" parameterType="java.util.Map" 
+	resultType="kr.gaion.armoredVehicle.web.analysis.model.Grbdata">
+		select *
+		from GRBDATA
+		where SDAID = #{sdaid}
+		and FILENM = #{filenm}
+		order by date
+	</select>
+	
+	<select id="countGrbdataByTable" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="Integer">
+		select ifnull(count(g.DATE),0)
+		from GRBDATA g 
+		left join SDA s on g.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = g.DATE
+		where g.SDAID = #{sdaid}
+		and g.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+	</select>
+	
+	<select id="findGrbdata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="kr.gaion.armoredVehicle.web.analysis.model.Grbdata">
+		select s.SDANM, g.*, e.AC_h , e.AC_v , e.AC_a 
+		from GRBDATA g
+		left join SDA s on g.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = g.DATE
+		where g.SDAID = s.SDAID 
+		and g.SDAID = #{sdaid}
+		and g.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by g.DATE
+		limit #{page}, #{size}
+	</select>
+		
+	
+	<select id="findGrbdataForExcel" parameterType="kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos" resultType="kr.gaion.armoredVehicle.web.analysis.model.Grbdata">
+		select s.SDANM, g.*, e.AC_h , e.AC_v , e.AC_a 
+		from GRBDATA g
+		left join SDA s on g.SDAID = s.SDAID 
+		left join ENGDATA e on e.DATE = g.DATE
+		where g.SDAID = s.SDAID 
+		and g.SDAID = #{sdaid}
+		and g.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		order by g.DATE
+	</select>
+	
+</mapper>

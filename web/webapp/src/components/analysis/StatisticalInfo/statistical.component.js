@@ -402,14 +402,14 @@ class Statistical extends Component {
 
   clickOutlierWaning(param){
     console.log(param);
-    statisticalService.getId(param).then((response) => {
-      if(window.confirm("이상치경고모니터링으로 이동하시겠습니까?")){
-        window.location.href = "/monitoroutlierwarning/"+response.data;
-      }
-    })
-    .catch((e) => {
-        console.log(e);
-    }); 
+    // statisticalService.getId(param).then((response) => {
+    //   if(window.confirm("이상치경고모니터링으로 이동하시겠습니까?")){
+    //     window.location.href = "/monitoroutlierwarning/"+response.data;
+    //   }
+    // })
+    // .catch((e) => {
+    //     console.log(e);
+    // }); 
     
   }
 

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.gaion.armoredVehicle.web.analysis.model.Threshold;
-import kr.gaion.armoredVehicle.web.analysis.model.ThresholdResponse;
 import kr.gaion.armoredVehicle.web.analysis.service.ThresholdService;
 
 @RestController
@@ -30,9 +28,9 @@ public class ThresholdController {
 	
 	@GetMapping("/list")
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-	public ResponseEntity<List<ThresholdResponse>> getThresholdList(@RequestParam(required = false) String title){
+	public ResponseEntity<List<Threshold>> getThresholdList(@RequestParam(required = false) String title){
 		try {
-			List<ThresholdResponse> thresholdList = new ArrayList<ThresholdResponse>();
+			List<Threshold> thresholdList = new ArrayList<Threshold>();
 			
 			thresholdList = thresholdService.findThresholdList();
 			if(thresholdList.isEmpty()) {
@@ -48,7 +46,7 @@ public class ThresholdController {
 	
 	@PostMapping("/update")
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-	public ResponseEntity<Threshold> createTutorial(@RequestBody List<ThresholdResponse> data) {
+	public ResponseEntity<Threshold> createTutorial(@RequestBody List<Threshold> data) {
 	  try {
 		  thresholdService.updateThreshold(data);
 	    return new ResponseEntity<>(null, HttpStatus.CREATED);

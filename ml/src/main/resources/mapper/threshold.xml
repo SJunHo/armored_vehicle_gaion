@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.ThresholdMapper">
 	
-	<select id="findThresholdList" resultType="kr.gaion.armoredVehicle.web.analysis.model.ThresholdResponse">
+	<select id="findThresholdList" resultType="kr.gaion.armoredVehicle.web.analysis.model.Threshold">
 		select *
 		from THRESHOLD
 	</select>
 	
-	<update id="updateThreshold" parameterType="kr.gaion.armoredVehicle.web.analysis.model.ThresholdResponse">
+	<update id="updateThreshold" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Threshold">
 		update THRESHOLD
 		set min = #{min}, max = #{max}, 
 		    applicability = #{applicability},

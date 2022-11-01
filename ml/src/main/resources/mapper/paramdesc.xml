@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.ParamdescMapper">
+
+	<select id="findParamdesc" parameterType="java.util.Map" resultType="kr.gaion.armoredVehicle.web.analysis.model.Paramdesc">
+		
+		select DETPARTID , DETPART , PARAM , `DESC` , REPLACE(FAILDESC,'^','\n') as FAILDESC
+		from PARAMDESC
+		where 1=1
+		<choose>
+		 	<when test="paramList.size != 0">
+			and	param in 
+				<foreach collection="paramList" item="item" index="index" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+		 	</when>		 
+		 </choose>
+		group by PARAM
+	</select>
+
+</mapper>

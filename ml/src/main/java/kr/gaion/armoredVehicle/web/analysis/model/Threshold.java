@@ -10,6 +10,7 @@ import lombok.Setter;
 public class Threshold {
 	
 	private String snsrid;
+	private String expln;
 	private double max;
 	private double min;
 	private Date crtdt;

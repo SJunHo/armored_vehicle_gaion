@@ -28,6 +28,10 @@ def hadoopVersion = '3.2.0'
 
 
 dependencies {
+
+	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+
 	implementation("org.springframework.boot:spring-boot-starter:${springVersion}") {
 		exclude module: 'spring-boot-starter-logging'
 	}
@@ -43,6 +47,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation:${springVersion}") {
 		exclude module: 'spring-boot-starter-logging'
 	}
+
 	implementation group: 'com.opencsv', name: 'opencsv', version: '5.2'
 	implementation "mysql:mysql-connector-java:5.1.27"
 	implementation "org.hibernate:hibernate-core"

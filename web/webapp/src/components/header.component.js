@@ -147,7 +147,7 @@ class HeaderComp extends Component {
 
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title={<><FaExclamationCircle /> <span>고장진단 모델 	&gt;</span></>}
+                title={<><FaExclamationCircle /> <span>AI 고장진단 &gt;</span></>}
                 menuVariant="dark"
                 className={ 
                   this.state.selectedShow === true &&
@@ -155,7 +155,8 @@ class HeaderComp extends Component {
                   : location.includes("/ml/svc") ? "selected"
                   : location.includes("/ml/mlp") ? "selected"
                   : location.includes("/ml/is") ? "selected"
-                  : location.includes("/ml/lr") ? "selected" : "")}
+                  : location.includes("/ml/lr") ? "selected"
+                  : location.includes("/monitordiagnostictroublealerts") ? "selected" : "")}
                 onClick={(e) => this.handleSelectedNavbar(e)}
               >
                 <NavDropdown.Item href="/ml/rfc">램덤포레스트</NavDropdown.Item>
@@ -167,21 +168,30 @@ class HeaderComp extends Component {
                 <NavDropdown.Item href="/ml/is">Isolate 램덤포레스트</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/ml/lr">로직스틱 회귀</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="/monitordiagnostictroublealerts">AI 고장진단 결과 조회</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="">작업자 정비값 등록</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="">AI 학습데이터 다운로드</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown
                 id="nav-dropdown-dark-example"
-                title={<><FaExclamationTriangle /> <span>잔존수명예지 모델	&gt;</span></>}
+                title={<><FaExclamationTriangle /> <span>AI 잔존수명예지 &gt;</span></>}
                 menuVariant="dark"
                 className={ 
                   this.state.selectedShow === true &&
                   (location.includes("/ml/linear") ? "selected" 
-                  : location.includes("/ml/lasso") ? "selected" : "")}
+                  : location.includes("/ml/lasso") ? "selected"
+                  : location.includes("/monitorremainingusefullife") ? "selected" : "")}
                 onClick={(e) => this.handleSelectedNavbar(e)}
               >
                 <NavDropdown.Item href="/ml/linear">선형 회귀</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/ml/lasso">라소 회귀</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="/monitorremainingusefullife">AI 잔존수명예지 결과 조회</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown
