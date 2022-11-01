@@ -45,6 +45,9 @@ export default class PartsReplacementCycle extends Component {
 
       clickList: false,
       changedVehicleName: "",
+
+      searchLoading : false,
+      clickLoading : false,
     };
     this.starthandleChange = this.starthandleChange.bind(this);
     this.endhandleChange = this.endhandleChange.bind(this);
@@ -74,7 +77,6 @@ export default class PartsReplacementCycle extends Component {
   getDivsList() {
     partsreplacementcycleService.getDivsList()
       .then((response) => {
-        console.log(response.data);
         let resList = response.data;
         this.setState({
           snList: response.data,
@@ -155,6 +157,9 @@ export default class PartsReplacementCycle extends Component {
 
   //검색
   clickSearch() {
+    this.setState({
+      searchLoading : true,
+    });
     var data = {
       sdaid: this.state.chadgedVehiclecode, //차량
       startDate: Moment(this.state.startDate).format("YYYY-MM-DD"), //시작 날짜
@@ -163,13 +168,12 @@ export default class PartsReplacementCycle extends Component {
       brgdbncode: this.state.changedBrgdbnCode, //소속연대
     }
 
-    console.log("KKI", data);
     partsreplacementcycleService.search(data)
       .then((response) => {
         this.setState({
-          prList: response.data
+          prList: response.data,
+          searchLoading : false,
         });
-        console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -204,12 +208,14 @@ export default class PartsReplacementCycle extends Component {
       changedVehicleName: data.sdaid,
       //cmncdListcode: data.expln
       cmncdListcode: data.grid,
-      cmncdListItemName: data.expln
+      cmncdListItemName: data.expln,
+      clickLoading : true,
     }, () => { console.log(this.state.cmncdListcode); });
     partsreplacementcycleService.getHistory(data)
       .then((response) => {
         this.setState({
-          cmpntsrplchistry: response.data
+          cmpntsrplchistry: response.data,
+          clickLoading : false,
         });
         console.log(response.data);
       })
@@ -295,21 +301,28 @@ export default class PartsReplacementCycle extends Component {
           <button className="btn07" onClick={this.clickSearch}>조회</button>
         </div>
 
-        <div className="contents05">
+        <div className="contents05" disabled={this.state.searchLoading}>
+        {this.state.searchLoading && (
+                <div className="d-flex justify-content-center loading-box04">
+                    <div className="spinner-border loading-in" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            )}
           <table>
             <thead>
               <tr>
                 <td>사단</td>
-                <td>연대(대대)</td>
-                <td>차량(호기)</td>
+                <td>연대<br/>(대대)</td>
+                <td>차량<br/>(호기)</td>
                 <td>발생시간</td>
                 <td>발생센서</td>
-                <td>발생값(km)</td>
-                <td>기준값(km)</td>
-                <td>발생값(일)</td>
-                <td>기준값(일)</td>
-                <td>발생값(횟수)</td>
-                <td>기준값(횟수)</td>
+                <td>발생값<br/>(km)</td>
+                <td>기준값<br/>(km)</td>
+                <td>발생값<br/>(일)</td>
+                <td>기준값<br/>(일)</td>
+                <td>발생값<br/>(횟수)</td>
+                <td>기준값<br/>(횟수)</td>
                 <td>교환정보</td>
               </tr>
             </thead>
@@ -421,7 +434,14 @@ export default class PartsReplacementCycle extends Component {
           <button className="btn07" onClick={this.clickAdd}>교환</button>
         </div>
 
-        <div className="contents05">
+        <div className="contents05" disabled={this.state.clickLoading}>
+        {this.state.clickLoading && (
+                <div className="d-flex justify-content-center loading-box04">
+                    <div className="spinner-border loading-in" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            )}
           <table>
             <thead>
               <tr>

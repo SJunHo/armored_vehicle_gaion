@@ -88,7 +88,6 @@ export default class TableByTrouble extends Component {
                 this.props.func(true,overList);
             }
         }
-
         this.setState({
             isRowClicked : check,
             clickedIndex : res.time,
@@ -108,7 +107,7 @@ export default class TableByTrouble extends Component {
         switch(this.props.infoData.part){
             case "BEARING":
                 return(
-                    <div className="horizonbar contents05">
+                    <div className="horizonbar">
                     <div 
                     id={`table${this.state.isRowClicked? 'horiver': 'hori'}`}
                     >
@@ -278,7 +277,7 @@ export default class TableByTrouble extends Component {
         
               case "ENGINE":
                 return(
-                    <div className="contents05 horizonbar">
+                    <div className=" horizonbar">
                         <div 
                         id={`table${this.state.isRowClicked? 'horiver': 'hori'}`}
                         >
@@ -342,7 +341,7 @@ export default class TableByTrouble extends Component {
         
               case 'GEARBOX':
                 return(
-                    <div className="contents05 horizonbar">
+                    <div className=" horizonbar">
                         <div 
                         id={`table${this.state.isRowClicked? 'horiver': 'hori'}`}
                         >
@@ -410,7 +409,7 @@ export default class TableByTrouble extends Component {
         
               case 'WHEEL': 
                 return(
-                    <div className="contents05 horizonbar">
+                    <div className="horizonbar">
                         <div 
                         id={`table${this.state.isRowClicked? 'horiver': 'hori'}`}
                         >

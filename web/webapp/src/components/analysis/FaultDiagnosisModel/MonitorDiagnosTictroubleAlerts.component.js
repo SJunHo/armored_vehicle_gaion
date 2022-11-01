@@ -326,11 +326,11 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     }else{
       monitorDiagnostDataService.searchParamdesc(data)
       .then((response) => {
+        console.log(response.data);
         this.setState({
           paramdescList : response.data,
-        }, () => {
-          console.log(this.state.paramdescList);
-          
+            }, () => {
+              
               ReactDOM.render(
                 <div className="contain">
                   <header className="jumbotron">
@@ -347,7 +347,7 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
                         </thead>
                         <tbody>
                           {
-                            this.state.paramdescList.length > 0 &&
+                            this.state.paramdescList &&
                             this.state.paramdescList.map((element,index) => {
                               return (
                                 <tr key={index}>
@@ -675,15 +675,16 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
             </div>
             <button className="btn07" onClick={this.searchTroubleThings} >조회하기</button>
           </div>
-            <div id="includeTroubleTable" disabled={this.state.tableLoading}>  
+            <div id="includeTroubleTable" className="contents05"  disabled={this.state.tableLoading}>  
+            
+            {/* 테이블만드는 곳 */}
             {this.state.tableLoading && (
-              <div className="d-flex justify-content-center loading-box">
+              <div className="d-flex justify-content-center loading-box04">
                   <div className="spinner-border loading-in" role="status">
                       <span className="sr-only">Loading...</span>
                   </div>
               </div>
             )}
-              {/* 테이블만드는 곳 */}
 
             </div>
             

@@ -237,7 +237,14 @@ export default class driverPostureCorrection extends Component {
 
           <button className="btn07" onClick={this.clickSearch}>조회</button>
         </div>
-        <div className="contents05">
+        <div className="contents05" disabled={this.state.loading}>
+        {this.state.loading && (
+              <div className="d-flex justify-content-center loading-box04">
+                  <div className="spinner-border loading-in" role="status">
+                      <span className="sr-only">Loading...</span>
+                  </div>
+              </div>
+          )}
           <table>
             <thead>
               <tr>

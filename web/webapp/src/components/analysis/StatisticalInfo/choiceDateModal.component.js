@@ -483,6 +483,9 @@ class ChoiceDateModal extends Component {
         })
     }
     click(){
+
+        console.log(this.state.selectedFile);
+        
         if(this.state.selectedFile === "" || this.state.selectedFile === undefined){
             alert("파일을 선택하세요");
         }else{
@@ -550,19 +553,33 @@ class ChoiceDateModal extends Component {
                 <h4>정보기준일 설정</h4>
                 <div id="grouplistbox" className="listbox">
                     <div className="list-top">
-                        <ListBox value={this.state.selectedDiv} options={this.state.divList} onChange={(e) => this.clickDiv(e)} itemTemplate={this.countryTemplate} disabled={this.state.loading}/>
-
-                        <ListBox value={this.state.selectedBrgd} options={this.state.brgdList} onChange={(e) => this.clickBrgd(e)} itemTemplate={this.brgdTemplate} disabled={this.state.loading}/>
-
-                        <ListBox value={this.state.selectedName} options={this.state.nameList} onChange={(e) => this.clickName(e)} itemTemplate={this.idTemplate} disabled={this.state.loading}/>
-
-                        <ListBox value={this.state.selectedYear} options={this.state.yearList} onChange={(e) => this.clickYear(e)} itemTemplate={this.yearTemplate}/>
-                        
-                        <ListBox value={this.state.selectedMonth} options={this.state.monthList} onChange={(e) => this.clickMonth(e)} itemTemplate={this.monthTemplate}/>
-
-                        <ListBox value={this.state.selectedFile} options={this.state.fileList} 
-                        onChange={(e) => this.clickFile(e)}
-                        itemTemplate={this.fileTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }}/>
+                        <div className="list-top-box">
+                            <p>사단 선택</p>
+                            <ListBox value={this.state.selectedDiv} options={this.state.divList} onChange={(e) => this.clickDiv(e)} itemTemplate={this.countryTemplate} disabled={this.state.loading}/>
+                        </div>
+                        <div className="list-top-box">
+                            <p>연대 선택</p>
+                            <ListBox value={this.state.selectedBrgd} options={this.state.brgdList} onChange={(e) => this.clickBrgd(e)} itemTemplate={this.brgdTemplate} disabled={this.state.loading}/>
+                        </div>
+                        <div className="list-top-box">
+                            <p>차량 선택</p>
+                            <ListBox value={this.state.selectedName} options={this.state.nameList} onChange={(e) => this.clickName(e)} itemTemplate={this.idTemplate} disabled={this.state.loading}/>
+                        </div>
+                        <div className="list-top-box">
+                            <p>연도 선택</p>
+                            <ListBox value={this.state.selectedYear} options={this.state.yearList} onChange={(e) => this.clickYear(e)} itemTemplate={this.yearTemplate}/>
+                        </div>
+                        <div className="list-top-box">
+                            <p>월 선택</p>
+                            <ListBox value={this.state.selectedMonth} options={this.state.monthList} onChange={(e) => this.clickMonth(e)} itemTemplate={this.monthTemplate}/>
+                        </div>
+                        <div className="list-top-box">
+                            <p>파일 선택</p>
+                            <ListBox value={this.state.selectedFile} options={this.state.fileList} 
+                            onChange={(e) => this.clickFile(e)}
+                            itemTemplate={this.fileTemplate} style={{ width: '15rem' }} listStyle={{ maxHeight: '250px' }}/>
+                        </div>
+                       
                     </div>
                     <div className="list-bottom">
                         <button className="btn-ch" onClick={this.click} > 선택완료 </button>
