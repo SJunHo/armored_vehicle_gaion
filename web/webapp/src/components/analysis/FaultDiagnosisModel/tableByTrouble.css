@@ -1,0 +1,25 @@
+.horizonbar {
+    width: 100%;
+    overflow: scroll;
+     /* 가로 스크롤 */
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#tablehoriver{
+    height: 40vh;
+}
+.chart{
+    display: flex;
+    float:left;
+}
+
+/* #lineChart1{
+    border-color: white;
+    border-radius: 10%;
+    border: 1px solid;
+} */
+
+.over{
+    color : red;
+}
