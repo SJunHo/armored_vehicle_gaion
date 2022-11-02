@@ -11,9 +11,9 @@ import javax.validation.*;
 import kr.gaion.armoredVehicle.web.security.jwt.mapper.UsercdMapper;
 import kr.gaion.armoredVehicle.web.security.jwt.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,22 +56,34 @@ public class AuthController {
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    try {
+      Authentication authentication = authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(loginRequest.getId(), loginRequest.getPassword()));
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+      Usercd usercd= usercdRepository.findByUserid(loginRequest.getId());
+      String jwt = jwtUtils.generateJwtToken(usercd);
 
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(loginRequest.getId(), loginRequest.getPassword()));
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    Usercd usercd= usercdRepository.findByUserid(loginRequest.getId());
-    String jwt = jwtUtils.generateJwtToken(usercd);
-
-    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-    List<String> roles = userDetails.getAuthorities().stream()
-        .map(item -> item.getAuthority())
-        .collect(Collectors.toList());
-    System.out.println(roles);
-    return ResponseEntity.ok(new JwtResponse(jwt,
-                         userDetails.getUserId(),
-                         userDetails.getUsername(),
-                         roles));
+      UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+      List<String> roles = userDetails.getAuthorities().stream()
+          .map(item -> item.getAuthority())
+          .collect(Collectors.toList());
+      System.out.println(roles);
+      if(roles.contains("ROLE_USER")) {
+        return new ResponseEntity<>("권한이 있는 계정으로 로그인해주세요", HttpStatus.BAD_REQUEST);
+      }
+      return ResponseEntity.ok(new JwtResponse(jwt,
+              userDetails.getUserId(),
+              userDetails.getUsername(),
+              roles));
+    }catch(DisabledException e) {
+      return new ResponseEntity<>("계정이 비활성화 되어있습니다",HttpStatus.BAD_REQUEST);
+    }catch(LockedException e) {
+      return new ResponseEntity<>("계정이 잠겨있습니다",HttpStatus.BAD_REQUEST);
+    }catch(BadCredentialsException e) {
+      return new ResponseEntity<>("비밀번호가 틀렸습니다",HttpStatus.BAD_REQUEST);
+    }catch(Exception e) {
+      return new ResponseEntity<>("존재하지 않는 계정입니다",HttpStatus.BAD_REQUEST);
+    }
   }
 
   @PostMapping("/signup")
