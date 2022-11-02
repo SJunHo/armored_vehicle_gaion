@@ -97,8 +97,8 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
                 }
                 onChange={(v) => {
                   setValue("partType", v?.value)
+                  setValue("classCol", findClassLabel(v?.value))
                   setSelectedPart(v?.value)
-                  console.log(selectedPart)
                 }}
                 options={partTypes.map((d) => ({
                   value: d.value,
@@ -129,7 +129,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
             )}
           />
         </InputWrapper>
-        <InputWrapper title="클래스 레이블 :">
+        {/*<InputWrapper title="클래스 레이블 :">
           <Controller
             name="classCol"
             control={control}
@@ -149,7 +149,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
               />
             )}
           />
-        </InputWrapper>
+        </InputWrapper>*/}
         <InputWrapper
           title={
             <div className="d-flex gap-3">
@@ -223,4 +223,26 @@ function CustomSelect(props: any) {
       <Select2 {...props}/>
     </>
   );
+}
+
+function findClassLabel(selectedPart: any) {
+  //Todo 베어링 말고도 추가해야됨
+  switch (selectedPart) {
+    case "BLB" :
+      return "AI_LBSF"
+    case "BLO" :
+      return "AI_LBPFO"
+    case "BLI" :
+      return "AI_LBPFI"
+    case "BLR" :
+      return "AI_LFTF"
+    case "BRB" :
+      return "AI_RBSF"
+    case "BRO" :
+      return "AI_RBPFO"
+    case "BRI" :
+      return "AI_RBPFI"
+    case "BRR" :
+      return "AI_RFTF"
+  }
 }

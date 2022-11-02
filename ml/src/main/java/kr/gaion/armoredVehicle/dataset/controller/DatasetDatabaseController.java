@@ -32,6 +32,8 @@ public class DatasetDatabaseController {
             @RequestParam("files") List<MultipartFile> files,
             @PathVariable("partType") String partType
     ) {
+        System.out.println(partType);
+        
         String result = datasetDatabaseService.importCSVtoDatabase(files, partType);
         return files.stream().map(this.datasetDatabaseService::handleUploadFile).collect(Collectors.toList());
     }

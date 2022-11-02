@@ -74,12 +74,13 @@ const UploadPage: React.FC<{
 
 
   return (
-    <>
+    <div className="page-padding">
       <Section title={"학습데이터 업로드"}>
         <Form>
           <Row className="d-flex mt-2 mb-4">
             <Col md={2}>
               <Form.Select
+                size="lg"
                 value={selectedDataType}
                 onChange={(v) => setSelectedDataType((v.target as any).value)}
               >
@@ -91,6 +92,7 @@ const UploadPage: React.FC<{
             </Col>
           </Row>
           <FormControl
+            style={{height: "43px"}}
             type="file"
             multiple
             onChange={(v) => {
@@ -120,7 +122,7 @@ const UploadPage: React.FC<{
           </Col>
         </Row>
       </Section>
-    </>
+    </div>
   );
 };
 

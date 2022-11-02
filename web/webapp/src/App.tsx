@@ -40,7 +40,7 @@ function Main() {
         <Switch>
           <AuthorizedRoute
             path="/data/upload"
-            component={PredictedResults}
+            component={DataUpload}
           />
           <AuthorizedRoute
             path="/data/fault_diagnosis_result_history"

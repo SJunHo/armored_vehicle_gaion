@@ -115,8 +115,6 @@ class App extends Component {
             <PrivateRoute exact path="/driverPostureCorrection" component={driverPostureCorrection} />
             <PrivateRoute exact path="/partsreplacementcycle" component={PartsReplacementCycle} />
 
-              {/*학습 데이터*/}
-            <PrivateRoute exact path="/data/upload" component={DataUpload} />
 
               {/*고장진단 모델*/}
             {/*<PrivateRoute exact path="/ml/rfc" component={Model} />*/}
@@ -221,7 +219,7 @@ class App extends Component {
               <Route path="/dataset" component={DatasetManagement} />
 
               <AuthorizedRoute path="/data/lookup" component={DataLookUpList} />
-              <AuthorizedRoute path="/" exact component={DataUpload} />
+              <AuthorizedRoute path="/data/upload" exact component={DataUpload} />
             </Switch>
           </div>
         </OpenApiContextProvider>

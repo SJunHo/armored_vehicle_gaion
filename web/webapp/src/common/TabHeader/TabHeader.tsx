@@ -12,7 +12,7 @@ type Props = {
   onChangeActiveTab?: (v: string) => void
 }
 
-export const TabHeader: React.FC<Props> = ({ headers, activeTabId, onChangeActiveTab }) => {
+export const TabHeader: React.FC<Props> = ({headers, activeTabId, onChangeActiveTab}) => {
   const [aTabId, setATabId] = useState<string>()
 
   useEffect(() => {
@@ -22,7 +22,8 @@ export const TabHeader: React.FC<Props> = ({ headers, activeTabId, onChangeActiv
   return (
     <header className={styles.wrapper}>
       {headers.map(header => (
-        <div className={aTabId === header.id ? `${styles.headerItem} ${styles.active}` : styles.headerItem} key={header.id} onClick={() => {
+        <div className={aTabId === header.id ? `${styles.headerItem} ${styles.active}` : styles.headerItem}
+             key={header.id} onClick={() => {
           if (onChangeActiveTab) {
             onChangeActiveTab(header.id)
           } else {
@@ -30,7 +31,7 @@ export const TabHeader: React.FC<Props> = ({ headers, activeTabId, onChangeActiv
           }
         }}>{header.title}</div>
       ))}
-      <div className={styles.rest} />
+      {/*<div className={styles.rest} />*/}
     </header>
   )
 }

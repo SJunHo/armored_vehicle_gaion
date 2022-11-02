@@ -181,9 +181,6 @@ public class MLController {
 
     @GetMapping(path = "/api/get-trainingData/{partType}")
     public String[] getTrainingDataList(@PathVariable String partType) {
-        System.out.println("partType : " + partType);
-        System.out.println("partType substring : " + partType.charAt(0));
-
         return fileInfoRepository.findTrainingDataNameList(partType.charAt(0));
     }
 
