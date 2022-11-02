@@ -1,4 +1,5 @@
 package kr.gaion.armoredVehicle.dataset.service;
+
 import kr.gaion.armoredVehicle.database.DatabaseModule;
 import kr.gaion.armoredVehicle.database.model.*;
 import kr.gaion.armoredVehicle.database.repository.*;
@@ -7,41 +8,43 @@ import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-import org.elasticsearch.action.bulk.BulkRequest;
-import org.elasticsearch.action.update.UpdateRequest;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.index.query.IdsQueryBuilder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Log4j
 public class DatasetDatabaseService {
-    @NonNull private final StorageService storageService;
-    @NonNull private final DatabaseModule databaseModule;
+    @NonNull
+    private final StorageService storageService;
+    @NonNull
+    private final DatabaseModule databaseModule;
 
-    @NonNull private final TrainingBearingRepository trainingBearingRepository;
-    @NonNull private final TrainingWheelRepository trainingWheelRepository;
-    @NonNull private final TrainingEngineRepository trainingEngineRepository;
-    @NonNull private final TrainingGearboxRepository trainingGearboxRepository;
-    @NonNull private final TrainingTempLifeRepository trainingTempLifeRepository;
+    @NonNull
+    private final TrainingBearingRepository trainingBearingRepository;
+    @NonNull
+    private final TrainingWheelRepository trainingWheelRepository;
+    @NonNull
+    private final TrainingEngineRepository trainingEngineRepository;
+    @NonNull
+    private final TrainingGearboxRepository trainingGearboxRepository;
+    @NonNull
+    private final TrainingTempLifeRepository trainingTempLifeRepository;
 
-    @NonNull private final SensorBearingRepository sensorBearingRepository;
-    @NonNull private final SensorWheelRepository sensorWheelRepository;
-    @NonNull private final SensorEngineRepository sensorEngineRepository;
-    @NonNull private final SensorGearboxRepository sensorGearboxRepository;
-    @NonNull private final SensorTempLifeRepository sensorTempLifeRepository;
+    @NonNull
+    private final SensorBearingRepository sensorBearingRepository;
+    @NonNull
+    private final SensorWheelRepository sensorWheelRepository;
+    @NonNull
+    private final SensorEngineRepository sensorEngineRepository;
+    @NonNull
+    private final SensorGearboxRepository sensorGearboxRepository;
+    @NonNull
+    private final SensorTempLifeRepository sensorTempLifeRepository;
 
     //save file to nas directory
     public String handleUploadFile(MultipartFile file) {
@@ -50,12 +53,12 @@ public class DatasetDatabaseService {
     }
 
     //import nas Database
-    public String importCSVtoDatabase(List<MultipartFile> files, String dataType){
-        for(MultipartFile file : files){
-            switch(dataType){
+    public String importCSVtoDatabase(List<MultipartFile> files, String dataType) {
+        for (MultipartFile file : files) {
+            switch (dataType) {
                 case "B": {
                     try {
-                        List<TrainingBearing> trainingBearingList = CSVHelper.csvToBearing(file.getInputStream());
+                        List<TrainingBearing> trainingBearingList = CSVHelper.csvToBearing(file.getInputStream(), file.getOriginalFilename());
                         trainingBearingRepository.saveAll(trainingBearingList);
                     } catch (IOException e) {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
@@ -98,7 +101,77 @@ public class DatasetDatabaseService {
         return "success";
     }
 
-    //import Table data
+    // get labeled data (for training)
+    public List<?> getTrainingBearingData(String partType) throws IOException {
+        System.out.println("############### getTrainingBearingData service ###############");
+        List<?> trainingBearingData = null;
+        switch (partType) {
+            case "BLB":
+                // Bearing Left Ball
+                trainingBearingData = trainingBearingRepository.findBearingLeftBall();
+                break;
+            case "BLI":
+                // Bearing Left Inside
+                trainingBearingData = trainingBearingRepository.findBearingLeftInside();
+                break;
+            case "BLO":
+                // Bearing Left Outside
+                trainingBearingData = trainingBearingRepository.findBearingLeftOutside();
+                break;
+            case "BLR":
+                // Bearing Left Retainer
+                trainingBearingData = trainingBearingRepository.findBearingLeftRetainer();
+                break;
+            case "BRB":
+                // Bearing Right Ball
+                trainingBearingData = trainingBearingRepository.findBearingRightBall();
+                break;
+
+            case "BRI":
+                // Bearing Right Inside
+                trainingBearingData = trainingBearingRepository.findBearingRightInside();
+                break;
+
+            case "BRO":
+                // Bearing Right Outside
+                trainingBearingData = trainingBearingRepository.findBearingRightOutside();
+                break;
+
+            case "BRR":
+                // Bearing Right Retainer
+                trainingBearingData = trainingBearingRepository.findBearingRightRetainer();
+                break;
+        }
+
+        return trainingBearingData;
+    }
+
+    // TODO: 부품별 메소드 만들기
+//    public List<?> getTrainingWheelData(String partType) throws IOException {
+//        List<?> trainingWheelData = null;
+//        switch (partType) {
+//            case "WL":
+//                // Wheel Left
+//                trainingWheelData = trainingWheelRepository.findWheelLeft();
+//                break;
+//            case "BLI":
+//                // Wheel Right
+//                trainingWheelData = trainingWheelRepository.findWheelRight();
+//                break;
+//        }
+//
+//        return trainingWheelData;
+//    }
+//
+//    public List<?> getTrainingGearboxData(String partType) throws IOException {
+//        return trainingGearboxRepository.findAll();
+//    }
+//
+//    public List<?> getTrainingEngineData(String partType) throws IOException {
+//        return trainingEngineRepository.findAll();
+//    }
+
+    // get unlabeled data (for predict)
     public List<SensorBearing> getUnlabeledBearingData() throws IOException {
         return sensorBearingRepository.findSensorBearingByAiPredictIsNull();
     }
@@ -120,8 +193,8 @@ public class DatasetDatabaseService {
     }
 
     public String updatePredictData(ArrayList<DbDataUpdateInput> inputs) throws IOException {
-        if(inputs.get(0).getDataType().equals("B")){
-            for(DbDataUpdateInput input : inputs){
+        if (inputs.get(0).getDataType().equals("B")) {
+            for (DbDataUpdateInput input : inputs) {
                 SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).get();
                 sensorBearing.setAiPredict(input.getAiPredict());
                 sensorBearing.setAiAlgorithm(input.getAiAlgorithm());
@@ -129,11 +202,14 @@ public class DatasetDatabaseService {
                 sensorBearingRepository.save(sensorBearing);
             }
         }
-        if(inputs.get(0).getDataType().equals("E")){}
-        if(inputs.get(0).getDataType().equals("G")){}
-        if(inputs.get(0).getDataType().equals("W")){}
-        if(inputs.get(0).getDataType().equals("T")){
-            for(DbDataUpdateInput input : inputs){
+        if (inputs.get(0).getDataType().equals("E")) {
+        }
+        if (inputs.get(0).getDataType().equals("G")) {
+        }
+        if (inputs.get(0).getDataType().equals("W")) {
+        }
+        if (inputs.get(0).getDataType().equals("T")) {
+            for (DbDataUpdateInput input : inputs) {
                 SensorTempLife sensorTempLife = sensorTempLifeRepository.findById(input.getId()).get();
                 sensorTempLife.setAiPredict(input.getAiPredict());
                 sensorTempLife.setAiAlgorithm(input.getAiAlgorithm());

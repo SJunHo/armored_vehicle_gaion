@@ -55,7 +55,7 @@ public class KmeansClustering extends ClusterMlAlgorithm<KMeansModel> {
   @Override
   protected void doSaveModel(KMeansModel kMeansModel, ClusterTrainInput config) throws Exception {
     // Saving the Clustering model
-    log.info("Saving model ..");
+	  System.out.println("Saving model ..");
     this.saveModel(config, kMeansModel);
   }
 
@@ -89,7 +89,7 @@ public class KmeansClustering extends ClusterMlAlgorithm<KMeansModel> {
 
   protected Dataset<Row> enrichPredictedData(BaseAlgorithmPredictInput input, Dataset<Row> predictedData) throws Exception {
     String clusterInfoDir = this.getModelFullPath(input.getModelName()) + "//clusterInfo";
-		log.info("clusterInfoDir = " + clusterInfoDir);
+	  System.out.println("clusterInfoDir = " + clusterInfoDir);
 		String [] clusterInfoFileNameList = this.hdfsHelperService.getListFilesInDir(clusterInfoDir);
 		String clusterInfoFileName = "";
 		for (String fName : clusterInfoFileNameList) {

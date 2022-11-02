@@ -54,13 +54,6 @@ function Main() {
             path="/data/fault_diagnosis_history_page"
             component={SavedPredictedResult}
           />
-
-          {/*<AuthorizedRoute*/}
-          {/*  path="/ml/fs/:algorithmName"*/}
-          {/*  exact*/}
-          {/*  component={FeatureSelection}*/}
-          {/*/>*/}
-
           <AuthorizedRoute
             path="/ml/:algorithmName/:tab"
             component={ModelManagement}

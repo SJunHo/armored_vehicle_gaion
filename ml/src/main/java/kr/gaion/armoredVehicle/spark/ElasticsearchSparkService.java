@@ -92,7 +92,7 @@ public class ElasticsearchSparkService implements Serializable {
 	}
 
 	public Dataset<Row> getLabeledDatasetFromElasticsearch(BaseAlgorithmTrainInput input) {
-		log.info("Getting data from ElasticSearch for: " + this.esIndexConfig.getIndex() + "/" + this.esIndexConfig.getReadingType() + "/");
+		System.out.println("Getting data from ElasticSearch for: " + this.esIndexConfig.getIndex() + "/" + this.esIndexConfig.getReadingType() + "/");
 
 		var jvRddData = this.getDataRDDFromEs(input.getTrainingESIndex());
 
@@ -178,7 +178,7 @@ public class ElasticsearchSparkService implements Serializable {
 		var classCol = input.getClassCol();
 		var featureCols = input.getFeatureCols();
 
-		log.info("Getting data from ElasticSearch for: " + this.esIndexConfig.getIndex() + "/" + this.esIndexConfig.getReadingType() + "/");
+		System.out.println("Getting data from ElasticSearch for: " + this.esIndexConfig.getIndex() + "/" + this.esIndexConfig.getReadingType() + "/");
 
 		var jvRddData = this.getDataRDDFromEs(input.getTrainingESIndex());
 

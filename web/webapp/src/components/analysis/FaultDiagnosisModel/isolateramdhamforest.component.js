@@ -13,7 +13,7 @@ export default class IsolateRamdhamForest extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-        Isolate 램덤포레스트
+        Isolate 랜덤 포레스트
         </header>
       </div>
     );

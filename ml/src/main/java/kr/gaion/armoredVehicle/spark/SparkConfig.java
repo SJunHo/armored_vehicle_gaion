@@ -39,13 +39,16 @@ public class SparkConfig {
 
   @Bean
   public SparkSession getSession(ESIndexConfig config) {
-//    this.setMaster("yarn");
-//    this.setMaster("local[16]");
-    return SparkSession.builder()
-		.appName("armoredVehicle")
-		.master("local[*]")
-		.config("es.index.auto.create", "true")
-		.config("es.nodes", config.getHost() + ":" + config.getTransportPort())
-		.getOrCreate();
+
+  	var spark = SparkSession.builder()
+			.appName("armoredVehicle")
+			.master("local[*]")
+			.config("es.index.auto.create", "true")
+			.config("es.nodes", config.getHost() + ":" + config.getTransportPort())
+			.getOrCreate();
+
+    spark.sparkContext().setLogLevel("ERROR");
+
+    return spark;
   }
 }

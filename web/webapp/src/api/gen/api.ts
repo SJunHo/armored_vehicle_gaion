@@ -892,6 +892,249 @@ export interface Cmpntsrplc {
 /**
  * 
  * @export
+ * @interface CmpntsrplcData
+ */
+export interface CmpntsrplcData {
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    sdaid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    snsrid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    snsrnm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    workr?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    rplcdate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    msg?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    mdfcdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    mdfr?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    expln?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    grid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    code?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CmpntsrplcHistry
+ */
+export interface CmpntsrplcHistry {
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    grid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    sdaid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    workr?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    rplcdate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    msg?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    mdfcdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    mdfr?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CmpntsrplcInfo
+ */
+export interface CmpntsrplcInfo {
+    /**
+     * 
+     * @type {number}
+     * @memberof CmpntsrplcInfo
+     */
+    criid?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    divs?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    brgd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    bn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    sdaid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    sdanm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    sdatype?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    grid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    expln?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    stdvle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    stdval?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    prdvle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    prdval?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    nmvle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    nmval?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    msg?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    dttime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    startDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    endDate?: string;
+}
+/**
+ * 
+ * @export
  * @interface CmpntsrplcResponse
  */
 export interface CmpntsrplcResponse {
@@ -1666,13 +1909,13 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    pageNumber?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * 
      * @type {boolean}
@@ -3744,55 +3987,85 @@ export interface SignupRequest {
      * @type {string}
      * @memberof SignupRequest
      */
-    id?: string;
+    userid?: string;
     /**
      * 
      * @type {string}
      * @memberof SignupRequest
      */
-    username?: string;
+    pwd?: string;
     /**
      * 
      * @type {string}
      * @memberof SignupRequest
      */
-    email?: string;
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    rnkcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    srvno?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    usedvcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    crtdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    divs?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    brgd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    bn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    rspofc?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    telno1?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    telno2?: string;
     /**
      * 
      * @type {string}
      * @memberof SignupRequest
      */
     usrth?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    password?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    phonenum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    mltrank?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    mltnum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    mltunit?: string;
 }
 /**
  * 
@@ -4081,73 +4354,6 @@ export interface UpdateModelInput {
 /**
  * 
  * @export
- * @interface User
- */
-export interface User {
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    username?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    email?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    password?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    usrth?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    phonenum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    mltrank?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    mltnum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    mltunit?: string;
-    /**
-     * 
-     * @type {Set<Role>}
-     * @memberof User
-     */
-    roles?: Set<Role>;
-}
-/**
- * 
- * @export
  * @interface UserSnsr
  */
 export interface UserSnsr {
@@ -4169,6 +4375,127 @@ export interface UserSnsr {
      * @memberof UserSnsr
      */
     snsrid?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Usercd
+ */
+export interface Usercd {
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    userid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    pwd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    usrth?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rnkcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    srvno?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    usedvcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    blocktime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rctlogindt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rctpwdchngdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    crtdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    mdfcdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    divs?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    brgd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    bn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rspofc?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    telno1?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    telno2?: string;
+    /**
+     * 
+     * @type {Set<Role>}
+     * @memberof Usercd
+     */
+    roles?: Set<Role>;
 }
 
 /**
@@ -5047,7 +5374,7 @@ export const CimControllerApiAxiosParamCreator = function (configuration?: Confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCmncdList1: async (page?: number, pageSize?: number, options: any = {}): Promise<RequestArgs> => {
+        getCmncdList2: async (page?: number, pageSize?: number, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/cim/list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5169,8 +5496,8 @@ export const CimControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCmncdList1(page?: number, pageSize?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCmncdList1(page, pageSize, options);
+        async getCmncdList2(page?: number, pageSize?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCmncdList2(page, pageSize, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5227,8 +5554,8 @@ export const CimControllerApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCmncdList1(page?: number, pageSize?: number, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getCmncdList1(page, pageSize, options).then((request) => request(axios, basePath));
+        getCmncdList2(page?: number, pageSize?: number, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getCmncdList2(page, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5290,8 +5617,8 @@ export class CimControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CimControllerApi
      */
-    public getCmncdList1(page?: number, pageSize?: number, options?: any) {
-        return CimControllerApiFp(this.configuration).getCmncdList1(page, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public getCmncdList2(page?: number, pageSize?: number, options?: any) {
+        return CimControllerApiFp(this.configuration).getCmncdList2(page, pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6918,9 +7245,9 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBnList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+        getBnList2: async (data: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'data' is not null or undefined
-            assertParamExists('getBnList', 'data', data)
+            assertParamExists('getBnList2', 'data', data)
             const localVarPath = `/api/drivercorrection/bnList/{data}`
                 .replace(`{${"data"}}`, encodeURIComponent(String(data)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -6954,7 +7281,7 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDivList: async (options: any = {}): Promise<RequestArgs> => {
+        getDivList2: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/drivercorrection/divsList`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6988,9 +7315,9 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSdaList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+        getSdaList1: async (data: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'data' is not null or undefined
-            assertParamExists('getSdaList', 'data', data)
+            assertParamExists('getSdaList1', 'data', data)
             const localVarPath = `/api/drivercorrection/sdaList/{data}`
                 .replace(`{${"data"}}`, encodeURIComponent(String(data)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -7025,9 +7352,9 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search: async (searchRequest: SearchRequest, options: any = {}): Promise<RequestArgs> => {
+        search1: async (searchRequest: SearchRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'searchRequest' is not null or undefined
-            assertParamExists('search', 'searchRequest', searchRequest)
+            assertParamExists('search1', 'searchRequest', searchRequest)
             const localVarPath = `/api/drivercorrection/search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7074,8 +7401,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBnList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList(data, options);
+        async getBnList2(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList2(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7083,8 +7410,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDivList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList(options);
+        async getDivList2(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList2(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7093,8 +7420,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSdaList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSdaList(data, options);
+        async getSdaList1(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSdaList1(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7103,8 +7430,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async search(searchRequest: SearchRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.search(searchRequest, options);
+        async search1(searchRequest: SearchRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.search1(searchRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -7123,16 +7450,16 @@ export const DriverCorrectionControllerApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBnList(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
-            return localVarFp.getBnList(data, options).then((request) => request(axios, basePath));
+        getBnList2(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
+            return localVarFp.getBnList2(data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDivList(options?: any): AxiosPromise<Array<Cmncd>> {
-            return localVarFp.getDivList(options).then((request) => request(axios, basePath));
+        getDivList2(options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getDivList2(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7140,8 +7467,8 @@ export const DriverCorrectionControllerApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSdaList(data: string, options?: any): AxiosPromise<Array<Sda>> {
-            return localVarFp.getSdaList(data, options).then((request) => request(axios, basePath));
+        getSdaList1(data: string, options?: any): AxiosPromise<Array<Sda>> {
+            return localVarFp.getSdaList1(data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7149,8 +7476,8 @@ export const DriverCorrectionControllerApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search(searchRequest: SearchRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.search(searchRequest, options).then((request) => request(axios, basePath));
+        search1(searchRequest: SearchRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.search1(searchRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7169,8 +7496,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public getBnList(data: string, options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).getBnList(data, options).then((request) => request(this.axios, this.basePath));
+    public getBnList2(data: string, options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).getBnList2(data, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7179,8 +7506,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public getDivList(options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).getDivList(options).then((request) => request(this.axios, this.basePath));
+    public getDivList2(options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).getDivList2(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7190,8 +7517,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public getSdaList(data: string, options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).getSdaList(data, options).then((request) => request(this.axios, this.basePath));
+    public getSdaList1(data: string, options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).getSdaList1(data, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7201,8 +7528,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public search(searchRequest: SearchRequest, options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).search(searchRequest, options).then((request) => request(this.axios, this.basePath));
+    public search1(searchRequest: SearchRequest, options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).search1(searchRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8756,6 +9083,45 @@ export const PartsReplacementCycleSettingControllerApiAxiosParamCreator = functi
     return {
         /**
          * 
+         * @param {CmpntsrplcData} cmpntsrplcData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        add: async (cmpntsrplcData: CmpntsrplcData, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cmpntsrplcData' is not null or undefined
+            assertParamExists('add', 'cmpntsrplcData', cmpntsrplcData)
+            const localVarPath = `/api/partsreplacementcycle/add`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cmpntsrplcData, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {Array<Cmpntsrplc>} cmpntsrplc 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8795,6 +9161,150 @@ export const PartsReplacementCycleSettingControllerApiAxiosParamCreator = functi
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList1: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getBnList1', 'data', data)
+            const localVarPath = `/api/partsreplacementcycle/bnList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCmncdList1: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getCmncdList1', 'data', data)
+            const localVarPath = `/api/partsreplacementcycle/cmncdList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList1: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/partsreplacementcycle/divsList`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSdaList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getSdaList', 'data', data)
+            const localVarPath = `/api/partsreplacementcycle/vnList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -8826,6 +9336,84 @@ export const PartsReplacementCycleSettingControllerApiAxiosParamCreator = functi
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        history: async (cmpntsrplcHistry: CmpntsrplcHistry, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cmpntsrplcHistry' is not null or undefined
+            assertParamExists('history', 'cmpntsrplcHistry', cmpntsrplcHistry)
+            const localVarPath = `/api/partsreplacementcycle/history`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cmpntsrplcHistry, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        search: async (requestBody: { [key: string]: object; }, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestBody' is not null or undefined
+            assertParamExists('search', 'requestBody', requestBody)
+            const localVarPath = `/api/partsreplacementcycle/search`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -8838,6 +9426,16 @@ export const PartsReplacementCycleSettingControllerApiFp = function(configuratio
     return {
         /**
          * 
+         * @param {CmpntsrplcData} cmpntsrplcData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async add(cmpntsrplcData: CmpntsrplcData, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcHistry>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.add(cmpntsrplcData, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {Array<Cmpntsrplc>} cmpntsrplc 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8848,11 +9446,70 @@ export const PartsReplacementCycleSettingControllerApiFp = function(configuratio
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBnList1(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList1(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCmncdList1(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCmncdList1(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDivList1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList1(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSdaList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSdaList(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getThresholdList1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getThresholdList1(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async history(cmpntsrplcHistry: CmpntsrplcHistry, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcHistry>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.history(cmpntsrplcHistry, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async search(requestBody: { [key: string]: object; }, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.search(requestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -8867,6 +9524,15 @@ export const PartsReplacementCycleSettingControllerApiFactory = function (config
     return {
         /**
          * 
+         * @param {CmpntsrplcData} cmpntsrplcData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        add(cmpntsrplcData: CmpntsrplcData, options?: any): AxiosPromise<Array<CmpntsrplcHistry>> {
+            return localVarFp.add(cmpntsrplcData, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {Array<Cmpntsrplc>} cmpntsrplc 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8876,11 +9542,64 @@ export const PartsReplacementCycleSettingControllerApiFactory = function (config
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList1(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
+            return localVarFp.getBnList1(data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCmncdList1(data: string, options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getCmncdList1(data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList1(options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getDivList1(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSdaList(data: string, options?: any): AxiosPromise<Array<Sda>> {
+            return localVarFp.getSdaList(data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getThresholdList1(options?: any): AxiosPromise<Array<CmpntsrplcResponse>> {
             return localVarFp.getThresholdList1(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        history(cmpntsrplcHistry: CmpntsrplcHistry, options?: any): AxiosPromise<Array<CmpntsrplcHistry>> {
+            return localVarFp.history(cmpntsrplcHistry, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        search(requestBody: { [key: string]: object; }, options?: any): AxiosPromise<Array<CmpntsrplcInfo>> {
+            return localVarFp.search(requestBody, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -8894,6 +9613,17 @@ export const PartsReplacementCycleSettingControllerApiFactory = function (config
 export class PartsReplacementCycleSettingControllerApi extends BaseAPI {
     /**
      * 
+     * @param {CmpntsrplcData} cmpntsrplcData 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public add(cmpntsrplcData: CmpntsrplcData, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).add(cmpntsrplcData, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {Array<Cmpntsrplc>} cmpntsrplc 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8905,12 +9635,77 @@ export class PartsReplacementCycleSettingControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getBnList1(data: string, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getBnList1(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getCmncdList1(data: string, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getCmncdList1(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getDivList1(options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getDivList1(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getSdaList(data: string, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getSdaList(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PartsReplacementCycleSettingControllerApi
      */
     public getThresholdList1(options?: any) {
         return PartsReplacementCycleSettingControllerApiFp(this.configuration).getThresholdList1(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public history(cmpntsrplcHistry: CmpntsrplcHistry, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).history(cmpntsrplcHistry, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {{ [key: string]: object; }} requestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public search(requestBody: { [key: string]: object; }, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).search(requestBody, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8962,11 +9757,85 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getId: async (name: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('getId', 'name', name)
+            const localVarPath = `/api/statistical/getId/{name}`
+                .replace(`{${"name"}}`, encodeURIComponent(String(name)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getInfo: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/statistical/info`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} userid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPopUpInfo: async (userid: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userid' is not null or undefined
+            assertParamExists('getPopUpInfo', 'userid', userid)
+            const localVarPath = `/api/statistical/getPopUpInfo/{userid}`
+                .replace(`{${"userid"}}`, encodeURIComponent(String(userid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9054,11 +9923,31 @@ export const StatisticalInfoControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getId(name: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getId(name, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getInfo(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInfo(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} userid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPopUpInfo(userid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPopUpInfo(userid, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9092,11 +9981,29 @@ export const StatisticalInfoControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getId(name: string, options?: any): AxiosPromise<string> {
+            return localVarFp.getId(name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getInfo(options?: any): AxiosPromise<{ [key: string]: object; }> {
             return localVarFp.getInfo(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} userid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPopUpInfo(userid: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getPopUpInfo(userid, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9130,12 +10037,34 @@ export class StatisticalInfoControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} name 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatisticalInfoControllerApi
+     */
+    public getId(name: string, options?: any) {
+        return StatisticalInfoControllerApiFp(this.configuration).getId(name, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StatisticalInfoControllerApi
      */
     public getInfo(options?: any) {
         return StatisticalInfoControllerApiFp(this.configuration).getInfo(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} userid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatisticalInfoControllerApi
+     */
+    public getPopUpInfo(userid: string, options?: any) {
+        return StatisticalInfoControllerApiFp(this.configuration).getPopUpInfo(userid, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9649,6 +10578,43 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getBnList', 'data', data)
+            const localVarPath = `/api/user/bnList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} [page] 
          * @param {number} [pageSize] 
          * @param {*} [options] Override http request option.
@@ -9678,6 +10644,39 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/user/divsList`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
@@ -9729,13 +10728,13 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
         },
         /**
          * 
-         * @param {User} user 
+         * @param {Usercd} usercd 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUser: async (user: User, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'user' is not null or undefined
-            assertParamExists('updateUser', 'user', user)
+        updateUser: async (usercd: Usercd, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'usercd' is not null or undefined
+            assertParamExists('updateUser', 'usercd', usercd)
             const localVarPath = `/api/user/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -9759,7 +10758,7 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(usercd, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9782,8 +10781,18 @@ export const UserManagementControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Cmncd>> {
+        async deleteUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Usercd>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBnList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9799,22 +10808,31 @@ export const UserManagementControllerApiFp = function(configuration?: Configurat
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDivList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+        async getUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Usercd>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {User} user 
+         * @param {Usercd} usercd 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUser(user: User, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(user, options);
+        async updateUser(usercd: Usercd, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Usercd>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(usercd, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9833,8 +10851,17 @@ export const UserManagementControllerApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteUser(id: string, options?: any): AxiosPromise<Cmncd> {
+        deleteUser(id: string, options?: any): AxiosPromise<Usercd> {
             return localVarFp.deleteUser(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
+            return localVarFp.getBnList(data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9848,21 +10875,29 @@ export const UserManagementControllerApiFactory = function (configuration?: Conf
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList(options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getDivList(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser(id: string, options?: any): AxiosPromise<User> {
+        getUser(id: string, options?: any): AxiosPromise<Usercd> {
             return localVarFp.getUser(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {User} user 
+         * @param {Usercd} usercd 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUser(user: User, options?: any): AxiosPromise<User> {
-            return localVarFp.updateUser(user, options).then((request) => request(axios, basePath));
+        updateUser(usercd: Usercd, options?: any): AxiosPromise<Usercd> {
+            return localVarFp.updateUser(usercd, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9887,6 +10922,17 @@ export class UserManagementControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserManagementControllerApi
+     */
+    public getBnList(data: string, options?: any) {
+        return UserManagementControllerApiFp(this.configuration).getBnList(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {number} [page] 
      * @param {number} [pageSize] 
      * @param {*} [options] Override http request option.
@@ -9895,6 +10941,16 @@ export class UserManagementControllerApi extends BaseAPI {
      */
     public getCmncdList(page?: number, pageSize?: number, options?: any) {
         return UserManagementControllerApiFp(this.configuration).getCmncdList(page, pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserManagementControllerApi
+     */
+    public getDivList(options?: any) {
+        return UserManagementControllerApiFp(this.configuration).getDivList(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9910,13 +10966,13 @@ export class UserManagementControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {User} user 
+     * @param {Usercd} usercd 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserManagementControllerApi
      */
-    public updateUser(user: User, options?: any) {
-        return UserManagementControllerApiFp(this.configuration).updateUser(user, options).then((request) => request(this.axios, this.basePath));
+    public updateUser(usercd: Usercd, options?: any) {
+        return UserManagementControllerApiFp(this.configuration).updateUser(usercd, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

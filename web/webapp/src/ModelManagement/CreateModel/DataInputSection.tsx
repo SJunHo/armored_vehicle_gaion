@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
-import { Controller, useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import {Controller, useFormContext} from "react-hook-form";
+import {useTranslation} from "react-i18next";
 import Select2 from "react-select";
-import { OpenApiContext } from "../../api/OpenApiContext";
-import { ALGORITHM_INFO, InputWrapper } from "../../common/Common";
-import { Section } from "../../common/Section/Section";
+import {OpenApiContext} from "../../api/OpenApiContext";
+import {ALGORITHM_INFO, InputWrapper} from "../../common/Common";
+import {Section} from "../../common/Section/Section";
 import styles from "../styles.module.css";
 
 type Props = {
@@ -14,41 +14,53 @@ type Props = {
 
 const partTypes = [
   {
-    value: "B",
-    label: "베어링",
+    value: "BLB",
+    label: "베어링 좌측 볼",
   },
   {
-    value: "W",
-    label: "휠",
+    value: "BLI",
+    label: "베어링 좌측 내륜",
   },
   {
-    value: "E",
-    label: "엔진",
+    value: "BLO",
+    label: "베어링 좌측 외륜",
   },
   {
-    value: "G",
-    label: "기어박스",
+    value: "BLR",
+    label: "베어링 좌측 리테이너",
   },
   {
-    value: "T",
-    label: "임시데이터",
+    value: "BRB",
+    label: "베어링 우측 볼",
+  },
+  {
+    value: "BRI",
+    label: "베어링 우측 내륜",
+  },
+  {
+    value: "BRO",
+    label: "베어링 우측 외륜",
+  },
+  {
+    value: "BRR",
+    label: "베어링 우측 리테이너",
   }
 ]
 
-export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
+export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
 
   const [indices, setIndices] = React.useState<string[]>([]);
   const [columns, setColumns] = React.useState<string[]>([]);
-  const { t } = useTranslation();
-  const { control, watch, setValue } = useFormContext();
+  const {t} = useTranslation();
+  const {control, watch, setValue} = useFormContext();
 
-  const { mlControllerApi } = useContext(OpenApiContext);
+  const {mlControllerApi} = useContext(OpenApiContext);
   const classCol = watch("classCol");
   const selectedIndice = watch("fileName");
   const [selectedPart, setSelectedPart] = useState("");
 
   useEffect(() => {
-    if(selectedPart && mlControllerApi){
+    if (selectedPart && mlControllerApi) {
       mlControllerApi?.getTrainingDataList(selectedPart).then((res) => {
         setIndices(res.data);
       });
@@ -74,13 +86,13 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
           <Controller
             name="partType"
             control={control}
-            render={({ field }) => (
+            render={({field}) => (
               <Select2
                 className="text-black"
                 {...field}
                 value={
                   field.value
-                    ? { label: field.value, value: field.value }
+                    ? {label: field.value, value: field.value}
                     : undefined
                 }
                 onChange={(v) => {
@@ -100,12 +112,12 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
           <Controller
             name="fileName"
             control={control}
-            render={({ field }) => (
+            render={({field}) => (
               <Select2
                 {...field}
                 value={
                   field.value
-                    ? { label: field.value, value: field.value }
+                    ? {label: field.value, value: field.value}
                     : undefined
                 }
                 onChange={(v) => setValue("fileName", v?.value)}
@@ -121,12 +133,12 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
           <Controller
             name="classCol"
             control={control}
-            render={({ field }) => (
+            render={({field}) => (
               <Select2
                 {...field}
                 value={
                   field.value
-                    ? { label: field.value, value: field.value }
+                    ? {label: field.value, value: field.value}
                     : undefined
                 }
                 onChange={(v) => setValue("classCol", v?.value)}
@@ -141,7 +153,7 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
         <InputWrapper
           title={
             <div className="d-flex gap-3">
-              <div className="">특징 벡터 : </div>
+              <div className="">특징 벡터 :</div>
               <Button
                 className="ml-1"
                 size="sm"
@@ -168,7 +180,7 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
           <Controller
             name="featureCols"
             control={control}
-            render={({ field }) => (
+            render={({field}) => (
               <Select2
                 {...field}
                 isMulti
@@ -184,7 +196,7 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
                 }))}
                 options={columns
                   .filter((col) => col !== classCol)
-                  .map((col) => ({ value: col, label: col }))}
+                  .map((col) => ({value: col, label: col}))}
               />
             )}
           />
@@ -193,6 +205,7 @@ export const DataInputSection: React.FC<Props> = ({ algorithmName }) => {
     </Section>
   );
 };
+
 function CustomSelect(props: any) {
   return (
     <>

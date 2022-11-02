@@ -33,7 +33,7 @@ public class FileSystemStorageService implements StorageService {
 
 	public String saveFile(String fileNameFullPath, byte[] data) throws Exception {
 		// Creating the directory to store file
-		log.info("Creating the directory to store file");
+		System.out.println("Creating the directory to store file");
 		Path path = Path.of(fileNameFullPath);
 		String rootPath = path.getParent().toString();
 
@@ -55,8 +55,7 @@ public class FileSystemStorageService implements StorageService {
 		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(targetFile));
 		stream.write(data);
 		stream.close();
-		log.info(String.format("Successfully created file %s from local FileSystem", fileNameFullPath));
-//		}
+		System.out.println(String.format("Successfully created file %s from local FileSystem", fileNameFullPath));
 		return fileNameFullPath;
 	}
 

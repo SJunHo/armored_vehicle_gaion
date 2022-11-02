@@ -139,7 +139,7 @@ public class PcaDimensionalityReduction extends MLAlgorithm<BaseAlgorithmTrainIn
   }
 
   public FSResponse train(BaseAlgorithmTrainInput config) throws Exception {
-    log.info("Start PcaDimensionalityReduction");
+    System.out.println("Start PcaDimensionalityReduction");
     Dataset<Row> data = this.computePcaDataframeApi(config);
     var selectedFields = Arrays.stream(data.schema().fields()).map(StructField::name).collect(Collectors.toList());
     var csvDelimiter = this.storageConfig.getCsvDelimiter();
@@ -173,7 +173,8 @@ public class PcaDimensionalityReduction extends MLAlgorithm<BaseAlgorithmTrainIn
     response.setClassCol(config.getClassCol());
 
     response.setStatus(ResponseStatus.SUCCESS);
-    log.info("Completed PcaDimensionalityReduction.");
+
+    System.out.println("Completed PcaDimensionalityReduction.");
 
     return response;
   }

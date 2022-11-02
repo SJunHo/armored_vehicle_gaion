@@ -16,7 +16,6 @@ import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.ml.classification.RandomForestClassificationModel;
@@ -33,111 +32,111 @@ import java.util.List;
 @Service
 @Log4j
 public class RandomForestClassifier extends ClassifierAlgorithm<RandomForestClassificationModel> {
-	public RandomForestClassifier(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
-		super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, modelService, "RandomForestClassifier");
-	}
+    public RandomForestClassifier(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
+        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, modelService, "RandomForestClassifier");
+    }
 
-	@Override
-	protected String saveTrainedModel(BaseAlgorithmTrainInput config, RandomForestClassificationModel model) throws Exception {
-		return this.saveModel(config, model);
-	}
+    private static JavaRDD<String> doPredictData(Dataset<Row> data, RandomForestClassificationModel model, List<String> fieldsForPredict, String[] indicesLabelsMapping, String delimiter) {
+        List<String> listColNames = List.of(data.columns());
+        int[] indices = new int[fieldsForPredict.size()];
+        int index = 0;
+        for (String field : fieldsForPredict) {
+            indices[index++] = listColNames.indexOf(field);
+        }
+        return data.toJavaRDD().map(new Function<>() {
+            private static final long serialVersionUID = -4035135440483467579L;
 
-	@Override
-	protected RandomForestClassificationModel trainModel(BaseAlgorithmTrainInput config, Dataset<Row> train, Integer numberOfClass) {
-		// Get all settings sent through REST-client
-		var numTrees = config.getNumTrees();
-		var featureSubsetStrategy = config.getFeatureSubsetStrategy();
-		var impurity = config.getImpurity();
-		var maxDepths = config.getMaxDepths();
-		var maxBins = config.getMaxBins();
-		// Training model
-		var rfTrainer
-			= new org.apache.spark.ml.classification.RandomForestClassifier()
-			.setLabelCol("index")																												// #PC0026
-			.setFeatureSubsetStrategy(featureSubsetStrategy)
-			.setImpurity(impurity)
-			.setMaxBins(maxBins)
-			.setMaxDepth(maxDepths)
-			.setNumTrees(numTrees);
+            @Override
+            public String call(Row rowData) {
+                // create suitable vector
+                double[] denseData = new double[fieldsForPredict.size()];
+                int _subIter = -1;
+                for (int iter : indices) {
+                    ++_subIter;
+                    try {
+                        denseData[_subIter] = rowData.getDouble(iter);
+                    } catch (Exception e) {
+                        denseData[_subIter] = 0;
+                    }
+                }
+                Vector vector = Vectors.dense(denseData);
 
-		return rfTrainer.fit(train);
-	}
+                // predict
+                StringBuilder lineBuilder = new StringBuilder();
+                int index = Double.valueOf(model.predict(vector)).intValue();                // index of label								// #PC0026
+                lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');        // convert to categorical label					// #PC0026
+                lineBuilder.append(delimiter);
+                for (int iter = 0; iter < listColNames.size(); ++iter) {
+                    if (rowData.get(iter) == null) {
+                        lineBuilder.append('"').append('"');
+                    } else {
+                        lineBuilder.append('"').append(rowData.get(iter)).append('"');
+                    }
+                    lineBuilder.append(delimiter);
+                }
+                lineBuilder.deleteCharAt(lineBuilder.length() - 1);  // delete last delimiter (redundant)
+                return lineBuilder.toString();
+            }
+        });
+    }
 
-	@Override
-	protected final Dataset<Row> getTrainingResults(RandomForestClassificationModel model, Dataset<Row> test) {
-		// execute testing/evaluating model
-		return model.transform(test);
-	}
+    @Override
+    protected String saveTrainedModel(BaseAlgorithmTrainInput config, RandomForestClassificationModel model) throws Exception {
+        return this.saveModel(config, model);
+    }
 
-	@Override
-	protected final ClassificationResponse createModelResponse(
-			RandomForestClassificationModel model, Dataset<Row> test, BaseAlgorithmTrainInput config) {
-		var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
-		response.setDecisionTree(model.toDebugString());
+    @Override
+    protected RandomForestClassificationModel trainModel(BaseAlgorithmTrainInput config, Dataset<Row> train, Integer numberOfClass) {
+        // Get all settings sent through REST-client
+        var numTrees = config.getNumTrees();
+        var featureSubsetStrategy = config.getFeatureSubsetStrategy();
+        var impurity = config.getImpurity();
+        var maxDepths = config.getMaxDepths();
+        var maxBins = config.getMaxBins();
+        // Training model
+        var rfTrainer
+                = new org.apache.spark.ml.classification.RandomForestClassifier()
+                .setLabelCol("index")                                                                                                                // #PC0026
+                .setFeatureSubsetStrategy(featureSubsetStrategy)
+                .setImpurity(impurity)
+                .setMaxBins(maxBins)
+                .setMaxDepth(maxDepths)
+                .setNumTrees(numTrees);
 
-		return response;
-	}
+        return rfTrainer.fit(train);
+    }
 
-	@Override
-	protected RandomForestClassificationModel loadModel(String modelName) throws IOException {
-		return RandomForestClassificationModel.load(this.getModelFullPath(modelName));
-	}
+    @Override
+    protected final Dataset<Row> getTrainingResults(RandomForestClassificationModel model, Dataset<Row> test) {
+        // execute testing/evaluating model
+        return model.transform(test);
+    }
 
-	@Override
-	protected ClassificationResponse predictData(Dataset<Row> data, RandomForestClassificationModel model, BaseAlgorithmPredictInput input, String[] indicesLabelsMapping) {
-		var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
+    @Override
+    protected final ClassificationResponse createModelResponse(
+            RandomForestClassificationModel model, Dataset<Row> test, BaseAlgorithmTrainInput config) {
+        var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
+        response.setDecisionTree(model.toDebugString());
 
-		// get setting
-		String delimiter = this.storageConfig.getCsvDelimiter();
+        return response;
+    }
 
-		var lineData = doPredictData(data, model, input.getListFieldsForPredict(), indicesLabelsMapping, delimiter);
+    @Override
+    protected RandomForestClassificationModel loadModel(String modelName) throws IOException {
+        return RandomForestClassificationModel.load(this.getModelFullPath(modelName));
+    }
 
-		response.setPredictionInfo(lineData.collect());
+    @Override
+    protected ClassificationResponse predictData(Dataset<Row> data, RandomForestClassificationModel model, BaseAlgorithmPredictInput input, String[] indicesLabelsMapping) {
+        var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
 
-		return response;
-	}
+        // get setting
+        String delimiter = this.storageConfig.getCsvDelimiter();
 
-	private static JavaRDD<String> doPredictData(Dataset<Row> data, RandomForestClassificationModel model, List<String> fieldsForPredict, String[] indicesLabelsMapping, String delimiter) {
-		List<String> listColNames = List.of(data.columns());
-		int[] indices = new int[fieldsForPredict.size()];
-		int index = 0;
-		for(String field : fieldsForPredict) {
-			indices[index++] = listColNames.indexOf(field);
-		}
-		return data.toJavaRDD().map(new Function<>() {
-			private static final long serialVersionUID = -4035135440483467579L;
+        var lineData = doPredictData(data, model, input.getListFieldsForPredict(), indicesLabelsMapping, delimiter);
 
-			@Override
-			public String call(Row rowData) {
-				// create suitable vector
-				double[] denseData = new double[fieldsForPredict.size()];
-				int _subIter = -1;
-				for (int iter : indices) {
-					++_subIter;
-					try {
-						denseData[_subIter] = rowData.getDouble(iter);
-					} catch (Exception e) {
-						denseData[_subIter] = 0;
-					}
-				}
-				Vector vector = Vectors.dense(denseData);
+        response.setPredictionInfo(lineData.collect());
 
-				// predict
-				StringBuilder lineBuilder = new StringBuilder();
-				int index = Double.valueOf(model.predict(vector)).intValue();                // index of label								// #PC0026
-				lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');        // convert to categorical label					// #PC0026
-				lineBuilder.append(delimiter);
-				for (int iter = 0; iter < listColNames.size(); ++iter) {
-					if (rowData.get(iter) == null) {
-						lineBuilder.append('"').append('"');
-					} else {
-						lineBuilder.append('"').append(rowData.get(iter)).append('"');
-					}
-					lineBuilder.append(delimiter);
-				}
-				lineBuilder.deleteCharAt(lineBuilder.length() - 1);  // delete last delimiter (redundant)
-				return lineBuilder.toString();
-			}
-		});
-	}
+        return response;
+    }
 }

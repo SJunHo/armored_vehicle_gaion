@@ -42,7 +42,7 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
 
   @Override
   public ClusterResponse predict(BaseAlgorithmPredictInput config) throws Exception {
-    log.info("Start detecting outliers in data ..");
+    System.out.println("Start detecting outliers in data ..");
 
     Dataset<Row> orgData = this.getUnlabeledData(config);
 

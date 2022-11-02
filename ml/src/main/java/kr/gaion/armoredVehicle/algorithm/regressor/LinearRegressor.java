@@ -48,8 +48,8 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
     @Override
     public RegressionResponse train(BaseAlgorithmTrainInput config) throws Exception {
-        log.info("============================ START Linear Regression ============================");
-        System.out.println(config.getMaxIter());
+        System.out.println("============================ START Linear Regression ============================");
+
         // get settings
         int maxIterations = config.getMaxIter();
         double regParam = config.getRegParam();
@@ -62,12 +62,10 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ rowOriginalData @@@@@@@@@@@@@@@@@@@@@@@@@");
         rowOriginalData.show();
 
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Split the data into train and test @@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Split the data into train and test @@@@@@@@@@@@@@@@@@@@@@@@@");
         var splittedData = this.splitTrainTest(rowOriginalData, config.getSeed(), config.getFraction());
         var train = splittedData[0];
         var test = splittedData[1];
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Train set Count: " + train.count());
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Test set Count: " +test.count());
 
         LinearRegression lr = new LinearRegression()
                 .setMaxIter(maxIterations)
@@ -80,7 +78,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         LinearRegressionModel lrModel = lr.fit(train);
 
         // Save model
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Saving model ... @@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Saving model ... @@@@@@@@@@@@@@@@@@@@@@@@@");
         var modelFullPathName = this.saveModel(config, lrModel);
         lrModel.save(modelFullPathName);
 
@@ -102,10 +100,10 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
         LinearRegressionTrainingSummary trainingSummary = lrModel.summary();
 
-        // RMSE ~> 모델 summary에서 RMSE 찾고 웹으로 돌려주어야 하니까 response에 set
+        // RMSE
         response.setRootMeanSquaredError(trainingSummary.rootMeanSquaredError());
 
-        // R2 ~> 모델 summary에서 R2 찾고 웹으로 돌려주어야 하니까 response에 set
+        // R2
         response.setR2(trainingSummary.r2());
 
         response.setListFeatures(config.getFeatureCols().toArray(new String[0]));
@@ -119,7 +117,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
     }
 
     public RegressionResponse predict(BaseAlgorithmPredictInput input) throws Exception {
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@");
 
         // 0. Get settings
         var dataInputOption = input.getDataInputOption();
@@ -148,8 +146,8 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
 
         var lineData = doPredictRegressionData(data, model, input.getListFieldsForPredict());
 
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ PredictionInfo @@@@@@@@@@@@@@@@@@@@@@@@@");
-        log.info(lineData.collect());
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ PredictionInfo @@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println(lineData.collect());
 
         response.setPredictionInfo(lineData.collect());
         response.setListFeatures(listCols);
@@ -157,7 +155,8 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput , BaseA
         response.setPredictedFeatureLine(response.getPredictionInfo());
         response.setClassCol(input.getClassCol());
 
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@ linear regression model predict to unlabeled data successfully. @@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ linear regression model predict to unlabeled data successfully. @@@@@@@@@@@@@@@@@@@@@@@@@");
+
         response.setStatus(ResponseStatus.SUCCESS);
 
         return response;

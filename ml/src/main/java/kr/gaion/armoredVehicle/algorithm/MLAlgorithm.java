@@ -32,153 +32,166 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends BaseAlgorithmPredictInput> implements IMLAlgorithm<T, T2> {
-  protected String name = "genericAlgorithm";
-  @NonNull protected final ElasticsearchSparkService elasticsearchSparkService;
-  @NonNull protected final DatabaseSparkService databaseSparkService;
-	@NonNull protected final Utilities utilities;
-	@NonNull protected final StorageConfig storageConfig;
-	@NonNull protected final ModelUtilService modelUtil;
-	@NonNull protected final FSChiSqSelector chiSqSelector;
-	@NonNull protected final AlgorithmConfig algorithmConfig;
-	@NonNull protected final DataConfig dataConfig;
-	@NonNull protected final SparkSession sparkSession;
-	@NonNull protected final String algorithmName;
-	@NonNull protected final ModelService modelService;
+    @NonNull
+    protected final ElasticsearchSparkService elasticsearchSparkService;
+    @NonNull
+    protected final DatabaseSparkService databaseSparkService;
+    @NonNull
+    protected final Utilities utilities;
+    @NonNull
+    protected final StorageConfig storageConfig;
+    @NonNull
+    protected final ModelUtilService modelUtil;
+    @NonNull
+    protected final FSChiSqSelector chiSqSelector;
+    @NonNull
+    protected final AlgorithmConfig algorithmConfig;
+    @NonNull
+    protected final DataConfig dataConfig;
+    @NonNull
+    protected final SparkSession sparkSession;
+    @NonNull
+    protected final String algorithmName;
+    @NonNull
+    protected final ModelService modelService;
+    
+    protected String name = "genericAlgorithm";
 
-  @Override
-  public abstract AlgorithmResponse train(T input) throws Exception;
+    protected static JavaPairRDD<Object, Object> zipPredictResult(Dataset<Row> trainingResults) {
+        return trainingResults.select("prediction", "index", "features").toJavaRDD()
+                .mapToPair(new PairFunction<>() {
+                    private static final long serialVersionUID = 2113199201851594743L;
 
-  private void mlSaveModel(Saveable model, String modelFullPathName) {
-		model.save(this.sparkSession.sparkContext(), modelFullPathName);
-	}
+                    @Override
+                    public Tuple2<Object, Object> call(Row row) {
+                        return new Tuple2<>(row.get(0), row.get(1));
+                    }
+                });
+    }
 
-	protected String getModelFullPath(String modelName) throws IOException {
-  	return this.utilities.getPathInWorkingFolder(
-				this.storageConfig.getDataDir(),
-				this.algorithmName,
-				this.storageConfig.getModelDir(),
-				modelName);
-	}
-
-	protected String getModelIndexerPath(String modelName) throws IOException {
-  	return this.utilities.getPathInWorkingFolder(
-				this.storageConfig.getDataDir(),
-				this.algorithmName,
-				this.storageConfig.getModelIndexerDir(),
-				modelName);
-	}
-
-  public String saveModel(BaseAlgorithmTrainInput config, Saveable model) throws Exception {
-	  log.info("-------------------- saveModel with Saveable model --------------------");
-
-	  String modelName = config.getModelName();
-
-	  var modelFullPathName = this.getModelFullPath(modelName);
-
-	  modelUtil.deleteModelIfExisted(modelFullPathName);
-
-	  this.mlSaveModel(model, modelFullPathName);
-
-	  // StringIndexer model saving ..
-	  String modelIndexerPath = this.getModelIndexerPath(modelName);
-
-	  modelUtil.deleteModelIfExisted(modelIndexerPath);
-
-	  return modelIndexerPath;
-	}
-
-	public String saveModel(BaseAlgorithmTrainInput config, MLWritable model) throws Exception {
-		log.info("-------------------- saveModel with MLWritable mode --------------------");
-
-		String modelName = config.getModelName();
-
-		var modelFullPathName = this.getModelFullPath(modelName);
-
-		modelUtil.deleteModelIfExisted(modelFullPathName);
-
-		model.save(modelFullPathName);
-
-		// StringIndexer model saving ..
-		String modelIndexerPath = this.getModelIndexerPath(modelName);
-
-		modelUtil.deleteModelIfExisted(modelIndexerPath);
-
-		return modelIndexerPath;
-	}
-
-	protected <TRow> Dataset<TRow>[] splitTrainTest(Dataset<TRow> data, long seed, double fraction) {
-  	// Split the data into training and test sets
-		Dataset<TRow> trainingData, testData = null;
-		if (fraction <= 100.0) {
-			var splits = data.randomSplit(new double[] { fraction * 0.01, 1 - fraction * 0.01 }, seed);
-			trainingData = splits[0];
-			testData = splits[1];
-		} else {
-			trainingData = data;
-		}
-		trainingData.cache();
-		return new Dataset[]{ trainingData, testData };
-	}
-
-	protected void saveTransformedData(String modelName, String action, Dataset<Row> df) {
-  	String hdfsFileNameFullPath = Paths
-				.get(this.storageConfig.getHomeDir(), this.storageConfig.getDataDir(), this.algorithmName, modelName, action).toString();
-		df.coalesce(1).write().format("com.databricks.spark.csv").option("header", "true").mode(SaveMode.Overwrite)
-				.save(hdfsFileNameFullPath);
-	}
-
-	protected static JavaPairRDD<Object, Object> zipPredictResult(Dataset<Row> trainingResults) {
-		return trainingResults.select("prediction", "index", "features").toJavaRDD()
-				.mapToPair(new PairFunction<>() {
-					private static final long serialVersionUID = 2113199201851594743L;
-					@Override
-					public Tuple2<Object, Object> call(Row row) {
-						return new Tuple2<>(row.get(0), row.get(1));
-					}
-				});
-	}
-
-	protected Dataset<Row> getUnlabeledData(BaseAlgorithmPredictInput config) {
-      var dataInputOption = config.getDataInputOption();
-
-      // unlabeled data
-      Dataset<Row> originalData;
-
-      switch (dataInputOption) {
-         case INPUT_FROM_FILE: {
-         	originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
-         	break;
-         }
-         case INPUT_FROM_ES: {
-            // get test data from ElasticSearch
-//			 data = SparkEsConnector.getUnlabeledDataFromES(config);
-            List<String> docIds = config.getDbDocIds();
-            if (docIds != null) {
-               originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs(docIds);
-            } else {
-               originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs();
+    protected static UserDefinedFunction convertStringToDoubleUDF() {
+        return functions.udf((UDF1<String, Double>) s -> {
+            try {
+                return Double.parseDouble(s);
+            } catch (Exception e) {
+                return 0.0;
             }
-            break;
-         }
-         case INPUT_FROM_DB: {
-         	originalData = this.databaseSparkService.getUnlabeledDataFromDb(config);
-         	break;
-         }
-         default: {
-            // abnormal case:
-            throw new Error("Input method is not acceptable: " + dataInputOption);
-         }
-      }
-      return originalData;
-   }
+        }, DataTypes.DoubleType);
+    }
 
-	 protected static UserDefinedFunction convertStringToDoubleUDF() {
-			return functions.udf((UDF1<String, Double>) s -> {
-				try {
-					return Double.parseDouble(s);
-				} catch (Exception e) {
-					return 0.0;
-				}
-			}, DataTypes.DoubleType);
-	 }
+    @Override
+    public abstract AlgorithmResponse train(T input) throws Exception;
+
+    private void mlSaveModel(Saveable model, String modelFullPathName) {
+        model.save(this.sparkSession.sparkContext(), modelFullPathName);
+    }
+
+    protected String getModelFullPath(String modelName) throws IOException {
+        return this.utilities.getPathInWorkingFolder(
+                this.storageConfig.getDataDir(),
+                this.algorithmName,
+                this.storageConfig.getModelDir(),
+                modelName);
+    }
+
+    protected String getModelIndexerPath(String modelName) throws IOException {
+        return this.utilities.getPathInWorkingFolder(
+                this.storageConfig.getDataDir(),
+                this.algorithmName,
+                this.storageConfig.getModelIndexerDir(),
+                modelName);
+    }
+
+    public String saveModel(BaseAlgorithmTrainInput config, Saveable model) throws Exception {
+        System.out.println("-------------------- saveModel with Saveable model --------------------");
+
+        String modelName = config.getModelName();
+
+        var modelFullPathName = this.getModelFullPath(modelName);
+
+        modelUtil.deleteModelIfExisted(modelFullPathName);
+
+        this.mlSaveModel(model, modelFullPathName);
+
+        // StringIndexer model saving ..
+        String modelIndexerPath = this.getModelIndexerPath(modelName);
+
+        modelUtil.deleteModelIfExisted(modelIndexerPath);
+
+        return modelIndexerPath;
+    }
+
+    public String saveModel(BaseAlgorithmTrainInput config, MLWritable model) throws Exception {
+        System.out.println("-------------------- saveModel with MLWritable mode --------------------");
+
+        String modelName = config.getModelName();
+
+        var modelFullPathName = this.getModelFullPath(modelName);
+
+        modelUtil.deleteModelIfExisted(modelFullPathName);
+
+        model.save(modelFullPathName);
+
+        // StringIndexer model saving ..
+        String modelIndexerPath = this.getModelIndexerPath(modelName);
+
+        modelUtil.deleteModelIfExisted(modelIndexerPath);
+
+        return modelIndexerPath;
+    }
+
+    protected <TRow> Dataset<TRow>[] splitTrainTest(Dataset<TRow> data, long seed, double fraction) {
+        // Split the data into training and test sets
+        Dataset<TRow> trainingData, testData = null;
+        if (fraction <= 100.0) {
+            var splits = data.randomSplit(new double[]{fraction * 0.01, 1 - fraction * 0.01}, seed);
+            trainingData = splits[0];
+            testData = splits[1];
+        } else {
+            trainingData = data;
+        }
+        trainingData.cache();
+        return new Dataset[]{trainingData, testData};
+    }
+
+    protected void saveTransformedData(String modelName, String action, Dataset<Row> df) {
+        String hdfsFileNameFullPath = Paths
+                .get(this.storageConfig.getHomeDir(), this.storageConfig.getDataDir(), this.algorithmName, modelName, action).toString();
+        df.coalesce(1).write().format("com.databricks.spark.csv").option("header", "true").mode(SaveMode.Overwrite)
+                .save(hdfsFileNameFullPath);
+    }
+
+    protected Dataset<Row> getUnlabeledData(BaseAlgorithmPredictInput config) {
+        var dataInputOption = config.getDataInputOption();
+
+        // unlabeled data
+        Dataset<Row> originalData;
+
+        switch (dataInputOption) {
+            case INPUT_FROM_FILE: {
+                originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
+                break;
+            }
+            case INPUT_FROM_ES: {
+                // get test data from ElasticSearch
+//			 data = SparkEsConnector.getUnlabeledDataFromES(config);
+                List<String> docIds = config.getDbDocIds();
+                if (docIds != null) {
+                    originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs(docIds);
+                } else {
+                    originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs();
+                }
+                break;
+            }
+            case INPUT_FROM_DB: {
+                originalData = this.databaseSparkService.getUnlabeledDataFromDb(config);
+                break;
+            }
+            default: {
+                // abnormal case:
+                throw new Error("Input method is not acceptable: " + dataInputOption);
+            }
+        }
+        return originalData;
+    }
 }

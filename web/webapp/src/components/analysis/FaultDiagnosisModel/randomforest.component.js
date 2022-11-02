@@ -13,7 +13,7 @@ export default class RandomForest extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-        랜덤포레스트
+        랜덤 포레스트
         </header>
       </div>
     );

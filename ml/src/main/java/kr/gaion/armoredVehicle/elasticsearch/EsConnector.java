@@ -91,8 +91,7 @@ public class EsConnector {
 		), RequestOptions.DEFAULT);
 
 		long deleted = response.getDeleted();
-		log.info(String.format("Deleted _index: %s, _type: %s", index,
-				deleted));
+		System.out.println(String.format("Deleted _index: %s, _type: %s", index, deleted));
 	}
 
 	/**

@@ -78,7 +78,7 @@ public class ModelUtilService {
 			writer.write(dataBuilder.toString());
 			writer.close();
 		} else {
-			log.info("Target file is existed and currently locked");
+			System.out.println("Target file is existed and currently locked");
 			return null;
 		}
 

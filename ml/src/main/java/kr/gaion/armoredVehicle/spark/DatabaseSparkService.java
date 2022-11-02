@@ -2,12 +2,8 @@ package kr.gaion.armoredVehicle.spark;
 
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
-import kr.gaion.armoredVehicle.algorithm.dto.input.FileInput;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.DatabaseConfiguration;
-import kr.gaion.armoredVehicle.database.model.TrainingBearing;
-import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
-import kr.gaion.armoredVehicle.elasticsearch.ESIndexConfig;
 import kr.gaion.armoredVehicle.spark.dto.LabeledData;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.NonNull;
@@ -19,78 +15,22 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.elasticsearch.spark.sql.api.java.JavaEsSparkSQL;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
 @Log4j
 public class DatabaseSparkService {
-    @NonNull protected final SparkSession spark;
-    @NonNull protected final Utilities utilities;
-    @NonNull private final DatabaseConfiguration databaseConfiguration;
-
-    public String JDBCQuery(String query) {
-        String DB_URL = databaseConfiguration.getUrl();
-        String USER = databaseConfiguration.getUser();
-        String PASS = databaseConfiguration.getPassword();
-
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-        ){
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return "success";
-    }
-
-    public Dataset<Row> getLabeledDatasetFromDatabase(BaseAlgorithmTrainInput input) {
-//        log.info("Getting data from ElasticSearch for: " + this.dbIndexConfig.getIndex() + "/" + this.dbIndexConfig.getReadingType() + "/");
-        //Todo 부품 별 테이블 선택 로직 구현
-        // TODO: 2022-07-14 부품 선택 input 기능 구현
-
-        System.out.println(input.getPartType() + "ASDFASDFADfa");
-        var jvRddData = this.getDataRDDFromDb(input.getPartType());
-
-        var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
-        return spark.createDataFrame(esData.rdd(), LabeledData.class);
-    }
-
-    public Dataset<Row> getDataRDDFromDb(String partType){
-        String tname = null;
-        if(partType.equals("B") ){
-            tname= "BERTRNNG";
-        }else if (partType.equals("W")){
-            tname= "WHLTRNNG";
-        }else if (partType.equals("E")){
-            tname= "ENGTRNNG";
-        }else if (partType.equals("G")){
-            tname= "GRBTRNNG";
-        }else if (partType.equals("T")){
-            tname= "TEMPLIFE";
-        }
-        try{
-            System.out.println(tname);
-            Dataset<Row> jdbcDF = spark.read()
-                    .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("dbtable", tname.toUpperCase())
-                    .option("user", "AMVHC_U")
-                    .option("password", "!Tltmxpa0517")
-                    .load();
-            return jdbcDF;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    @NonNull
+    protected final SparkSession spark;
+    @NonNull
+    protected final Utilities utilities;
+    @NonNull
+    private final DatabaseConfiguration databaseConfiguration;
 
     private static Dataset<LabeledData> processData(
             Dataset<Row> jvRddData,
@@ -98,7 +38,7 @@ public class DatabaseSparkService {
             List<String> featureCols,
             String classCol) {
         List<String> filteredOutFields = new ArrayList<>();
-        for (String field: featureCols) {
+        for (String field : featureCols) {
             if (filterOutFields == null || !filterOutFields.contains(field)) {
                 filteredOutFields.add(field);
             }
@@ -135,18 +75,6 @@ public class DatabaseSparkService {
                 return dataReturn;
             }
         }, Encoders.javaSerialization(LabeledData.class));
-    }
-
-    public Dataset<NumericLabeledData> getNumericLabeledDatasetFromDb(BaseAlgorithmTrainInput input) {
-        var featureCols = input.getFeatureCols();
-        var classCol = input.getClassCol();
-
-        var jvRddData = this.getDataRDDFromDb("TEMPLIFE");
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ jvRddData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
-        jvRddData.show();
-
-        return processNumericLabeledDataset(jvRddData, classCol, featureCols);
     }
 
     private static Dataset<NumericLabeledData> processNumericLabeledDataset(
@@ -188,6 +116,133 @@ public class DatabaseSparkService {
         }, Encoders.javaSerialization(NumericLabeledData.class));
     }
 
+    public String JDBCQuery(String query) {
+        String DB_URL = databaseConfiguration.getUrl();
+        String USER = databaseConfiguration.getUser();
+        String PASS = databaseConfiguration.getPassword();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query);
+        ) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "success";
+    }
+
+    public Dataset<Row> getLabeledDatasetFromDatabase(BaseAlgorithmTrainInput input) {
+        var jvRddData = this.getDataRDDFromDb(input.getPartType());
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ jvRddData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        jvRddData.show(false);
+
+        var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
+        return spark.createDataFrame(esData.rdd(), LabeledData.class);
+    }
+
+    public Dataset<Row> getDataRDDFromDb(String partType) {
+        String query = null;
+        switch (partType) {
+            case "BLB":
+                // Bearing Left Ball
+                query = " SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BSF, b.L_B_V_32924BSF, b.L_B_V_32922BSF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE` ";
+                break;
+            case "BLI":
+                // Bearing Left Inside
+                query = " SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFI, b.L_B_V_32924BPFI, b.L_B_V_32922BPFI, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE` ";
+                break;
+            case "BLO":
+                // Bearing Left Outside
+                query = " SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFO, b.L_B_V_32924BPFO, b.L_B_V_32922BPFO, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE`  ";
+                break;
+            case "BLR":
+                // Bearing Left Retainer
+                query = " SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912FTF, b.L_B_V_32924FTF, b.L_B_V_32922FTF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE`  ";
+                break;
+            case "BRB":
+                // Bearing Right Ball
+                query = " SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BSF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE`  ";
+                break;
+
+            case "BRI":
+                // Bearing Right Inside
+                query = " SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFI, b.R_B_V_32924BPFI, b.R_B_V_32922BPFI, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE` ";
+                break;
+
+            case "BRO":
+                // Bearing Right Outside
+                query = " SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFO, b.R_B_V_32924BPFO, b.R_B_V_32922BPFO, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE` ";
+                break;
+
+            case "BRR":
+                // Bearing Right Retainer
+                query = " SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912FTF, b.R_B_V_32924FTF, b.R_B_V_32922FTF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM BERTRNNG b, ENGTRNNG e " +
+                        " WHERE b.`DATE` = e.`DATE` ";
+                break;
+
+            case "WL":
+                // Wheel Left
+                query = "  ";
+                break;
+
+            case "WR":
+                // Wheel Right
+                query = "  ";
+                break;
+
+            case "G":
+                // Gearbox
+                query = "  ";
+                break;
+
+            case "E":
+                // Engine
+                query = "  ";
+                break;
+        }
+        try {
+            System.out.println("########## partType " + partType);
+            Dataset<Row> jdbcDF = spark.read()
+                    .format("jdbc")
+                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
+                    .option("user", "AMVHC_U")
+                    .option("password", "!Tltmxpa0517")
+                    .option("dbtable", query)
+                    .load();
+            return jdbcDF;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Dataset<NumericLabeledData> getNumericLabeledDatasetFromDb(BaseAlgorithmTrainInput input) {
+        var featureCols = input.getFeatureCols();
+        var classCol = input.getClassCol();
+
+        var jvRddData = this.getDataRDDFromDb("TEMPLIFE");
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ jvRddData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        jvRddData.show();
+
+        return processNumericLabeledDataset(jvRddData, classCol, featureCols);
+    }
+
     public Dataset<Row> getDatasetFromDatabase() {
         Dataset<Row> jdbcDF = spark.read()
                 .format("jdbc")
@@ -202,7 +257,7 @@ public class DatabaseSparkService {
     //import Db unlabeled data for predict
     public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput) {
         String tname = null;
-        switch(baseAlgorithmPredictInput.getDataType()){
+        switch (baseAlgorithmPredictInput.getDataType()) {
             case "B": {
                 tname = "BERDATA";
                 break;
@@ -224,13 +279,13 @@ public class DatabaseSparkService {
                 break;
             }
         }
-        System.out.println("Select * from "+tname+" where AI_Predict is Null) as subtest");
-        try{
+        System.out.println("Select * from " + tname + " where AI_Predict is Null) as subtest");
+        try {
             System.out.println(tname);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
                     .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("dbtable", "(Select * from "+tname+" where AI_Predict is Null) as subtest")
+                    .option("dbtable", "(Select * from " + tname + " where AI_Predict is Null) as subtest")
                     .option("user", "AMVHC_U")
                     .option("password", "!Tltmxpa0517")
                     .load();

@@ -1,12 +1,15 @@
 package kr.gaion.armoredVehicle.dataset.helper;
 
 import kr.gaion.armoredVehicle.database.model.*;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,13 +17,15 @@ import java.util.List;
 
 public class CSVHelper {
     public static String TYPE = "text/csv";
+
     public static boolean hasCSVFormat(MultipartFile file) {
         if (!TYPE.equals(file.getContentType())) {
             return false;
         }
         return true;
     }
-    public static List<TrainingBearing> csvToBearing(InputStream is) {
+
+    public static List<TrainingBearing> csvToBearing(InputStream is, String fileName) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<TrainingBearing> trainingBearingList = new ArrayList<>();
@@ -32,6 +37,10 @@ public class CSVHelper {
                 trainingBearing.setOperateTime(new SimpleDateFormat("HH:mm:ss").parse(csvRecord.get("OPERTIME")));
                 trainingBearing.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
                 trainingBearing.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
+                trainingBearing.setFileNm(fileName);
+
+                trainingBearing.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
+
                 //left
                 trainingBearing.setLbvOverallRMS(Double.parseDouble(csvRecord.get("L_B_V_OverallRMS")));
                 trainingBearing.setLbv1x(Double.parseDouble(csvRecord.get("L_B_V_1X")));
@@ -52,6 +61,7 @@ public class CSVHelper {
                 trainingBearing.setLbsFault1(Double.parseDouble(csvRecord.get("L_B_S_Fault1")));
                 trainingBearing.setLbsFault2(Double.parseDouble(csvRecord.get("L_B_S_Fault2")));
                 trainingBearing.setLbtTemperature(Double.parseDouble(csvRecord.get("L_B_T_Temperature")));
+
                 //right
                 trainingBearing.setRbvOverallRMS(Double.parseDouble(csvRecord.get("R_B_V_OverallRMS")));
                 trainingBearing.setRbv1x(Double.parseDouble(csvRecord.get("R_B_V_1X")));
@@ -73,8 +83,15 @@ public class CSVHelper {
                 trainingBearing.setRbsFault2(Double.parseDouble(csvRecord.get("R_B_S_Fault2")));
                 trainingBearing.setRbtTemperature(Double.parseDouble(csvRecord.get("R_B_T_Temperature")));
 
-                trainingBearing.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
-                trainingBearing.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
+                // AI-Predict
+                trainingBearing.setAiLbpfo(Integer.parseInt(csvRecord.get("AI_LBPFO")));
+                trainingBearing.setAiLbpfi(Integer.parseInt(csvRecord.get("AI_LBPFI")));
+                trainingBearing.setAiLbsf(Integer.parseInt(csvRecord.get("AI_LBSF")));
+                trainingBearing.setAiLftf(Integer.parseInt(csvRecord.get("AI_LFTF")));
+                trainingBearing.setAiRbpfo(Integer.parseInt(csvRecord.get("AI_RBPFO")));
+                trainingBearing.setAiRbpfi(Integer.parseInt(csvRecord.get("AI_RBPFI")));
+                trainingBearing.setAiRbsf(Integer.parseInt(csvRecord.get("AI_RBSF")));
+                trainingBearing.setAiRftf(Integer.parseInt(csvRecord.get("AI_RFTF")));
 
                 trainingBearingList.add(trainingBearing);
             }
