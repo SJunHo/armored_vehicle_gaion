@@ -23,14 +23,6 @@ public class TrainingBearing {
     @Column(name = "SDAID")
     private String carId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "OPERDATE")
-    private Date operateDate;
-
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(name = "OPERTIME")
-    private Date operateTime;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "DATE")
     private Date operateDateTime;
@@ -154,9 +146,6 @@ public class TrainingBearing {
 
     @Column(name = "W_RPM")
     private double wrpm;
-
-    @Column(name = "TRNNGTYPE")
-    private String trnngtype;
 
     @Column(name = "FILENM")
     private String fileNm;

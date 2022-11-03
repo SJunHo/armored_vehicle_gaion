@@ -30,12 +30,14 @@ public class CSVHelper {
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<TrainingBearing> trainingBearingList = new ArrayList<>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingBearing trainingBearing = new TrainingBearing();
                 trainingBearing.setCarId(csvRecord.get("SDAID"));
-                trainingBearing.setOperateDate(new SimpleDateFormat("yyyy-MM-dd").parse(csvRecord.get("OPERDATE")));
-                trainingBearing.setOperateTime(new SimpleDateFormat("HH:mm:ss").parse(csvRecord.get("OPERTIME")));
-                trainingBearing.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
+                trainingBearing.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(csvRecord.get("DATE")));
                 trainingBearing.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
                 trainingBearing.setFileNm(fileName);
 
@@ -111,8 +113,6 @@ public class CSVHelper {
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingWheel trainingWheel = new TrainingWheel();
                 trainingWheel.setCarId(csvRecord.get("SDAID"));
-                trainingWheel.setOperateDate(new SimpleDateFormat("yyyy-MM-dd").parse(csvRecord.get("OPERDATE")));
-                trainingWheel.setOperateTime(new SimpleDateFormat("HH:mm:ss").parse(csvRecord.get("OPERTIME")));
                 trainingWheel.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
                 trainingWheel.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
@@ -144,8 +144,6 @@ public class CSVHelper {
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingGearbox trainingGearbox = new TrainingGearbox();
                 trainingGearbox.setCarId(csvRecord.get("SDAID"));
-                trainingGearbox.setOperateDate(new SimpleDateFormat("yyyy-MM-dd").parse(csvRecord.get("OPERDATE")));
-                trainingGearbox.setOperateTime(new SimpleDateFormat("HH:mm:ss").parse(csvRecord.get("OPERTIME")));
                 trainingGearbox.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
                 trainingGearbox.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
@@ -178,8 +176,6 @@ public class CSVHelper {
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingEngine trainingEngine = new TrainingEngine();
                 trainingEngine.setCarId(csvRecord.get("SDAID"));
-                trainingEngine.setOperateDate(new SimpleDateFormat("yyyy-MM-dd").parse(csvRecord.get("OPERDATE")));
-                trainingEngine.setOperateTime(new SimpleDateFormat("HH:mm:ss").parse(csvRecord.get("OPERTIME")));
                 trainingEngine.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
                 trainingEngine.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 

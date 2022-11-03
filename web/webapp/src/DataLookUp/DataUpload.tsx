@@ -40,10 +40,11 @@ export const DataUpload: React.FC = () => {
       {selectedTab === "upload" && (
         <UploadPage
           uploading={uploading}
-          onUploadFile={(files) => {
+          onUploadFile={(files, selectedPart) => {
+            console.log(selectedPart)
             setUploading(true);
             datasetDatabaseControllerApi
-              ?.uploadCSVFileAndImportDB('', files)
+              ?.uploadCSVFileAndImportDB(selectedPart, files)
               .then(() => setUploadedFiles(files))
               .finally(() => setUploading(false));
           }}
@@ -66,11 +67,11 @@ export const DataUpload: React.FC = () => {
 };
 
 const UploadPage: React.FC<{
-  onUploadFile: (files: File[]) => any;
+  onUploadFile: (files: File[], selectedPart: any) => any;
   uploading: boolean;
 }> = ({onUploadFile, uploading}) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [selectedDataType, setSelectedDataType] = useState<any>(null);
+  const [selectedDataType, setSelectedDataType] = useState<any>("B");
 
 
   return (
@@ -106,7 +107,7 @@ const UploadPage: React.FC<{
             <Button
               disabled={uploading}
               type="submit"
-              onClick={() => onUploadFile(selectedFiles)}
+              onClick={() => onUploadFile(selectedFiles, selectedDataType)}
             >
               {uploading && (
                 <Spinner
