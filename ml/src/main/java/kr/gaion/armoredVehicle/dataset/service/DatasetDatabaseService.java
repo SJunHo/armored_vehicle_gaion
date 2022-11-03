@@ -61,6 +61,7 @@ public class DatasetDatabaseService {
                         System.out.println("file.getOriginalFilename() : " + file.getOriginalFilename());
                         List<TrainingBearing> trainingBearingList = CSVHelper.csvToBearing(file.getInputStream(), file.getOriginalFilename());
                         trainingBearingRepository.saveAll(trainingBearingList);
+                        break;
                     } catch (IOException e) {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
                     }
@@ -69,6 +70,8 @@ public class DatasetDatabaseService {
                     try {
                         List<TrainingWheel> trainingWheelList = CSVHelper.csvToWheel(file.getInputStream());
                         trainingWheelRepository.saveAll(trainingWheelList);
+                        break;
+
                     } catch (IOException e) {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
                     }
@@ -77,6 +80,8 @@ public class DatasetDatabaseService {
                     try {
                         List<TrainingGearbox> trainingGearboxList = CSVHelper.csvToGearbox(file.getInputStream());
                         trainingGearboxRepository.saveAll(trainingGearboxList);
+                        break;
+
                     } catch (IOException e) {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
                     }
@@ -85,6 +90,8 @@ public class DatasetDatabaseService {
                     try {
                         List<TrainingEngine> trainingEngineList = CSVHelper.csvToEngine(file.getInputStream());
                         trainingEngineRepository.saveAll(trainingEngineList);
+                        break;
+
                     } catch (IOException e) {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
                     }
@@ -93,6 +100,8 @@ public class DatasetDatabaseService {
                     try {
                         List<TrainingTempLife> trainingTempLifeList = CSVHelper.csvToTempLife(file.getInputStream());
                         trainingTempLifeRepository.saveAll(trainingTempLifeList);
+                        break;
+
                     } catch (IOException e) {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
                     }
