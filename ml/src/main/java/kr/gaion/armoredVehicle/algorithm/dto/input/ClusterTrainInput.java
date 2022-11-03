@@ -5,12 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClusterTrainInput extends BaseAlgorithmTrainInput  {
-  private int numClusters;
-  private int numIterations;
+public class ClusterTrainInput extends BaseAlgorithmTrainInput {
+    private int numClusters;
+    private int numIterations;
 
-  // IF
-  private boolean bootstrap;
-  private int maxFeatures;
-  private int maxSamples;
+    // IF
+    private int numEstimators;
+    private int maxFeatures;
+    private int maxSamples;
 }

@@ -744,10 +744,10 @@ export interface ClusterTrainInput {
     numIterations?: number;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof ClusterTrainInput
      */
-    bootstrap?: boolean;
+    numEstimators?: number;
     /**
      * 
      * @type {number}
@@ -1824,13 +1824,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1921,13 +1921,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 
@@ -8237,45 +8237,6 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {ClusterTrainInput} clusterTrainInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        trainKmean: async (clusterTrainInput: ClusterTrainInput, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'clusterTrainInput' is not null or undefined
-            assertParamExists('trainKmean', 'clusterTrainInput', clusterTrainInput)
-            const localVarPath = `/api/train/kmean`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearer-key required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(clusterTrainInput, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8671,16 +8632,6 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {ClusterTrainInput} clusterTrainInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async trainKmean(clusterTrainInput: ClusterTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClusterResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.trainKmean(clusterTrainInput, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8854,15 +8805,6 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          */
         trainIsolationForest(clusterTrainInput: ClusterTrainInput, options?: any): AxiosPromise<ClusterResponse> {
             return localVarFp.trainIsolationForest(clusterTrainInput, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {ClusterTrainInput} clusterTrainInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        trainKmean(clusterTrainInput: ClusterTrainInput, options?: any): AxiosPromise<ClusterResponse> {
-            return localVarFp.trainKmean(clusterTrainInput, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9051,17 +8993,6 @@ export class MlControllerApi extends BaseAPI {
      */
     public trainIsolationForest(clusterTrainInput: ClusterTrainInput, options?: any) {
         return MlControllerApiFp(this.configuration).trainIsolationForest(clusterTrainInput, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {ClusterTrainInput} clusterTrainInput 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MlControllerApi
-     */
-    public trainKmean(clusterTrainInput: ClusterTrainInput, options?: any) {
-        return MlControllerApiFp(this.configuration).trainKmean(clusterTrainInput, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

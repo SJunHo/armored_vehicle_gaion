@@ -34,131 +34,133 @@ import java.util.stream.IntStream;
 
 @Log4j2
 public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrainInput, BaseAlgorithmPredictInput> {
-  private final PcaDimensionalityReduction dimensionalityReduction;
-  public ClusterMlAlgorithm(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull String algorithmName, @NonNull ModelService modelService, @NonNull PcaDimensionalityReduction dimensionalityReduction) {
-    super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil,  chiSqSelector, algorithmConfig, dataConfig, sparkSession, algorithmName, modelService);
-    this.dimensionalityReduction = dimensionalityReduction;
-  }
+    private final PcaDimensionalityReduction dimensionalityReduction;
 
-  @Override
-  public ClusterResponse predict(BaseAlgorithmPredictInput config) throws Exception {
-    System.out.println("Start detecting outliers in data ..");
-
-    Dataset<Row> orgData = this.getUnlabeledData(config);
-
-    /* Preprocessing data */
-    String idColName = config.getClassCol();
-    List<String> fieldsForPredict = config.getListFieldsForPredict();
-    var listColNames = Arrays.asList(orgData.columns());
-    boolean isTagAvailable = listColNames.contains("tagging");
-
-    for (String featureField: fieldsForPredict) {
-      orgData = orgData.withColumn(featureField, convertStringToDoubleUDF().apply(orgData.col(featureField).cast(DataTypes.StringType)));
+    public ClusterMlAlgorithm(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull String algorithmName, @NonNull ModelService modelService, @NonNull PcaDimensionalityReduction dimensionalityReduction) {
+        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, algorithmName, modelService);
+        this.dimensionalityReduction = dimensionalityReduction;
     }
-    var fData = new VectorAssembler("cfa")
-        .setInputCols(fieldsForPredict.toArray(new String[0]))
-        .setOutputCol("features")
-        .transform(orgData);
-    var prepInputDF = fData.withColumn("label", fData.col(idColName));
 
-    Dataset<Row> data = config.isDimensionalityReduction()
-        ? PcaDimensionalityReduction.computePcaDataframeApiFromDF(config, prepInputDF)
-        : prepInputDF.select(ClusterResponse.ID_COLUMN,
-          ClusterResponse.FEATURES);
-    /* End of preprocessing data */
+    @Override
+    public ClusterResponse predict(BaseAlgorithmPredictInput config) throws Exception {
+        System.out.println("Start detecting outliers in data ..");
 
-    String modelDir = this.getModelFullPath(config.getModelName());
-    var predictedData = predictUnlabeledData(data, isTagAvailable, config.isDimensionalityReduction(), modelDir);
+        Dataset<Row> orgData = this.getUnlabeledData(config);
 
-    ClusterResponse response = new ClusterResponse(ResponseType.OBJECT_DATA);
-    response.setStatus(ResponseStatus.SUCCESS);
-    response.setListFeatures(fieldsForPredict.toArray(new String[0]));
+        /* Preprocessing data */
+        String idColName = config.getClassCol();
+        List<String> fieldsForPredict = config.getListFieldsForPredict();
+        var listColNames = Arrays.asList(orgData.columns());
+        boolean isTagAvailable = listColNames.contains("tagging");
 
-    var enrichedPredictedData = this.enrichPredictedData(config, predictedData);
-    Dataset<Row> testClusterDf = enrichedPredictedData
-        .withColumn("v2a", functions$.MODULE$.vector_to_array(enrichedPredictedData.col("features"), "float64"))
-        .withColumns(
-            CollectionConverters.asScalaBuffer(fieldsForPredict).toSeq(),
-            CollectionConverters.asScalaBuffer(
-                IntStream.range(0, fieldsForPredict.size())
-                  .mapToObj(index -> functions.col("v2a").getItem(index))
-                  .collect(Collectors.toList())).toSeq())
-        .drop("features")
-        .drop("v2a");
-    var maxResults = testClusterDf.count();
-    var predictionInfo = (Row[]) testClusterDf.take((int)maxResults);
-    response.setPredictionInfo(
-        Arrays.stream(predictionInfo)
-            .map(row -> row.mkString(","))
-            .collect(Collectors.toList()));
+        for (String featureField : fieldsForPredict) {
+            orgData = orgData.withColumn(featureField, convertStringToDoubleUDF().apply(orgData.col(featureField).cast(DataTypes.StringType)));
+        }
+        var fData = new VectorAssembler("cfa")
+                .setInputCols(fieldsForPredict.toArray(new String[0]))
+                .setOutputCol("features")
+                .transform(orgData);
+        var prepInputDF = fData.withColumn("label", fData.col(idColName));
 
-    return response;
-  }
+        Dataset<Row> data = config.isDimensionalityReduction()
+                ? PcaDimensionalityReduction.computePcaDataframeApiFromDF(config, prepInputDF)
+                : prepInputDF.select(ClusterResponse.ID_COLUMN,
+                ClusterResponse.FEATURES);
+        /* End of preprocessing data */
 
-  protected Dataset<Row> enrichPredictedData(BaseAlgorithmPredictInput input, Dataset<Row> predictedData) throws Exception {
-		return predictedData.withColumnRenamed("prediction", "clusterId");
-	}
+        String modelDir = this.getModelFullPath(config.getModelName());
+        var predictedData = predictUnlabeledData(data, isTagAvailable, config.isDimensionalityReduction(), modelDir);
 
-  protected abstract Dataset<Row> predictUnlabeledData(
-      Dataset<Row> data, boolean isTagAvailable, boolean dimensionalityReductionEnableFlg, String modelDir
-  );
+        ClusterResponse response = new ClusterResponse(ResponseType.OBJECT_DATA);
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setListFeatures(fieldsForPredict.toArray(new String[0]));
 
-  protected abstract TModel trainModel(ClusterTrainInput input, Dataset<Row> trainData);
+        var enrichedPredictedData = this.enrichPredictedData(config, predictedData);
+        Dataset<Row> testClusterDf = enrichedPredictedData
+                .withColumn("v2a", functions$.MODULE$.vector_to_array(enrichedPredictedData.col("features"), "float64"))
+                .withColumns(
+                        CollectionConverters.asScalaBuffer(fieldsForPredict).toSeq(),
+                        CollectionConverters.asScalaBuffer(
+                                IntStream.range(0, fieldsForPredict.size())
+                                        .mapToObj(index -> functions.col("v2a").getItem(index))
+                                        .collect(Collectors.toList())).toSeq())
+                .drop("features")
+                .drop("v2a");
+        var maxResults = testClusterDf.count();
+        var predictionInfo = (Row[]) testClusterDf.take((int) maxResults);
+        response.setPredictionInfo(
+                Arrays.stream(predictionInfo)
+                        .map(row -> row.mkString(","))
+                        .collect(Collectors.toList()));
 
-  protected abstract Dataset<Row> predictData(Dataset<Row> input, TModel model);
+        return response;
+    }
 
-  @Override
-  public ClusterResponse train(ClusterTrainInput config) throws Exception {
-    Dataset<Row> trainData;
+    protected Dataset<Row> enrichPredictedData(BaseAlgorithmPredictInput input, Dataset<Row> predictedData) throws Exception {
+        return predictedData.withColumnRenamed("prediction", "clusterId");
+    }
 
-    if (config.isFeaturesSelectionEnableFlg()) {
-      // get input data
-      trainData = this.dimensionalityReduction.computePcaDataframeApi(config);
-    } else {
+    protected abstract Dataset<Row> predictUnlabeledData(
+            Dataset<Row> data, boolean isTagAvailable, boolean dimensionalityReductionEnableFlg, String modelDir
+    );
+
+    protected abstract TModel trainModel(ClusterTrainInput input, Dataset<Row> trainData);
+
+    protected abstract Dataset<Row> predictData(Dataset<Row> input, TModel model);
+
+    @Override
+    public ClusterResponse train(ClusterTrainInput config) throws Exception {
+        Dataset<Row> trainData;
+
+        if (config.isFeaturesSelectionEnableFlg()) {
+            // get input data
+            trainData = this.dimensionalityReduction.computePcaDataframeApi(config);
+        } else {
 //      // get input data
 //      trainData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
-      trainData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+            trainData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+        }
+
+        TModel model = this.trainModel(config, trainData);
+        // map data to return
+
+        Dataset<Row> trainedDf = this.predictData(trainData, model);
+
+        Dataset<Row> trainedDfWithArrayFeatures = trainedDf.select("label", "features", "prediction")
+                .withColumn("v2a", functions$.MODULE$.vector_to_array(trainData.col("features"), "float64"));
+        Dataset<Row> resultDf = trainedDfWithArrayFeatures
+                .withColumns(CollectionConverters.asScalaBuffer(config.getFeatureCols()).toSeq(),
+                        CollectionConverters.asScalaBuffer(IntStream.range(0, config.getFeatureCols().size())
+                                .mapToObj(index -> functions.col("v2a").getItem(index)).collect(Collectors.toList())).toSeq());
+
+        // save transformed results to CSV file
+        this.saveTransformedData(config.getModelName(), "train", resultDf.drop("v2a", "features"));
+
+        // response to client
+        ClusterResponse response = new ClusterResponse(ResponseType.OBJECT_DATA);
+
+        var maxResults = resultDf.count();
+
+        var resultArray = (Row[]) resultDf.drop("v2a", "features").take((int) maxResults);
+        response.setPredictionInfo(Arrays.stream(resultArray).map(row -> row.mkString(",")).collect(Collectors.toList()));
+
+        response.setListFeatures(config.getFeatureCols().toArray(new String[0]));
+        response.setIdCol(config.getClassCol());
+        response.setStatus(ResponseStatus.SUCCESS);
+        // PCA is applied or not?
+        response.setProcessed(config.isFeaturesSelectionEnableFlg());
+
+        this.doSaveModel(model, config);
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
+        this.modelUtil.saveTrainedResults(config, response, this.algorithmName);
+
+        enrichTrainResponse(response, model, resultDf, config);
+        log.debug("trained successfully.");
+        return response;
     }
 
-    TModel model = this.trainModel(config, trainData);
-    // map data to return
+    protected abstract void doSaveModel(TModel model, ClusterTrainInput input) throws Exception;
 
-    Dataset<Row> trainedDf = this.predictData(trainData, model);
-    Dataset<Row> trainedDfWithArrayFeatures = trainedDf.select("label", "features", "prediction")
-        .withColumn("v2a", functions$.MODULE$.vector_to_array(trainData.col("features"), "float64"));
-    Dataset<Row> resultDf = trainedDfWithArrayFeatures
-        .withColumns(CollectionConverters.asScalaBuffer(config.getFeatureCols()).toSeq(),
-            CollectionConverters.asScalaBuffer(IntStream.range(0, config.getFeatureCols().size())
-                .mapToObj(index -> functions.col("v2a").getItem(index)).collect(Collectors.toList())).toSeq());
-
-    // save transformed results to CSV file
-    this.saveTransformedData(config.getModelName(), "train", resultDf.drop("v2a", "features"));
-
-    // response to client
-    ClusterResponse response = new ClusterResponse(ResponseType.OBJECT_DATA);
-
-    var maxResults = resultDf.count();
-
-    var resultArray = (Row[]) resultDf.drop("v2a", "features").take((int)maxResults);
-    response.setPredictionInfo(Arrays.stream(resultArray).map(row -> row.mkString(",")).collect(Collectors.toList()));
-
-    response.setListFeatures(config.getFeatureCols().toArray(new String[0]));
-    response.setIdCol(config.getClassCol());
-    response.setStatus(ResponseStatus.SUCCESS);
-    // PCA is applied or not?
-    response.setProcessed(config.isFeaturesSelectionEnableFlg());
-
-    this.doSaveModel(model, config);
-    this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
-    this.modelUtil.saveTrainedResults(config, response, this.algorithmName);
-
-    enrichTrainResponse(response, model, resultDf, config);
-    log.debug("trained successfully.");
-    return response;
-  }
-
-  protected abstract void doSaveModel(TModel model, ClusterTrainInput input) throws Exception;
-
-  protected void enrichTrainResponse(ClusterResponse response, TModel model, Dataset<Row> resultDf, ClusterTrainInput config) throws Exception {
-  }
+    protected void enrichTrainResponse(ClusterResponse response, TModel model, Dataset<Row> resultDf, ClusterTrainInput config) throws Exception {
+    }
 }

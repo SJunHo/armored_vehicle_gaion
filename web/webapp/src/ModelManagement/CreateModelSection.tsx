@@ -57,10 +57,6 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
           newResult = await mlControllerApi?.trainMLP(input);
           break;
         }
-        case "kmean": {
-          newResult = await mlControllerApi?.trainKmean(input);
-          break;
-        }
         case "if": {
           newResult = await mlControllerApi?.trainIsolationForest(input);
           break;
@@ -418,7 +414,7 @@ export const IsolationForestSection: React.FC = () => {
         <Form.Control
           type="number"
           min="0.0"
-          {...register("numClusters", {valueAsNumber: true, value: 2})}
+          {...register("numEstimators", {valueAsNumber: true, value: 100})}
         />
       </InputWrapper>
       <InputWrapper
@@ -431,7 +427,7 @@ export const IsolationForestSection: React.FC = () => {
           type="number"
           min="0.0"
           step="0.1"
-          {...register("maxFeatures", {valueAsNumber: true, value: 0.0})}
+          {...register("maxFeatures", {valueAsNumber: true, value: 1.0})}
         />
 
       </InputWrapper>
@@ -446,15 +442,6 @@ export const IsolationForestSection: React.FC = () => {
           min="0.0"
           {...register("maxSamples", {valueAsNumber: true, value: 256})}
         />
-
-      </InputWrapper>
-      <InputWrapper
-        rowLayout
-        labelWidth={6}
-        className={styles.body2Input}
-        title="부스트스랩"
-      >
-        <Form.Check {...register("bootstrap")} />
       </InputWrapper>
     </>
   );
