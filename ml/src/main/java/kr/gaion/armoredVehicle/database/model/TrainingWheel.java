@@ -16,49 +16,41 @@ import java.util.Date;
 public class TrainingWheel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "train_wheel_generator")
-    @SequenceGenerator(name="train_wheel_generator", sequenceName = "train_wheel_seq")
-    @Column(name="IDX")
+    @SequenceGenerator(name = "train_wheel_generator", sequenceName = "train_wheel_seq")
+    @Column(name = "IDX")
     private long idx;
 
-    @Column(name="SDAID")
+    @Column(name = "SDAID")
     private String carId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name="OPERDATE")
-    private Date operateDate;
-
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(name="OPERTIME")
-    private Date operateTime;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name="DATE")
+    @Column(name = "DATE")
     private Date operateDateTime;
 
-    @Column(name="TIME")
+    @Column(name = "TIME")
     private long timeIndex;
 
-    @Column(name="W_RPM")
+    @Column(name = "W_RPM")
     private double wrpm;
 
-    @Column(name="L_W_V_2X")
+    @Column(name = "L_W_V_2X")
     private double lwv2x;
 
-    @Column(name="L_W_V_3X")
+    @Column(name = "L_W_V_3X")
     private double lwv3x;
 
-    @Column(name="L_W_S_Fault3")
+    @Column(name = "L_W_S_Fault3")
     private double lwsFault3;
 
-    @Column(name="R_W_V_2X")
+    @Column(name = "R_W_V_2X")
     private double rwv2x;
 
-    @Column(name="R_W_V_3X")
+    @Column(name = "R_W_V_3X")
     private double rwv3x;
 
-    @Column(name="R_W_S_Fault3")
+    @Column(name = "R_W_S_Fault3")
     private double rwsFault3;
 
-    @Column(name="AI_Predict")
+    @Column(name = "AI_Predict")
     private double AiPredict;
 }

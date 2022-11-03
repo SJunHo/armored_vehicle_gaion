@@ -58,6 +58,7 @@ public class DatasetDatabaseService {
             switch (dataType) {
                 case "B": {
                     try {
+                        System.out.println("file.getOriginalFilename() : " + file.getOriginalFilename());
                         List<TrainingBearing> trainingBearingList = CSVHelper.csvToBearing(file.getInputStream(), file.getOriginalFilename());
                         trainingBearingRepository.saveAll(trainingBearingList);
                     } catch (IOException e) {

@@ -51,6 +51,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
 
   const [indices, setIndices] = React.useState<string[]>([]);
   const [columns, setColumns] = React.useState<string[]>([]);
+  const [fileName, setFileName] = React.useState<string>("");
   const {t} = useTranslation();
   const {control, watch, setValue} = useFormContext();
 
@@ -74,6 +75,77 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
       });
     }
   }, [mlControllerApi, selectedIndice]);
+
+  function CustomSelect(props: any) {
+    return (
+      <>
+        <style type="text/css">
+          {`.table_style table td {
+            font-size: 11px;
+            color: #cfdee7;
+            padding: 7px 10px;
+            text-align: center;
+            border-bottom: 1px solid #1e313d;
+            /*background: #325165;*/
+          }`}
+        </style>
+
+        <Select2 {...props}/>
+      </>
+    );
+  }
+
+  function findClassLabel(selectedPart: any) {
+    //Todo 베어링 말고도 추가해야됨
+    switch (selectedPart) {
+      case "BLB" :
+        return "AI_LBSF"
+      case "BLO" :
+        return "AI_LBPFO"
+      case "BLI" :
+        return "AI_LBPFI"
+      case "BLR" :
+        return "AI_LFTF"
+      case "BRB" :
+        return "AI_RBSF"
+      case "BRO" :
+        return "AI_RBPFO"
+      case "BRI" :
+        return "AI_RBPFI"
+      case "BRR" :
+        return "AI_RFTF"
+    }
+  }
+
+  function findFeatureCols(selectedPart: any) {
+    //Todo 베어링 말고도 추가해야됨
+    switch (selectedPart) {
+      case "BLB":
+        return ["W_RPM", "L_B_V_1X", "L_B_V_6912BSF", "L_B_V_32924BSF", "L_B_V_32922BSF", "L_B_V_Crestfactor", "L_B_V_Demodulation",
+          "L_B_S_Fault1", "L_B_S_Fault2", "L_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      case "BLO" :
+        return ["W_RPM", "L_B_V_1X", "L_B_V_6912BPFO", "L_B_V_32924BPFO", "L_B_V_32922BPFO", "L_B_V_Crestfactor", "L_B_V_Demodulation",
+          "L_B_S_Fault1", "L_B_S_Fault2", "L_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      case "BLI" :
+        return ["W_RPM", "L_B_V_1X", "L_B_V_6912BPFI", "L_B_V_32924BPFI", "L_B_V_32922BPFI", "L_B_V_Crestfactor", "L_B_V_Demodulation",
+          "L_B_S_Fault1", "L_B_S_Fault2", "L_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      case "BLR" :
+        return ["W_RPM", "L_B_V_1X", "L_B_V_6912FTF", "L_B_V_32924FTF", "L_B_V_32922FTF", "L_B_V_Crestfactor", "L_B_V_Demodulation",
+          "L_B_S_Fault1", "L_B_S_Fault2", "L_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      case "BRB" :
+        return ["W_RPM", "R_B_V_1X", "R_B_V_6912BSF", "R_B_V_32924BSF", "R_B_V_32922BSF", "R_B_V_Crestfactor", "R_B_V_Demodulation",
+          "R_B_S_Fault1", "R_B_S_Fault2", "R_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      case "BRO" :
+        return ["W_RPM", "R_B_V_1X", "R_B_V_6912BPFO", "R_B_V_32924BPFO", "R_B_V_32922BPFO", "R_B_V_Crestfactor", "R_B_V_Demodulation",
+          "R_B_S_Fault1", "R_B_S_Fault2", "R_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      case "BRI" :
+        return ["W_RPM", "R_B_V_1X", "R_B_V_6912BPFI", "R_B_V_32924BPFI", "R_B_V_32922BPFI", "R_B_V_Crestfactor", "R_B_V_Demodulation",
+          "R_B_S_Fault1", "R_B_S_Fault2", "R_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      case "BRR" :
+        return ["W_RPM", "R_B_V_1X", "R_B_V_6912FTF", "R_B_V_32924FTF", "R_B_V_32922FTF", "R_B_V_Crestfactor", "R_B_V_Demodulation",
+          "R_B_S_Fault1", "R_B_S_Fault2", "R_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+    }
+  }
 
   return (
     <Section
@@ -120,7 +192,10 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
                     ? {label: field.value, value: field.value}
                     : undefined
                 }
-                onChange={(v) => setValue("fileName", v?.value)}
+                onChange={(v) => {
+                  setValue("fileName", v?.value)
+                  setFileName(v?.value)
+                }}
                 options={indices.map((indice) => ({
                   value: indice,
                   label: indice,
@@ -129,27 +204,6 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
             )}
           />
         </InputWrapper>
-        {/*<InputWrapper title="클래스 레이블 :">
-          <Controller
-            name="classCol"
-            control={control}
-            render={({field}) => (
-              <Select2
-                {...field}
-                value={
-                  field.value
-                    ? {label: field.value, value: field.value}
-                    : undefined
-                }
-                onChange={(v) => setValue("classCol", v?.value)}
-                options={columns.map((col) => ({
-                  value: col,
-                  label: col,
-                }))}
-              />
-            )}
-          />
-        </InputWrapper>*/}
         <InputWrapper
           title={
             <div className="d-flex gap-3">
@@ -160,7 +214,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
                 onClick={() =>
                   setValue(
                     "featureCols",
-                    columns.filter((col) => col !== classCol)
+                    findFeatureCols(selectedPart),
                   )
                 }
               >
@@ -194,9 +248,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
                   label: v,
                   value: v,
                 }))}
-                options={columns
-                  .filter((col) => col !== classCol)
-                  .map((col) => ({value: col, label: col}))}
+                options={findFeatureCols(selectedPart)?.map((col) => ({value: col, label: col}))}
               />
             )}
           />
@@ -205,44 +257,3 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
     </Section>
   );
 };
-
-function CustomSelect(props: any) {
-  return (
-    <>
-      <style type="text/css">
-        {`.table_style table td {
-            font-size: 11px;
-            color: #cfdee7;
-            padding: 7px 10px;
-            text-align: center;
-            border-bottom: 1px solid #1e313d;
-            /*background: #325165;*/
-          }`}
-      </style>
-
-      <Select2 {...props}/>
-    </>
-  );
-}
-
-function findClassLabel(selectedPart: any) {
-  //Todo 베어링 말고도 추가해야됨
-  switch (selectedPart) {
-    case "BLB" :
-      return "AI_LBSF"
-    case "BLO" :
-      return "AI_LBPFO"
-    case "BLI" :
-      return "AI_LBPFI"
-    case "BLR" :
-      return "AI_LFTF"
-    case "BRB" :
-      return "AI_RBSF"
-    case "BRO" :
-      return "AI_RBPFO"
-    case "BRI" :
-      return "AI_RBPFI"
-    case "BRR" :
-      return "AI_RFTF"
-  }
-}

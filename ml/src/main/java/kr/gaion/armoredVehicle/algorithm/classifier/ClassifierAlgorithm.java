@@ -179,8 +179,8 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
+        System.out.println("@@@@@@@@@@@@@@@ getClassCol : " + config.getClassCol());
+        System.out.println("@@@@@@@@@@@@@@@ getFeatureCols : " + config.getFeatureCols());
 
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
@@ -253,12 +253,9 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         long lSeed = config.getLSeed();
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations);
-        System.out.println("@@@@@@@@@@@@@@@ blockSize : " + blockSize);
-        System.out.println("@@@@@@@@@@@@@@@ seed : " + seed);
-        System.out.println("@@@@@@@@@@@@@@@ layers : " + layers[0] + layers[1]);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
+        System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations + "blockSize : " + blockSize + "seed : " + seed + "layers : " + layers[0] + layers[1]);
+        System.out.println("@@@@@@@@@@@@@@@ getClassCol : " + config.getClassCol());
+        System.out.println("@@@@@@@@@@@@@@@ getFeatureCols : " + config.getFeatureCols());
 
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
@@ -337,12 +334,9 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         long lSeed = config.getLSeed();
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations);
-        System.out.println("@@@@@@@@@@@@@@@ regParam : " + regParam);
-        System.out.println("@@@@@@@@@@@@@@@ elasticNetParam : " + elasticNetParam);
-        System.out.println("@@@@@@@@@@@@@@@ fitIntercept : " + fitIntercept);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
+        System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations + "regParam : " + regParam + "elasticNetParam : " + elasticNetParam + "fitIntercept : " + fitIntercept);
+        System.out.println("@@@@@@@@@@@@@@@ getClassCol : " + config.getClassCol());
+        System.out.println("@@@@@@@@@@@@@@@ getFeatureCols : " + config.getFeatureCols());
 
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
@@ -416,13 +410,9 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         long lSeed = config.getLSeed();
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ numTrees : " + numTrees);
-        System.out.println("@@@@@@@@@@@@@@@ featureSubsetStrategy : " + featureSubsetStrategy);
-        System.out.println("@@@@@@@@@@@@@@@ impurity : " + impurity);
-        System.out.println("@@@@@@@@@@@@@@@ maxDepths : " + maxDepths);
-        System.out.println("@@@@@@@@@@@@@@@ maxBins : " + maxBins);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
+        System.out.println("@@@@@@@@@@@@@@@ numTrees : " + numTrees + "featureSubsetStrategy : " + featureSubsetStrategy + "impurity : " + impurity + "maxDepths : " + maxDepths + "maxBins : " + maxBins);
+        System.out.println("@@@@@@@@@@@@@@@ getClassCol : " + config.getClassCol());
+        System.out.println("@@@@@@@@@@@@@@@ getFeatureCols : " + config.getFeatureCols());
 
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
