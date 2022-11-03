@@ -58,7 +58,7 @@ public class DatasetDatabaseService {
             switch (dataType) {
                 case "B": {
                     try {
-                        System.out.println("file.getOriginalFilename() : " + file.getOriginalFilename());
+                        System.out.println("Original File name : " + file.getOriginalFilename());
                         List<TrainingBearing> trainingBearingList = CSVHelper.csvToBearing(file.getInputStream(), file.getOriginalFilename());
                         trainingBearingRepository.saveAll(trainingBearingList);
                         break;
@@ -68,7 +68,8 @@ public class DatasetDatabaseService {
                 }
                 case "W": {
                     try {
-                        List<TrainingWheel> trainingWheelList = CSVHelper.csvToWheel(file.getInputStream());
+                        System.out.println("Original File name : " + file.getOriginalFilename());
+                        List<TrainingWheel> trainingWheelList = CSVHelper.csvToWheel(file.getInputStream(), file.getOriginalFilename());
                         trainingWheelRepository.saveAll(trainingWheelList);
                         break;
 

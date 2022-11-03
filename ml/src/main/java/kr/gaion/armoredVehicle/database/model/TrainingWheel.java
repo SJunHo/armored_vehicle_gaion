@@ -51,6 +51,12 @@ public class TrainingWheel {
     @Column(name = "R_W_S_Fault3")
     private double rwsFault3;
 
-    @Column(name = "AI_Predict")
-    private double AiPredict;
+    @Column(name = "FILENM")
+    private String fileNm;
+
+    @Column(name = "AI_LW")
+    private int aiLw;
+
+    @Column(name = "AI_RW")
+    private int aiRw;
 }

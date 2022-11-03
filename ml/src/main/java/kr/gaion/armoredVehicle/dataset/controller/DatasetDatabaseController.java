@@ -34,8 +34,7 @@ public class DatasetDatabaseController {
     ) {
         String result = datasetDatabaseService.importCSVtoDatabase(files, partType);
 
-        System.out.println("partTypepartTypepartType" + partType);
-        System.out.println("resultresultresultresult" + result);
+        System.out.println("partType : " + partType + " / " + "import CSV to Database result : " + result);
 
         return files.stream().map(this.datasetDatabaseService::handleUploadFile).collect(Collectors.toList());
     }

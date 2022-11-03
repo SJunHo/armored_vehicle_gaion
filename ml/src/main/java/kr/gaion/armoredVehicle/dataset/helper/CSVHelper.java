@@ -44,6 +44,7 @@ public class CSVHelper {
 
                 trainingBearing.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
+                // File Name
                 trainingBearing.setFileNm(fileName);
 
                 trainingBearing.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
@@ -110,7 +111,7 @@ public class CSVHelper {
         }
     }
 
-    public static List<TrainingWheel> csvToWheel(InputStream is) {
+    public static List<TrainingWheel> csvToWheel(InputStream is, String fileName) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<TrainingWheel> trainingWheelList = new ArrayList<>();
@@ -118,18 +119,32 @@ public class CSVHelper {
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingWheel trainingWheel = new TrainingWheel();
                 trainingWheel.setCarId(csvRecord.get("SDAID"));
-                trainingWheel.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
+
+                // Date(set to timezone)
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+                trainingWheel.setOperateDateTime(sdf.parse(csvRecord.get("DATE")));
+
                 trainingWheel.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
-                trainingWheel.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
-                trainingWheel.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
+                // File Name
+                trainingWheel.setFileNm(fileName);
 
+                trainingWheel.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
+
+                //left
                 trainingWheel.setLwv2x(Double.parseDouble(csvRecord.get("L_W_V_2X")));
                 trainingWheel.setLwv3x(Double.parseDouble(csvRecord.get("L_W_V_3X")));
                 trainingWheel.setLwsFault3(Double.parseDouble(csvRecord.get("L_W_S_Fault3")));
+
+                // right
                 trainingWheel.setRwv2x(Double.parseDouble(csvRecord.get("R_W_V_2X")));
                 trainingWheel.setRwv3x(Double.parseDouble(csvRecord.get("R_W_V_3X")));
                 trainingWheel.setRwsFault3(Double.parseDouble(csvRecord.get("R_W_S_Fault3")));
+
+                // AI-Predict
+                trainingWheel.setAiLw(Integer.parseInt(csvRecord.get("AI_LW")));
+                trainingWheel.setAiRw(Integer.parseInt(csvRecord.get("AI_RW")));
 
                 trainingWheelList.add(trainingWheel);
             }
