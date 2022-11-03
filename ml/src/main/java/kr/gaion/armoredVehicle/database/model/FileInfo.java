@@ -12,8 +12,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-//@Table(name = "FILEINFO_backup")
-// backup -> BACKUP 대문자 변경
 @Table(name = "FILEINFO_BACKUP")
 @Data
 @AllArgsConstructor
@@ -42,26 +40,26 @@ public class FileInfo {
     private String filePt;
 
     @CreationTimestamp
-    @Column(name="`CRTDT`")
+    @Column(name = "`CRTDT`")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
 
     @ManyToOne
-    @JoinColumn(name="`CRTOR`")
+    @JoinColumn(name = "`CRTOR`")
     private User createdBy;
 
-    @Column(name="`CRTOR`", updatable = false, insertable = false, length = 20)
+    @Column(name = "`CRTOR`", updatable = false, insertable = false, length = 20)
     private String createdById;
 
     @UpdateTimestamp
-    @Column(name="`MDFCDT`")
+    @Column(name = "`MDFCDT`")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedAt;
 
     @ManyToOne
-    @JoinColumn(name="`MDFR`")
+    @JoinColumn(name = "`MDFR`")
     private User updatedBy;
 
-    @Column(name="`MDFR`", updatable = false, insertable = false, length = 20)
+    @Column(name = "`MDFR`", updatable = false, insertable = false, length = 20)
     private String updatedById;
 }

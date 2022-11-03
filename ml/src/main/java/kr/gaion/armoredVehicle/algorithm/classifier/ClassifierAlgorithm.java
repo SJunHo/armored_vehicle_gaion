@@ -8,6 +8,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.ResponseType;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
+import kr.gaion.armoredVehicle.algorithm.dto.response.RandomForestClassificationResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.SVMClassificationResponse;
 import kr.gaion.armoredVehicle.algorithm.featureSelector.FSChiSqSelector;
 import kr.gaion.armoredVehicle.common.DataConfig;
@@ -177,22 +178,11 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
-
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
         StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
         Dataset<Row> indexedData = labelIndexer.transform(originalData);
         String[] indicesLabelsMapping = labelIndexer.labels();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        originalData.show(false);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ indexedData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        indexedData.show(false);
 
         // 2. Split the data into train and test
         var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
@@ -216,20 +206,14 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 6. Save model
         this.saveModel(config, lsModel);
-        labelIndexer.write().overwrite().save(this.getModelIndexerPath(config.getModelName()));
+        this.saveModelIndexer(config, labelIndexer);
 
         // 7. response
         var response = new SVMClassificationResponse(ResponseType.OBJECT_DATA);
 
         JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictionAndLabelRdd @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictionAndLabelRdd.take(10).forEach(System.out::println);
-
         JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictedLabelAndVector @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictedLabelAndVector.take(10).forEach(System.out::println);
 
         response.setLabels(indicesLabelsMapping);
 
@@ -252,22 +236,11 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations);
-        System.out.println("@@@@@@@@@@@@@@@ blockSize : " + blockSize);
-        System.out.println("@@@@@@@@@@@@@@@ seed : " + seed);
-        System.out.println("@@@@@@@@@@@@@@@ layers : " + layers[0] + layers[1]);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
-
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
         StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
         Dataset<Row> indexedData = labelIndexer.transform(originalData);
         String[] indicesLabelsMapping = labelIndexer.labels();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        originalData.show(false);
 
         // 2. Split the data into train and test
         var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
@@ -300,20 +273,14 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 6. Save model
         this.saveModel(config, mlpModel);
-        labelIndexer.write().overwrite().save(this.getModelIndexerPath(config.getModelName()));
+        this.saveModelIndexer(config, labelIndexer);
 
         // 7. response
         var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
 
         JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictionAndLabelRdd @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictionAndLabelRdd.take(10).forEach(System.out::println);
-
         JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictedLabelAndVector @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictedLabelAndVector.take(10).forEach(System.out::println);
 
         response.setLabels(indicesLabelsMapping);
 
@@ -336,22 +303,11 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ maxIterations : " + maxIterations);
-        System.out.println("@@@@@@@@@@@@@@@ regParam : " + regParam);
-        System.out.println("@@@@@@@@@@@@@@@ elasticNetParam : " + elasticNetParam);
-        System.out.println("@@@@@@@@@@@@@@@ fitIntercept : " + fitIntercept);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
-
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
         StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
         Dataset<Row> indexedData = labelIndexer.transform(originalData);
         String[] indicesLabelsMapping = labelIndexer.labels();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        originalData.show(false);
 
         // 2. Split the data into train and test
         var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
@@ -378,20 +334,14 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 6. Save model
         this.saveModel(config, lrModel);
-        labelIndexer.write().overwrite().save(this.getModelIndexerPath(config.getModelName()));
+        this.saveModelIndexer(config, labelIndexer);
 
         // 7. response
         var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
 
         JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictionAndLabelRdd @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictionAndLabelRdd.take(10).forEach(System.out::println);
-
         JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictedLabelAndVector @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictedLabelAndVector.take(10).forEach(System.out::println);
 
         response.setLabels(indicesLabelsMapping);
 
@@ -415,24 +365,12 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ input parameters @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ numTrees : " + numTrees);
-        System.out.println("@@@@@@@@@@@@@@@ featureSubsetStrategy : " + featureSubsetStrategy);
-        System.out.println("@@@@@@@@@@@@@@@ impurity : " + impurity);
-        System.out.println("@@@@@@@@@@@@@@@ maxDepths : " + maxDepths);
-        System.out.println("@@@@@@@@@@@@@@@ maxBins : " + maxBins);
-        System.out.println("@@@@@@@@@@@@@@@ fraction : " + fraction);
-        System.out.println("@@@@@@@@@@@@@@@ lSeed : " + lSeed);
-
         // 1. load Data
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
         StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
         Dataset<Row> indexedData = labelIndexer.transform(originalData);
         String[] indicesLabelsMapping = labelIndexer.labels();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        originalData.show(false);
-
+        
         // 2. Split the data into train and test
         var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
         var train = splitData[0];
@@ -459,20 +397,14 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 6. Save model
         this.saveModel(config, rfModel);
-        labelIndexer.write().overwrite().save(this.getModelIndexerPath(config.getModelName()));
+        this.saveModelIndexer(config, labelIndexer);
 
         // 7. response
-        var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
+        var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
 
         JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictionAndLabelRdd @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictionAndLabelRdd.take(10).forEach(System.out::println);
-
         JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictedLabelAndVector @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictedLabelAndVector.take(10).forEach(System.out::println);
 
         response.setLabels(indicesLabelsMapping);
 

@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CSVHelper {
     public static String TYPE = "text/csv";
@@ -32,13 +33,17 @@ public class CSVHelper {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingBearing trainingBearing = new TrainingBearing();
                 trainingBearing.setCarId(csvRecord.get("SDAID"));
-                trainingBearing.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(csvRecord.get("DATE")));
+
+                // Date(set to timezone)
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+                trainingBearing.setOperateDateTime(sdf.parse(csvRecord.get("DATE")));
+
                 trainingBearing.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
+
                 trainingBearing.setFileNm(fileName);
 
                 trainingBearing.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));

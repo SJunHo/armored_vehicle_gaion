@@ -82,13 +82,12 @@ public class ModelService {
 
     public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName, String partType) throws IOException {
         // Write new data
-        System.out.println(String.format("******************** Write new data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
+        System.out.printf("Write new data: Algorithm name: %s, Model name: %s.%n", algorithmName, modelName);
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<>();
         map.put("response", response);
         map.put("modelName", modelName);
         // modelResponseSaveToDatabase
-        System.out.println("algorithmName: " + algorithmName);
         DbModelResponse dbModelResponse = new DbModelResponse();
         dbModelResponse.setPartType(partType);
         switch (algorithmName) {
@@ -132,7 +131,7 @@ public class ModelService {
         }
         dbModelResponseRepository.save(dbModelResponse);
 
-        String insertInfo = "true";
+        String insertInfo = "DB INSERT DONE.";
         System.out.println(insertInfo);
 
         return insertInfo;

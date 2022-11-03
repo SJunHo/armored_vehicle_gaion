@@ -1526,13 +1526,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -1921,13 +1921,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
 }
 /**
  * 
@@ -6707,10 +6707,50 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getTrainingBearingData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataType' is not null or undefined
+            assertParamExists('getTrainingBearingData', 'dataType', dataType)
+            const localVarPath = `/api/data/database/get-all-labeled-bearing-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (dataType !== undefined) {
+                localVarQueryParameter['dataType'] = dataType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getUnlabeledBearingData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
             assertParamExists('getUnlabeledBearingData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-bearing-data`;
+            const localVarPath = `/api/data/database/get-all-unlabeled-bearing-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6750,7 +6790,7 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         getUnlabeledEngineData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
             assertParamExists('getUnlabeledEngineData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-engine-data`;
+            const localVarPath = `/api/data/database/get-all-unlabeled-engine-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6790,7 +6830,7 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         getUnlabeledGearboxData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
             assertParamExists('getUnlabeledGearboxData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-gearbox-data`;
+            const localVarPath = `/api/data/database/get-all-unlabeled-gearbox-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6830,7 +6870,7 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         getUnlabeledTempLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
             assertParamExists('getUnlabeledTempLifeData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-templife-data`;
+            const localVarPath = `/api/data/database/get-all-unlabeled-templife-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6870,7 +6910,7 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         getUnlabeledWheelData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataType' is not null or undefined
             assertParamExists('getUnlabeledWheelData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-wheel-data`;
+            const localVarPath = `/api/data/database/get-all-unlabeled-wheel-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7004,6 +7044,16 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async getTrainingBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingBearingData(dataType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async getUnlabeledBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearing>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingData(dataType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
@@ -7085,6 +7135,15 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getTrainingBearingData(dataType: string, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingBearingData(dataType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} dataType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getUnlabeledBearingData(dataType: string, options?: any): AxiosPromise<Array<SensorBearing>> {
             return localVarFp.getUnlabeledBearingData(dataType, options).then((request) => request(axios, basePath));
         },
@@ -7153,6 +7212,17 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
  * @extends {BaseAPI}
  */
 export class DatasetDatabaseControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} dataType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getTrainingBearingData(dataType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingBearingData(dataType, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {string} dataType 
