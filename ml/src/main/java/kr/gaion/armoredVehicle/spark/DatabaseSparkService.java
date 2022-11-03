@@ -146,56 +146,56 @@ public class DatabaseSparkService {
         switch (partType) {
             case "BLB":
                 // Bearing Left Ball
-                query = String.format(" SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BSF, b.L_B_V_32924BSF, b.L_B_V_32922BSF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_LBSF, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BSF, b.L_B_V_32924BSF, b.L_B_V_32922BSF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
             case "BLI":
                 // Bearing Left Inside
-                query = String.format(" SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFI, b.L_B_V_32924BPFI, b.L_B_V_32922BPFI, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_LBPFI, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFI, b.L_B_V_32924BPFI, b.L_B_V_32922BPFI, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
             case "BLO":
                 // Bearing Left Outside
-                query = String.format(" SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFO, b.L_B_V_32924BPFO, b.L_B_V_32922BPFO, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_LBPFO, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFO, b.L_B_V_32924BPFO, b.L_B_V_32922BPFO, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
             case "BLR":
                 // Bearing Left Retainer
-                query = String.format(" SELECT b.W_RPM, b.L_B_V_1X, b.L_B_V_6912FTF, b.L_B_V_32924FTF, b.L_B_V_32922FTF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_LFTF, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912FTF, b.L_B_V_32924FTF, b.L_B_V_32922FTF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
             case "BRB":
                 // Bearing Right Ball
-                query = String.format(" SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BSF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT AI_RBSF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BSF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
             case "BRI":
                 // Bearing Right Inside
-                query = String.format(" SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFI, b.R_B_V_32924BPFI, b.R_B_V_32922BPFI, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_RBPFI, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFI, b.R_B_V_32924BPFI, b.R_B_V_32922BPFI, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
             case "BRO":
                 // Bearing Right Outside
-                query = String.format(" SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFO, b.R_B_V_32924BPFO, b.R_B_V_32922BPFO, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_RBPFO, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFO, b.R_B_V_32924BPFO, b.R_B_V_32922BPFO, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
             case "BRR":
                 // Bearing Right Retainer
-                query = String.format(" SELECT b.W_RPM, b.R_B_V_1X, b.R_B_V_6912FTF, b.R_B_V_32924FTF, b.R_B_V_32922FTF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_RFTF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912FTF, b.R_B_V_32924FTF, b.R_B_V_32922FTF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;

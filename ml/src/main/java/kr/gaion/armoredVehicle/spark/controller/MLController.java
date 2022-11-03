@@ -6,7 +6,6 @@ import kr.gaion.armoredVehicle.algorithm.classifier.MLPClassifier;
 import kr.gaion.armoredVehicle.algorithm.classifier.RandomForestClassifier;
 import kr.gaion.armoredVehicle.algorithm.classifier.SupportVectorClassifier;
 import kr.gaion.armoredVehicle.algorithm.clustering.IsolationForestOutlierDetection;
-import kr.gaion.armoredVehicle.algorithm.clustering.KmeansClustering;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.ClusterTrainInput;
@@ -30,8 +29,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-//import static kr.gaion.armoredVehicle.spark.controller.TestSpark.ReadCSV;
-
 @RestController("api")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -48,8 +45,6 @@ public class MLController {
     private final LinearRegressor linearRegressor;
     @NonNull
     private final LassoRegressor lassoRegressor;
-    @NonNull
-    private final KmeansClustering kmeansClustering;
     @NonNull
     private final IsolationForestOutlierDetection isolationForestOutlierDetection;
     @NonNull
@@ -82,11 +77,6 @@ public class MLController {
     @PostMapping(path = "/api/train/mlp")
     public ClassificationResponse trainMLP(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
         return mlp.trainMLP(input);
-    }
-
-    @PostMapping(path = "/api/train/kmean")
-    public ClusterResponse trainKmean(@RequestBody ClusterTrainInput input) throws Exception {
-        return kmeansClustering.train(input);
     }
 
     @PostMapping(path = "/api/train/if")
@@ -143,9 +133,6 @@ public class MLController {
     @PostMapping(path = "/api/cluster-predict/{algorithmName}")
     public ClusterResponse predictCluster(@RequestBody BaseAlgorithmPredictInput input, @PathVariable String algorithmName) throws Exception {
         switch (algorithmName) {
-            case "kmean": {
-                return this.kmeansClustering.predict(input);
-            }
             case "if": {
                 return this.isolationForestOutlierDetection.predict(input);
             }
@@ -186,9 +173,7 @@ public class MLController {
 
     @GetMapping(path = "/api/get-trainingDataColumnList/{index}")
     public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
-
-        String path = storageConfig.getHomeDir() + index + ".csv";
-
+        String path = storageConfig.getHomeDir() + storageConfig.getDataDir() + "\\" + index + ".csv";
         CSVReader reader = new CSVReader(new FileReader(path));
         return reader.readNext();
     }

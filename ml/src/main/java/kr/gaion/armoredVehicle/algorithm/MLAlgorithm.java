@@ -54,7 +54,7 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
     protected final String algorithmName;
     @NonNull
     protected final ModelService modelService;
-    
+
     protected String name = "genericAlgorithm";
 
     protected static JavaPairRDD<Object, Object> zipPredictResult(Dataset<Row> trainingResults) {
@@ -88,54 +88,36 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
 
     protected String getModelFullPath(String modelName) throws IOException {
         return this.utilities.getPathInWorkingFolder(
-                this.storageConfig.getDataDir(),
-                this.algorithmName,
                 this.storageConfig.getModelDir(),
+                this.algorithmName,
                 modelName);
     }
 
     protected String getModelIndexerPath(String modelName) throws IOException {
         return this.utilities.getPathInWorkingFolder(
-                this.storageConfig.getDataDir(),
-                this.algorithmName,
                 this.storageConfig.getModelIndexerDir(),
+                this.algorithmName,
                 modelName);
     }
 
-    public String saveModel(BaseAlgorithmTrainInput config, Saveable model) throws Exception {
-        System.out.println("-------------------- saveModel with Saveable model --------------------");
-
-        String modelName = config.getModelName();
-
-        var modelFullPathName = this.getModelFullPath(modelName);
-
-        modelUtil.deleteModelIfExisted(modelFullPathName);
-
-        this.mlSaveModel(model, modelFullPathName);
-
-        // StringIndexer model saving ..
-        String modelIndexerPath = this.getModelIndexerPath(modelName);
-
-        modelUtil.deleteModelIfExisted(modelIndexerPath);
-
-        return modelIndexerPath;
-    }
-
     public String saveModel(BaseAlgorithmTrainInput config, MLWritable model) throws Exception {
-        System.out.println("-------------------- saveModel with MLWritable mode --------------------");
-
         String modelName = config.getModelName();
-
         var modelFullPathName = this.getModelFullPath(modelName);
 
         modelUtil.deleteModelIfExisted(modelFullPathName);
 
         model.save(modelFullPathName);
 
-        // StringIndexer model saving ..
-        String modelIndexerPath = this.getModelIndexerPath(modelName);
+        return modelFullPathName;
+    }
+
+    public String saveModelIndexer(BaseAlgorithmTrainInput config, MLWritable indexer) throws Exception {
+        String modelName = config.getModelName();
+        var modelIndexerPath = this.getModelIndexerPath(modelName);
 
         modelUtil.deleteModelIfExisted(modelIndexerPath);
+
+        indexer.save(modelIndexerPath);
 
         return modelIndexerPath;
     }

@@ -96,7 +96,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
   }
 
   function findClassLabel(selectedPart: any) {
-    //Todo 베어링 말고도 추가해야됨
+    // TODO: 베어링 말고도 추가해야됨
     switch (selectedPart) {
       case "BLB" :
         return "AI_LBSF"
@@ -118,7 +118,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
   }
 
   function findFeatureCols(selectedPart: any) {
-    //Todo 베어링 말고도 추가해야됨
+    // TODO: 베어링 말고도 추가해야됨
     switch (selectedPart) {
       case "BLB":
         return ["W_RPM", "L_B_V_1X", "L_B_V_6912BSF", "L_B_V_32924BSF", "L_B_V_32922BSF", "L_B_V_Crestfactor", "L_B_V_Demodulation",
