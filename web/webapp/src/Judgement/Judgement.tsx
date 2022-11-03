@@ -1,4 +1,4 @@
-import React, {Props, useContext, useEffect, useMemo, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Button} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -18,31 +18,29 @@ import {TrainingModelList} from "../ModelManagement/TrainingModelList";
 import {DataPrediction} from "../ModelManagement/DataPrediction";
 import {CreateModelSection} from "../ModelManagement/CreateModelSection";
 
-export const Judgement: React.FC<Props> = (algorithmName: string) => {
+type Props = {
+  algorithmName: string;
+};
+
+export const Judgement: React.FC<Props> = ({algorithmName}) => {
 
   return (
     <Page>
       <TabHeader
         headers={[
           {
-            id: "train",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 생성" : "고장전조 예측 모델 생성",
+            id: "read",
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 결과 조회" : "고장진단 결과 조회",
           },
           {
-            id: "models",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 관리" : "고장전조 예측 모델 관리",
-          },
-          {
-            id: "predict",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 수행" : "고장전조 예측 수행",
+            id: "judge",
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 작업자 판정" : "고장전조 작업자 판정",
           },
         ]}
-        activeTabId={tab}
-        onChangeActiveTab={(v) => handleChangeTab(v)}
       />
       <div className={styles.page}>
         <Switch>
-          <Route
+          {/*   <Route
             path="/ml/:algorithmName/models"
             render={() => <TrainingModelList algorithmName={algorithmName}/>}
           />
@@ -57,7 +55,7 @@ export const Judgement: React.FC<Props> = (algorithmName: string) => {
           <Route
             path="/ml/:algorithmName/"
             render={() => <CreateModelSection algorithmName={algorithmName}/>}
-          />
+          />*/}
         </Switch>
       </div>
     </Page>

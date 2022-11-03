@@ -1,18 +1,16 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Route, Switch, useHistory, useParams } from "react-router-dom";
-import { Page } from "../common/Page/Page";
-import { TabHeader } from "../common/TabHeader/TabHeader";
-import { CreateModelSection } from "./CreateModelSection";
+import {useTranslation} from "react-i18next";
+import {Route, Switch, useHistory, useParams} from "react-router-dom";
+import {Page} from "../common/Page/Page";
+import {TabHeader} from "../common/TabHeader/TabHeader";
+import {CreateModelSection} from "./CreateModelSection";
 // import { DataPrediction } from "./DataPrediction";
 import styles from "./styles.module.css";
-import { TrainingModelList } from "./TrainingModelList";
+import {TrainingModelList} from "./TrainingModelList";
 import {DataPrediction} from "./DataPrediction";
 
 export const ModelManagement: React.FC = () => {
-  console.log('aaa')
-  const { t } = useTranslation();
-  const { algorithmName, tab = "train" } =
+  const {algorithmName, tab = "train"} =
     useParams<{ algorithmName: string; tab?: string }>();
   const history = useHistory();
 
@@ -44,19 +42,19 @@ export const ModelManagement: React.FC = () => {
         <Switch>
           <Route
             path="/ml/:algorithmName/models"
-            render={() => <TrainingModelList algorithmName={algorithmName} />}
+            render={() => <TrainingModelList algorithmName={algorithmName}/>}
           />
           <Route
             path="/ml/:algorithmName/predict"
-            render={() => <DataPrediction algorithmName={algorithmName} />}
+            render={() => <DataPrediction algorithmName={algorithmName}/>}
           />
           <Route
             path="/ml/:algorithmName/train"
-            render={() => <CreateModelSection algorithmName={algorithmName} />}
+            render={() => <CreateModelSection algorithmName={algorithmName}/>}
           />
           <Route
             path="/ml/:algorithmName/"
-            render={() => <CreateModelSection algorithmName={algorithmName} />}
+            render={() => <CreateModelSection algorithmName={algorithmName}/>}
           />
         </Switch>
       </div>
