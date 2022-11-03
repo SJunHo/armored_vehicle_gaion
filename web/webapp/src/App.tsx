@@ -19,6 +19,9 @@ import {SavedPredictedResult} from "./SavedResultPrediction/SavedPredictedResult
 
 import {FeatureSelection} from "./ModelManagement/FeatureSelection";
 import {Dashboard} from "./Dashboard/Dashboard";
+import {
+  Judgement
+} from "./Judgement/Judgement";
 
 function App() {
   return (
@@ -43,28 +46,19 @@ function Main() {
             component={DataUpload}
           />
           <AuthorizedRoute
-            path="/data/fault_diagnosis_result_history"
-            component={PredictedResults}
-          />
-          <AuthorizedRoute
-            path="/data/fault_diagnosis_user_input"
-            component={PredictedResultsUserInput}
-          />
-          <AuthorizedRoute
-            path="/data/fault_diagnosis_history_page"
-            component={SavedPredictedResult}
-          />
-          <AuthorizedRoute
             path="/ml/:algorithmName/:tab"
             component={ModelManagement}
           />
-          <Route
+          <AuthorizedRoute
             path="/ml/:algorithmName"
             exact
             component={ModelManagement}
           />
-          {/*<Route path="/dataset" component={DatasetManagement} />*/}
-
+          <AuthorizedRoute
+            path="/judgement"
+            exact
+            component={Judgement}
+          />
         </Switch>
       </OpenApiContextProvider>
     </MeContextProvider>

@@ -16,10 +16,6 @@ import PartsReplacementCycle from "./components/analysis/StatisticalInfo/partsre
 /*모델관리*/
 import { OpenApiContextProvider } from "./api";
 
-/*잔존수명예지 모델*/
-import LinearRegression from "./components/analysis/MRLF/linearregression.component";
-import RasoRegession from "./components/analysis/MRLF/rasoregession.component";
-
 /*시스템 설정*/
 import Driver_CIS from "./components/analysis/SystemSettings/driver_cis.component";
 import Setting_PRC from "./components/analysis/SystemSettings/setting_prc.component";
@@ -47,14 +43,9 @@ import LogOutComp from "./components/login/logout.component";
 import { AuthorizedRoute } from "./common/AuthorizedRoute";
 import {DataUpload} from "./DataLookUp/DataUpload";
 import {ModelManagement} from "./ModelManagement/ModelManagement";
-import {Dashboard} from "./Dashboard/Dashboard";
-import {PredictedResults} from "./ResultPrediction/PredictedResults";
-import {PredictedResultsUserInput} from "./ResultPredictionUserInput/PredictedResultsUserInput";
-import {SavedPredictedResult} from "./SavedResultPrediction/SavedPredictedResult";
-import {FeatureSelection} from "./ModelManagement/FeatureSelection";
-import {DatasetManagement} from "./DatasetManagement/DatasetManagement";
-import {DataLookUpList} from "./DataLookUp/DataLookUpList";
 import { MeContextProvider } from "./api/MeContext";
+import { Judgement} from "./Judgement/Judgement";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -115,60 +106,6 @@ class App extends Component {
             <PrivateRoute exact path="/driverPostureCorrection" component={driverPostureCorrection} />
             <PrivateRoute exact path="/partsreplacementcycle" component={PartsReplacementCycle} />
 
-
-              {/*고장진단 모델*/}
-            {/*<PrivateRoute exact path="/ml/rfc" component={Model} />*/}
-            {/*<PrivateRoute exact path="/ml/svc" component={SupportVectorMachine} />*/}
-            {/*<PrivateRoute exact path="/ml/mlp" component={MultilayerNeuralNetworks} />*/}
-            {/*<PrivateRoute exact path="/ml/if" component={IsolateRamdhamForest} />*/}
-            {/*<PrivateRoute exact path="/ml/lr" component={LogicicRegession} />*/}
-            {/* <PrivateRoute path="/dashboard" exact component={Dashboard} />
-            <PrivateRoute
-              path="/data/fault_diagnosis_result_history"
-              component={PredictedResults}
-            />
-            <PrivateRoute
-              path="/data/fault_diagnosis_user_input"
-              component={PredictedResultsUserInput}
-            />
-            <PrivateRoute
-              path="/data/fault_diagnosis_history_page"
-              component={SavedPredictedResult}
-            />
-
-            <PrivateRoute
-              path="/ml/fs/:algorithmName"
-              exact
-              component={FeatureSelection}
-            />
-            <MeContextProvider>
-              <OpenApiContextProvider>
-            <PrivateRoute
-              path="/ml/:algorithmName/:tab"
-              component={ModelManagement}
-            />
-            <Route
-              path="/ml/:algorithmName"
-              exact
-              component={ModelManagement}
-            />
-            </OpenApiContextProvider>
-            </MeContextProvider>
-            <Route path="/dataset" component={DatasetManagement} />
-
-            <PrivateRoute path="/data/lookup" component={DataLookUpList} />
-            <PrivateRoute path="/data/upload" component={DataUpload} /> */}
-            {/* <OpenApiContextProvider>
-              <PrivateRoute path="/ml/:algorithmName/:tab" component={ModelManagement} />
-              <PrivateRoute path="/ml/:algorithmName" exact component={ModelManagement} />
-            </OpenApiContextProvider> */}
-
-
-
-              {/*잔존수명예지 모델*/}
-            <PrivateRoute exact path="/linearregression" component={LinearRegression} />
-            <PrivateRoute exact path="/rasoregression" component={RasoRegession} />
-
               {/*시스템 설정*/}
             <PrivateRoute exact path="/driver_cis" component={Driver_CIS} />
             <PrivateRoute exact path="/setting_prc" component={Setting_PRC} />
@@ -187,38 +124,20 @@ class App extends Component {
         <OpenApiContextProvider>
           <div className="content-wrapper">
             <Switch>
-              <AuthorizedRoute path="/dashboard" exact component={Dashboard} />
-              <AuthorizedRoute
-                path="/data/fault_diagnosis_result_history"
-                component={PredictedResults}
-              />
-              <AuthorizedRoute
-                path="/data/fault_diagnosis_user_input"
-                component={PredictedResultsUserInput}
-              />
-              <AuthorizedRoute
-                path="/data/fault_diagnosis_history_page"
-                component={SavedPredictedResult}
-              />
-
-              <AuthorizedRoute
-                path="/ml/fs/:algorithmName"
-                exact
-                component={FeatureSelection}
-              />
-
               <AuthorizedRoute
                 path="/ml/:algorithmName/:tab"
                 component={ModelManagement}
               />
-              <Route
+              <AuthorizedRoute
                 path="/ml/:algorithmName"
                 exact
                 component={ModelManagement}
               />
-              <Route path="/dataset" component={DatasetManagement} />
-
-              <AuthorizedRoute path="/data/lookup" component={DataLookUpList} />
+              <AuthorizedRoute
+                path="/judgement"
+                exact
+                component={Judgement}
+              />
               <AuthorizedRoute path="/data/upload" exact component={DataUpload} />
             </Switch>
           </div>
