@@ -13,6 +13,7 @@ type Props = {
 };
 
 const partTypes = [
+  // bearing
   {
     value: "BLB",
     label: "베어링 좌측 볼",
@@ -44,6 +45,15 @@ const partTypes = [
   {
     value: "BRR",
     label: "베어링 우측 리테이너",
+  },
+  // wheel
+  {
+    value: "WL",
+    label: "차륜 좌측",
+  },
+  {
+    value: "WR",
+    label: "차륜 우측",
   }
 ]
 
@@ -98,6 +108,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
   function findClassLabel(selectedPart: any) {
     // TODO: 베어링 말고도 추가해야됨
     switch (selectedPart) {
+      // bearing
       case "BLB" :
         return "AI_LBSF"
       case "BLO" :
@@ -114,12 +125,18 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
         return "AI_RBPFI"
       case "BRR" :
         return "AI_RFTF"
+      // wheel
+      case "WL" :
+        return "AI_LW"
+      case "WR" :
+        return "AI_RW"
     }
   }
 
   function findFeatureCols(selectedPart: any) {
     // TODO: 베어링 말고도 추가해야됨
     switch (selectedPart) {
+      // bearing
       case "BLB":
         return ["W_RPM", "L_B_V_1X", "L_B_V_6912BSF", "L_B_V_32924BSF", "L_B_V_32922BSF", "L_B_V_Crestfactor", "L_B_V_Demodulation",
           "L_B_S_Fault1", "L_B_S_Fault2", "L_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
@@ -144,6 +161,11 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
       case "BRR" :
         return ["W_RPM", "R_B_V_1X", "R_B_V_6912FTF", "R_B_V_32924FTF", "R_B_V_32922FTF", "R_B_V_Crestfactor", "R_B_V_Demodulation",
           "R_B_S_Fault1", "R_B_S_Fault2", "R_B_T_Temperature", "AC_h", "AC_v", "AC_a"]
+      // wheel
+      case "WL" :
+        return ["W_RPM", "L_W_V_2X", "L_W_V_3X", "L_W_S_Fault3", "AC_h", "AC_v", "AC_a"]
+      case "WR" :
+        return ["W_RPM", "R_W_V_2X", "R_W_V_3X", "R_W_S_Fault3", "AC_h", "AC_v", "AC_a"]
     }
   }
 

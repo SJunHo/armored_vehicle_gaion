@@ -200,15 +200,19 @@ public class DatabaseSparkService {
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
 
-//            case "WL":
-//                // Wheel Left
-//                query = String.format();
-//                break;
-//
-//            case "WR":
-//                // Wheel Right
-//                query = String.format();
-//                break;
+            case "WL":
+                // Wheel Left
+                query = String.format(" SELECT w.AI_LW, w.W_RPM, w.L_W_V_2X, w.L_W_V_3X, w.L_W_S_Fault3, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM WHLTRNNG w, ENGTRNNG e " +
+                        " WHERE w.`DATE` = e.`DATE` AND w.FILENM = '%s' ", fileName);
+                break;
+
+            case "WR":
+                // Wheel Right
+                query = String.format(" SELECT w.AI_LW, w.W_RPM, w.R_W_V_2X, w.R_W_V_3X, w.R_W_S_Fault3, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM WHLTRNNG w, ENGTRNNG e " +
+                        " WHERE w.`DATE` = e.`DATE` w.FILENM = '%s' ", fileName);
+                break;
 //
 //            case "G":
 //                // Gearbox

@@ -45,7 +45,7 @@ public class CSVHelper {
                 trainingBearing.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
                 // File Name
-                trainingBearing.setFileNm(fileName);
+                trainingBearing.setFileNm(fileName.replace(".csv", ""));
 
                 trainingBearing.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
 
@@ -128,7 +128,7 @@ public class CSVHelper {
                 trainingWheel.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
                 // File Name
-                trainingWheel.setFileNm(fileName);
+                trainingWheel.setFileNm(fileName.replace(".csv", ""));
 
                 trainingWheel.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
 
