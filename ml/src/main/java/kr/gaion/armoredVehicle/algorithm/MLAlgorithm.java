@@ -138,7 +138,7 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
 
     protected void saveTransformedData(String modelName, String action, Dataset<Row> df) {
         String hdfsFileNameFullPath = Paths
-                .get(this.storageConfig.getHomeDir(), this.storageConfig.getDataDir(), this.algorithmName, modelName, action).toString();
+                .get(this.storageConfig.getHomeDir(), this.storageConfig.getModelDir(), this.algorithmName, modelName, action).toString();
         df.coalesce(1).write().format("com.databricks.spark.csv").option("header", "true").mode(SaveMode.Overwrite)
                 .save(hdfsFileNameFullPath);
     }

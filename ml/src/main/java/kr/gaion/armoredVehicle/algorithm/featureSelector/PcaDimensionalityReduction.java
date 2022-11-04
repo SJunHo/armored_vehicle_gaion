@@ -14,7 +14,6 @@ import kr.gaion.armoredVehicle.algorithm.dto.response.FSResponse;
 import kr.gaion.armoredVehicle.common.DataConfig;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
-//import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
@@ -41,146 +40,146 @@ import java.util.stream.Collectors;
 @Log4j
 public class PcaDimensionalityReduction extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlgorithmPredictInput> {
 
-  public PcaDimensionalityReduction(@NonNull DatabaseSparkService databaseSparkService, @NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil,@NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
-    super(elasticsearchSparkService,databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "PcaDimensionalityReduction", modelService);
-  }
-
-  public Dataset<Row> computePcaDataframeApi(BaseAlgorithmTrainInput config) throws Exception {
-    // get setting values
-    int numPrincipalComponents = config.getNumberPrincipalComponents();
-    String[] featureCols = config.getFeatureCols().toArray(new String[0]);
-    if (numPrincipalComponents <= 0) {
-      numPrincipalComponents = 2;
-    } else if (numPrincipalComponents > featureCols.length) {
-      numPrincipalComponents = featureCols.length;
+    public PcaDimensionalityReduction(@NonNull DatabaseSparkService databaseSparkService, @NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
+        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "PcaDimensionalityReduction", modelService);
     }
 
-    // get input data
-//    Dataset<Row> inputData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
-    Dataset<Row> inputData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
-
-
-    var pca = train(numPrincipalComponents, inputData);
-    return pca.transform(inputData);
-  }
-
-  private static PCAModel train(int numPrincipalComponents, Dataset<Row> inputData) {
-    // transformation
-    return new PCA().setInputCol("features").setOutputCol(ClusterResponse.PCA_FEATURES).setK(numPrincipalComponents).fit(inputData);
-  }
-
-  public static Dataset<Row> computePcaDataframeApiFromDF(BaseAlgorithmInput config, Dataset<Row> prepInputDF) throws Exception {
-    // get setting values
-    int numPrincipalComponents = config.getNumberPrincipalComponents();
-    String[] featureCols = config.getFeatureCols().toArray(new String[0]);
-
-    if (numPrincipalComponents <= 0) {
-      numPrincipalComponents = 2;
-    } else if (numPrincipalComponents > featureCols.length) {
-      numPrincipalComponents = featureCols.length;
+    private static PCAModel train(int numPrincipalComponents, Dataset<Row> inputData) {
+        // transformation
+        return new PCA().setInputCol("features").setOutputCol(ClusterResponse.PCA_FEATURES).setK(numPrincipalComponents).fit(inputData);
     }
 
-    // transformation
-    PCAModel pca = new PCA().setInputCol("features")
-        .setOutputCol(ClusterResponse.PCA_FEATURES)
-        .setK(numPrincipalComponents)
-        .fit(prepInputDF);
+    public static Dataset<Row> computePcaDataframeApiFromDF(BaseAlgorithmInput config, Dataset<Row> prepInputDF) throws Exception {
+        // get setting values
+        int numPrincipalComponents = config.getNumberPrincipalComponents();
+        String[] featureCols = config.getFeatureCols().toArray(new String[0]);
 
-    Dataset<Row> result;
-    if (Arrays.asList(prepInputDF.columns()).contains(ClusterResponse.TAG_COLUMN)) {
-      result = pca.transform(prepInputDF)
-          .select(ClusterResponse.ID_COLUMN,
-              ClusterResponse.PCA_FEATURES, ClusterResponse.FEATURES,
-              ClusterResponse.TAG_COLUMN);
-    } else {
-      result = pca.transform(prepInputDF)
-          .select(ClusterResponse.ID_COLUMN, ClusterResponse.PCA_FEATURES, ClusterResponse.FEATURES);
-    }
-
-    return result;
-  }
-
-  private static JavaRDD<String> reduceData(Dataset<Row> data, String csvDelimiter) {
-    return data.select(ClusterResponse.ID_COLUMN, ClusterResponse.PCA_FEATURES).toJavaRDD().map(new Function<>() {
-      private static final long serialVersionUID = -8196827940842158326L;
-
-      @Override
-      public String call(Row features) {
-        StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append('"').append(features.getAs(0).toString()).append('"');  // add id-column value
-        strBuilder.append(csvDelimiter);
-        org.apache.spark.ml.linalg.Vector vector = (org.apache.spark.ml.linalg.Vector) (features.get(1));
-        String strVector = vector.toString();
-        strBuilder.append(strVector, 1, strVector.length() - 1);  // remove Brackets
-
-        return strBuilder.toString();
-      }
-    });
-
-  }
-
-  private static JavaRDD<Row> getDataToSavingToFile(Dataset<Row> data, String[] header) {
-    return data.select(ClusterResponse.ID_COLUMN, ClusterResponse.PCA_FEATURES).toJavaRDD().map(new Function<>() {
-      private static final long serialVersionUID = -4715890591062606256L;
-
-      @Override
-      public Row call(Row features) {
-        Object[] objArr = new Object[header.length];
-        int objArrIter = -1;
-        objArr[++objArrIter] = features.getAs(0).toString();
-        org.apache.spark.ml.linalg.Vector vector = (org.apache.spark.ml.linalg.Vector) (features.get(1));
-        for (double d : vector.toArray()) {
-          objArr[++objArrIter] = Double.toString(d);
+        if (numPrincipalComponents <= 0) {
+            numPrincipalComponents = 2;
+        } else if (numPrincipalComponents > featureCols.length) {
+            numPrincipalComponents = featureCols.length;
         }
 
-        return RowFactory.create(objArr);
-      }
-    });
-  }
+        // transformation
+        PCAModel pca = new PCA().setInputCol("features")
+                .setOutputCol(ClusterResponse.PCA_FEATURES)
+                .setK(numPrincipalComponents)
+                .fit(prepInputDF);
 
-  public FSResponse train(BaseAlgorithmTrainInput config) throws Exception {
-    System.out.println("Start PcaDimensionalityReduction");
-    Dataset<Row> data = this.computePcaDataframeApi(config);
-    var selectedFields = Arrays.stream(data.schema().fields()).map(StructField::name).collect(Collectors.toList());
-    var csvDelimiter = this.storageConfig.getCsvDelimiter();
+        Dataset<Row> result;
+        if (Arrays.asList(prepInputDF.columns()).contains(ClusterResponse.TAG_COLUMN)) {
+            result = pca.transform(prepInputDF)
+                    .select(ClusterResponse.ID_COLUMN,
+                            ClusterResponse.PCA_FEATURES, ClusterResponse.FEATURES,
+                            ClusterResponse.TAG_COLUMN);
+        } else {
+            result = pca.transform(prepInputDF)
+                    .select(ClusterResponse.ID_COLUMN, ClusterResponse.PCA_FEATURES, ClusterResponse.FEATURES);
+        }
 
-    // map data to return
-    JavaRDD<String> reducedData = reduceData(data, csvDelimiter);
-
-    // save transformed data to .CSV file
-    int numPrincipalComponents = config.getNumberPrincipalComponents();
-    String[] featureCols = new String[numPrincipalComponents];
-    for (int index = 0; index < numPrincipalComponents; ++index) {
-      featureCols[index] = "F" + (index + 1);
+        return result;
     }
-    String[] header = ArrayUtils.concat(new String[] { ClusterResponse.ID_COLUMN }, featureCols);
-    // make DataFrame for transformed data
-    JavaRDD<Row> dataForSavingToFile = getDataToSavingToFile(data, header);
-    StructType st = new StructType();
-    for (String col: header) {
-      st = st.add(col, DataTypes.StringType);
+
+    private static JavaRDD<String> reduceData(Dataset<Row> data, String csvDelimiter) {
+        return data.select(ClusterResponse.ID_COLUMN, ClusterResponse.PCA_FEATURES).toJavaRDD().map(new Function<>() {
+            private static final long serialVersionUID = -8196827940842158326L;
+
+            @Override
+            public String call(Row features) {
+                StringBuilder strBuilder = new StringBuilder();
+                strBuilder.append('"').append(features.getAs(0).toString()).append('"');  // add id-column value
+                strBuilder.append(csvDelimiter);
+                org.apache.spark.ml.linalg.Vector vector = (org.apache.spark.ml.linalg.Vector) (features.get(1));
+                String strVector = vector.toString();
+                strBuilder.append(strVector, 1, strVector.length() - 1);  // remove Brackets
+
+                return strBuilder.toString();
+            }
+        });
+
     }
-    Dataset<Row> resultDf = this.sparkSession.createDataFrame(dataForSavingToFile, st);
-    // save transformed results to CSV file
-    this.saveTransformedData("DefaultModel", "train", resultDf);
 
-    FSResponse response = new FSResponse(ResponseType.OBJECT_DATA);
-    response.setNumPrincipalComponents(numPrincipalComponents);
-    int maxResults = this.algorithmConfig.getMaxResult();
-    response.setFilteredFeatures(reducedData.take(maxResults));
-    response.setSelectedFields(selectedFields);
-    response.setIdCol("idCol");
-    response.setClassCol(config.getClassCol());
+    private static JavaRDD<Row> getDataToSavingToFile(Dataset<Row> data, String[] header) {
+        return data.select(ClusterResponse.ID_COLUMN, ClusterResponse.PCA_FEATURES).toJavaRDD().map(new Function<>() {
+            private static final long serialVersionUID = -4715890591062606256L;
 
-    response.setStatus(ResponseStatus.SUCCESS);
+            @Override
+            public Row call(Row features) {
+                Object[] objArr = new Object[header.length];
+                int objArrIter = -1;
+                objArr[++objArrIter] = features.getAs(0).toString();
+                org.apache.spark.ml.linalg.Vector vector = (org.apache.spark.ml.linalg.Vector) (features.get(1));
+                for (double d : vector.toArray()) {
+                    objArr[++objArrIter] = Double.toString(d);
+                }
 
-    System.out.println("Completed PcaDimensionalityReduction.");
+                return RowFactory.create(objArr);
+            }
+        });
+    }
 
-    return response;
-  }
+    public Dataset<Row> computePcaDataframeApi(BaseAlgorithmTrainInput config) throws Exception {
+        // get setting values
+        int numPrincipalComponents = config.getNumberPrincipalComponents();
+        String[] featureCols = config.getFeatureCols().toArray(new String[0]);
+        if (numPrincipalComponents <= 0) {
+            numPrincipalComponents = 2;
+        } else if (numPrincipalComponents > featureCols.length) {
+            numPrincipalComponents = featureCols.length;
+        }
 
-  @Override
-  public AlgorithmResponse predict(BaseAlgorithmPredictInput input) throws Exception {
-    return null;
-  }
+        // get input data
+//    Dataset<Row> inputData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
+        Dataset<Row> inputData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+
+
+        var pca = train(numPrincipalComponents, inputData);
+        return pca.transform(inputData);
+    }
+
+    public FSResponse train(BaseAlgorithmTrainInput config) throws Exception {
+        System.out.println("Start PcaDimensionalityReduction");
+        Dataset<Row> data = this.computePcaDataframeApi(config);
+        var selectedFields = Arrays.stream(data.schema().fields()).map(StructField::name).collect(Collectors.toList());
+        var csvDelimiter = this.storageConfig.getCsvDelimiter();
+
+        // map data to return
+        JavaRDD<String> reducedData = reduceData(data, csvDelimiter);
+
+        // save transformed data to .CSV file
+        int numPrincipalComponents = config.getNumberPrincipalComponents();
+        String[] featureCols = new String[numPrincipalComponents];
+        for (int index = 0; index < numPrincipalComponents; ++index) {
+            featureCols[index] = "F" + (index + 1);
+        }
+        String[] header = ArrayUtils.concat(new String[]{ClusterResponse.ID_COLUMN}, featureCols);
+        // make DataFrame for transformed data
+        JavaRDD<Row> dataForSavingToFile = getDataToSavingToFile(data, header);
+        StructType st = new StructType();
+        for (String col : header) {
+            st = st.add(col, DataTypes.StringType);
+        }
+        Dataset<Row> resultDf = this.sparkSession.createDataFrame(dataForSavingToFile, st);
+        // save transformed results to CSV file
+        this.saveTransformedData("DefaultModel", "train", resultDf);
+
+        FSResponse response = new FSResponse(ResponseType.OBJECT_DATA);
+        response.setNumPrincipalComponents(numPrincipalComponents);
+        int maxResults = this.algorithmConfig.getMaxResult();
+        response.setFilteredFeatures(reducedData.take(maxResults));
+        response.setSelectedFields(selectedFields);
+        response.setIdCol("idCol");
+        response.setClassCol(config.getClassCol());
+
+        response.setStatus(ResponseStatus.SUCCESS);
+
+        System.out.println("Completed PcaDimensionalityReduction.");
+
+        return response;
+    }
+
+    @Override
+    public AlgorithmResponse predict(BaseAlgorithmPredictInput input) throws Exception {
+        return null;
+    }
 }

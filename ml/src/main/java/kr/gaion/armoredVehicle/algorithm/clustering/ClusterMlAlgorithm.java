@@ -133,9 +133,6 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
                         CollectionConverters.asScalaBuffer(IntStream.range(0, config.getFeatureCols().size())
                                 .mapToObj(index -> functions.col("v2a").getItem(index)).collect(Collectors.toList())).toSeq());
 
-        // save transformed results to CSV file
-        this.saveTransformedData(config.getModelName(), "train", resultDf.drop("v2a", "features"));
-
         // response to client
         ClusterResponse response = new ClusterResponse(ResponseType.OBJECT_DATA);
 
