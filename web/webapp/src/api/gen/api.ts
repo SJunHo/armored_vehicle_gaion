@@ -1526,13 +1526,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
 }
 /**
  * 
@@ -1824,13 +1824,37 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageRailSensorData
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1860,30 +1884,6 @@ export interface PageRailSensorData {
      * @type {boolean}
      * @memberof PageRailSensorData
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageRailSensorData
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageRailSensorData
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
     empty?: boolean;
 }
 /**
@@ -1897,13 +1897,7 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    offset?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof Pageable
-     */
-    sort?: Sort;
+    pageSize?: number;
     /**
      * 
      * @type {number}
@@ -1912,10 +1906,10 @@ export interface Pageable {
     pageNumber?: number;
     /**
      * 
-     * @type {number}
+     * @type {boolean}
      * @memberof Pageable
      */
-    pageSize?: number;
+    paged?: boolean;
     /**
      * 
      * @type {boolean}
@@ -1924,10 +1918,16 @@ export interface Pageable {
     unpaged?: boolean;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof Pageable
      */
-    paged?: boolean;
+    offset?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof Pageable
+     */
+    sort?: Sort;
 }
 /**
  * 

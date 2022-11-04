@@ -31,7 +31,7 @@ public class DatasetDatabaseController {
             )
             @RequestParam("files") List<MultipartFile> files,
             @PathVariable("partType") String partType
-    ) {
+    ) throws IOException {
         String result = datasetDatabaseService.importCSVtoDatabase(files, partType);
 
         System.out.println("partType : " + partType + " / " + "import CSV to Database result : " + result);

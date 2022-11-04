@@ -3,9 +3,14 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
-import {Controller, FormProvider, useForm, useFormContext,} from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 import Select2 from "react-select";
-import {RandomForestClassificationResponse, RegressionResponse} from "../api";
+import {RegressionResponse, RandomForestClassificationResponse} from "../api";
 import {OpenApiContext} from "../api/OpenApiContext";
 import {InputWrapper} from "../common/Common";
 import {Section} from "../common/Section/Section";
@@ -31,6 +36,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
   const {mlControllerApi} = useContext(OpenApiContext);
   const [result, setResult] = React.useState<RandomForestClassificationResponse>();
   const [result2, setResult2] = React.useState<RegressionResponse>();
+  console.log(algorithmName)
 
   async function handleTrain(input: any) {
     setResult(undefined);
@@ -481,4 +487,3 @@ export const LinearRegression: React.FC = () => {
     </>
   );
 };
-

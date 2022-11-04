@@ -31,8 +31,6 @@ public class CSVHelper {
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<TrainingBearing> trainingBearingList = new ArrayList<>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingBearing trainingBearing = new TrainingBearing();
                 trainingBearing.setCarId(csvRecord.get("SDAID"));
