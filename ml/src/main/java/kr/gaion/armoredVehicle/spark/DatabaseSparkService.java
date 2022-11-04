@@ -174,7 +174,7 @@ public class DatabaseSparkService {
 
             case "BRB":
                 // Bearing Right Ball
-                query = String.format(" SELECT AI_RBSF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BSF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
+                query = String.format(" SELECT b.AI_RBSF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BSF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
                         " FROM BERTRNNG b, ENGTRNNG e " +
                         " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
                 break;
@@ -213,16 +213,20 @@ public class DatabaseSparkService {
                         " FROM WHLTRNNG w, ENGTRNNG e " +
                         " WHERE w.`DATE` = e.`DATE` w.FILENM = '%s' ", fileName);
                 break;
-//
-//            case "G":
-//                // Gearbox
-//                query = String.format();
-//                break;
-//
-//            case "E":
-//                // Engine
-//                query = String.format();
-//                break;
+
+            case "G":
+                // Gearbox
+                query = String.format(" SELECT g.AI_GEAR, g.W_RPM, g.G_V_OverallRMS, g.G_V_Wheel1X, g.G_V_Wheel2X, g.G_V_Pinion1X, g.G_V_Pinion2X, g.G_V_GMF1X, g.G_V_GMF2X, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM GRBTRNNG g, ENGTRNNG e " +
+                        " WHERE g.`DATE` = e.`DATE` AND g.FILENM = '%s' ", fileName);
+                break;
+
+            case "E":
+                // Engine
+                query = String.format(" SELECT e.AI_ENGINE, e.W_RPM, e.E_V_OverallRMS, e.E_V_1_2X, e.E_V_1X, e.E_V_Crestfactor, e.AC_h, e.AC_v, e.AC_a " +
+                        " FROM ENGTRNNG e " +
+                        " WHERE e.FILENM = '%s' ", fileName);
+                break;
         }
         try {
             System.out.println("partType : " + partType + " / " + "fileName : " + fileName);

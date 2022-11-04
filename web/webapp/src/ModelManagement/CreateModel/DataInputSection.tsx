@@ -54,6 +54,14 @@ const partTypes = [
   {
     value: "WR",
     label: "차륜 우측",
+  },
+  {
+    value: "G",
+    label: "감속기(기어박스)",
+  },
+  {
+    value: "E",
+    label: "엔진",
   }
 ]
 
@@ -106,7 +114,6 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
   }
 
   function findClassLabel(selectedPart: any) {
-    // TODO: 베어링 말고도 추가해야됨
     switch (selectedPart) {
       // bearing
       case "BLB" :
@@ -130,11 +137,16 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
         return "AI_LW"
       case "WR" :
         return "AI_RW"
+      // gearbox
+      case "G" :
+        return "AI_GEAR"
+      // engine
+      case "E" :
+        return "AI_ENGINE"
     }
   }
 
   function findFeatureCols(selectedPart: any) {
-    // TODO: 베어링 말고도 추가해야됨
     switch (selectedPart) {
       // bearing
       case "BLB":
@@ -166,6 +178,12 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
         return ["W_RPM", "L_W_V_2X", "L_W_V_3X", "L_W_S_Fault3", "AC_h", "AC_v", "AC_a"]
       case "WR" :
         return ["W_RPM", "R_W_V_2X", "R_W_V_3X", "R_W_S_Fault3", "AC_h", "AC_v", "AC_a"]
+      // gearbox
+      case "G" :
+        return ["W_RPM", "G_V_OverallRMS", "G_V_Wheel1X", "G_V_Wheel2X", "G_V_Pinion1X", "G_V_Pinion2X", "G_V_GMF1X", "G_V_GMF2X", "AC_h", "AC_v", "AC_a"]
+      // engine
+      case "E" :
+        return ["W_RPM", "E_V_OverallRMS", "E_V_1-2X", "E_V_1X", "E_V_Crestfactor", "AC_h", "AC_v", "AC_a"]
     }
   }
 

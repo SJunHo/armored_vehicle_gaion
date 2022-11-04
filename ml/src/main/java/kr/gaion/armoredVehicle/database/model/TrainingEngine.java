@@ -35,7 +35,7 @@ public class TrainingEngine {
     @Column(name = "E_V_OverallRMS")
     private double evOverallRms;
 
-    @Column(name = "E_V_1-2X")
+    @Column(name = "E_V_1_2X")
     private double ev12x;
 
     @Column(name = "E_V_1X")
@@ -59,6 +59,9 @@ public class TrainingEngine {
     @Column(name = "LO")
     private double lo;
 
-    @Column(name = "AI_Predict")
-    private double AiPredict;
+    @Column(name = "FILENM")
+    private String fileNm;
+
+    @Column(name = "AI_ENGINE")
+    private int aiEngine;
 }

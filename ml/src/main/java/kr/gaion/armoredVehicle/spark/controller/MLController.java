@@ -173,7 +173,8 @@ public class MLController {
 
     @GetMapping(path = "/api/get-trainingDataColumnList/{index}")
     public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
-        String path = storageConfig.getHomeDir() + storageConfig.getDataDir() + "\\" + index + ".csv";
+        String path = storageConfig.getHomeDir() + storageConfig.getDataDir() + "\\tmp\\" + index + ".csv";
+        System.out.println("getTrainingDataColumnList path : " + path);
         CSVReader reader = new CSVReader(new FileReader(path));
         return reader.readNext();
     }

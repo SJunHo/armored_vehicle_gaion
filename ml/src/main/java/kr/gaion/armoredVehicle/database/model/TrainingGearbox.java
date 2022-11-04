@@ -53,6 +53,9 @@ public class TrainingGearbox {
     @Column(name = "G_V_GMF2X")
     private double gvGmf2x;
 
-    @Column(name = "AI_Predict")
-    private double AiPredict;
+    @Column(name = "FILENM")
+    private String fileNm;
+
+    @Column(name = "AI_GEAR")
+    private int aiGear;
 }

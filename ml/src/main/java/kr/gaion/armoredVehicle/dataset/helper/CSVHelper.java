@@ -154,7 +154,7 @@ public class CSVHelper {
         }
     }
 
-    public static List<TrainingGearbox> csvToGearbox(InputStream is) {
+    public static List<TrainingGearbox> csvToGearbox(InputStream is, String fileName) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<TrainingGearbox> trainingGearboxList = new ArrayList<>();
@@ -162,11 +162,18 @@ public class CSVHelper {
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingGearbox trainingGearbox = new TrainingGearbox();
                 trainingGearbox.setCarId(csvRecord.get("SDAID"));
-                trainingGearbox.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
+
+                // Date(set to timezone)
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+                trainingGearbox.setOperateDateTime(sdf.parse(csvRecord.get("DATE")));
+
                 trainingGearbox.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
+                // File Name
+                trainingGearbox.setFileNm(fileName.replace(".csv", ""));
+
                 trainingGearbox.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
-                trainingGearbox.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
 
                 trainingGearbox.setGvOverallRms(Double.parseDouble(csvRecord.get("G_V_OverallRMS")));
                 trainingGearbox.setGvWheel1x(Double.parseDouble(csvRecord.get("G_V_Wheel1X")));
@@ -175,6 +182,9 @@ public class CSVHelper {
                 trainingGearbox.setGvPinion2x(Double.parseDouble(csvRecord.get("G_V_Pinion2X")));
                 trainingGearbox.setGvGmf1x(Double.parseDouble(csvRecord.get("G_V_GMF1X")));
                 trainingGearbox.setGvGmf2x(Double.parseDouble(csvRecord.get("G_V_GMF2X")));
+
+                // AI-Predict
+                trainingGearbox.setAiGear(Integer.parseInt(csvRecord.get("AI_GEAR")));
 
                 trainingGearboxList.add(trainingGearbox);
             }
@@ -186,7 +196,7 @@ public class CSVHelper {
         }
     }
 
-    public static List<TrainingEngine> csvToEngine(InputStream is) {
+    public static List<TrainingEngine> csvToEngine(InputStream is, String fileName) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
             List<TrainingEngine> trainingEngineList = new ArrayList<>();
@@ -194,14 +204,21 @@ public class CSVHelper {
             for (CSVRecord csvRecord : csvRecords) {
                 TrainingEngine trainingEngine = new TrainingEngine();
                 trainingEngine.setCarId(csvRecord.get("SDAID"));
-                trainingEngine.setOperateDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(csvRecord.get("DATE")));
+
+                // Date(set to timezone)
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+                trainingEngine.setOperateDateTime(sdf.parse(csvRecord.get("DATE")));
+
                 trainingEngine.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 
+                // File Name
+                trainingEngine.setFileNm(fileName.replace(".csv", ""));
+
                 trainingEngine.setWrpm(Double.parseDouble(csvRecord.get("W_RPM")));
-                trainingEngine.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
 
                 trainingEngine.setEvOverallRms(Double.parseDouble(csvRecord.get("E_V_OverallRMS")));
-                trainingEngine.setEv12x(Double.parseDouble(csvRecord.get("E_V_1-2X")));
+                trainingEngine.setEv12x(Double.parseDouble(csvRecord.get("E_V_1_2X")));
                 trainingEngine.setEv1x(Double.parseDouble(csvRecord.get("E_V_1X")));
                 trainingEngine.setEvCrestfactor(Double.parseDouble(csvRecord.get("E_V_Crestfactor")));
                 trainingEngine.setAch(Double.parseDouble(csvRecord.get("AC_h")));
@@ -209,6 +226,9 @@ public class CSVHelper {
                 trainingEngine.setAca(Double.parseDouble(csvRecord.get("AC_a")));
                 trainingEngine.setLa(Double.parseDouble(csvRecord.get("LA")));
                 trainingEngine.setLo(Double.parseDouble(csvRecord.get("LO")));
+
+                // AI-Predict
+                trainingEngine.setAiEngine(Integer.parseInt(csvRecord.get("AI_ENGINE")));
 
                 trainingEngineList.add(trainingEngine);
             }
