@@ -1,5 +1,7 @@
 package kr.gaion.armoredVehicle.dataset.service;
 
+import kr.gaion.armoredVehicle.auth.User;
+import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.DatabaseModule;
 import kr.gaion.armoredVehicle.database.model.*;
 import kr.gaion.armoredVehicle.database.repository.*;
@@ -8,11 +10,13 @@ import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,6 +49,10 @@ public class DatasetDatabaseService {
     private final SensorGearboxRepository sensorGearboxRepository;
     @NonNull
     private final SensorTempLifeRepository sensorTempLifeRepository;
+    @NonNull
+    private final FileInfoRepository fileInfoRepository;
+    @NonNull
+    private final Utilities utilities;
 
     //save file to nas directory
     public String handleUploadFile(MultipartFile file) {
@@ -53,8 +61,24 @@ public class DatasetDatabaseService {
     }
 
     //import nas Database
-    public String importCSVtoDatabase(List<MultipartFile> files, String dataType) {
+    public String importCSVtoDatabase(List<MultipartFile> files, String dataType) throws IOException {
         for (MultipartFile file : files) {
+            //fileInfo insert
+            //Todo 파일 인포 설정 값 물어보고 진행하기
+            FileInfo fileInfo = new FileInfo();
+            fileInfo.setFileId(file.getOriginalFilename().replace(".csv", ""));
+            fileInfo.setFileName(file.getOriginalFilename().replace(".csv", ""));
+            fileInfo.setFileSnsr("O");
+            fileInfo.setFileType("T");
+            fileInfo.setFileDiv("N");
+            fileInfo.setFilePt(dataType);
+            fileInfo.setCreatedAt(new Date());
+            Object obj = SecurityContextHolder.getContext().getAuthentication().getDetails();
+            User logUser = (User) obj;
+            fileInfo.setCreatedBy(logUser);
+            fileInfo.setFilePath(utilities.getProjTmpFolder());
+            fileInfoRepository.save(fileInfo);
+
             switch (dataType) {
                 case "B": {
                     try {
