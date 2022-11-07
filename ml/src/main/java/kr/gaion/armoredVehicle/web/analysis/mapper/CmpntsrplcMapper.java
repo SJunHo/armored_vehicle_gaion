@@ -11,10 +11,10 @@ import kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcResponse;
 @Mapper
 public interface CmpntsrplcMapper {
 
-	public List<CmpntsrplcResponse> findCmpntsrplcAll();
+	public List<CmpntsrplcResponse> findCmpntsrplc();
 	public void updateCmpntsrplc(Cmpntsrplc cmpntsrplc);
 
-	public List<Cmpntsrplc> findCmpntsrplcbyGrid(String grid);
+	public List<Cmpntsrplc> findCmpntsrplcAll(String grid);
 	public List<Cmpntsrplc> findCmpntsrplcByGrid(String grid);
 	public List<String> findGridAll();
 

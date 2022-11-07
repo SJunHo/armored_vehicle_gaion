@@ -2,17 +2,172 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.BkdsdaMapper">
 
-	<select id="countAll" resultType="Integer">
-		select count(distinct sdaid)
-		from BKDSDA
-		where dttime like CONCAT('%',#{dttime},'%')
+	<select id="countBkd" parameterType="java.util.Map" resultType="Integer">
+		select IFNULL(COUNT(DISTINCT b.FILENM),0)
+		from BERDATA b , ENGDATA e , GRBDATA g , WHLDATA w
+		where (b.`DATE` = e.`DATE` and b.`DATE` = g.`DATE` and b.`DATE` = w.`DATE`)
+		and (AI_LBPFO, AI_LBPFI, AI_LBSF, AI_LFTF,
+		AI_RBPFO, AI_RBPFI, AI_RBSF, AI_RFTF) in (('1','1','1','1','1','1','1','1'))
+		and AI_ENGINE = '1' and AI_GEAR = '1'
+		and (AI_LW, AI_RW) IN (('1','1'))
+		<if test ="sdaid != null">
+			and b.SDAID = #{sdaid}
+		</if>
+		and b.`DATE` like CONCAT('%',#{operdate},'%')
 	</select>
-	
-	<select id="countBkdsdaBySdaid" parameterType="java.util.Map" resultType="Integer">
-		select count(sdaid)
-		from BKDSDA
-		where sdaid = #{sdaid}
-		and dttime like CONCAT('%',#{dttime},'%')
+	<select id="findBkdMsg" parameterType="java.util.Map"
+			resultType="kr.gaion.armoredVehicle.web.analysis.model.BkdResponse">
+		select *
+		FROM
+		(
+		(select '베어링/좌/외륜' as grnm,count(AI_LBPFO) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_LBPFO = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_LBPFO = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '베어링/좌/내륜' as grnm ,count(AI_LBPFI) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_LBPFI = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_LBPFI = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '베어링/좌/볼' as grnm ,count(AI_LBSF) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_LBSF = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_LBSF = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '베어링/좌/리테이너' as grnm ,count(AI_LFTF) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_LFTF = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_LFTF = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '베어링/우/외륜' as grnm,count(AI_RBPFO) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_RBPFO = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_RBPFO = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '베어링/우/내륜' as grnm ,count(AI_RBPFI) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_RBPFI = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_RBPFI = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '베어링/우/볼' as grnm ,count(AI_RBSF) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_RBSF = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_RBSF = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '베어링/우/리테이너' as grnm ,count(AI_RFTF) as cntgr, b.FILENM ,
+		(select `DATE`
+		from BERDATA b1
+		where AI_RFTF = '1'
+		and b1.FILENM = b.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from BERDATA b, SDA s
+		where AI_RFTF = '1'
+		and s.SDAID  = b.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '차륜/좌' as grnm ,count(AI_LW) as cntgr, w.FILENM ,
+		(select `DATE`
+		from WHLDATA w1
+		where AI_LW = '1'
+		and w1.FILENM = w.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from WHLDATA w, SDA s
+		where AI_LW = '1'
+		and s.SDAID  = w.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '차륜/우' as grnm ,count(AI_RW) as cntgr, w.FILENM ,
+		(select `DATE`
+		from WHLDATA w1
+		where AI_RW = '1'
+		and w1.FILENM = w.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from WHLDATA w, SDA s
+		where AI_RW = '1'
+		and s.SDAID  = w.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '감속기' as grnm ,count(AI_GEAR) as cntgr, g.FILENM ,
+		(select `DATE`
+		from GRBDATA g1
+		where AI_GEAR = '1'
+		and g1.FILENM = g.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from GRBDATA g, SDA s
+		where AI_GEAR = '1'
+		and s.SDAID  = g.SDAID
+		GROUP BY FILENM)
+		UNION
+		(select '엔진' as grnm ,count(AI_ENGINE) as cntgr, e.FILENM ,
+		(select `DATE`
+		from ENGDATA e1
+		where AI_ENGINE = '1'
+		and e1.FILENM = e.FILENM
+		order by `DATE` asc
+		limit 1) as sttime, divs, s.SDANM
+		from ENGDATA e, SDA s
+		where AI_ENGINE = '1'
+		and s.SDAID  = e.SDAID
+		GROUP BY FILENM)
+		) a
+		where divs like
+		(select divs from USERCD uc where userid = #{userid})
+		<![CDATA[and (DATE_FORMAT(sttime,'%Y-%m-%d') >= DATE_FORMAT(#{sttime},'%Y-%m-%d')
+			and DATE_FORMAT(sttime,'%Y-%m-%d') <= DATE_FORMAT(#{endtime},'%Y-%m-%d'))]]>
 	</select>
 	
 </mapper>

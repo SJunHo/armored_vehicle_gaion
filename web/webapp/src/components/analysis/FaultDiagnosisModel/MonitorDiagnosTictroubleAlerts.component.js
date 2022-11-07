@@ -60,7 +60,9 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
   }
 
   componentDidMount(){
+    console.log(this.props.match.params.id);
     this.getAllVehicleInfo();
+    
   }
 
   componentDidUpdate(PrevState, PrevProps){
@@ -70,9 +72,17 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
   getAllVehicleInfo(){    //모든차량 정보가져오는 함수  (모든 호기 호출)
     monitorDiagnostDataService.getAllVehicleInfo()
     .then((response) => {
+      let param = "";
+      if(this.props.match.params.id === undefined){
+        param = response.data[0].sdaid;
+      }else{
+        param = this.props.match.params.id;
+        this.props.match.params.id = undefined;
+      }
+      
       this.setState({
         allVehicleInfo: [...response.data],
-        selectedVehicle: response.data[0].sdaid,
+        selectedVehicle: param,
       }, () => {
         
         // this.searchTroubleThings();   //초기 데이터세팅을 위해
@@ -112,6 +122,9 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     const { selectedVehicle, selectedPart, startDate, endDate, page, pageSize } = this.state;
     console.log(source);
 
+    this.setState({
+      tableLoading : true,
+    })
 
     if(this.state.existChart){
       
@@ -120,7 +133,6 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
 
       this.setState({
         existChart: false,
-        tableLoading : true,
         warnMsg : false,
       });
     }

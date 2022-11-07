@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.CmpntsrplcMapper">
-	<select id="findCmpntsrplcAll" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcResponse">
+	<select id="findCmpntsrplc" resultType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcResponse">
 		select c.grid, c1.expln as grnm, c.msg, c.stdval, c.prdval, c.nmval
 		, c.mdfcdt, c.mdfr, c.usedvcd
 		from CMPNTSRPLC c, CMNCD c1
@@ -17,7 +17,7 @@
 		where GRID = #{grid}
 	</update>
 
-	<select id="findCmpntsrplcbyGrid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc">
+	<select id="findCmpntsrplcAll" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc">
 		select *
 		from CMPNTSRPLC
 		where 1 = 1
@@ -25,12 +25,6 @@
 			and grid = #{grid}
 		</if>
 		and usedvcd = 'Y'
-	</select>
-
-	<select id="findCmpntsrplcByGrid" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc">
-		select *
-		from CMPNTSRPLC
-		where grid = #{grid}
 	</select>
 
 	<select id="findGridAll" resultType="String">

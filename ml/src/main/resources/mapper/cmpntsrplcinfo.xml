@@ -56,6 +56,8 @@
 		from CMPNTSRPLCINFO
 		where sdaid = #{sdaid}
 		and grid = #{grid}
+		order by dttime desc
+		limit 1
 	</select>
 	<insert id="insertCmpntsrplcinfo" parameterType="kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcInfo">
 		insert into CMPNTSRPLCINFO(dttime, sdaid, grid, stdvle, nmvle)

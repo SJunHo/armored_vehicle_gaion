@@ -17,10 +17,12 @@ import '../../../css/fonts.css';
 import '../../../css/style.css';
 import {FaBell} from "react-icons/fa";
  
+
 class Statistical extends Component {
   constructor(props) {
     super(props);
     this.clickOutlierWaning = this.clickOutlierWaning.bind(this);
+    this.clickTroubleShooting = this.clickTroubleShooting.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
     const {user} = this.props; 
     this.state = {
@@ -402,16 +404,30 @@ class Statistical extends Component {
 
   clickOutlierWaning(param){
     console.log(param);
-    // statisticalService.getId(param).then((response) => {
-    //   if(window.confirm("이상치경고모니터링으로 이동하시겠습니까?")){
-    //     window.location.href = "/monitoroutlierwarning/"+response.data;
-    //   }
-    // })
-    // .catch((e) => {
-    //     console.log(e);
-    // }); 
+    statisticalService.getId(param).then((response) => {
+      if(window.confirm("이상치경고모니터링으로 이동하시겠습니까?")){
+        window.location.href = "/monitoroutlierwarning/"+response.data;
+      }
+    })
+    .catch((e) => {
+        console.log(e);
+    }); 
     
   }
+
+  clickTroubleShooting(param){
+    console.log(param);
+    statisticalService.getId(param).then((response) => {
+      if(window.confirm("고장진단경고모니터링으로 이동하시겠습니까?")){
+        window.location.href = "/monitordiagnostictroublealerts/"+response.data;
+      }
+    })
+    .catch((e) => {
+        console.log(e);
+    }); 
+    
+  }
+
 
   togglePopup(){
     this.setState({
@@ -540,7 +556,7 @@ class Statistical extends Component {
 
                             {
                               amvh[1].includes("B")
-                              ? <button className="btn btn-danger" onClick={()=>{this.clickOutlierWaning(amvh[0]);}}>고장</button>
+                              ? <button className="btn btn-danger" onClick={()=>{this.clickTroubleShooting(amvh[0]);}}>고장</button>
                               : <button className="btn btn-light" disabled>고장</button>
                             }
                             </div>

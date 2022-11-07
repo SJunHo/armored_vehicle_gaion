@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="countDtctsdaBySdaid" parameterType="java.util.Map" resultType="Integer">
-		select count(distinct sdaid)
+		select count(distinct filenm)
 		from DTCTSDA
 		where sdaid = #{sdaid}
 		and dttime like CONCAT('%',#{dttime},'%')
@@ -25,5 +25,10 @@
 	from dtctsda 
 	where filenm = #{fileNm} and snsrid = #{sensorid} and sdaid = #{sdaid} 
 	</select>
-	
+
+	<select id="findDtctsdaForinfo" parameterType="java.util.Map" resultType="String">
+		select distinct (snsrid)
+		from DTCTSDA
+		where filenm = #{filenm} and sdaid = #{sdaid} and dttime = #{dttime}
+	</select>
 </mapper>

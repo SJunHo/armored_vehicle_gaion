@@ -40,7 +40,7 @@ public class PartsReplacementCycleService {
 	CmpntsrplcHistryMapper cmpntsrplcHistryMapper;
 	
 	public List<CmpntsrplcResponse> findCmpntsrplcList(){
-		List<CmpntsrplcResponse> cmpntsrplcList = cmpntsrplcMapper.findCmpntsrplcAll();
+		List<CmpntsrplcResponse> cmpntsrplcList = cmpntsrplcMapper.findCmpntsrplc();
 		
 		return cmpntsrplcList;
 	}

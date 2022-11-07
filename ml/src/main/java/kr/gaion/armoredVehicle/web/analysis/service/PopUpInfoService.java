@@ -10,14 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import kr.gaion.armoredVehicle.web.analysis.mapper.CmpntsrplcHistryMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.CmpntsrplcMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.DriverattitdinfoMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.SdaMapper;
-import kr.gaion.armoredVehicle.web.analysis.model.Cmpntsrplc;
-import kr.gaion.armoredVehicle.web.analysis.model.CmpntsrplcHistry;
-import kr.gaion.armoredVehicle.web.analysis.model.Sda;
-import kr.gaion.armoredVehicle.web.analysis.model.SearchRequest;
+import kr.gaion.armoredVehicle.web.analysis.mapper.*;
+import kr.gaion.armoredVehicle.web.analysis.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,24 +31,33 @@ public class PopUpInfoService {
 	@Autowired
 	DriverattitdinfoMapper driverattitdInfoMapper;
 
+	@Autowired
+	BkdsdaMapper bkdsdaMapper;
+
 
 	public List<String> getPopUpInfo(String userid){
 		List<String> result = new ArrayList<String>();
-		List<String> cmpntsrplcInfo = getCmpntsrplcInfo(userid);
-		List<String> driverattitdInfo = getDriverattitdInfo(userid);
+
+		Map<String, Object> search = new HashMap<String, Object>();
+		List<Sda> sdaList = new ArrayList<Sda>();
+		search.put("userid", userid);
+
+		sdaList = sdaMapper.findSda(search);
+		List<String> cmpntsrplcInfo = getCmpntsrplcInfo(sdaList);
+		List<String> driverattitdInfo = getDriverattitdInfo(sdaList);
+		List<String> bkdInfo = getBkdInfo(userid);
 
 		result.addAll(cmpntsrplcInfo);
 		result.addAll(driverattitdInfo);
+		result.addAll(bkdInfo);
 
 		return result;
 	}
 
-	public List<String> getCmpntsrplcInfo(String userid) {
+	public List<String> getCmpntsrplcInfo(List<Sda> sdaList) {
 		List<String> result = new ArrayList<String>();
 
 		List<CmpntsrplcHistry> cmpntsrplcHistryList = new ArrayList<CmpntsrplcHistry>();
-
-		List<Sda> sdaList = new ArrayList<Sda>();
 
 		List<Cmpntsrplc> cmpntsrplcList = new ArrayList<Cmpntsrplc>();
 
@@ -62,12 +65,7 @@ public class PopUpInfoService {
 		getToday.setTime(new Date());
 		Calendar cmpDate = Calendar.getInstance();
 
-		Map<String, Object> search = new HashMap<String, Object>();
-		search.put("userid", userid);
-
-		sdaList = sdaMapper.findSda(search);
-
-		cmpntsrplcList = cmpntsrplcMapper.findCmpntsrplcbyGrid(null);
+		cmpntsrplcList = cmpntsrplcMapper.findCmpntsrplcAll(null);
 
 		for(Sda s : sdaList) {
 			for(Cmpntsrplc cmpntsrplc : cmpntsrplcList) {
@@ -104,7 +102,7 @@ public class PopUpInfoService {
 	}
 
 
-	public List<String> getDriverattitdInfo(String userid){
+	public List<String> getDriverattitdInfo(List<Sda> sdaList){
 		List<String> result = new ArrayList<String>();
 
 		Calendar  cal  =  Calendar.getInstance();
@@ -127,11 +125,6 @@ public class PopUpInfoService {
 			e.printStackTrace();
 		}
 
-		List<Sda> sdaList = new ArrayList<Sda>();
-		Map<String, Object> uSearch = new HashMap<String, Object>();
-		uSearch.put("userid", userid);
-		sdaList = sdaMapper.findSda(uSearch);
-
 		for(Sda s : sdaList) {
 			SearchRequest search = new SearchRequest();
 
@@ -144,6 +137,45 @@ public class PopUpInfoService {
 			if(value > 0) {
 				String comment = s.getSdanm() + "차량의 운전자 자세교정 정보가 "+ value + "건 확인되었습니다.";
 				result.add(comment);
+			}
+		}
+
+		return result;
+	}
+
+	public List<String> getBkdInfo(String userid){
+		List<String> result = new ArrayList<String>();
+
+		Calendar  cal  =  Calendar.getInstance();
+
+		SimpleDateFormat  sdf  =  new SimpleDateFormat("yyyy-MM-dd");      // 데이터 출력 형식 지정
+
+		String  toDate  =  sdf.format (cal.getTime());      // 오늘 날짜 변수에 저장
+
+		cal.set (cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)-7);     // 7일전 날짜 Set
+
+		String  lastDate  =  sdf.format (cal.getTime());    // 7일전 날짜 변수에 저장
+
+		Date dToday = null;
+		Date dCmpDate = null;
+		try {
+			dToday = sdf.parse(toDate);
+			dCmpDate = sdf.parse(lastDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userid", userid);
+		param.put("endtime", dToday);
+		param.put("sttime", dCmpDate);
+
+		List<BkdResponse> bkdMsgList = bkdsdaMapper.findBkdMsg(param);
+
+		if(bkdMsgList != null) {
+			for(BkdResponse b : bkdMsgList) {
+				result.add(getBkdMsg(b));
 			}
 		}
 
@@ -170,5 +202,14 @@ public class PopUpInfoService {
 		return result;
 	}
 
+	public String getBkdMsg(BkdResponse param) {
+
+		String result = null;
+
+		result = param.getSdanm() + "차량의" + param.getGrnm() + "의 고장진단이" + param.getFilenm() +"파일에"
+				+ param.getCntgr() + "회 발생했습니다 / (최초)발생시간 : " + param.getSttime();
+
+		return result;
+	}
 
 }
