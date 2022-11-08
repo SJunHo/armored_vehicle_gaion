@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TrainingEngineRepository extends JpaRepository<TrainingEngine, Long> {
     // Engine
-    @Query(value = " SELECT e.AI_ENGINE, e.W_RPM, e.E_V_OverallRMS, e.E_V_1_2X, e.E_V_1X, e.E_V_Crestfactor, e.AC_h, e.AC_v, e.AC_a, e.`DATE` " +
+    @Query(value = " SELECT e.IDX, e.AI_ENGINE, e.W_RPM, e.E_V_OverallRMS, e.E_V_1_2X, e.E_V_1X, e.E_V_Crestfactor, e.AC_h, e.AC_v, e.AC_a, e.`DATE` " +
             " FROM ENGTRNNG e ", nativeQuery = true)
     List<EngineInput> findEngine();
 }

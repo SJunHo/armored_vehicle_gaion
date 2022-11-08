@@ -4,10 +4,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Data
 @Getter
 @Setter
 public class WheelRightInput {
+    private int IDX;
+
     // AI_Predict
     private int AI_RW;
 
@@ -26,4 +30,6 @@ public class WheelRightInput {
     private double AC_v;
 
     private double AC_a;
+
+    private Date DATE;
 }

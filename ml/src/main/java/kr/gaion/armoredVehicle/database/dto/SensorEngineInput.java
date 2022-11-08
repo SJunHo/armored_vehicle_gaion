@@ -10,6 +10,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class SensorEngineInput {
+    private int IDX;
+
     // AI Predict
     private String AI_ENGINE;
 
@@ -20,7 +22,7 @@ public class SensorEngineInput {
     private Date AI_ENGINE_DATE;
 
     // User Judgement
-    private int USER_ENGINE;
+    private String USER_ENGINE;
 
     private String USER_ENGINE_ID;
 
@@ -42,6 +44,8 @@ public class SensorEngineInput {
     private double AC_v;
 
     private double AC_a;
+
+    private Date DATE;
 
     // file name
     private String FILENM;

@@ -255,15 +255,16 @@ public class SensorBearing {
 
     @Column(name = "L_B_S_Fault1")
     private double lbsFault1;
+
     @Column(name = "L_B_S_Fault2")
-
     private double lbsFault2;
+
     @Column(name = "L_B_T_Temperature")
-
     private double lbtTemperature;
-    @Column(name = "R_B_V_OverallRMS")
 
+    @Column(name = "R_B_V_OverallRMS")
     private double rbvOverallRMS;
+
     @Column(name = "R_B_V_1X")
     private double rbv1x;
 

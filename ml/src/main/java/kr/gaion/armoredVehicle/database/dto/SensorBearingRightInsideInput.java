@@ -10,6 +10,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class SensorBearingRightInsideInput {
+    private int IDX;
+
     // AI Predict
     private String AI_RBPFI;
 
@@ -20,7 +22,7 @@ public class SensorBearingRightInsideInput {
     private Date AI_RBPFI_DATE;
 
     // User Judgement
-    private int USER_RBPFI;
+    private String USER_RBPFI;
 
     private String USER_RBPFI_ID;
 
@@ -53,6 +55,8 @@ public class SensorBearingRightInsideInput {
     private double AC_v;
 
     private double AC_a;
+
+    private Date DATE;
 
     // file name
     private String FILENM;

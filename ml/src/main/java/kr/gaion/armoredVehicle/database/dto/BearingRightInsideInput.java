@@ -4,10 +4,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Data
 @Getter
 @Setter
 public class BearingRightInsideInput {
+    private int IDX;
+
     // AI_Predict
     private int AI_RBPFI;
 
@@ -38,4 +42,6 @@ public class BearingRightInsideInput {
     private double AC_v;
 
     private double AC_a;
+
+    private Date DATE;
 }

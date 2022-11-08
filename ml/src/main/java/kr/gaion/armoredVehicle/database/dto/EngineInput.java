@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import java.util.Date;
 
 @Data
 @Getter
 @Setter
 public class EngineInput {
+    private int IDX;
+
     // AI_Predict
     private int AI_ENGINE;
 
@@ -30,4 +33,6 @@ public class EngineInput {
     private double AC_v;
 
     private double AC_a;
+
+    private Date DATE;
 }

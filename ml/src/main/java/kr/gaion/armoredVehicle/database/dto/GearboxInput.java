@@ -4,10 +4,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Data
 @Getter
 @Setter
 public class GearboxInput {
+    private int IDX;
+
     // AI_Predict
     private int AI_GEAR;
 
@@ -34,4 +38,6 @@ public class GearboxInput {
     private double AC_v;
 
     private double AC_a;
+
+    private Date DATE;
 }

@@ -10,6 +10,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class SensorBearingLeftOutsideInput {
+    private int IDX;
+
     // AI Predict
     private String AI_LBPFO;
 
@@ -20,7 +22,7 @@ public class SensorBearingLeftOutsideInput {
     private Date AI_LBPFO_DATE;
 
     // User Judgement
-    private int USER_LBPFO;
+    private String USER_LBPFO;
 
     private String USER_LBPFO_ID;
 
@@ -53,6 +55,8 @@ public class SensorBearingLeftOutsideInput {
     private double AC_v;
 
     private double AC_a;
+
+    private Date DATE;
 
     // file name
     private String FILENM;
