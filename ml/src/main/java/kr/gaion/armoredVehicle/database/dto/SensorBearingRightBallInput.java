@@ -57,7 +57,4 @@ public class SensorBearingRightBallInput {
     private double AC_a;
 
     private Date DATE;
-
-    // file name
-    private String FILENM;
 }

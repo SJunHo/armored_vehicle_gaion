@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 @Data
@@ -21,7 +20,6 @@ public class EngineInput {
 
     private double E_V_OverallRMS;
 
-    @Column(name = "E_V_1-2X")
     private double E_V_1_2X;
 
     private double E_V_1X;

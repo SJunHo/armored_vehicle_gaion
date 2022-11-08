@@ -53,7 +53,4 @@ public class SensorGearboxInput {
     private double AC_a;
 
     private Date DATE;
-
-    // file name
-    private String FILENM;
 }
