@@ -1,6 +1,6 @@
 package kr.gaion.armoredVehicle.database.repository;
 
-import kr.gaion.armoredVehicle.database.dto.SensorGearboxInput;
+import kr.gaion.armoredVehicle.database.dto.SensorGearboxInterface;
 import kr.gaion.armoredVehicle.database.model.SensorGearbox;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +16,5 @@ public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Lo
             " e.AC_h, e.AC_v, e.AC_a, g.`DATE` " +
             " FROM GRBDATA g, ENGDATA e " +
             " WHERE g.`DATE` = e.`DATE` AND g.AI_GEAR is Null ", nativeQuery = true)
-    List<SensorGearboxInput> findSensorGearboxAiGEARIsNull();
+    List<SensorGearboxInterface> findSensorGearboxAiGEARIsNull();
 }

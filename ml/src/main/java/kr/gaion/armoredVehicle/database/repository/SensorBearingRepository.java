@@ -18,7 +18,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e " +
             " WHERE b.`DATE` = e.`DATE` AND b.AI_LBSF is Null ", nativeQuery = true)
-    List<SensorBearingLeftBallInput> findSensorBearingLeftBallAiLBSFIsNull();
+    List<SensorBearingLeftBallInterface> findSensorBearingLeftBallAiLBSFIsNull();
 
     // Bearing Left Inside
     @Query(value = " SELECT b.IDX, b.AI_LBPFI, b.AI_LBPFI_ALGO, b.AI_LBPFI_MODEL, b.AI_LBPFI_DATE, " +
@@ -28,7 +28,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e " +
             " WHERE b.`DATE` = e.`DATE` AND b.AI_LBPFI is Null ", nativeQuery = true)
-    List<SensorBearingLeftInsideInput> findSensorBearingLeftInsideAiLBPFIIsNull();
+    List<SensorBearingLeftInsideInterface> findSensorBearingLeftInsideAiLBPFIIsNull();
 
     // Bearing Left Outside
     @Query(value = " SELECT b.IDX, b.AI_LBPFO, b.AI_LBPFO_ALGO, b.AI_LBPFO_MODEL, b.AI_LBPFO_DATE, " +
@@ -37,7 +37,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e ", nativeQuery = true)
-    List<SensorBearingLeftOutsideInput> findSensorBearingLeftOutsideAiLBPFOIsNull();
+    List<SensorBearingLeftOutsideInterface> findSensorBearingLeftOutsideAiLBPFOIsNull();
 
     // Bearing Left Retainer
     @Query(value = " SELECT b.IDX, b.AI_LFTF, b.AI_LFTF_ALGO, b.AI_LFTF_MODEL, b.AI_LFTF_DATE, " +
@@ -47,7 +47,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e " +
             " WHERE b.`DATE` = e.`DATE` AND b.AI_LFTF is Null ", nativeQuery = true)
-    List<SensorBearingLeftRetainerInput> findSensorBearingLeftRetainerAiLFTFIsNull();
+    List<SensorBearingLeftRetainerInterface> findSensorBearingLeftRetainerAiLFTFIsNull();
 
     // Bearing Right Ball
     @Query(value = " SELECT b.IDX, b.AI_RBSF, b.AI_RBSF_ALGO, b.AI_RBSF_MODEL, b.AI_RBSF_DATE, " +
@@ -57,7 +57,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e " +
             " WHERE b.`DATE` = e.`DATE` AND b.AI_RBSF is Null ", nativeQuery = true)
-    List<SensorBearingRightBallInput> findSensorBearingRightBallAiRBSFIsNull();
+    List<SensorBearingRightBallInterface> findSensorBearingRightBallAiRBSFIsNull();
 
     // Bearing Right Inside
     @Query(value = " SELECT b.IDX, b.AI_RBPFI, b.AI_RBPFI_ALGO, b.AI_RBPFI_MODEL, b.AI_RBPFI_DATE, " +
@@ -67,7 +67,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e " +
             " WHERE b.`DATE` = e.`DATE` AND b.AI_RBPFI is Null ", nativeQuery = true)
-    List<SensorBearingRightInsideInput> findSensorBearingRightInsideAiRBPFIIsNull();
+    List<SensorBearingRightInsideInterface> findSensorBearingRightInsideAiRBPFIIsNull();
 
     // Bearing Right Outside
     @Query(value = " SELECT b.IDX, b.AI_RBPFO, b.AI_RBPFO_ALGO, b.AI_RBPFO_MODEL, b.AI_RBPFO_DATE, " +
@@ -77,7 +77,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e " +
             " WHERE b.`DATE` = e.`DATE` AND b.AI_RBPFO is Null ", nativeQuery = true)
-    List<SensorBearingRightOutsideInput> findSensorBearingRightOutsideAiRBPFOIsNull();
+    List<SensorBearingRightOutsideInterface> findSensorBearingRightOutsideAiRBPFOIsNull();
 
     // Bearing Right Retainer
     @Query(value = " SELECT b.IDX, b.AI_RFTF, b.AI_RFTF_ALGO, b.AI_RFTF_MODEL, b.AI_RFTF_DATE, " +
@@ -87,5 +87,5 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
             " FROM BERDATA b, ENGDATA e " +
             " WHERE b.`DATE` = e.`DATE` AND b.AI_RFTF is Null ", nativeQuery = true)
-    List<SensorBearingRightRetainerInput> findSensorBearingRightRetainerRFTFIsNull();
+    List<SensorBearingRightRetainerInterface> findSensorBearingRightRetainerRFTFIsNull();
 }

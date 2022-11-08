@@ -1,7 +1,7 @@
 package kr.gaion.armoredVehicle.database.repository;
 
-import kr.gaion.armoredVehicle.database.dto.SensorWheelLeftInput;
-import kr.gaion.armoredVehicle.database.dto.SensorWheelRightInput;
+import kr.gaion.armoredVehicle.database.dto.SensorWheelLeftInterface;
+import kr.gaion.armoredVehicle.database.dto.SensorWheelRightInterface;
 import kr.gaion.armoredVehicle.database.model.SensorWheel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +18,7 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
             " e.AC_h, e.AC_v, e.AC_a, w.`DATE` " +
             " FROM WHLDATA w, ENGDATA e " +
             " WHERE w.`DATE` = e.`DATE` AND w.AI_LW is Null ", nativeQuery = true)
-    List<SensorWheelLeftInput> findSensorWheelLeftAiLWIsNull();
+    List<SensorWheelLeftInterface> findSensorWheelLeftAiLWIsNull();
 
     // Wheel Right
     @Query(value = " SELECT w.IDX, w.AI_RW, w.AI_RW_ALGO, w.AI_RW_MODEL, w.AI_RW_DATE, " +
@@ -27,5 +27,5 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
             " e.AC_h, e.AC_v, e.AC_a, w.`DATE` " +
             " FROM WHLDATA w, ENGDATA e " +
             " WHERE w.`DATE` = e.`DATE` AND w.AI_RW is Null ", nativeQuery = true)
-    List<SensorWheelRightInput> findSensorWheelRightAiRWIsNull();
+    List<SensorWheelRightInterface> findSensorWheelRightAiRWIsNull();
 }

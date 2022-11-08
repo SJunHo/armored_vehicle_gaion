@@ -1,6 +1,6 @@
 package kr.gaion.armoredVehicle.database.repository;
 
-import kr.gaion.armoredVehicle.database.dto.SensorEngineInput;
+import kr.gaion.armoredVehicle.database.dto.SensorEngineInterface;
 import kr.gaion.armoredVehicle.database.model.SensorEngine;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +15,5 @@ public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long
             " e.W_RPM, e.E_V_OverallRMS, e.E_V_1_2X, e.E_V_1X, e.E_V_Crestfactor, e.AC_h, e.AC_v, e.AC_a, e.`DATE` " +
             " FROM ENGDATA e " +
             " WHERE e.AI_ENGINE is Null ", nativeQuery = true)
-    List<SensorEngineInput> findSensorEngineAiENGINEIsNull();
+    List<SensorEngineInterface> findSensorEngineAiENGINEIsNull();
 }
