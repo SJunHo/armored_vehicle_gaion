@@ -21,7 +21,6 @@ public interface SensorEngineInterface {
 
     Date getUSER_ENGINE_DATE();
 
-    // from Bearing
     double getW_RPM();
 
     double getE_V_OverallRMS();

@@ -1,54 +1,119 @@
-import React, {
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  useCallback,
-} from "react"
+import React, {useCallback, useContext, useEffect, useMemo, useState,} from "react"
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-// import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { useTranslation } from "react-i18next";
-import { Column, Row as TableRow } from "react-table";
-import {
-    DataInputOption,
-    DataProvider,
-    DbDataUpdateInput,
-    DbModelResponse,
-    OpenApiContext,
-    SensorBearing,
-    SensorGearbox,
-    SensorWheel,
-    SensorEngine,
-    SensorTempLife
-} from "../api";
-import { ALGORITHM_INFO } from "../common/Common";
-import { Section } from "../common/Section/Section";
-import { Table } from "../common/Table";
+import {useTranslation} from "react-i18next";
+import {Column, Row as TableRow} from "react-table";
+import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext, Pageable, SensorTempLife} from "../api";
+import {ALGORITHM_INFO} from "../common/Common";
+import {Section} from "../common/Section/Section";
+import {Table} from "../common/Table";
+import {Paginator} from "../common/Paginator";
 
-export const DataPrediction: React.FC<{ algorithmName: string }> = ({
-  algorithmName,
-}) => {
+export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmName}) => {
   const [predicting, setPredicting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [searchingData, setSearchingData] = useState(false);
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
-
   const [conditionData, setConditionData] = useState<any[]>([]);
-
   const [selectedData, setSelectedData] = useState<any[]>();
-
+  const [wb, setWb] = useState<string>("BLB");
   const [tableColumns, setTableColumns] = useState<any>([]);
-  const [sensorObject, setSensorObject] = useState<Object>();
-  const [wb, setWb] = useState<string>("W");
+  const [totalPage, setTotalPage] = useState<number>(1);
+  const [paginate, setPaginate] = useState<Pageable>();
 
-  const { t } = useTranslation();
-  const columns = useMemo<Column<DbModelResponse>[]>(
+  const [sensorObject, setSensorObject] = useState<Object>();
+
+
+  const {datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
+  const {t} = useTranslation();
+
+  type SensorBearingLeftBallInput = {
+    idx: number, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,
+    w_RPM: number, l_B_V_1X: number, l_B_V_6912BSF: number, l_B_V_32924BSF: number, l_B_V_32922BSF: number,
+    l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorBearingLeftInsideInput = {
+    idx: number, ai_LBPFI: string, ai_LBPFI_ALGO: string, ai_LBPFI_MODEL: string, ai_LBPFI_DATE: string,
+    w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFI: number, l_B_V_32924BPFI: number, l_B_V_32922BPFI: number,
+    l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorBearingLeftOutsideInput = {
+    idx: number, ai_LBPFO: string, ai_LBPFO_ALGO: string, ai_LBPFO_MODEL: string, ai_LBPFO_DATE: string,
+    w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFO: number, l_B_V_32924BPFO: number, l_B_V_32922BPFO: number,
+    l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorBearingLeftRetainerInput = {
+    idx: number, ai_LFTF: string, ai_LFTF_ALGO: string, ai_LFTF_MODEL: string, ai_LFTF_DATE: string,
+    w_RPM: number, l_B_V_1X: number, l_B_V_6912FTF: number, l_B_V_32924FTF: number, l_B_V_32922FTF: number,
+    l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorBearingRightBallInput = {
+    idx: number, ai_RBSF: string, ai_RBSF_ALGO: string, ai_RBSF_MODEL: string, ai_RBSF_DATE: string,
+    w_RPM: number, r_B_V_1X: number, r_B_V_6912BSF: number, r_B_V_32924BSF: number, r_B_V_32922BSF: number,
+    r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorBearingRightInsideInput = {
+    idx: number, ai_RBPFI: string, ai_RBPFI_ALGO: string, ai_RBPFI_MODEL: string, ai_RBPFI_DATE: string,
+    w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFI: number, r_B_V_32924BPFI: number, r_B_V_32922BPFI: number,
+    r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorBearingRightOutsideInput = {
+    idx: number, ai_RBPFO: string, ai_RBPFO_ALGO: string, ai_RBPFO_MODEL: string, ai_RBPFO_DATE: string,
+    w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFO: number, r_B_V_32924BPFO: number, r_B_V_32922BPFO: number,
+    r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorBearingRightRetainerInput = {
+    idx: number, ai_RFTF: string, ai_RFTF_ALGO: string, ai_RFTF_MODEL: string, ai_RFTF_DATE: string,
+    w_RPM: number, r_B_V_1X: number, r_B_V_6912FTF: number, r_B_V_32924FTF: number, r_B_V_32922FTF: number,
+    r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorWheelLeftInput = {
+    idx: number, ai_LW: string, ai_LW_ALGO: string, ai_LW_MODEL: string, ai_LW_DATE: string,
+    w_RPM: number, l_W_V_2X: number, l_W_V_3X: number, l_W_S_Fault3: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorWheelRightInput = {
+    idx: number, ai_RW: string, ai_RW_ALGO: string, ai_RW_MODEL: string, ai_RW_DATE: string,
+    w_RPM: number, r_W_V_2X: number, r_W_V_3X: number, r_W_S_Fault3: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorGearboxInput = {
+    idx: number, ai_GEAR: string, ai_GEAR_ALGO: string, ai_GEAR_MODEL: string, ai_GEAR_DATE: string,
+    w_RPM: number, g_V_OverallRMS: number, g_V_Wheel1X: number, g_V_Wheel2X: number,
+    g_V_Pinion1X: number, g_V_Pinion2X: number, g_V_GMF1X: number, g_V_GMF2X: number,
+    ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  type SensorEngineInput = {
+    idx: number, ai_ENGINE: string, ai_ENGINE_ALGO: string, ai_ENGINE_MODEL: string, ai_ENGINE_DATE: string,
+    w_RPM: number, e_V_OverallRMS: number, e_V_1_2X: number, e_V_1X: number,
+    e_V_Crestfactor: number, ac_h: number, ac_v: number, ac_a: number, date: string
+  }
+
+  const modelResponseColumns = useMemo<Column<DbModelResponse>[]>(
     () => [
       {
         Header: "Model Name",
@@ -62,30 +127,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         Header: t("ml.common.accuracy").toString(),
         accessor: "accuracy",
       },
-      // {
-      //   Header: t("ml.common.fsco").toString(),
-      //   accessor: "weightedFMeasure",
-      // },
-      // {
-      //   Header: t("ml.common.wfp").toString(),
-      //   accessor: "weightedFalsePositiveRate",
-      // },
-      // {
-      //   Header: t("ml.common.precision").toString(),
-      //   accessor: "weightedPrecision",
-      // },
-      // {
-      //   Header: t("ml.common.recall").toString(),
-      //   accessor: "weightedRecall",
-      // },
-      // {
-      //   Header: t("ml.common.wtp").toString(),
-      //   accessor: "weightedTruePositiveRate",
-      // },
-      // {
-      //   Header: t("ml.common.r2").toString(),
-      //   accessor: "r2",
-      // },
       {
         Header: t("ml.common.rmse").toString(),
         accessor: "rootMeanSquaredError",
@@ -94,7 +135,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
     [t]
   );
 
-  const SensorBearingDataColumns = useMemo<Column<SensorBearing>[]>(
+  const SensorTempLifeDataColumns = useMemo<Column<SensorTempLife>[]>(
     () => [
       {
         Header: "예측 결과",
@@ -114,434 +155,988 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       },
       {
         Header: "날짜",
-        accessor: "operateDateTime",
+        accessor: "time",
       },
       {
-        Header: "carId",
-        accessor: "carId",
+        Header: "Cpu Util",
+        accessor: "cpuUtil",
       },
       {
-        Header: "lbvOverallRMS",
-        accessor: "lbvOverallRMS",
+        Header: "Disk Accesses",
+        accessor: "diskAccesses",
       },
       {
-        Header: "lbv1x",
-        accessor: "lbv1x",
+        Header: "Disk Blocks",
+        accessor: "diskBlocks",
+      }, {
+        Header: "Disk Util",
+        accessor: "diskUtil",
       },
       {
-        Header: "lbv6912bpfo",
-        accessor: "lbv6912bpfo",
-      },{
-        Header: "lbv6912bpfi",
-        accessor: "lbv6912bpfi",
+        Header: "INST RETIRED",
+        accessor: "instRetired",
       },
       {
-        Header: "lbv6912bsf",
-        accessor: "lbv6912bsf",
+        Header: "Last Level",
+        accessor: "lastLevel",
       },
       {
-        Header: "lbv6912ftf",
-        accessor: "lbv6912ftf",
+        Header: "Memory Bus",
+        accessor: "memoryBus",
       },
       {
-        Header: "lbv32924bpfo",
-        accessor: "lbv32924bpfo",
-      },
-      {
-        Header: "lbv32924bpfi",
-        accessor: "lbv32924bpfi",
-      },
-      {
-        Header: "lbv32924bsf",
-        accessor: "lbv32924bsf",
-      },
-      {
-        Header: "lbv32924ftf",
-        accessor: "lbv32924ftf",
-      },
-      {
-        Header: "lbv32922bpfo",
-        accessor: "lbv32922bpfo",
-      },
-      {
-        Header: "lbv32922bpfi",
-        accessor: "lbv32922bpfi",
-      },
-      {
-        Header: "lbv32922bsf",
-        accessor: "lbv32922bsf",
-      },
-      {
-        Header: "lbv32922ftf",
-        accessor: "lbv32922ftf",
-      },
-      {
-        Header: "lbvCrestfactor",
-        accessor: "lbvCrestfactor",
-      },
-      {
-        Header: "lbvDemodulation",
-        accessor: "lbvDemodulation",
-      },
-      {
-        Header: "lbsFault1",
-        accessor: "lbsFault1",
-      },
-      {
-        Header: "lbsFault2",
-        accessor: "lbsFault2",
-      },
-      {
-        Header: "lbtTemperature",
-        accessor: "lbtTemperature",
-      },
-      {
-        Header: "rbvOverallRMS",
-        accessor: "rbvOverallRMS",
-      },
-      {
-        Header: "rbv1x",
-        accessor: "rbv1x",
-      },
-      {
-        Header: "rbv6912bpfo",
-        accessor: "rbv6912bpfo",
-      },
-      {
-        Header: "rbv6912bpfi",
-        accessor: "rbv6912bpfi",
-      },
-      {
-        Header: "rbv6912bsf",
-        accessor: "rbv6912bsf",
-      },
-      {
-        Header: "rbv6912ftf",
-        accessor: "rbv6912ftf",
-      },
-      {
-        Header: "rbv32924bpfo",
-        accessor: "rbv32924bpfo",
-      },
-      {
-        Header: "rbv32924bpfi",
-        accessor: "rbv32924bpfi",
-      },
-      {
-        Header: "rbv32924bsf",
-        accessor: "rbv32924bsf",
-      },
-      {
-        Header: "rbv32924ftf",
-        accessor: "rbv32924ftf",
-      },
-      {
-        Header: "rbv32922bpfo",
-        accessor: "rbv32922bpfo",
-      },
-      {
-        Header: "rbv32922bpfi",
-        accessor: "rbv32922bpfi",
-      },
-      {
-        Header: "rbv32922bsf",
-        accessor: "rbv32922bsf",
-      },
-      {
-        Header: "rbv32922ftf",
-        accessor: "rbv32922ftf",
-      },
-      {
-        Header: "rbvCrestfactor",
-        accessor: "rbvCrestfactor",
-      },
-      {
-        Header: "rbvDemodulation",
-        accessor: "rbvDemodulation",
-      },
-      {
-        Header: "rbsFault1",
-        accessor: "rbsFault1",
-      },
-      {
-        Header: "rbsFault2",
-        accessor: "rbsFault2",
-      },
-      {
-        Header: "rbtTemperature",
-        accessor: "rbtTemperature",
-      },
-      {
-        Header: "filenm",
-        accessor: "filenm",
-      },
-      {
-        Header: "wrpm",
-        accessor: "wrpm",
+        Header: "Core Cycle",
+        accessor: "coreCycle",
       },
     ],
     []
   );
 
-  const SensorGearboxDataColumns = useMemo<Column<SensorGearbox>[]>(
+  const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
-      {
-        Header: "예측 결과",
-        accessor: "aiPredict",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "aiAlgorithm",
-      },
-      {
-        Header: "모델이름",
-        accessor: "aiModel",
-      },
       {
         Header: "ID",
         accessor: "idx",
       },
       {
-        Header: "날짜",
-        accessor: "operateDateTime",
+        Header: "예측 결과",
+        accessor: "ai_LBSF",
       },
       {
-        Header: "carId",
-        accessor: "carId",
+        Header: "알고리즘",
+        accessor: "ai_LBSF_ALGO",
       },
       {
-        Header: "wrpm",
-        accessor: "wrpm",
+        Header: "모델이름",
+        accessor: "ai_LBSF_MODEL",
       },
       {
-        Header: "gvOverallRms",
-        accessor: "gvOverallRms",
+        Header: "수행시간",
+        accessor: "ai_LBSF_DATE",
       },
       {
-        Header: "gvWheel1x",
-        accessor: "gvWheel1x",
+        Header: "W_RPM",
+        accessor: "w_RPM",
       },
       {
-        Header: "gvWheel2x",
-        accessor: "gvWheel2x",
+        Header: "L_B_V_1X",
+        accessor: "l_B_V_1X",
       },
       {
-        Header: "gvPinion1x",
-        accessor: "gvPinion1x",
+        Header: "L_B_V_6912BSF",
+        accessor: "l_B_V_6912BSF",
       },
       {
-        Header: "gvPinion2x",
-        accessor: "gvPinion2x",
+        Header: "L_B_V_32924BSF",
+        accessor: "l_B_V_32924BSF",
       },
       {
-        Header: "gvGmf1x",
-        accessor: "gvGmf1x",
+        Header: "L_B_V_32922BSF",
+        accessor: "l_B_V_32922BSF",
       },
       {
-        Header: "gvGmf2x",
-        accessor: "gvGmf2x",
+        Header: "L_B_V_Crestfactor",
+        accessor: "l_B_V_Crestfactor",
       },
       {
-        Header: "filenm",
-        accessor: "filenm",
+        Header: "L_B_V_Demodulation",
+        accessor: "l_B_V_Demodulation",
+      },
+      {
+        Header: "L_B_S_Fault1",
+        accessor: "l_B_S_Fault1",
+      },
+      {
+        Header: "L_B_S_Fault2",
+        accessor: "l_B_S_Fault2",
+      },
+      {
+        Header: "L_B_T_Temperature",
+        accessor: "l_B_T_Temperature",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
       },
     ],
-    [t]
+    []
   );
 
-  const SensorWheelDataColumns = useMemo<Column<SensorWheel>[]>(
+  const SensorBearingLeftInsideColumns = useMemo<Column<SensorBearingLeftInsideInput>[]>(
     () => [
-      {
-        Header: "예측 결과",
-        accessor: "aiPredict",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "aiAlgorithm",
-      },
-      {
-        Header: "모델이름",
-        accessor: "aiModel",
-      },
       {
         Header: "ID",
         accessor: "idx",
       },
       {
-        Header: "날짜",
-        accessor: "operateDateTime",
-      },
-      {
-        Header: "carId",
-        accessor: "carId",
-      },
-      {
-        Header: "lwv2x",
-        accessor: "lwv2x",
-      },
-      {
-        Header: "lwv3x",
-        accessor: "lwv3x",
-      },
-      {
-        Header: "lwsFault3",
-        accessor: "lwsFault3",
-      },
-      {
-        Header: "rwv2x",
-        accessor: "rwv2x",
-      },
-      {
-        Header: "rwv3x",
-        accessor: "rwv3x",
-      },
-      {
-        Header: "rwsFault3",
-        accessor: "rwsFault3",
-      },
-      {
-        Header: "filenm",
-        accessor: "filenm",
-      },
-      {
-        Header: "wRpm",
-        accessor: "wrpm",
-      },
-    ],[t]
-  );
-
-  const SensorEngineDataColumns = useMemo<Column<SensorEngine>[]>(
-    () => [
-      {
         Header: "예측 결과",
-        accessor: "aiPredict",
+        accessor: "ai_LBPFI",
       },
       {
         Header: "알고리즘",
-        accessor: "aiAlgorithm",
+        accessor: "ai_LBPFI_ALGO",
       },
       {
         Header: "모델이름",
-        accessor: "aiModel",
+        accessor: "ai_LBPFI_MODEL",
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "수행시간",
+        accessor: "ai_LBPFI_DATE",
       },
       {
-        Header: "날짜",
-        accessor: "operateDateTime",
+        Header: "W_RPM",
+        accessor: "w_RPM",
       },
       {
-        Header: "carId",
-        accessor: "carId",
+        Header: "L_B_V_1X",
+        accessor: "l_B_V_1X",
       },
       {
-        Header: "evOverallRms",
-        accessor: "evOverallRms",
+        Header: "L_B_V_6912BPFI",
+        accessor: "l_B_V_6912BPFI",
       },
       {
-        Header: "ev12x",
-        accessor: "ev12x",
+        Header: "L_B_V_32924BPFI",
+        accessor: "l_B_V_32924BPFI",
       },
       {
-        Header: "ev1x",
-        accessor: "ev1x",
+        Header: "L_B_V_32922BPFI",
+        accessor: "l_B_V_32922BPFI",
       },
       {
-        Header: "evCrestfactor",
-        accessor: "evCrestfactor",
+        Header: "L_B_V_Crestfactor",
+        accessor: "l_B_V_Crestfactor",
       },
       {
-        Header: "ach",
-        accessor: "ach",
+        Header: "L_B_V_Demodulation",
+        accessor: "l_B_V_Demodulation",
       },
       {
-        Header: "acv",
-        accessor: "acv",
+        Header: "L_B_S_Fault1",
+        accessor: "l_B_S_Fault1",
       },
       {
-        Header: "aca",
-        accessor: "aca",
+        Header: "L_B_S_Fault2",
+        accessor: "l_B_S_Fault2",
       },
       {
-        Header: "la",
-        accessor: "la",
+        Header: "L_B_T_Temperature",
+        accessor: "l_B_T_Temperature",
       },
       {
-        Header: "lo",
-        accessor: "lo",
+        Header: "AC_h",
+        accessor: "ac_h",
       },
       {
-        Header: "filenm",
-        accessor: "filenm",
+        Header: "AC_v",
+        accessor: "ac_v",
       },
       {
-        Header: "wrpm",
-        accessor: "wrpm",
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
       },
     ],
-    [t]
+    []
   );
 
-  const SensorTempLifeDataColumns = useMemo<Column<SensorTempLife>[]>(
-      () => [
-          {
-              Header: "예측 결과",
-              accessor: "aiPredict",
-          },
-          {
-              Header: "알고리즘",
-              accessor: "aiAlgorithm",
-          },
-          {
-              Header: "모델이름",
-              accessor: "aiModel",
-          },
-          {
-              Header: "ID",
-              accessor: "idx",
-          },
-          {
-              Header: "날짜",
-              accessor: "time",
-          },
-          {
-              Header: "Cpu Util",
-              accessor: "cpuUtil",
-          },
-          {
-              Header: "Disk Accesses",
-              accessor: "diskAccesses",
-          },
-          {
-              Header: "Disk Blocks",
-              accessor: "diskBlocks",
-          },{
-              Header: "Disk Util",
-              accessor: "diskUtil",
-          },
-          {
-              Header: "INST RETIRED",
-              accessor: "instRetired",
-          },
-          {
-              Header: "Last Level",
-              accessor: "lastLevel",
-          },
-          {
-              Header: "Memory Bus",
-              accessor: "memoryBus",
-          },
-          {
-              Header: "Core Cycle",
-              accessor: "coreCycle",
-          },
-      ],
-      []
-    );
+  const SensorBearingLeftOutsideColumns = useMemo<Column<SensorBearingLeftOutsideInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_LBPFO",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LBPFO_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LBPFO_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_LBPFO_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "L_B_V_1X",
+        accessor: "l_B_V_1X",
+      },
+      {
+        Header: "L_B_V_6912BPFO",
+        accessor: "l_B_V_6912BPFO",
+      },
+      {
+        Header: "L_B_V_32924BPFO",
+        accessor: "l_B_V_32924BPFO",
+      },
+      {
+        Header: "L_B_V_32922BPFO",
+        accessor: "l_B_V_32922BPFO",
+      },
+      {
+        Header: "L_B_V_Crestfactor",
+        accessor: "l_B_V_Crestfactor",
+      },
+      {
+        Header: "L_B_V_Demodulation",
+        accessor: "l_B_V_Demodulation",
+      },
+      {
+        Header: "L_B_S_Fault1",
+        accessor: "l_B_S_Fault1",
+      },
+      {
+        Header: "L_B_S_Fault2",
+        accessor: "l_B_S_Fault2",
+      },
+      {
+        Header: "L_B_T_Temperature",
+        accessor: "l_B_T_Temperature",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
 
-  const { datasetControllerApi, datasetDatabaseControllerApi, mlControllerApi } = useContext(OpenApiContext);
+  const SensorBearingLeftRetainerColumns = useMemo<Column<SensorBearingLeftRetainerInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_LFTF",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LFTF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LFTF_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_LFTF_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "L_B_V_1X",
+        accessor: "l_B_V_1X",
+      },
+      {
+        Header: "L_B_V_6912FTF",
+        accessor: "l_B_V_6912FTF",
+      },
+      {
+        Header: "L_B_V_32924FTF",
+        accessor: "l_B_V_32924FTF",
+      },
+      {
+        Header: "l_B_V_32922FTF",
+        accessor: "l_B_V_32922FTF",
+      },
+      {
+        Header: "L_B_V_Crestfactor",
+        accessor: "l_B_V_Crestfactor",
+      },
+      {
+        Header: "L_B_V_Demodulation",
+        accessor: "l_B_V_Demodulation",
+      },
+      {
+        Header: "L_B_S_Fault1",
+        accessor: "l_B_S_Fault1",
+      },
+      {
+        Header: "L_B_S_Fault2",
+        accessor: "l_B_S_Fault2",
+      },
+      {
+        Header: "L_B_T_Temperature",
+        accessor: "l_B_T_Temperature",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorBearingRightBallColumns = useMemo<Column<SensorBearingRightBallInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_RBSF",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBSF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBSF_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_RBSF_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "R_B_V_1X",
+        accessor: "r_B_V_1X",
+      },
+      {
+        Header: "R_B_V_6912BSF",
+        accessor: "r_B_V_6912BSF",
+      },
+      {
+        Header: "R_B_V_32924BSF",
+        accessor: "r_B_V_32924BSF",
+      },
+      {
+        Header: "R_B_V_32922BSF",
+        accessor: "r_B_V_32922BSF",
+      },
+      {
+        Header: "R_B_V_Crestfactor",
+        accessor: "r_B_V_Crestfactor",
+      },
+      {
+        Header: "R_B_V_Demodulation",
+        accessor: "r_B_V_Demodulation",
+      },
+      {
+        Header: "R_B_S_Fault1",
+        accessor: "r_B_S_Fault1",
+      },
+      {
+        Header: "R_B_S_Fault2",
+        accessor: "r_B_S_Fault2",
+      },
+      {
+        Header: "R_B_T_Temperature",
+        accessor: "r_B_T_Temperature",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorBearingRightInsideColumns = useMemo<Column<SensorBearingRightInsideInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_RBPFI",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBPFI_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBPFI_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_RBPFI_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "R_B_V_1X",
+        accessor: "r_B_V_1X",
+      },
+      {
+        Header: "R_B_V_6912BPFI",
+        accessor: "r_B_V_6912BPFI",
+      },
+      {
+        Header: "R_B_V_32924BPFI",
+        accessor: "r_B_V_32924BPFI",
+      },
+      {
+        Header: "R_B_V_32922BPFI",
+        accessor: "r_B_V_32922BPFI",
+      },
+      {
+        Header: "R_B_V_Crestfactor",
+        accessor: "r_B_V_Crestfactor",
+      },
+      {
+        Header: "R_B_V_Demodulation",
+        accessor: "r_B_V_Demodulation",
+      },
+      {
+        Header: "R_B_S_Fault1",
+        accessor: "r_B_S_Fault1",
+      },
+      {
+        Header: "R_B_S_Fault2",
+        accessor: "r_B_S_Fault2",
+      },
+      {
+        Header: "R_B_T_Temperature",
+        accessor: "r_B_T_Temperature",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorBearingRightOutsideColumns = useMemo<Column<SensorBearingRightOutsideInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_RBPFO",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBPFO_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBPFO_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_RBPFO_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "R_B_V_1X",
+        accessor: "r_B_V_1X",
+      },
+      {
+        Header: "R_B_V_6912BPFO",
+        accessor: "r_B_V_6912BPFO",
+      },
+      {
+        Header: "R_B_V_32924BPFO",
+        accessor: "r_B_V_32924BPFO",
+      },
+      {
+        Header: "R_B_V_32922BPFO",
+        accessor: "r_B_V_32922BPFO",
+      },
+      {
+        Header: "R_B_V_Crestfactor",
+        accessor: "r_B_V_Crestfactor",
+      },
+      {
+        Header: "R_B_V_Demodulation",
+        accessor: "r_B_V_Demodulation",
+      },
+      {
+        Header: "R_B_S_Fault1",
+        accessor: "r_B_S_Fault1",
+      },
+      {
+        Header: "R_B_S_Fault2",
+        accessor: "r_B_S_Fault2",
+      },
+      {
+        Header: "R_B_T_Temperature",
+        accessor: "r_B_T_Temperature",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorBearingRightRetainerColumns = useMemo<Column<SensorBearingRightRetainerInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_RFTF",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RFTF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RFTF_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_RFTF_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "R_B_V_1X",
+        accessor: "r_B_V_1X",
+      },
+      {
+        Header: "R_B_V_6912FTF",
+        accessor: "r_B_V_6912FTF",
+      },
+      {
+        Header: "R_B_V_32924FTF",
+        accessor: "r_B_V_32924FTF",
+      },
+      {
+        Header: "R_B_V_32922FTF",
+        accessor: "r_B_V_32922FTF",
+      },
+      {
+        Header: "R_B_V_Crestfactor",
+        accessor: "r_B_V_Crestfactor",
+      },
+      {
+        Header: "R_B_V_Demodulation",
+        accessor: "r_B_V_Demodulation",
+      },
+      {
+        Header: "R_B_S_Fault1",
+        accessor: "r_B_S_Fault1",
+      },
+      {
+        Header: "R_B_S_Fault2",
+        accessor: "r_B_S_Fault2",
+      },
+      {
+        Header: "R_B_T_Temperature",
+        accessor: "r_B_T_Temperature",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorWheelLeftColumns = useMemo<Column<SensorWheelLeftInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_LW",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LW_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LW_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_LW_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "L_W_V_2X",
+        accessor: "l_W_V_2X",
+      },
+      {
+        Header: "L_W_V_3X",
+        accessor: "l_W_V_3X",
+      },
+      {
+        Header: "L_W_S_Fault3",
+        accessor: "l_W_S_Fault3",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorWheelRightColumns = useMemo<Column<SensorWheelRightInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_RW",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RW_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RW_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_RW_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "R_W_V_2X",
+        accessor: "r_W_V_2X",
+      },
+      {
+        Header: "R_W_V_3X",
+        accessor: "r_W_V_3X",
+      },
+      {
+        Header: "R_W_S_Fault3",
+        accessor: "r_W_S_Fault3",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorGearboxColumns = useMemo<Column<SensorGearboxInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_GEAR",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_GEAR_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_GEAR_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_GEAR_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "G_V_OverallRMS",
+        accessor: "g_V_OverallRMS",
+      },
+      {
+        Header: "G_V_Wheel1X",
+        accessor: "g_V_Wheel1X",
+      },
+      {
+        Header: "G_V_Wheel2X",
+        accessor: "g_V_Wheel2X",
+      },
+      {
+        Header: "G_V_Pinion1X",
+        accessor: "g_V_Pinion1X",
+      },
+      {
+        Header: "G_V_Pinion2X",
+        accessor: "g_V_Pinion2X",
+      },
+      {
+        Header: "G_V_GMF1X",
+        accessor: "g_V_GMF1X",
+      },
+      {
+        Header: "G_V_GMF2X",
+        accessor: "g_V_GMF2X",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const SensorEngineColumns = useMemo<Column<SensorEngineInput>[]>(
+    () => [
+      {
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "예측 결과",
+        accessor: "ai_ENGINE",
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_ENGINE_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_ENGINE_MODEL",
+      },
+      {
+        Header: "수행시간",
+        accessor: "ai_ENGINE_DATE",
+      },
+      {
+        Header: "W_RPM",
+        accessor: "w_RPM",
+      },
+      {
+        Header: "E_V_OverallRMS",
+        accessor: "e_V_OverallRMS",
+      },
+      {
+        Header: "E_V_1_2X",
+        accessor: "e_V_1_2X",
+      },
+      {
+        Header: "E_V_1X",
+        accessor: "e_V_1X",
+      },
+      {
+        Header: "E_V_Crestfactor",
+        accessor: "e_V_Crestfactor",
+      },
+      {
+        Header: "AC_h",
+        accessor: "ac_h",
+      },
+      {
+        Header: "AC_v",
+        accessor: "ac_v",
+      },
+      {
+        Header: "AC_a",
+        accessor: "ac_a",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+    ],
+    []
+  );
+
+  const handleConditionSelected =
+    useCallback((v: TableRow<any[]>[]) => {
+      setSelectedData(v?.map((i) => i.original))
+    }, []);
+
+  const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
+    setSelectedModel(v[0]?.original);
+  }, []);
+
+  // const handleConditionDataSelected = (algorithmName === "linear" || algorithmName === "lasso"
+  //         ? useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedData(v?.map((i) => i.original))}, [])
+  //         : useCallback((v: TableRow<SensorBearing>[]) => {setSelectedData(v?.map((i) => i.original))},[])
+  // );
 
   useEffect(() => {
     mlControllerApi
@@ -551,93 +1146,156 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       });
   }, [mlControllerApi, algorithmName]);
 
-  function handleSearchConditionData(wb:any) {
+  function handleSearchConditionData(wb: any, pageable?: Pageable) {
     setSearchingData(true);
-    if(wb === "B"){
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb)
-        .then((res) => setConditionData(res.data || []))
+    if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, pageable?.pageNumber, pageable?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setPaginate(res.data.pageable);
+        })
         .finally(() => setSearchingData(false));
-      setTableColumns(SensorBearingDataColumns)
-    }else if(wb ==="W"){
-      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb)
-        .then((res) => setConditionData(res.data || []))
+    } else if (["WL", "WR"].includes(wb)) {
+      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, pageable?.pageNumber, pageable?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setPaginate(res.data.pageable);
+        })
         .finally(() => setSearchingData(false));
-      console.log("123123")
-      setTableColumns(SensorWheelDataColumns)
-    }else if(wb ==="G"){
-      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb)
-        .then((res) => setConditionData(res.data || []))
+    } else if (wb === "G") {
+      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, pageable?.pageNumber, pageable?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setPaginate(res.data.pageable);
+        })
         .finally(() => setSearchingData(false));
-      setTableColumns(SensorGearboxDataColumns)
-    }else if(wb ==="E"){
-      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb)
-        .then((res) => setConditionData(res.data || []))
+    } else if (wb === "E") {
+      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, pageable?.pageNumber, pageable?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setPaginate(res.data.pageable);
+        })
         .finally(() => setSearchingData(false));
-      setTableColumns(SensorEngineDataColumns)
-    } else if(wb === "T") {
-      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb)
-        .then((res) => setConditionData(res.data || []))
+    } else if (wb === "T") {
+      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, pageable?.pageNumber, pageable?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setPaginate(res.data.pageable);
+        })
         .finally(() => setSearchingData(false));
-      setTableColumns(SensorTempLifeDataColumns)
     }
   }
 
-    async function handleClassificationData() {
-      const res = await mlControllerApi?.classificationPredict(algorithmName, {
-        classCol: "Ai_Predict",
-        modelName: selectedModel?.modelName,
-        dataProvider: DataProvider.Ktme,
-        dataInputOption: DataInputOption.Db,
-        listFieldsForPredict: selectedModel?.listFeatures,
-        dataType: wb
-      });
-
-      const predictedData = res?.data.predictionInfo || [];
-        setConditionData((old) =>
-        old.map((row) => {
-          const selectedIndex = selectedData!.findIndex(
-            (selectedId) => selectedId.idx === row.idx
-          );
-          if (selectedIndex !== -1) {
-            row.aiPredict = JSON.parse(
-              "[" + predictedData[selectedIndex] + "]"
-            )[0];
-            row.aiAlgorithm = algorithmName;
-            row.aiModel = selectedModel?.modelName;
-          }
-          return row;
-        })
-      );
+  function handleSearchTablesColumns(wb: any) {
+    switch (wb) {
+      case "BLB":
+        // Bearing Left Ball
+        setTableColumns(SensorBearingLeftBallColumns);
+        break
+      case "BLI":
+        // Bearing Left Inside
+        setTableColumns(SensorBearingLeftInsideColumns);
+        break
+      case "BLO":
+        // Bearing Left Outside
+        setTableColumns(SensorBearingLeftOutsideColumns);
+        break
+      case "BLR":
+        // Bearing Left Retainer
+        setTableColumns(SensorBearingLeftRetainerColumns);
+        break
+      case "BRB":
+        // Bearing Right Ball
+        setTableColumns(SensorBearingRightBallColumns);
+        break
+      case "BRI":
+        // Bearing Right Inside
+        setTableColumns(SensorBearingRightInsideColumns);
+        break
+      case "BRO":
+        // Bearing Right Outside
+        setTableColumns(SensorBearingRightOutsideColumns);
+        break
+      case "BRR":
+        // Bearing Right Retainer
+        setTableColumns(SensorBearingRightRetainerColumns);
+        break
+      case "WL":
+        // Wheel Left
+        setTableColumns(SensorWheelLeftColumns);
+        break
+      case "WR":
+        // Wheel Right
+        setTableColumns(SensorWheelRightColumns);
+        break
+      case "G":
+        // Gearbox
+        setTableColumns(SensorGearboxColumns);
+        break
+      case "E":
+        // Engine
+        setTableColumns(SensorEngineColumns);
+        break
+      case "T":
+        // Engine
+        setTableColumns(SensorTempLifeDataColumns);
+        break
     }
+  }
 
-
-    async function handleRegressionData() {
-      const res = await mlControllerApi?.regressionPredict(algorithmName, {
-          classCol: "AI_Predict",
-          modelName: selectedModel?.modelName,
-          dataProvider: DataProvider.Ktme,
-          dataInputOption: DataInputOption.Db,
-          listFieldsForPredict: selectedModel?.listFeatures,
-          dataType: wb
-      });
-      const predictedData = res?.data.predictionInfo || [];
-        setConditionData((old) =>
-          old.map((row) => {
-              const selectedIndex = selectedData!.findIndex(
-                  (selectedId) => selectedId.idx === row.idx
-              );
-              if (selectedIndex !== -1) {
-                  row.aiPredict = JSON.parse(
-                      "[" + predictedData[selectedIndex] + "]"
-                  )[0];
-                  row.aiAlgorithm = algorithmName;
-                  row.aiModel = selectedModel?.modelName;
-              }
-              return row;
-          })
+  async function handleClassificationData() {
+    const res = await mlControllerApi?.classificationPredict(algorithmName, {
+      classCol: "Ai_Predict",
+      modelName: selectedModel?.modelName,
+      dataProvider: DataProvider.Ktme,
+      dataInputOption: DataInputOption.Db,
+      listFieldsForPredict: selectedModel?.listFeatures,
+      dataType: wb
+    });
+    const predictedData = res?.data.predictionInfo || [];
+    setConditionData((old) =>
+      old.map((row) => {
+        const selectedIndex = selectedData!.findIndex(
+          (selectedId) => selectedId.idx === row.idx
         );
-    }
+        if (selectedIndex !== -1) {
+          row.aiPredict = JSON.parse(
+            "[" + predictedData[selectedIndex] + "]"
+          )[0];
+          row.aiAlgorithm = algorithmName;
+          row.aiModel = selectedModel?.modelName;
+        }
+        return row;
+      })
+    );
+  }
 
+  async function handleRegressionData() {
+    const res = await mlControllerApi?.regressionPredict(algorithmName, {
+      classCol: "AI_Predict",
+      modelName: selectedModel?.modelName,
+      dataProvider: DataProvider.Ktme,
+      dataInputOption: DataInputOption.Db,
+      listFieldsForPredict: selectedModel?.listFeatures,
+      dataType: wb
+    });
+    const predictedData = res?.data.predictionInfo || [];
+    setConditionData((old) =>
+      old.map((row) => {
+        const selectedIndex = selectedData!.findIndex(
+          (selectedId) => selectedId.idx === row.idx
+        );
+        if (selectedIndex !== -1) {
+          row.aiPredict = JSON.parse(
+            "[" + predictedData[selectedIndex] + "]"
+          )[0];
+          row.aiAlgorithm = algorithmName;
+          row.aiModel = selectedModel?.modelName;
+        }
+        return row;
+      })
+    );
+  }
 
   async function handleOutlierDetectionData() {
     const res = await mlControllerApi?.predictCluster(algorithmName, {
@@ -648,7 +1306,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       listFieldsForPredict: selectedModel?.listFeatures,
       dataType: wb
     });
-    console.log(res)
     const predictedData = res?.data.predictionInfo || [];
     setConditionData((old) =>
       old.map((row) => {
@@ -668,15 +1325,14 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
         return row;
       })
     );
-
   }
 
   async function handlePredictData() {
     setPredicting(true);
-    if (algorithmName === "kmean" || algorithmName === "if") {
+    if (algorithmName === "if") {
       await handleOutlierDetectionData().finally(() => setPredicting(false));
     } else if (algorithmName === "linear" || algorithmName === "lasso") {
-        await handleRegressionData().finally(() => setPredicting(false));
+      await handleRegressionData().finally(() => setPredicting(false));
     } else {
       await handleClassificationData().finally(() => setPredicting(false));
     }
@@ -688,41 +1344,29 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       ?.updateData(
         selectedData!.map((inputs) => ({
           dataType: wb,
-          id : inputs.idx,
-          aiAlgorithm : inputs.aiAlgorithm,
-          aiPredict : inputs.aiPredict,
-          modelName : inputs.aiModel,
+          id: inputs.idx,
+          aiAlgorithm: inputs.aiAlgorithm,
+          aiPredict: inputs.aiPredict,
+          modelName: inputs.aiModel,
         }))
       )
       .finally(() => setSaving(false));
   }
 
-    // async function handleTempLifeUpdateData() {
-    //     setSaving(true);
-    //     datasetDatabaseControllerApi
-    //         ?.updateData(
-    //             selectedTempLifeData!.map((inputs) => ({
-    //                 dataType: wb,
-    //                 id : inputs.idx,
-    //                 aiAlgorithm : inputs.aiAlgorithm,
-    //                 aiPredict : inputs.aiPredict,
-    //                 modelName : inputs.aiModel,
-    //             }))
-    //         )
-    //         .finally(() => setSaving(false));
-    // }
-
-  // const handleConditionDataSelected = (algorithmName === "linear" || algorithmName === "lasso"
-  //         ? useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedData(v?.map((i) => i.original))}, [])
-  //         : useCallback((v: TableRow<SensorBearing>[]) => {setSelectedData(v?.map((i) => i.original))},[])
-  // );
-
-  const handleConditionSelected =
-      useCallback((v: TableRow<any[]>[]) => {setSelectedData(v?.map((i) => i.original))},[]);
-
-  const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
-    setSelectedModel(v[0]?.original);
-  }, []);
+  // async function handleTempLifeUpdateData() {
+  //     setSaving(true);
+  //     datasetDatabaseControllerApi
+  //         ?.updateData(
+  //             selectedTempLifeData!.map((inputs) => ({
+  //                 dataType: wb,
+  //                 id : inputs.idx,
+  //                 aiAlgorithm : inputs.aiAlgorithm,
+  //                 aiPredict : inputs.aiPredict,
+  //                 modelName : inputs.aiModel,
+  //             }))
+  //         )
+  //         .finally(() => setSaving(false));
+  // }
 
   return (
     <Container fluid>
@@ -731,31 +1375,34 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
           <Col xs={1} className="Col pe-0 text-white">
             부품선택
           </Col>
-          <Col xs={3} className="Col ps-0">
+          <Col xs={9} className="Col ps-0">
             <Form.Select
               size="sm"
               value={wb}
               onChange={(v) => setWb((v.target as any).value)}
             >
-              <option value="W">차륜(휠)</option>
-              <option value="B">차축(베어링)</option>
-              <option value="E">엔진(윤활)</option>
+              <option value="BLB">베어링 좌측 볼</option>
+              <option value="BLO">베어링 좌측 외륜</option>
+              <option value="BLI">베어링 좌측 내륜</option>
+              <option value="BLR">베어링 좌측 리테이너</option>
+              <option value="BRB">베어링 우측 볼</option>
+              <option value="BRO">베어링 우측 내륜</option>
+              <option value="BRI">베어링 우측 외륜</option>
+              <option value="BRR">베어링 우측 리테이너</option>
+              <option value="WL">차륜 좌측</option>
+              <option value="WR">차륜 우측</option>
               <option value="G">감속기(기어박스)</option>
+              <option value="E">엔진</option>
               <option value="T">잔존수명(임시)</option>
             </Form.Select>
-          </Col>
-          <Col xs={1} className="Col pe-0" />
-
-          <Col xs={2} className="Col pe-0">
-            {/*{t("ml.run.result")}*/}
-          </Col>
-          <Col xs={3} className="Col ps-0">
-            {/*<Form.Control size="sm" type="number" />*/}
           </Col>
           <Col className="Col d-grid gap-2">
             <Button
               className="button btn-block font-monospace fw-bold"
-              onClick={() => handleSearchConditionData(wb)}
+              onClick={() => {
+                handleSearchConditionData(wb)
+                handleSearchTablesColumns(wb)
+              }}
               size="sm"
               disabled={searchingData}
             >
@@ -776,7 +1423,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
           <Col md={10}>
             <Table
               data={models}
-              columns={columns}
+              columns={modelResponseColumns}
               isSingleRowSelect
               onRowsSelected={handleModelSelected}
             />
@@ -806,12 +1453,28 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({
       <Row className="row mb-1 fw-bold">
         <Col>고장전조 예측 결과</Col>
       </Row>
-      <Table
-        columns={tableColumns}
-        data={conditionData}
-        onRowsSelected={handleConditionSelected}
-      />
-
+      <div>
+        <Table
+          columns={tableColumns}
+          data={conditionData}
+          onRowsSelected={handleConditionSelected}
+        />
+      </div>
+      <div>
+        <Paginator
+          pageCount={totalPage}
+          size={paginate?.pageSize || 0}
+          selectedPage={paginate?.pageNumber || 0}
+          onChange={(v) => {
+            const newPaginate = {
+              ...paginate,
+              pageNumber: v,
+            };
+            setPaginate(newPaginate);
+            handleSearchConditionData(newPaginate);
+          }}
+        />
+      </div>
       <Row className="row justify-content-end">
         <Col className="Col col-1 d-grid gap-2">
           <Button

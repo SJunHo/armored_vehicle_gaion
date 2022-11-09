@@ -1274,12 +1274,6 @@ export enum DataProvider {
 export interface DbDataUpdateInput {
     /**
      * 
-     * @type {string}
-     * @memberof DbDataUpdateInput
-     */
-    dataType?: string;
-    /**
-     * 
      * @type {number}
      * @memberof DbDataUpdateInput
      */
@@ -1289,19 +1283,31 @@ export interface DbDataUpdateInput {
      * @type {string}
      * @memberof DbDataUpdateInput
      */
-    aiAlgorithm?: string;
+    partType?: string;
     /**
      * 
      * @type {string}
      * @memberof DbDataUpdateInput
      */
-    modelName?: string;
+    aiPredict?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof DbDataUpdateInput
      */
-    aiPredict?: number;
+    aiAlgorithmName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    aiModelName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    aiPredictDate?: string;
 }
 /**
  * 
@@ -1816,6 +1822,79 @@ export interface LoginRequest {
 /**
  * 
  * @export
+ * @interface PageObject
+ */
+export interface PageObject {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof PageObject
+     */
+    content?: Array<object>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageObject
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageObject
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface PageRailSensorData
  */
 export interface PageRailSensorData {
@@ -1831,30 +1910,6 @@ export interface PageRailSensorData {
      * @memberof PageRailSensorData
      */
     totalElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageRailSensorData
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageRailSensorData
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageRailSensorData
-     */
-    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1884,6 +1939,103 @@ export interface PageRailSensorData {
      * @type {boolean}
      * @memberof PageRailSensorData
      */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageRailSensorData
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorTempLife
+ */
+export interface PageSensorTempLife {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorTempLife>}
+     * @memberof PageSensorTempLife
+     */
+    content?: Array<SensorTempLife>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorTempLife
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorTempLife
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
     empty?: boolean;
 }
 /**
@@ -1897,13 +2049,25 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
+    offset?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof Pageable
+     */
+    sort?: Sort;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
     pageNumber?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Pageable
+     */
+    pageSize?: number;
     /**
      * 
      * @type {boolean}
@@ -1916,18 +2080,6 @@ export interface Pageable {
      * @memberof Pageable
      */
     unpaged?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    offset?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof Pageable
-     */
-    sort?: Sort;
 }
 /**
  * 
@@ -3236,549 +3388,6 @@ export interface SearchRequest {
 /**
  * 
  * @export
- * @interface SensorBearing
- */
-export interface SensorBearing {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    carId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    operateDate?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    operateTime?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    operateDateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    timeIndex?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    aiPredict?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    aiAlgorithm?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbvOverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbvCrestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbvDemodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbsFault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbsFault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbtTemperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbvOverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbvCrestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbvDemodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbsFault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbsFault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbtTemperature?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    filenm?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    wrpm?: number;
-}
-/**
- * 
- * @export
- * @interface SensorEngine
- */
-export interface SensorEngine {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    carId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    operateDate?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    operateTime?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    operateDateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    timeIndex?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    aiPredict?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    aiAlgorithm?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    wrpm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    evOverallRms?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    ev12x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    ev1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    evCrestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    ach?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    acv?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    aca?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    la?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    lo?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    filenm?: string;
-}
-/**
- * 
- * @export
- * @interface SensorGearbox
- */
-export interface SensorGearbox {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearbox
-     */
-    carId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearbox
-     */
-    operateDate?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearbox
-     */
-    operateTime?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearbox
-     */
-    operateDateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    timeIndex?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    aiPredict?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearbox
-     */
-    aiAlgorithm?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearbox
-     */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    wrpm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvOverallRms?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvWheel1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvWheel2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvPinion1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvPinion2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvGmf1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvGmf2x?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearbox
-     */
-    filenm?: string;
-}
-/**
- * 
- * @export
  * @interface SensorTempLife
  */
 export interface SensorTempLife {
@@ -3866,115 +3475,6 @@ export interface SensorTempLife {
      * @memberof SensorTempLife
      */
     aiPredict?: number;
-}
-/**
- * 
- * @export
- * @interface SensorWheel
- */
-export interface SensorWheel {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheel
-     */
-    carId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheel
-     */
-    operateDate?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheel
-     */
-    operateTime?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheel
-     */
-    operateDateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    timeIndex?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    aiPredict?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheel
-     */
-    aiAlgorithm?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheel
-     */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    wrpm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    lwv2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    lwv3x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    lwsFault3?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    rwv2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    rwv3x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    rwsFault3?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheel
-     */
-    filenm?: string;
 }
 /**
  * 
@@ -6703,13 +6203,13 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
     return {
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTrainingBearingData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getTrainingBearingData', 'dataType', dataType)
+        getTrainingBearingData: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getTrainingBearingData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-labeled-bearing-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6726,8 +6226,8 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
             }
 
 
@@ -6743,13 +6243,122 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledBearingData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledBearingData', 'dataType', dataType)
+        getTrainingEngineData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-engine-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingGearboxData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-gearbox-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingWheelData: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getTrainingWheelData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-labeled-wheel-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledBearingData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledBearingData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-unlabeled-bearing-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6766,8 +6375,20 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -6783,13 +6404,16 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledEngineData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledEngineData', 'dataType', dataType)
+        getUnlabeledEngineData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledEngineData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-unlabeled-engine-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6806,8 +6430,20 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -6823,13 +6459,16 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledGearboxData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledGearboxData', 'dataType', dataType)
+        getUnlabeledGearboxData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledGearboxData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-unlabeled-gearbox-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6846,8 +6485,20 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -6863,13 +6514,16 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTempLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledTempLifeData', 'dataType', dataType)
+        getUnlabeledTempLifeData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledTempLifeData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-unlabeled-templife-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6886,8 +6540,20 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -6903,13 +6569,16 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledWheelData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledWheelData', 'dataType', dataType)
+        getUnlabeledWheelData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledWheelData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-unlabeled-wheel-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6926,8 +6595,20 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -7040,62 +6721,105 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
     return {
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTrainingBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingBearingData(dataType, options);
+        async getTrainingBearingData(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingBearingData(partType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearing>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingData(dataType, options);
+        async getTrainingEngineData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingEngineData(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledEngineData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorEngine>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledEngineData(dataType, options);
+        async getTrainingGearboxData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingGearboxData(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledGearboxData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorGearbox>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledGearboxData(dataType, options);
+        async getTrainingWheelData(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingWheelData(partType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledTempLifeData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorTempLife>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTempLifeData(dataType, options);
+        async getUnlabeledBearingData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingData(partType, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledWheelData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorWheel>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledWheelData(dataType, options);
+        async getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledEngineData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledGearboxData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledGearboxData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorTempLife>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTempLifeData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledWheelData(partType, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7131,57 +6855,97 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
     return {
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTrainingBearingData(dataType: string, options?: any): AxiosPromise<Array<object>> {
-            return localVarFp.getTrainingBearingData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingBearingData(partType: string, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingBearingData(partType, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledBearingData(dataType: string, options?: any): AxiosPromise<Array<SensorBearing>> {
-            return localVarFp.getUnlabeledBearingData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingEngineData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingEngineData(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledEngineData(dataType: string, options?: any): AxiosPromise<Array<SensorEngine>> {
-            return localVarFp.getUnlabeledEngineData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingGearboxData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingGearboxData(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledGearboxData(dataType: string, options?: any): AxiosPromise<Array<SensorGearbox>> {
-            return localVarFp.getUnlabeledGearboxData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingWheelData(partType: string, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingWheelData(partType, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTempLifeData(dataType: string, options?: any): AxiosPromise<Array<SensorTempLife>> {
-            return localVarFp.getUnlabeledTempLifeData(dataType, options).then((request) => request(axios, basePath));
+        getUnlabeledBearingData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledBearingData(partType, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledWheelData(dataType: string, options?: any): AxiosPromise<Array<SensorWheel>> {
-            return localVarFp.getUnlabeledWheelData(dataType, options).then((request) => request(axios, basePath));
+        getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledEngineData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledGearboxData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledGearboxData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorTempLife> {
+            return localVarFp.getUnlabeledTempLifeData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledWheelData(partType, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7214,68 +6978,114 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
 export class DatasetDatabaseControllerApi extends BaseAPI {
     /**
      * 
-     * @param {string} dataType 
+     * @param {string} partType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getTrainingBearingData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingBearingData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingBearingData(partType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingBearingData(partType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledBearingData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledBearingData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingEngineData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingEngineData(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledEngineData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledEngineData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingGearboxData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingGearboxData(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
+     * @param {string} partType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledGearboxData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledGearboxData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingWheelData(partType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingWheelData(partType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledTempLifeData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTempLifeData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getUnlabeledBearingData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledBearingData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledWheelData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledWheelData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledEngineData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledGearboxData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledGearboxData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTempLifeData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledWheelData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

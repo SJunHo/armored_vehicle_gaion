@@ -21,7 +21,6 @@ public interface SensorWheelLeftInterface {
 
     Date getUSER_LW_DATE();
 
-    // from Bearing
     double getW_RPM();
 
     double getL_W_V_2X();

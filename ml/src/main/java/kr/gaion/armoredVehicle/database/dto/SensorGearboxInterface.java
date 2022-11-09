@@ -21,7 +21,6 @@ public interface SensorGearboxInterface {
 
     Date getUSER_GEAR_DATE();
 
-    // from Bearing
     double getW_RPM();
 
     double getG_V_OverallRMS();

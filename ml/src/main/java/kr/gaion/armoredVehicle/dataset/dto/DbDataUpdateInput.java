@@ -6,9 +6,15 @@ import lombok.Getter;
 @Data
 @Getter
 public class DbDataUpdateInput {
-  private String dataType;
-  private Long id;
-  private String aiAlgorithm;
-  private String modelName;
-  private Double aiPredict;
+    private Long id;
+
+    private String partType;
+
+    private String aiPredict;
+
+    private String aiAlgorithmName;
+
+    private String aiModelName;
+
+    private String aiPredictDate;
 }

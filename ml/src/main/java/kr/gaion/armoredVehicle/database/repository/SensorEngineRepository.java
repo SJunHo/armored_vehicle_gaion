@@ -2,18 +2,19 @@ package kr.gaion.armoredVehicle.database.repository;
 
 import kr.gaion.armoredVehicle.database.dto.SensorEngineInterface;
 import kr.gaion.armoredVehicle.database.model.SensorEngine;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long> {
-    @Query(value = " SELECT e.IDX, e.AI_ENGINE, e.AI_ENGINE_ALGO, e.AI_ENGINE_MODEL, e.AI_ENGINE_DATE, " +
-            " e.USER_ENGINE, e.USER_ENGINE_ID, e.USER_ENGINE_DATE, " +
-            " e.W_RPM, e.E_V_OverallRMS, e.E_V_1_2X, e.E_V_1X, e.E_V_Crestfactor, e.AC_h, e.AC_v, e.AC_a, e.`DATE` " +
-            " FROM ENGDATA e " +
-            " WHERE e.AI_ENGINE is Null ", nativeQuery = true)
-    List<SensorEngineInterface> findSensorEngineAiENGINEIsNull();
+    @Query(value = " SELECT ENGDATA.IDX, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +
+            " ENGDATA.USER_ENGINE, ENGDATA.USER_ENGINE_ID, ENGDATA.USER_ENGINE_DATE, " +
+            " ENGDATA.W_RPM, ENGDATA.E_V_OverallRMS, ENGDATA.E_V_1_2X, ENGDATA.E_V_1X, ENGDATA.E_V_Crestfactor, " +
+            " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE` " +
+            " FROM `ENGDATA` " +
+            " WHERE ENGDATA.AI_ENGINE IS NULL ", nativeQuery = true)
+    Page<SensorEngineInterface> findSensorEngineAiENGINEIsNull(Pageable pageable);
 }

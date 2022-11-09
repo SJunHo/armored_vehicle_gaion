@@ -1,15 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import BootstrapTable from "react-bootstrap/Table";
-import {
-  Column,
-  Row,
-  usePagination,
-  UsePaginationOptions,
-  UsePaginationState,
-  useRowSelect,
-  UseRowSelectOptions,
-  useTable,
-} from "react-table";
+import {Column, Row, usePagination, UsePaginationOptions, UsePaginationState, useRowSelect, UseRowSelectOptions, useTable,} from "react-table";
 import {Paginator} from "./Paginator";
 // import styles from "./table.module.css";
 
@@ -146,7 +137,7 @@ export function Table<T extends Object>({
         <tr>
           {headers.map(header => (
             <th
-              style={{position: "sticky", top: 0}}
+              style={{top: 0}}
               {...header.getHeaderProps()}
             >
               {header.render("Header")}

@@ -2,11 +2,14 @@ package kr.gaion.armoredVehicle.dataset.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import kr.gaion.armoredVehicle.database.model.*;
+import kr.gaion.armoredVehicle.database.model.SensorTempLife;
 import kr.gaion.armoredVehicle.dataset.dto.DbDataUpdateInput;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,15 +37,14 @@ public class DatasetDatabaseController {
     ) throws IOException {
         String result = datasetDatabaseService.importCSVtoDatabase(files, partType);
 
-        System.out.println("partType : " + partType + " / " + "import CSV to Database result : " + result);
+        System.out.println("import CSV to Database result : " + result);
 
         return files.stream().map(this.datasetDatabaseService::handleUploadFile).collect(Collectors.toList());
     }
 
     // get labeled data (for training)
     @GetMapping(path = "/api/data/database/get-all-labeled-bearing-data")
-    public List<?> getTrainingBearingData(@RequestParam("dataType") String partType) {
-        System.out.println("############### getTrainingBearingData controller ###############");
+    public List<?> getTrainingBearingData(@RequestParam("partType") String partType) {
         try {
             return this.datasetDatabaseService.getTrainingBearingData(partType);
         } catch (IOException e) {
@@ -51,82 +53,86 @@ public class DatasetDatabaseController {
         }
     }
 
-    // TODO: 부품별 메소드 만들기
-//    @GetMapping(path = "/api/data/database/get-all-labeled-wheel-data")
-//    public List<?> getTrainingWheelData(@RequestParam("dataType") String partType) {
-//        try {
-//            return this.datasetDatabaseService.getTrainingWheelData(partType);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    @GetMapping(path = "/api/data/database/get-all-labeled-wheel-data")
+    public List<?> getTrainingWheelData(@RequestParam("partType") String partType) {
+        try {
+            return this.datasetDatabaseService.getTrainingWheelData(partType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-//    @GetMapping(path = "/api/data/database/get-all-labeled-gearbox-data")
-//    public List<?> getTrainingGearboxData(@RequestParam("dataType") String partType) {
-//        try {
-//            return this.datasetDatabaseService.getTrainingGearboxData(partType);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    @GetMapping(path = "/api/data/database/get-all-labeled-gearbox-data")
+    public List<?> getTrainingGearboxData() {
+        try {
+            return this.datasetDatabaseService.getTrainingGearboxData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-//    @GetMapping(path = "/api/data/database/get-all-labeled-engine-data")
-//    public List<?> getTrainingengineData(@RequestParam("dataType") String partType) {
-//        try {
-//            return this.datasetDatabaseService.getTrainingengineData(partType);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    @GetMapping(path = "/api/data/database/get-all-labeled-engine-data")
+    public List<?> getTrainingEngineData() {
+        try {
+            return this.datasetDatabaseService.getTrainingEngineData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     // get unlabeled data (for predict)
+    @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-bearing-data")
-    public List<SensorBearing> getUnlabeledBearingData(@RequestParam("dataType") String partType) {
+    public Page<?> getUnlabeledBearingData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledBearingData();
+            return this.datasetDatabaseService.getUnlabeledBearingData(partType, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-wheel-data")
-    public List<SensorWheel> getUnlabeledWheelData(@RequestParam("dataType") String dataType) {
+    public Page<?> getUnlabeledWheelData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledWheelData();
+            return this.datasetDatabaseService.getUnlabeledWheelData(partType, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-gearbox-data")
-    public List<SensorGearbox> getUnlabeledGearboxData(@RequestParam("dataType") String dataType) {
+    public Page<?> getUnlabeledGearboxData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledGearboxData();
+            return this.datasetDatabaseService.getUnlabeledGearboxData(pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-engine-data")
-    public List<SensorEngine> getUnlabeledEngineData(@RequestParam("dataType") String dataType) {
+    public Page<?> getUnlabeledEngineData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledEngineData();
+            return this.datasetDatabaseService.getUnlabeledEngineData(pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-templife-data")
-    public List<SensorTempLife> getUnlabeledTempLifeData(@RequestParam("dataType") String dataType) {
+    public Page<SensorTempLife> getUnlabeledTempLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledTempLifeData();
+            return this.datasetDatabaseService.getUnlabeledTempLifeData(pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -134,7 +140,7 @@ public class DatasetDatabaseController {
     }
 
     @PostMapping(path = "/api/data/database/update")
-    public String updateData(@RequestBody ArrayList<DbDataUpdateInput> input) throws IOException {
+    public String updateData(@RequestBody ArrayList<DbDataUpdateInput> input) {
         return this.datasetDatabaseService.updatePredictData(input);
     }
 }

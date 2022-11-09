@@ -97,6 +97,7 @@
     "@types/react-table": "^7.7.12",
     "@types/react-vis": "^1.11.11",
     "file-loader": "^6.2.0",
+    "react-error-overlay": "6.0.9",
     "webpack": "^4.46.0"
   }
 }

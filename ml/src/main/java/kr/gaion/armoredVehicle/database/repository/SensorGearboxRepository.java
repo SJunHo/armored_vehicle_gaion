@@ -2,19 +2,20 @@ package kr.gaion.armoredVehicle.database.repository;
 
 import kr.gaion.armoredVehicle.database.dto.SensorGearboxInterface;
 import kr.gaion.armoredVehicle.database.model.SensorGearbox;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Long> {
-    @Query(value = " SELECT g.IDX, g.AI_GEAR, g.AI_GEAR_ALGO, g.AI_GEAR_MODEL, g.AI_GEAR_DATE, " +
-            " g.USER_GEAR, g.USER_GEAR_ID, g.USER_GEAR_DATE, " +
-            " g.W_RPM, g.G_V_OverallRMS, g.G_V_Wheel1X, g.G_V_Wheel2X, g.G_V_Pinion1X, g.G_V_Pinion2X, g.G_V_GMF1X, g.G_V_GMF2X, " +
-            " e.AC_h, e.AC_v, e.AC_a, g.`DATE` " +
-            " FROM GRBDATA g, ENGDATA e " +
-            " WHERE g.`DATE` = e.`DATE` AND g.AI_GEAR is Null ", nativeQuery = true)
-    List<SensorGearboxInterface> findSensorGearboxAiGEARIsNull();
+    @Query(value = " SELECT GRBDATA.IDX, GRBDATA.AI_GEAR, GRBDATA.AI_GEAR_ALGO, GRBDATA.AI_GEAR_MODEL, GRBDATA.AI_GEAR_DATE, " +
+            " GRBDATA.USER_GEAR, GRBDATA.USER_GEAR_ID, GRBDATA.USER_GEAR_DATE, " +
+            " GRBDATA.W_RPM, GRBDATA.G_V_OverallRMS, GRBDATA.G_V_Wheel1X, GRBDATA.G_V_Wheel2X, " +
+            " GRBDATA.G_V_Pinion1X, GRBDATA.G_V_Pinion2X, GRBDATA.G_V_GMF1X, GRBDATA.G_V_GMF2X, " +
+            " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, GRBDATA.`DATE` " +
+            " FROM GRBDATA, ENGDATA " +
+            " WHERE GRBDATA.`DATE` = ENGDATA.`DATE` AND GRBDATA.AI_GEAR IS NULL ", nativeQuery = true)
+    Page<SensorGearboxInterface> findSensorGearboxAiGEARIsNull(Pageable pageable);
 }
