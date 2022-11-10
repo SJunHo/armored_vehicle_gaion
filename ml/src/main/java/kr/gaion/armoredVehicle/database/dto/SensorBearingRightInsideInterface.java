@@ -14,12 +14,12 @@ public interface SensorBearingRightInsideInterface {
 
     Date getAI_RBPFI_DATE();
 
-    // User Judgement
-    String getUSER_RBPFI();
-
-    String getUSER_RBPFI_ID();
-
-    Date getUSER_RBPFI_DATE();
+//    // User Judgement
+//    String getUSER_RBPFI();
+//
+//    String getUSER_RBPFI_ID();
+//
+//    Date getUSER_RBPFI_DATE();
 
     // from Bearing
     double getW_RPM();

@@ -14,12 +14,12 @@ public interface SensorBearingLeftRetainerInterface {
 
     Date getAI_LFTF_DATE();
 
-    // User Judgement
-    String getUSER_LFTF();
-
-    String getUSER_LFTF_ID();
-
-    Date getUSER_LFTF_DATE();
+//    // User Judgement
+//    String getUSER_LFTF();
+//
+//    String getUSER_LFTF_ID();
+//
+//    Date getUSER_LFTF_DATE();
 
     // from Bearing
     double getW_RPM();

@@ -14,12 +14,12 @@ public interface SensorEngineInterface {
 
     Date getAI_ENGINE_DATE();
 
-    // User Judgement
-    String getUSER_ENGINE();
-
-    String getUSER_ENGINE_ID();
-
-    Date getUSER_ENGINE_DATE();
+//    // User Judgement
+//    String getUSER_ENGINE();
+//
+//    String getUSER_ENGINE_ID();
+//
+//    Date getUSER_ENGINE_DATE();
 
     double getW_RPM();
 

@@ -14,12 +14,12 @@ public interface SensorBearingLeftInsideInterface {
 
     Date getAI_LBPFI_DATE();
 
-    // User Judgement
-    String getUSER_LBPFI();
-
-    String getUSER_LBPFI_ID();
-
-    Date getUSER_LBPFI_DATE();
+//    // User Judgement
+//    String getUSER_LBPFI();
+//
+//    String getUSER_LBPFI_ID();
+//
+//    Date getUSER_LBPFI_DATE();
 
     // from Bearing
     double getW_RPM();

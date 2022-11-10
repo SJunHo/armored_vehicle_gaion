@@ -14,12 +14,12 @@ public interface SensorBearingRightOutsideInterface {
 
     Date getAI_RBPFO_DATE();
 
-    // User Judgement
-    String getUSER_RBPFO();
-
-    String getUSER_RBPFO_ID();
-
-    Date getUSER_RBPFO_DATE();
+//    // User Judgement
+//    String getUSER_RBPFO();
+//
+//    String getUSER_RBPFO_ID();
+//
+//    Date getUSER_RBPFO_DATE();
 
     // from Bearing
     double getW_RPM();

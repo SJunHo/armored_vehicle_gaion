@@ -14,12 +14,12 @@ public interface SensorWheelRightInterface {
 
     Date getAI_RW_DATE();
 
-    // User Judgement
-    String getUSER_RW();
-
-    String getUSER_RW_ID();
-
-    Date getUSER_RW_DATE();
+//    // User Judgement
+//    String getUSER_RW();
+//
+//    String getUSER_RW_ID();
+//
+//    Date getUSER_RW_DATE();
 
     double getW_RPM();
 
