@@ -137,7 +137,6 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
         ClusterResponse response = new ClusterResponse(ResponseType.OBJECT_DATA);
 
         var maxResults = resultDf.count();
-
         var resultArray = (Row[]) resultDf.drop("v2a", "features").take((int) maxResults);
         response.setPredictionInfo(Arrays.stream(resultArray).map(row -> row.mkString(",")).collect(Collectors.toList()));
 

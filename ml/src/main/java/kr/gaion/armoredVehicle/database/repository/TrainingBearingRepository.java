@@ -11,66 +11,68 @@ import java.util.List;
 @Repository
 public interface TrainingBearingRepository extends JpaRepository<TrainingBearing, Long> {
     // Bearing Left Ball
-    @Query(value = " SELECT b.IDX, b.AI_LBSF, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BSF, b.L_B_V_32924BSF, b.L_B_V_32922BSF, " +
-            " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_LBSF, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912BSF, BERTRNNG.L_B_V_32924BSF, BERTRNNG.L_B_V_32922BSF, " +
+            " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<BearingLeftBallInterface> findBearingLeftBall();
 
     // Bearing Left Inside
-    @Query(value = " SELECT b.IDX, b.AI_LBPFI, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFI, b.L_B_V_32924BPFI, b.L_B_V_32922BPFI, " +
-            " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_LBPFI, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912BPFI, BERTRNNG.L_B_V_32924BPFI, BERTRNNG.L_B_V_32922BPFI, " +
+            " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<BearingLeftInsideInterface> findBearingLeftInside();
 
     // Bearing Left Outside
-    @Query(value = " SELECT b.IDX, b.AI_LBPFO, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFO, b.L_B_V_32924BPFO, b.L_B_V_32922BPFO, " +
-            " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_LBPFO, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912BPFO, BERTRNNG.L_B_V_32924BPFO, BERTRNNG.L_B_V_32922BPFO, " +
+            " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<BearingLeftOutsideInterface> findBearingLeftOutside();
 
     // Bearing Left Retainer
-    @Query(value = " SELECT b.IDX, b.AI_LFTF, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912FTF, b.L_B_V_32924FTF, b.L_B_V_32922FTF, " +
-            " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_LFTF, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912FTF, BERTRNNG.L_B_V_32924FTF, BERTRNNG.L_B_V_32922FTF, " +
+            " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<BearingLeftRetainerInterface> findBearingLeftRetainer();
 
     // Bearing Right Ball
-    @Query(value = " SELECT b.IDX, b.AI_RBSF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BSF, " +
-            " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_RBSF, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912BSF, BERTRNNG.R_B_V_32924BSF, BERTRNNG.R_B_V_32922BSF, " +
+            " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+            " WHERE BERTRNNG.FILENM = '%s' ", nativeQuery = true)
     List<BearingRightBallInterface> findBearingRightBall();
 
     // Bearing Right Inside
-    @Query(value = " SELECT b.IDX, b.AI_RBPFI, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFI, b.R_B_V_32924BPFI, b.R_B_V_32922BPFI, " +
-            " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_RBPFI, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912BPFI, BERTRNNG.R_B_V_32924BPFI, BERTRNNG.R_B_V_32922BPFI, " +
+            " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+            " WHERE BERTRNNG.FILENM = '%s' ", nativeQuery = true)
     List<BearingRightInsideInterface> findBearingRightInside();
 
     // Bearing Right Outside
-    @Query(value = " SELECT b.IDX, b.AI_RBPFO, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFO, b.R_B_V_32924BPFO, b.R_B_V_32922BPFO, " +
-            " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_RBPFO, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912BPFO, BERTRNNG.R_B_V_32924BPFO, BERTRNNG.R_B_V_32922BPFO, " +
+            " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<BearingRightOutsideInterface> findBearingRightOutside();
 
     // Bearing Right Retainer
-    @Query(value = " SELECT b.IDX, b.AI_RFTF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912FTF, b.R_B_V_32924FTF, b.R_B_V_32922FTF, " +
-            " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-            " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-            " FROM BERTRNNG b, ENGTRNNG e " +
-            " WHERE b.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT BERTRNNG.IDX, BERTRNNG.AI_RFTF, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912FTF, BERTRNNG.R_B_V_32924FTF, BERTRNNG.R_B_V_32922FTF, " +
+            " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+            " FROM `BERTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<BearingRightRetainerInterface> findBearingRightRetainer();
 }

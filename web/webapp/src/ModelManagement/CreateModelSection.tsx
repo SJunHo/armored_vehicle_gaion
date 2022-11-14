@@ -3,14 +3,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
-import {
-  Controller,
-  FormProvider,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
+import {Controller, FormProvider, useForm, useFormContext,} from "react-hook-form";
 import Select2 from "react-select";
-import {RegressionResponse, RandomForestClassificationResponse} from "../api";
+import {RandomForestClassificationResponse, RegressionResponse} from "../api";
 import {OpenApiContext} from "../api/OpenApiContext";
 import {InputWrapper} from "../common/Common";
 import {Section} from "../common/Section/Section";
@@ -278,26 +273,28 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title="파라미터"
+            title="정규화 파라미터"
           >
             <Form.Control
               type="number"
               min="0"
-              {...register("regParam", {valueAsNumber: true, value: 0})}
+              step="0.1"
+              {...register("regParam", {valueAsNumber: true, value: 0.3})}
             />
           </InputWrapper>
           <InputWrapper
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title="엘라스틱 넷 파라미터"
+            title="정규화 강도 파라미터"
           >
             <Form.Control
               type="number"
               min="0"
+              step="0.1"
               {...register("elasticNetParam", {
                 valueAsNumber: true,
-                value: 0,
+                value: 0.8,
               })}
             />
           </InputWrapper>

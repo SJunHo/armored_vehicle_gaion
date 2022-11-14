@@ -210,7 +210,6 @@ public class DatasetDatabaseService {
                 return sensorBearingRepository.findSensorBearingLeftRetainerAiLFTFIsNull(pageable);
             case "BRB":
                 // Bearing Right Ball
-                System.out.println("Bearing Right Ball");
                 return sensorBearingRepository.findSensorBearingRightBallAiRBSFIsNull(pageable);
             case "BRI":
                 // Bearing Right Inside
@@ -413,11 +412,9 @@ public class DatasetDatabaseService {
 
             case "T":
                 // Temp Life
-
+                System.out.println("잔존수명예지 기능 추가해야함 !!!!!!!!!!");
                 break;
         }
-
         return "Saved to DB completed.";
     }
-
 }

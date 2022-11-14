@@ -12,14 +12,16 @@ import java.util.List;
 @Repository
 public interface TrainingWheelRepository extends JpaRepository<TrainingWheel, Long> {
     // Wheel Left
-    @Query(value = " SELECT w.IDX, w.AI_LW, w.W_RPM, w.L_W_V_2X, w.L_W_V_3X, w.L_W_S_Fault3, e.AC_h, e.AC_v, e.AC_a, w.`DATE` " +
-            " FROM WHLTRNNG w, ENGTRNNG e " +
-            " WHERE w.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT WHLTRNNG.IDX, WHLTRNNG.AI_LW, WHLTRNNG.W_RPM, WHLTRNNG.L_W_V_2X, WHLTRNNG.L_W_V_3X, WHLTRNNG.L_W_S_Fault3, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, WHLTRNNG.`DATE` " +
+            " FROM `WHLTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON WHLTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<WheelLeftInterface> findWheelLeft();
 
     // Wheel Right
-    @Query(value = " SELECT w.IDX, w.AI_LW, w.W_RPM, w.R_W_V_2X, w.R_W_V_3X, w.R_W_S_Fault3, e.AC_h, e.AC_v, e.AC_a, w.`DATE` " +
-            " FROM WHLTRNNG w, ENGTRNNG e " +
-            " WHERE w.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT WHLTRNNG.IDX, WHLTRNNG.AI_RW, WHLTRNNG.W_RPM, WHLTRNNG.R_W_V_2X, WHLTRNNG.R_W_V_3X, WHLTRNNG.R_W_S_Fault3, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, WHLTRNNG.`DATE` " +
+            " FROM `WHLTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON WHLTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<WheelRightInterface> findWheelRight();
 }

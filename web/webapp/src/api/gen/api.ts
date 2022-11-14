@@ -1830,13 +1830,13 @@ export interface PageObject {
      * @type {number}
      * @memberof PageObject
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageObject
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1903,13 +1903,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1976,13 +1976,13 @@ export interface PageSensorTempLife {
      * @type {number}
      * @memberof PageSensorTempLife
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorTempLife
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -2073,13 +2073,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 

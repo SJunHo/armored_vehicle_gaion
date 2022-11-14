@@ -4,6 +4,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.DatabaseConfiguration;
+import kr.gaion.armoredVehicle.database.repository.*;
 import kr.gaion.armoredVehicle.spark.dto.LabeledData;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.NonNull;
@@ -31,6 +32,18 @@ public class DatabaseSparkService {
     protected final Utilities utilities;
     @NonNull
     private final DatabaseConfiguration databaseConfiguration;
+    @NonNull
+    private final SensorBearingRepository sensorBearingRepository;
+    @NonNull
+    private final SensorWheelRepository sensorWheelRepository;
+    @NonNull
+    private final SensorEngineRepository sensorEngineRepository;
+    @NonNull
+    private final SensorGearboxRepository sensorGearboxRepository;
+    @NonNull
+    private final SensorTempLifeRepository sensorTempLifeRepository;
+    @NonNull
+    private final FileInfoRepository fileInfoRepository;
 
     private static Dataset<LabeledData> processData(
             Dataset<Row> jvRddData,
@@ -80,8 +93,8 @@ public class DatabaseSparkService {
     private static Dataset<NumericLabeledData> processNumericLabeledDataset(
             Dataset<Row> jvRddData, String classCol, List<String> featureCols) {
 
-        System.out.println("********** classCol = " + classCol);
-        System.out.println("********** featureCols = " + featureCols);
+        System.out.println(">>> classCol = " + classCol);
+        System.out.println(">>> featureCols = " + featureCols);
 
         return jvRddData.map(new MapFunction<>() {
             private static final long serialVersionUID = -1318784596736889400L;
@@ -133,10 +146,6 @@ public class DatabaseSparkService {
 
     public Dataset<Row> getLabeledDatasetFromDatabase(BaseAlgorithmTrainInput input) {
         var jvRddData = this.getDataRDDFromDb(input.getPartType(), input.getFileName());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ jvRddData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        jvRddData.show(false);
-
         var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
         return spark.createDataFrame(esData.rdd(), LabeledData.class);
     }
@@ -146,86 +155,119 @@ public class DatabaseSparkService {
         switch (partType) {
             case "BLB":
                 // Bearing Left Ball
-                query = String.format(" SELECT b.AI_LBSF, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BSF, b.L_B_V_32924BSF, b.L_B_V_32922BSF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_LBSF, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912BSF, BERTRNNG.L_B_V_32924BSF, BERTRNNG.L_B_V_32922BSF, " +
+                        " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "BLI":
                 // Bearing Left Inside
-                query = String.format(" SELECT b.AI_LBPFI, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFI, b.L_B_V_32924BPFI, b.L_B_V_32922BPFI, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_LBPFI, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912BPFI, BERTRNNG.L_B_V_32924BPFI, BERTRNNG.L_B_V_32922BPFI, " +
+                        " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "BLO":
                 // Bearing Left Outside
-                query = String.format(" SELECT b.AI_LBPFO, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFO, b.L_B_V_32924BPFO, b.L_B_V_32922BPFO, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_LBPFO, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912BPFO, BERTRNNG.L_B_V_32924BPFO, BERTRNNG.L_B_V_32922BPFO, " +
+                        " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "BLR":
                 // Bearing Left Retainer
-                query = String.format(" SELECT b.AI_LFTF, b.W_RPM, b.L_B_V_1X, b.L_B_V_6912FTF, b.L_B_V_32924FTF, b.L_B_V_32922FTF, b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_LFTF, BERTRNNG.W_RPM, BERTRNNG.L_B_V_1X, BERTRNNG.L_B_V_6912FTF, BERTRNNG.L_B_V_32924FTF, BERTRNNG.L_B_V_32922FTF, " +
+                        " BERTRNNG.L_B_V_Crestfactor, BERTRNNG.L_B_V_Demodulation, BERTRNNG.L_B_S_Fault1, BERTRNNG.L_B_S_Fault2, BERTRNNG.L_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "BRB":
                 // Bearing Right Ball
-                query = String.format(" SELECT b.AI_RBSF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BSF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_RBSF, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912BSF, BERTRNNG.R_B_V_32924BSF, BERTRNNG.R_B_V_32922BSF, " +
+                        " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "BRI":
                 // Bearing Right Inside
-                query = String.format(" SELECT b.AI_RBPFI, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFI, b.R_B_V_32924BPFI, b.R_B_V_32922BPFI, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_RBPFI, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912BPFI, BERTRNNG.R_B_V_32924BPFI, BERTRNNG.R_B_V_32922BPFI, " +
+                        " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "BRO":
                 // Bearing Right Outside
-                query = String.format(" SELECT b.AI_RBPFO, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFO, b.R_B_V_32924BPFO, b.R_B_V_32922BPFO, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_RBPFO, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912BPFO, BERTRNNG.R_B_V_32924BPFO, BERTRNNG.R_B_V_32922BPFO, " +
+                        " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "BRR":
                 // Bearing Right Retainer
-                query = String.format(" SELECT b.AI_RFTF, b.W_RPM, b.R_B_V_1X, b.R_B_V_6912FTF, b.R_B_V_32924FTF, b.R_B_V_32922FTF, b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM BERTRNNG b, ENGTRNNG e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT BERTRNNG.IDX, BERTRNNG.AI_RFTF, BERTRNNG.W_RPM, BERTRNNG.R_B_V_1X, BERTRNNG.R_B_V_6912FTF, BERTRNNG.R_B_V_32924FTF, BERTRNNG.R_B_V_32922FTF, " +
+                        " BERTRNNG.R_B_V_Crestfactor, BERTRNNG.R_B_V_Demodulation, BERTRNNG.R_B_S_Fault1, BERTRNNG.R_B_S_Fault2, BERTRNNG.R_B_T_Temperature, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, BERTRNNG.`DATE` " +
+                        " FROM `BERTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON BERTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE BERTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "WL":
                 // Wheel Left
-                query = String.format(" SELECT w.AI_LW, w.W_RPM, w.L_W_V_2X, w.L_W_V_3X, w.L_W_S_Fault3, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM WHLTRNNG w, ENGTRNNG e " +
-                        " WHERE w.`DATE` = e.`DATE` AND w.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT WHLTRNNG.IDX, WHLTRNNG.AI_LW, WHLTRNNG.W_RPM, WHLTRNNG.L_W_V_2X, WHLTRNNG.L_W_V_3X, WHLTRNNG.L_W_S_Fault3, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, WHLTRNNG.`DATE` " +
+                        " FROM `WHLTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON WHLTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE WHLTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "WR":
                 // Wheel Right
-                query = String.format(" SELECT w.AI_LW, w.W_RPM, w.R_W_V_2X, w.R_W_V_3X, w.R_W_S_Fault3, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM WHLTRNNG w, ENGTRNNG e " +
-                        " WHERE w.`DATE` = e.`DATE` w.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT WHLTRNNG.IDX, WHLTRNNG.AI_RW, WHLTRNNG.W_RPM, WHLTRNNG.R_W_V_2X, WHLTRNNG.R_W_V_3X, WHLTRNNG.R_W_S_Fault3, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, WHLTRNNG.`DATE` " +
+                        " FROM `WHLTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON WHLTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE WHLTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "G":
                 // Gearbox
-                query = String.format(" SELECT g.AI_GEAR, g.W_RPM, g.G_V_OverallRMS, g.G_V_Wheel1X, g.G_V_Wheel2X, g.G_V_Pinion1X, g.G_V_Pinion2X, g.G_V_GMF1X, g.G_V_GMF2X, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM GRBTRNNG g, ENGTRNNG e " +
-                        " WHERE g.`DATE` = e.`DATE` AND g.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT GRBTRNNG.IDX, GRBTRNNG.AI_GEAR, GRBTRNNG.W_RPM, GRBTRNNG.G_V_OverallRMS, GRBTRNNG.G_V_Wheel1X, GRBTRNNG.G_V_Wheel2X, " +
+                        " GRBTRNNG.G_V_Pinion1X, GRBTRNNG.G_V_Pinion2X, GRBTRNNG.G_V_GMF1X, GRBTRNNG.G_V_GMF2X, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, GRBTRNNG.`DATE` " +
+                        " FROM `GRBTRNNG` " +
+                        " INNER JOIN `ENGTRNNG` ON GRBTRNNG.`DATE` = ENGTRNNG.`DATE` " +
+                        " WHERE GRBTRNNG.FILENM = '%s' ", fileName);
                 break;
 
             case "E":
                 // Engine
-                query = String.format(" SELECT e.AI_ENGINE, e.W_RPM, e.E_V_OverallRMS, e.E_V_1_2X, e.E_V_1X, e.E_V_Crestfactor, e.AC_h, e.AC_v, e.AC_a " +
-                        " FROM ENGTRNNG e " +
-                        " WHERE e.FILENM = '%s' ", fileName);
+                query = String.format(" SELECT ENGTRNNG.IDX, ENGTRNNG.AI_ENGINE, ENGTRNNG.W_RPM, ENGTRNNG.E_V_OverallRMS, " +
+                        " ENGTRNNG.E_V_1_2X, ENGTRNNG.E_V_1X, ENGTRNNG.E_V_Crestfactor, " +
+                        " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, ENGTRNNG.`DATE` " +
+                        " FROM `ENGTRNNG` " +
+                        " WHERE ENGTRNNG.FILENM = '%s' ", fileName);
                 break;
         }
         try {
@@ -267,138 +309,142 @@ public class DatabaseSparkService {
     }
 
     //import Db unlabeled data for predict
-    public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput) {
+    public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput, List<String> docIds) {
+        System.out.println("Selected docIds : " + docIds);
+        String stringDocIds = docIds.toString().replace("[", "").replace("]", "");
         String partType = baseAlgorithmPredictInput.getDataType();
         String query = null;
         switch (partType) {
             case "BLB":
                 // Bearing Left Ball
-                query = " SELECT b.AI_LBSF, b.AI_LBSF_ALGO, b.AI_LBSF_MODEL, b.AI_LBSF_DATE, " +
-                        " b.USER_LBSF, b.USER_LBSF_ID, b.USER_LBSF_DATE, " +
-                        " b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BSF, b.L_B_V_32924BSF, b.L_B_V_32922BSF, " +
-                        " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_LBSF is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_LBSF, BERDATA.AI_LBSF_ALGO, BERDATA.AI_LBSF_MODEL, BERDATA.AI_LBSF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912BSF, BERDATA.L_B_V_32924BSF, BERDATA.L_B_V_32922BSF, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LBSF IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "BLI":
                 // Bearing Left Inside
-                query = " SELECT b.AI_LBPFI, b.AI_LBPFI_ALGO, b.AI_LBPFI_MODEL, b.AI_LBPFI_DATE, " +
-                        " b.USER_LBPFI, b.USER_LBPFI_ID, b.USER_LBPFI_DATE, " +
-                        " b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFI, b.L_B_V_32924BPFI, b.L_B_V_32922BPFI, " +
-                        " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_LBPFI is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_LBPFI, BERDATA.AI_LBPFI_ALGO, BERDATA.AI_LBPFI_MODEL, BERDATA.AI_LBPFI_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912BPFI, BERDATA.L_B_V_32924BPFI, BERDATA.L_B_V_32922BPFI, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LBPFI IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "BLO":
                 // Bearing Left Outside
-                query = " SELECT b.AI_LBPFO, b.AI_LBPFO_ALGO, b.AI_LBPFO_MODEL, b.AI_LBPFO_DATE, " +
-                        " b.USER_LBPFO, b.USER_LBPFO_ID, b.USER_LBPFO_DATE, " +
-                        " b.W_RPM, b.L_B_V_1X, b.L_B_V_6912BPFO, b.L_B_V_32924BPFO, b.L_B_V_32922BPFO, " +
-                        " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_LBPFO is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_LBPFO, BERDATA.AI_LBPFO_ALGO, BERDATA.AI_LBPFO_MODEL, BERDATA.AI_LBPFO_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912BPFO, BERDATA.L_B_V_32924BPFO, BERDATA.L_B_V_32922BPFO, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LBPFO IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "BLR":
                 // Bearing Left Retainer
-                query = " SELECT b.AI_LFTF, b.AI_LFTF_ALGO, b.AI_LFTF_MODEL, b.AI_LFTF_DATE, " +
-                        " b.USER_LFTF, b.USER_LFTF_ID, b.USER_LFTF_DATE, " +
-                        " b.W_RPM, b.L_B_V_1X, b.L_B_V_6912FTF, b.L_B_V_32924FTF, b.L_B_V_32922FTF, " +
-                        " b.L_B_V_Crestfactor, b.L_B_V_Demodulation, b.L_B_S_Fault1, b.L_B_S_Fault2, b.L_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_LFTF is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_LFTF, BERDATA.AI_LFTF_ALGO, BERDATA.AI_LFTF_MODEL, BERDATA.AI_LFTF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912FTF, BERDATA.L_B_V_32924FTF, BERDATA.L_B_V_32922FTF, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LFTF IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "BRB":
                 // Bearing Right Ball
-                query = " SELECT b.AI_RBSF, b.AI_RBSF_ALGO, b.AI_RBSF_MODEL, b.AI_RBSF_DATE, " +
-                        " b.USER_RBSF, b.USER_RBPFO_ID, b.USER_RBSF_DATE, " +
-                        " b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BSF, b.R_B_V_32924BSF, b.R_B_V_32922BPFI, " +
-                        " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_RBSF is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_RBSF, BERDATA.AI_RBSF_ALGO, BERDATA.AI_RBSF_MODEL, BERDATA.AI_RBSF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912BSF, BERDATA.R_B_V_32924BSF, BERDATA.R_B_V_32922BSF, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RBSF IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "BRI":
                 // Bearing Right Inside
-                query = " SELECT b.AI_RBPFI, b.AI_RBPFI_ALGO, b.AI_RBPFI_MODEL, b.AI_RBPFI_DATE, " +
-                        " b.USER_RBPFI, b.USER_RBPFI_ID, b.USER_RBPFI_DATE, " +
-                        " b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFI, b.R_B_V_32924BPFI, b.R_B_V_32922BPFI, " +
-                        " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_RBPFI is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_RBPFI, BERDATA.AI_RBPFI_ALGO, BERDATA.AI_RBPFI_MODEL, BERDATA.AI_RBPFI_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912BPFI, BERDATA.R_B_V_32924BPFI, BERDATA.R_B_V_32922BPFI, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RBPFI IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "BRO":
                 // Bearing Right Outside
-                query = " SELECT b.AI_RBPFO, b.AI_RBPFO_ALGO, b.AI_RBPFO_MODEL, b.AI_RBPFO_DATE, " +
-                        " b.USER_RBPFO, b.USER_RBPFO_ID, b.USER_RBPFO_DATE, " +
-                        " b.W_RPM, b.R_B_V_1X, b.R_B_V_6912BPFO, b.R_B_V_32924BPFO, b.R_B_V_32922BPFO, " +
-                        " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_RBPFO is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_RBPFO, BERDATA.AI_RBPFO_ALGO, BERDATA.AI_RBPFO_MODEL, BERDATA.AI_RBPFO_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912BPFO, BERDATA.R_B_V_32924BPFO, BERDATA.R_B_V_32922BPFO, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RBPFO IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "BRR":
                 // Bearing Right Retainer
-                query = " SELECT b.AI_RFTF, b.AI_RFTF_ALGO, b.AI_RFTF_MODEL, b.AI_RFTF_DATE, " +
-                        " b.USER_RFTF, b.USER_RFTF_ID, b.USER_RFTF_DATE, " +
-                        " b.W_RPM, b.R_B_V_1X, b.R_B_V_6912FTF, b.R_B_V_32924FTF, b.R_B_V_32922FTF, " +
-                        " b.R_B_V_Crestfactor, b.R_B_V_Demodulation, b.R_B_S_Fault1, b.R_B_S_Fault2, b.R_B_T_Temperature, " +
-                        " e.AC_h, e.AC_v, e.AC_a, b.`DATE` " +
-                        " FROM BERDATA b, ENGDATA e " +
-                        " WHERE b.`DATE` = e.`DATE` AND b.AI_RFTF is Null ";
+                query = String.format(" SELECT BERDATA.IDX, BERDATA.AI_RFTF, BERDATA.AI_RFTF_ALGO, BERDATA.AI_RFTF_MODEL, BERDATA.AI_RFTF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912FTF, BERDATA.R_B_V_32924FTF, BERDATA.R_B_V_32922FTF, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RFTF IS NULL AND BERDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "WL":
                 // Wheel Left
-                query = " SELECT w.AI_LW, w.AI_LW_ALGO, w.AI_LW_MODEL, w.AI_LW_DATE, " +
-                        " w.USER_LW, w.USER_LW_ID, w.USER_LW_DATE, " +
-                        " w.W_RPM, w.L_W_V_2X, w.L_W_V_3X, w.L_W_S_Fault3, " +
-                        " e.AC_h, e.AC_v, e.AC_a, w.`DATE` " +
-                        " FROM WHLDATA w, ENGDATA e " +
-                        " WHERE w.`DATE` = e.`DATE` AND w.AI_LW is Null ";
+                query = String.format(" SELECT WHLDATA.IDX, WHLDATA.AI_LW, WHLDATA.AI_LW_ALGO, WHLDATA.AI_LW_MODEL, WHLDATA.AI_LW_DATE, " +
+                        " WHLDATA.W_RPM, WHLDATA.L_W_V_2X, WHLDATA.L_W_V_3X, WHLDATA.L_W_S_Fault3, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, WHLDATA.`DATE` " +
+                        " FROM `WHLDATA` " +
+                        " INNER JOIN `ENGDATA` ON WHLDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE WHLDATA.AI_LW IS NULL AND WHLDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "WR":
                 // Wheel Right
-                query = " SELECT w.AI_RW, w.AI_RW_ALGO, w.AI_RW_MODEL, w.AI_RW_DATE, " +
-                        " w.USER_RW, w.USER_RW_ID, w.USER_RW_DATE, " +
-                        " w.W_RPM, w.R_W_V_2X, w.R_W_V_3X, w.R_W_S_Fault3, " +
-                        " e.AC_h, e.AC_v, e.AC_a, w.`DATE` " +
-                        " FROM WHLDATA w, ENGDATA e " +
-                        " WHERE w.`DATE` = e.`DATE` AND w.AI_RW is Null ";
+                query = String.format(" SELECT WHLDATA.IDX, WHLDATA.AI_RW, WHLDATA.AI_RW_ALGO, WHLDATA.AI_RW_MODEL, WHLDATA.AI_RW_DATE, " +
+                        " WHLDATA.W_RPM, WHLDATA.R_W_V_2X, WHLDATA.R_W_V_3X, WHLDATA.R_W_S_Fault3, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, WHLDATA.`DATE` " +
+                        " FROM `WHLDATA` " +
+                        " INNER JOIN `ENGDATA` ON WHLDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE WHLDATA.AI_RW IS NULL AND WHLDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "G":
                 // Gearbox
-                query = " SELECT g.AI_GEAR, g.AI_GEAR_ALGO, g.AI_GEAR_MODEL, g.AI_GEAR_DATE, " +
-                        " g.USER_GEAR, g.USER_GEAR_ID, g.USER_GEAR_DATE, " +
-                        " g.W_RPM, g.G_V_OverallRMS, g.G_V_Wheel1X, g.G_V_Wheel2X, g.G_V_Pinion1X, g.G_V_Pinion2X, g.G_V_GMF1X, g.G_V_GMF2X, " +
-                        " e.AC_h, e.AC_v, e.AC_a, g.`DATE` " +
-                        " FROM GRBDATA g, ENGDATA e " +
-                        " WHERE g.`DATE` = e.`DATE` AND g.AI_GEAR is Null ";
+                query = String.format(" SELECT GRBDATA.IDX, GRBDATA.AI_GEAR, GRBDATA.AI_GEAR_ALGO, GRBDATA.AI_GEAR_MODEL, GRBDATA.AI_GEAR_DATE, " +
+                        " GRBDATA.W_RPM, GRBDATA.G_V_OverallRMS, GRBDATA.G_V_Wheel1X, GRBDATA.G_V_Wheel2X, " +
+                        " GRBDATA.G_V_Pinion1X, GRBDATA.G_V_Pinion2X, GRBDATA.G_V_GMF1X, GRBDATA.G_V_GMF2X, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, GRBDATA.`DATE` " +
+                        " FROM `GRBDATA` " +
+                        " INNER JOIN `ENGDATA` ON GRBDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE GRBDATA.AI_GEAR IS NULL AND GRBDATA.IDX IN (%s) ", stringDocIds);
                 break;
 
             case "E":
                 // Engine
-                query = " SELECT e.AI_ENGINE, e.AI_ENGINE_ALGO, e.AI_ENGINE_MODEL, e.AI_ENGINE_DATE, " +
-                        " e.USER_ENGINE, e.USER_ENGINE_ID, e.USER_ENGINE_DATE, " +
-                        " e.W_RPM, e.E_V_OverallRMS, e.E_V_1_2X, e.E_V_1X, e.E_V_Crestfactor, e.AC_h, e.AC_v, e.AC_a, e.`DATE` " +
-                        " FROM ENGDATA e " +
-                        " WHERE e.AI_ENGINE is Null ";
+                query = String.format(" SELECT ENGDATA.IDX, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +
+                        " ENGDATA.USER_ENGINE, ENGDATA.USER_ENGINE_ID, ENGDATA.USER_ENGINE_DATE, " +
+                        " ENGDATA.W_RPM, ENGDATA.E_V_OverallRMS, ENGDATA.E_V_1_2X, ENGDATA.E_V_1X, ENGDATA.E_V_Crestfactor, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE` " +
+                        " FROM `ENGDATA` " +
+                        " WHERE  AI_ENGINE IS NULL AND ENGDATA.IDX IN (%s) ", stringDocIds);
                 break;
         }
-        System.out.println("Get unlabeled Data -> " + " partType : " + partType);
+        System.out.println("Get unlabeled data -> " + " partType : " + partType);
         try {
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
@@ -413,5 +459,151 @@ public class DatabaseSparkService {
         }
     }
 
+    public Dataset<Row> getAllUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput) {
+        String partType = baseAlgorithmPredictInput.getDataType();
+        String query = null;
+        switch (partType) {
+            case "BLB":
+                // Bearing Left Ball
+                query = " SELECT BERDATA.IDX, BERDATA.AI_LBSF, BERDATA.AI_LBSF_ALGO, BERDATA.AI_LBSF_MODEL, BERDATA.AI_LBSF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912BSF, BERDATA.L_B_V_32924BSF, BERDATA.L_B_V_32922BSF, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LBSF IS NULL ";
+                break;
 
+            case "BLI":
+                // Bearing Left Inside
+                query = " SELECT BERDATA.IDX, BERDATA.AI_LBPFI, BERDATA.AI_LBPFI_ALGO, BERDATA.AI_LBPFI_MODEL, BERDATA.AI_LBPFI_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912BPFI, BERDATA.L_B_V_32924BPFI, BERDATA.L_B_V_32922BPFI, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LBPFI IS NULL ";
+                break;
+
+            case "BLO":
+                // Bearing Left Outside
+                query = " SELECT BERDATA.IDX, BERDATA.AI_LBPFO, BERDATA.AI_LBPFO_ALGO, BERDATA.AI_LBPFO_MODEL, BERDATA.AI_LBPFO_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912BPFO, BERDATA.L_B_V_32924BPFO, BERDATA.L_B_V_32922BPFO, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LBPFO IS NULL ";
+                break;
+
+            case "BLR":
+                // Bearing Left Retainer
+                query = " SELECT BERDATA.IDX, BERDATA.AI_LFTF, BERDATA.AI_LFTF_ALGO, BERDATA.AI_LFTF_MODEL, BERDATA.AI_LFTF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.L_B_V_1X, BERDATA.L_B_V_6912FTF, BERDATA.L_B_V_32924FTF, BERDATA.L_B_V_32922FTF, " +
+                        " BERDATA.L_B_V_Crestfactor, BERDATA.L_B_V_Demodulation, BERDATA.L_B_S_Fault1, BERDATA.L_B_S_Fault2, BERDATA.L_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_LFTF IS NULL ";
+                break;
+
+            case "BRB":
+                // Bearing Right Ball
+                query = " SELECT BERDATA.IDX, BERDATA.AI_RBSF, BERDATA.AI_RBSF_ALGO, BERDATA.AI_RBSF_MODEL, BERDATA.AI_RBSF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912BSF, BERDATA.R_B_V_32924BSF, BERDATA.R_B_V_32922BSF, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RBSF IS NULL ";
+                break;
+
+            case "BRI":
+                // Bearing Right Inside
+                query = " SELECT BERDATA.IDX, BERDATA.AI_RBPFI, BERDATA.AI_RBPFI_ALGO, BERDATA.AI_RBPFI_MODEL, BERDATA.AI_RBPFI_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912BPFI, BERDATA.R_B_V_32924BPFI, BERDATA.R_B_V_32922BPFI, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RBPFI IS NULL ";
+                break;
+
+            case "BRO":
+                // Bearing Right Outside
+                query = " SELECT BERDATA.IDX, BERDATA.AI_RBPFO, BERDATA.AI_RBPFO_ALGO, BERDATA.AI_RBPFO_MODEL, BERDATA.AI_RBPFO_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912BPFO, BERDATA.R_B_V_32924BPFO, BERDATA.R_B_V_32922BPFO, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RBPFO IS NULL ";
+                break;
+
+            case "BRR":
+                // Bearing Right Retainer
+                query = " SELECT BERDATA.IDX, BERDATA.AI_RFTF, BERDATA.AI_RFTF_ALGO, BERDATA.AI_RFTF_MODEL, BERDATA.AI_RFTF_DATE, " +
+                        " BERDATA.W_RPM, BERDATA.R_B_V_1X, BERDATA.R_B_V_6912FTF, BERDATA.R_B_V_32924FTF, BERDATA.R_B_V_32922FTF, " +
+                        " BERDATA.R_B_V_Crestfactor, BERDATA.R_B_V_Demodulation, BERDATA.R_B_S_Fault1, BERDATA.R_B_S_Fault2, BERDATA.R_B_T_Temperature, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, BERDATA.`DATE` " +
+                        " FROM `BERDATA` " +
+                        " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE BERDATA.AI_RFTF IS NULL ";
+                break;
+
+            case "WL":
+                // Wheel Left
+                query = " SELECT WHLDATA.IDX, WHLDATA.AI_LW, WHLDATA.AI_LW_ALGO, WHLDATA.AI_LW_MODEL, WHLDATA.AI_LW_DATE, " +
+                        " WHLDATA.W_RPM, WHLDATA.L_W_V_2X, WHLDATA.L_W_V_3X, WHLDATA.L_W_S_Fault3, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, WHLDATA.`DATE` " +
+                        " FROM `WHLDATA` " +
+                        " INNER JOIN `ENGDATA` ON WHLDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE WHLDATA.AI_LW IS NULL ";
+                break;
+
+            case "WR":
+                // Wheel Right
+                query = " SELECT WHLDATA.IDX, WHLDATA.AI_RW, WHLDATA.AI_RW_ALGO, WHLDATA.AI_RW_MODEL, WHLDATA.AI_RW_DATE, " +
+                        " WHLDATA.W_RPM, WHLDATA.R_W_V_2X, WHLDATA.R_W_V_3X, WHLDATA.R_W_S_Fault3, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, WHLDATA.`DATE` " +
+                        " FROM `WHLDATA` " +
+                        " INNER JOIN `ENGDATA` ON WHLDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE WHLDATA.AI_RW IS NULL ";
+                break;
+
+            case "G":
+                // Gearbox
+                query = " SELECT GRBDATA.IDX, GRBDATA.AI_GEAR, GRBDATA.AI_GEAR_ALGO, GRBDATA.AI_GEAR_MODEL, GRBDATA.AI_GEAR_DATE, " +
+                        " GRBDATA.W_RPM, GRBDATA.G_V_OverallRMS, GRBDATA.G_V_Wheel1X, GRBDATA.G_V_Wheel2X, " +
+                        " GRBDATA.G_V_Pinion1X, GRBDATA.G_V_Pinion2X, GRBDATA.G_V_GMF1X, GRBDATA.G_V_GMF2X, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, GRBDATA.`DATE` " +
+                        " FROM `GRBDATA` " +
+                        " INNER JOIN `ENGDATA` ON GRBDATA.`DATE` = ENGDATA.`DATE` " +
+                        " WHERE GRBDATA.AI_GEAR IS NULL ";
+                break;
+
+            case "E":
+                // Engine
+                query = " SELECT ENGDATA.IDX, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +
+                        " ENGDATA.USER_ENGINE, ENGDATA.USER_ENGINE_ID, ENGDATA.USER_ENGINE_DATE, " +
+                        " ENGDATA.W_RPM, ENGDATA.E_V_OverallRMS, ENGDATA.E_V_1_2X, ENGDATA.E_V_1X, ENGDATA.E_V_Crestfactor, " +
+                        " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE` " +
+                        " FROM `ENGDATA` " +
+                        " WHERE  AI_ENGINE IS NULL ";
+                break;
+        }
+        System.out.println("Get all unlabeled data -> " + " partType : " + partType);
+        try {
+            Dataset<Row> jdbcDF = spark.read()
+                    .format("jdbc")
+                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
+                    .option("user", "AMVHC_U")
+                    .option("password", "!Tltmxpa0517")
+                    .option("query", query)
+                    .load();
+            return jdbcDF;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

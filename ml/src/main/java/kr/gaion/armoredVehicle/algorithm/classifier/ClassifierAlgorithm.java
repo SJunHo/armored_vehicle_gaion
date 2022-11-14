@@ -33,6 +33,8 @@ import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import scala.collection.JavaConverters;
+import scala.collection.Seq;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -103,6 +105,10 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
                 return lineBuilder.toString();
             }
         });
+    }
+
+    public static Seq<String> convertListToSeq(List<String> inputList) {
+        return JavaConverters.asScalaIteratorConverter(inputList.iterator()).asScala().toSeq();
     }
 
     @Override
@@ -370,7 +376,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
         Dataset<Row> indexedData = labelIndexer.transform(originalData);
         String[] indicesLabelsMapping = labelIndexer.labels();
-        
+
         // 2. Split the data into train and test
         var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
         var train = splitData[0];
@@ -421,14 +427,8 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 0. setting
         var modelName = input.getModelName();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ modelName @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ modelName : " + modelName);
-
         var unlabeledData = this.getUnlabeledData(input);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ unlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        unlabeledData.show(false);
+        var selectedUnlabeledData = unlabeledData.selectExpr(convertListToSeq(input.getListFieldsForPredict()));
 
         // 1. load model and labelIndexer
         var model = LinearSVCModel.load(this.getModelFullPath(modelName));
@@ -436,18 +436,15 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         String[] indicesLabelsMapping = labelIndexer.labels();
 
         // 2. Vector Assembling
-        for (String c : unlabeledData.columns()) {
-            unlabeledData = unlabeledData.withColumn(c, unlabeledData.col(c).cast("double"));
+        for (String c : selectedUnlabeledData.columns()) {
+            selectedUnlabeledData = selectedUnlabeledData.withColumn(c, selectedUnlabeledData.col(c).cast("double"));
         }
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(Arrays.stream(unlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
+                .setInputCols(Arrays.stream(selectedUnlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
                 .setOutputCol("features");
 
-        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(unlabeledData);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ assembledUnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        assembledUnlabeledData.show(false);
+        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(selectedUnlabeledData);
 
         // 3. predict
         model.setFeaturesCol("features");
@@ -461,9 +458,6 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // dataset's each rows convert to line data for response
         var lineData = doPredictClassificationScaledData(predictedResult);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ lineData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        lineData.take(10).forEach(System.out::println);
 
         response.setListFeatures(input.getListFieldsForPredict().toArray(new String[0]));
         response.setPredictionInfo(lineData.collect()); // #PC0002
@@ -480,14 +474,8 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 0. setting
         var modelName = input.getModelName();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ modelName @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ modelName : " + modelName);
-
         var unlabeledData = this.getUnlabeledData(input);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ unlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        unlabeledData.show(false);
+        var selectedUnlabeledData = unlabeledData.selectExpr(convertListToSeq(input.getListFieldsForPredict()));
 
         // 1. load model and labelIndexer
         var model = MultilayerPerceptronClassificationModel.load(this.getModelFullPath(modelName));
@@ -495,18 +483,15 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         String[] indicesLabelsMapping = labelIndexer.labels();
 
         // 2. Vector Assembling
-        for (String c : unlabeledData.columns()) {
-            unlabeledData = unlabeledData.withColumn(c, unlabeledData.col(c).cast("double"));
+        for (String c : selectedUnlabeledData.columns()) {
+            selectedUnlabeledData = selectedUnlabeledData.withColumn(c, selectedUnlabeledData.col(c).cast("double"));
         }
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(Arrays.stream(unlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
+                .setInputCols(Arrays.stream(selectedUnlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
                 .setOutputCol("features");
 
-        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(unlabeledData);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ assembledUnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        assembledUnlabeledData.show(false);
+        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(selectedUnlabeledData);
 
         // 3. predict
         model.setFeaturesCol("features");
@@ -520,9 +505,6 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // dataset's each rows convert to line data for response
         var lineData = doPredictClassificationScaledData(predictedResult);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ lineData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        lineData.take(10).forEach(System.out::println);
 
         response.setListFeatures(input.getListFieldsForPredict().toArray(new String[0]));
         response.setPredictionInfo(lineData.collect()); // #PC0002
@@ -539,14 +521,8 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 0. setting
         var modelName = input.getModelName();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ modelName @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ modelName : " + modelName);
-
         var unlabeledData = this.getUnlabeledData(input);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ unlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        unlabeledData.show(false);
+        var selectedUnlabeledData = unlabeledData.selectExpr(convertListToSeq(input.getListFieldsForPredict()));
 
         // 1. load model and labelIndexer
         var model = LogisticRegressionModel.load(this.getModelFullPath(modelName));
@@ -554,18 +530,15 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         String[] indicesLabelsMapping = labelIndexer.labels();
 
         // 2. Vector Assembling
-        for (String c : unlabeledData.columns()) {
-            unlabeledData = unlabeledData.withColumn(c, unlabeledData.col(c).cast("double"));
+        for (String c : selectedUnlabeledData.columns()) {
+            selectedUnlabeledData = selectedUnlabeledData.withColumn(c, selectedUnlabeledData.col(c).cast("double"));
         }
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(Arrays.stream(unlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
+                .setInputCols(Arrays.stream(selectedUnlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
                 .setOutputCol("features");
 
-        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(unlabeledData);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ assembledUnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        assembledUnlabeledData.show(false);
+        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(selectedUnlabeledData);
 
         // 3. predict
         model.setFeaturesCol("features");
@@ -579,9 +552,6 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // dataset's each rows convert to line data for response
         var lineData = doPredictClassificationScaledData(predictedResult);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ lineData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        lineData.take(10).forEach(System.out::println);
 
         response.setListFeatures(input.getListFieldsForPredict().toArray(new String[0]));
         response.setPredictionInfo(lineData.collect()); // #PC0002
@@ -598,15 +568,8 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // 0. setting
         var modelName = input.getModelName();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ modelName @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@@@@@@@@@@@@@@@ modelName : " + modelName);
-
         var unlabeledData = this.getUnlabeledData(input);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ unlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        unlabeledData.show(false);
-
+        var selectedUnlabeledData = unlabeledData.selectExpr(convertListToSeq(input.getListFieldsForPredict()));
 
         // 1. load model and labelIndexer
         var model = RandomForestClassificationModel.load(this.getModelFullPath(modelName));
@@ -614,18 +577,15 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         String[] indicesLabelsMapping = labelIndexer.labels();
 
         // 2. Vector Assembling
-        for (String c : unlabeledData.columns()) {
-            unlabeledData = unlabeledData.withColumn(c, unlabeledData.col(c).cast("double"));
+        for (String c : selectedUnlabeledData.columns()) {
+            selectedUnlabeledData = selectedUnlabeledData.withColumn(c, selectedUnlabeledData.col(c).cast("double"));
         }
 
         VectorAssembler assembler = new VectorAssembler()
-                .setInputCols(Arrays.stream(unlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
+                .setInputCols(Arrays.stream(selectedUnlabeledData.columns()).filter(col -> !col.equals("index")).collect(Collectors.toList()).toArray(new String[]{}))
                 .setOutputCol("features");
 
-        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(unlabeledData);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ assembledUnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        assembledUnlabeledData.show(false);
+        Dataset<Row> assembledUnlabeledData = assembler.setHandleInvalid("keep").transform(selectedUnlabeledData);
 
         // 3. predict
         model.setFeaturesCol("features");
@@ -639,9 +599,6 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
         // dataset's each rows convert to line data for response
         var lineData = doPredictClassificationScaledData(predictedResult);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ lineData @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        lineData.take(10).forEach(System.out::println);
 
         response.setListFeatures(input.getListFieldsForPredict().toArray(new String[0]));
         response.setPredictionInfo(lineData.collect()); // #PC0002
@@ -686,7 +643,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
                 this.utilities.roundDouble(metrics.weightedTruePositiveRate(), 2));
 
         int maxResults = this.algorithmConfig.getMaxResult();
-        response.setPredictedActualFeatureLine(predictActualFeature.take(maxResults));
+        response.setPredictedActualFeatureLine(predictActualFeature.take((int) predictActualFeature.count()));
         response.setListFeatures(listSelectedFeatures);
         response.setClassCol(config.getClassCol());
         response.setStatus(ResponseStatus.SUCCESS);

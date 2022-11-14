@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState,} from "react"
+import React, {useCallback, useContext, useMemo, useState,} from "react"
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Col from "react-bootstrap/Col";
@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import {useTranslation} from "react-i18next";
-import {Column, Row as TableRow} from "react-table";
+import {Column, Row as TableRow, UsePaginationState} from "react-table";
 import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext, Pageable, SensorTempLife} from "../api";
 import {ALGORITHM_INFO} from "../common/Common";
 import {Section} from "../common/Section/Section";
@@ -17,17 +17,20 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [predicting, setPredicting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [searchingData, setSearchingData] = useState(false);
+  const [searchingModels, setSearchingModels] = useState(false);
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
   const [conditionData, setConditionData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>();
-  const [wb, setWb] = useState<string>("BLB");
+  const [selectedDataIdx, setSelectedDataIdx] = useState<any[]>();
+  const [wb, setWb] = useState<string>("");
   const [tableColumns, setTableColumns] = useState<any>([]);
+  const [targetClassCol, setTargetClassCol] = useState<string>("");
   const [totalPage, setTotalPage] = useState<number>(1);
   const [paginate, setPaginate] = useState<Pageable>();
 
-  const [sensorObject, setSensorObject] = useState<Object>();
-
+  const [totalElements, setTotalElements] = useState<number>(1);
+  const [paginationOptions, setPaginationOptions] = useState<UsePaginationState<Object[]>>({pageSize: 10, pageIndex: 0});
 
   const {datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
   const {t} = useTranslation();
@@ -116,19 +119,19 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const modelResponseColumns = useMemo<Column<DbModelResponse>[]>(
     () => [
       {
-        Header: "Model Name",
+        Header: "모델 이름",
         accessor: "modelName",
       },
       {
-        Header: t("table.column.notes").toString(),
+        Header: "메모",
         accessor: "description",
       },
       {
-        Header: t("ml.common.accuracy").toString(),
+        Header: "정확도",
         accessor: "accuracy",
       },
       {
-        Header: t("ml.common.rmse").toString(),
+        Header: "RMSE",
         accessor: "rootMeanSquaredError",
       },
     ],
@@ -200,7 +203,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LBSF",
+        accessor: (data) => {
+          if (data.ai_LBSF === "0.0") {
+            return "정상";
+          } else if (data.ai_LBSF === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "알고리즘",
@@ -1127,6 +1138,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const handleConditionSelected =
     useCallback((v: TableRow<any[]>[]) => {
       setSelectedData(v?.map((i) => i.original))
+      setSelectedDataIdx(v?.map((i) => i.values.idx))
     }, []);
 
   const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
@@ -1138,51 +1150,68 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   //         : useCallback((v: TableRow<SensorBearing>[]) => {setSelectedData(v?.map((i) => i.original))},[])
   // );
 
-  useEffect(() => {
-    mlControllerApi
-      ?.getModels(ALGORITHM_INFO[algorithmName].className)
-      .then((data) => {
-        setModels((data.data || []).filter((model) => model.checked));
-      });
-  }, [mlControllerApi, algorithmName]);
+  // useEffect(() => {
+  //   mlControllerApi
+  //     ?.getModels(ALGORITHM_INFO[algorithmName].className)
+  //     .then((data) => {
+  //       setModels((data.data || []).filter((model) => model.checked));
+  //     });
+  // }, [mlControllerApi, algorithmName]);
+
+  function handleSearchModel(wb: any) {
+    setSearchingModels(true);
+    if (wb === "") {
+      alert("부품을 먼저 선택해 주세요.")
+      setSearchingModels(false)
+    } else {
+      mlControllerApi
+        ?.getModels(ALGORITHM_INFO[algorithmName].className)
+        .then((data) => {
+          setModels((data.data || []).filter((model) => model.checked && model.partType === wb));
+        })
+        .finally(() => setSearchingModels(false));
+    }
+  }
 
   function handleSearchConditionData(wb: any, pageable?: Pageable) {
     setSearchingData(true);
-    if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, pageable?.pageNumber, pageable?.pageSize)
-        .then((res) => {
-          setConditionData(res.data.content || [])
-          setPaginate(res.data.pageable);
-        })
-        .finally(() => setSearchingData(false));
-    } else if (["WL", "WR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, pageable?.pageNumber, pageable?.pageSize)
-        .then((res) => {
-          setConditionData(res.data.content || [])
-          setPaginate(res.data.pageable);
-        })
-        .finally(() => setSearchingData(false));
-    } else if (wb === "G") {
-      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, pageable?.pageNumber, pageable?.pageSize)
-        .then((res) => {
-          setConditionData(res.data.content || [])
-          setPaginate(res.data.pageable);
-        })
-        .finally(() => setSearchingData(false));
-    } else if (wb === "E") {
-      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, pageable?.pageNumber, pageable?.pageSize)
-        .then((res) => {
-          setConditionData(res.data.content || [])
-          setPaginate(res.data.pageable);
-        })
-        .finally(() => setSearchingData(false));
-    } else if (wb === "T") {
-      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, pageable?.pageNumber, pageable?.pageSize)
-        .then((res) => {
-          setConditionData(res.data.content || [])
-          setPaginate(res.data.pageable);
-        })
-        .finally(() => setSearchingData(false));
+    if (wb === "") {
+      alert("부품을 먼저 선택해 주세요.")
+      setSearchingData(false)
+    } else {
+      if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
+        datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, pageable?.pageNumber, pageable?.pageSize)
+          .then((res) => {
+            setConditionData(res.data.content || [])
+            setTotalPage(res.data.totalPages || 1)
+            setPaginate(res.data.pageable);
+          })
+          .finally(() => setSearchingData(false));
+      } else if (["WL", "WR"].includes(wb)) {
+        datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, pageable?.pageNumber, pageable?.pageSize)
+          .then((res) => {
+            setConditionData(res.data.content || [])
+          })
+          .finally(() => setSearchingData(false));
+      } else if (wb === "G") {
+        datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, pageable?.pageNumber, pageable?.pageSize)
+          .then((res) => {
+            setConditionData(res.data.content || [])
+          })
+          .finally(() => setSearchingData(false));
+      } else if (wb === "E") {
+        datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, pageable?.pageNumber, pageable?.pageSize)
+          .then((res) => {
+            setConditionData(res.data.content || [])
+          })
+          .finally(() => setSearchingData(false));
+      } else if (wb === "T") {
+        datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, pageable?.pageNumber, pageable?.pageSize)
+          .then((res) => {
+            setConditionData(res.data.content || [])
+          })
+          .finally(() => setSearchingData(false));
+      }
     }
   }
 
@@ -1243,14 +1272,72 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     }
   }
 
+  function handleSettingClassColByPart(wb: any) {
+    switch (wb) {
+      case "BLB":
+        // Bearing Left Ball
+        setTargetClassCol("ai_LBSF");
+        break
+      case "BLI":
+        // Bearing Left Inside
+        setTargetClassCol("ai_LBPFI");
+        break
+      case "BLO":
+        // Bearing Left Outside
+        setTargetClassCol("ai_LBPFO");
+        break
+      case "BLR":
+        // Bearing Left Retainer
+        setTargetClassCol("ai_LFTF");
+        break
+      case "BRB":
+        // Bearing Right Ball
+        setTargetClassCol("ai_RBSF");
+        break
+      case "BRI":
+        // Bearing Right Inside
+        setTargetClassCol("ai_RBPFI");
+        break
+      case "BRO":
+        // Bearing Right Outside
+        setTargetClassCol("ai_RBPFO");
+        break
+      case "BRR":
+        // Bearing Right Retainer
+        setTargetClassCol("ai_RFTF");
+        break
+      case "WL":
+        // Wheel Left
+        setTargetClassCol("ai_LW");
+        break
+      case "WR":
+        // Wheel Right
+        setTargetClassCol("ai_RW");
+        break
+      case "G":
+        // Gearbox
+        setTargetClassCol("ai_GEAR");
+        break
+      case "E":
+        // Engine
+        setTargetClassCol("ai_ENGINE");
+        break
+      case "T":
+        // Engine
+        setTargetClassCol("TEMP_LIFE");
+        break
+    }
+  }
+
   async function handleClassificationData() {
     const res = await mlControllerApi?.classificationPredict(algorithmName, {
-      classCol: "Ai_Predict",
+      classCol: targetClassCol,
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
-      dataType: wb
+      dataType: wb,
+      dbDocIds: selectedDataIdx
     });
     const predictedData = res?.data.predictionInfo || [];
     setConditionData((old) =>
@@ -1258,10 +1345,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         const selectedIndex = selectedData!.findIndex(
           (selectedId) => selectedId.idx === row.idx
         );
+        let resultArr;
         if (selectedIndex !== -1) {
-          row.aiPredict = JSON.parse(
+          resultArr = JSON.parse(
             "[" + predictedData[selectedIndex] + "]"
-          )[0];
+          )
+          row[targetClassCol] = resultArr[resultArr.length - 1];
           row.aiAlgorithm = algorithmName;
           row.aiModel = selectedModel?.modelName;
         }
@@ -1272,12 +1361,13 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
 
   async function handleRegressionData() {
     const res = await mlControllerApi?.regressionPredict(algorithmName, {
-      classCol: "AI_Predict",
+      classCol: targetClassCol,
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
-      dataType: wb
+      dataType: wb,
+      dbDocIds: selectedDataIdx
     });
     const predictedData = res?.data.predictionInfo || [];
     setConditionData((old) =>
@@ -1285,10 +1375,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         const selectedIndex = selectedData!.findIndex(
           (selectedId) => selectedId.idx === row.idx
         );
+        let resultArr;
         if (selectedIndex !== -1) {
-          row.aiPredict = JSON.parse(
+          resultArr = JSON.parse(
             "[" + predictedData[selectedIndex] + "]"
-          )[0];
+          )
+          row[targetClassCol] = resultArr[resultArr.length - 1];
           row.aiAlgorithm = algorithmName;
           row.aiModel = selectedModel?.modelName;
         }
@@ -1304,7 +1396,8 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
-      dataType: wb
+      dataType: wb,
+      dbDocIds: selectedDataIdx
     });
     const predictedData = res?.data.predictionInfo || [];
     setConditionData((old) =>
@@ -1312,12 +1405,8 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         const selectedIndex = selectedData!.findIndex(
           (selectedId) => selectedId.idx === row.idx
         );
-        console.log(row)
         if (selectedIndex !== -1) {
           var score = JSON.parse("[" + predictedData[selectedIndex] + "]")[1];
-          // row.aiPredict = JSON.parse(
-          //   "[" + predictedData[selectedIndex] + "]"
-          // )[2];
           score > 0.5 ? row.aiPredict = 1 : row.aiPredict = 0
           row.aiAlgorithm = algorithmName;
           row.aiModel = selectedModel?.modelName;
@@ -1329,12 +1418,17 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
 
   async function handlePredictData() {
     setPredicting(true);
-    if (algorithmName === "if") {
-      await handleOutlierDetectionData().finally(() => setPredicting(false));
-    } else if (algorithmName === "linear" || algorithmName === "lasso") {
-      await handleRegressionData().finally(() => setPredicting(false));
+    if (selectedModel?.modelName === undefined || null) {
+      alert("모델이 선택되지 않았습니다.")
+      setPredicting(false)
     } else {
-      await handleClassificationData().finally(() => setPredicting(false));
+      if (algorithmName === "if") {
+        await handleOutlierDetectionData().finally(() => setPredicting(false));
+      } else if (algorithmName === "linear" || algorithmName === "lasso") {
+        await handleRegressionData().finally(() => setPredicting(false));
+      } else {
+        await handleClassificationData().finally(() => setPredicting(false));
+      }
     }
   }
 
@@ -1343,11 +1437,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     datasetDatabaseControllerApi
       ?.updateData(
         selectedData!.map((inputs) => ({
-          dataType: wb,
+          partType: wb,
           id: inputs.idx,
-          aiAlgorithm: inputs.aiAlgorithm,
-          aiPredict: inputs.aiPredict,
-          modelName: inputs.aiModel,
+          aiAlgorithmName: inputs.aiAlgorithm,
+          aiPredict: inputs[targetClassCol],
+          aiModelName: inputs.aiModel,
+          aiPredictDate: new Date().toLocaleString("ko-KR"),
         }))
       )
       .finally(() => setSaving(false));
@@ -1375,12 +1470,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <Col xs={1} className="Col pe-0 text-white">
             부품선택
           </Col>
-          <Col xs={9} className="Col ps-0">
+          <Col xs={1} className="Col ps-0">
             <Form.Select
               size="sm"
               value={wb}
-              onChange={(v) => setWb((v.target as any).value)}
+              onChange={(v) => {
+                setWb((v.target as any).value)
+              }}
             >
+              <option value="">선택해 주세요.</option>
               <option value="BLB">베어링 좌측 볼</option>
               <option value="BLO">베어링 좌측 외륜</option>
               <option value="BLI">베어링 좌측 내륜</option>
@@ -1396,12 +1494,36 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               <option value="T">잔존수명(임시)</option>
             </Form.Select>
           </Col>
+          <Col xs={1} className="Col ps-0" style={{marginLeft: "50px"}}>
+            <Button
+              className="button btn-block font-monospace fw-bold"
+              onClick={() => {
+                handleSearchModel(wb)
+              }}
+              size="sm"
+            >
+              모델 조회
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xl={12}>
+            <Table
+              data={models}
+              columns={modelResponseColumns}
+              isSingleRowSelect
+              onRowsSelected={handleModelSelected}
+            />
+          </Col>
+        </Row>
+        <Row>
           <Col className="Col d-grid gap-2">
             <Button
               className="button btn-block font-monospace fw-bold"
               onClick={() => {
                 handleSearchConditionData(wb)
                 handleSearchTablesColumns(wb)
+                handleSettingClassColByPart(wb)
               }}
               size="sm"
               disabled={searchingData}
@@ -1415,18 +1537,8 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                   aria-hidden="true"
                 />
               )}
-              조회
+              데이터 조회
             </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={10}>
-            <Table
-              data={models}
-              columns={modelResponseColumns}
-              isSingleRowSelect
-              onRowsSelected={handleModelSelected}
-            />
           </Col>
           <Col className="Col d-grid gap-2">
             <Button
@@ -1450,52 +1562,53 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           </Col>
         </Row>
       </Section>
-      <Row className="row mb-1 fw-bold">
-        <Col>고장전조 예측 결과</Col>
-      </Row>
-      <div>
-        <Table
-          columns={tableColumns}
-          data={conditionData}
-          onRowsSelected={handleConditionSelected}
-        />
-      </div>
-      <div>
-        <Paginator
-          pageCount={totalPage}
-          size={paginate?.pageSize || 0}
-          selectedPage={paginate?.pageNumber || 0}
-          onChange={(v) => {
-            const newPaginate = {
-              ...paginate,
-              pageNumber: v,
-            };
-            setPaginate(newPaginate);
-            handleSearchConditionData(newPaginate);
-          }}
-        />
-      </div>
-      <Row className="row justify-content-end">
-        <Col className="Col col-1 d-grid gap-2">
-          <Button
-            className="button font-monospace fw-bold"
-            onClick={handleUpdateData}
-            size="sm"
-            disabled={predicting}
-          >
-            {saving && (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-              />
-            )}
-            결과 저장
-          </Button>
+      <Section title="고장전조 예측 결과" className="mb-2">
+        <Col xl={12}>
+          <div className="w-100 overflow-auto">
+            <Table
+              columns={tableColumns}
+              data={conditionData}
+              onRowsSelected={handleConditionSelected}
+            />
+          </div>
+          <div>
+            <Paginator
+              pageCount={totalPage}
+              size={paginate?.pageSize || 0}
+              selectedPage={paginate?.pageNumber || 0}
+              onChange={(v) => {
+                const newPaginate = {
+                  ...paginate,
+                  pageNumber: v,
+                };
+                setPaginate(newPaginate);
+                handleSearchConditionData(wb, newPaginate);
+              }}
+            />
+          </div>
         </Col>
-      </Row>
+        <Row className="row justify-content-end">
+          <Col className="Col col-1 d-grid gap-2">
+            <Button
+              className="button font-monospace fw-bold"
+              onClick={handleUpdateData}
+              size="sm"
+              disabled={predicting}
+            >
+              {saving && (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              )}
+              결과 저장
+            </Button>
+          </Col>
+        </Row>
+      </Section>
     </Container>
   );
 };

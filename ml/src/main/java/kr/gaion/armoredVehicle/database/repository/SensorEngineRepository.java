@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long> {
     @Query(value = " SELECT ENGDATA.IDX, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +
-            " ENGDATA.USER_ENGINE, ENGDATA.USER_ENGINE_ID, ENGDATA.USER_ENGINE_DATE, " +
             " ENGDATA.W_RPM, ENGDATA.E_V_OverallRMS, ENGDATA.E_V_1_2X, ENGDATA.E_V_1X, ENGDATA.E_V_Crestfactor, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE` " +
             " FROM `ENGDATA` " +

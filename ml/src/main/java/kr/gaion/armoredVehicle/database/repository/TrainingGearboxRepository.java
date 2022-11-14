@@ -11,8 +11,10 @@ import java.util.List;
 @Repository
 public interface TrainingGearboxRepository extends JpaRepository<TrainingGearbox, Long> {
     // Gearbox
-    @Query(value = " SELECT g.IDX, g.AI_GEAR, g.W_RPM, g.G_V_OverallRMS, g.G_V_Wheel1X, g.G_V_Wheel2X, g.G_V_Pinion1X, g.G_V_Pinion2X, g.G_V_GMF1X, g.G_V_GMF2X, e.AC_h, e.AC_v, e.AC_a, g.`DATE` " +
-            " FROM GRBTRNNG g, ENGTRNNG e " +
-            " WHERE g.`DATE` = e.`DATE` ", nativeQuery = true)
+    @Query(value = " SELECT GRBTRNNG.IDX, GRBTRNNG.AI_GEAR, GRBTRNNG.W_RPM, GRBTRNNG.G_V_OverallRMS, GRBTRNNG.G_V_Wheel1X, GRBTRNNG.G_V_Wheel2X, " +
+            " GRBTRNNG.G_V_Pinion1X, GRBTRNNG.G_V_Pinion2X, GRBTRNNG.G_V_GMF1X, GRBTRNNG.G_V_GMF2X, " +
+            " ENGTRNNG.AC_h, ENGTRNNG.AC_v, ENGTRNNG.AC_a, GRBTRNNG.`DATE` " +
+            " FROM `GRBTRNNG` " +
+            " INNER JOIN `ENGTRNNG` ON GRBTRNNG.`DATE` = ENGTRNNG.`DATE` ", nativeQuery = true)
     List<GearboxInterface> findGearbox();
 }

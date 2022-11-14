@@ -156,7 +156,6 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
             }
             case INPUT_FROM_ES: {
                 // get test data from ElasticSearch
-//			 data = SparkEsConnector.getUnlabeledDataFromES(config);
                 List<String> docIds = config.getDbDocIds();
                 if (docIds != null) {
                     originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs(docIds);
@@ -166,7 +165,12 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
                 break;
             }
             case INPUT_FROM_DB: {
-                originalData = this.databaseSparkService.getUnlabeledDataFromDb(config);
+                List<String> docIds = config.getDbDocIds();
+                if (docIds != null) {
+                    originalData = this.databaseSparkService.getUnlabeledDataFromDb(config, docIds);
+                } else {
+                    originalData = this.databaseSparkService.getAllUnlabeledDataFromDb(config);
+                }
                 break;
             }
             default: {
