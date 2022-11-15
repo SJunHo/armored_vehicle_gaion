@@ -94,7 +94,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
   }, [algorithmName, methods]);
 
   return (
-    <div>
+    <div className="d-inline">
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(handleTrain)}>
           <div className="d-flex gap-3">
@@ -137,7 +137,9 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
           </div>
         </Form>
         {result && (
-          <CreateModelResult algorithmName={algorithmName} result={result} result2={result2}/>
+          <>
+            <CreateModelResult algorithmName={algorithmName} result={result} result2={result2}/>
+          </>
         )}
       </FormProvider>
     </div>
@@ -165,6 +167,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
               name="featureSubsetStrategy"
               render={({field}) => (
                 <Select2
+                  className="mt-2"
                   isClearable
                   placeholder={t("ml.common.p" +
                     "sop")}
@@ -187,8 +190,11 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             labelWidth={6}
             className={styles.body2Input}
             title="불순도"
+            style={{paddingLeft: "10px"}}
           >
-            <Form.Control {...register("impurity", {value: "gini"})} />
+            <Form.Control
+              className="mt-2"
+              {...register("impurity", {value: "gini"})} />
           </InputWrapper>
           <InputWrapper
             rowLayout
@@ -197,6 +203,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="최대 빈 크기"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               {...register("maxBins", {valueAsNumber: true, value: 4})}
             />
@@ -208,6 +215,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="트리 수"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               {...register("numTrees", {value: 4})}
             />
@@ -219,6 +227,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="최대 트리 깊이"
           >
             <Form.Control
+              className="mt-2"
               {...register("maxDepths", {valueAsNumber: true, value: 4})}
               type="number"
             />
@@ -234,6 +243,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="블록 크기"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="1"
               {...register("blockSize", {valueAsNumber: true, value: 128})}
@@ -246,6 +256,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="최대 반복"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="1"
               {...register("maxIter", {valueAsNumber: true, value: 100})}
@@ -261,6 +272,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
           title="최대 반복"
         >
           <Form.Control
+            className="mt-2"
             type="number"
             min="1"
             {...register("maxIter", {valueAsNumber: true, value: 100})}
@@ -276,6 +288,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="정규화 파라미터"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="0"
               step="0.1"
@@ -289,6 +302,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="정규화 강도 파라미터"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="0"
               step="0.1"
@@ -312,7 +326,9 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
         rowLayout
         title="모델 이름"
       >
-        <Form.Control {...register("modelName", {value: "DefaultModel"})} />
+        <Form.Control
+          className="mt-2"
+          {...register("modelName", {value: "DefaultModel"})} />
       </InputWrapper>
     </div>
   );
