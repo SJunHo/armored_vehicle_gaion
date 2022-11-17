@@ -121,10 +121,14 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
   searchTroubleThings(source) {   //조회하기 버튼으로 데이터 조회
     const { selectedVehicle, selectedPart, startDate, endDate, page, pageSize } = this.state;
     console.log(source);
-
+    const analysisElement = document.getElementById('analysisTable');
     this.setState({
       tableLoading : true,
-    })
+      clickOn : false,
+      paramdescList : [],
+    }, () =>{
+      ReactDOM.unmountComponentAtNode(analysisElement);
+    });
 
     if(this.state.existChart){
       
