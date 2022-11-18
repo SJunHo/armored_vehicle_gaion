@@ -13,23 +13,30 @@ import {Table} from "../common/Table";
 import {Page} from "../common/Page/Page";
 import {TabHeader} from "../common/TabHeader/TabHeader";
 import styles from "../ModelManagement/styles.module.css";
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, useHistory, useParams} from "react-router-dom";
 import {TrainingModelList} from "../ModelManagement/TrainingModelList";
 import {DataPrediction} from "../ModelManagement/DataPrediction";
 import {CreateModelSection} from "../ModelManagement/CreateModelSection";
+import {JudgementLookup} from "./JudgementLookup";
+import {JudgementUserInput} from "./JudgementUserInput";
 
 type Props = {
   algorithmName: string;
 };
 
 export const Judgement: React.FC<Props> = ({algorithmName}) => {
+  const {tab = "lookup"} = useParams<{ tab?: string }>()
+  const history = useHistory();
+  const handleChangeTab = (v: string) => {
+    history.push(`/judgement/${v}`);
+  };
 
   return (
     <Page>
       <TabHeader
         headers={[
           {
-            id: "read",
+            id: "lookup",
             title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 결과 조회" : "고장진단 결과 조회",
           },
           {
@@ -37,25 +44,23 @@ export const Judgement: React.FC<Props> = ({algorithmName}) => {
             title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 작업자 판정" : "고장전조 작업자 판정",
           },
         ]}
+        activeTabId={tab}
+        onChangeActiveTab={(v) => handleChangeTab(v)}
       />
       <div className={styles.page}>
         <Switch>
-          {/*   <Route
-            path="/ml/:algorithmName/models"
-            render={() => <TrainingModelList algorithmName={algorithmName}/>}
+          <Route
+            path="/judgement/lookup"
+            render={() => <JudgementLookup/>}
           />
           <Route
-            path="/ml/:algorithmName/predict"
-            render={() => <DataPrediction algorithmName={algorithmName}/>}
+            path="/judgement/input"
+            render={() => <JudgementUserInput/>}
           />
           <Route
-            path="/ml/:algorithmName/train"
-            render={() => <CreateModelSection algorithmName={algorithmName}/>}
+            path="/judgement/"
+            render={() => <JudgementLookup/>}
           />
-          <Route
-            path="/ml/:algorithmName/"
-            render={() => <CreateModelSection algorithmName={algorithmName}/>}
-          />*/}
         </Switch>
       </div>
     </Page>

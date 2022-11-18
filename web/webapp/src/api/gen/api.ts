@@ -1830,13 +1830,13 @@ export interface PageObject {
      * @type {number}
      * @memberof PageObject
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageObject
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1903,13 +1903,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -1976,13 +1976,13 @@ export interface PageSensorTempLife {
      * @type {number}
      * @memberof PageSensorTempLife
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorTempLife
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
@@ -2073,13 +2073,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
 }
 /**
  * 
@@ -5130,6 +5130,214 @@ export class CimControllerApi extends BaseAPI {
      */
     public updateCmncd(cmncd: Cmncd, options?: any) {
         return CimControllerApiFp(this.configuration).updateCmncd(cmncd, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * DatabaseJudgementControllerApi - axios parameter creator
+ * @export
+ */
+export const DatabaseJudgementControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findDistinctByCarId: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('findDistinctByCarId', 'partType', partType)
+            const localVarPath = `/api/judgement/cars`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPredictedData: async (partType: string, carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getPredictedData', 'partType', partType)
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DatabaseJudgementControllerApi - functional programming interface
+ * @export
+ */
+export const DatabaseJudgementControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DatabaseJudgementControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findDistinctByCarId(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findDistinctByCarId(partType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPredictedData(partType, carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * DatabaseJudgementControllerApi - factory interface
+ * @export
+ */
+export const DatabaseJudgementControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DatabaseJudgementControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findDistinctByCarId(partType: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.findDistinctByCarId(partType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getPredictedData(partType, carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DatabaseJudgementControllerApi - object-oriented interface
+ * @export
+ * @class DatabaseJudgementControllerApi
+ * @extends {BaseAPI}
+ */
+export class DatabaseJudgementControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} partType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public findDistinctByCarId(partType: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).findDistinctByCarId(partType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getPredictedData(partType, carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

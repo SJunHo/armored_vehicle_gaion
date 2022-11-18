@@ -555,7 +555,7 @@ export const ClassificationResult: React.FC<Props> = ({result, result2}) => {
         </Row>
       </CustomCardBody>
       <CustomCardBody>
-        <Row className="overflow-hidden">
+        <Row>
           <PredictionInfoSection
             predictionInfo={predictedActualFeatureLine ? predictedActualFeatureLine : []}
             featureCols={result.listFeatures || []}
@@ -595,13 +595,13 @@ export const PredictionInfoSection: React.FC<{
   );
   return (
     <>
-      <div style={{width: "auto", overflowX: "scroll"}}>
+      <Row>
         <Table
           data={data}
           columns={columns}
           paginationOptions={{pageIndex: 0, pageSize: 20}}
         />
-      </div>
+      </Row>
     </>
   );
 };

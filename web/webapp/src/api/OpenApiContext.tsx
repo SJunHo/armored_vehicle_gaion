@@ -1,11 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { DatasetControllerApi, MlControllerApi, DatasetDatabaseControllerApi } from "./gen";
-import { MeContext } from "./MeContext";
+import React, {useContext, useEffect, useState} from "react";
+import {
+  DatasetControllerApi,
+  MlControllerApi,
+  DatasetDatabaseControllerApi,
+  DatabaseJudgementControllerApi
+} from "./gen";
+import {MeContext} from "./MeContext";
 
 type OpenApiContextProps = {
   mlControllerApi?: MlControllerApi;
   datasetControllerApi?: DatasetControllerApi;
   datasetDatabaseControllerApi?: DatasetDatabaseControllerApi;
+  databaseJudgementControllerApi?: DatabaseJudgementControllerApi;
 };
 
 export const basePath =
@@ -15,7 +21,7 @@ export const basePath =
 
 export const OpenApiContext = React.createContext<OpenApiContextProps>({});
 
-export const OpenApiContextProvider: React.FC = ({ children }) => {
+export const OpenApiContextProvider: React.FC = ({children}) => {
   const meData = useContext(MeContext);
   const apiKey = meData.token;
 
@@ -41,6 +47,11 @@ export const OpenApiContextProvider: React.FC = ({ children }) => {
         isJsonMime: () => true,
       }),
       datasetDatabaseControllerApi: new DatasetDatabaseControllerApi({
+        baseOptions,
+        basePath,
+        isJsonMime: () => true,
+      }),
+      databaseJudgementControllerApi: new DatabaseJudgementControllerApi({
         baseOptions,
         basePath,
         isJsonMime: () => true,
