@@ -1830,13 +1830,13 @@ export interface PageObject {
      * @type {number}
      * @memberof PageObject
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageObject
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1903,13 +1903,13 @@ export interface PageRailSensorData {
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageRailSensorData
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -1976,13 +1976,13 @@ export interface PageSensorTempLife {
      * @type {number}
      * @memberof PageSensorTempLife
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorTempLife
      */
-    totalElements?: number;
+    totalPages?: number;
     /**
      * 
      * @type {number}
@@ -2041,6 +2041,152 @@ export interface PageSensorTempLife {
 /**
  * 
  * @export
+ * @interface PageSensorWheelLeftInterface
+ */
+export interface PageSensorWheelLeftInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorWheelLeftInterface>}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    content?: Array<SensorWheelLeftInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorWheelRightInterface
+ */
+export interface PageSensorWheelRightInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorWheelRightInterface>}
+     * @memberof PageSensorWheelRightInterface
+     */
+    content?: Array<SensorWheelRightInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorWheelRightInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorWheelRightInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface Pageable
  */
 export interface Pageable {
@@ -2061,25 +2207,25 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    pageSize?: number;
     /**
      * 
      * @type {number}
      * @memberof Pageable
      */
-    pageSize?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    paged?: boolean;
+    pageNumber?: number;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
     unpaged?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Pageable
+     */
+    paged?: boolean;
 }
 /**
  * 
@@ -3475,6 +3621,212 @@ export interface SensorTempLife {
      * @memberof SensorTempLife
      */
     aiPredict?: number;
+}
+/**
+ * 
+ * @export
+ * @interface SensorWheelLeftInterface
+ */
+export interface SensorWheelLeftInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_3X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW_ID?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_2X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_S_Fault3?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorWheelRightInterface
+ */
+export interface SensorWheelRightInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    r_W_V_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    r_W_V_3X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    r_W_S_Fault3?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW?: string;
 }
 /**
  * 
@@ -5186,15 +5538,18 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} carId 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPredictedData: async (partType: string, carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+        getPredictedData: async (partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'partType' is not null or undefined
             assertParamExists('getPredictedData', 'partType', partType)
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getPredictedData', 'carId', carId)
-            const localVarPath = `/api/judgement/data`;
+            const localVarPath = `/api/judgement/get-bearing-predicted-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5228,6 +5583,170 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                 localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
                     (toDate as any).toISOString() :
                     toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelLeftPredictedData: async (partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getWheelLeftPredictedData', 'partType', partType)
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getWheelLeftPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-wheel-left-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelRightPredictedData: async (partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getWheelRightPredictedData', 'partType', partType)
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getWheelRightPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-wheel-right-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -5267,11 +5786,46 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} carId 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPredictedData(partType, carId, fromDate, toDate, options);
+        async getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPredictedData(partType, carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWheelLeftPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorWheelLeftInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelLeftPredictedData(partType, carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWheelRightPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorWheelRightInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelRightPredictedData(partType, carId, fromDate, toDate, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -5299,11 +5853,44 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} carId 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<object>> {
-            return localVarFp.getPredictedData(partType, carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getPredictedData(partType, carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelLeftPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorWheelLeftInterface> {
+            return localVarFp.getWheelLeftPredictedData(partType, carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelRightPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorWheelRightInterface> {
+            return localVarFp.getWheelRightPredictedData(partType, carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5332,12 +5919,49 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} carId 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getPredictedData(partType, carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    public getPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getPredictedData(partType, carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getWheelLeftPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getWheelLeftPredictedData(partType, carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getWheelRightPredictedData(partType: string, carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getWheelRightPredictedData(partType, carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
