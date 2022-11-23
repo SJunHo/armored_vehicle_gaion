@@ -1,8 +1,7 @@
 package kr.gaion.armoredVehicle.dataset.service;
 
-import kr.gaion.armoredVehicle.database.dto.SensorWheelLeftInterface;
-import kr.gaion.armoredVehicle.database.dto.SensorWheelRightInterface;
-import kr.gaion.armoredVehicle.database.dto.WheelInput;
+import kr.gaion.armoredVehicle.database.dto.*;
+import kr.gaion.armoredVehicle.database.model.SensorEngine;
 import kr.gaion.armoredVehicle.database.model.SensorWheel;
 import kr.gaion.armoredVehicle.database.repository.*;
 import lombok.NonNull;
@@ -151,47 +150,56 @@ public class DatabaseJudgementService {
         return result;
     }
 
-    public Page<?> getPredictedData(String partType, String carId, Date fromDate, Date toDate, Pageable pageable) {
-        var targetColumn = findClassLabel(partType);
-        switch (partType) {
-            // bearing
-            case "BLB":
-                return sensorBearingRepository.getLeftBallAiLBSFPredictedData("AI_LBSF", carId, fromDate, toDate, pageable);
-            case "BLO":
-                return sensorBearingRepository.getLeftOutsideAiLBPFOPredictedData(carId, fromDate, toDate, pageable);
-            case "BLI":
-                return sensorBearingRepository.getLeftInsideAiLBPFIPredictedData(carId, fromDate, toDate, pageable);
-            case "BLR":
-                return sensorBearingRepository.getLeftRetainerAiLFTFPredictedData(carId, fromDate, toDate, pageable);
-            case "BRB":
-                return sensorBearingRepository.getRightBallAiRBSFPredictedData(carId, fromDate, toDate, pageable);
-            case "BRO":
-                return sensorBearingRepository.getRightOutsideAiRBPFOPredictedData(carId, fromDate, toDate, pageable);
-            case "BRI":
-                return sensorBearingRepository.getRightInsideAiRBPFIPredictedData(carId, fromDate, toDate, pageable);
-            case "BRR":
-                return sensorBearingRepository.getRightRetainerAiRFTFPredictedData(carId, fromDate, toDate, pageable);
+    ////////////////////////////////////////////////////
 
-            // gearbox
-            case "G":
-                return sensorGearboxRepository.getGearboxAiGearPredictedData(carId, fromDate, toDate, pageable);
-            // engine
-            case "E":
-                return sensorEngineRepository.getEngineAiEnginePredictedData(carId, fromDate, toDate, pageable);
-        }
-
-
-        return null;
+    public Page<SensorBearingLeftBallInterface> getBearingLeftBallPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftBallAiLBSFPredictedData(carId, fromDate, toDate, pageable);
     }
 
-    public Page<SensorWheelLeftInterface> getWheelLeftPredictedData(String partType, String carId, Date fromDate, Date toDate, Pageable pageable) {
-        var targetColumn = findClassLabel(partType);
+    public Page<SensorBearingLeftOutsideInterface> getBearingLeftOutsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftOutsideAiLBPFOPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorBearingLeftInsideInterface> getBearingLeftInsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftInsideAiLBPFIPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorBearingLeftRetainerInterface> getBearingLeftRetainerPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftRetainerAiLFTFPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorBearingRightBallInterface> getBearingRightBallPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightBallAiRBSFPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorBearingRightOutsideInterface> getBearingRightOutsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightOutsideAiRBPFOPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorBearingRightInsideInterface> getBearingRightInsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightInsideAiRBPFIPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorBearingRightRetainerInterface> getBearingRightRetainerPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightRetainerAiRFTFPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    ///////////////////////////////////////////////////////
+
+    public Page<SensorWheelLeftInterface> getWheelLeftPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
         return sensorWheelRepository.getLeftWheelAiLWPredictedData(carId, fromDate, toDate, pageable);
     }
 
-    public Page<SensorWheelRightInterface> getWheelRightPredictedData(String partType, String carId, Date fromDate, Date toDate, Pageable pageable) {
-        var targetColumn = findClassLabel(partType);
+    public Page<SensorWheelRightInterface> getWheelRightPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
         return sensorWheelRepository.getRightWheelAiRWPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorGearboxInterface> getGearboxPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorGearboxRepository.getGearboxAiGearPredictedData(carId, fromDate, toDate, pageable);
+    }
+
+    public Page<SensorEngineInterface> getEnginePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorEngineRepository.getEngineAiEnginePredictedData(carId, fromDate, toDate, pageable);
     }
 
 }

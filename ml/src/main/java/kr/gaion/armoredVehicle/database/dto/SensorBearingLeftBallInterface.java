@@ -14,12 +14,12 @@ public interface SensorBearingLeftBallInterface {
 
     Date getAI_LBSF_DATE();
 
-//    // User Judgement
-//    String getUSER_LBSF();
-//
-//    String getUSER_LBSF_ID();
-//
-//    Date getUSER_LBSF_DATE();
+    // User Judgement
+    String getUSER_LBSF();
+
+    String getUSER_LBSF_ID();
+
+    Date getUSER_LBSF_DATE();
 
     // from Bearing
     double getW_RPM();

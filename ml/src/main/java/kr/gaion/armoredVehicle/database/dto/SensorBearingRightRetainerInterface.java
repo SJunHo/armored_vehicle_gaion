@@ -14,12 +14,12 @@ public interface SensorBearingRightRetainerInterface {
 
     Date getAI_RFTF_DATE();
 
-//    // User Judgement
-//    String getUSER_RFTF();
-//
-//    String getUSER_RFTF_ID();
-//
-//    Date getUSER_RFTF_DATE();
+    // User Judgement
+    String getUSER_RFTF();
+
+    String getUSER_RFTF_ID();
+
+    Date getUSER_RFTF_DATE();
 
     // from Bearing
     double getW_RPM();

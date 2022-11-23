@@ -14,12 +14,12 @@ public interface SensorBearingRightBallInterface {
 
     Date getAI_RBSF_DATE();
 
-//    // User Judgement
-//    String getUSER_RBSF();
-//
-//    String getUSER_RBPFO_ID();
-//
-//    Date getUSER_RBSF_DATE();
+    // User Judgement
+    String getUSER_RBSF();
+
+    String getUSER_RBPFO_ID();
+
+    Date getUSER_RBSF_DATE();
 
     // from Bearing
     double getW_RPM();

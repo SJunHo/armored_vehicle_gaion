@@ -14,12 +14,12 @@ public interface SensorGearboxInterface {
 
     Date getAI_GEAR_DATE();
 
-//    // User Judgement
-//    String getUSER_GEAR();
-//
-//    String getUSER_GEAR_ID();
-//
-//    Date getUSER_GEAR_DATE();
+    // User Judgement
+    String getUSER_GEAR();
+
+    String getUSER_GEAR_ID();
+
+    Date getUSER_GEAR_DATE();
 
     double getW_RPM();
 

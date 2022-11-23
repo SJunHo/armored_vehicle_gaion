@@ -9,16 +9,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Repository
 public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long> {
-    @Query(value = "Select ENGDATA.IDX, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +
-            "ENGDATA.W_RPM, ENGDATA.E_V_OverallRMS, ENGDATA.E_V_1_2X, ENGDATA.E_V_1X, ENGDATA.E_V_Crestfactor, " +
-            "ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE`  from `ENGDATA` " +
-            "WHERE (ENGDATA.AI_ENGINE IS NOT NULL) AND (ENGDATA.SDAID = ?1) AND (ENGDATA.DATE BETWEEN ?2 AND ?3)", nativeQuery = true)
-    List<Map<String, String>> getEngineAiEnginePredictedData(String carId, LocalDate fromDate, LocalDate toDate);
+    @Query(value = "Select `ENGDATA`.IDX, `ENGDATA`.AI_ENGINE, `ENGDATA`.AI_ENGINE_ALGO, `ENGDATA`.AI_ENGINE_MODEL, `ENGDATA`.AI_ENGINE_DATE, " +
+            "`ENGDATA`.USER_ENGINE, `ENGDATA`.USER_ENGINE_ID, `ENGDATA`.USER_ENGINE_DATE, " +
+            "`ENGDATA`.W_RPM, `ENGDATA`.E_V_OverallRMS, `ENGDATA`.E_V_1_2X, `ENGDATA`.E_V_1X, `ENGDATA`.E_V_Crestfactor, " +
+            "`ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `ENGDATA`.`DATE`  from `ENGDATA` " +
+            "WHERE `ENGDATA`.AI_ENGINE IS NOT NULL AND `ENGDATA`.SDAID = ?1 AND `ENGDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    Page<SensorEngineInterface> getEngineAiEnginePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
 
     @Query(value = "Select DISTINCT SDAID from ENGDATA b where ?1 is Not NULL", nativeQuery = true)

@@ -23,6 +23,7 @@ export const JudgementLookup: React.FC = () => {
   const [paginate, setPaginate] = useState<Pageable>();
   const [totalPage, setTotalPage] = useState<number>();
 
+  const [tableColumn, setTableColumn] = useState<any>();
   const [predictedData, setPredictedData] = useState<any[]>([]);
 
   const {datasetControllerApi, databaseJudgementControllerApi} = useContext(OpenApiContext);
@@ -874,6 +875,18 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_GEAR_DATE",
       },
       {
+        Header: "작업자 판정값",
+        accessor: "user_GEAR",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_GEAR_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_GEAR_DATE",
+      },
+      {
         Header: "W_RPM",
         accessor: "w_RPM",
       },
@@ -948,6 +961,18 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "수행시간",
         accessor: "ai_ENGINE_DATE",
+      },
+      {
+        Header: "작업자 판정값",
+        accessor: "user_ENGINE",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_ENGINE_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_ENGINE_DATE",
       },
       {
         Header: "W_RPM",
@@ -1124,20 +1149,159 @@ export const JudgementLookup: React.FC = () => {
     }
   }, [partType, datasetControllerApi]);
 
+
   function handleSearchData(pageable?: Pageable) {
     if (selectedCar == undefined) {
       return []
     }
-    if (partType == 'WL') {
-      databaseJudgementControllerApi?.getWheelLeftPredictedData(
-        partType,
+    setTableColumn(handleSearchTablesColumns(partType))
+
+    if (partType == 'BLB') {
+      databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
         pageable?.pageNumber,
         pageable?.pageSize
       ).then((res) => {
-        console.log(res)
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+
+    if (partType == 'BLI') {
+      databaseJudgementControllerApi?.getBearingLeftInsidePredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+
+    if (partType == 'BLO') {
+      databaseJudgementControllerApi?.getBearingLeftOutsidePredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+
+    if (partType == 'BLR') {
+      databaseJudgementControllerApi?.getBearingLeftRetainerPredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+
+    if (partType == 'BRB') {
+      databaseJudgementControllerApi?.getBearingRightBallPredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+    if (partType == 'BRI') {
+      databaseJudgementControllerApi?.getBearingRightInsidePredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+    if (partType == 'BRO') {
+      databaseJudgementControllerApi?.getBearingRightOutsidePredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+    if (partType == 'BRR') {
+      databaseJudgementControllerApi?.getBearingRightRetainerPredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+
+
+    if (partType == 'E') {
+      databaseJudgementControllerApi?.getEnginePredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+
+    if (partType == 'G') {
+      databaseJudgementControllerApi?.getGearboxPredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
+        setPredictedData(res.data.content || []);
+        setPaginate(res.data.pageable);
+        setTotalPage(res.data.totalPages || 1);
+      });
+    }
+
+    if (partType == 'WL') {
+      databaseJudgementControllerApi?.getWheelLeftPredictedData(
+        selectedCar,
+        fromDate?.toLocaleDateString("en-US"),
+        toDate?.toLocaleDateString("en-US"),
+        pageable?.pageNumber,
+        pageable?.pageSize
+      ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
         setTotalPage(res.data.totalPages || 1);
@@ -1146,38 +1310,17 @@ export const JudgementLookup: React.FC = () => {
 
     if (partType == 'WR') {
       databaseJudgementControllerApi?.getWheelRightPredictedData(
-        partType,
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
         pageable?.pageNumber,
         pageable?.pageSize
       ).then((res) => {
-        console.log(res)
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
-
-    // if (selectedCar) {
-    //   databaseJudgementControllerApi
-    //     ?.getWheelPredictedData(
-    //       partType,
-    //       selectedCar,
-    //       fromDate?.toLocaleDateString("en-US"),
-    //       toDate?.toLocaleDateString("en-US"),
-    //       pageable?.pageNumber,
-    //       pageable?.pageSize
-    //     )
-    //     .then((res) => {
-    //       console.log(res)
-    //       setPredictedData(res.data.content || []);
-    //       setPaginate(res.data.pageable);
-    //       setTotalPage(res.data.totalPages || 1);
-    //     });
-    // }
   }
 
   return (
@@ -1242,7 +1385,7 @@ export const JudgementLookup: React.FC = () => {
         <div>
           {(totalPage) &&
 						<Table
-							columns={SensorWheelLeftColumns}
+							columns={tableColumn}
 							data={predictedData}
 						/>
           }
@@ -1341,6 +1484,7 @@ type SensorWheelRightInput = {
 
 type SensorGearboxInput = {
   idx: number, ai_GEAR: string, ai_GEAR_ALGO: string, ai_GEAR_MODEL: string, ai_GEAR_DATE: string,
+  user_GEAR: string, user_GEAR_ID: string, user_GEAR_DATE: string,
   w_RPM: number, g_V_OverallRMS: number, g_V_Wheel1X: number, g_V_Wheel2X: number,
   g_V_Pinion1X: number, g_V_Pinion2X: number, g_V_GMF1X: number, g_V_GMF2X: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1348,6 +1492,7 @@ type SensorGearboxInput = {
 
 type SensorEngineInput = {
   idx: number, ai_ENGINE: string, ai_ENGINE_ALGO: string, ai_ENGINE_MODEL: string, ai_ENGINE_DATE: string,
+  user_ENGINE: string, user_ENGINE_ID: string, user_ENGINE_DATE: string,
   w_RPM: number, e_V_OverallRMS: number, e_V_1_2X: number, e_V_1X: number,
   e_V_Crestfactor: number, ac_h: number, ac_v: number, ac_a: number, date: string
 }
