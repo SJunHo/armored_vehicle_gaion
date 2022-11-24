@@ -2,7 +2,6 @@ package kr.gaion.armoredVehicle.database.repository;
 
 import kr.gaion.armoredVehicle.database.dto.SensorWheelLeftInterface;
 import kr.gaion.armoredVehicle.database.dto.SensorWheelRightInterface;
-import kr.gaion.armoredVehicle.database.dto.WheelInput;
 import kr.gaion.armoredVehicle.database.model.SensorWheel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

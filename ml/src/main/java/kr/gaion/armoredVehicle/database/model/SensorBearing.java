@@ -106,28 +106,28 @@ public class SensorBearing {
 
     // Ai Predict Date
     @Column(name = "AI_LBSF_DATE")
-    private String aiLbsfDate;
+    private Date aiLbsfDate;
 
     @Column(name = "AI_LBPFI_DATE")
-    private String aiLbpfiDate;
+    private Date aiLbpfiDate;
 
     @Column(name = "AI_LBPFO_DATE")
-    private String aiLbpfoDate;
+    private Date aiLbpfoDate;
 
     @Column(name = "AI_LFTF_DATE")
-    private String aiLftfDate;
+    private Date aiLftfDate;
 
     @Column(name = "AI_RBSF_DATE")
-    private String aiRbsfDate;
+    private Date aiRbsfDate;
 
     @Column(name = "AI_RBPFI_DATE")
-    private String aiRbpfiDate;
+    private Date aiRbpfiDate;
 
     @Column(name = "AI_RBPFO_DATE")
-    private String aiRbpfoDate;
+    private Date aiRbpfoDate;
 
     @Column(name = "AI_RFTF_DATE")
-    private String aiRftfDate;
+    private Date aiRftfDate;
 
     // User Judgement Values
     @Column(name = "USER_LBSF")
@@ -181,28 +181,28 @@ public class SensorBearing {
 
     // User Judgement Date
     @Column(name = "USER_LBSF_DATE")
-    private String userLbsfDate;
+    private Date userLbsfDate;
 
     @Column(name = "USER_LBPFI_DATE")
-    private String userLbpfiDate;
+    private Date userLbpfiDate;
 
     @Column(name = "USER_LBPFO_DATE")
-    private String userLbpfoDate;
+    private Date userLbpfoDate;
 
     @Column(name = "USER_LFTF_DATE")
-    private String userLftfDate;
+    private Date userLftfDate;
 
     @Column(name = "USER_RBSF_DATE")
-    private String userRbsfDate;
+    private Date userRbsfDate;
 
     @Column(name = "USER_RBPFI_DATE")
-    private String userRbpfiDate;
+    private Date userRbpfiDate;
 
     @Column(name = "USER_RBPFO_DATE")
-    private String userRbpfoDate;
+    private Date userRbpfoDate;
 
     @Column(name = "USER_RFTF_DATE")
-    private String userRftfDate;
+    private Date userRftfDate;
 
     // Sensor Values
     @Column(name = "L_B_V_OverallRMS")

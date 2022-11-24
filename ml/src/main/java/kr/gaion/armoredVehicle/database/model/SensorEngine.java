@@ -43,7 +43,7 @@ public class SensorEngine {
 
     // Ai Predict Date
     @Column(name = "AI_ENGINE_DATE")
-    private String aiEngineDate;
+    private Date aiEngineDate;
 
     // User Judgement Values
     @Column(name = "USER_ENGINE")
@@ -55,7 +55,7 @@ public class SensorEngine {
 
     // User Judgement Date
     @Column(name = "USER_ENGINE_DATE")
-    private String userEngineDate;
+    private Date userEngineDate;
 
     // Sensor Values
     @Column(name = "W_RPM")

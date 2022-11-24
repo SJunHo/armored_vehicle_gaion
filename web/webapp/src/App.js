@@ -138,6 +138,11 @@ class App extends Component {
                 exact
                 component={Judgement}
               />
+              <AuthorizedRoute
+                path="/judgement/:tab"
+                exact
+                component={Judgement}
+              />
               <AuthorizedRoute path="/data/upload" exact component={DataUpload} />
             </Switch>
           </div>

@@ -52,10 +52,10 @@ public class SensorWheel {
 
     // Ai Predict Date
     @Column(name = "AI_LW_DATE")
-    private String aiLwDate;
+    private Date aiLwDate;
 
     @Column(name = "AI_RW_DATE")
-    private String aiRwDate;
+    private Date aiRwDate;
 
     // User Judgement Values
     @Column(name = "USER_LW")
@@ -73,10 +73,10 @@ public class SensorWheel {
 
     // User Judgement Date
     @Column(name = "USER_LW_DATE")
-    private String userLwDate;
+    private Date userLwDate;
 
     @Column(name = "USER_RW_DATE")
-    private String userRwDate;
+    private Date userRwDate;
 
     // Sensor Values
     @Column(name = "W_RPM")

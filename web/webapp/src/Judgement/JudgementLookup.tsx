@@ -36,15 +36,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_LBSF === "0.0") {
-            return "정상";
-          } else if (data.ai_LBSF === "1.0") {
-            return "결함";
-          } else {
-            return "-"
-          }
-        },
+        accessor: "ai_LBSF"
       },
       {
         Header: "알고리즘",
@@ -57,6 +49,18 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "수행시간",
         accessor: "ai_LBSF_DATE",
+      },
+      {
+        Header: "작업자 판정값",
+        accessor: "user_LBSF",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_LBSF_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_LBSF_DATE",
       },
       {
         Header: "W_RPM",
@@ -143,6 +147,18 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_LBPFI_DATE",
       },
       {
+        Header: "작업자 판정값",
+        accessor: "user_LBPFI",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_LBPFI_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_LBPFI_DATE",
+      },
+      {
         Header: "W_RPM",
         accessor: "w_RPM",
       },
@@ -225,6 +241,18 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "수행시간",
         accessor: "ai_LBPFO_DATE",
+      },
+      {
+        Header: "작업자 판정값",
+        accessor: "user_LBPFO",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_LBPFO_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_LBPFO_DATE",
       },
       {
         Header: "W_RPM",
@@ -311,6 +339,18 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_LFTF_DATE",
       },
       {
+        Header: "작업자 판정값",
+        accessor: "user_LFTF",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_LFTF_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_LFTF_DATE",
+      },
+      {
         Header: "W_RPM",
         accessor: "w_RPM",
       },
@@ -393,6 +433,18 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "수행시간",
         accessor: "ai_RBSF_DATE",
+      },
+      {
+        Header: "작업자 판정값",
+        accessor: "user_RBSF",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_RBSF_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_RBSF_DATE",
       },
       {
         Header: "W_RPM",
@@ -479,6 +531,18 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_RBPFI_DATE",
       },
       {
+        Header: "작업자 판정값",
+        accessor: "user_RBPFI",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_RBPFI_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_RBPFI_DATE",
+      },
+      {
         Header: "W_RPM",
         accessor: "w_RPM",
       },
@@ -563,6 +627,18 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_RBPFO_DATE",
       },
       {
+        Header: "작업자 판정값",
+        accessor: "user_RBPFO",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_RBPFO_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_RBPFO_DATE",
+      },
+      {
         Header: "W_RPM",
         accessor: "w_RPM",
       },
@@ -645,6 +721,18 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "수행시간",
         accessor: "ai_RFTF_DATE",
+      },
+      {
+        Header: "작업자 판정값",
+        accessor: "user_RFTF",
+      },
+      {
+        Header: "작업자ID",
+        accessor: "user_RFTF_ID",
+      },
+      {
+        Header: "작업자판정날짜",
+        accessor: "user_RFTF_DATE",
       },
       {
         Header: "W_RPM",
@@ -1016,28 +1104,6 @@ export const JudgementLookup: React.FC = () => {
     []
   );
 
-  const modelResponseColumns = useMemo<Column<DbModelResponse>[]>(
-    () => [
-      {
-        Header: "모델 이름",
-        accessor: "modelName",
-      },
-      {
-        Header: "메모",
-        accessor: "description",
-      },
-      {
-        Header: "정확도",
-        accessor: "accuracy",
-      },
-      {
-        Header: "RMSE",
-        accessor: "rootMeanSquaredError",
-      },
-    ],
-    []
-  );
-
   const partTypes = [
     // bearing
     {
@@ -1169,7 +1235,6 @@ export const JudgementLookup: React.FC = () => {
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
     if (partType == 'BLI') {
       databaseJudgementControllerApi?.getBearingLeftInsidePredictedData(
         selectedCar,
@@ -1183,7 +1248,6 @@ export const JudgementLookup: React.FC = () => {
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
     if (partType == 'BLO') {
       databaseJudgementControllerApi?.getBearingLeftOutsidePredictedData(
         selectedCar,
@@ -1197,7 +1261,6 @@ export const JudgementLookup: React.FC = () => {
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
     if (partType == 'BLR') {
       databaseJudgementControllerApi?.getBearingLeftRetainerPredictedData(
         selectedCar,
@@ -1211,7 +1274,6 @@ export const JudgementLookup: React.FC = () => {
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
     if (partType == 'BRB') {
       databaseJudgementControllerApi?.getBearingRightBallPredictedData(
         selectedCar,
@@ -1265,7 +1327,6 @@ export const JudgementLookup: React.FC = () => {
       });
     }
 
-
     if (partType == 'E') {
       databaseJudgementControllerApi?.getEnginePredictedData(
         selectedCar,
@@ -1279,7 +1340,6 @@ export const JudgementLookup: React.FC = () => {
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
     if (partType == 'G') {
       databaseJudgementControllerApi?.getGearboxPredictedData(
         selectedCar,
@@ -1293,7 +1353,6 @@ export const JudgementLookup: React.FC = () => {
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
     if (partType == 'WL') {
       databaseJudgementControllerApi?.getWheelLeftPredictedData(
         selectedCar,
@@ -1307,7 +1366,6 @@ export const JudgementLookup: React.FC = () => {
         setTotalPage(res.data.totalPages || 1);
       });
     }
-
     if (partType == 'WR') {
       databaseJudgementControllerApi?.getWheelRightPredictedData(
         selectedCar,
@@ -1325,7 +1383,7 @@ export const JudgementLookup: React.FC = () => {
 
   return (
     <Page>
-      <Container fluid className="p-3 pt-5">
+      <Container className="p-3 pt-5 w-100 d-inline">
         <Row className="row mb-2">
           <Col xs={1} className="Col">
             부품 선택
@@ -1382,13 +1440,15 @@ export const JudgementLookup: React.FC = () => {
             }}>검색</Button>
           </Col>
         </Row>
-        <div>
-          {(totalPage) &&
-						<Table
-							columns={tableColumn}
-							data={predictedData}
-						/>
-          }
+        <Row className="d-inline-block" style={{width: "100%"}}>
+          <div className="overflow-auto">
+            {(totalPage) &&
+							<Table
+								columns={tableColumn}
+								data={predictedData}
+							/>
+            }
+          </div>
           <div style={{display: 'inline-block'}}>
             <Paginator
               pageCount={totalPage || 0}
@@ -1404,8 +1464,7 @@ export const JudgementLookup: React.FC = () => {
               }}
             />
           </div>
-        </div>
-
+        </Row>
       </Container>
     </Page>
   );
@@ -1414,6 +1473,7 @@ export const JudgementLookup: React.FC = () => {
 
 type SensorBearingLeftBallInput = {
   idx: number, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,
+  user_LBSF: string, user_LBSF_ID: string, user_LBSF_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912BSF: number, l_B_V_32924BSF: number, l_B_V_32922BSF: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1421,6 +1481,7 @@ type SensorBearingLeftBallInput = {
 
 type SensorBearingLeftInsideInput = {
   idx: number, ai_LBPFI: string, ai_LBPFI_ALGO: string, ai_LBPFI_MODEL: string, ai_LBPFI_DATE: string,
+  user_LBPFI: string, user_LBPFI_ID: string, user_LBPFI_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFI: number, l_B_V_32924BPFI: number, l_B_V_32922BPFI: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1428,6 +1489,7 @@ type SensorBearingLeftInsideInput = {
 
 type SensorBearingLeftOutsideInput = {
   idx: number, ai_LBPFO: string, ai_LBPFO_ALGO: string, ai_LBPFO_MODEL: string, ai_LBPFO_DATE: string,
+  user_LBPFO: string, user_LBPFO_ID: string, user_LBPFO_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFO: number, l_B_V_32924BPFO: number, l_B_V_32922BPFO: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1435,6 +1497,7 @@ type SensorBearingLeftOutsideInput = {
 
 type SensorBearingLeftRetainerInput = {
   idx: number, ai_LFTF: string, ai_LFTF_ALGO: string, ai_LFTF_MODEL: string, ai_LFTF_DATE: string,
+  user_LFTF: string, user_LFTF_ID: string, user_LFTF_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912FTF: number, l_B_V_32924FTF: number, l_B_V_32922FTF: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1442,6 +1505,7 @@ type SensorBearingLeftRetainerInput = {
 
 type SensorBearingRightBallInput = {
   idx: number, ai_RBSF: string, ai_RBSF_ALGO: string, ai_RBSF_MODEL: string, ai_RBSF_DATE: string,
+  user_RBSF: string, user_RBSF_ID: string, user_RBSF_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912BSF: number, r_B_V_32924BSF: number, r_B_V_32922BSF: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1449,6 +1513,7 @@ type SensorBearingRightBallInput = {
 
 type SensorBearingRightInsideInput = {
   idx: number, ai_RBPFI: string, ai_RBPFI_ALGO: string, ai_RBPFI_MODEL: string, ai_RBPFI_DATE: string,
+  user_RBPFI: string, user_RBPFI_ID: string, user_RBPFI_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFI: number, r_B_V_32924BPFI: number, r_B_V_32922BPFI: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1456,6 +1521,7 @@ type SensorBearingRightInsideInput = {
 
 type SensorBearingRightOutsideInput = {
   idx: number, ai_RBPFO: string, ai_RBPFO_ALGO: string, ai_RBPFO_MODEL: string, ai_RBPFO_DATE: string,
+  user_RBPFO: string, user_RBPFO_ID: string, user_RBPFO_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFO: number, r_B_V_32924BPFO: number, r_B_V_32922BPFO: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
@@ -1463,6 +1529,7 @@ type SensorBearingRightOutsideInput = {
 
 type SensorBearingRightRetainerInput = {
   idx: number, ai_RFTF: string, ai_RFTF_ALGO: string, ai_RFTF_MODEL: string, ai_RFTF_DATE: string,
+  user_RFTF: string, user_RFTF_ID: string, user_RFTF_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912FTF: number, r_B_V_32924FTF: number, r_B_V_32922FTF: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
   ac_h: number, ac_v: number, ac_a: number, date: string

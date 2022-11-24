@@ -43,7 +43,7 @@ public class SensorGearbox {
 
     // Ai Predict Date
     @Column(name = "AI_GEAR_DATE")
-    private String aiGearDate;
+    private Date aiGearDate;
 
     // User Judgement Values
     @Column(name = "USER_GEAR")
@@ -55,7 +55,7 @@ public class SensorGearbox {
 
     // User Judgement Date
     @Column(name = "USER_GEAR_DATE")
-    private String userGearDate;
+    private Date userGearDate;
 
     // Sensor Values
     @Column(name = "W_RPM")

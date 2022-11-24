@@ -59,6 +59,11 @@ function Main() {
             exact
             component={Judgement}
           />
+          <AuthorizedRoute
+            path="/judgement/:tab"
+            exact
+            component={Judgement}
+          />
         </Switch>
       </OpenApiContextProvider>
     </MeContextProvider>
