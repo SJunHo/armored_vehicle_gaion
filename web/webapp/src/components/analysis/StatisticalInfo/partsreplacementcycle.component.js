@@ -48,6 +48,8 @@ export default class PartsReplacementCycle extends Component {
 
       searchLoading : false,
       clickLoading : false,
+
+      clickedTr : null,
     };
     this.starthandleChange = this.starthandleChange.bind(this);
     this.endhandleChange = this.endhandleChange.bind(this);
@@ -203,13 +205,23 @@ export default class PartsReplacementCycle extends Component {
       });
   }
 
-  clickList(data) {
+  clickList(data, idx) {
+
+    const trElement = document.getElementById('tr' + idx);
+
+    if(this.state.clickedTr !== null){
+      this.state.clickedTr.classList.remove("highlight");
+      trElement.classList.add("highlight");
+    }else{
+      trElement.classList.add("highlight");
+    }
     this.setState({
       changedVehicleName: data.sdaid,
       //cmncdListcode: data.expln
       cmncdListcode: data.grid,
       cmncdListItemName: data.expln,
       clickLoading : true,
+      clickedTr : trElement
     }, () => { console.log(this.state.cmncdListcode); });
     partsreplacementcycleService.getHistory(data)
       .then((response) => {
@@ -333,7 +345,7 @@ export default class PartsReplacementCycle extends Component {
                 this.state.prList.map((element, index) => {
 				  const dttime = Moment(element.dttime).format("YYYY-MM-DD");
                   return (
-                    <tr key={index} onClick={(e) => this.clickList(element)}>
+                    <tr key={index} id={"tr" + index} onClick={(e) => this.clickList(element, index)}>
                       <td>{element.divs}</td>
                       <td>{element.brgd + " " + element.bn}</td>
                       <td>{element.sdaid}</td>

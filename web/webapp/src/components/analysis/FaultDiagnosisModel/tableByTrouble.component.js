@@ -11,7 +11,6 @@ export default class TableByTrouble extends Component {
         this.tableMaker = this.tableMaker.bind(this);
         this.dividePredict = this.dividePredict.bind(this);
         this.confirmThreshold = this.confirmThreshold.bind(this);
-        this.getTdElements = this.getTdElements.bind(this);
         this.trClick = this.trClick.bind(this);
         this.setButtonStyle = this.setButtonStyle.bind(this);
         this.state = {
@@ -19,6 +18,7 @@ export default class TableByTrouble extends Component {
             isRowClicked : false,
             clickedIndex : "",
             thresholdList : [],
+            clickedTr : null,
         };
     }
 
@@ -56,15 +56,21 @@ export default class TableByTrouble extends Component {
         return result;
     }
 
-    getTdElements(idx){
-        const trElement = document.getElementById('tr' + idx);
-        const tdEList = trElement.getElementsByTagName("td");
-        return tdEList;
-    }
-
     trClick(res, idx){       //row클릭시 실행하는 함수 
         //this.props.load(true);
-        const tdEList = this.getTdElements(idx);
+        
+        //전체 테이블의 선택된 클래스 없애기, 클릭된 tr에 클래스 붙이기
+
+        const trElement = document.getElementById('tr' + idx);
+        //console.log(this.state.clickedTr);
+        if(this.state.clickedTr !== null){
+            this.state.clickedTr.classList.remove("highlight");
+            trElement.classList.add("highlight");
+        }else{
+            trElement.classList.add("highlight");
+        }
+
+        const tdEList = trElement.getElementsByTagName("td");
 
         let overList = [];
 
@@ -80,6 +86,7 @@ export default class TableByTrouble extends Component {
         if(res.time === this.state.clickedIndex){
             check = false;
             this.props.func(null, null);
+            trElement.classList.remove("highlight");
         }else{
             if(overList.length < 1){
                 check = false;
@@ -91,6 +98,7 @@ export default class TableByTrouble extends Component {
         this.setState({
             isRowClicked : check,
             clickedIndex : res.time,
+            clickedTr : trElement
         })
     }
 
@@ -277,7 +285,7 @@ export default class TableByTrouble extends Component {
         
               case "ENGINE":
                 return(
-                    <div className=" horizonbar">
+                    <div className="horizonbar">
                         <div 
                         id={`table${this.state.isRowClicked? 'horiver': 'hori'}`}
                         >
@@ -341,7 +349,7 @@ export default class TableByTrouble extends Component {
         
               case 'GEARBOX':
                 return(
-                    <div className=" horizonbar">
+                    <div className="horizonbar">
                         <div 
                         id={`table${this.state.isRowClicked? 'horiver': 'hori'}`}
                         >

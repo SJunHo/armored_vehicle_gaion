@@ -2290,3 +2290,7 @@ td input.form-control{
   width: 22px;
   height: 22px;
 }
+/* table 강조 */
+tr.highlight{
+  background-color: #4A4592;
+}

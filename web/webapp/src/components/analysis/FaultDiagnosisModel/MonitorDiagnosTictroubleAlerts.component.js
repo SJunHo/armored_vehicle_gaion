@@ -623,7 +623,7 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     return (
       <div className="container min">
         <header className="jumbotron">
-        고장 진단 경고 모니터링
+        AI 고장진단 결과 조회
         </header>
         <div className="search-Bar contents04">
           <div className="amvh-selector form-group">
