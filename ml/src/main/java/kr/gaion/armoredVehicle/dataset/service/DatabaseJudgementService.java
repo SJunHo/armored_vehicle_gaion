@@ -2,9 +2,10 @@ package kr.gaion.armoredVehicle.dataset.service;
 
 import kr.gaion.armoredVehicle.auth.User;
 import kr.gaion.armoredVehicle.database.dto.*;
-import kr.gaion.armoredVehicle.database.model.SensorEngine;
-import kr.gaion.armoredVehicle.database.model.SensorWheel;
-import kr.gaion.armoredVehicle.database.repository.*;
+import kr.gaion.armoredVehicle.database.repository.SensorBearingRepository;
+import kr.gaion.armoredVehicle.database.repository.SensorEngineRepository;
+import kr.gaion.armoredVehicle.database.repository.SensorGearboxRepository;
+import kr.gaion.armoredVehicle.database.repository.SensorWheelRepository;
 import kr.gaion.armoredVehicle.dataset.dto.DbJudgementUpdateInput;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -70,7 +69,7 @@ public class DatabaseJudgementService {
     public List<String> findDistinctByCarId(String partType) {
         var targetColumn = findClassLabel(partType);
         var componentType = partType.substring(0, 1);
-        System.out.println(componentType);
+        System.out.println("componentType: " + componentType);
 
         List<String> result = new ArrayList<>();
         switch (componentType) {
@@ -129,9 +128,6 @@ public class DatabaseJudgementService {
         return null;
     }
 
-
-    ////////////////////////////////////////////////////
-
     public Page<SensorBearingLeftBallInterface> getBearingLeftBallPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
         return sensorBearingRepository.getLeftBallAiLBSFPredictedData(carId, fromDate, toDate, pageable);
     }
@@ -164,8 +160,6 @@ public class DatabaseJudgementService {
         return sensorBearingRepository.getRightRetainerAiRFTFPredictedData(carId, fromDate, toDate, pageable);
     }
 
-    ///////////////////////////////////////////////////////
-
     public Page<SensorWheelLeftInterface> getWheelLeftPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
         return sensorWheelRepository.getLeftWheelAiLWPredictedData(carId, fromDate, toDate, pageable);
     }
@@ -182,6 +176,65 @@ public class DatabaseJudgementService {
         return sensorEngineRepository.getEngineAiEnginePredictedData(carId, fromDate, toDate, pageable);
     }
 
+    // get BLB's User judgement values are not Null data
+    public List<SensorBearingLeftBallInterface> getLeftBallUserLBSFData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftBallUserLBSFData(carId, fromDate, toDate);
+    }
+
+    // get BLO's User judgement values are not Null data
+    public List<SensorBearingLeftOutsideInterface> getLeftOutsideUserLBPFOData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftOutsideUserLBPFOData(carId, fromDate, toDate);
+    }
+
+    // get BLI's User judgement values are not Null data
+    public List<SensorBearingLeftInsideInterface> getLeftInsideUserLBPFIData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftInsideUserLBPFIData(carId, fromDate, toDate);
+    }
+
+    // get BLR's User judgement values are not Null data
+    public List<SensorBearingLeftRetainerInterface> getLeftRetainerUserLFTFData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftRetainerUserLFTFData(carId, fromDate, toDate);
+    }
+
+    // get BRB's User judgement values are not Null data
+    public List<SensorBearingRightBallInterface> getRightBallUserRBSFData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightBallUserRBSFData(carId, fromDate, toDate);
+    }
+
+    // get BRO's User judgement values are not Null data
+    public List<SensorBearingRightOutsideInterface> getRightOutsideUserRBPFOData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightOutsideUserRBPFOData(carId, fromDate, toDate);
+    }
+
+    // get BRI's User judgement values are not Null data
+    public List<SensorBearingRightInsideInterface> getRightInsideUserRBPFIData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightInsideUserRBPFIData(carId, fromDate, toDate);
+    }
+
+    // get BRR's User judgement values are not Null data
+    public List<SensorBearingRightRetainerInterface> getRightRetainerUserRFTFData(String carId, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightRetainerUserRFTFData(carId, fromDate, toDate);
+    }
+
+    // get WL's User judgement values are not Null data
+    public List<SensorWheelLeftInterface> getLeftWheelUserLW(String carId, Date fromDate, Date toDate) {
+        return sensorWheelRepository.getLeftWheelUserLW(carId, fromDate, toDate);
+    }
+
+    // get WR's User judgement values are not Null data
+    public List<SensorWheelRightInterface> getRightWheelUserRW(String carId, Date fromDate, Date toDate) {
+        return sensorWheelRepository.getRightWheelUserRW(carId, fromDate, toDate);
+    }
+
+    // get G's User judgement values are not Null data
+    public List<SensorGearboxInterface> getGearboxUserGearData(String carId, Date fromDate, Date toDate) {
+        return sensorGearboxRepository.getGearboxUserGearData(carId, fromDate, toDate);
+    }
+
+    // get E's User judgement values are not Null data
+    public List<SensorEngineInterface> getEngineUserEngineData(String carId, Date fromDate, Date toDate) {
+        return sensorEngineRepository.getEngineUserEngineData(carId, fromDate, toDate);
+    }
 }
 
 

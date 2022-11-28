@@ -9,10 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> {
@@ -52,4 +50,20 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
             " INNER JOIN `ENGDATA` ON WHLDATA.`DATE` = ENGDATA.`DATE` " +
             " WHERE WHLDATA.AI_RW IS NULL ", nativeQuery = true)
     Page<SensorWheelRightInterface> findSensorWheelRightAiRWIsNull(Pageable pageable);
+
+    // get WL's User judgement values are not Null data
+    @Query(value = "Select `WHLDATA`.IDX, `WHLDATA`.USER_LW, `WHLDATA`.USER_LW_ID, `WHLDATA`.USER_LW_DATE, " +
+            " `WHLDATA`.W_RPM, `WHLDATA`.L_W_V_2X, `WHLDATA`.L_W_V_3X, `WHLDATA`.L_W_S_Fault3, `WHLDATA`.`DATE`, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from `WHLDATA` " +
+            " INNER JOIN `ENGDATA` ON `WHLDATA`.`DATE` = `ENGDATA`.`DATE` AND `WHLDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `WHLDATA`.USER_LW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3 ", nativeQuery = true)
+    List<SensorWheelLeftInterface> getLeftWheelUserLW(String carId, Date fromDate, Date toDate);
+
+    // get WR's User judgement values are not Null data
+    @Query(value = "Select `WHLDATA`.IDX, `WHLDATA`.USER_RW, `WHLDATA`.USER_RW_ID, `WHLDATA`.USER_RW_DATE, " +
+            " `WHLDATA`.W_RPM, `WHLDATA`.R_W_V_2X, `WHLDATA`.R_W_V_3X, `WHLDATA`.R_W_S_Fault3, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `WHLDATA`.`DATE` from `WHLDATA` " +
+            " INNER JOIN `ENGDATA` ON `WHLDATA`.`DATE` = `ENGDATA`.`DATE` AND `WHLDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `WHLDATA`.USER_RW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3 ", nativeQuery = true)
+    List<SensorWheelRightInterface> getRightWheelUserRW(String carId, Date fromDate, Date toDate);
 }

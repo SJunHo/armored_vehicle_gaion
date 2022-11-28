@@ -4,10 +4,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import {useTranslation} from "react-i18next";
 import {Column} from "react-table";
-import {DbModelResponse, OpenApiContext, Pageable, RailSensorData} from "../api";
-import {RailSensorDataDetail} from "../common/RailSensorDataDetail";
+import {OpenApiContext, Pageable} from "../api";
 import {Paginator} from "../common/Paginator";
 import {Table} from "../common/Table";
 import {Page} from "../common/Page/Page";
@@ -25,6 +23,8 @@ export const JudgementLookup: React.FC = () => {
 
   const [tableColumn, setTableColumn] = useState<any>();
   const [predictedData, setPredictedData] = useState<any[]>([]);
+
+  const [judgedData, setJudgedData] = useState<any[]>([]);
 
   const {datasetControllerApi, databaseJudgementControllerApi} = useContext(OpenApiContext);
 
@@ -55,12 +55,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_LBSF",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_LBSF_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_LBSF_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_LBSF_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -151,12 +153,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_LBPFI",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_LBPFI_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_LBPFI_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_LBPFI_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -247,12 +251,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_LBPFO",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_LBPFO_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_LBPFO_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_LBPFO_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -343,12 +349,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_LFTF",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_LFTF_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_LFTF_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_LFTF_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -439,12 +447,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_RBSF",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_RBSF_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_RBSF_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_RBSF_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -535,12 +545,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_RBPFI",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_RBPFI_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_RBPFI_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_RBPFI_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -631,12 +643,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_RBPFO",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_RBPFO_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_RBPFO_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_RBPFO_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -727,12 +741,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_RFTF",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_RFTF_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_RFTF_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_RFTF_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -823,12 +839,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_LW",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_LW_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_LW_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_LW_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -895,12 +913,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_RW",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_RW_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_RW_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_RW_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -967,12 +987,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_GEAR",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_GEAR_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_GEAR_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_GEAR_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -1055,12 +1077,14 @@ export const JudgementLookup: React.FC = () => {
         accessor: "user_ENGINE",
       },
       {
-        Header: "작업자ID",
+        Header: "작업자 ID",
         accessor: "user_ENGINE_ID",
       },
       {
-        Header: "작업자판정날짜",
-        accessor: "user_ENGINE_DATE",
+        Header: "작업자 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.user_ENGINE_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "W_RPM",
@@ -1157,6 +1181,22 @@ export const JudgementLookup: React.FC = () => {
     }
   ]
 
+  useEffect(() => {
+    const thisDate = new Date();
+    thisDate.setMonth(thisDate.getMonth() - 6);
+    setFromDate(thisDate);
+  }, []);
+
+  useEffect(() => {
+    if (partType) {
+      databaseJudgementControllerApi?.findDistinctByCarId(partType)
+        .then((res) => {
+          setCarsList(res.data)
+          setSelectedCar(res.data[0])
+        });
+    }
+  }, [partType, datasetControllerApi]);
+
   function handleSearchTablesColumns(partType: any) {
     switch (partType) {
       case "BLB":
@@ -1198,30 +1238,11 @@ export const JudgementLookup: React.FC = () => {
     }
   }
 
-
-  useEffect(() => {
-    const thisDate = new Date();
-    thisDate.setMonth(thisDate.getMonth() - 6);
-    setFromDate(thisDate);
-  }, []);
-
-  useEffect(() => {
-    if (partType) {
-      databaseJudgementControllerApi?.findDistinctByCarId(partType)
-        .then((res) => {
-          setCarsList(res.data)
-          setSelectedCar(res.data[0])
-        });
-    }
-  }, [partType, datasetControllerApi]);
-
-
   function handleSearchData(pageable?: Pageable) {
     if (selectedCar == undefined) {
       return []
     }
     setTableColumn(handleSearchTablesColumns(partType))
-
     if (partType == 'BLB') {
       databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
         selectedCar,
@@ -1381,6 +1402,196 @@ export const JudgementLookup: React.FC = () => {
     }
   }
 
+  async function onClickDownloadButtonHandler() {
+    let proceed = window.confirm("다운로드 하시겠습니까?");
+    console.log("partType : ", partType)
+    if (proceed) {
+      // Download to data with judged defectUser values
+      switch (partType) {
+        case "BLB": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getLeftBallUserLBSFData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "BLI": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getLeftInsideUserLBPFIData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "BLO": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getLeftOutsideUserLBPFOData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "BLR": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getLeftRetainerUserLFTFData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "BRB": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getRightBallUserRBSFData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "BRI": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getRightInsideUserRBPFIData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "BRO": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getRightOutsideUserRBPFOData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "BRR": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getRightRetainerUserRFTFData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "WL": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getLeftWheelUserLW(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "WR": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getRightWheelUserRW(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "G": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getGearboxUserGearData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+        case "E": {
+          if (selectedCar != null) {
+            databaseJudgementControllerApi?.getEngineUserEngineData(
+              selectedCar,
+              fromDate?.toLocaleDateString("en-US"),
+              toDate?.toLocaleDateString("en-US"),
+            ).then((res) => {
+              setJudgedData(res.data || []);
+            });
+          } else {
+            alert("차량을 먼저 선택해주세요.")
+            return null
+          }
+          break
+        }
+      }
+    }
+  }
+
   return (
     <Page>
       <Container className="p-3 pt-5 w-100 d-inline">
@@ -1443,10 +1654,10 @@ export const JudgementLookup: React.FC = () => {
         <Row className="d-inline-block" style={{width: "100%"}}>
           <div className="overflow-auto">
             {(totalPage) &&
-							<Table
-								columns={tableColumn}
-								data={predictedData}
-							/>
+            <Table
+              columns={tableColumn}
+              data={predictedData}
+            />
             }
           </div>
           <div style={{display: 'inline-block'}}>
@@ -1464,12 +1675,19 @@ export const JudgementLookup: React.FC = () => {
               }}
             />
           </div>
+          <div style={{float: 'right'}}>
+            <Button type="button" className="btn btn-primary m-lg-1"
+                    onClick={() => {
+                      onClickDownloadButtonHandler()
+                    }}>
+              결과 다운로드
+            </Button>
+          </div>
         </Row>
       </Container>
     </Page>
   );
 };
-
 
 type SensorBearingLeftBallInput = {
   idx: number, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,

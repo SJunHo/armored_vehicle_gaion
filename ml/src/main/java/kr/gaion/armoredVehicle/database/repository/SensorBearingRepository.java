@@ -6,14 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @Repository
 public interface SensorBearingRepository extends JpaRepository<SensorBearing, Long> {
@@ -180,4 +176,76 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " INNER JOIN `ENGDATA` ON BERDATA.`DATE` = ENGDATA.`DATE` " +
             " WHERE BERDATA.AI_RFTF IS NULL ", nativeQuery = true)
     Page<SensorBearingRightRetainerInterface> findSensorBearingRightRetainerRFTFIsNull(Pageable pageable);
+
+    // get BLB's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_LBSF, `BERDATA`.USER_LBSF_ID, `BERDATA`.USER_LBSF_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912BSF, `BERDATA`.L_B_V_32924BSF, `BERDATA`.L_B_V_32922BSF, " +
+            " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_LBSF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.`DATE` BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingLeftBallInterface> getLeftBallUserLBSFData(String carId, Date fromDate, Date toDate);
+
+    // get BLO's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_LBPFO, `BERDATA`.USER_LBPFO_ID, `BERDATA`.USER_LBPFO_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912BPFO, `BERDATA`.L_B_V_32924BPFO, `BERDATA`.L_B_V_32922BPFO, " +
+            " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_LBPFO IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingLeftOutsideInterface> getLeftOutsideUserLBPFOData(String carId, Date fromDate, Date toDate);
+
+    // get BLI's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_LBPFI, `BERDATA`.USER_LBPFI_ID, `BERDATA`.USER_LBPFI_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912BPFI, `BERDATA`.L_B_V_32924BPFI, `BERDATA`.L_B_V_32922BPFI, " +
+            " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_LBPFI IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingLeftInsideInterface> getLeftInsideUserLBPFIData(String carId, Date fromDate, Date toDate);
+
+    // get BLR's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_LFTF, `BERDATA`.USER_LFTF_ID, `BERDATA`.USER_LFTF_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912FTF, `BERDATA`.L_B_V_32924FTF, `BERDATA`.L_B_V_32922FTF, " +
+            " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_LFTF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingLeftRetainerInterface> getLeftRetainerUserLFTFData(String carId, Date fromDate, Date toDate);
+
+    // get BRB's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_RBSF, `BERDATA`.USER_RBSF_ID, `BERDATA`.USER_RBSF_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912BSF, `BERDATA`.R_B_V_32924BSF, `BERDATA`.R_B_V_32922BSF, " +
+            " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_RBSF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingRightBallInterface> getRightBallUserRBSFData(String carId, Date fromDate, Date toDate);
+
+    // get BRO's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_RBPFO, `BERDATA`.USER_RBPFO_ID, `BERDATA`.USER_RBPFO_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912BPFO, `BERDATA`.R_B_V_32924BPFO, `BERDATA`.R_B_V_32922BPFO, " +
+            " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE`  from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_RBPFO IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingRightOutsideInterface> getRightOutsideUserRBPFOData(String carId, Date fromDate, Date toDate);
+
+    // get BRI's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_RBPFI, `BERDATA`.USER_RBPFI_ID, `BERDATA`.USER_RBPFI_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912BPFI, `BERDATA`.R_B_V_32924BPFI, `BERDATA`.R_B_V_32922BPFI, " +
+            " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_RBPFI IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingRightInsideInterface> getRightInsideUserRBPFIData(String carId, Date fromDate, Date toDate);
+
+    // get BRR's User judgement values are not Null data
+    @Query(value = "Select `BERDATA`.IDX, `BERDATA`.USER_RFTF, `BERDATA`.USER_RFTF_ID, `BERDATA`.USER_RFTF_DATE, " +
+            " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912FTF, `BERDATA`.R_B_V_32924FTF, `BERDATA`.R_B_V_32922FTF, " +
+            " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " WHERE `BERDATA`.USER_RFTF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
+    List<SensorBearingRightRetainerInterface> getRightRetainerUserRFTFData(String carId, Date fromDate, Date toDate);
 }

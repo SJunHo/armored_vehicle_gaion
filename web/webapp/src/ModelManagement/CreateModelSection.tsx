@@ -31,7 +31,6 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
   const {mlControllerApi} = useContext(OpenApiContext);
   const [result, setResult] = React.useState<RandomForestClassificationResponse>();
   const [result2, setResult2] = React.useState<RegressionResponse>();
-  console.log(algorithmName)
 
   async function handleTrain(input: any) {
     setResult(undefined);
@@ -169,8 +168,7 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
                 <Select2
                   className="mt-2"
                   isClearable
-                  placeholder={t("ml.common.p" +
-                    "sop")}
+                  placeholder={t("ml.common.psop")}
                   options={SPLIT_TRAIN_TEST_STRATEGIES.map((strategy) => ({
                     value: strategy,
                     label: strategy,

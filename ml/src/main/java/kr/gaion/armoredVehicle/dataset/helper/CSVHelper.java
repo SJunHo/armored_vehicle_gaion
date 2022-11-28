@@ -38,7 +38,7 @@ public class CSVHelper {
                 // Date(set to timezone)
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-                trainingBearing.setOperateDateTime(sdf.parse(csvRecord.get("DATE")));
+                trainingBearing.setOperateDateTime(sdf.parse(csvRecord.get("DATE").trim()));
 
                 trainingBearing.setTimeIndex(Long.parseLong(csvRecord.get("TIME")));
 

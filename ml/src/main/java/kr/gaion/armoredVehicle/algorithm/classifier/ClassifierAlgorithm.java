@@ -184,51 +184,58 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        // 1. load Data
-        Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
-        StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
-        Dataset<Row> indexedData = labelIndexer.transform(originalData);
-        String[] indicesLabelsMapping = labelIndexer.labels();
+        try {
+            // 1. load Data
+            Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+            StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
+            Dataset<Row> indexedData = labelIndexer.transform(originalData);
+            String[] indicesLabelsMapping = labelIndexer.labels();
 
-        // 2. Split the data into train and test
-        var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
-        var train = splitData[0];
-        var test = splitData[1];
+            // 2. Split the data into train and test
+            var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
+            var train = splitData[0];
+            var test = splitData[1];
 
-        // 3. make model
-        LinearSVC ls = new LinearSVC()
-                .setMaxIter(maxIterations)
-                .setFeaturesCol("features")
-                .setLabelCol("index");
+            // 3. make model
+            LinearSVC ls = new LinearSVC()
+                    .setMaxIter(maxIterations)
+                    .setFeaturesCol("features")
+                    .setLabelCol("index");
 
-        // 4. train
-        LinearSVCModel lsModel = ls.fit(train);
+            // 4. train
+            LinearSVCModel lsModel = ls.fit(train);
 
-        // 5. Make predictions(validation).
-        Dataset<Row> predictions = lsModel.transform(test);
+            // 5. Make predictions(validation).
+            Dataset<Row> predictions = lsModel.transform(test);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictions.show(false);
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            predictions.show(false);
 
-        // 6. Save model
-        this.saveModel(config, lsModel);
-        this.saveModelIndexer(config, labelIndexer);
+            // 6. Save model
+            this.saveModel(config, lsModel);
+            this.saveModelIndexer(config, labelIndexer);
 
-        // 7. response
-        var response = new SVMClassificationResponse(ResponseType.OBJECT_DATA);
+            // 7. response
+            var response = new SVMClassificationResponse(ResponseType.OBJECT_DATA);
 
-        JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
+            JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
+            JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
 
-        response.setLabels(indicesLabelsMapping);
+            response.setLabels(indicesLabelsMapping);
 
-        // 8. model evaluation
-        this.populateResponseFromMetrics(response,
-                new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
-                config.getFeatureCols().toArray(new String[0]));
+            // 8. model evaluation
+            this.populateResponseFromMetrics(response,
+                    new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
+                    config.getFeatureCols().toArray(new String[0]));
 
-        return response;
+            return response;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(">>> Error (dataset is empty as it may not match engine data) <<<");
+            return null;
+        }
     }
 
     public final ClassificationResponse trainMLP(BaseAlgorithmTrainInput config) throws Exception {
@@ -242,60 +249,66 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        // 1. load Data
-        Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
-        StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
-        Dataset<Row> indexedData = labelIndexer.transform(originalData);
-        String[] indicesLabelsMapping = labelIndexer.labels();
+        try {
+            // 1. load Data
+            Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+            StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
+            Dataset<Row> indexedData = labelIndexer.transform(originalData);
+            String[] indicesLabelsMapping = labelIndexer.labels();
 
-        // 2. Split the data into train and test
-        var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
-        var train = splitData[0];
-        var test = splitData[1];
+            // 2. Split the data into train and test
+            var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
+            var train = splitData[0];
+            var test = splitData[1];
 
-        // 3. make model
-        String[] listSelectedFeatures = config.getFeatureCols().toArray(new String[0]);
+            // 3. make model
+            String[] listSelectedFeatures = config.getFeatureCols().toArray(new String[0]);
 
-        int numOfClasses = indicesLabelsMapping.length;
-        layers[0] = listSelectedFeatures.length;
-        layers[1] = numOfClasses;
+            int numOfClasses = indicesLabelsMapping.length;
+            layers[0] = listSelectedFeatures.length;
+            layers[1] = numOfClasses;
 
-        MultilayerPerceptronClassifier mlp = new MultilayerPerceptronClassifier()
-                .setBlockSize(blockSize)
-                .setLayers(layers)
-                .setSeed(seed)
-                .setMaxIter(maxIterations)
-                .setLabelCol("index")
-                .setFeaturesCol("features");
+            MultilayerPerceptronClassifier mlp = new MultilayerPerceptronClassifier()
+                    .setBlockSize(blockSize)
+                    .setLayers(layers)
+                    .setSeed(seed)
+                    .setMaxIter(maxIterations)
+                    .setLabelCol("index")
+                    .setFeaturesCol("features");
 
-        // 4. train
-        MultilayerPerceptronClassificationModel mlpModel = mlp.fit(train);
+            // 4. train
+            MultilayerPerceptronClassificationModel mlpModel = mlp.fit(train);
 
-        // 5. Make predictions(validation).
-        Dataset<Row> predictions = mlpModel.transform(test);
+            // 5. Make predictions(validation).
+            Dataset<Row> predictions = mlpModel.transform(test);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictions.show(false);
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            predictions.show(false);
 
-        // 6. Save model
-        this.saveModel(config, mlpModel);
-        this.saveModelIndexer(config, labelIndexer);
+            // 6. Save model
+            this.saveModel(config, mlpModel);
+            this.saveModelIndexer(config, labelIndexer);
 
-        // 7. response
-        var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
+            // 7. response
+            var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
 
-        JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
+            JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
+            JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
 
-        response.setLabels(indicesLabelsMapping);
+            response.setLabels(indicesLabelsMapping);
 
-        // 8. model evaluation
-        this.populateResponseFromMetrics(response,
-                new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
-                config.getFeatureCols().toArray(new String[0]));
+            // 8. model evaluation
+            this.populateResponseFromMetrics(response,
+                    new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
+                    config.getFeatureCols().toArray(new String[0]));
 
-        return response;
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(">>> Error (dataset is empty as it may not match engine data) <<<");
+            return null;
+        }
     }
 
     public final ClassificationResponse trainLR(BaseAlgorithmTrainInput config) throws Exception {
@@ -309,54 +322,60 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        // 1. load Data
-        Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
-        StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
-        Dataset<Row> indexedData = labelIndexer.transform(originalData);
-        String[] indicesLabelsMapping = labelIndexer.labels();
+        try {
+            // 1. load Data
+            Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+            StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
+            Dataset<Row> indexedData = labelIndexer.transform(originalData);
+            String[] indicesLabelsMapping = labelIndexer.labels();
 
-        // 2. Split the data into train and test
-        var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
-        var train = splitData[0];
-        var test = splitData[1];
+            // 2. Split the data into train and test
+            var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
+            var train = splitData[0];
+            var test = splitData[1];
 
-        // 3. make model
-        var lr = new LogisticRegression()
-                .setRegParam(regParam)
-                .setElasticNetParam(elasticNetParam)
-                .setMaxIter(maxIterations)
-                .setFitIntercept(fitIntercept)
-                .setFeaturesCol("features")
-                .setLabelCol("index");
+            // 3. make model
+            var lr = new LogisticRegression()
+                    .setRegParam(regParam)
+                    .setElasticNetParam(elasticNetParam)
+                    .setMaxIter(maxIterations)
+                    .setFitIntercept(fitIntercept)
+                    .setFeaturesCol("features")
+                    .setLabelCol("index");
 
-        // 4. train
-        LogisticRegressionModel lrModel = lr.fit(train);
+            // 4. train
+            LogisticRegressionModel lrModel = lr.fit(train);
 
-        // 5. Make predictions(validation).
-        Dataset<Row> predictions = lrModel.transform(test);
+            // 5. Make predictions(validation).
+            Dataset<Row> predictions = lrModel.transform(test);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictions.show(false);
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            predictions.show(false);
 
-        // 6. Save model
-        this.saveModel(config, lrModel);
-        this.saveModelIndexer(config, labelIndexer);
+            // 6. Save model
+            this.saveModel(config, lrModel);
+            this.saveModelIndexer(config, labelIndexer);
 
-        // 7. response
-        var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
+            // 7. response
+            var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
 
-        JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
+            JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
+            JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
 
-        response.setLabels(indicesLabelsMapping);
+            response.setLabels(indicesLabelsMapping);
 
-        // 8. model evaluation
-        this.populateResponseFromMetrics(response,
-                new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
-                config.getFeatureCols().toArray(new String[0]));
+            // 8. model evaluation
+            this.populateResponseFromMetrics(response,
+                    new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
+                    config.getFeatureCols().toArray(new String[0]));
 
-        return response;
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(">>> Error (dataset is empty as it may not match engine data) <<<");
+            return null;
+        }
     }
 
     public final ClassificationResponse trainRF(BaseAlgorithmTrainInput config) throws Exception {
@@ -371,55 +390,61 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         double fraction = config.getFraction();
         long lSeed = config.getLSeed();
 
-        // 1. load Data
-        Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
-        StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
-        Dataset<Row> indexedData = labelIndexer.transform(originalData);
-        String[] indicesLabelsMapping = labelIndexer.labels();
+        try {
+            // 1. load Data
+            Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+            StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
+            Dataset<Row> indexedData = labelIndexer.transform(originalData);
+            String[] indicesLabelsMapping = labelIndexer.labels();
 
-        // 2. Split the data into train and test
-        var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
-        var train = splitData[0];
-        var test = splitData[1];
+            // 2. Split the data into train and test
+            var splitData = this.splitTrainTest(indexedData, lSeed, fraction);
+            var train = splitData[0];
+            var test = splitData[1];
 
-        // 3. make model
-        var rf = new RandomForestClassifier()
-                .setFeatureSubsetStrategy(featureSubsetStrategy)
-                .setImpurity(impurity)
-                .setMaxBins(maxBins)
-                .setMaxDepth(maxDepths)
-                .setNumTrees(numTrees)
-                .setFeaturesCol("features")
-                .setLabelCol("index");
+            // 3. make model
+            var rf = new RandomForestClassifier()
+                    .setFeatureSubsetStrategy(featureSubsetStrategy)
+                    .setImpurity(impurity)
+                    .setMaxBins(maxBins)
+                    .setMaxDepth(maxDepths)
+                    .setNumTrees(numTrees)
+                    .setFeaturesCol("features")
+                    .setLabelCol("index");
 
-        // 4. train
-        RandomForestClassificationModel rfModel = rf.fit(train);
+            // 4. train
+            RandomForestClassificationModel rfModel = rf.fit(train);
 
-        // 5. Make predictions(validation).
-        Dataset<Row> predictions = rfModel.transform(test);
+            // 5. Make predictions(validation).
+            Dataset<Row> predictions = rfModel.transform(test);
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        predictions.show(false);
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ predictions @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            predictions.show(false);
 
-        // 6. Save model
-        this.saveModel(config, rfModel);
-        this.saveModelIndexer(config, labelIndexer);
+            // 6. Save model
+            this.saveModel(config, rfModel);
+            this.saveModelIndexer(config, labelIndexer);
 
-        // 7. response
-        var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
+            // 7. response
+            var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
 
-        JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
+            JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
 
-        JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
+            JavaRDD<String> predictedLabelAndVector = predictLabelAndVector(predictions, indicesLabelsMapping, this.storageConfig.getCsvDelimiter());
 
-        response.setLabels(indicesLabelsMapping);
+            response.setLabels(indicesLabelsMapping);
 
-        // 8. model evaluation
-        this.populateResponseFromMetrics(response,
-                new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
-                config.getFeatureCols().toArray(new String[0]));
+            // 8. model evaluation
+            this.populateResponseFromMetrics(response,
+                    new MulticlassMetrics(predictionAndLabelRdd.rdd()), config, predictedLabelAndVector,
+                    config.getFeatureCols().toArray(new String[0]));
 
-        return response;
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(">>> Error (dataset is empty as it may not match engine data) <<<");
+            return null;
+        }
     }
 
     public final ClassificationResponse predictSVC(BaseAlgorithmPredictInput input) throws IOException {

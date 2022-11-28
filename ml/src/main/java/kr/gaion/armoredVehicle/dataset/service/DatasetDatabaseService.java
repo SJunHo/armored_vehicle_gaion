@@ -80,7 +80,7 @@ public class DatasetDatabaseService {
             switch (dataType) {
                 case "B": {
                     try {
-                        System.out.println(" import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
                         List<TrainingBearing> trainingBearingList = CSVHelper.csvToBearing(file.getInputStream(), file.getOriginalFilename());
                         trainingBearingRepository.saveAll(trainingBearingList);
                         break;
@@ -90,7 +90,7 @@ public class DatasetDatabaseService {
                 }
                 case "W": {
                     try {
-                        System.out.println(" import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
                         List<TrainingWheel> trainingWheelList = CSVHelper.csvToWheel(file.getInputStream(), file.getOriginalFilename());
                         trainingWheelRepository.saveAll(trainingWheelList);
                         break;
@@ -101,7 +101,7 @@ public class DatasetDatabaseService {
                 }
                 case "G": {
                     try {
-                        System.out.println(" import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
                         List<TrainingGearbox> trainingGearboxList = CSVHelper.csvToGearbox(file.getInputStream(), file.getOriginalFilename());
                         trainingGearboxRepository.saveAll(trainingGearboxList);
                         break;
@@ -112,7 +112,7 @@ public class DatasetDatabaseService {
                 }
                 case "E": {
                     try {
-                        System.out.println(" import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
                         List<TrainingEngine> trainingEngineList = CSVHelper.csvToEngine(file.getInputStream(), file.getOriginalFilename());
                         trainingEngineRepository.saveAll(trainingEngineList);
                         break;
@@ -123,7 +123,7 @@ public class DatasetDatabaseService {
                 }
                 case "tempLife": {
                     try {
-                        System.out.println(" import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
                         List<TrainingTempLife> trainingTempLifeList = CSVHelper.csvToTempLife(file.getInputStream());
                         trainingTempLifeRepository.saveAll(trainingTempLifeList);
                         break;

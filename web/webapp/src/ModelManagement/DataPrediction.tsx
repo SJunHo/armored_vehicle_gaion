@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import {useTranslation} from "react-i18next";
-import {Column, Row as TableRow, UsePaginationState} from "react-table";
+import {Column, Row as TableRow} from "react-table";
 import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext, Pageable, SensorTempLife} from "../api";
 import {ALGORITHM_INFO} from "../common/Common";
 import {Section} from "../common/Section/Section";
@@ -28,9 +28,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [targetClassCol, setTargetClassCol] = useState<string>("");
   const [totalPage, setTotalPage] = useState<number>(1);
   const [paginate, setPaginate] = useState<Pageable>();
-
-  const [totalElements, setTotalElements] = useState<number>(1);
-  const [paginationOptions, setPaginationOptions] = useState<UsePaginationState<Object[]>>({pageSize: 10, pageIndex: 0});
 
   const {datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
   const {t} = useTranslation();
@@ -214,18 +211,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_LBSF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBSF_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_LBSF_DATE",
-      },
-      {
         Header: "W_RPM",
         accessor: "w_RPM",
       },
@@ -295,19 +280,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LBPFI",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LBPFI_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBPFI_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_LBPFI_DATE",
+        accessor: (data) => {
+          if (data.ai_LBPFI === "0.0") {
+            return "정상";
+          } else if (data.ai_LBPFI === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -379,19 +360,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LBPFO",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LBPFO_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBPFO_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_LBPFO_DATE",
+        accessor: (data) => {
+          if (data.ai_LBPFO === "0.0") {
+            return "정상";
+          } else if (data.ai_LBPFO === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -463,19 +440,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LFTF",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LFTF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LFTF_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_LFTF_DATE",
+        accessor: (data) => {
+          if (data.ai_LFTF === "0.0") {
+            return "정상";
+          } else if (data.ai_LFTF === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -547,19 +520,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RBSF",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RBSF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBSF_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_RBSF_DATE",
+        accessor: (data) => {
+          if (data.ai_RBSF === "0.0") {
+            return "정상";
+          } else if (data.ai_RBSF === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -631,19 +600,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RBPFI",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RBPFI_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBPFI_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_RBPFI_DATE",
+        accessor: (data) => {
+          if (data.ai_RBPFI === "0.0") {
+            return "정상";
+          } else if (data.ai_RBPFI === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -715,19 +680,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RBPFO",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RBPFO_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBPFO_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_RBPFO_DATE",
+        accessor: (data) => {
+          if (data.ai_RBPFO === "0.0") {
+            return "정상";
+          } else if (data.ai_RBPFO === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -799,19 +760,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RFTF",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RFTF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RFTF_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_RFTF_DATE",
+        accessor: (data) => {
+          if (data.ai_RFTF === "0.0") {
+            return "정상";
+          } else if (data.ai_RFTF === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -883,19 +840,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LW",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LW_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LW_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_LW_DATE",
+        accessor: (data) => {
+          if (data.ai_LW === "0.0") {
+            return "정상";
+          } else if (data.ai_LW === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -943,19 +896,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RW",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RW_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RW_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_RW_DATE",
+        accessor: (data) => {
+          if (data.ai_RW === "0.0") {
+            return "정상";
+          } else if (data.ai_RW === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -1003,19 +952,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_GEAR",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_GEAR_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_GEAR_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_GEAR_DATE",
+        accessor: (data) => {
+          if (data.ai_GEAR === "0.0") {
+            return "정상";
+          } else if (data.ai_GEAR === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -1079,19 +1024,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
       {
         Header: "예측 결과",
-        accessor: "ai_ENGINE",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_ENGINE_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_ENGINE_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_ENGINE_DATE",
+        accessor: (data) => {
+          if (data.ai_ENGINE === "0.0") {
+            return "정상";
+          } else if (data.ai_ENGINE === "1.0") {
+            return "결함";
+          } else {
+            return "-"
+          }
+        },
       },
       {
         Header: "W_RPM",
@@ -1391,7 +1332,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
 
   async function handleOutlierDetectionData() {
     const res = await mlControllerApi?.predictCluster(algorithmName, {
-      classCol: "Ai_Predict",
+      classCol: targetClassCol,
       modelName: selectedModel?.modelName,
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Db,
@@ -1405,9 +1346,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         const selectedIndex = selectedData!.findIndex(
           (selectedId) => selectedId.idx === row.idx
         );
+        let resultArr;
         if (selectedIndex !== -1) {
           var score = JSON.parse("[" + predictedData[selectedIndex] + "]")[1];
-          score > 0.5 ? row.aiPredict = 1 : row.aiPredict = 0
+          score > 0.5 ? row[targetClassCol] = "1.0" : row[targetClassCol] = "0.0"
           row.aiAlgorithm = algorithmName;
           row.aiModel = selectedModel?.modelName;
         }
@@ -1449,18 +1391,19 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   }
 
   // async function handleTempLifeUpdateData() {
-  //     setSaving(true);
-  //     datasetDatabaseControllerApi
-  //         ?.updateData(
-  //             selectedTempLifeData!.map((inputs) => ({
-  //                 dataType: wb,
-  //                 id : inputs.idx,
-  //                 aiAlgorithm : inputs.aiAlgorithm,
-  //                 aiPredict : inputs.aiPredict,
-  //                 modelName : inputs.aiModel,
-  //             }))
-  //         )
-  //         .finally(() => setSaving(false));
+  //   setSaving(true);
+  //   datasetDatabaseControllerApi
+  //     ?.updateData(
+  //       selectedData!.map((inputs) => ({
+  //         partType: wb,
+  //         id: inputs.idx,
+  //         aiAlgorithmName: inputs.aiAlgorithm,
+  //         aiPredict: inputs[targetClassCol],
+  //         aiModelName: inputs.aiModel,
+  //         aiPredictDate: new Date().toLocaleString("ko-KR"),
+  //       }))
+  //     )
+  //     .finally(() => setSaving(false));
   // }
 
   return (
@@ -1565,13 +1508,14 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       <Section title="고장전조 예측 결과" className="mb-2">
         <Col xl={12}>
           <div className="w-100 overflow-auto">
+            {(totalPage) &&
             <Table
               columns={tableColumns}
               data={conditionData}
               onRowsSelected={handleConditionSelected}
-            />
+            />}
           </div>
-          <div>
+          <div style={{display: 'inline-block'}}>
             <Paginator
               pageCount={totalPage}
               size={paginate?.pageSize || 0}
@@ -1592,7 +1536,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             <Button
               className="button font-monospace fw-bold"
               onClick={handleUpdateData}
-              size="sm"
+              size="lg"
               disabled={predicting}
             >
               {saving && (
