@@ -20,7 +20,7 @@ public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Lo
             "`GRBDATA`.W_RPM, `GRBDATA`.G_V_OverallRMS, `GRBDATA`.G_V_Wheel1X, `GRBDATA`.G_V_Wheel2X, " +
             "`GRBDATA`.G_V_Pinion1X, `GRBDATA`.G_V_Pinion2X, `GRBDATA`.G_V_GMF1X, `GRBDATA`.G_V_GMF2X, " +
             "`ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `GRBDATA`.`DATE` from `GRBDATA` " +
-            "LEFT JOIN `ENGDATA` ON `GRBDATA`.`DATE` = `ENGDATA`.`DATE` AND `GRBDATA`.SDAID = `ENGDATA`.SDAID " +
+            "INNER JOIN `ENGDATA` ON `GRBDATA`.`DATE` = `ENGDATA`.`DATE` AND `GRBDATA`.SDAID = `ENGDATA`.SDAID " +
             "WHERE `GRBDATA`.AI_GEAR IS NOT NULL AND `GRBDATA`.SDAID = ?1 AND `GRBDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorGearboxInterface> getGearboxAiGearPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 

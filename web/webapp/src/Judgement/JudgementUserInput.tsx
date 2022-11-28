@@ -12,6 +12,7 @@ import {Paginator} from "../common/Paginator";
 import {Table} from "../common/Table";
 import {Page} from "../common/Page/Page";
 
+
 export const JudgementUserInput: React.FC = () => {
   const [partType, setPartType] = useState<string>("BLB");
   const [carsList, setCarsList] = useState<string[]>([]);
@@ -26,14 +27,74 @@ export const JudgementUserInput: React.FC = () => {
   const [tableColumn, setTableColumn] = useState<any>();
   const [predictedData, setPredictedData] = useState<any[]>([]);
 
-  const {datasetControllerApi, databaseJudgementControllerApi} = useContext(OpenApiContext);
+  const {databaseJudgementControllerApi} = useContext(OpenApiContext);
+
+  const [updateDefectUserList, setUpdateDefectUserList] = useState<{ idx: number; userJudgement: string; }[]>([]);
+  const [totalUpdateDefectUserList, setTotalUpdateDefectUserList] = useState<{ id: number; userJudgement: string; }[]>([]);
+
+  function onClickHandler(score: any, idx: any, e: any) {
+    // Whenever defectUser value comes in through radio button,
+    // it is saved in 'updateDefectUserList' in the form of 'index: {esId: ~, defectUser: ~}' one by one.
+    console.log("Score", score)
+    console.log("idx", idx)
+    var existUpdateList = updateDefectUserList
+    var updateDict = {idx: idx, userJudgement: score}
+
+    var index = existUpdateList.findIndex(el => el.idx === idx);
+    if (index === -1) {
+      existUpdateList.push(updateDict);
+    } else {
+      existUpdateList[index] = updateDict;
+    }
+    setUpdateDefectUserList(existUpdateList)
+
+    console.log(updateDefectUserList)
+
+  }
+
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className={"d-flex"}>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={value.row.original.user_LBSF == 1}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={value.row.original.user_LBSF == 0}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
+
       {
         Header: "예측 결과",
         accessor: "ai_LBSF",
@@ -51,16 +112,16 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_LBSF_DATE",
       },
       {
-        Header: "작업자 판정값",
-        accessor: "user_LBSF",
-      },
-      {
         Header: "작업자ID",
         accessor: "user_LBSF_ID",
       },
       {
         Header: "작업자판정날짜",
         accessor: "user_LBSF_DATE",
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -1104,6 +1165,31 @@ export const JudgementUserInput: React.FC = () => {
     []
   );
 
+
+  function onPaginationHandler(nowPageDefectUserList: any) {
+    // When moving table pages, concat and save the list of values of the current page to 'totalUpdateDefectUserList'.
+    setTotalUpdateDefectUserList(totalUpdateDefectUserList.concat(nowPageDefectUserList))
+  }
+
+  async function onClickSaveButtonHandler(updateList: any, totalUpdateList?: any) {
+    console.log("updateDefectUserList", updateList, "totalUpdateDefectUserList", totalUpdateList)
+
+    setTotalUpdateDefectUserList(totalUpdateList.concat(updateList))
+
+    let proceed = window.confirm("저장하시겠습니까?");
+    console.log(partType)
+    console.log(updateDefectUserList)
+    console.log(totalUpdateDefectUserList)
+    if (proceed) {
+      // Update to DB with edited defectUser values
+      databaseJudgementControllerApi?.updateUserJudgement(partType, updateDefectUserList)
+        .then(res => {
+          console.log(res)
+        })
+    }
+  }
+
+
   const partTypes = [
     // bearing
     {
@@ -1213,7 +1299,7 @@ export const JudgementUserInput: React.FC = () => {
           setSelectedCar(res.data[0])
         });
     }
-  }, [partType, datasetControllerApi]);
+  }, [partType, databaseJudgementControllerApi]);
 
 
   function handleSearchData(pageable?: Pageable) {
@@ -1221,6 +1307,7 @@ export const JudgementUserInput: React.FC = () => {
       return []
     }
     setTableColumn(handleSearchTablesColumns(partType))
+    onPaginationHandler(updateDefectUserList)
 
     if (partType == 'BLB') {
       databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
@@ -1463,6 +1550,14 @@ export const JudgementUserInput: React.FC = () => {
             }}
           />
         </div>
+        <div style={{float: 'right'}}>
+          <Button type="button" className="btn btn-primary m-lg-1"
+                  onClick={() => {
+                    onClickSaveButtonHandler(updateDefectUserList, totalUpdateDefectUserList)
+                  }}>
+            결과 저장
+          </Button>
+        </div>
       </Container>
     </Page>
   );
@@ -1560,6 +1655,3 @@ type SensorEngineInput = {
   w_RPM: number, e_V_OverallRMS: number, e_V_1_2X: number, e_V_1X: number,
   e_V_Crestfactor: number, ac_h: number, ac_v: number, ac_a: number, date: string
 }
-
-
-

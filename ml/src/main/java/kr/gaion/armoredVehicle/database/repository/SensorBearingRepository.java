@@ -27,7 +27,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912BSF, `BERDATA`.L_B_V_32924BSF, `BERDATA`.L_B_V_32922BSF, " +
             " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_LBSF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingLeftBallInterface> getLeftBallAiLBSFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -37,7 +37,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912BPFO, `BERDATA`.L_B_V_32924BPFO, `BERDATA`.L_B_V_32922BPFO, " +
             " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_LBPFO IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingLeftOutsideInterface> getLeftOutsideAiLBPFOPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -47,7 +47,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912BPFI, `BERDATA`.L_B_V_32924BPFI, `BERDATA`.L_B_V_32922BPFI, " +
             " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_LBPFI IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingLeftInsideInterface> getLeftInsideAiLBPFIPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -57,7 +57,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.L_B_V_1X, `BERDATA`.L_B_V_6912FTF, `BERDATA`.L_B_V_32924FTF, `BERDATA`.L_B_V_32922FTF, " +
             " `BERDATA`.L_B_V_Crestfactor, `BERDATA`.L_B_V_Demodulation, `BERDATA`.L_B_S_Fault1, `BERDATA`.L_B_S_Fault2, `BERDATA`.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_LFTF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingLeftRetainerInterface> getLeftRetainerAiLFTFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -67,7 +67,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912BSF, `BERDATA`.R_B_V_32924BSF, `BERDATA`.R_B_V_32922BSF, " +
             " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_RBSF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingRightBallInterface> getRightBallAiRBSFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -77,7 +77,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912BPFO, `BERDATA`.R_B_V_32924BPFO, `BERDATA`.R_B_V_32922BPFO, " +
             " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE`  from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_RBPFO IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingRightOutsideInterface> getRightOutsideAiRBPFOPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -87,7 +87,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912BPFI, `BERDATA`.R_B_V_32924BPFI, `BERDATA`.R_B_V_32922BPFI, " +
             " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_RBPFI IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingRightInsideInterface> getRightInsideAiRBPFIPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -97,7 +97,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `BERDATA`.W_RPM, `BERDATA`.R_B_V_1X, `BERDATA`.R_B_V_6912FTF, `BERDATA`.R_B_V_32924FTF, `BERDATA`.R_B_V_32922FTF, " +
             " `BERDATA`.R_B_V_Crestfactor, `BERDATA`.R_B_V_Demodulation, `BERDATA`.R_B_S_Fault1, `BERDATA`.R_B_S_Fault2, `BERDATA`.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `BERDATA`.`DATE` from `BERDATA` " +
-            " LEFT JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `BERDATA`.`DATE` = `ENGDATA`.`DATE` AND `BERDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `BERDATA`.AI_RFTF IS NOT NULL AND `BERDATA`.SDAID = ?1 AND `BERDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorBearingRightRetainerInterface> getRightRetainerAiRFTFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 

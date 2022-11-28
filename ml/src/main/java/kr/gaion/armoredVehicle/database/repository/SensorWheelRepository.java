@@ -23,7 +23,7 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
             " `WHLDATA`.USER_LW, `WHLDATA`.USER_LW_ID, `WHLDATA`.USER_LW_DATE, " +
             " `WHLDATA`.W_RPM, `WHLDATA`.L_W_V_2X, `WHLDATA`.L_W_V_3X, `WHLDATA`.L_W_S_Fault3, `WHLDATA`.`DATE`, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from `WHLDATA` " +
-            " LEFT JOIN `ENGDATA` ON `WHLDATA`.`DATE` = `ENGDATA`.`DATE` AND `WHLDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `WHLDATA`.`DATE` = `ENGDATA`.`DATE` AND `WHLDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `WHLDATA`.AI_LW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3 ", nativeQuery = true)
     Page<SensorWheelLeftInterface> getLeftWheelAiLWPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -31,7 +31,7 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
             " `WHLDATA`.USER_RW, `WHLDATA`.USER_RW_ID, `WHLDATA`.USER_RW_DATE, " +
             " `WHLDATA`.W_RPM, `WHLDATA`.R_W_V_2X, `WHLDATA`.R_W_V_3X, `WHLDATA`.R_W_S_Fault3, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `WHLDATA`.`DATE` from `WHLDATA` " +
-            " LEFT JOIN `ENGDATA` ON `WHLDATA`.`DATE` = `ENGDATA`.`DATE` AND `WHLDATA`.SDAID = `ENGDATA`.SDAID " +
+            " INNER JOIN `ENGDATA` ON `WHLDATA`.`DATE` = `ENGDATA`.`DATE` AND `WHLDATA`.SDAID = `ENGDATA`.SDAID " +
             " WHERE `WHLDATA`.AI_RW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3 ", nativeQuery = true)
     Page<SensorWheelRightInterface> getRightWheelAiRWPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 

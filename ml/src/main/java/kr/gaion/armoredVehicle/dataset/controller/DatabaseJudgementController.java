@@ -3,16 +3,14 @@ package kr.gaion.armoredVehicle.dataset.controller;
 import io.swagger.v3.oas.annotations.Parameter;
 import kr.gaion.armoredVehicle.database.dto.*;
 import kr.gaion.armoredVehicle.database.model.SensorWheel;
+import kr.gaion.armoredVehicle.dataset.dto.DbJudgementUpdateInput;
 import kr.gaion.armoredVehicle.dataset.service.DatabaseJudgementService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Date;
@@ -31,6 +29,14 @@ public class DatabaseJudgementController {
             @RequestParam("partType") String partType
     ) {
         return this.databaseJudgementService.findDistinctByCarId(partType);
+    }
+
+    @PostMapping(path = "/api/judgement/update")
+    public String updateUserJudgement(
+            @RequestParam("partType") String partType,
+            @RequestBody List<DbJudgementUpdateInput> updateInputs
+    ) {
+        return this.databaseJudgementService.updateUserJudgement(partType, updateInputs);
     }
 
     @PageableAsQueryParam
