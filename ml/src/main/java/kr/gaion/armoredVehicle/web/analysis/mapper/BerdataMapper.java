@@ -19,5 +19,7 @@ public interface BerdataMapper {
 	public List<Berdata> findBerdata(troubleDataRequest data);
 
 	public List<Berdata> findBerdataForExcel(ExcelDownByMonitorDiagnos info);
+	public int countSimulationByTable(troubleDataRequest data);
+	public List<Berdata> findSimulation(troubleDataRequest data);
 	
 }

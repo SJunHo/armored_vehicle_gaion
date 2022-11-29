@@ -142,6 +142,27 @@ public class MonitorDiagnosService {
 				map.put("paging", paging);
 				System.out.println(map);
 				break;
+
+			case "SIMULATION":
+				paging.setTotalcount(berdataMapper.countSimulationByTable(data));
+				paging.setPagenum(page -1);
+				paging.setContentnum(pageSize);
+				paging.setCurrentblock(paging.getTotalcount());
+
+				paging.prevnext(page);
+				paging.setStartPage(paging.getCurrentblock());
+				paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
+				paging.setTotalPageCount();
+
+				data.setPage(paging.getPagenum()*pageSize);
+				data.setSize(paging.getContentnum());
+
+				List<Berdata> simulationData = berdataMapper.findSimulation(data);
+
+				map.put("troubleList", simulationData);
+				map.put("paging", paging);
+
+				break;
 		}
 		
 
@@ -150,14 +171,17 @@ public class MonitorDiagnosService {
 	
 	public void changeDate(troubleDataRequest data) {
 		String startDate = data.getStartDate();
-		startDate = startDate.substring(0, 10);
-		startDate = startDate + " 00:00:00";
-		data.setStartDate(startDate);
-		
+		if(startDate != null){
+			startDate = startDate.substring(0, 10);
+			startDate = startDate + " 00:00:00";
+			data.setStartDate(startDate);
+		}
 		String endDate = data.getEndDate();
-		endDate = endDate.substring(0, 10);
-		endDate = endDate + " 23:59:59";
-		data.setEndDate(endDate);
+		if(endDate != null){
+			endDate = endDate.substring(0, 10);
+			endDate = endDate + " 23:59:59";
+			data.setEndDate(endDate);
+		}
 	}
 	
 	public void downloadExcelTroubleData(HttpServletResponse response,

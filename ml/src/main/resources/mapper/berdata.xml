@@ -82,10 +82,22 @@
 		and b.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
 		order by b.DATE
 	</select>
-	
-	
 
+	<select id="countSimulationByTable" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="Integer">
+		select ifnull(count(*),0)
+		from BERDATA b
+		where b.SDAID = #{sdaid}
+		and b.FILENM = #{part}
+	</select>
 
-	
-	
+	<select id="findSimulation" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="kr.gaion.armoredVehicle.web.analysis.model.Berdata">
+		select *
+		from BERDATA b
+		where 1 = 1
+		and b.SDAID = #{sdaid}
+		and b.FILENM = #{part}
+		order by b.DATE
+		limit #{page}, #{size}
+	</select>
+
 </mapper>

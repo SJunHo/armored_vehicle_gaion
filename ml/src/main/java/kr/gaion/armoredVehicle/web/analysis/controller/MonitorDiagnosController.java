@@ -138,4 +138,14 @@ public class MonitorDiagnosController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@PostMapping("/searchSimulation")
+	public ResponseEntity<Map<String, Object>> getSimulation(@RequestBody troubleDataRequest data){
+		try {
+			Map<String, Object> simulation = monitordiagnosService.getTroubleData(data);
+			return new ResponseEntity<>(simulation, HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

@@ -484,7 +484,168 @@ export default class TableByTrouble extends Component {
                     </div>
                 );
         
-        
+                case "SIMULATION":
+                return(
+                    <div className="horizonbar">
+                    <div 
+                    id={`table${this.state.isRowClicked? 'horiver': 'hori'}`}
+                    >
+                            <table>
+                                <thead>
+                                    <tr >
+                                        <td>좌/외륜</td>
+                                        <td>좌/내륜</td>
+                                        <td>좌/볼</td>
+                                        <td>좌/리테이너</td>
+                                        <td>우/외륜</td>
+                                        <td>우/내륜</td>
+                                        <td>우/볼</td>
+                                        <td>우/리테이너</td>
+                                        <td>차량이름</td>
+                                        <td>시점종합</td>
+                                        <td>time</td>
+                                        <td>W_RPM</td>
+                                        <td>L_B_V_OverallRMS</td>
+                                        <td>L_B_V_1X</td>
+                                        <td>L_B_V_6912BPFO</td>
+                                        <td>L_B_V_6912BPFI</td>
+                                        <td>L_B_V_6912BSF</td>
+                                        <td>L_B_V_6912FTF</td>
+                                        <td>L_B_V_32924BPFO</td>
+                                        <td>L_B_V_32924BPFI</td>
+                                        <td>L_B_V_32924BSF</td>
+                                        <td>L_B_V_32924FTF</td>
+                                        <td>L_B_V_32922BPFO</td>
+                                        <td>L_B_V_32922BPFI</td>
+                                        <td>L_B_V_32922BSF</td>
+                                        <td>L_B_V_32922FTF</td>
+                                        <td>L_B_V_Crestfactor</td>
+                                        <td>L_B_V_Demodulation</td>
+                                        <td>L_B_S_Fault1</td>
+                                        <td>L_B_S_Fault2</td>
+                                        <td>L_B_T_Temperature</td>
+                                        <td>R_B_V_OverallRMS</td>
+                                        <td>R_B_V_1X</td>
+                                        <td>R_B_V_6912BPFO</td>
+                                        <td>R_B_V_6912BPFI</td>
+                                        <td>R_B_V_6912BSF</td>
+                                        <td>R_B_V_6912FTF</td>
+                                        <td>R_B_V_32924BPFO</td>
+                                        <td>R_B_V_32924BPFI</td>
+                                        <td>R_B_V_32924BSF</td>
+                                        <td>R_B_V_32924FTF</td>
+                                        <td>R_B_V_32922BPFO</td>
+                                        <td>R_B_V_32922BPFI</td>
+                                        <td>R_B_V_32922BSF</td>
+                                        <td>R_B_V_32922FTF</td>
+                                        <td>R_B_V_Crestfactor</td>
+                                        <td>R_B_V_Demodulation</td>
+                                        <td>R_B_S_Fault1</td>
+                                        <td>R_B_S_Fault2</td>
+                                        <td>R_B_T_Temperature</td>
+                                        <td>FILENM</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                this.props.data.map((el, idx) => {
+                                    const datetime = moment(el.date).format('YYYY-MM-DD hh:mm:ss');
+                                    return(
+                                    <tr key={idx} onClick={() => {
+                                        this.trClick(el,idx);
+                                    }} id={"tr" + idx}>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_LBPFO)}`}>
+                                                {this.dividePredict(el.ai_LBPFO)}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_LBPFI)}`}>
+                                                {this.dividePredict(el.ai_LBPFI)}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_LBSF)}`}>
+                                                {this.dividePredict(el.ai_LBSF)}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_LFTF)}`}>
+                                                {this.dividePredict(el.ai_LFTF)}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_RBPFO)}`}>
+                                                {this.dividePredict(el.ai_RBPFO)}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_RBPFI)}`}>
+                                                {this.dividePredict(el.ai_RBPFI)}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_RBSF)}`}>
+                                                {this.dividePredict(el.ai_RBSF)}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`btn btn-${this.setButtonStyle(el.ai_RFTF)}`}>
+                                                {this.dividePredict(el.ai_RFTF)}
+                                            </button>
+                                        </td>
+                                        <td>{el.sdaid}</td>
+                                        <td>{datetime}</td>
+                                        <td>{el.time}</td>
+                                        <td className={`W_RPM ${this.confirmThreshold(el.w_RPM, "W_RPM")}`}>{el.w_RPM}</td>
+                                        <td className={`L_B_V_OverallRMS ${this.confirmThreshold(el.l_B_V_OverallRMS, "L_B_V_OverallRMS")}`}>{el.l_B_V_OverallRMS}</td>
+                                        <td className={`L_B_V_1X ${this.confirmThreshold(el.l_B_V_1X, "L_B_V_1X")}`}>{el.l_B_V_1X}</td>
+                                        <td className={`L_B_V_6912BPFO ${this.confirmThreshold(el.l_B_V_6912BPFO, "L_B_V_6912BPFO")}`}>{el.l_B_V_6912BPFO}</td>
+                                        <td className={`L_B_V_6912BPFI ${this.confirmThreshold(el.l_B_V_6912BPFI, "L_B_V_6912BPFI")}`}>{el.l_B_V_6912BPFI}</td>
+                                        <td className={`L_B_V_6912BSF ${this.confirmThreshold(el.l_B_V_6912BSF, "L_B_V_6912BSF")}`}>{el.l_B_V_6912BSF}</td>
+                                        <td className={`L_B_V_6912FTF ${this.confirmThreshold(el.l_B_V_6912FTF, "L_B_V_6912FTF")}`}>{el.l_B_V_6912FTF}</td>
+                                        <td className={`L_B_V_32924BPFO ${this.confirmThreshold(el.l_B_V_32924BPFO, "L_B_V_32924BPFO")}`}>{el.l_B_V_32924BPFO}</td>
+                                        <td className={`L_B_V_32924BPFI ${this.confirmThreshold(el.l_B_V_32924BPFI, "L_B_V_32924BPFI")}`}>{el.l_B_V_32924BPFI}</td>
+                                        <td className={`L_B_V_32924BSF ${this.confirmThreshold(el.l_B_V_32924BSF, "L_B_V_32924BSF")}`}>{el.l_B_V_32924BSF}</td>
+                                        <td className={`L_B_V_32924FTF ${this.confirmThreshold(el.l_B_V_32924FTF, "L_B_V_32924FTF")}`}>{el.l_B_V_32924FTF}</td>
+                                        <td className={`L_B_V_32922BPFO ${this.confirmThreshold(el.l_B_V_32922BPFO, "L_B_V_32922BPFO")}`}>{el.l_B_V_32922BPFO}</td>
+                                        <td className={`L_B_V_32922BPFI ${this.confirmThreshold(el.l_B_V_32922BPFI, "L_B_V_32922BPFI")}`}>{el.l_B_V_32922BPFI}</td>
+                                        <td className={`L_B_V_32922BSF ${this.confirmThreshold(el.l_B_V_32922BSF, "L_B_V_32922BSF")}`}>{el.l_B_V_32922BSF}</td>
+                                        <td className={`L_B_V_32922FTF ${this.confirmThreshold(el.l_B_V_32922FTF, "L_B_V_32922FTF")}`}>{el.l_B_V_32922FTF}</td>
+                                        <td className={`L_B_V_Crestfactor ${this.confirmThreshold(el.l_B_V_Crestfactor, "L_B_V_Crestfactor")}`}>{el.l_B_V_Crestfactor}</td>
+                                        <td className={`L_B_V_Demodulation ${this.confirmThreshold(el.l_B_V_Demodulation, "L_B_V_Demodulation")}`}>{el.l_B_V_Demodulation}</td>
+                                        <td className={`L_B_S_Fault1 ${this.confirmThreshold(el.l_B_S_Fault1, "L_B_S_Fault1")}`}>{el.l_B_S_Fault1}</td>
+                                        <td className={`L_B_S_Fault2 ${this.confirmThreshold(el.l_B_S_Fault2, "L_B_S_Fault2")}`}>{el.l_B_S_Fault2}</td>
+                                        <td className={`L_B_T_Temperature ${this.confirmThreshold(el.l_B_T_Temperature, "L_B_T_Temperature")}`}>{el.l_B_T_Temperature}</td>
+                                        <td className={`R_B_V_OverallRMS ${this.confirmThreshold(el.r_B_V_OverallRMS, "R_B_V_OverallRMS")}`}>{el.r_B_V_OverallRMS}</td>
+                                        <td className={`R_B_V_1X ${this.confirmThreshold(el.r_B_V_1X, "R_B_V_1X")}`}>{el.r_B_V_1X}</td>
+                                        <td className={`R_B_V_6912BPFO ${this.confirmThreshold(el.r_B_V_6912BPFO, "R_B_V_6912BPFO")}`}>{el.r_B_V_6912BPFO}</td>
+                                        <td className={`R_B_V_6912BPFI ${this.confirmThreshold(el.r_B_V_6912BPFI, "R_B_V_6912BPFI")}`}>{el.r_B_V_6912BPFI}</td>
+                                        <td className={`R_B_V_6912BSF ${this.confirmThreshold(el.r_B_V_6912BSF, "R_B_V_6912BSF")}`}>{el.r_B_V_6912BSF}</td>
+                                        <td className={`R_B_V_6912FTF ${this.confirmThreshold(el.r_B_V_6912FTF, "R_B_V_6912FTF")}`}>{el.r_B_V_6912FTF}</td>
+                                        <td className={`R_B_V_32924BPFO ${this.confirmThreshold(el.r_B_V_32924BPFO, "R_B_V_32924BPFO")}`}>{el.r_B_V_32924BPFO}</td>
+                                        <td className={`R_B_V_32924BPFI ${this.confirmThreshold(el.r_B_V_32924BPFI, "R_B_V_32924BPFI")}`}>{el.r_B_V_32924BPFI}</td>
+                                        <td className={`R_B_V_32924BSF ${this.confirmThreshold(el.r_B_V_32924BSF, "R_B_V_32924BSF")}`}>{el.r_B_V_32924BSF}</td>
+                                        <td className={`R_B_V_32924FTF ${this.confirmThreshold(el.r_B_V_32924FTF, "R_B_V_32924FTF")}`}>{el.r_B_V_32924FTF}</td>
+                                        <td className={`R_B_V_32922BPFO ${this.confirmThreshold(el.r_B_V_32922BPFO, "R_B_V_32922BPFO")}`}>{el.r_B_V_32922BPFO}</td>
+                                        <td className={`R_B_V_32922BPFI ${this.confirmThreshold(el.r_B_V_32922BPFI, "R_B_V_32922BPFI")}`}>{el.r_B_V_32922BPFI}</td>
+                                        <td className={`R_B_V_32922BSF ${this.confirmThreshold(el.r_B_V_32922BSF, "R_B_V_32922BSF")}`}>{el.r_B_V_32922BSF}</td>
+                                        <td className={`R_B_V_32922FTF ${this.confirmThreshold(el.r_B_V_32922FTF, "R_B_V_32922FTF")}`}>{el.r_B_V_32922FTF}</td>
+                                        <td className={`R_B_V_Crestfactor ${this.confirmThreshold(el.r_B_V_Crestfactor, "R_B_V_Crestfactor")}`}>{el.r_B_V_Crestfactor}</td>
+                                        <td className={`R_B_V_Demodulation ${this.confirmThreshold(el.r_B_V_Demodulation, "R_B_V_Demodulation")}`}>{el.r_B_V_Demodulation}</td>
+                                        <td className={`R_B_S_Fault1 ${this.confirmThreshold(el.r_B_S_Fault1, "R_B_S_Fault1")}`}>{el.r_B_S_Fault1}</td>
+                                        <td className={`R_B_S_Fault2 ${this.confirmThreshold(el.r_B_S_Fault2, "R_B_S_Fault2")}`}>{el.r_B_S_Fault2}</td>
+                                        <td className={`R_B_T_Temperature ${this.confirmThreshold(el.r_B_T_Temperature, "R_B_T_Temperature")}`}>{el.r_B_T_Temperature}</td>
+                                        <td>{el.filenm}</td>
+                                    </tr>
+                                    )
+                                })
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                  </div>
+                );                
             }
     }
     

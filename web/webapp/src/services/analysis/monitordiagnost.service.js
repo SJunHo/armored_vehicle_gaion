@@ -37,6 +37,10 @@ class monitorDiagnostDataService {
     getThreshold() {
         return axios.get( API_URL + "/getThreshold", { headers: authHeader() , "Content-type": "application/json", });
     }
+
+    searchSimulation(data){
+        return axios.post( API_URL + "/searchSimulation", data, {headers: authHeader(), "Content-type": "application/json", });
+    }
 }
 
 export default new monitorDiagnostDataService();

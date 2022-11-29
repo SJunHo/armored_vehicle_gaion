@@ -481,7 +481,7 @@ height: 1rem;
   padding: 75px 25px;
 }
 .container.min{
-  min-width: 1200px;
+  min-width: 1300px;
 }
 .min.row{
   max-width: 1600px;
@@ -1752,7 +1752,7 @@ label[class*="btnn"]{
   color: #fff;
   background-color: #474566;
 }
-.button_area button:hover{
+.button_area button:hover, .button_area02 button:hover{
   background: #4a4492;
 }
 .button_area button:first-child{

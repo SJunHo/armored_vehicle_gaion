@@ -37,6 +37,9 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
       tableLoading : false,
       paramdescList : [],
       clickOn : false,
+      simulationState : false,
+      simulsDate : new Date(),
+      simuleDate : new Date(),
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,12 +60,26 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     this.createTable = this.createTable.bind(this);
     this.createAnalysisTable = this.createAnalysisTable.bind(this);
     this.chartLoad = this.chartLoad.bind(this);
+    this.simulation = this.simulation.bind(this);
   }
 
   componentDidMount(){
     console.log(this.props.match.params.id);
     this.getAllVehicleInfo();
-    
+
+
+    //시뮬레이션 날짜 설정
+    let simulsdate = this.state.simulsDate;
+    let simuledate = this.state.simuleDate;
+
+    simulsdate.setFullYear(2020);
+    simulsdate.setMonth(3);
+    simuledate.setFullYear(2020);
+    simuledate.setMonth(5);
+    this.setState({
+      simulsDate : simulsdate,
+      simuleDate : simuledate,
+    });
   }
 
   componentDidUpdate(PrevState, PrevProps){
@@ -118,9 +135,10 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     });
   }
 
-  searchTroubleThings(source) {   //조회하기 버튼으로 데이터 조회
+  searchTroubleThings(source, simulData) {   //조회하기 버튼으로 데이터 조회
     const { selectedVehicle, selectedPart, startDate, endDate, page, pageSize } = this.state;
     console.log(source);
+    console.log(startDate);
     const analysisElement = document.getElementById('analysisTable');
     this.setState({
       tableLoading : true,
@@ -142,27 +160,39 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     }
     let data;
     if(source === "Pagination"){      //페이징된 버튼 < 1 2 3 ~ >눌렀을때  
-      data = {
-        sdaid : selectedVehicle,
-        part : selectedPart,
-        startDate : startDate,
-        endDate : endDate,
-        page: page,
-        size: pageSize,
-      };
+      if(this.state.simulationState === true){
+        data = {
+          sdaid : "SIMULATION",
+          part : "SIMULATION",
+          page: page,
+          size: pageSize,
+        };
+      }else{
+        data = {
+          sdaid : selectedVehicle,
+          part : selectedPart,
+          startDate : startDate,
+          endDate : endDate,
+          page: page,
+          size: pageSize,
+        };
+      }
       this.createTable(data);
-    }else{            //페이징 아닌, 조회하기버튼 클릭으로, 페이지를 this.state.page, size를 초기화함
-      data = {
-        sdaid : selectedVehicle,
-        part : selectedPart,
-        startDate : startDate,
-        endDate : endDate,
-        page: 1,
-        size: 10,
-      };
+    }else if(source === "simulation"){            //페이징 아닌, 조회하기버튼 클릭으로, 페이지를 this.state.page, size를 초기화함
+        this.createTable(simulData);
+    }else{
+        data = {
+          sdaid : selectedVehicle,
+          part : selectedPart,
+          startDate : startDate,
+          endDate : endDate,
+          page: 1,
+          size: 10,
+        };
       this.setState({
         page: 1,
         size: 10,
+        simulationState : false,
       }, () => {
         this.createTable(data);
       });
@@ -174,7 +204,6 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     
     const parentElement = document.getElementById('includeTroubleTable');
     const { selectedVehicle } = this.state;
-
 
     switch(this.state.selectedPart){
       case 'BEARING':
@@ -318,6 +347,53 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
         .catch((e) => {
           console.log(e);
         })
+        break;
+        case 'SIMULATION':
+          monitorDiagnostDataService.searchSimulation(data)
+          .then((response) => {
+            console.log(response.data);
+            const { troubleList, paging} = response.data;
+            this.setState({
+              troubleList: troubleList,
+              count: paging.totalPageCount,
+              tableLoading : false,
+            }, () => {
+
+              ReactDOM.render(
+              <TableByTrouble data={this.state.troubleList} infoData={data} func={this.createAnalysisTable} sdaid={selectedVehicle} 
+              load={this.chartLoad}
+              />, 
+              parentElement);
+
+              let warnMsg = false;
+              this.state.troubleList.forEach((el) => {
+                if(el.ai_LBPFO === "1"){
+                  warnMsg = true;
+                }else if(el.ai_LBPFI === "1"){
+                  warnMsg = true;
+                }else if(el.ai_LBSF === "1"){
+                  warnMsg = true;
+                }else if(el.ai_LFTF === "1"){
+                  warnMsg = true;
+                }else if(el.ai_RBPFO === "1"){
+                  warnMsg = true;
+                }else if(el.ai_RBPFI === "1"){
+                  warnMsg = true;
+                }else if(el.ai_RBSF === "1"){
+                  warnMsg = true;
+                }else if(el.ai_RFTF === "1"){
+                  warnMsg = true;
+                }
+              })
+              if(warnMsg){
+                alert("고장경고");
+              }
+            });
+          })
+          .catch((e) => {
+            console.log(e);
+          })
+        break;
     }
   }
 
@@ -391,7 +467,7 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     this.setState({
       page: value,
     }, () => {
-      this.searchTroubleThings("Pagination");
+      this.searchTroubleThings("Pagination", null);
     })
   }
   downloadExcel() {   //엑셀다운로드 함수 
@@ -612,6 +688,24 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
       chartLoading : param
     })
   }
+
+  simulation(){
+
+    let data = {
+      sdaid : "SIMULATION",
+      part : "SIMULATION",
+      page: 1,
+      size: 10,
+    };
+    this.setState({
+      simulationState : true,     
+      page: 1,
+      size: 10,
+    },()=>{
+      this.searchTroubleThings("simulation", data);
+    });
+  }
+
   render() {
     const {
       page,
@@ -623,73 +717,76 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     return (
       <div className="container min">
         <header className="jumbotron">
-        AI 고장진단 결과 조회
+          AI 고장진단 결과 조회
+        <div className="button_area02">
+          <button className="btn-sumulation" onClick={this.simulation}>시뮬레이션</button>
+        </div>
         </header>
-        <div className="search-Bar contents04">
-          <div className="amvh-selector form-group">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              차량(호기) 선택
-            </label>
-              <select value={this.state.selectedVehicle} onChange={this.vehicleIdChange}>            
-                {
-                  this.state.allVehicleInfo &&
-                  this.state.allVehicleInfo.map((el, idx) => {
-                    return (
-                      <option value={el.sdaid} key={el.sdaid}>{el.sdanm}</option>  
-                    )
-                  })
-                }
-              </select>
-          </form>
-          </div>
-          <div className="gear-selector form-group">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              부품 선택
-            </label>
-              <select value={this.state.selectedPart} onChange={this.vehiclePartChange}>            
-                <option value="BEARING">베어링</option>
-                <option value="ENGINE">엔진</option>
-                <option value="GEARBOX">기어박스</option>
-                <option value="WHEEL">휠</option>
-              </select>
-          </form>
-          </div>
-          <div className="datepicker-div form-group">
-            <label>검색 기간</label>
-            <div className="form-datepic">
-              <div className="detepicker-div-start">
-                <form className="datepicker-form" onSubmit={this.onFormSubmit}>
-                  <div className="form-group">
-                    <DatePicker 
-                      selected={this.state.startDate}
-                      onChange={this.startDateChange}
-                      name="startDate"
-                      dateFormat="yyyy/MM/dd"
-                      locale={ko}
-                    />
-                  </div>
-                </form>
-                </div>
-                <em>~</em>
-                <div className="detepicker-div-end">
+          <div className="search-Bar contents04">
+            <div className="amvh-selector form-group">
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                차량(호기) 선택
+              </label>
+                <select value={this.state.selectedVehicle} onChange={this.vehicleIdChange}>            
+                  {
+                    this.state.allVehicleInfo &&
+                    this.state.allVehicleInfo.map((el, idx) => {
+                      return (
+                        <option value={el.sdaid} key={el.sdaid}>{el.sdanm}</option>  
+                      )
+                    })
+                  }
+                </select>
+            </form>
+            </div>
+            <div className="gear-selector form-group">
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                부품 선택
+              </label>
+                <select value={this.state.selectedPart} onChange={this.vehiclePartChange}>            
+                  <option value="BEARING">베어링</option>
+                  <option value="ENGINE">엔진</option>
+                  <option value="GEARBOX">기어박스</option>
+                  <option value="WHEEL">휠</option>
+                </select>
+            </form>
+            </div>
+            <div className="datepicker-div form-group">
+              <label>검색 기간</label>
+              <div className="form-datepic">
+                <div className="detepicker-div-start">
                   <form className="datepicker-form" onSubmit={this.onFormSubmit}>
                     <div className="form-group">
                       <DatePicker 
-                        selected={this.state.endDate}
-                        onChange={this.endDateChange}
-                        minDate={this.state.startDate}
-                        name="endDate"
+                        selected={this.state.startDate}
+                        onChange={this.startDateChange}
+                        name="startDate"
                         dateFormat="yyyy/MM/dd"
                         locale={ko}
                       />
                     </div>
                   </form>
+                  </div>
+                  <em>~</em>
+                  <div className="detepicker-div-end">
+                    <form className="datepicker-form" onSubmit={this.onFormSubmit}>
+                      <div className="form-group">
+                        <DatePicker 
+                          selected={this.state.endDate}
+                          onChange={this.endDateChange}
+                          minDate={this.state.startDate}
+                          name="endDate"
+                          dateFormat="yyyy/MM/dd"
+                          locale={ko}
+                        />
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <button className="btn07" onClick={this.searchTroubleThings} >조회하기</button>
+              <button className="btn07" onClick={this.searchTroubleThings} >조회하기</button>
           </div>
             <div id="includeTroubleTable" className="contents05"  disabled={this.state.tableLoading}>  
             
@@ -716,7 +813,7 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
                 shape="rounded"
                 onChange={this.handlePageChange}
               />
-              <button className="btn-do" onClick={this.downloadExcel} >다운로드</button>
+              <button className="btn-do" onClick={this.downloadExcel} disabled={this.state.simulationState}>다운로드</button>
             </div>
           {/* </div> */}
           <div id="analysisTable" className="chart">
