@@ -1551,13 +1551,13 @@ export interface ESDataUpdateInput {
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    gdefectProb?: number;
+    udefectProb?: number;
     /**
      * 
      * @type {number}
      * @memberof ESDataUpdateInput
      */
-    udefectProb?: number;
+    gdefectProb?: number;
 }
 /**
  * 
@@ -2968,13 +2968,13 @@ export interface Pageable {
      * @type {boolean}
      * @memberof Pageable
      */
-    paged?: boolean;
+    unpaged?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    paged?: boolean;
 }
 /**
  * 
@@ -4288,70 +4288,10 @@ export interface SearchRequest {
 export interface SensorBearingLeftBallInterface {
     /**
      * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    user_LBSF?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_6912BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_DATE?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ac_v?: number;
+    user_LBSF_ID?: string;
     /**
      * 
      * @type {number}
@@ -4363,7 +4303,43 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
+    ac_h?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
     l_B_V_32922BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_v?: number;
     /**
      * 
      * @type {string}
@@ -4372,10 +4348,34 @@ export interface SensorBearingLeftBallInterface {
     date?: string;
     /**
      * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_6912BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    user_LBSF_ID?: string;
+    user_LBSF_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4390,12 +4390,6 @@ export interface SensorBearingLeftBallInterface {
     l_B_V_32924BSF?: number;
     /**
      * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_MODEL?: string;
-    /**
-     * 
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
@@ -4405,19 +4399,25 @@ export interface SensorBearingLeftBallInterface {
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    user_LBSF_DATE?: string;
+    user_LBSF?: string;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    idx?: number;
+    l_B_V_Crestfactor?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    ai_LBSF?: string;
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_T_Temperature?: number;
 }
 /**
  * 
@@ -4430,37 +4430,7 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_S_Fault2?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4472,13 +4442,13 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    ac_v?: number;
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    ac_a?: number;
+    ac_v?: number;
     /**
      * 
      * @type {string}
@@ -4490,43 +4460,43 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
     l_B_V_1X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    idx?: number;
+    l_B_V_Crestfactor?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    user_LBPFI?: string;
+    l_B_V_Demodulation?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    user_LBPFI_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_MODEL?: string;
+    l_B_T_Temperature?: number;
     /**
      * 
      * @type {string}
@@ -4535,10 +4505,10 @@ export interface SensorBearingLeftInsideInterface {
     ai_LBPFI?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_32922BPFI?: number;
+    ai_LBPFI_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4553,10 +4523,40 @@ export interface SensorBearingLeftInsideInterface {
     l_B_V_6912BPFI?: number;
     /**
      * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    user_LBPFI?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    user_LBPFI_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_32922BPFI?: number;
+    /**
+     * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
     l_B_V_32924BPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_ALGO?: string;
 }
 /**
  * 
@@ -4569,37 +4569,7 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_S_Fault2?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4611,13 +4581,13 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ac_v?: number;
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ac_a?: number;
+    ac_v?: number;
     /**
      * 
      * @type {string}
@@ -4629,25 +4599,49 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     idx?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_32924BPFO?: number;
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_T_Temperature?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    user_LBPFO_DATE?: string;
+    user_LBPFO_ID?: string;
     /**
      * 
      * @type {number}
@@ -4659,13 +4653,13 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    user_LBPFO_ID?: string;
+    ai_LBPFO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ai_LBPFO?: string;
+    user_LBPFO_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4674,10 +4668,22 @@ export interface SensorBearingLeftOutsideInterface {
     user_LBPFO?: string;
     /**
      * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_ALGO?: string;
+    /**
+     * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_32922BPFO?: number;
+    l_B_V_32924BPFO?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -4686,16 +4692,10 @@ export interface SensorBearingLeftOutsideInterface {
     ai_LBPFO_DATE?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ai_LBPFO_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ai_LBPFO_MODEL?: string;
+    l_B_V_32922BPFO?: number;
 }
 /**
  * 
@@ -4708,37 +4708,7 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_S_Fault2?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4750,13 +4720,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ac_v?: number;
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ac_a?: number;
+    ac_v?: number;
     /**
      * 
      * @type {string}
@@ -4768,43 +4738,49 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
     idx?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_32924FTF?: number;
+    w_RPM?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_MODEL?: string;
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_T_Temperature?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
     ai_LFTF?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    user_LFTF_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    user_LFTF_DATE?: string;
     /**
      * 
      * @type {number}
@@ -4816,13 +4792,37 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
+    user_LFTF_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    user_LFTF?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ai_LFTF_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_32924FTF?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
     ai_LFTF_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_ALGO?: string;
+    user_LFTF_DATE?: string;
     /**
      * 
      * @type {number}
@@ -4834,7 +4834,7 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    user_LFTF?: string;
+    ai_LFTF_ALGO?: string;
 }
 /**
  * 
@@ -4847,25 +4847,7 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4880,12 +4862,6 @@ export interface SensorBearingRightBallInterface {
     ac_v?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ac_a?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
@@ -4896,6 +4872,36 @@ export interface SensorBearingRightBallInterface {
      * @memberof SensorBearingRightBallInterface
      */
     idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_S_Fault2?: number;
     /**
      * 
      * @type {number}
@@ -4910,28 +4916,10 @@ export interface SensorBearingRightBallInterface {
     r_B_S_Fault1?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_S_Fault2?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
     ai_RBSF_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    user_RBSF_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF?: string;
     /**
      * 
      * @type {number}
@@ -4946,12 +4934,6 @@ export interface SensorBearingRightBallInterface {
     ai_RBSF_MODEL?: string;
     /**
      * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_V_32924BSF?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
@@ -4964,10 +4946,28 @@ export interface SensorBearingRightBallInterface {
     r_B_V_32922BSF?: number;
     /**
      * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_32924BSF?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
     user_RBPFO_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF?: string;
     /**
      * 
      * @type {string}
@@ -4986,25 +4986,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5017,12 +4999,6 @@ export interface SensorBearingRightInsideInterface {
      * @memberof SensorBearingRightInsideInterface
      */
     ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {string}
@@ -5040,13 +5016,25 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_1X?: number;
+    w_RPM?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_S_Fault1?: number;
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -5058,25 +5046,13 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_32922BPFI?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    user_RBPFI_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    user_RBPFI_ID?: string;
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_6912BPFI?: number;
+    r_B_S_Fault1?: number;
     /**
      * 
      * @type {string}
@@ -5088,7 +5064,19 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    ai_RBPFI_MODEL?: string;
+    user_RBPFI_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -5100,7 +5088,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    ai_RBPFI_DATE?: string;
+    user_RBPFI_ID?: string;
     /**
      * 
      * @type {number}
@@ -5112,7 +5100,19 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    ai_RBPFI_ALGO?: string;
+    ai_RBPFI_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_6912BPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI_DATE?: string;
 }
 /**
  * 
@@ -5125,25 +5125,7 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5156,12 +5138,6 @@ export interface SensorBearingRightOutsideInterface {
      * @memberof SensorBearingRightOutsideInterface
      */
     ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {string}
@@ -5179,6 +5155,36 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
     r_B_V_1X?: number;
     /**
      * 
@@ -5186,12 +5192,6 @@ export interface SensorBearingRightOutsideInterface {
      * @memberof SensorBearingRightOutsideInterface
      */
     r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_S_Fault2?: number;
     /**
      * 
      * @type {string}
@@ -5203,13 +5203,19 @@ export interface SensorBearingRightOutsideInterface {
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
+    ai_RBPFO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
     ai_RBPFO_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ai_RBPFO_DATE?: string;
+    user_RBPFO?: string;
     /**
      * 
      * @type {string}
@@ -5218,10 +5224,16 @@ export interface SensorBearingRightOutsideInterface {
     user_RBPFO_DATE?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_6912BPFO?: number;
+    ai_RBPFO_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO_DATE?: string;
     /**
      * 
      * @type {number}
@@ -5236,22 +5248,10 @@ export interface SensorBearingRightOutsideInterface {
     r_B_V_32922BPFO?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    user_RBPFO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ai_RBPFO_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ai_RBPFO?: string;
+    r_B_V_6912BPFO?: number;
 }
 /**
  * 
@@ -5264,25 +5264,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5297,12 +5279,6 @@ export interface SensorBearingRightRetainerInterface {
     ac_v?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ac_a?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
@@ -5315,34 +5291,28 @@ export interface SensorBearingRightRetainerInterface {
     idx?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF_DATE?: string;
+    w_RPM?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_1X?: number;
+    r_B_V_Demodulation?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_S_Fault1?: number;
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -5360,25 +5330,13 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    user_RFTF_DATE?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_V_32922FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_V_6912FTF?: number;
+    ai_RFTF_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF_ALGO?: string;
+    ai_RFTF_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -5390,7 +5348,49 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
+    user_RFTF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_32922FTF?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
     user_RFTF?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_6912FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_ALGO?: string;
 }
 /**
  * 
@@ -5403,7 +5403,7 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5418,12 +5418,6 @@ export interface SensorEngineInterface {
     ac_v?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    ac_a?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
@@ -5436,28 +5430,28 @@ export interface SensorEngineInterface {
     idx?: number;
     /**
      * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE?: string;
+    /**
+     * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
     user_ENGINE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    ai_ENGINE_ALGO?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    user_ENGINE_ID?: string;
     /**
      * 
      * @type {number}
@@ -5469,13 +5463,13 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    e_V_1_2X?: number;
+    e_V_Crestfactor?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE?: string;
+    ai_ENGINE_DATE?: string;
     /**
      * 
      * @type {number}
@@ -5487,19 +5481,25 @@ export interface SensorEngineInterface {
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
     ai_ENGINE_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    user_ENGINE_DATE?: string;
+    ai_ENGINE_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE_ID?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_1_2X?: number;
 }
 /**
  * 
@@ -5512,7 +5512,7 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5525,12 +5525,6 @@ export interface SensorGearboxInterface {
      * @memberof SensorGearboxInterface
      */
     ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {string}
@@ -5548,7 +5542,25 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    g_V_OverallRMS?: number;
+    w_RPM?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    user_GEAR?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_GMF2X?: number;
     /**
      * 
      * @type {string}
@@ -5563,46 +5575,16 @@ export interface SensorGearboxInterface {
     g_V_Wheel1X?: number;
     /**
      * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    user_GEAR?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    user_GEAR_ID?: string;
-    /**
-     * 
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    g_V_Pinion1X?: number;
+    g_V_Pinion2X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorGearboxInterface
      */
     g_V_GMF1X?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_DATE?: string;
     /**
      * 
      * @type {number}
@@ -5614,7 +5596,19 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    g_V_GMF2X?: number;
+    g_V_Pinion1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_OverallRMS?: number;
     /**
      * 
      * @type {string}
@@ -5623,10 +5617,16 @@ export interface SensorGearboxInterface {
     user_GEAR_DATE?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorGearboxInterface
      */
-    g_V_Pinion2X?: number;
+    ai_GEAR_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    user_GEAR_ID?: string;
 }
 /**
  * 
@@ -5730,7 +5730,7 @@ export interface SensorWheelLeftInterface {
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5745,12 +5745,6 @@ export interface SensorWheelLeftInterface {
     ac_v?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    ac_a?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
@@ -5761,6 +5755,30 @@ export interface SensorWheelLeftInterface {
      * @memberof SensorWheelLeftInterface
      */
     idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_2X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW?: string;
     /**
      * 
      * @type {string}
@@ -5778,19 +5796,13 @@ export interface SensorWheelLeftInterface {
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
-    ai_LW?: string;
+    user_LW_ID?: string;
     /**
      * 
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
     l_W_V_3X?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    user_LW?: string;
     /**
      * 
      * @type {string}
@@ -5803,18 +5815,6 @@ export interface SensorWheelLeftInterface {
      * @memberof SensorWheelLeftInterface
      */
     ai_LW_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    user_LW_ID?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    l_W_V_2X?: number;
     /**
      * 
      * @type {number}
@@ -5833,7 +5833,7 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    w_RPM?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5848,12 +5848,6 @@ export interface SensorWheelRightInterface {
     ac_v?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    ac_a?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
@@ -5866,22 +5860,16 @@ export interface SensorWheelRightInterface {
     idx?: number;
     /**
      * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    user_RW_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    user_RW_ID?: string;
-    /**
-     * 
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    r_W_V_2X?: number;
+    w_RPM?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_ALGO?: string;
     /**
      * 
      * @type {number}
@@ -5890,22 +5878,16 @@ export interface SensorWheelRightInterface {
     r_W_V_3X?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    r_W_S_Fault3?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
     user_RW?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    ai_RW_ALGO?: string;
+    r_W_V_2X?: number;
     /**
      * 
      * @type {string}
@@ -5923,7 +5905,25 @@ export interface SensorWheelRightInterface {
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
+    user_RW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
     ai_RW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW_ID?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    r_W_S_Fault3?: number;
 }
 /**
  * 
