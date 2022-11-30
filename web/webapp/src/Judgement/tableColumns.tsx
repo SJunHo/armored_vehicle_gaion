@@ -94,6 +94,58 @@ export type SensorEngineInput = {
   e_V_Crestfactor: number, ac_h: number, ac_v: number, ac_a: number, date: string
 }
 
+export const partTypes = [
+  // bearing
+  {
+    value: "BLB",
+    label: "베어링 좌측 볼",
+  },
+  {
+    value: "BLI",
+    label: "베어링 좌측 내륜",
+  },
+  {
+    value: "BLO",
+    label: "베어링 좌측 외륜",
+  },
+  {
+    value: "BLR",
+    label: "베어링 좌측 리테이너",
+  },
+  {
+    value: "BRB",
+    label: "베어링 우측 볼",
+  },
+  {
+    value: "BRI",
+    label: "베어링 우측 내륜",
+  },
+  {
+    value: "BRO",
+    label: "베어링 우측 외륜",
+  },
+  {
+    value: "BRR",
+    label: "베어링 우측 리테이너",
+  },
+  // wheel
+  {
+    value: "WL",
+    label: "차륜 좌측",
+  },
+  {
+    value: "WR",
+    label: "차륜 우측",
+  },
+  {
+    value: "G",
+    label: "감속기(기어박스)",
+  },
+  {
+    value: "E",
+    label: "엔진",
+  }
+]
 
 
 
