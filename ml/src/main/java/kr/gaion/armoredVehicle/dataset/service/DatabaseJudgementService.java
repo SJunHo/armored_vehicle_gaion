@@ -69,7 +69,6 @@ public class DatabaseJudgementService {
     public List<String> findDistinctByCarId(String partType) {
         var targetColumn = findClassLabel(partType);
         var componentType = partType.substring(0, 1);
-        System.out.println("componentType: " + componentType);
 
         List<String> result = new ArrayList<>();
         switch (componentType) {
@@ -98,32 +97,97 @@ public class DatabaseJudgementService {
                     tempData.setUserLbsfDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
-
             case "BLO":
-                return "AI_LBPFO";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserLbpfo(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserLbpfoId(logUser.getUserid());
+                    tempData.setUserLbpfoDate(new Date());
+                    sensorBearingRepository.save(tempData);
+                }
             case "BLI":
-                return "AI_LBPFI";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserLbpfi(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserLbpfiId(logUser.getUserid());
+                    tempData.setUserLbpfiDate(new Date());
+                    sensorBearingRepository.save(tempData);
+                }
             case "BLR":
-                return "AI_LFTF";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserLftf(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserLftfId(logUser.getUserid());
+                    tempData.setUserLftfDate(new Date());
+                    sensorBearingRepository.save(tempData);
+                }
             case "BRB":
-                return "AI_RBSF";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserRbsf(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserRbsfId(logUser.getUserid());
+                    tempData.setUserRbsfDate(new Date());
+                    sensorBearingRepository.save(tempData);
+                }
             case "BRO":
-                return "AI_RBPFO";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserRbpfo(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserRbpfoId(logUser.getUserid());
+                    tempData.setUserRbpfoDate(new Date());
+                    sensorBearingRepository.save(tempData);
+                }
             case "BRI":
-                return "AI_RBPFI";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserRbpfi(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserRbpfiId(logUser.getUserid());
+                    tempData.setUserRbpfiDate(new Date());
+                    sensorBearingRepository.save(tempData);
+                }
             case "BRR":
-                return "AI_RFTF";
-            // wheel
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserRftf(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserRftfId(logUser.getUserid());
+                    tempData.setUserRftfDate(new Date());
+                    sensorBearingRepository.save(tempData);
+                }
+                // wheel
             case "WL":
-                return "AI_LW";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorWheelRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserLw(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserLwId(logUser.getUserid());
+                    tempData.setUserLwDate(new Date());
+                    sensorWheelRepository.save(tempData);
+                }
             case "WR":
-                return "AI_RW";
-            // gearbox
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorWheelRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserRw(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserRwId(logUser.getUserid());
+                    tempData.setUserRwDate(new Date());
+                    sensorWheelRepository.save(tempData);
+                }
+                // gearbox
             case "G":
-                return "AI_GEAR";
-            // engine
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorGearboxRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserGear(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserGearId(logUser.getUserid());
+                    tempData.setUserGearDate(new Date());
+                    sensorGearboxRepository.save(tempData);
+                }
+                // engine
             case "E":
-                return "AI_ENGINE";
+                for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
+                    var tempData = sensorEngineRepository.findById(dbJudgementUpdateInput.getIdx()).get();
+                    tempData.setUserEngine(dbJudgementUpdateInput.getUserJudgement());
+                    tempData.setUserEngineId(logUser.getUserid());
+                    tempData.setUserEngineDate(new Date());
+                    sensorEngineRepository.save(tempData);
+                }
         }
         return null;
     }
