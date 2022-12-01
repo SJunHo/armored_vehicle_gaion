@@ -147,8 +147,9 @@ export const JudgementUserInput: React.FC = () => {
         },
         {
           Header: "작업자 판정 날짜",
-          Cell: (value?: any) => {
-            return new Date(value.row.original.user_LBSF_DATE).toLocaleString("ko-KR")
+          accessor: (value) => {
+            let result = value.user_LBSF_DATE == null ? "" : new Date(value.user_LBSF_DATE).toLocaleString("ko-KR")
+            return result
           }
         },
         {
@@ -290,8 +291,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LBPFI_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LBPFI_DATE == null ? "" : new Date(value.user_LBPFI_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -432,8 +434,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LBPFO_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LBPFO_DATE == null ? "" : new Date(value.user_LBPFO_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -574,8 +577,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LFTF_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LFTF_DATE == null ? "" : new Date(value.user_LFTF_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -716,8 +720,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RBSF_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RBSF_DATE == null ? "" : new Date(value.user_RBSF_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -858,8 +863,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RBPFI_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RBPFI_DATE == null ? "" : new Date(value.user_RBPFI_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1000,8 +1006,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RBPFO_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RBPFO_DATE == null ? "" : new Date(value.user_RBPFO_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1142,8 +1149,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RFTF_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RFTF_DATE == null ? "" : new Date(value.user_RFTF_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1284,8 +1292,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LW_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LW_DATE == null ? "" : new Date(value.user_LW_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1402,8 +1411,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RW_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RW_DATE == null ? "" : new Date(value.user_RW_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1520,8 +1530,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_GEAR_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_GEAR_DATE == null ? "" : new Date(value.user_GEAR_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1654,8 +1665,9 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_ENGINE_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_ENGINE_DATE == null ? "" : new Date(value.user_ENGINE_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
