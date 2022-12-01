@@ -1315,7 +1315,7 @@ export const JudgementLookup: React.FC = () => {
           setSelectedCar(res.data[0])
         });
     }
-  }, [partType]);
+  }, [partType, databaseJudgementControllerApi]);
 
   function handleSearchTablesColumns(partType: any) {
     switch (partType) {
