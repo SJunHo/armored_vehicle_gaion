@@ -45,7 +45,7 @@ export const JudgementLookup: React.FC = () => {
 
   const [judgedData, setJudgedData] = useState<any[]>([]);
 
-  const {datasetControllerApi, databaseJudgementControllerApi} = useContext(OpenApiContext);
+  const {databaseJudgementControllerApi} = useContext(OpenApiContext);
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
@@ -1311,7 +1311,7 @@ export const JudgementLookup: React.FC = () => {
           setSelectedCar(res.data[0])
         });
     }
-  }, [partType, datasetControllerApi]);
+  }, [partType]);
 
   function handleSearchTablesColumns(partType: any) {
     switch (partType) {

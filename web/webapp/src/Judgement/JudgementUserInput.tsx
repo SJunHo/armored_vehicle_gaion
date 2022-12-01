@@ -10,6 +10,7 @@ import {Paginator} from "../common/Paginator";
 import {Table} from "../common/Table";
 import {Page} from "../common/Page/Page";
 import {
+  partTypes,
   SensorBearingLeftBallInput,
   SensorBearingLeftInsideInput,
   SensorBearingLeftOutsideInput,
@@ -22,6 +23,8 @@ import {
   SensorWheelLeftInput,
   SensorWheelRightInput
 } from "./tableColumns";
+import {Section} from "../common/Section/Section";
+import "./judgementStyle.css"
 
 
 export const JudgementUserInput: React.FC = () => {
@@ -41,7 +44,6 @@ export const JudgementUserInput: React.FC = () => {
   const {databaseJudgementControllerApi} = useContext(OpenApiContext);
 
   const [updateDefectUserList, setUpdateDefectUserList] = useState<{ idx: number; userJudgement: string; }[]>([]);
-  const [totalUpdateDefectUserList, setTotalUpdateDefectUserList] = useState<{ id: number; userJudgement: string; }[]>([]);
 
   function onClickHandler(score: any, idx: any, e: any) {
     // Whenever defectUser value comes in through radio button,
@@ -73,20 +75,164 @@ export const JudgementUserInput: React.FC = () => {
   }
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
+    () => {
+      return [
+        {
+          Header: "작업자 판정값",
+          Cell: (value: any) => {
+            return (
+              <>
+                <form className="d-flex">
+                  <div className="m-1">
+                    <input
+                      type="radio"
+                      name="defectUser"
+                      key={value.row.original.idx}
+                      value={1}
+                      defaultChecked={(value.row.original.user_LBSF == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                      onClick={(e: any) =>
+                        onClickHandler(1, value.row.original.idx, e)
+                      }
+                      style={{border: '0px', width: '100%', height: '1em'}}
+                    />
+                    <label className="m-1"> 고장 </label>
+                  </div>
+                  <div className="m-1">
+                    <input
+                      type="radio"
+                      name="defectUser"
+                      key={value.row.original.idx}
+                      value={0}
+                      defaultChecked={(value.row.original.user_LBSF == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                      onClick={(e: any) =>
+                        onClickHandler(0, value.row.original.idx, e)
+                      }
+                      style={{border: '0px', width: '100%', height: '1em'}}
+                    />
+                    <label className="m-1"> 정상 </label>
+                  </div>
+                </form>
+              </>
+            )
+          }
+        },
+        {
+          Header: "예측 결과",
+          accessor: (data) => {
+            let result = data.ai_LBSF == "0" ? "정상" : "고장"
+            return (
+              <>
+                <div>{result}</div>
+              </>
+            )
+          },
+        },
+        {
+          Header: "알고리즘",
+          accessor: "ai_LBSF_ALGO",
+        },
+        {
+          Header: "모델이름",
+          accessor: "ai_LBSF_MODEL",
+        },
+        {
+          Header: "모델 판정 날짜",
+          Cell: (value?: any) => {
+            return new Date(value.row.original.ai_LBSF_DATE).toLocaleString("ko-KR")
+          }
+        },
+        {
+          Header: "작업자 ID",
+          accessor: "user_LBSF_ID",
+        },
+        {
+          Header: "작업자 판정 날짜",
+          Cell: (value?: any) => {
+            return new Date(value.row.original.user_LBSF_DATE).toLocaleString("ko-KR")
+          }
+        },
+        {
+          Header: "ID",
+          accessor: "idx",
+        },
+        {
+          Header: "W_RPM",
+          accessor: "w_RPM",
+        },
+        {
+          Header: "L_B_V_1X",
+          accessor: "l_B_V_1X",
+        },
+        {
+          Header: "L_B_V_6912BSF",
+          accessor: "l_B_V_6912BSF",
+        },
+        {
+          Header: "L_B_V_32924BSF",
+          accessor: "l_B_V_32924BSF",
+        },
+        {
+          Header: "L_B_V_32922BSF",
+          accessor: "l_B_V_32922BSF",
+        },
+        {
+          Header: "L_B_V_Crestfactor",
+          accessor: "l_B_V_Crestfactor",
+        },
+        {
+          Header: "L_B_V_Demodulation",
+          accessor: "l_B_V_Demodulation",
+        },
+        {
+          Header: "L_B_S_Fault1",
+          accessor: "l_B_S_Fault1",
+        },
+        {
+          Header: "L_B_S_Fault2",
+          accessor: "l_B_S_Fault2",
+        },
+        {
+          Header: "L_B_T_Temperature",
+          accessor: "l_B_T_Temperature",
+        },
+        {
+          Header: "AC_h",
+          accessor: "ac_h",
+        },
+        {
+          Header: "AC_v",
+          accessor: "ac_v",
+        },
+        {
+          Header: "AC_a",
+          accessor: "ac_a",
+        },
+        {
+          Header: "DATE",
+          Cell: (value?: any) => {
+            return new Date(value.row.original.date).toLocaleString("ko-KR")
+          }
+        },
+      ];
+    },
+    []
+  );
+
+  const SensorBearingLeftInsideColumns = useMemo<Column<SensorBearingLeftInsideInput>[]>(
     () => [
       {
         Header: "작업자 판정값",
         Cell: (value: any) => {
           return (
             <>
-              <form className={"d-flex"}>
+              <form className="d-flex">
                 <div className="m-1">
                   <input
                     type="radio"
                     name="defectUser"
                     key={value.row.original.idx}
                     value={1}
-                    defaultChecked={(value.row.original.user_LBSF == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    defaultChecked={(value.row.original.user_LBPFI == 1) || (radioButtonHandler(1, value.row.original.idx))}
                     onClick={(e: any) =>
                       onClickHandler(1, value.row.original.idx, e)
                     }
@@ -100,7 +246,7 @@ export const JudgementUserInput: React.FC = () => {
                     name="defectUser"
                     key={value.row.original.idx}
                     value={0}
-                    defaultChecked={(value.row.original.user_LBSF == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    defaultChecked={(value.row.original.user_LBPFI == 0) || (radioButtonHandler(0, value.row.original.idx))}
                     onClick={(e: any) =>
                       onClickHandler(0, value.row.original.idx, e)
                     }
@@ -113,108 +259,16 @@ export const JudgementUserInput: React.FC = () => {
           )
         }
       },
-
       {
         Header: "예측 결과",
-        accessor: "ai_LBSF",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LBSF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBSF_MODEL",
-      },
-      {
-        Header: "수행시간",
-        accessor: "ai_LBSF_DATE",
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_LBSF_ID",
-      },
-      {
-        Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LBSF_DATE).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "L_B_V_1X",
-        accessor: "l_B_V_1X",
-      },
-      {
-        Header: "L_B_V_6912BSF",
-        accessor: "l_B_V_6912BSF",
-      },
-      {
-        Header: "L_B_V_32924BSF",
-        accessor: "l_B_V_32924BSF",
-      },
-      {
-        Header: "L_B_V_32922BSF",
-        accessor: "l_B_V_32922BSF",
-      },
-      {
-        Header: "L_B_V_Crestfactor",
-        accessor: "l_B_V_Crestfactor",
-      },
-      {
-        Header: "L_B_V_Demodulation",
-        accessor: "l_B_V_Demodulation",
-      },
-      {
-        Header: "L_B_S_Fault1",
-        accessor: "l_B_S_Fault1",
-      },
-      {
-        Header: "L_B_S_Fault2",
-        accessor: "l_B_S_Fault2",
-      },
-      {
-        Header: "L_B_T_Temperature",
-        accessor: "l_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-    ],
-    []
-  );
-
-  const SensorBearingLeftInsideColumns = useMemo<Column<SensorBearingLeftInsideInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "예측 결과",
-        accessor: "ai_LBPFI",
+        accessor: (data) => {
+          let result = data.ai_LBPFI == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -225,12 +279,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_LBPFI_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_LBPFI_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_LBPFI",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_LBPFI_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -241,6 +293,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_LBPFI_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -307,12 +363,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorBearingLeftOutsideColumns = useMemo<Column<SensorBearingLeftOutsideInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_LBPFO == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_LBPFO == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LBPFO",
+        accessor: (data) => {
+          let result = data.ai_LBPFO == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -323,12 +421,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_LBPFO_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_LBPFO_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_LBPFO",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_LBPFO_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -339,6 +435,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_LBPFO_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -405,12 +505,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorBearingLeftRetainerColumns = useMemo<Column<SensorBearingLeftRetainerInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_LFTF == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_LFTF == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LFTF",
+        accessor: (data) => {
+          let result = data.ai_LFTF == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -421,12 +563,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_LFTF_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_LFTF_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_LFTF",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_LFTF_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -437,6 +577,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_LFTF_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -503,12 +647,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorBearingRightBallColumns = useMemo<Column<SensorBearingRightBallInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_RBSF == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_RBSF == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RBSF",
+        accessor: (data) => {
+          let result = data.ai_RBSF == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -519,12 +705,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_RBSF_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_RBSF_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_RBSF",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_RBSF_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -535,6 +719,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_RBSF_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -601,12 +789,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorBearingRightInsideColumns = useMemo<Column<SensorBearingRightInsideInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_RBPFI == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_RBPFI == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RBPFI",
+        accessor: (data) => {
+          let result = data.ai_RBPFI == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -617,12 +847,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_RBPFI_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_RBPFI_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_RBPFI",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_RBPFI_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -633,6 +861,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_RBPFI_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -699,12 +931,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorBearingRightOutsideColumns = useMemo<Column<SensorBearingRightOutsideInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_RBPFO == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_RBPFO == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RBPFO",
+        accessor: (data) => {
+          let result = data.ai_RBPFO == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -715,12 +989,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_RBPFO_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_RBPFO_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_RBPFO",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_RBPFO_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -731,6 +1003,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_RBPFO_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -797,12 +1073,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorBearingRightRetainerColumns = useMemo<Column<SensorBearingRightRetainerInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_RFTF == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_RFTF == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RFTF",
+        accessor: (data) => {
+          let result = data.ai_RFTF == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -813,12 +1131,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_RFTF_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_RFTF_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_RFTF",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_RFTF_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -829,6 +1145,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_RFTF_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -895,12 +1215,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorWheelLeftColumns = useMemo<Column<SensorWheelLeftInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_LW == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_LW == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_LW",
+        accessor: (data) => {
+          let result = data.ai_LW == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -911,12 +1273,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_LW_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_LW_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_LW",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_LW_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -927,6 +1287,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_LW_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -969,12 +1333,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorWheelRightColumns = useMemo<Column<SensorWheelRightInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_RW == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_RW == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_RW",
+        accessor: (data) => {
+          let result = data.ai_RW == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -985,12 +1391,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_RW_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_RW_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_RW",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_RW_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -1001,6 +1405,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_RW_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -1043,12 +1451,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorGearboxColumns = useMemo<Column<SensorGearboxInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_GEAR == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_GEAR == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_GEAR",
+        accessor: (data) => {
+          let result = data.ai_GEAR == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -1059,12 +1509,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_GEAR_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_GEAR_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_GEAR",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_GEAR_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -1075,6 +1523,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_GEAR_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -1133,12 +1585,54 @@ export const JudgementUserInput: React.FC = () => {
   const SensorEngineColumns = useMemo<Column<SensorEngineInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "작업자 판정값",
+        Cell: (value: any) => {
+          return (
+            <>
+              <form className="d-flex">
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={1}
+                    defaultChecked={(value.row.original.user_ENGINE == 1) || (radioButtonHandler(1, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(1, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 고장 </label>
+                </div>
+                <div className="m-1">
+                  <input
+                    type="radio"
+                    name="defectUser"
+                    key={value.row.original.idx}
+                    value={0}
+                    defaultChecked={(value.row.original.user_ENGINE == 0) || (radioButtonHandler(0, value.row.original.idx))}
+                    onClick={(e: any) =>
+                      onClickHandler(0, value.row.original.idx, e)
+                    }
+                    style={{border: '0px', width: '100%', height: '1em'}}
+                  />
+                  <label className="m-1"> 정상 </label>
+                </div>
+              </form>
+            </>
+          )
+        }
       },
       {
         Header: "예측 결과",
-        accessor: "ai_ENGINE",
+        accessor: (data) => {
+          let result = data.ai_ENGINE == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "알고리즘",
@@ -1149,12 +1643,10 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ai_ENGINE_MODEL",
       },
       {
-        Header: "수행시간",
-        accessor: "ai_ENGINE_DATE",
-      },
-      {
-        Header: "작업자 판정값",
-        accessor: "user_ENGINE",
+        Header: "모델 판정 날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.ai_ENGINE_DATE).toLocaleString("ko-KR")
+        }
       },
       {
         Header: "작업자 ID",
@@ -1165,6 +1657,10 @@ export const JudgementUserInput: React.FC = () => {
         Cell: (value?: any) => {
           return new Date(value.row.original.user_ENGINE_DATE).toLocaleString("ko-KR")
         }
+      },
+      {
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "W_RPM",
@@ -1209,16 +1705,10 @@ export const JudgementUserInput: React.FC = () => {
   );
 
 
-  function onPaginationHandler(nowPageDefectUserList: any) {
-    // When moving table pages, concat and save the list of values of the current page to 'totalUpdateDefectUserList'.
-    setTotalUpdateDefectUserList(totalUpdateDefectUserList.concat(nowPageDefectUserList))
-  }
-
   async function onClickSaveButtonHandler() {
     let proceed = window.confirm("저장하시겠습니까?");
     console.log(partType)
     console.log(updateDefectUserList)
-    console.log(totalUpdateDefectUserList)
     if (proceed) {
       // Update to DB with edited defectUser values
       databaseJudgementControllerApi?.updateUserJudgement(partType, updateDefectUserList)
@@ -1227,59 +1717,6 @@ export const JudgementUserInput: React.FC = () => {
         })
     }
   }
-
-  const partTypes = [
-    // bearing
-    {
-      value: "BLB",
-      label: "베어링 좌측 볼",
-    },
-    {
-      value: "BLI",
-      label: "베어링 좌측 내륜",
-    },
-    {
-      value: "BLO",
-      label: "베어링 좌측 외륜",
-    },
-    {
-      value: "BLR",
-      label: "베어링 좌측 리테이너",
-    },
-    {
-      value: "BRB",
-      label: "베어링 우측 볼",
-    },
-    {
-      value: "BRI",
-      label: "베어링 우측 내륜",
-    },
-    {
-      value: "BRO",
-      label: "베어링 우측 외륜",
-    },
-    {
-      value: "BRR",
-      label: "베어링 우측 리테이너",
-    },
-    // wheel
-    {
-      value: "WL",
-      label: "차륜 좌측",
-    },
-    {
-      value: "WR",
-      label: "차륜 우측",
-    },
-    {
-      value: "G",
-      label: "감속기(기어박스)",
-    },
-    {
-      value: "E",
-      label: "엔진",
-    }
-  ]
 
   function handleSearchTablesColumns(partType: any) {
     switch (partType) {
@@ -1345,7 +1782,6 @@ export const JudgementUserInput: React.FC = () => {
       return []
     }
     setTableColumn(handleSearchTablesColumns(partType))
-    onPaginationHandler(updateDefectUserList)
 
     if (partType == 'BLB') {
       databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
@@ -1507,13 +1943,13 @@ export const JudgementUserInput: React.FC = () => {
   }
 
   return (
-    <Page>
-      <Container fluid className="p-3 pt-5">
-        <Row className="row mb-2">
-          <Col xs={1} className="Col">
+    <Container className="p-0 w-100 ">
+      <Section title="검색 조건 입력">
+        <Row className="row">
+          <Col xs={1} className="text-right">
             부품 선택
           </Col>
-          <Col xs={2} className="Col">
+          <Col xs={2}>
             <Form.Select
               size="sm"
               value={partType}
@@ -1527,10 +1963,10 @@ export const JudgementUserInput: React.FC = () => {
               ))}
             </Form.Select>
           </Col>
-          <Col xs={1} className="Col">
+          <Col xs={1} className="text-right">
             차량 선택
           </Col>
-          <Col xs={2} className="Col">
+          <Col xs={1}>
             <Form.Select
               size="sm"
               value={selectedCar}
@@ -1541,8 +1977,8 @@ export const JudgementUserInput: React.FC = () => {
               ))}
             </Form.Select>
           </Col>
-          <Col xs={1}>기간</Col>
-          <Col xs={2} className="col ps-0">
+          <Col xs={1} className="text-right">기간</Col>
+          <Col xs={2}>
             <Form.Control
               size="sm"
               type="date"
@@ -1550,8 +1986,8 @@ export const JudgementUserInput: React.FC = () => {
               onChange={(v) => setFromDate(new Date((v.target as any).value))}
             />
           </Col>
-          <div className="fixed">~</div>
-          <Col xs={2} className="col pe-0">
+          <div className="font-weight-bold">~</div>
+          <Col xs={2}>
             <Form.Control
               type="date"
               size="sm"
@@ -1559,45 +1995,49 @@ export const JudgementUserInput: React.FC = () => {
               onChange={(v) => setToDate(new Date((v.target as any).value))}
             />
           </Col>
-          <Col xs={2}>
+          <div>
             <Button type="button" onClick={() => {
               handleSearchData()
             }}>검색</Button>
-          </Col>
+          </div>
         </Row>
-        <div>
-          {(totalPage) &&
-          <Table
-            columns={tableColumn}
-            data={predictedData}
-          />
-          }
-        </div>
-        <div>
-          <Paginator
-            pageCount={totalPage || 0}
-            size={paginate?.pageSize || 0}
-            selectedPage={paginate?.pageNumber || 0}
-            onChange={(v) => {
-              const newPaginate = {
-                ...paginate,
-                pageNumber: v,
-              };
-              setPaginate(newPaginate)
-              handleSearchData(newPaginate)
-            }}
-          />
-        </div>
-        <div style={{float: 'right'}}>
-          <Button type="button" className="btn btn-primary m-lg-1"
-                  onClick={() => {
-                    onClickSaveButtonHandler()
-                  }}>
-            결과 저장
-          </Button>
-        </div>
-      </Container>
-    </Page>
+      </Section>
+      <Section title="결과 조회">
+        <Col xl={12} className="w-100">
+          <Row className="overflow-auto">
+            {(totalPage) &&
+							<Table
+								columns={tableColumn}
+								data={predictedData}
+							/>
+            }
+            <div id="paginator" className="pt-4">
+              <Paginator
+                pageCount={totalPage || 0}
+                size={paginate?.pageSize || 0}
+                selectedPage={paginate?.pageNumber || 0}
+                onChange={(v) => {
+                  const newPaginate = {
+                    ...paginate,
+                    pageNumber: v,
+                  };
+                  setPaginate(newPaginate)
+                  handleSearchData(newPaginate)
+                }}
+              />
+            </div>
+            <div style={{float: 'right'}}>
+              <Button type="button" className="btn btn-primary m-lg-1"
+                      onClick={() => {
+                        onClickSaveButtonHandler()
+                      }}>
+                결과 저장
+              </Button>
+            </div>
+          </Row>
+        </Col>
+      </Section>
+    </Container>
   );
 };
 
