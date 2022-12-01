@@ -8,14 +8,13 @@ import {Column} from "react-table";
 import {OpenApiContext, Pageable} from "../api";
 import {Paginator} from "../common/Paginator";
 import {Table} from "../common/Table";
-import {Page} from "../common/Page/Page";
 import {CSVLink} from "react-csv";
 import {
+  partTypes,
   SensorBearingLeftBallInput,
-  SensorBearingLeftOutsideInput,
   SensorBearingLeftInsideInput,
-  SensorBearingLeftRetainerInput
-  ,
+  SensorBearingLeftOutsideInput,
+  SensorBearingLeftRetainerInput,
   SensorBearingRightBallInput,
   SensorBearingRightInsideInput,
   SensorBearingRightOutsideInput,
@@ -23,11 +22,11 @@ import {
   SensorEngineInput,
   SensorGearboxInput,
   SensorWheelLeftInput,
-  SensorWheelRightInput,
-  partTypes
+  SensorWheelRightInput
 } from "./tableColumns";
-import {CSVDownload} from "react-csv";
 import {Section} from "../common/Section/Section";
+import moment from "moment";
+import {cloneDeep} from "lodash";
 
 export const JudgementLookup: React.FC = () => {
   const [partType, setPartType] = useState<string>("BLB");
@@ -46,6 +45,11 @@ export const JudgementLookup: React.FC = () => {
   const [judgedData, setJudgedData] = useState<any[]>([]);
 
   const {databaseJudgementControllerApi} = useContext(OpenApiContext);
+
+  const notNeededColumnsForAnother = ["ai", "ac_", "DATE", "ID", "idx"];
+  const notNeededColumnsForEngine = ["ai", "DATE", "ID", "idx"];
+
+  const replacementsOfUserScoreToAIScore = {user_LBSF: "AI_LBSF"};
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
@@ -1354,13 +1358,26 @@ export const JudgementLookup: React.FC = () => {
     }
   }
 
+  function changeObjectKeyName(objectToChange: any, oldKeyName: string, newKeyName: string) {
+    const objectToChangeUpperCaseFirst = Object.entries(objectToChange).reduce((_map: any, [key, value]) => {
+      let newKey = key.toUpperCase()
+      _map[key.toUpperCase()] = value
+      return _map
+    }, {});
+    console.log("objectToChangeUpperCaseFirst : ", objectToChangeUpperCaseFirst)
+    const otherKeys = cloneDeep(objectToChange);
+    delete otherKeys[oldKeyName];
+    const changedKey = objectToChange[oldKeyName];
+    return {...{[newKeyName]: changedKey}, ...otherKeys};
+  }
+
   function handleSearchData(pageable?: Pageable) {
     if (selectedCar == undefined) {
       return []
     }
     setTableColumn(handleSearchTablesColumns(partType))
     //다운로드 데이터 조회
-    if (partType == 'BLB') {
+    if (partType === 'BLB') {
       databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1368,24 +1385,36 @@ export const JudgementLookup: React.FC = () => {
         pageable?.pageNumber,
         pageable?.pageSize
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
+          setPredictedData(res.data.content || []);
+          setPaginate(res.data.pageable);
+          setTotalPage(res.data.totalPages || 1);
+        }
+      );
       databaseJudgementControllerApi?.getLeftBallUserLBSFData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
         res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          if (eachKey.includes("ai")) {
-            delete eachMap[eachKey];
-          }
+          // delete not needed
+          notNeededColumnsForAnother.map((el: string) => {
+            if (eachKey.includes(el)) {
+              delete eachMap[eachKey]
+            }
+          })
         })))
-        setJudgedData(res.data);
+        // Change keys ('user_XXX' to 'AI_XXX' and all element of string to upper case)
+        let result: any[] = []
+        res.data.forEach(((eachMap: any) => {
+          let newMap = changeObjectKeyName(eachMap, "user_LBSF", "AI_LBSF")
+          result.push(newMap)
+        }))
+        console.log("result: ", result)
+        console.log("res.data: ", res.data)
+        setJudgedData(result);
       });
     }
-    if (partType == 'BLI') {
+    if (partType === 'BLI') {
       databaseJudgementControllerApi?.getBearingLeftInsidePredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1402,10 +1431,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'BLO') {
+    if (partType === 'BLO') {
       databaseJudgementControllerApi?.getBearingLeftOutsidePredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1422,10 +1460,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'BLR') {
+    if (partType === 'BLR') {
       databaseJudgementControllerApi?.getBearingLeftRetainerPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1442,10 +1489,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'BRB') {
+    if (partType === 'BRB') {
       databaseJudgementControllerApi?.getBearingRightBallPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1462,10 +1518,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'BRI') {
+    if (partType === 'BRI') {
       databaseJudgementControllerApi?.getBearingRightInsidePredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1482,10 +1547,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'BRO') {
+    if (partType === 'BRO') {
       databaseJudgementControllerApi?.getBearingRightOutsidePredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1502,10 +1576,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'BRR') {
+    if (partType === 'BRR') {
       databaseJudgementControllerApi?.getBearingRightRetainerPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1522,11 +1605,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-
-    if (partType == 'E') {
+    if (partType === 'E') {
       databaseJudgementControllerApi?.getEnginePredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1543,10 +1634,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForEngine.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'G') {
+    if (partType === 'G') {
       databaseJudgementControllerApi?.getGearboxPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1563,10 +1663,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'WL') {
+    if (partType === 'WL') {
       databaseJudgementControllerApi?.getWheelLeftPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1583,10 +1692,19 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
         setJudgedData(res.data);
       });
     }
-    if (partType == 'WR') {
+    if (partType === 'WR') {
       databaseJudgementControllerApi?.getWheelRightPredictedData(
         selectedCar,
         fromDate?.toLocaleDateString("en-US"),
@@ -1603,11 +1721,61 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setJudgedData(res.data || []);
+        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+          notNeededColumnsForAnother.map((el: string) => {
+              if (eachKey.includes(el)) {
+                delete eachMap[eachKey]
+              }
+            }
+          )
+        })))
+        console.log(res.data)
+        setJudgedData(res.data);
       });
     }
   }
 
+  function changePartTypeToKorean(partName: string
+  ) {
+    switch (partName) {
+      case "BLB":
+        // Bearing Left Ball
+        return "베어링좌측볼"
+      case "BLI":
+        // Bearing Left Inside
+        return "베어링좌측내부"
+      case "BLO":
+        // Bearing Left Outside
+        return "베어링좌측외부"
+      case "BLR":
+        // Bearing Left Retainer
+        return "베어링좌측리테이너"
+      case "BRB":
+        // Bearing Right Ball
+        return "베어링우측볼"
+      case "BRI":
+        // Bearing Right Inside
+        return "베어링우측내부"
+      case "BRO":
+        // Bearing Right Outside
+        return "베어링우측외부"
+      case "BRR":
+        // Bearing Right Retainer
+        return "베어링우측리테이너"
+      case "WL":
+        // Wheel Left
+        return "좌측휠"
+      case "WR":
+        // Wheel Right
+        return "우측휠"
+      case "G":
+        // Gearbox
+        return "기어박스"
+      case "E":
+        // Engine
+        return "엔진"
+    }
+  }
 
   return (
     <Container className="p-0">
@@ -1693,24 +1861,18 @@ export const JudgementLookup: React.FC = () => {
                 }}
               />
             </div>
+            <div style={{float: 'right'}}>
+              <CSVLink
+                data={judgedData}
+                filename={`${changePartTypeToKorean(partType)}_${moment(new Date()).format("YYYYMMDD_HHmmss")}`}
+              >
+                <Button> 파일 다운로드 </Button>
+              </CSVLink>
+            </div>
           </Col>
-
-          <div style={{float: 'right'}}>
-            <CSVLink
-              data={judgedData || []}
-              filename={'CSV 데이터'}
-              onClick={() => {
-                console.log("링크 클릭함");
-              }}
-            >
-              Download me
-            </CSVLink>;
-          </div>
         </Row>
       </Section>
     </Container>
   );
 };
-
-
 
