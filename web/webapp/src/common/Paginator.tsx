@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Pagination from "react-bootstrap/Pagination";
 
 type PaginatorType = {
@@ -9,10 +9,10 @@ type PaginatorType = {
 };
 
 export const Paginator: React.FC<PaginatorType> = ({
-  pageCount,
-  onChange,
-  selectedPage = 0,
-}) => {
+                                                     pageCount,
+                                                     onChange,
+                                                     selectedPage = 0,
+                                                   }) => {
   const numberOfPage = pageCount;
   const [internalSelectedPage, setInternalSelectedPage] =
     useState(selectedPage);
@@ -29,18 +29,18 @@ export const Paginator: React.FC<PaginatorType> = ({
     numberOfPage < 10
       ? numberOfPage
       : selectedPage < 5 && selectedPage >= 2
-      ? 6
-      : 3;
+        ? 6
+        : 3;
   const lastBlockCount =
     numberOfPage < 10
       ? 0
       : selectedPage < numberOfPage - 2 && selectedPage > numberOfPage - 6
-      ? 6
-      : 3;
+        ? 6
+        : 3;
 
   return (
     <Pagination>
-      <Pagination.First
+      <Pagination.Prev
         onClick={() => {
           if (internalSelectedPage > 0) {
             handleChangePage(internalSelectedPage - 1);
@@ -61,7 +61,7 @@ export const Paginator: React.FC<PaginatorType> = ({
         selectedPage > 4 &&
         selectedPage < numberOfPage - 5 && (
           <>
-            <Pagination.Ellipsis />
+            <Pagination.Ellipsis/>
             {new Array(3).fill(0).map((_, index) => (
               <Pagination.Item
                 key={index + selectedPage - 1}
@@ -76,7 +76,7 @@ export const Paginator: React.FC<PaginatorType> = ({
         )}
       {numberOfPage > 10 && (
         <>
-          <Pagination.Ellipsis />
+          <Pagination.Ellipsis/>
           {new Array(lastBlockCount).fill(0).map((_, index) => (
             <Pagination.Item
               key={numberOfPage - lastBlockCount + index}
@@ -89,9 +89,9 @@ export const Paginator: React.FC<PaginatorType> = ({
           ))}
         </>
       )}
-      <Pagination.Last
+      <Pagination.Next
         onClick={() => {
-          if (internalSelectedPage < numberOfPage) {
+          if (internalSelectedPage < numberOfPage - 1) {
             handleChangePage(internalSelectedPage + 1);
           }
         }}
