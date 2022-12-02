@@ -83,7 +83,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_LBSF == "0" ? "정상" : "고장"
+          let result = data.user_LBSF == null ? "" : data.user_LBSF == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -97,8 +97,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LBSF_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LBSF_DATE == null ? "" : new Date(value.user_LBSF_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -195,7 +196,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_LBPFI == "0" ? "정상" : "고장"
+          let result = data.user_LBPFI == null ? "" : data.user_LBPFI == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -209,8 +210,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LBPFI_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LBPFI_DATE == null ? "" : new Date(value.user_LBPFI_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -307,7 +309,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_LBPFO == "0" ? "정상" : "고장"
+          let result = data.user_LBPFO == null ? "" : data.user_LBPFO == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -321,8 +323,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LBPFO_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LBPFO_DATE == null ? "" : new Date(value.user_LBPFO_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -419,7 +422,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_LFTF == "0" ? "정상" : "고장"
+          let result = data.user_LFTF == null ? "" : data.user_LFTF == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -433,8 +436,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LFTF_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LFTF_DATE == null ? "" : new Date(value.user_LFTF_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -531,7 +535,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_RBSF == "0" ? "정상" : "고장"
+          let result = data.user_RBSF == null ? "" : data.user_RBSF == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -545,8 +549,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RBSF_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RBSF_DATE == null ? "" : new Date(value.user_RBSF_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -643,7 +648,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_RBPFI == "0" ? "정상" : "고장"
+          let result = data.user_RBPFI == null ? "" : data.user_RBPFI == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -657,8 +662,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RBPFI_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RBPFI_DATE == null ? "" : new Date(value.user_RBPFI_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -755,7 +761,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_RBPFO == "0" ? "정상" : "고장"
+          let result = data.user_RBPFO == null ? "" : data.user_RBPFO == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -769,8 +775,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RBPFO_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RBPFO_DATE == null ? "" : new Date(value.user_RBPFO_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -867,7 +874,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_RFTF == "0" ? "정상" : "고장"
+          let result = data.user_RFTF == null ? "" : data.user_RFTF == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -881,8 +888,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RFTF_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RFTF_DATE == null ? "" : new Date(value.user_RFTF_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -979,7 +987,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_LW == "0" ? "정상" : "고장"
+          let result = data.user_LW == null ? "" : data.user_LW == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -993,8 +1001,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_LW_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_LW_DATE == null ? "" : new Date(value.user_LW_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1067,7 +1076,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_RW == "0" ? "정상" : "고장"
+          let result = data.user_RW == null ? "" : data.user_RW == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -1081,8 +1090,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_RW_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_RW_DATE == null ? "" : new Date(value.user_RW_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1155,7 +1165,7 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "작업자 판정값",
         accessor: (data) => {
-          let result = data.user_GEAR == "0" ? "정상" : "고장"
+          let result = data.user_GEAR == null ? "" : data.user_GEAR == "0" ? "정상" : "고장"
           return (
             <>
               <div>{result}</div>
@@ -1169,8 +1179,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_GEAR_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_GEAR_DATE == null ? "" : new Date(value.user_GEAR_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1246,8 +1257,26 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_ENGINE_DATE",
       },
       {
+        Header: "예측 결과",
+        accessor: (data) => {
+          let result = data.ai_ENGINE == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
+      },
+      {
         Header: "작업자 판정값",
-        accessor: "user_ENGINE",
+        accessor: (data) => {
+          let result = data.user_ENGINE == null ? "" : data.user_ENGINE == "0" ? "정상" : "고장"
+          return (
+            <>
+              <div>{result}</div>
+            </>
+          )
+        },
       },
       {
         Header: "작업자 ID",
@@ -1255,8 +1284,9 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "작업자 판정 날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.user_ENGINE_DATE).toLocaleString("ko-KR")
+        accessor: (value) => {
+          let result = value.user_ENGINE_DATE == null ? "" : new Date(value.user_ENGINE_DATE).toLocaleString("ko-KR")
+          return result
         }
       },
       {
@@ -1315,7 +1345,7 @@ export const JudgementLookup: React.FC = () => {
           setSelectedCar(res.data[0])
         });
     }
-  }, [partType]);
+  }, [partType, databaseJudgementControllerApi]);
 
   function handleSearchTablesColumns(partType: any) {
     switch (partType) {
@@ -1358,17 +1388,40 @@ export const JudgementLookup: React.FC = () => {
     }
   }
 
-  function changeObjectKeyName(objectToChange: any, oldKeyName: string, newKeyName: string) {
-    const objectToChangeUpperCaseFirst = Object.entries(objectToChange).reduce((_map: any, [key, value]) => {
-      let newKey = key.toUpperCase()
-      _map[key.toUpperCase()] = value
-      return _map
-    }, {});
-    console.log("objectToChangeUpperCaseFirst : ", objectToChangeUpperCaseFirst)
-    const otherKeys = cloneDeep(objectToChange);
-    delete otherKeys[oldKeyName];
-    const changedKey = objectToChange[oldKeyName];
-    return {...{[newKeyName]: changedKey}, ...otherKeys};
+  function handleObjectKey(data: any) {
+    data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+      // delete not needed
+      notNeededColumnsForAnother.map((el: string) => {
+        if (eachKey.includes(el)) {
+          delete eachMap[eachKey]
+        }
+      })
+    })))
+
+    var userKey = Object.keys(data[0]).filter(el => {
+      if (el.includes("user_")) return true
+    })
+    var targetColumnName = userKey[0].split('_')[1]
+    var newAiKey = "AI_" + targetColumnName
+
+    const isUpperCase = (string: string) => /^[A-Z]*$/.test(string)
+
+    data.forEach((el: any) => {
+      el[newAiKey] = el[userKey[0]]
+      delete el[userKey[0]]
+      for (var i in el) {
+        if (i.toString() == 'date') {
+          el["DATE"] = el['date']
+          delete el['date']
+        } else if (!isUpperCase(i.charAt(0))) {
+          var upperCaseKey = i.charAt(0).toUpperCase() + i.slice(1)
+          el[upperCaseKey] = el[i];
+          delete el[i];
+        }
+      }
+    })
+
+    return data
   }
 
   function handleSearchData(pageable?: Pageable) {
@@ -1395,22 +1448,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          // delete not needed
-          notNeededColumnsForAnother.map((el: string) => {
-            if (eachKey.includes(el)) {
-              delete eachMap[eachKey]
-            }
-          })
-        })))
-        // Change keys ('user_XXX' to 'AI_XXX' and all element of string to upper case)
-        let result: any[] = []
-        res.data.forEach(((eachMap: any) => {
-          let newMap = changeObjectKeyName(eachMap, "user_LBSF", "AI_LBSF")
-          result.push(newMap)
-        }))
-        console.log("result: ", result)
-        console.log("res.data: ", res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(result);
       });
     }
@@ -1431,15 +1470,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1460,15 +1492,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1489,15 +1514,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1518,15 +1536,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1547,15 +1558,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1576,15 +1580,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1605,15 +1602,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1634,15 +1624,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForEngine.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1663,15 +1646,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1692,15 +1668,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1721,22 +1690,14 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
   }
 
-  function changePartTypeToKorean(partName: string
-  ) {
+  function changePartTypeToKorean(partName: string) {
     switch (partName) {
       case "BLB":
         // Bearing Left Ball
