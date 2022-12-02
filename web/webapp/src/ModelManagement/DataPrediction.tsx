@@ -204,7 +204,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_LBSF === "0.0") {
             return "정상";
           } else if (data.ai_LBSF === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -284,7 +284,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_LBPFI === "0.0") {
             return "정상";
           } else if (data.ai_LBPFI === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -364,7 +364,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_LBPFO === "0.0") {
             return "정상";
           } else if (data.ai_LBPFO === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -444,7 +444,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_LFTF === "0.0") {
             return "정상";
           } else if (data.ai_LFTF === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -524,7 +524,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_RBSF === "0.0") {
             return "정상";
           } else if (data.ai_RBSF === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -604,7 +604,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_RBPFI === "0.0") {
             return "정상";
           } else if (data.ai_RBPFI === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -684,7 +684,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_RBPFO === "0.0") {
             return "정상";
           } else if (data.ai_RBPFO === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -764,7 +764,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_RFTF === "0.0") {
             return "정상";
           } else if (data.ai_RFTF === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -844,7 +844,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_LW === "0.0") {
             return "정상";
           } else if (data.ai_LW === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -900,7 +900,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_RW === "0.0") {
             return "정상";
           } else if (data.ai_RW === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -956,7 +956,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_GEAR === "0.0") {
             return "정상";
           } else if (data.ai_GEAR === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
@@ -1028,7 +1028,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           if (data.ai_ENGINE === "0.0") {
             return "정상";
           } else if (data.ai_ENGINE === "1.0") {
-            return "결함";
+            return "고장";
           } else {
             return "-"
           }
