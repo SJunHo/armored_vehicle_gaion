@@ -1388,18 +1388,6 @@ export const JudgementLookup: React.FC = () => {
     }
   }
 
-  function changeObjectKeyName(objectToChange: any, oldKeyName: string, newKeyName: string) {
-    const objectToChangeUpperCaseFirst = Object.entries(objectToChange).reduce((_map: any, [key, value]) => {
-      let newKey = key.toUpperCase()
-      _map[key.toUpperCase()] = value
-      return _map
-    }, {});
-    const otherKeys = cloneDeep(objectToChange);
-    delete otherKeys[oldKeyName];
-    const changedKey = objectToChange[oldKeyName];
-    return {...{[newKeyName]: changedKey}, ...otherKeys};
-  }
-
   function handleObjectKey(data: any) {
     data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
       // delete not needed
@@ -1409,7 +1397,6 @@ export const JudgementLookup: React.FC = () => {
         }
       })
     })))
-    console.log(data)
 
     var userKey = Object.keys(data[0]).filter(el => {
       if (el.includes("user_")) return true
@@ -1417,13 +1404,24 @@ export const JudgementLookup: React.FC = () => {
     var targetColumnName = userKey[0].split('_')[1]
     var newAiKey = "AI_" + targetColumnName
 
+    const isUpperCase = (string: string) => /^[A-Z]*$/.test(string)
+
     data.forEach((el: any) => {
-      console.log(el)
-      el[userKey[0]] = el[newAiKey]
+      el[newAiKey] = el[userKey[0]]
       delete el[userKey[0]]
+      for (var i in el) {
+        if (i.toString() == 'date') {
+          el["DATE"] = el['date']
+          delete el['date']
+        } else if (!isUpperCase(i.charAt(0))) {
+          var upperCaseKey = i.charAt(0).toUpperCase() + i.slice(1)
+          el[upperCaseKey] = el[i];
+          delete el[i];
+        }
+      }
     })
 
-
+    return data
   }
 
   function handleSearchData(pageable?: Pageable) {
@@ -1450,13 +1448,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        handleObjectKey(res.data)
-        // Change keys ('user_XXX' to 'AI_XXX' and all element of string to upper case)
-        let result: any[] = []
-        res.data.forEach(((eachMap: any) => {
-          let newMap = changeObjectKeyName(eachMap, "user_LBSF", "AI_LBSF")
-          result.push(newMap)
-        }))
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(result);
       });
     }
@@ -1477,15 +1470,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1506,15 +1492,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1535,15 +1514,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1564,15 +1536,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1593,15 +1558,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1622,15 +1580,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1651,15 +1602,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1680,15 +1624,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForEngine.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1709,15 +1646,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1738,15 +1668,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
@@ -1767,22 +1690,14 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        res.data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
-          notNeededColumnsForAnother.map((el: string) => {
-              if (eachKey.includes(el)) {
-                delete eachMap[eachKey]
-              }
-            }
-          )
-        })))
-        console.log(res.data)
+        var result = handleObjectKey(res.data)
+        console.log(result)
         setJudgedData(res.data);
       });
     }
   }
 
-  function changePartTypeToKorean(partName: string
-  ) {
+  function changePartTypeToKorean(partName: string) {
     switch (partName) {
       case "BLB":
         // Bearing Left Ball
