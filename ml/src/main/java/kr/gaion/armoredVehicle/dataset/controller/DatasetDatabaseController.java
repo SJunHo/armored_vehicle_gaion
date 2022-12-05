@@ -140,7 +140,8 @@ public class DatasetDatabaseController {
     }
 
     @PostMapping(path = "/api/data/database/update")
-    public String updateData(@RequestBody ArrayList<DbDataUpdateInput> input) {
+    public String updateData(@RequestBody List<DbDataUpdateInput> input) {
+        System.out.println(input);
         return this.datasetDatabaseService.updatePredictData(input);
     }
 }

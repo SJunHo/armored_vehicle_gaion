@@ -31,10 +31,10 @@ public class SensorWheel {
 
     // AI Predict Values
     @Column(name = "AI_LW")
-    private String aiLw;
+    private Integer aiLw;
 
     @Column(name = "AI_RW")
-    private String aiRw;
+    private Integer aiRw;
 
     // Ai Predict Algorithm
     @Column(name = "AI_LW_ALGO")
@@ -59,10 +59,10 @@ public class SensorWheel {
 
     // User Judgement Values
     @Column(name = "USER_LW")
-    private String userLw;
+    private Integer userLw;
 
     @Column(name = "USER_RW")
-    private String userRw;
+    private Integer userRw;
 
     // User Judgement ID
     @Column(name = "USER_LW_ID")

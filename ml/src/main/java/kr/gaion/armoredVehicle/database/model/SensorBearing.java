@@ -31,28 +31,28 @@ public class SensorBearing {
 
     // Ai Predict Values
     @Column(name = "AI_LBSF")
-    private String aiLbsf;
+    private Integer aiLbsf;
 
     @Column(name = "AI_LBPFI")
-    private String aiLbpfi;
+    private Integer aiLbpfi;
 
     @Column(name = "AI_LBPFO")
-    private String aiLbpfo;
+    private Integer aiLbpfo;
 
     @Column(name = "AI_LFTF")
-    private String aiLftf;
+    private Integer aiLftf;
 
     @Column(name = "AI_RBSF")
-    private String aiRbsf;
+    private Integer aiRbsf;
 
     @Column(name = "AI_RBPFI")
-    private String aiRbpfi;
+    private Integer aiRbpfi;
 
     @Column(name = "AI_RBPFO")
-    private String aiRbpfo;
+    private Integer aiRbpfo;
 
     @Column(name = "AI_RFTF")
-    private String aiRftf;
+    private Integer aiRftf;
 
     // Ai Predict Algorithm
     @Column(name = "AI_LBSF_ALGO")
@@ -131,28 +131,28 @@ public class SensorBearing {
 
     // User Judgement Values
     @Column(name = "USER_LBSF")
-    private String userLbsf;
+    private Integer userLbsf;
 
     @Column(name = "USER_LBPFI")
-    private String userLbpfi;
+    private Integer userLbpfi;
 
     @Column(name = "USER_LBPFO")
-    private String userLbpfo;
+    private Integer userLbpfo;
 
     @Column(name = "USER_LFTF")
-    private String userLftf;
+    private Integer userLftf;
 
     @Column(name = "USER_RBSF")
-    private String userRbsf;
+    private Integer userRbsf;
 
     @Column(name = "USER_RBPFI")
-    private String userRbpfi;
+    private Integer userRbpfi;
 
     @Column(name = "USER_RBPFO")
-    private String userRbpfo;
+    private Integer userRbpfo;
 
     @Column(name = "USER_RFTF")
-    private String userRftf;
+    private Integer userRftf;
 
     // User Judgement ID
     @Column(name = "USER_LBSF_ID")

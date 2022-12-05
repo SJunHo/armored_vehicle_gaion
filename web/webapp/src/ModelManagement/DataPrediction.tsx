@@ -1384,7 +1384,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           aiAlgorithmName: inputs.aiAlgorithm,
           aiPredict: inputs[targetClassCol],
           aiModelName: inputs.aiModel,
-          aiPredictDate: new Date().toLocaleString("ko-KR"),
         }))
       )
       .finally(() => setSaving(false));
@@ -1509,11 +1508,11 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         <Col xl={12}>
           <div className="w-100 overflow-auto">
             {(totalPage) &&
-            <Table
-              columns={tableColumns}
-              data={conditionData}
-              onRowsSelected={handleConditionSelected}
-            />}
+							<Table
+								columns={tableColumns}
+								data={conditionData}
+								onRowsSelected={handleConditionSelected}
+							/>}
           </div>
           <div style={{display: 'inline-block'}}>
             <Paginator

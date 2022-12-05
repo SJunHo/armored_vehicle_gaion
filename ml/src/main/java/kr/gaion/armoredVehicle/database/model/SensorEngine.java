@@ -31,7 +31,7 @@ public class SensorEngine {
 
     // AI Predict Values
     @Column(name = "AI_ENGINE")
-    private String aiEngine;
+    private Integer aiEngine;
 
     // Ai Predict Algorithm
     @Column(name = "AI_ENGINE_ALGO")
@@ -47,7 +47,7 @@ public class SensorEngine {
 
     // User Judgement Values
     @Column(name = "USER_ENGINE")
-    private String userEngine;
+    private Integer userEngine;
 
     // User Judgement ID
     @Column(name = "USER_ENGINE_ID")

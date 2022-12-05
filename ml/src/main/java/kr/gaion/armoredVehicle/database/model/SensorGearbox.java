@@ -31,7 +31,7 @@ public class SensorGearbox {
 
     // AI Predict Values
     @Column(name = "AI_GEAR")
-    private String aiGear;
+    private Integer aiGear;
 
     // Ai Predict Algorithm
     @Column(name = "AI_ALGO")
@@ -47,7 +47,7 @@ public class SensorGearbox {
 
     // User Judgement Values
     @Column(name = "USER_GEAR")
-    private String userGear;
+    private Integer userGear;
 
     // User Judgement ID
     @Column(name = "USER_GEAR_ID")

@@ -9,5 +9,5 @@ import java.util.Date;
 @Getter
 public class DbJudgementUpdateInput {
     private Long idx;
-    private String userJudgement;
+    private Integer userJudgement;
 }

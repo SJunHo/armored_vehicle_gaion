@@ -37,7 +37,6 @@ public class DatasetDatabaseService {
     private final TrainingGearboxRepository trainingGearboxRepository;
     @NonNull
     private final TrainingTempLifeRepository trainingTempLifeRepository;
-
     @NonNull
     private final SensorBearingRepository sensorBearingRepository;
     @NonNull
@@ -251,7 +250,7 @@ public class DatasetDatabaseService {
         return sensorTempLifeRepository.findSensorTempLifeByAiPredictIsNull(pageable);
     }
 
-    public String updatePredictData(ArrayList<DbDataUpdateInput> inputs) {
+    public String updatePredictData(List<DbDataUpdateInput> inputs) {
         String partType = inputs.get(0).getPartType();
         switch (partType) {
             case "BLB":
@@ -262,7 +261,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiLbsf(input.getAiPredict());
                     sensorBearing.setAiLbsfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLbsfModel(input.getAiModelName());
-                    sensorBearing.setAiLbsfDate(input.getAiPredictDate());
+                    sensorBearing.setAiLbsfDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -275,7 +274,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiLbpfi(input.getAiPredict());
                     sensorBearing.setAiLbpfiAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLbpfiModel(input.getAiModelName());
-                    sensorBearing.setAiLbpfiDate(input.getAiPredictDate());
+                    sensorBearing.setAiLbpfiDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -288,7 +287,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiLbpfo(input.getAiPredict());
                     sensorBearing.setAiLbpfoAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLbpfoModel(input.getAiModelName());
-                    sensorBearing.setAiLbpfoDate(input.getAiPredictDate());
+                    sensorBearing.setAiLbpfoDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -301,7 +300,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiLftf(input.getAiPredict());
                     sensorBearing.setAiLftfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLftfModel(input.getAiModelName());
-                    sensorBearing.setAiLftfDate(input.getAiPredictDate());
+                    sensorBearing.setAiLftfDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -314,7 +313,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiRbsf(input.getAiPredict());
                     sensorBearing.setAiRbsfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRbsfModel(input.getAiModelName());
-                    sensorBearing.setAiRbsfDate(input.getAiPredictDate());
+                    sensorBearing.setAiRbsfDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -327,7 +326,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiRbpfi(input.getAiPredict());
                     sensorBearing.setAiRbpfiAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRbpfiModel(input.getAiModelName());
-                    sensorBearing.setAiRbpfiDate(input.getAiPredictDate());
+                    sensorBearing.setAiRbpfiDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -340,7 +339,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiRbpfo(input.getAiPredict());
                     sensorBearing.setAiRbpfoAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRbpfoModel(input.getAiModelName());
-                    sensorBearing.setAiRbpfoDate(input.getAiPredictDate());
+                    sensorBearing.setAiRbpfoDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -353,7 +352,7 @@ public class DatasetDatabaseService {
                     sensorBearing.setAiRftf(input.getAiPredict());
                     sensorBearing.setAiRftfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRftfModel(input.getAiModelName());
-                    sensorBearing.setAiRftfDate(input.getAiPredictDate());
+                    sensorBearing.setAiRftfDate(new Date());
                     sensorBearingRepository.save(sensorBearing);
                 }
                 break;
@@ -366,7 +365,7 @@ public class DatasetDatabaseService {
                     sensorWheel.setAiLw(input.getAiPredict());
                     sensorWheel.setAiLwAlgorithm(input.getAiAlgorithmName());
                     sensorWheel.setAiLwModel(input.getAiModelName());
-                    sensorWheel.setAiLwDate(input.getAiPredictDate());
+                    sensorWheel.setAiLwDate(new Date());
                     sensorWheelRepository.save(sensorWheel);
                 }
                 break;
@@ -379,7 +378,7 @@ public class DatasetDatabaseService {
                     sensorWheel.setAiRw(input.getAiPredict());
                     sensorWheel.setAiRwAlgorithm(input.getAiAlgorithmName());
                     sensorWheel.setAiRwModel(input.getAiModelName());
-                    sensorWheel.setAiRwDate(input.getAiPredictDate());
+                    sensorWheel.setAiRwDate(new Date());
                     sensorWheelRepository.save(sensorWheel);
                 }
                 break;
@@ -392,7 +391,7 @@ public class DatasetDatabaseService {
                     sensorGearbox.setAiGear(input.getAiPredict());
                     sensorGearbox.setAiGearAlgorithm(input.getAiAlgorithmName());
                     sensorGearbox.setAiGearModel(input.getAiModelName());
-                    sensorGearbox.setAiGearDate(input.getAiPredictDate());
+                    sensorGearbox.setAiGearDate(new Date());
                     sensorGearboxRepository.save(sensorGearbox);
                 }
                 break;
@@ -405,7 +404,7 @@ public class DatasetDatabaseService {
                     sensorEngine.setAiEngine(input.getAiPredict());
                     sensorEngine.setAiEngineAlgorithm(input.getAiAlgorithmName());
                     sensorEngine.setAiEngineModel(input.getAiModelName());
-                    sensorEngine.setAiEngineDate(input.getAiPredictDate());
+                    sensorEngine.setAiEngineDate(new Date());
                     sensorEngineRepository.save(sensorEngine);
                 }
                 break;
