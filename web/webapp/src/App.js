@@ -106,17 +106,6 @@ class App extends Component {
             <PrivateRoute exact path="/driverPostureCorrection" component={driverPostureCorrection} />
             <PrivateRoute exact path="/partsreplacementcycle" component={PartsReplacementCycle} />
 
-              {/*학습 데이터*/}
-            <PrivateRoute exact path="/data/upload" component={DataUpload} />
-
-              {/*고장진단 모델*/}
-            <PrivateRoute exact path="/monitordiagnostictroublealerts" component={MonitorDiagnosTictroubleAlerts} />
-
-              {/*잔존수명예지 모델*/}
-            <PrivateRoute exact path="/linearregression" component={LinearRegression} />
-            <PrivateRoute exact path="/rasoregression" component={RasoRegession} />
-            <PrivateRoute exact path="/monitorremainingusefullife" component={MonitorRemainingUsefulLife} />
-
               {/*시스템 설정*/}
             <PrivateRoute exact path="/driver_cis" component={Driver_CIS} />
             <PrivateRoute exact path="/setting_prc" component={Setting_PRC} />

@@ -16,7 +16,6 @@ import {DataUpload} from "./DataLookUp/DataUpload";
 import {PredictedResults} from "./ResultPrediction/PredictedResults";
 import {PredictedResultsUserInput} from "./ResultPredictionUserInput/PredictedResultsUserInput";
 import {SavedPredictedResult} from "./SavedResultPrediction/SavedPredictedResult";
-
 import {FeatureSelection} from "./ModelManagement/FeatureSelection";
 import {Dashboard} from "./Dashboard/Dashboard";
 
@@ -51,16 +50,6 @@ function Main() {
             path="/ml/:algorithmName"
             exact
             component={ModelManagement}
-          />
-          <AuthorizedRoute
-            path="/judgement"
-            exact
-            component={Judgement}
-          />
-          <AuthorizedRoute
-            path="/judgement/:tab"
-            exact
-            component={Judgement}
           />
         </Switch>
       </OpenApiContextProvider>

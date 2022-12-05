@@ -87,3 +87,7 @@
 .tableBlack tbody + tbody {
   border-color: #95999c;
 }
+
+#paginator .page-link span {
+  color: blue;
+}

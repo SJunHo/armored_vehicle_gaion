@@ -1514,7 +1514,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
 								onRowsSelected={handleConditionSelected}
 							/>}
           </div>
-          <div style={{display: 'inline-block'}}>
+          <div id="paginator" className="pt-4" style={{display: 'inline-block'}}>
             <Paginator
               pageCount={totalPage}
               size={paginate?.pageSize || 0}
