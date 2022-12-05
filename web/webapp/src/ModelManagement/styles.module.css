@@ -71,14 +71,18 @@
   border-color: #454d55;
 }
 
-.tableBlack.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(255, 255, 255, 0.05);
+/*.tableBlack.table-striped tbody tr:nth-of-type(odd) {*/
+/*  background-color: rgba(255, 255, 255, 0.05);*/
+/*}*/
+
+.tableBlack,
+.tableBlack > th {
+  background-color: #4b4c4d;
 }
 
 .tableBlack,
-.tableBlack > th,
 .tableBlack > td {
-  background-color: #c6c8ca;
+  background-color: #7b7d7f;
 }
 
 .tableBlack th,

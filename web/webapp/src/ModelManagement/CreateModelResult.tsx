@@ -555,7 +555,7 @@ export const ClassificationResult: React.FC<Props> = ({result, result2}) => {
         </Row>
       </CustomCardBody>
       <CustomCardBody>
-        <Row>
+        <Row className="overflow-auto">
           <PredictionInfoSection
             predictionInfo={predictedActualFeatureLine ? predictedActualFeatureLine : []}
             featureCols={result.listFeatures || []}

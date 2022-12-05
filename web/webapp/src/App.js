@@ -122,7 +122,6 @@ class App extends Component {
           </Switch>
         <MeContextProvider>
         <OpenApiContextProvider>
-          <div className="content-wrapper">
             <Switch>
               <AuthorizedRoute
                 path="/ml/:algorithmName/:tab"
@@ -145,7 +144,6 @@ class App extends Component {
               />
               <AuthorizedRoute path="/data/upload" exact component={DataUpload} />
             </Switch>
-          </div>
         </OpenApiContextProvider>
       </MeContextProvider>
         </Router>
