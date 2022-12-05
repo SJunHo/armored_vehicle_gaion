@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import {initReactI18next} from "react-i18next";
 
 const resources = {
   en: {
@@ -68,7 +68,7 @@ const resources = {
       "ml.clustering.maxSamples": "Max. Number of Samples",
       "ml.clustering.contamination": "Contamination",
 
-      "ml.regression.linear":"Linear Regression",
+      "ml.regression.linear": "Linear Regression",
       "ml.regression.maxIter": "Max Number of Iterations",
       "ml.regression.regParams": "Param for regularization parameter",
 
@@ -496,6 +496,7 @@ const resources = {
       "table.column.life.register": "잔존수명 예측 모델 선택",
       "table.column.life.manage": "잔존수명 예측 모델 관리",
       "table.column.select": "선택",
+      "table.column.register": "예측 모델 선택",
 
       "dashboard.cc": "차량별 총 누적 측정수",
       "dashboard.cf": "편성별 총 누적 측정수",
@@ -532,11 +533,11 @@ const resources = {
       "ml.clustering.bootstrap": "Bootstrap",
       "ml.clustering.numIters": "반복 횟수",
 
-      "ml.regression.linear":"선형 회귀",
-      "ml.regression.maxIter":"최대 반복 횟수",
-      "ml.regression.regParams":"일반화 수치",
+      "ml.regression.linear": "선형 회귀",
+      "ml.regression.maxIter": "최대 반복 횟수",
+      "ml.regression.regParams": "일반화 수치",
 
-      
+
       "ml.common.ac": "실제 클래스",
       "ml.common.accuracy": "정확도",
       "ml.common.btn.ca": "모두 삭제",
@@ -942,5 +943,5 @@ const resources = {
 
 i18n
   .use(initReactI18next)
-  .init({ resources, lng: "ko", interpolation: { escapeValue: false } })
+  .init({resources, lng: "ko", interpolation: {escapeValue: false}})
   .then(() => console.info("Initialed i18n"));

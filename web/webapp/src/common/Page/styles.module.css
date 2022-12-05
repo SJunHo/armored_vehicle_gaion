@@ -1,10 +1,12 @@
 .wrapper {
-  padding: 8px;
+  padding: 10px;
   background-color: #2c2c44;
   height: 100%;
+  border: #ffffff;
 }
 
 .childrenWrapper {
+  width: auto;
   background-color: #2c2c44;
 }
 

@@ -1,27 +1,20 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, {useCallback, useContext, useEffect, useMemo, useState,} from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import { useTranslation } from "react-i18next";
-import { CellProps, Column, Row as TableRow } from "react-table";
+import {CellProps, Column, Row as TableRow} from "react-table";
 import {DbModelResponse, OpenApiContext, UpdateModelInput} from "../api";
-import { ALGORITHM_INFO } from "../common/Common";
-import { Section } from "../common/Section/Section";
-import { Table } from "../common/Table";
+import {ALGORITHM_INFO} from "../common/Common";
+import {Section} from "../common/Section/Section";
+import {Table} from "../common/Table";
 
 export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
-  algorithmName,
-}) => {
+                                                                         algorithmName,
+                                                                       }) => {
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModels, setSelectedModels] = useState<DbModelResponse[]>([]);
-  const { mlControllerApi } = useContext(OpenApiContext);
+  const {mlControllerApi} = useContext(OpenApiContext);
   console.log("bbb");
   console.log(algorithmName)
 
@@ -85,62 +78,66 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
         Header: "설명",
         accessor: "description",
         Cell: EditableCell,
-        onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
+        onChange: (row: DbModelResponse, v: string) => handleUpdateRows(row, {description: v, checked: row.checked}),
       },
       {
-        Header: "선택",
+        // eslint-disable-next-line no-useless-concat
+        Header: "선택 (자동저장)",
         accessor: "checked",
         Cell: EditableCheckboxCell,
-        onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
+        onChange: (row: DbModelResponse, v: boolean) =>
+          handleUpdateRows(row, {description: row.description, checked: v}),
       },
     ],
     [handleUpdateRows]
   );
 
-    const regressionColumns = useMemo<Column<DbModelResponse>[]>(
-        () => [
-            {
-                Header: "Model Name",
-                accessor: "modelName",
-            },
-            {
-                Header: "R-squared",
-                accessor: item => item.r2,
-            },
-            {
-                Header: "Root Mean Squared Error",
-                accessor: item => item.rootMeanSquaredError,
-            },
-            {
-                Header: "설명",
-                accessor: "description",
-                Cell: EditableCell,
-                onChange: (row: DbModelResponse, v: string) =>handleUpdateRows(row, { description: v, checked: row.checked }),
-            },
-            {
-                Header: "선택",
-                accessor: "checked",
-                Cell: EditableCheckboxCell,
-                onChange: (row: DbModelResponse, v: boolean) =>handleUpdateRows(row, { description: row.description, checked: v }),
-            },
-        ],
-        [handleUpdateRows]
-    );
+  const regressionColumns = useMemo<Column<DbModelResponse>[]>(
+    () => [
+      {
+        Header: "Model Name",
+        accessor: "modelName",
+      },
+      {
+        Header: "R-squared",
+        accessor: item => item.r2,
+      },
+      {
+        Header: "Root Mean Squared Error",
+        accessor: item => item.rootMeanSquaredError,
+      },
+      {
+        Header: "설명",
+        accessor: "description",
+        Cell: EditableCell,
+        onChange: (row: DbModelResponse, v: string) => handleUpdateRows(row, {description: v, checked: row.checked}),
+      },
+      {
+        // eslint-disable-next-line no-useless-concat
+        Header: "선택 (자동저장)",
+        accessor: "checked",
+        Cell: EditableCheckboxCell,
+        onChange: (row: DbModelResponse, v: boolean) =>
+          handleUpdateRows(row, {description: row.description, checked: v}),
+      },
+    ],
+    [handleUpdateRows]
+  );
 
   return (
     <Section title={ALGORITHM_INFO[algorithmName].name}>
-        {algorithmName === "linear" || algorithmName === "lasso" ? (
-            <Table
-                onRowsSelected={handleRowSelected}
-                columns={regressionColumns}
-                data={models}/>
-            ) : (
-                <Table
-                    onRowsSelected={handleRowSelected}
-                    columns={classificationColumns}
-                    data={models}
-                />
-        )}
+      {algorithmName === "linear" || algorithmName === "lasso" ? (
+        <Table
+          onRowsSelected={handleRowSelected}
+          columns={regressionColumns}
+          data={models}/>
+      ) : (
+        <Table
+          onRowsSelected={handleRowSelected}
+          columns={classificationColumns}
+          data={models}
+        />
+      )}
       <Row className="d-flex justify-content-between">
         <Col md={2}>
           <Button
@@ -148,7 +145,7 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
             onClick={async () => {
               await Promise.all(
                 selectedModels.map(selectedModel =>
-                  mlControllerApi?.deleteModel( ALGORITHM_INFO[algorithmName].className, selectedModel.algorithmResponseId!))
+                  mlControllerApi?.deleteModel(ALGORITHM_INFO[algorithmName].className, selectedModel.algorithmResponseId!))
               ).then(() => {
                 setModels(old => old.filter(oldModel => !selectedModels.find(sm => sm.algorithmResponseId === oldModel.algorithmResponseId)));
                 setSelectedModels([]);
@@ -158,20 +155,20 @@ export const TrainingModelList: React.FC<{ algorithmName: string }> = ({
             삭제
           </Button>
         </Col>
-        <Col md={1}>
-          <Button>저장</Button>
-        </Col>
+        {/*<Col md={1}>*/}
+        {/*  <Button>저장</Button>*/}
+        {/*</Col>*/}
       </Row>
     </Section>
   );
 };
 
 function EditableCheckboxCell<T extends object>({
-  value: initialValue,
-  row,
-  // column: { id },
-  column, // This is a custom function that we supplied to our table instance
-}: CellProps<T, any>) {
+                                                  value: initialValue,
+                                                  row,
+                                                  // column: { id },
+                                                  column, // This is a custom function that we supplied to our table instance
+                                                }: CellProps<T, any>) {
   console.log(initialValue);
   return (
     <Form.Check
@@ -186,11 +183,11 @@ function EditableCheckboxCell<T extends object>({
 
 // Create an editable cell renderer
 function EditableCell<T extends object>({
-  value: initialValue,
-  row,
-  // column: { id },
-  column, // This is a custom function that we supplied to our table instance
-}: CellProps<T, any>) {
+                                          value: initialValue,
+                                          row,
+                                          // column: { id },
+                                          column, // This is a custom function that we supplied to our table instance
+                                        }: CellProps<T, any>) {
   // We need to keep and update the state of the cell normally
   const [value, setValue] = React.useState(initialValue);
 

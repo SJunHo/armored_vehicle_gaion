@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -18,60 +16,72 @@ import java.util.Date;
 public class SensorGearbox {
     @Id
     @GeneratedValue
-    @Column(name="IDX")
+    @Column(name = "IDX")
     private long idx;
 
-    @Column(name="SDAID")
+    @Column(name = "SDAID")
     private String carId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name="OPERDATE")
-    private Date operateDate;
-
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(name="OPERTIME")
-    private Time operateTime;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name="DATE")
+    @Column(name = "DATE")
     private Date operateDateTime;
 
-    @Column(name="TIME")
+    @Column(name = "TIME")
     private long timeIndex;
 
-    @Column(name="AI_Predict")
-    private Double aiPredict;
+    // AI Predict Values
+    @Column(name = "AI_GEAR")
+    private Integer aiGear;
 
-    @Column(name="AI_Algorithm")
-    private String aiAlgorithm;
+    // Ai Predict Algorithm
+    @Column(name = "AI_ALGO")
+    private String aiGearAlgorithm;
 
-    @Column(name="AI_Model")
-    private String aiModel;
+    // Ai Predict Model
+    @Column(name = "AI_GEAR_MODEL")
+    private String aiGearModel;
 
-    @Column(name="W_RPM")
+    // Ai Predict Date
+    @Column(name = "AI_GEAR_DATE")
+    private Date aiGearDate;
+
+    // User Judgement Values
+    @Column(name = "USER_GEAR")
+    private Integer userGear;
+
+    // User Judgement ID
+    @Column(name = "USER_GEAR_ID")
+    private String userGearId;
+
+    // User Judgement Date
+    @Column(name = "USER_GEAR_DATE")
+    private Date userGearDate;
+
+    // Sensor Values
+    @Column(name = "W_RPM")
     private double wrpm;
 
-    @Column(name="G_V_OverallRMS")
+    @Column(name = "G_V_OverallRMS")
     private double gvOverallRms;
 
-    @Column(name="G_V_Wheel1X")
+    @Column(name = "G_V_Wheel1X")
     private double gvWheel1x;
 
-    @Column(name="G_V_Wheel2X")
+    @Column(name = "G_V_Wheel2X")
     private double gvWheel2x;
 
-    @Column(name="G_V_Pinion1X")
+    @Column(name = "G_V_Pinion1X")
     private double gvPinion1x;
 
-    @Column(name="G_V_Pinion2X")
+    @Column(name = "G_V_Pinion2X")
     private double gvPinion2x;
 
-    @Column(name="G_V_GMF1X")
+    @Column(name = "G_V_GMF1X")
     private double gvGmf1x;
 
-    @Column(name="G_V_GMF2X")
+    @Column(name = "G_V_GMF2X")
     private double gvGmf2x;
 
-    @Column(name="FILENM")
+    @Column(name = "FILENM")
     private String filenm;
 }

@@ -744,10 +744,10 @@ export interface ClusterTrainInput {
     numIterations?: number;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof ClusterTrainInput
      */
-    bootstrap?: boolean;
+    numEstimators?: number;
     /**
      * 
      * @type {number}
@@ -892,6 +892,249 @@ export interface Cmpntsrplc {
 /**
  * 
  * @export
+ * @interface CmpntsrplcData
+ */
+export interface CmpntsrplcData {
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    sdaid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    snsrid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    snsrnm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    workr?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    rplcdate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    msg?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    mdfcdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    mdfr?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    expln?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    grid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcData
+     */
+    code?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CmpntsrplcHistry
+ */
+export interface CmpntsrplcHistry {
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    grid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    sdaid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    workr?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    rplcdate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    msg?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    mdfcdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcHistry
+     */
+    mdfr?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CmpntsrplcInfo
+ */
+export interface CmpntsrplcInfo {
+    /**
+     * 
+     * @type {number}
+     * @memberof CmpntsrplcInfo
+     */
+    criid?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    divs?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    brgd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    bn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    sdaid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    sdanm?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    sdatype?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    grid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    expln?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    stdvle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    stdval?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    prdvle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    prdval?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    nmvle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    nmval?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    msg?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    dttime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    startDate?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CmpntsrplcInfo
+     */
+    endDate?: string;
+}
+/**
+ * 
+ * @export
  * @interface CmpntsrplcResponse
  */
 export interface CmpntsrplcResponse {
@@ -1031,12 +1274,6 @@ export enum DataProvider {
 export interface DbDataUpdateInput {
     /**
      * 
-     * @type {string}
-     * @memberof DbDataUpdateInput
-     */
-    dataType?: string;
-    /**
-     * 
      * @type {number}
      * @memberof DbDataUpdateInput
      */
@@ -1046,19 +1283,50 @@ export interface DbDataUpdateInput {
      * @type {string}
      * @memberof DbDataUpdateInput
      */
-    aiAlgorithm?: string;
+    partType?: string;
     /**
      * 
      * @type {string}
      * @memberof DbDataUpdateInput
      */
-    modelName?: string;
+    aiPredict?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    aiAlgorithmName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    aiModelName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbDataUpdateInput
+     */
+    aiPredictDate?: string;
+}
+/**
+ * 
+ * @export
+ * @interface DbJudgementUpdateInput
+ */
+export interface DbJudgementUpdateInput {
     /**
      * 
      * @type {number}
-     * @memberof DbDataUpdateInput
+     * @memberof DbJudgementUpdateInput
      */
-    aiPredict?: number;
+    idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DbJudgementUpdateInput
+     */
+    userJudgement?: string;
 }
 /**
  * 
@@ -1573,6 +1841,79 @@ export interface LoginRequest {
 /**
  * 
  * @export
+ * @interface PageObject
+ */
+export interface PageObject {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageObject
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<object>}
+     * @memberof PageObject
+     */
+    content?: Array<object>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageObject
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface PageRailSensorData
  */
 export interface PageRailSensorData {
@@ -1588,6 +1929,30 @@ export interface PageRailSensorData {
      * @memberof PageRailSensorData
      */
     totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageRailSensorData
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageRailSensorData
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageRailSensorData
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1617,29 +1982,954 @@ export interface PageRailSensorData {
      * @type {boolean}
      * @memberof PageRailSensorData
      */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingLeftBallInterface
+ */
+export interface PageSensorBearingLeftBallInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
     first?: boolean;
     /**
      * 
      * @type {boolean}
-     * @memberof PageRailSensorData
+     * @memberof PageSensorBearingLeftBallInterface
      */
     last?: boolean;
     /**
      * 
      * @type {number}
-     * @memberof PageRailSensorData
+     * @memberof PageSensorBearingLeftBallInterface
      */
     numberOfElements?: number;
     /**
      * 
      * @type {Pageable}
-     * @memberof PageRailSensorData
+     * @memberof PageSensorBearingLeftBallInterface
      */
     pageable?: Pageable;
     /**
      * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingLeftBallInterface>}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    content?: Array<SensorBearingLeftBallInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    sort?: Sort;
+    /**
+     * 
      * @type {boolean}
-     * @memberof PageRailSensorData
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingLeftInsideInterface
+ */
+export interface PageSensorBearingLeftInsideInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingLeftInsideInterface>}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    content?: Array<SensorBearingLeftInsideInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingLeftOutsideInterface
+ */
+export interface PageSensorBearingLeftOutsideInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingLeftOutsideInterface>}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    content?: Array<SensorBearingLeftOutsideInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingLeftRetainerInterface
+ */
+export interface PageSensorBearingLeftRetainerInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingLeftRetainerInterface>}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    content?: Array<SensorBearingLeftRetainerInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingRightBallInterface
+ */
+export interface PageSensorBearingRightBallInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingRightBallInterface>}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    content?: Array<SensorBearingRightBallInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingRightInsideInterface
+ */
+export interface PageSensorBearingRightInsideInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingRightInsideInterface>}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    content?: Array<SensorBearingRightInsideInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingRightOutsideInterface
+ */
+export interface PageSensorBearingRightOutsideInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingRightOutsideInterface>}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    content?: Array<SensorBearingRightOutsideInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorBearingRightRetainerInterface
+ */
+export interface PageSensorBearingRightRetainerInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorBearingRightRetainerInterface>}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    content?: Array<SensorBearingRightRetainerInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorEngineInterface
+ */
+export interface PageSensorEngineInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngineInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngineInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngineInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngineInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngineInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorEngineInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngineInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorEngineInterface>}
+     * @memberof PageSensorEngineInterface
+     */
+    content?: Array<SensorEngineInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngineInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorEngineInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngineInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorGearboxInterface
+ */
+export interface PageSensorGearboxInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearboxInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearboxInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearboxInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearboxInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearboxInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorGearboxInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearboxInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorGearboxInterface>}
+     * @memberof PageSensorGearboxInterface
+     */
+    content?: Array<SensorGearboxInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearboxInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorGearboxInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearboxInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorTempLife
+ */
+export interface PageSensorTempLife {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorTempLife
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorTempLife>}
+     * @memberof PageSensorTempLife
+     */
+    content?: Array<SensorTempLife>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorTempLife
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorTempLife
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorTempLife
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorWheelLeftInterface
+ */
+export interface PageSensorWheelLeftInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorWheelLeftInterface>}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    content?: Array<SensorWheelLeftInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    empty?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface PageSensorWheelRightInterface
+ */
+export interface PageSensorWheelRightInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    totalPages?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    totalElements?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorWheelRightInterface
+     */
+    pageable?: Pageable;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    size?: number;
+    /**
+     * 
+     * @type {Array<SensorWheelRightInterface>}
+     * @memberof PageSensorWheelRightInterface
+     */
+    content?: Array<SensorWheelRightInterface>;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    number?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof PageSensorWheelRightInterface
+     */
+    sort?: Sort;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
      */
     empty?: boolean;
 }
@@ -1654,13 +2944,7 @@ export interface Pageable {
      * @type {number}
      * @memberof Pageable
      */
-    offset?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof Pageable
-     */
-    sort?: Sort;
+    pageNumber?: number;
     /**
      * 
      * @type {number}
@@ -1669,10 +2953,10 @@ export interface Pageable {
     pageSize?: number;
     /**
      * 
-     * @type {number}
+     * @type {boolean}
      * @memberof Pageable
      */
-    pageNumber?: number;
+    paged?: boolean;
     /**
      * 
      * @type {boolean}
@@ -1681,10 +2965,16 @@ export interface Pageable {
     unpaged?: boolean;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof Pageable
      */
-    paged?: boolean;
+    offset?: number;
+    /**
+     * 
+     * @type {Sort}
+     * @memberof Pageable
+     */
+    sort?: Sort;
 }
 /**
  * 
@@ -2993,545 +4283,1350 @@ export interface SearchRequest {
 /**
  * 
  * @export
- * @interface SensorBearing
+ * @interface SensorBearingLeftBallInterface
  */
-export interface SensorBearing {
+export interface SensorBearingLeftBallInterface {
     /**
      * 
      * @type {number}
-     * @memberof SensorBearing
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_6912BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    user_LBSF_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    user_LBSF_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_32924BSF?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_32922BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
      */
     idx?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorBearing
+     * @memberof SensorBearingLeftBallInterface
      */
-    carId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    operateDate?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    operateTime?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    operateDateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    timeIndex?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    aiPredict?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    aiAlgorithm?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbvOverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv6912ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32924ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbv32922ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbvCrestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbvDemodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbsFault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbsFault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    lbtTemperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbvOverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv6912ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32924ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922bpfo?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922bpfi?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922bsf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbv32922ftf?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbvCrestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbvDemodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbsFault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbsFault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    rbtTemperature?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearing
-     */
-    filenm?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearing
-     */
-    wrpm?: number;
+    user_LBSF?: string;
 }
 /**
  * 
  * @export
- * @interface SensorEngine
+ * @interface SensorBearingLeftInsideInterface
  */
-export interface SensorEngine {
+export interface SensorBearingLeftInsideInterface {
     /**
      * 
      * @type {number}
-     * @memberof SensorEngine
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
      */
     idx?: number;
     /**
      * 
-     * @type {string}
-     * @memberof SensorEngine
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
      */
-    carId?: string;
+    l_B_V_6912BPFI?: number;
     /**
      * 
-     * @type {string}
-     * @memberof SensorEngine
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
      */
-    operateDate?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngine
-     */
-    operateTime?: string;
+    l_B_V_32924BPFI?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorEngine
+     * @memberof SensorBearingLeftInsideInterface
      */
-    operateDateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    timeIndex?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    aiPredict?: number;
+    ai_LBPFI_DATE?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorEngine
+     * @memberof SensorBearingLeftInsideInterface
      */
-    aiAlgorithm?: string;
+    user_LBPFI_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_32922BPFI?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorEngine
+     * @memberof SensorBearingLeftInsideInterface
      */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    wrpm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    evOverallRms?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    ev12x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    ev1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    evCrestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    ach?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    acv?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    aca?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    la?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngine
-     */
-    lo?: number;
+    user_LBPFI_ID?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorEngine
+     * @memberof SensorBearingLeftInsideInterface
      */
-    filenm?: string;
+    ai_LBPFI?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    user_LBPFI?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_ALGO?: string;
 }
 /**
  * 
  * @export
- * @interface SensorGearbox
+ * @interface SensorBearingLeftOutsideInterface
  */
-export interface SensorGearbox {
+export interface SensorBearingLeftOutsideInterface {
     /**
      * 
      * @type {number}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_32924BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_6912BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_32922BPFO?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    user_LBPFO_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    user_LBPFO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    user_LBPFO_ID?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorBearingLeftRetainerInterface
+ */
+export interface SensorBearingLeftRetainerInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
      */
     idx?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    carId?: string;
+    ai_LFTF?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_32924FTF?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    operateDate?: string;
+    user_LFTF?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    operateTime?: string;
+    ai_LFTF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_6912FTF?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    operateDateTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    timeIndex?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    aiPredict?: number;
+    user_LFTF_ID?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    aiAlgorithm?: string;
+    ai_LFTF_MODEL?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    aiModel?: string;
+    ai_LFTF_DATE?: string;
     /**
      * 
      * @type {number}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    wrpm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvOverallRms?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvWheel1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvWheel2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvPinion1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvPinion2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvGmf1x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearbox
-     */
-    gvGmf2x?: number;
+    l_B_V_32922FTF?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorGearbox
+     * @memberof SensorBearingLeftRetainerInterface
      */
-    filenm?: string;
+    user_LFTF_DATE?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorBearingRightBallInterface
+ */
+export interface SensorBearingRightBallInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBPFO_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBSF?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_6912BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_32922BSF?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_32924BSF?: number;
+}
+/**
+ * 
+ * @export
+ * @interface SensorBearingRightInsideInterface
+ */
+export interface SensorBearingRightInsideInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    user_RBPFI?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    user_RBPFI_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    user_RBPFI_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_6912BPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_32924BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI_DATE?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorBearingRightOutsideInterface
+ */
+export interface SensorBearingRightOutsideInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    user_RBPFO_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    user_RBPFO_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    user_RBPFO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_6912BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_32924BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_32922BPFO?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorBearingRightRetainerInterface
+ */
+export interface SensorBearingRightRetainerInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    user_RFTF_ID?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    user_RFTF?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    user_RFTF_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_32922FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_6912FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_32924FTF?: number;
+}
+/**
+ * 
+ * @export
+ * @interface SensorEngineInterface
+ */
+export interface SensorEngineInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_OverallRMS?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_1_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE_ID?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_Crestfactor?: number;
+}
+/**
+ * 
+ * @export
+ * @interface SensorGearboxInterface
+ */
+export interface SensorGearboxInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_GMF2X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    user_GEAR_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_GMF1X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    user_GEAR?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_OverallRMS?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    user_GEAR_ID?: string;
 }
 /**
  * 
@@ -3627,111 +5722,208 @@ export interface SensorTempLife {
 /**
  * 
  * @export
- * @interface SensorWheel
+ * @interface SensorWheelLeftInterface
  */
-export interface SensorWheel {
+export interface SensorWheelLeftInterface {
     /**
      * 
      * @type {number}
-     * @memberof SensorWheel
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_3X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_S_Fault3?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_2X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW?: string;
+}
+/**
+ * 
+ * @export
+ * @interface SensorWheelRightInterface
+ */
+export interface SensorWheelRightInterface {
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
      */
     idx?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    carId?: string;
+    user_RW?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    operateDate?: string;
+    ai_RW?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    operateTime?: string;
+    user_RW_DATE?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    operateDateTime?: string;
+    ai_RW_DATE?: string;
     /**
      * 
      * @type {number}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    timeIndex?: number;
+    r_W_V_2X?: number;
     /**
      * 
      * @type {number}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    aiPredict?: number;
+    r_W_V_3X?: number;
     /**
      * 
      * @type {string}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    aiAlgorithm?: string;
+    ai_RW_ALGO?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    wrpm?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    lwv2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    lwv3x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    lwsFault3?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    rwv2x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    rwv3x?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheel
-     */
-    rwsFault3?: number;
+    ai_RW_MODEL?: string;
     /**
      * 
      * @type {string}
-     * @memberof SensorWheel
+     * @memberof SensorWheelRightInterface
      */
-    filenm?: string;
+    user_RW_ID?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    r_W_S_Fault3?: number;
 }
 /**
  * 
@@ -3744,55 +5936,85 @@ export interface SignupRequest {
      * @type {string}
      * @memberof SignupRequest
      */
-    id?: string;
+    userid?: string;
     /**
      * 
      * @type {string}
      * @memberof SignupRequest
      */
-    username?: string;
+    pwd?: string;
     /**
      * 
      * @type {string}
      * @memberof SignupRequest
      */
-    email?: string;
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    rnkcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    srvno?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    usedvcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    crtdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    divs?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    brgd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    bn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    rspofc?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    telno1?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignupRequest
+     */
+    telno2?: string;
     /**
      * 
      * @type {string}
      * @memberof SignupRequest
      */
     usrth?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    password?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    phonenum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    mltrank?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    mltnum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignupRequest
-     */
-    mltunit?: string;
 }
 /**
  * 
@@ -4081,73 +6303,6 @@ export interface UpdateModelInput {
 /**
  * 
  * @export
- * @interface User
- */
-export interface User {
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    id?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    username?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    email?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    password?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    usrth?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    phonenum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    mltrank?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    mltnum?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    mltunit?: string;
-    /**
-     * 
-     * @type {Set<Role>}
-     * @memberof User
-     */
-    roles?: Set<Role>;
-}
-/**
- * 
- * @export
  * @interface UserSnsr
  */
 export interface UserSnsr {
@@ -4169,6 +6324,127 @@ export interface UserSnsr {
      * @memberof UserSnsr
      */
     snsrid?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Usercd
+ */
+export interface Usercd {
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    userid?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    pwd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    usrth?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rnkcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    srvno?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    usedvcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    blocktime?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rctlogindt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rctpwdchngdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    crtdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    mdfcdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    divs?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    brgd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    bn?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    rspofc?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    telno1?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Usercd
+     */
+    telno2?: string;
+    /**
+     * 
+     * @type {Set<Role>}
+     * @memberof Usercd
+     */
+    roles?: Set<Role>;
 }
 
 /**
@@ -5047,7 +7323,7 @@ export const CimControllerApiAxiosParamCreator = function (configuration?: Confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCmncdList1: async (page?: number, pageSize?: number, options: any = {}): Promise<RequestArgs> => {
+        getCmncdList2: async (page?: number, pageSize?: number, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/cim/list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5169,8 +7445,8 @@ export const CimControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCmncdList1(page?: number, pageSize?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCmncdList1(page, pageSize, options);
+        async getCmncdList2(page?: number, pageSize?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCmncdList2(page, pageSize, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -5227,8 +7503,8 @@ export const CimControllerApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCmncdList1(page?: number, pageSize?: number, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getCmncdList1(page, pageSize, options).then((request) => request(axios, basePath));
+        getCmncdList2(page?: number, pageSize?: number, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getCmncdList2(page, pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5290,8 +7566,8 @@ export class CimControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CimControllerApi
      */
-    public getCmncdList1(page?: number, pageSize?: number, options?: any) {
-        return CimControllerApiFp(this.configuration).getCmncdList1(page, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public getCmncdList2(page?: number, pageSize?: number, options?: any) {
+        return CimControllerApiFp(this.configuration).getCmncdList2(page, pageSize, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5303,6 +7579,2641 @@ export class CimControllerApi extends BaseAPI {
      */
     public updateCmncd(cmncd: Cmncd, options?: any) {
         return CimControllerApiFp(this.configuration).updateCmncd(cmncd, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * DatabaseJudgementControllerApi - axios parameter creator
+ * @export
+ */
+export const DatabaseJudgementControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findDistinctByCarId: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('findDistinctByCarId', 'partType', partType)
+            const localVarPath = `/api/judgement/cars`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftBallPredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingLeftBallPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-ball-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftInsidePredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingLeftInsidePredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-inside-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftOutsidePredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingLeftOutsidePredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-outside-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftRetainerPredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingLeftRetainerPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-retainer-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightBallPredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingRightBallPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-ball-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightInsidePredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingRightInsidePredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-inside-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightOutsidePredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingRightOutsidePredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-outside-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightRetainerPredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getBearingRightRetainerPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-retainer-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEnginePredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getEnginePredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-engine-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEngineUserEngineData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getEngineUserEngineData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-engine-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGearboxPredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getGearboxPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-gearbox-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGearboxUserGearData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getGearboxUserGearData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-gearbox-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftBallUserLBSFData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getLeftBallUserLBSFData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-ball-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftInsideUserLBPFIData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getLeftInsideUserLBPFIData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-inside-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftOutsideUserLBPFOData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getLeftOutsideUserLBPFOData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-outside-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftRetainerUserLFTFData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getLeftRetainerUserLFTFData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-left-retainer-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftWheelUserLW: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getLeftWheelUserLW', 'carId', carId)
+            const localVarPath = `/api/judgement/get-wheel-left-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightBallUserRBSFData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getRightBallUserRBSFData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-ball-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightInsideUserRBPFIData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getRightInsideUserRBPFIData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-inside-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightOutsideUserRBPFOData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getRightOutsideUserRBPFOData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-outside-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightRetainerUserRFTFData: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getRightRetainerUserRFTFData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-bearing-right-retainer-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightWheelUserRW: async (carId: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getRightWheelUserRW', 'carId', carId)
+            const localVarPath = `/api/judgement/get-wheel-right-judged-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelLeftPredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getWheelLeftPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-wheel-left-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelRightPredictedData: async (carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'carId' is not null or undefined
+            assertParamExists('getWheelRightPredictedData', 'carId', carId)
+            const localVarPath = `/api/judgement/get-wheel-right-predicted-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (carId !== undefined) {
+                localVarQueryParameter['carId'] = carId;
+            }
+
+            if (fromDate !== undefined) {
+                localVarQueryParameter['from-date'] = (fromDate as any instanceof Date) ?
+                    (fromDate as any).toISOString() :
+                    fromDate;
+            }
+
+            if (toDate !== undefined) {
+                localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
+                    (toDate as any).toISOString() :
+                    toDate;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {Array<DbJudgementUpdateInput>} dbJudgementUpdateInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUserJudgement: async (partType: string, dbJudgementUpdateInput: Array<DbJudgementUpdateInput>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('updateUserJudgement', 'partType', partType)
+            // verify required parameter 'dbJudgementUpdateInput' is not null or undefined
+            assertParamExists('updateUserJudgement', 'dbJudgementUpdateInput', dbJudgementUpdateInput)
+            const localVarPath = `/api/judgement/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(dbJudgementUpdateInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DatabaseJudgementControllerApi - functional programming interface
+ * @export
+ */
+export const DatabaseJudgementControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DatabaseJudgementControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findDistinctByCarId(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findDistinctByCarId(partType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingLeftBallPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftBallInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftBallPredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingLeftInsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftInsideInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftInsidePredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingLeftOutsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftOutsideInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftOutsidePredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingLeftRetainerPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftRetainerInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftRetainerPredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingRightBallPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightBallInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightBallPredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingRightInsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightInsideInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightInsidePredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingRightOutsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightOutsideInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightOutsidePredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBearingRightRetainerPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightRetainerInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightRetainerPredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEnginePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorEngineInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEnginePredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEngineUserEngineData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorEngineInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEngineUserEngineData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGearboxPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorGearboxInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGearboxPredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getGearboxUserGearData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorGearboxInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGearboxUserGearData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeftBallUserLBSFData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftBallInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeftBallUserLBSFData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeftInsideUserLBPFIData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftInsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeftInsideUserLBPFIData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeftOutsideUserLBPFOData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftOutsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeftOutsideUserLBPFOData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeftRetainerUserLFTFData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftRetainerInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeftRetainerUserLFTFData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeftWheelUserLW(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorWheelLeftInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeftWheelUserLW(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRightBallUserRBSFData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightBallInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRightBallUserRBSFData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRightInsideUserRBPFIData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightInsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRightInsideUserRBPFIData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRightOutsideUserRBPFOData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightOutsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRightOutsideUserRBPFOData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRightRetainerUserRFTFData(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightRetainerInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRightRetainerUserRFTFData(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRightWheelUserRW(carId: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorWheelRightInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRightWheelUserRW(carId, fromDate, toDate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWheelLeftPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorWheelLeftInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelLeftPredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWheelRightPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorWheelRightInterface>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelRightPredictedData(carId, fromDate, toDate, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {Array<DbJudgementUpdateInput>} dbJudgementUpdateInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateUserJudgement(partType: string, dbJudgementUpdateInput: Array<DbJudgementUpdateInput>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserJudgement(partType, dbJudgementUpdateInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * DatabaseJudgementControllerApi - factory interface
+ * @export
+ */
+export const DatabaseJudgementControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DatabaseJudgementControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findDistinctByCarId(partType: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.findDistinctByCarId(partType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftBallPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftBallInterface> {
+            return localVarFp.getBearingLeftBallPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftInsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftInsideInterface> {
+            return localVarFp.getBearingLeftInsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftOutsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftOutsideInterface> {
+            return localVarFp.getBearingLeftOutsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingLeftRetainerPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftRetainerInterface> {
+            return localVarFp.getBearingLeftRetainerPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightBallPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightBallInterface> {
+            return localVarFp.getBearingRightBallPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightInsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightInsideInterface> {
+            return localVarFp.getBearingRightInsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightOutsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightOutsideInterface> {
+            return localVarFp.getBearingRightOutsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBearingRightRetainerPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightRetainerInterface> {
+            return localVarFp.getBearingRightRetainerPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEnginePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorEngineInterface> {
+            return localVarFp.getEnginePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEngineUserEngineData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorEngineInterface>> {
+            return localVarFp.getEngineUserEngineData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGearboxPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorGearboxInterface> {
+            return localVarFp.getGearboxPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGearboxUserGearData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorGearboxInterface>> {
+            return localVarFp.getGearboxUserGearData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftBallUserLBSFData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftBallInterface>> {
+            return localVarFp.getLeftBallUserLBSFData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftInsideUserLBPFIData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftInsideInterface>> {
+            return localVarFp.getLeftInsideUserLBPFIData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftOutsideUserLBPFOData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftOutsideInterface>> {
+            return localVarFp.getLeftOutsideUserLBPFOData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftRetainerUserLFTFData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftRetainerInterface>> {
+            return localVarFp.getLeftRetainerUserLFTFData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeftWheelUserLW(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorWheelLeftInterface>> {
+            return localVarFp.getLeftWheelUserLW(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightBallUserRBSFData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightBallInterface>> {
+            return localVarFp.getRightBallUserRBSFData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightInsideUserRBPFIData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightInsideInterface>> {
+            return localVarFp.getRightInsideUserRBPFIData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightOutsideUserRBPFOData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightOutsideInterface>> {
+            return localVarFp.getRightOutsideUserRBPFOData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightRetainerUserRFTFData(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightRetainerInterface>> {
+            return localVarFp.getRightRetainerUserRFTFData(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRightWheelUserRW(carId: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorWheelRightInterface>> {
+            return localVarFp.getRightWheelUserRW(carId, fromDate, toDate, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelLeftPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorWheelLeftInterface> {
+            return localVarFp.getWheelLeftPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} carId 
+         * @param {string} [fromDate] 
+         * @param {string} [toDate] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWheelRightPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorWheelRightInterface> {
+            return localVarFp.getWheelRightPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {Array<DbJudgementUpdateInput>} dbJudgementUpdateInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUserJudgement(partType: string, dbJudgementUpdateInput: Array<DbJudgementUpdateInput>, options?: any): AxiosPromise<string> {
+            return localVarFp.updateUserJudgement(partType, dbJudgementUpdateInput, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DatabaseJudgementControllerApi - object-oriented interface
+ * @export
+ * @class DatabaseJudgementControllerApi
+ * @extends {BaseAPI}
+ */
+export class DatabaseJudgementControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} partType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public findDistinctByCarId(partType: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).findDistinctByCarId(partType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingLeftBallPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftBallPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingLeftInsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftInsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingLeftOutsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftOutsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingLeftRetainerPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftRetainerPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingRightBallPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightBallPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingRightInsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightInsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingRightOutsidePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightOutsidePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getBearingRightRetainerPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightRetainerPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getEnginePredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getEnginePredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getEngineUserEngineData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getEngineUserEngineData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getGearboxPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getGearboxPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getGearboxUserGearData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getGearboxUserGearData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getLeftBallUserLBSFData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getLeftBallUserLBSFData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getLeftInsideUserLBPFIData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getLeftInsideUserLBPFIData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getLeftOutsideUserLBPFOData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getLeftOutsideUserLBPFOData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getLeftRetainerUserLFTFData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getLeftRetainerUserLFTFData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getLeftWheelUserLW(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getLeftWheelUserLW(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getRightBallUserRBSFData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getRightBallUserRBSFData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getRightInsideUserRBPFIData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getRightInsideUserRBPFIData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getRightOutsideUserRBPFOData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getRightOutsideUserRBPFOData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getRightRetainerUserRFTFData(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getRightRetainerUserRFTFData(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getRightWheelUserRW(carId: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getRightWheelUserRW(carId, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getWheelLeftPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getWheelLeftPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} carId 
+     * @param {string} [fromDate] 
+     * @param {string} [toDate] 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public getWheelRightPredictedData(carId: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getWheelRightPredictedData(carId, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {Array<DbJudgementUpdateInput>} dbJudgementUpdateInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatabaseJudgementControllerApi
+     */
+    public updateUserJudgement(partType: string, dbJudgementUpdateInput: Array<DbJudgementUpdateInput>, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).updateUserJudgement(partType, dbJudgementUpdateInput, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -6376,14 +11287,14 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
     return {
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledBearingData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledBearingData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-bearing-data`;
+        getTrainingBearingData: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getTrainingBearingData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-labeled-bearing-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6399,8 +11310,8 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
             }
 
 
@@ -6416,14 +11327,11 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledEngineData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledEngineData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-engine-data`;
+        getTrainingEngineData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-engine-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6439,8 +11347,77 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingGearboxData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-gearbox-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingWheelData: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getTrainingWheelData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-labeled-wheel-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
             }
 
 
@@ -6456,14 +11433,17 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledGearboxData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledGearboxData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-gearbox-data`;
+        getUnlabeledBearingData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledBearingData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-bearing-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6479,8 +11459,20 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -6496,14 +11488,17 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTempLifeData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledTempLifeData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-templife-data`;
+        getUnlabeledEngineData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledEngineData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-engine-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6519,8 +11514,20 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -6536,14 +11543,17 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledWheelData: async (dataType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataType' is not null or undefined
-            assertParamExists('getUnlabeledWheelData', 'dataType', dataType)
-            const localVarPath = `/api/data/database/get-all-wheel-data`;
+        getUnlabeledGearboxData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledGearboxData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-gearbox-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6559,8 +11569,130 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-            if (dataType !== undefined) {
-                localVarQueryParameter['dataType'] = dataType;
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledTempLifeData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledTempLifeData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-templife-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledWheelData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledWheelData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-wheel-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -6673,52 +11805,105 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
     return {
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledBearingData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearing>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingData(dataType, options);
+        async getTrainingBearingData(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingBearingData(partType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledEngineData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorEngine>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledEngineData(dataType, options);
+        async getTrainingEngineData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingEngineData(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledGearboxData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorGearbox>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledGearboxData(dataType, options);
+        async getTrainingGearboxData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingGearboxData(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledTempLifeData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorTempLife>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTempLifeData(dataType, options);
+        async getTrainingWheelData(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingWheelData(partType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledWheelData(dataType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorWheel>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledWheelData(dataType, options);
+        async getUnlabeledBearingData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledEngineData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledGearboxData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledGearboxData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorTempLife>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTempLifeData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledWheelData(partType, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -6754,48 +11939,97 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
     return {
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledBearingData(dataType: string, options?: any): AxiosPromise<Array<SensorBearing>> {
-            return localVarFp.getUnlabeledBearingData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingBearingData(partType: string, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingBearingData(partType, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledEngineData(dataType: string, options?: any): AxiosPromise<Array<SensorEngine>> {
-            return localVarFp.getUnlabeledEngineData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingEngineData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingEngineData(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledGearboxData(dataType: string, options?: any): AxiosPromise<Array<SensorGearbox>> {
-            return localVarFp.getUnlabeledGearboxData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingGearboxData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingGearboxData(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTempLifeData(dataType: string, options?: any): AxiosPromise<Array<SensorTempLife>> {
-            return localVarFp.getUnlabeledTempLifeData(dataType, options).then((request) => request(axios, basePath));
+        getTrainingWheelData(partType: string, options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingWheelData(partType, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} dataType 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledWheelData(dataType: string, options?: any): AxiosPromise<Array<SensorWheel>> {
-            return localVarFp.getUnlabeledWheelData(dataType, options).then((request) => request(axios, basePath));
+        getUnlabeledBearingData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledBearingData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledEngineData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledGearboxData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledGearboxData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorTempLife> {
+            return localVarFp.getUnlabeledTempLifeData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledWheelData(partType, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6828,57 +12062,114 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
 export class DatasetDatabaseControllerApi extends BaseAPI {
     /**
      * 
-     * @param {string} dataType 
+     * @param {string} partType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledBearingData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledBearingData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingBearingData(partType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingBearingData(partType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledEngineData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledEngineData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingEngineData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingEngineData(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledGearboxData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledGearboxData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingGearboxData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingGearboxData(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
+     * @param {string} partType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledTempLifeData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTempLifeData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getTrainingWheelData(partType: string, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingWheelData(partType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} dataType 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledWheelData(dataType: string, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledWheelData(dataType, options).then((request) => request(this.axios, this.basePath));
+    public getUnlabeledBearingData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledBearingData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledEngineData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledGearboxData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledGearboxData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTempLifeData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledWheelData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6918,9 +12209,9 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBnList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+        getBnList2: async (data: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'data' is not null or undefined
-            assertParamExists('getBnList', 'data', data)
+            assertParamExists('getBnList2', 'data', data)
             const localVarPath = `/api/drivercorrection/bnList/{data}`
                 .replace(`{${"data"}}`, encodeURIComponent(String(data)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -6954,7 +12245,7 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDivList: async (options: any = {}): Promise<RequestArgs> => {
+        getDivList2: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/drivercorrection/divsList`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6988,9 +12279,9 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSdaList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+        getSdaList1: async (data: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'data' is not null or undefined
-            assertParamExists('getSdaList', 'data', data)
+            assertParamExists('getSdaList1', 'data', data)
             const localVarPath = `/api/drivercorrection/sdaList/{data}`
                 .replace(`{${"data"}}`, encodeURIComponent(String(data)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -7025,9 +12316,9 @@ export const DriverCorrectionControllerApiAxiosParamCreator = function (configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search: async (searchRequest: SearchRequest, options: any = {}): Promise<RequestArgs> => {
+        search1: async (searchRequest: SearchRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'searchRequest' is not null or undefined
-            assertParamExists('search', 'searchRequest', searchRequest)
+            assertParamExists('search1', 'searchRequest', searchRequest)
             const localVarPath = `/api/drivercorrection/search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7074,8 +12365,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBnList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList(data, options);
+        async getBnList2(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList2(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7083,8 +12374,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDivList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList(options);
+        async getDivList2(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList2(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7093,8 +12384,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSdaList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSdaList(data, options);
+        async getSdaList1(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSdaList1(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -7103,8 +12394,8 @@ export const DriverCorrectionControllerApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async search(searchRequest: SearchRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.search(searchRequest, options);
+        async search1(searchRequest: SearchRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.search1(searchRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -7123,16 +12414,16 @@ export const DriverCorrectionControllerApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBnList(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
-            return localVarFp.getBnList(data, options).then((request) => request(axios, basePath));
+        getBnList2(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
+            return localVarFp.getBnList2(data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDivList(options?: any): AxiosPromise<Array<Cmncd>> {
-            return localVarFp.getDivList(options).then((request) => request(axios, basePath));
+        getDivList2(options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getDivList2(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7140,8 +12431,8 @@ export const DriverCorrectionControllerApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSdaList(data: string, options?: any): AxiosPromise<Array<Sda>> {
-            return localVarFp.getSdaList(data, options).then((request) => request(axios, basePath));
+        getSdaList1(data: string, options?: any): AxiosPromise<Array<Sda>> {
+            return localVarFp.getSdaList1(data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7149,8 +12440,8 @@ export const DriverCorrectionControllerApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search(searchRequest: SearchRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.search(searchRequest, options).then((request) => request(axios, basePath));
+        search1(searchRequest: SearchRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.search1(searchRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7169,8 +12460,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public getBnList(data: string, options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).getBnList(data, options).then((request) => request(this.axios, this.basePath));
+    public getBnList2(data: string, options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).getBnList2(data, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7179,8 +12470,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public getDivList(options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).getDivList(options).then((request) => request(this.axios, this.basePath));
+    public getDivList2(options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).getDivList2(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7190,8 +12481,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public getSdaList(data: string, options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).getSdaList(data, options).then((request) => request(this.axios, this.basePath));
+    public getSdaList1(data: string, options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).getSdaList1(data, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7201,8 +12492,8 @@ export class DriverCorrectionControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionControllerApi
      */
-    public search(searchRequest: SearchRequest, options?: any) {
-        return DriverCorrectionControllerApiFp(this.configuration).search(searchRequest, options).then((request) => request(this.axios, this.basePath));
+    public search1(searchRequest: SearchRequest, options?: any) {
+        return DriverCorrectionControllerApiFp(this.configuration).search1(searchRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -7840,45 +13131,6 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {ClusterTrainInput} clusterTrainInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        trainKmean: async (clusterTrainInput: ClusterTrainInput, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'clusterTrainInput' is not null or undefined
-            assertParamExists('trainKmean', 'clusterTrainInput', clusterTrainInput)
-            const localVarPath = `/api/train/kmean`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearer-key required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(clusterTrainInput, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8274,16 +13526,6 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {ClusterTrainInput} clusterTrainInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async trainKmean(clusterTrainInput: ClusterTrainInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClusterResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.trainKmean(clusterTrainInput, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8457,15 +13699,6 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
          */
         trainIsolationForest(clusterTrainInput: ClusterTrainInput, options?: any): AxiosPromise<ClusterResponse> {
             return localVarFp.trainIsolationForest(clusterTrainInput, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {ClusterTrainInput} clusterTrainInput 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        trainKmean(clusterTrainInput: ClusterTrainInput, options?: any): AxiosPromise<ClusterResponse> {
-            return localVarFp.trainKmean(clusterTrainInput, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -8658,17 +13891,6 @@ export class MlControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {ClusterTrainInput} clusterTrainInput 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MlControllerApi
-     */
-    public trainKmean(clusterTrainInput: ClusterTrainInput, options?: any) {
-        return MlControllerApiFp(this.configuration).trainKmean(clusterTrainInput, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {BaseAlgorithmTrainInput} baseAlgorithmTrainInput 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8756,6 +13978,45 @@ export const PartsReplacementCycleSettingControllerApiAxiosParamCreator = functi
     return {
         /**
          * 
+         * @param {CmpntsrplcData} cmpntsrplcData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        add: async (cmpntsrplcData: CmpntsrplcData, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cmpntsrplcData' is not null or undefined
+            assertParamExists('add', 'cmpntsrplcData', cmpntsrplcData)
+            const localVarPath = `/api/partsreplacementcycle/add`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cmpntsrplcData, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {Array<Cmpntsrplc>} cmpntsrplc 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8795,6 +14056,150 @@ export const PartsReplacementCycleSettingControllerApiAxiosParamCreator = functi
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList1: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getBnList1', 'data', data)
+            const localVarPath = `/api/partsreplacementcycle/bnList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCmncdList1: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getCmncdList1', 'data', data)
+            const localVarPath = `/api/partsreplacementcycle/cmncdList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList1: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/partsreplacementcycle/divsList`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSdaList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getSdaList', 'data', data)
+            const localVarPath = `/api/partsreplacementcycle/vnList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -8826,6 +14231,84 @@ export const PartsReplacementCycleSettingControllerApiAxiosParamCreator = functi
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        history: async (cmpntsrplcHistry: CmpntsrplcHistry, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'cmpntsrplcHistry' is not null or undefined
+            assertParamExists('history', 'cmpntsrplcHistry', cmpntsrplcHistry)
+            const localVarPath = `/api/partsreplacementcycle/history`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(cmpntsrplcHistry, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        search: async (requestBody: { [key: string]: object; }, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'requestBody' is not null or undefined
+            assertParamExists('search', 'requestBody', requestBody)
+            const localVarPath = `/api/partsreplacementcycle/search`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -8838,6 +14321,16 @@ export const PartsReplacementCycleSettingControllerApiFp = function(configuratio
     return {
         /**
          * 
+         * @param {CmpntsrplcData} cmpntsrplcData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async add(cmpntsrplcData: CmpntsrplcData, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcHistry>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.add(cmpntsrplcData, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {Array<Cmpntsrplc>} cmpntsrplc 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8848,11 +14341,70 @@ export const PartsReplacementCycleSettingControllerApiFp = function(configuratio
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBnList1(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList1(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCmncdList1(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCmncdList1(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDivList1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList1(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSdaList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSdaList(data, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getThresholdList1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getThresholdList1(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async history(cmpntsrplcHistry: CmpntsrplcHistry, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcHistry>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.history(cmpntsrplcHistry, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async search(requestBody: { [key: string]: object; }, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CmpntsrplcInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.search(requestBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -8867,6 +14419,15 @@ export const PartsReplacementCycleSettingControllerApiFactory = function (config
     return {
         /**
          * 
+         * @param {CmpntsrplcData} cmpntsrplcData 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        add(cmpntsrplcData: CmpntsrplcData, options?: any): AxiosPromise<Array<CmpntsrplcHistry>> {
+            return localVarFp.add(cmpntsrplcData, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {Array<Cmpntsrplc>} cmpntsrplc 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8876,11 +14437,64 @@ export const PartsReplacementCycleSettingControllerApiFactory = function (config
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList1(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
+            return localVarFp.getBnList1(data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCmncdList1(data: string, options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getCmncdList1(data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList1(options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getDivList1(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSdaList(data: string, options?: any): AxiosPromise<Array<Sda>> {
+            return localVarFp.getSdaList(data, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getThresholdList1(options?: any): AxiosPromise<Array<CmpntsrplcResponse>> {
             return localVarFp.getThresholdList1(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        history(cmpntsrplcHistry: CmpntsrplcHistry, options?: any): AxiosPromise<Array<CmpntsrplcHistry>> {
+            return localVarFp.history(cmpntsrplcHistry, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {{ [key: string]: object; }} requestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        search(requestBody: { [key: string]: object; }, options?: any): AxiosPromise<Array<CmpntsrplcInfo>> {
+            return localVarFp.search(requestBody, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -8894,6 +14508,17 @@ export const PartsReplacementCycleSettingControllerApiFactory = function (config
 export class PartsReplacementCycleSettingControllerApi extends BaseAPI {
     /**
      * 
+     * @param {CmpntsrplcData} cmpntsrplcData 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public add(cmpntsrplcData: CmpntsrplcData, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).add(cmpntsrplcData, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {Array<Cmpntsrplc>} cmpntsrplc 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8905,12 +14530,77 @@ export class PartsReplacementCycleSettingControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getBnList1(data: string, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getBnList1(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getCmncdList1(data: string, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getCmncdList1(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getDivList1(options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getDivList1(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public getSdaList(data: string, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).getSdaList(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PartsReplacementCycleSettingControllerApi
      */
     public getThresholdList1(options?: any) {
         return PartsReplacementCycleSettingControllerApiFp(this.configuration).getThresholdList1(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CmpntsrplcHistry} cmpntsrplcHistry 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public history(cmpntsrplcHistry: CmpntsrplcHistry, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).history(cmpntsrplcHistry, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {{ [key: string]: object; }} requestBody 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PartsReplacementCycleSettingControllerApi
+     */
+    public search(requestBody: { [key: string]: object; }, options?: any) {
+        return PartsReplacementCycleSettingControllerApiFp(this.configuration).search(requestBody, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -8962,11 +14652,85 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getId: async (name: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('getId', 'name', name)
+            const localVarPath = `/api/statistical/getId/{name}`
+                .replace(`{${"name"}}`, encodeURIComponent(String(name)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getInfo: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/statistical/info`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} userid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPopUpInfo: async (userid: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userid' is not null or undefined
+            assertParamExists('getPopUpInfo', 'userid', userid)
+            const localVarPath = `/api/statistical/getPopUpInfo/{userid}`
+                .replace(`{${"userid"}}`, encodeURIComponent(String(userid)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9054,11 +14818,31 @@ export const StatisticalInfoControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getId(name: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getId(name, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getInfo(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInfo(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} userid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPopUpInfo(userid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPopUpInfo(userid, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9092,11 +14876,29 @@ export const StatisticalInfoControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
+         * @param {string} name 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getId(name: string, options?: any): AxiosPromise<string> {
+            return localVarFp.getId(name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getInfo(options?: any): AxiosPromise<{ [key: string]: object; }> {
             return localVarFp.getInfo(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} userid 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPopUpInfo(userid: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getPopUpInfo(userid, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9130,12 +14932,34 @@ export class StatisticalInfoControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} name 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatisticalInfoControllerApi
+     */
+    public getId(name: string, options?: any) {
+        return StatisticalInfoControllerApiFp(this.configuration).getId(name, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StatisticalInfoControllerApi
      */
     public getInfo(options?: any) {
         return StatisticalInfoControllerApiFp(this.configuration).getInfo(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} userid 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatisticalInfoControllerApi
+     */
+    public getPopUpInfo(userid: string, options?: any) {
+        return StatisticalInfoControllerApiFp(this.configuration).getPopUpInfo(userid, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9649,6 +15473,43 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
         },
         /**
          * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList: async (data: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('getBnList', 'data', data)
+            const localVarPath = `/api/user/bnList/{data}`
+                .replace(`{${"data"}}`, encodeURIComponent(String(data)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} [page] 
          * @param {number} [pageSize] 
          * @param {*} [options] Override http request option.
@@ -9678,6 +15539,39 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/user/divsList`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
@@ -9729,13 +15623,13 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
         },
         /**
          * 
-         * @param {User} user 
+         * @param {Usercd} usercd 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUser: async (user: User, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'user' is not null or undefined
-            assertParamExists('updateUser', 'user', user)
+        updateUser: async (usercd: Usercd, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'usercd' is not null or undefined
+            assertParamExists('updateUser', 'usercd', usercd)
             const localVarPath = `/api/user/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -9759,7 +15653,7 @@ export const UserManagementControllerApiAxiosParamCreator = function (configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(usercd, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9782,8 +15676,18 @@ export const UserManagementControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Cmncd>> {
+        async deleteUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Usercd>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBnList(data: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TreeInfo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBnList(data, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9799,22 +15703,31 @@ export const UserManagementControllerApiFp = function(configuration?: Configurat
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDivList(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Cmncd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDivList(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+        async getUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Usercd>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUser(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {User} user 
+         * @param {Usercd} usercd 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUser(user: User, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(user, options);
+        async updateUser(usercd: Usercd, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Usercd>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(usercd, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9833,8 +15746,17 @@ export const UserManagementControllerApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteUser(id: string, options?: any): AxiosPromise<Cmncd> {
+        deleteUser(id: string, options?: any): AxiosPromise<Usercd> {
             return localVarFp.deleteUser(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} data 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBnList(data: string, options?: any): AxiosPromise<Array<TreeInfo>> {
+            return localVarFp.getBnList(data, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9848,21 +15770,29 @@ export const UserManagementControllerApiFactory = function (configuration?: Conf
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDivList(options?: any): AxiosPromise<Array<Cmncd>> {
+            return localVarFp.getDivList(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser(id: string, options?: any): AxiosPromise<User> {
+        getUser(id: string, options?: any): AxiosPromise<Usercd> {
             return localVarFp.getUser(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {User} user 
+         * @param {Usercd} usercd 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUser(user: User, options?: any): AxiosPromise<User> {
-            return localVarFp.updateUser(user, options).then((request) => request(axios, basePath));
+        updateUser(usercd: Usercd, options?: any): AxiosPromise<Usercd> {
+            return localVarFp.updateUser(usercd, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9887,6 +15817,17 @@ export class UserManagementControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} data 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserManagementControllerApi
+     */
+    public getBnList(data: string, options?: any) {
+        return UserManagementControllerApiFp(this.configuration).getBnList(data, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {number} [page] 
      * @param {number} [pageSize] 
      * @param {*} [options] Override http request option.
@@ -9895,6 +15836,16 @@ export class UserManagementControllerApi extends BaseAPI {
      */
     public getCmncdList(page?: number, pageSize?: number, options?: any) {
         return UserManagementControllerApiFp(this.configuration).getCmncdList(page, pageSize, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserManagementControllerApi
+     */
+    public getDivList(options?: any) {
+        return UserManagementControllerApiFp(this.configuration).getDivList(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9910,13 +15861,13 @@ export class UserManagementControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {User} user 
+     * @param {Usercd} usercd 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserManagementControllerApi
      */
-    public updateUser(user: User, options?: any) {
-        return UserManagementControllerApiFp(this.configuration).updateUser(user, options).then((request) => request(this.axios, this.basePath));
+    public updateUser(usercd: Usercd, options?: any) {
+        return UserManagementControllerApiFp(this.configuration).updateUser(usercd, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -82,8 +82,8 @@ public class MLPClassifier extends ClassifierAlgorithm<MultilayerPerceptronClass
 
 				// predict
 				StringBuilder lineBuilder = new StringBuilder();
-				int index = Double.valueOf(model.predict(vector)).intValue();                // index of label								// #PC0026
-				lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');        // convert to categorical label					// #PC0026
+				int index = Double.valueOf(model.predict(vector)).intValue();
+				lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');
 				lineBuilder.append(delimiter);
 				for (int iter = 0; iter < listColNames.size(); ++iter) {
 					if (rowData.get(iter) == null) {

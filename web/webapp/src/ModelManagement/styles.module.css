@@ -16,11 +16,12 @@
   flex-direction: column;
 }
 
-.trainInputBody option{
-  color:black;
+.trainInputBody option {
+  color: black;
 }
 
 .trainInputBodyDetailSection {
+  padding: 18px 12px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -57,4 +58,32 @@
   width: 300px;
   margin-left: 16px;
   margin-right: 16px;
+}
+
+.tableBlack {
+  color: #fff;
+  background-color: #343a40;
+}
+
+.tableBlack th,
+.tableBlack td,
+.tableBlack thead th {
+  border-color: #454d55;
+}
+
+.tableBlack.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tableBlack,
+.tableBlack > th,
+.tableBlack > td {
+  background-color: #c6c8ca;
+}
+
+.tableBlack th,
+.tableBlack td,
+.tableBlack thead th,
+.tableBlack tbody + tbody {
+  border-color: #95999c;
 }

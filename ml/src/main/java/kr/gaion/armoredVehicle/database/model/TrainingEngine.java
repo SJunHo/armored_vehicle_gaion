@@ -16,57 +16,52 @@ import java.util.Date;
 public class TrainingEngine {
     @Id
     @GeneratedValue
-    @Column(name="IDX")
+    @Column(name = "IDX")
     private long idx;
 
-    @Column(name="SDAID")
+    @Column(name = "SDAID")
     private String carId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name="OPERDATE")
-    private Date operateDate;
-
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(name="OPERTIME")
-    private Date operateTime;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name="DATE")
+    @Column(name = "DATE")
     private Date operateDateTime;
 
-    @Column(name="TIME")
+    @Column(name = "TIME")
     private long timeIndex;
 
-    @Column(name="W_RPM")
+    @Column(name = "W_RPM")
     private double wrpm;
 
-    @Column(name="E_V_OverallRMS")
+    @Column(name = "E_V_OverallRMS")
     private double evOverallRms;
 
-    @Column(name="E_V_1-2X")
+    @Column(name = "E_V_1_2X")
     private double ev12x;
 
-    @Column(name="E_V_1X")
+    @Column(name = "E_V_1X")
     private double ev1x;
 
-    @Column(name="E_V_Crestfactor")
+    @Column(name = "E_V_Crestfactor")
     private double evCrestfactor;
 
-    @Column(name="AC_h")
+    @Column(name = "AC_h")
     private double ach;
 
-    @Column(name="AC_v")
+    @Column(name = "AC_v")
     private double acv;
 
-    @Column(name="AC_a")
+    @Column(name = "AC_a")
     private double aca;
 
-    @Column(name="LA")
+    @Column(name = "LA")
     private double la;
 
-    @Column(name="LO")
+    @Column(name = "LO")
     private double lo;
 
-    @Column(name="AI_Predict")
-    private double AiPredict;
+    @Column(name = "FILENM")
+    private String fileNm;
+
+    @Column(name = "AI_ENGINE")
+    private int aiEngine;
 }

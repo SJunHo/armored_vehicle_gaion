@@ -1,21 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext, useEffect} from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
-import {
-  Controller,
-  FormProvider,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
+import {Controller, FormProvider, useForm, useFormContext,} from "react-hook-form";
 import Select2 from "react-select";
-import {RegressionResponse, RandomForestClassificationResponse} from "../api";
-import { OpenApiContext } from "../api/OpenApiContext";
-import { InputWrapper } from "../common/Common";
-import { Section } from "../common/Section/Section";
+import {RandomForestClassificationResponse, RegressionResponse} from "../api";
+import {OpenApiContext} from "../api/OpenApiContext";
+import {InputWrapper} from "../common/Common";
+import {Section} from "../common/Section/Section";
 
-import { CreateModelResult } from "./CreateModelResult";
+import {CreateModelResult} from "./CreateModelResult";
 import styles from "./styles.module.css";
 import {DataInputSection} from "./CreateModel/DataInputSection";
 import {useTranslation} from "react-i18next";
@@ -24,19 +19,18 @@ import {useTranslation} from "react-i18next";
 const SPLIT_TRAIN_TEST_STRATEGIES = ["auto", "all", "sqrt", "log2", "onethird"];
 
 export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
-  algorithmName,
-}) => {
+                                                                          algorithmName,
+                                                                        }) => {
   const methods = useForm({
-    defaultValues: { fraction: 80 },
+    defaultValues: {fraction: 80},
   });
-  const { register, handleSubmit, watch } = methods;
+  const {register, handleSubmit, watch} = methods;
   const [isTraining, setIsTraining] = React.useState(false);
 
-  const { t } = useTranslation();
-  const { mlControllerApi } = useContext(OpenApiContext);
+  const {t} = useTranslation();
+  const {mlControllerApi} = useContext(OpenApiContext);
   const [result, setResult] = React.useState<RandomForestClassificationResponse>();
   const [result2, setResult2] = React.useState<RegressionResponse>();
-  console.log(algorithmName)
 
   async function handleTrain(input: any) {
     setResult(undefined);
@@ -61,10 +55,6 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
 
         case "mlp": {
           newResult = await mlControllerApi?.trainMLP(input);
-          break;
-        }
-        case "kmean": {
-          newResult = await mlControllerApi?.trainKmean(input);
           break;
         }
         case "if": {
@@ -96,38 +86,38 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
       fraction: 80,
       ...(algorithmName === "kmean"
         ? {
-            numClusters: 3,
-          }
+          numClusters: 3,
+        }
         : {}),
     });
   }, [algorithmName, methods]);
 
   return (
-    <div>
+    <div className="d-inline">
       <FormProvider {...methods}>
         <Form onSubmit={handleSubmit(handleTrain)}>
           <div className="d-flex gap-3">
-            <DataInputSection algorithmName={algorithmName} />
+            <DataInputSection algorithmName={algorithmName}/>
             <Section
-                className={styles.trainInputSection}
-                title={"모델 파라미터 설정"}
-                bottomTitle="Training Model"
+              className={styles.trainInputSection}
+              title={"모델 파라미터 설정"}
+              bottomTitle="Training Model"
             >
               <div className={styles.trainInputBody}>
                 <InputWrapper title="학습 / 테스트 데이터셋 구성비">
                   <Form.Range
-                      {...register("fraction")}
-                      step={10}
-                      min={0}
-                      max={100}
-                      style={{width:'100%'}}
+                    {...register("fraction")}
+                    step={10}
+                    min={0}
+                    max={100}
+                    style={{width: '100%'}}
                   />
                   <span className="text-white">
                     비율 {watch("fraction")}/
                     {100 - watch("fraction")}
                   </span>
                 </InputWrapper>
-                <AdditionalParams algorithmName={algorithmName} />
+                <AdditionalParams algorithmName={algorithmName}/>
               </div>
             </Section>
           </div>
@@ -142,22 +132,24 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
                   aria-hidden="true"
                 />
               )}
-              모델생성            </Button>
+              모델생성 </Button>
           </div>
         </Form>
+        {result && (
+          <>
+            <CreateModelResult algorithmName={algorithmName} result={result} result2={result2}/>
+          </>
+        )}
       </FormProvider>
-      {result && (
-        <CreateModelResult algorithmName={algorithmName} result={result} result2={result2} />
-      )}
     </div>
   );
 };
 
 const AdditionalParams: React.FC<{ algorithmName: string }> = ({
-  algorithmName,
-}) => {
-  const { t } = useTranslation();
-  const { register, control, setValue } = useFormContext();
+                                                                 algorithmName,
+                                                               }) => {
+  const {t} = useTranslation();
+  const {register, control, setValue} = useFormContext();
   return (
     <div className={styles.trainInputBodyDetailSection}>
       {algorithmName === "rfc" && (
@@ -172,18 +164,18 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
               defaultValue="auto"
               control={control}
               name="featureSubsetStrategy"
-              render={({ field }) => (
+              render={({field}) => (
                 <Select2
+                  className="mt-2"
                   isClearable
-                  placeholder={t("ml.common.p" +
-                    "sop")}
+                  placeholder={t("ml.common.psop")}
                   options={SPLIT_TRAIN_TEST_STRATEGIES.map((strategy) => ({
                     value: strategy,
                     label: strategy,
                   }))}
                   value={
                     field.value
-                      ? { label: field.value, value: field.value }
+                      ? {label: field.value, value: field.value}
                       : undefined
                   }
                   onChange={(v) => setValue("featureSubsetStrategy", v?.value)}
@@ -196,8 +188,11 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             labelWidth={6}
             className={styles.body2Input}
             title="불순도"
+            style={{paddingLeft: "10px"}}
           >
-            <Form.Control {...register("impurity", { value: "gini" })} />
+            <Form.Control
+              className="mt-2"
+              {...register("impurity", {value: "gini"})} />
           </InputWrapper>
           <InputWrapper
             rowLayout
@@ -206,8 +201,9 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="최대 빈 크기"
           >
             <Form.Control
+              className="mt-2"
               type="number"
-              {...register("maxBins", { valueAsNumber: true, value: 4 })}
+              {...register("maxBins", {valueAsNumber: true, value: 4})}
             />
           </InputWrapper>
           <InputWrapper
@@ -217,8 +213,9 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="트리 수"
           >
             <Form.Control
+              className="mt-2"
               type="number"
-              {...register("numTrees", { value: 4 })}
+              {...register("numTrees", {value: 4})}
             />
           </InputWrapper>
           <InputWrapper
@@ -228,7 +225,8 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="최대 트리 깊이"
           >
             <Form.Control
-              {...register("maxDepths", { valueAsNumber: true, value: 4 })}
+              className="mt-2"
+              {...register("maxDepths", {valueAsNumber: true, value: 4})}
               type="number"
             />
           </InputWrapper>
@@ -243,9 +241,10 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="블록 크기"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="1"
-              {...register("blockSize", { valueAsNumber: true, value: 128 })}
+              {...register("blockSize", {valueAsNumber: true, value: 128})}
             />
           </InputWrapper>
           <InputWrapper
@@ -255,9 +254,10 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             title="최대 반복"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="1"
-              {...register("maxIter", { valueAsNumber: true, value: 100 })}
+              {...register("maxIter", {valueAsNumber: true, value: 100})}
             />
           </InputWrapper>
         </>
@@ -270,9 +270,10 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
           title="최대 반복"
         >
           <Form.Control
+            className="mt-2"
             type="number"
             min="1"
-            {...register("maxIter", { valueAsNumber: true, value: 100 })}
+            {...register("maxIter", {valueAsNumber: true, value: 100})}
           />
         </InputWrapper>
       )}
@@ -282,36 +283,40 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title="파라미터"
+            title="정규화 파라미터"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="0"
-              {...register("regParam", { valueAsNumber: true, value: 0 })}
+              step="0.1"
+              {...register("regParam", {valueAsNumber: true, value: 0.3})}
             />
           </InputWrapper>
           <InputWrapper
             rowLayout
             labelWidth={6}
             className={styles.body2Input}
-            title="엘라스틱 넷 파라미터"
+            title="정규화 강도 파라미터"
           >
             <Form.Control
+              className="mt-2"
               type="number"
               min="0"
+              step="0.1"
               {...register("elasticNetParam", {
                 valueAsNumber: true,
-                value: 0,
+                value: 0.8,
               })}
             />
           </InputWrapper>
         </>
       )}
 
-      {algorithmName === "kmean" && <KmeanSection />}
-      {algorithmName === "if" && <IsolationForestSection />}
-      {algorithmName === "linear" && <LinearRegression />}
-      {algorithmName === "lasso" && <LinearRegression />}
+      {algorithmName === "kmean" && <KmeanSection/>}
+      {algorithmName === "if" && <IsolationForestSection/>}
+      {algorithmName === "linear" && <LinearRegression/>}
+      {algorithmName === "lasso" && <LinearRegression/>}
 
       <InputWrapper
         labelWidth={6}
@@ -319,15 +324,17 @@ const AdditionalParams: React.FC<{ algorithmName: string }> = ({
         rowLayout
         title="모델 이름"
       >
-        <Form.Control {...register("modelName", { value: "DefaultModel" })} />
+        <Form.Control
+          className="mt-2"
+          {...register("modelName", {value: "DefaultModel"})} />
       </InputWrapper>
     </div>
   );
 };
 
 export const PreprocessingSection: React.FC = () => {
-  const { t } = useTranslation();
-  const { register } = useFormContext();
+  const {t} = useTranslation();
+  const {register} = useFormContext();
   return (
     <>
       <Row>
@@ -352,7 +359,7 @@ export const PreprocessingSection: React.FC = () => {
           title={t("ml.common.caof")}
         >
           <Form.Control
-            {...register("numberFeatures", { valueAsNumber: true })}
+            {...register("numberFeatures", {valueAsNumber: true})}
             placeholder={t("ml.common.nf")}
             type="number"
             min="1"
@@ -368,7 +375,7 @@ export const PreprocessingSection: React.FC = () => {
             placeholder={t("ml.common.sb")}
             type="number"
             min="1"
-            {...register("bin", { valueAsNumber: true })}
+            {...register("bin", {valueAsNumber: true})}
           />
         </InputWrapper>
       </div>
@@ -377,9 +384,9 @@ export const PreprocessingSection: React.FC = () => {
 };
 
 export const KmeanSection: React.FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
-  const { register } = useFormContext();
+  const {register} = useFormContext();
   return (
     <>
       <InputWrapper
@@ -391,7 +398,7 @@ export const KmeanSection: React.FC = () => {
         <Form.Control
           type="number"
           min="1"
-          {...register("numClusters", { valueAsNumber: true, value: 4 })}
+          {...register("numClusters", {valueAsNumber: true, value: 4})}
         />
       </InputWrapper>
       <InputWrapper
@@ -402,7 +409,7 @@ export const KmeanSection: React.FC = () => {
       >
         <Form.Control
           type="number"
-          {...register("numIters", { valueAsNumber: true, value: 100 })}
+          {...register("numIters", {valueAsNumber: true, value: 100})}
         />
       </InputWrapper>
     </>
@@ -410,9 +417,9 @@ export const KmeanSection: React.FC = () => {
 };
 
 export const IsolationForestSection: React.FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
-  const { register } = useFormContext();
+  const {register} = useFormContext();
   return (
     <>
       <InputWrapper
@@ -424,7 +431,7 @@ export const IsolationForestSection: React.FC = () => {
         <Form.Control
           type="number"
           min="0.0"
-          {...register("numClusters", { valueAsNumber: true, value: 2 })}
+          {...register("numEstimators", {valueAsNumber: true, value: 100})}
         />
       </InputWrapper>
       <InputWrapper
@@ -437,7 +444,7 @@ export const IsolationForestSection: React.FC = () => {
           type="number"
           min="0.0"
           step="0.1"
-          {...register("maxFeatures", { valueAsNumber: true, value:0.0 })}
+          {...register("maxFeatures", {valueAsNumber: true, value: 1.0})}
         />
 
       </InputWrapper>
@@ -450,26 +457,17 @@ export const IsolationForestSection: React.FC = () => {
         <Form.Control
           type="number"
           min="0.0"
-          {...register("maxSamples", { valueAsNumber: true, value: 256 })}
+          {...register("maxSamples", {valueAsNumber: true, value: 256})}
         />
-
-      </InputWrapper>
-      <InputWrapper
-        rowLayout
-        labelWidth={6}
-        className={styles.body2Input}
-        title="부스트스랩"
-      >
-        <Form.Check {...register("bootstrap")} />
       </InputWrapper>
     </>
   );
 };
 
 export const LinearRegression: React.FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
-  const { register } = useFormContext();
+  const {register} = useFormContext();
   return (
     <>
       <InputWrapper
@@ -480,7 +478,7 @@ export const LinearRegression: React.FC = () => {
       >
         <Form.Control
           type="number"
-          {...register("maxIter", { valueAsNumber: true, value: 1 })}
+          {...register("maxIter", {valueAsNumber: true, value: 1})}
           placeholder={"default iteration 100"}
         />
       </InputWrapper>
@@ -493,11 +491,10 @@ export const LinearRegression: React.FC = () => {
         <Form.Control
           type="number"
           step="0.01"
-          {...register("regParams", { valueAsNumber: true, value: 0.01 }, )}
+          {...register("regParams", {valueAsNumber: true, value: 0.01},)}
           placeholder={"default value 0.01"}
         />
       </InputWrapper>
     </>
   );
 };
-

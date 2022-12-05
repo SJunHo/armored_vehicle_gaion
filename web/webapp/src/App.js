@@ -16,13 +16,6 @@ import PartsReplacementCycle from "./components/analysis/StatisticalInfo/partsre
 /*모델관리*/
 import { OpenApiContextProvider } from "./api";
 
-/* */
-import MonitorDiagnosTictroubleAlerts from "./components/analysis/FaultDiagnosisModel/MonitorDiagnosTictroubleAlerts.component";
-
-/*잔존수명예지 모델*/
-import LinearRegression from "./components/analysis/MRLF/linearregression.component";
-import RasoRegession from "./components/analysis/MRLF/rasoregession.component";
-import MonitorRemainingUsefulLife from "./components/analysis/LearningDataCollection/monitorremainingusefullife.component";
 /*시스템 설정*/
 import Driver_CIS from "./components/analysis/SystemSettings/driver_cis.component";
 import Setting_PRC from "./components/analysis/SystemSettings/setting_prc.component";
@@ -50,14 +43,9 @@ import LogOutComp from "./components/login/logout.component";
 import { AuthorizedRoute } from "./common/AuthorizedRoute";
 import {DataUpload} from "./DataLookUp/DataUpload";
 import {ModelManagement} from "./ModelManagement/ModelManagement";
-import {Dashboard} from "./Dashboard/Dashboard";
-import {PredictedResults} from "./ResultPrediction/PredictedResults";
-import {PredictedResultsUserInput} from "./ResultPredictionUserInput/PredictedResultsUserInput";
-import {SavedPredictedResult} from "./SavedResultPrediction/SavedPredictedResult";
-import {FeatureSelection} from "./ModelManagement/FeatureSelection";
-import {DatasetManagement} from "./DatasetManagement/DatasetManagement";
-import {DataLookUpList} from "./DataLookUp/DataLookUpList";
 import { MeContextProvider } from "./api/MeContext";
+import { Judgement} from "./Judgement/Judgement";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -128,6 +116,7 @@ class App extends Component {
             <PrivateRoute exact path="/linearregression" component={LinearRegression} />
             <PrivateRoute exact path="/rasoregression" component={RasoRegession} />
             <PrivateRoute exact path="/monitorremainingusefullife" component={MonitorRemainingUsefulLife} />
+
               {/*시스템 설정*/}
             <PrivateRoute exact path="/driver_cis" component={Driver_CIS} />
             <PrivateRoute exact path="/setting_prc" component={Setting_PRC} />
@@ -146,39 +135,26 @@ class App extends Component {
         <OpenApiContextProvider>
           <div className="content-wrapper">
             <Switch>
-              <AuthorizedRoute path="/dashboard" exact component={Dashboard} />
-              <AuthorizedRoute
-                path="/data/fault_diagnosis_result_history"
-                component={PredictedResults}
-              />
-              <AuthorizedRoute
-                path="/data/fault_diagnosis_user_input"
-                component={PredictedResultsUserInput}
-              />
-              <AuthorizedRoute
-                path="/data/fault_diagnosis_history_page"
-                component={SavedPredictedResult}
-              />
-
-              <AuthorizedRoute
-                path="/ml/fs/:algorithmName"
-                exact
-                component={FeatureSelection}
-              />
-
               <AuthorizedRoute
                 path="/ml/:algorithmName/:tab"
                 component={ModelManagement}
               />
-              <Route
+              <AuthorizedRoute
                 path="/ml/:algorithmName"
                 exact
                 component={ModelManagement}
               />
-              <Route path="/dataset" component={DatasetManagement} />
-
-              <AuthorizedRoute path="/data/lookup" component={DataLookUpList} />
-              <AuthorizedRoute path="/" exact component={DataUpload} />
+              <AuthorizedRoute
+                path="/judgement"
+                exact
+                component={Judgement}
+              />
+              <AuthorizedRoute
+                path="/judgement/:tab"
+                exact
+                component={Judgement}
+              />
+              <AuthorizedRoute path="/data/upload" exact component={DataUpload} />
             </Switch>
           </div>
         </OpenApiContextProvider>

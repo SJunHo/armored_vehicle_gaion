@@ -1,14 +1,11 @@
 package kr.gaion.armoredVehicle.database.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
 
 @Entity
 @Table(name = "TEMPLIFE")
@@ -18,39 +15,36 @@ import java.util.Date;
 public class TrainingTempLife {
     @Id
     @GeneratedValue
-    @Column(name="IDX")
+    @Column(name = "IDX")
     private Long idx;
 
-//    @Column(name="ACPOWER")
-//    private Double acPower;
-
-    @Column(name="AI_Predict")
+    @Column(name = "AI_Predict")
     private Double AiPredict;
 
-    @Column(name="CPUUTIL")
+    @Column(name = "CPUUTIL")
     private Double cpuUtil;
 
-    @Column(name="DISKACCESSES")
+    @Column(name = "DISKACCESSES")
     private Double diskAccesses;
 
-    @Column(name="DISKBLOCKS")
+    @Column(name = "DISKBLOCKS")
     private Double diskBlocks;
 
-    @Column(name="DISKUTIL")
+    @Column(name = "DISKUTIL")
     private Double diskUtil;
 
-    @Column(name="INSTRETIRED")
+    @Column(name = "INSTRETIRED")
     private Double instRetired;
 
-    @Column(name="LASTLEVEL")
+    @Column(name = "LASTLEVEL")
     private Double lastLevel;
 
-    @Column(name="MEMORYBUS")
+    @Column(name = "MEMORYBUS")
     private Double memoryBus;
 
-    @Column(name="CORECYCLE")
+    @Column(name = "CORECYCLE")
     private Double coreCycle;
 
-    @Column(name="TIME")
+    @Column(name = "TIME")
     private String time;
 }

@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -18,66 +16,78 @@ import java.util.Date;
 public class SensorEngine {
     @Id
     @GeneratedValue
-    @Column(name="IDX")
+    @Column(name = "IDX")
     private long idx;
 
-    @Column(name="SDAID")
+    @Column(name = "SDAID")
     private String carId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name="OPERDATE")
-    private Date operateDate;
-
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(name="OPERTIME")
-    private Time operateTime;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name="DATE")
-    private DateTime operateDateTime;
+    @Column(name = "DATE")
+    private Date operateDateTime;
 
-    @Column(name="TIME")
+    @Column(name = "TIME")
     private long timeIndex;
 
-    @Column(name="AI_Predict")
-    private Double aiPredict;
+    // AI Predict Values
+    @Column(name = "AI_ENGINE")
+    private Integer aiEngine;
 
-    @Column(name="AI_Algorithm")
-    private String aiAlgorithm;
+    // Ai Predict Algorithm
+    @Column(name = "AI_ENGINE_ALGO")
+    private String aiEngineAlgorithm;
 
-    @Column(name="AI_Model")
-    private String aiModel;
+    // Ai Predict Model
+    @Column(name = "AI_ENGINE_MODEL")
+    private String aiEngineModel;
 
-    @Column(name="W_RPM")
+    // Ai Predict Date
+    @Column(name = "AI_ENGINE_DATE")
+    private Date aiEngineDate;
+
+    // User Judgement Values
+    @Column(name = "USER_ENGINE")
+    private Integer userEngine;
+
+    // User Judgement ID
+    @Column(name = "USER_ENGINE_ID")
+    private String userEngineId;
+
+    // User Judgement Date
+    @Column(name = "USER_ENGINE_DATE")
+    private Date userEngineDate;
+
+    // Sensor Values
+    @Column(name = "W_RPM")
     private double wrpm;
 
-    @Column(name="E_V_OverallRMS")
+    @Column(name = "E_V_OverallRMS")
     private double evOverallRms;
 
-    @Column(name="E_V_1-2X")
+    @Column(name = "E_V_1_2X")
     private double ev12x;
 
-    @Column(name="E_V_1X")
+    @Column(name = "E_V_1X")
     private double ev1x;
 
-    @Column(name="E_V_Crestfactor")
+    @Column(name = "E_V_Crestfactor")
     private double evCrestfactor;
 
-    @Column(name="AC_h")
+    @Column(name = "AC_h")
     private double ach;
 
-    @Column(name="AC_v")
+    @Column(name = "AC_v")
     private double acv;
 
-    @Column(name="AC_a")
+    @Column(name = "AC_a")
     private double aca;
 
-    @Column(name="LA")
+    @Column(name = "LA")
     private double la;
 
-    @Column(name="LO")
+    @Column(name = "LO")
     private double lo;
 
-    @Column(name="FILENM")
+    @Column(name = "FILENM")
     private String filenm;
 }

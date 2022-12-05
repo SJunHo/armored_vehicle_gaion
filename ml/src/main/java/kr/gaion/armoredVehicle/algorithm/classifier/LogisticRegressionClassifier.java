@@ -45,7 +45,7 @@ public class LogisticRegressionClassifier extends ClassifierAlgorithm<LogisticRe
 	protected LogisticRegressionModel trainModel(BaseAlgorithmTrainInput config, Dataset<Row> train, Integer numberOfClass) {
 		// Training model
 		var rfTrainer = new LogisticRegression()
-				.setLabelCol("index")																												// #PC002
+				.setLabelCol("index")
 				.setRegParam(config.getRegParam())
 				.setElasticNetParam(config.getElasticNetMixing())
 				.setMaxIter(config.getMaxIter())
@@ -108,8 +108,8 @@ public class LogisticRegressionClassifier extends ClassifierAlgorithm<LogisticRe
 
 				// predict
 				StringBuilder lineBuilder = new StringBuilder();
-				int index = Double.valueOf(model.predict(vector)).intValue();                // index of label								// #PC0026
-				lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');        // convert to categorical label					// #PC0026
+				int index = Double.valueOf(model.predict(vector)).intValue();
+				lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');
 				lineBuilder.append(delimiter);
 				for (int iter = 0; iter < listColNames.size(); ++iter) {
 					if (rowData.get(iter) == null) {
@@ -119,7 +119,7 @@ public class LogisticRegressionClassifier extends ClassifierAlgorithm<LogisticRe
 					}
 					lineBuilder.append(delimiter);
 				}
-				lineBuilder.deleteCharAt(lineBuilder.length() - 1);  // delete last delimiter (redundant)
+				lineBuilder.deleteCharAt(lineBuilder.length() - 1);
 				return lineBuilder.toString();
 			}
 		});

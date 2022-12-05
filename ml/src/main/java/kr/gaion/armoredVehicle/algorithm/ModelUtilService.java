@@ -10,7 +10,6 @@ import kr.gaion.armoredVehicle.common.HdfsHelperService;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.dataset.service.FileSystemStorageService;
-//import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.spark.SparkConfig;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -32,84 +31,90 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j
 public class ModelUtilService {
-	@NonNull private final SparkConfig sparkConfig;
-	@NonNull private final Utilities utilities;
-	@NonNull private final StorageConfig storageConfig;
-	@NonNull public final HdfsHelperService hdfsHelperService;
-//	@NonNull private final EsConnector esConnector;
-	@NonNull private final FileSystemStorageService fileSystemStorageService;
+    @NonNull
+    public final HdfsHelperService hdfsHelperService;
+    @NonNull
+    private final SparkConfig sparkConfig;
+    @NonNull
+    private final Utilities utilities;
+    @NonNull
+    private final StorageConfig storageConfig;
+    //	@NonNull private final EsConnector esConnector;
+    @NonNull
+    private final FileSystemStorageService fileSystemStorageService;
 
-	private final Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
-	public boolean checkFile(String filePath) {
-		try {
-			FileUtils.touch(new File(filePath));
-		} catch (IOException e) {
-			return false;
-			// TODO: handle exception
-		}
-		return true;
-	}
+    public boolean checkFile(String filePath) {
+        try {
+            FileUtils.touch(new File(filePath));
+        } catch (IOException e) {
+            return false;
+            // TODO: handle exception
+        }
+        return true;
+    }
 
-	public String savePredictedInfoToCSV(List<PredictionInfo<?, ?>> listPredictionInfo, String fileNameWithoutExtension) throws IOException {
-		StringBuilder dataBuilder = new StringBuilder();
-		StringBuilder jsonElementBuilder = null;
-		String lineSeparator = System.lineSeparator();
-		String csvSeparator = ",";
-		String fileName = fileNameWithoutExtension + ".csv";
-		String fileOutput = this.utilities.getPathInWorkingFolder(this.storageConfig.getDataDir(), fileName);
-		JsonObject jsonObj;
+    public String savePredictedInfoToCSV(List<PredictionInfo<?, ?>> listPredictionInfo, String fileNameWithoutExtension) throws IOException {
+        StringBuilder dataBuilder = new StringBuilder();
+        StringBuilder jsonElementBuilder = null;
+        String lineSeparator = System.lineSeparator();
+        String csvSeparator = ",";
+        String fileName = fileNameWithoutExtension + ".csv";
+        String fileOutput = this.utilities.getPathInWorkingFolder(this.storageConfig.getDataDir(), fileName);
+        JsonObject jsonObj;
 
-		for (PredictionInfo<?, ?> predictInfo : listPredictionInfo) {
-			dataBuilder.append(predictInfo.getPredictedValue());
-			dataBuilder.append(csvSeparator);
-			jsonObj = gson.fromJson(predictInfo.getFeatures().toString(), JsonObject.class);
-			JsonElement values = jsonObj.get("values");
-			// to remove square brackets [] at index 0 and length of string
-			jsonElementBuilder = new StringBuilder(values.toString());
-			jsonElementBuilder.deleteCharAt(0);
-			jsonElementBuilder.deleteCharAt(jsonElementBuilder.length() - 1);
-			dataBuilder.append(jsonElementBuilder);
-			dataBuilder.append(lineSeparator);
-		}
+        for (PredictionInfo<?, ?> predictInfo : listPredictionInfo) {
+            dataBuilder.append(predictInfo.getPredictedValue());
+            dataBuilder.append(csvSeparator);
+            jsonObj = gson.fromJson(predictInfo.getFeatures().toString(), JsonObject.class);
+            JsonElement values = jsonObj.get("values");
+            // to remove square brackets [] at index 0 and length of string
+            jsonElementBuilder = new StringBuilder(values.toString());
+            jsonElementBuilder.deleteCharAt(0);
+            jsonElementBuilder.deleteCharAt(jsonElementBuilder.length() - 1);
+            dataBuilder.append(jsonElementBuilder);
+            dataBuilder.append(lineSeparator);
+        }
 
-		if (checkFile(fileOutput)) {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput));
-			writer.write(dataBuilder.toString());
-			writer.close();
-		} else {
-			log.info("Target file is existed and currently locked");
-			return null;
-		}
+        if (checkFile(fileOutput)) {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput));
+            writer.write(dataBuilder.toString());
+            writer.close();
+        } else {
+            System.out.println("Target file is existed and currently locked");
+            return null;
+        }
 
-		return fileOutput;
-	}
+        return fileOutput;
+    }
 
-	/**
-	 * to delete model if existed
-	 * @param path
-	 */
-	public void deleteModelIfExisted(String path) throws Exception {
-		if (sparkConfig.isEnableHdfs()) {
-			this.hdfsHelperService.deleteFileIfExisted(path);
-		}else {
-			this.utilities.deleteFileOrDirIfExisted(path);
-		}
-	}
+    /**
+     * to delete model if existed
+     *
+     * @param path
+     */
+    public void deleteModelIfExisted(String path) throws Exception {
+        if (sparkConfig.isEnableHdfs()) {
+            this.hdfsHelperService.deleteFileIfExisted(path);
+        } else {
+            this.utilities.deleteFileOrDirIfExisted(path);
+        }
+    }
 
-	public void saveTransformedData(Dataset<Row> df, String algorithmName, String modelName, String action) throws IOException {
-		// save to default directory
-		String hdfsFileNameFullPath = this.utilities.getPathInWorkingFolder(
-				this.storageConfig.getDataDir(), algorithmName, modelName, action);
-		df.coalesce(1).write().format("com.databricks.spark.csv").option("header", "true").mode(SaveMode.Overwrite)
-				.save(hdfsFileNameFullPath);
-	}
+    public void saveTransformedData(Dataset<Row> df, String algorithmName, String modelName, String action) throws IOException {
+        // save to default directory
+        String hdfsFileNameFullPath = this.utilities.getPathInWorkingFolder(
+                this.storageConfig.getDataDir(), algorithmName, modelName, action);
+        df.coalesce(1).write().format("com.databricks.spark.csv").option("header", "true").mode(SaveMode.Overwrite)
+                .save(hdfsFileNameFullPath);
+    }
 
-	public void saveTrainedResults(BaseAlgorithmTrainInput config, AlgorithmResponse response, String algorithmName) throws Exception {
-		String jsonRes = gson.toJson(response);
-		String fileNameFullPath = Paths
-				.get(this.storageConfig.getDataDir(), "trained-results", algorithmName, config.getModelName(), ".json")
-				.toString();
-		this.fileSystemStorageService.saveFile(fileNameFullPath, jsonRes.getBytes());
-	}
+    public void saveTrainedResults(BaseAlgorithmTrainInput config, AlgorithmResponse response, String algorithmName) throws Exception {
+        String jsonRes = gson.toJson(response);
+        String fileNameFullPath = Paths
+                .get(this.storageConfig.getHomeDir(), this.storageConfig.getModelDir(), algorithmName, config.getModelName(), ".json")
+                .toString();
+        this.fileSystemStorageService.saveFile(fileNameFullPath, jsonRes.getBytes());
+    }
 }

@@ -119,23 +119,23 @@ public class HdfsHelperService {
 		Path file = new Path(path);
 		if (hdfs.exists(file)) {
 			hdfs.delete(file, true); // set true to delete recursively (in case path is directory)
-			log.info(String.format("Successfully deleted %s from HDFS", path));
+			System.out.println(String.format("Successfully deleted %s from HDFS", path));
 		} else {
 			// if path is file
 			if (hdfs.isFile(file)) {
-				log.info("Path is file.");
+				System.out.println("Path is file.");
 				Path parent = file.getParent();
 				if (hdfs.exists(parent)) {
-					log.info(String.format("Path %s already existed from HDFS", parent.toString()));
+					System.out.println(String.format("Path %s already existed from HDFS", parent.toString()));
 					// continue
 				} else {
 					hdfs.mkdirs(parent);
-					log.info(String.format("Created path %s from HDFS", parent.toString()));
+					System.out.println(String.format("Created path %s from HDFS", parent.toString()));
 				}
 			} else if (hdfs.isDirectory(file)) {
-				log.info("Path is directory.");
+				System.out.println("Path is directory.");
 				hdfs.mkdirs(file);
-				log.info(String.format("Created path %s from HDFS", file.toString()));
+				System.out.println(String.format("Created path %s from HDFS", file.toString()));
 			} else {
 				// is there any case else?
 			}
@@ -144,7 +144,7 @@ public class HdfsHelperService {
 		os.write(data);
 		os.close();
 		hdfs.close();
-		log.info(String.format("Successfully created file %s from HDFS", path)); // #PC0017
+		System.out.println(String.format("Successfully created file %s from HDFS", path)); // #PC0017
 	}
 
 	/**
@@ -160,25 +160,23 @@ public class HdfsHelperService {
 		Path file = new Path(path);
 		if (hdfs.exists(file)) {
 			hdfs.delete(file, true); // set true to delete recursively (in case path is directory)
-			log.info(String.format("Successfully deleted %s from HDFS", path));
+			System.out.println(String.format("Successfully deleted %s from HDFS", path));
 		} else {
 			// if path is file
 			if (hdfs.isFile(file)) {
-				log.info("Path is file.");
+				System.out.println("Path is file.");
 				Path parent = file.getParent();
 				if (hdfs.exists(parent)) {
-					log.info(String.format("Path %s already existed from HDFS", parent.toString()));
+					System.out.println(String.format("Path %s already existed from HDFS", parent.toString()));
 					// continue
 				} else {
 					hdfs.mkdirs(parent);
-					log.info(String.format("Created path %s from HDFS", parent.toString()));
+					System.out.println(String.format("Created path %s from HDFS", parent.toString()));
 				}
 			} else if (hdfs.isDirectory(file)) {
-				log.info("Path is directory.");
+				System.out.println("Path is directory.");
 				hdfs.mkdirs(file);
-				log.info(String.format("Created path %s from HDFS", file.toString()));
-			} else {
-				// is there any case else?
+				System.out.println(String.format("Created path %s from HDFS", file.toString()));
 			}
 		}
 		OutputStream os = hdfs.create(file);
@@ -187,7 +185,7 @@ public class HdfsHelperService {
 		inputstream.close();
 		os.close();
 		hdfs.close();
-		log.info(String.format("Successfully created file %s from HDFS", path)); // #PC0017
+		System.out.println(String.format("Successfully created file %s from HDFS", path)); // #PC0017
 	}
 
 	/**
@@ -203,7 +201,7 @@ public class HdfsHelperService {
 
 		if (hdfs.exists(file)) {
 			hdfs.delete(file, true); // set true to delete recursively (in case path is directory)
-			log.info(String.format("Successfully deleted %s from HDFS", fileFullPath));
+			System.out.println(String.format("Successfully deleted %s from HDFS", fileFullPath));
 		}
 		hdfs.close();
 	}

@@ -46,7 +46,15 @@ label {
 }
 
 .selected-file {
-  color: #000; 
+  color: #000;
   font-weight: bold;
 }
 
+.content-wrapper {
+  width: 100%;
+  display: inline-block;
+}
+
+.page-padding {
+  padding: 18px 12px;
+}

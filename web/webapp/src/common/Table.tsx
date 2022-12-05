@@ -11,7 +11,7 @@ import {
   useTable,
 } from "react-table";
 import {Paginator} from "./Paginator";
-// import styles from "./table.module.css";
+import "./common.module.css"
 
 type TableProps<T extends Object> = {
   columns: Column<T>[];
@@ -138,15 +138,14 @@ export function Table<T extends Object>({
   return (
     <>
       <BootstrapTable
-        striped
-        className="table align-middle text-center overflow-visible text-white"
+        className="table align-middle text-center text-white w-100 table-striped2"
         {...getTableProps()}
       >
         <thead className="bg-secondary text-light border-right-success">
         <tr>
           {headers.map(header => (
             <th
-              style={{position: "sticky", top: 0}}
+              style={{minWidth: '150px'}}
               {...header.getHeaderProps()}
             >
               {header.render("Header")}

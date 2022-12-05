@@ -28,12 +28,12 @@
 
 .wrapper {
   background-color: #2c2c44;
-  min-height: 250px;
+  min-height: 100px;
   text-align: left;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  
+
 }
 
 .childrenWrapper {

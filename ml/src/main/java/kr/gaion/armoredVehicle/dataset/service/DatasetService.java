@@ -155,13 +155,13 @@ public class DatasetService {
   }
 
   public void handleImportESIndexFromFile(ImportESDataFromFileInput input) throws IOException {
-    log.info("Index to es-search: " + input.getIndexW());
+      System.out.println("Index to es-search: " + input.getIndexW());
 
     if (input.getListUploadedFiles().length == 0) {
       throw new Error("There was not uploaded data, please upload data first.");
     }
 
-    log.info("Index request is handling ..");
+      System.out.println("Index request is handling ..");
     // Start watch
     long startTime = System.currentTimeMillis();
 
@@ -174,18 +174,18 @@ public class DatasetService {
 
     // Delete old data
     if (input.isClearOldData()) {
-      log.info(String.format("delete old data from _index: %s, type: %s", _index, _type));
+        System.out.println(String.format("delete old data from _index: %s, type: %s", _index, _type));
       this.esConnector.delete(_index, QueryBuilders.matchAllQuery());
     }
 
     // Start index
-    log.info("index to Elasticsearch with data format is CSV");
+      System.out.println("index to Elasticsearch with data format is CSV");
     for (String file : input.getListUploadedFiles()) {
-      log.info("call Spark connector:");
+        System.out.println("call Spark connector:");
       var absoluteFilePath = this.storageService.load(file);
       this.elasticsearchSparkService.indexDataFromFileToElasticsearch(absoluteFilePath.toString(), delimiter, url, _idColumn);
     }
-    log.info("elapsed time: estimatedTime " + (System.currentTimeMillis() - startTime) + " (ms)");
+      System.out.println("elapsed time: estimatedTime " + (System.currentTimeMillis() - startTime) + " (ms)");
   }
 
   public Page<RailSensorData> selectByPageable(String index, Pageable pageable, QueryBuilder queryBuilder, String sortByField) throws IOException {
@@ -273,7 +273,7 @@ public class DatasetService {
             .subAggregation(AggregationBuilders.terms("defectUser").field("defect_user.keyword")))
         .addAggregator(AggregationBuilders.terms("defectUser").field("defect_user.keyword"));
 		searchRequest.source(searchSourceBuilder);
-    log.info(searchRequest.toString());
+      System.out.println(searchRequest.toString());
     var res = this.esConnector.getClient().search(searchRequest, RequestOptions.DEFAULT);
     var ret = new AllTimeESStats();
 

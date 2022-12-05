@@ -4,19 +4,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 // import styles from "./common.module.css";
 
-export const InputWrapper: React.FC<
-  Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
-    title: string | React.ReactComponentElement<any, any>;
-    rowLayout?: boolean;
-    labelWidth?: number;
-  }
-> = ({ title, labelWidth, rowLayout = false, children, className }) => {
+export const InputWrapper: React.FC<Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
+  title: string | React.ReactComponentElement<any, any>;
+  rowLayout?: boolean;
+  labelWidth?: number;
+}> = ({title, labelWidth, rowLayout = false, children, className}) => {
   return (
     <Form.Group
       as={rowLayout ? Row : Col}
       className={`mb-3 ${className || ""}`}
     >
-      <Form.Label column sm={labelWidth} style={{color:"white"}}>
+      <Form.Label column sm={labelWidth} style={{color: "white"}}>
         {title}
       </Form.Label>
       <Col sm={12 - (labelWidth || 0)}>{children}</Col>
@@ -34,10 +32,6 @@ export const ALGORITHM_INFO: { [key: string]: AlgorithmInfo } = {
     name: "Random Forest Classifier",
     className: "RandomForestClassifier",
   },
-  svm: {
-    name: "Support Vector Machine",
-    className: "SVMClassifier",
-  },
   svc: {
     name: "Linear Support Vector Classifier",
     className: "SVCClassifier",
@@ -50,21 +44,9 @@ export const ALGORITHM_INFO: { [key: string]: AlgorithmInfo } = {
     name: "Multi-layer Perceptron",
     className: "MLPClassifier",
   },
-  kmean: {
-    name: "K-Mean Outlier detection",
-    className: "KmeansClustering",
-  },
   if: {
     name: "Isolation Forest",
     className: "IsolationForestOutlierDetection",
-  },
-  chisq: {
-    name: "Chi-Square Feature Selection",
-    className: "",
-  },
-  pca: {
-    name: "PCA Dimensionality Reduction",
-    className: "",
   },
   linear: {
     name: "Linear Regression",
