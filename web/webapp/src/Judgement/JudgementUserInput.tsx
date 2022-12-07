@@ -43,7 +43,7 @@ export const JudgementUserInput: React.FC = () => {
 
   const {databaseJudgementControllerApi} = useContext(OpenApiContext);
 
-  const [updateDefectUserList, setUpdateDefectUserList] = useState<{ idx: number; userJudgement: string; }[]>([]);
+  const [updateDefectUserList, setUpdateDefectUserList] = useState<{ idx: number; userJudgement: number; }[]>([]);
 
   function onClickHandler(score: any, idx: any, e: any) {
     // Whenever defectUser value comes in through radio button,
