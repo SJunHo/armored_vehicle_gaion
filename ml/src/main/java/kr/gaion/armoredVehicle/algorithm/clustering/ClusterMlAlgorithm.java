@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Log4j2
+//@Log4j2
 public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrainInput, BaseAlgorithmPredictInput> {
     private final PcaDimensionalityReduction dimensionalityReduction;
 
@@ -151,7 +151,7 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
         this.modelUtil.saveTrainedResults(config, response, this.algorithmName);
 
         enrichTrainResponse(response, model, resultDf, config);
-        log.debug("trained successfully.");
+//        log.debug("trained successfully.");
         return response;
     }
 

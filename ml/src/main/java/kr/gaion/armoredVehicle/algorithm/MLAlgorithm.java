@@ -147,21 +147,21 @@ public abstract class MLAlgorithm<T extends BaseAlgorithmTrainInput, T2 extends 
         var dataInputOption = config.getDataInputOption();
 
         // unlabeled data
-        Dataset<Row> originalData;
+        Dataset<Row> originalData = null;
 
         switch (dataInputOption) {
             case INPUT_FROM_FILE: {
-                originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
+//                originalData = this.elasticsearchSparkService.getDfVectorFromCsvFormattedFile(config.getFileInput());
                 break;
             }
             case INPUT_FROM_ES: {
                 // get test data from ElasticSearch
-                List<String> docIds = config.getDbDocIds();
-                if (docIds != null) {
-                    originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs(docIds);
-                } else {
-                    originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs();
-                }
+//                List<String> docIds = config.getDbDocIds();
+//                if (docIds != null) {
+//                    originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs(docIds);
+//                } else {
+//                    originalData = this.elasticsearchSparkService.getUnlabeledDataFromEs();
+//                }
                 break;
             }
             case INPUT_FROM_DB: {

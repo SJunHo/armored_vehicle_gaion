@@ -30,7 +30,7 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
-import org.elasticsearch.common.util.ArrayUtils;
+//import org.elasticsearch.common.util.ArrayUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -139,35 +139,35 @@ public class PcaDimensionalityReduction extends MLAlgorithm<BaseAlgorithmTrainIn
 
     public FSResponse train(BaseAlgorithmTrainInput config) throws Exception {
         System.out.println("Start PcaDimensionalityReduction");
-        Dataset<Row> data = this.computePcaDataframeApi(config);
-        var selectedFields = Arrays.stream(data.schema().fields()).map(StructField::name).collect(Collectors.toList());
-        var csvDelimiter = this.storageConfig.getCsvDelimiter();
-
-        // map data to return
-        JavaRDD<String> reducedData = reduceData(data, csvDelimiter);
-
-        // save transformed data to .CSV file
-        int numPrincipalComponents = config.getNumberPrincipalComponents();
-        String[] featureCols = new String[numPrincipalComponents];
-        for (int index = 0; index < numPrincipalComponents; ++index) {
-            featureCols[index] = "F" + (index + 1);
-        }
-        String[] header = ArrayUtils.concat(new String[]{ClusterResponse.ID_COLUMN}, featureCols);
-        // make DataFrame for transformed data
-        JavaRDD<Row> dataForSavingToFile = getDataToSavingToFile(data, header);
-        StructType st = new StructType();
-        for (String col : header) {
-            st = st.add(col, DataTypes.StringType);
-        }
-        Dataset<Row> resultDf = this.sparkSession.createDataFrame(dataForSavingToFile, st);
-        // save transformed results to CSV file
-        this.saveTransformedData("DefaultModel", "train", resultDf);
+//        Dataset<Row> data = this.computePcaDataframeApi(config);
+//        var selectedFields = Arrays.stream(data.schema().fields()).map(StructField::name).collect(Collectors.toList());
+//        var csvDelimiter = this.storageConfig.getCsvDelimiter();
+//
+//        // map data to return
+//        JavaRDD<String> reducedData = reduceData(data, csvDelimiter);
+//
+//        // save transformed data to .CSV file
+//        int numPrincipalComponents = config.getNumberPrincipalComponents();
+//        String[] featureCols = new String[numPrincipalComponents];
+//        for (int index = 0; index < numPrincipalComponents; ++index) {
+//            featureCols[index] = "F" + (index + 1);
+//        }
+//        String[] header = ArrayUtils.concat(new String[]{ClusterResponse.ID_COLUMN}, featureCols);
+//        // make DataFrame for transformed data
+//        JavaRDD<Row> dataForSavingToFile = getDataToSavingToFile(data, header);
+//        StructType st = new StructType();
+//        for (String col : header) {
+//            st = st.add(col, DataTypes.StringType);
+//        }
+//        Dataset<Row> resultDf = this.sparkSession.createDataFrame(dataForSavingToFile, st);
+//        // save transformed results to CSV file
+//        this.saveTransformedData("DefaultModel", "train", resultDf);
 
         FSResponse response = new FSResponse(ResponseType.OBJECT_DATA);
-        response.setNumPrincipalComponents(numPrincipalComponents);
-        int maxResults = this.algorithmConfig.getMaxResult();
-        response.setFilteredFeatures(reducedData.take(maxResults));
-        response.setSelectedFields(selectedFields);
+//        response.setNumPrincipalComponents(numPrincipalComponents);
+//        int maxResults = this.algorithmConfig.getMaxResult();
+//        response.setFilteredFeatures(reducedData.take(maxResults));
+//        response.setSelectedFields(selectedFields);
         response.setIdCol("idCol");
         response.setClassCol(config.getClassCol());
 

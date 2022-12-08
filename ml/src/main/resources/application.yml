@@ -1,11 +1,11 @@
 data:
   esDatasetIndices:
     - ${ES_TRAINING_INDEX:ai_ktme_wheel_training}
-elasticsearch:
-  index: ${ES_INDEX:ai_ktme_data}
-  host: ${ES_HOST:192.168.0.170}
-  transportPort: 9200
-  readingType: _doc
+#elasticsearch:
+#  index: ${ES_INDEX:ai_ktme_data}
+#  host: ${ES_HOST:192.168.0.170}
+#  transportPort: 9200
+#  readingType: _doc
 spark:
   host: localhost
   port: 7077
