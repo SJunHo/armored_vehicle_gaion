@@ -23,6 +23,7 @@ class Statistical extends Component {
     super(props);
     this.clickOutlierWaning = this.clickOutlierWaning.bind(this);
     this.clickTroubleShooting = this.clickTroubleShooting.bind(this);
+    this.clickVehicleInfo = this.clickVehicleInfo.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
     const {user} = this.props; 
     this.state = {
@@ -45,6 +46,7 @@ class Statistical extends Component {
       popUpList : [],
       popUpState : true,
       popUpdateSet : false,
+
       columns : [
         {
           Header: '구분',
@@ -109,9 +111,8 @@ class Statistical extends Component {
     statisticalService.getTree().then(
       response => {
         this.setState({
-          treeArray: response.data
+          treeArray: response.data,
         });
-        console.log(response.data);
       },
       error => {
         this.setState({
@@ -127,11 +128,14 @@ class Statistical extends Component {
       url : 1,
       date : this.state.startDate
     }
+    let startGraph = new Date();
     statisticalService.getGraph(param).then(
       response => {
         this.setState({
           graphData : response.data,
         });
+        let endGraph = new Date();
+        console.log(endGraph - startGraph);
       },
       error => {
         this.setState({
@@ -143,12 +147,14 @@ class Statistical extends Component {
       }
     );
 
+    let startTable = new Date();
     statisticalService.getTable(param).then(
       response => {
         this.setState({
-          loading:false,
-          tableData : response.data
+          tableData : response.data,
         });
+        let endTable = new Date();
+        console.log(endTable - startTable);
       },
       error => {
         this.setState({
@@ -162,6 +168,7 @@ class Statistical extends Component {
 
     statisticalService.getPopUpInfo(this.state.user.id).then(
       response => {
+        console.log(response.data);
         this.setState({
           popUpdateSet : true,
           popUpList : response.data
@@ -174,7 +181,6 @@ class Statistical extends Component {
 
       setInterval(()=>{
         if(NotificationManager.listNotify.length === 0 && this.state.popUpdateSet && this.state.popUpState){
-          console.log("empty");
           this.setState({
             popUpState : false,
           });
@@ -199,6 +205,7 @@ class Statistical extends Component {
     if(prevState.popUpList !== this.state.popUpList){
       this.createNotification();
     }
+
   }
 
   getGraphData(level,url,date){
@@ -225,9 +232,11 @@ class Statistical extends Component {
   }
 
   getTableData(level,url,date){
+
     this.setState({
       loading:true,
-    })
+    });
+
     let param = {
       level : level,
       url : url,
@@ -237,7 +246,6 @@ class Statistical extends Component {
     statisticalService.getTable(param).then(
       response => {
         this.setState({
-          loading:false,
           tableData: response.data
         });
       },
@@ -253,7 +261,6 @@ class Statistical extends Component {
   }
 
   onClickTree(param){
-    console.log(param);
     this.setState({
       graphLevel : param.level,
       graphUrl : param.url
@@ -264,22 +271,12 @@ class Statistical extends Component {
       this.getGraphData(param.level,param.url,this.state.startDate);
     }
     if(param.level >= 3){
-      statisticalService.getId(param.label).then((response) => {
-        if(window.confirm("차량정보조회화면으로 이동하시겠습니까?")){
-          window.location.href = "/searchEachInfo/"+response.data;
-        }
-      })
-      .catch((e) => {
-          console.log(e);
-      }); 
+      this.clickVehicleInfo(param.label);
     }
   }
   
   getPutGraphData(param){
     let output = Object.values(param);
-    this.setState({
-      loading : false
-    })
     if(output.length > 0){
       let avgsdtData;
       let engnnldnrateData;
@@ -348,16 +345,13 @@ class Statistical extends Component {
           mvmttime.push(mvmtt);
         });
       }
-
       this.setState({
-        loading:false,
         avgsdtGraphData : avgsdt,
         engnnldnrateGraphData : engnnldnrate,
         mvmtdstcGraphData : mvmtdstc,
-        mvmttimeGraphData : mvmttime
+        mvmttimeGraphData : mvmttime,
       });
     }
-    
   }
   
   getPutTableData(param){
@@ -374,19 +368,21 @@ class Statistical extends Component {
         tableResult : tableResultArray,
         amvhTable : tabledata[1]
       },()=>{
-        console.log(this.state.amvhTable);
       });
       
     }else{
       Object.entries(table[0]).forEach(tab=>{
         tabledata = tab[1];
       });
-      console.log(tabledata);
       this.setState({
         tableResult : tabledata,
         amvhTable : ""
       });
     }
+
+    this.setState({
+      loading : false,
+    });
 
   }
 
@@ -399,11 +395,9 @@ class Statistical extends Component {
   handleSubmit(e){
     e.preventDefault();
     let main = this.state.startDate
-    console.log(main.format('L'));
   }
 
   clickOutlierWaning(param){
-    console.log(param);
     statisticalService.getId(param).then((response) => {
       if(window.confirm("이상치경고모니터링으로 이동하시겠습니까?")){
         window.location.href = "/monitoroutlierwarning/"+response.data;
@@ -416,7 +410,6 @@ class Statistical extends Component {
   }
 
   clickTroubleShooting(param){
-    console.log(param);
     statisticalService.getId(param).then((response) => {
       if(window.confirm("고장진단경고모니터링으로 이동하시겠습니까?")){
         window.location.href = "/monitordiagnostictroublealerts/"+response.data;
@@ -428,6 +421,16 @@ class Statistical extends Component {
     
   }
 
+  clickVehicleInfo(param){
+    statisticalService.getId(param).then((response) => {
+      if(window.confirm("차량정보조회화면으로 이동하시겠습니까?")){
+        window.location.href = "/searchEachInfo/"+response.data;
+      }
+    })
+    .catch((e) => {
+        console.log(e);
+    }); 
+  }
 
   togglePopup(){
     this.setState({
@@ -468,8 +471,8 @@ class Statistical extends Component {
               }
         </div>
         <div className="row min" disabled={this.state.loading}>
-          {this.state.loading && (
-              <div className="d-flex justify-content-center loading-box">
+          {this.state.loading && (   
+            <div className="d-flex justify-content-center loading-box">
                   <div className="spinner-border loading-in" role="status">
                       <span className="sr-only">Loading...</span>
                   </div>
@@ -517,15 +520,8 @@ class Statistical extends Component {
               </div>
             </form>
             </div>
-            <div className="table-div" disabled={this.state.loading} >
-              {this.state.loading ? (
-                        <div className="d-flex justify-content-center">
-                            <div className="spinner-border" role="status">
-                              <span className="sr-only">Loading...</span>
-                          </div>
-                      </div>
-              ) 
-              : 
+            <div className="table-div">
+            {
               (
                 this.state.tableResult &&
                 <Table columns={this.state.columns} data={this.state.tableResult} /> 
@@ -544,7 +540,7 @@ class Statistical extends Component {
                             <div className="amvh-button">
                             {
                               amvh[1].includes("NN")
-                              ? <button className="btn btn-light" >정상</button>
+                              ? <button className="btn btn-light" onClick={()=>{this.clickVehicleInfo(amvh[0]);}}>정상</button>
                               : <button className="btn btn-light" disabled>정상</button>
                             }
 

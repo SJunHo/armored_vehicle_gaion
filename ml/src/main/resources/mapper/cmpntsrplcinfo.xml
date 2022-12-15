@@ -37,6 +37,7 @@
 			<if test="startDate != null and endDate != null">
 				and ci.dttime between #{startDate} and #{endDate}
 			</if>
+		group by ci.grid
 	</select>
 	
 	

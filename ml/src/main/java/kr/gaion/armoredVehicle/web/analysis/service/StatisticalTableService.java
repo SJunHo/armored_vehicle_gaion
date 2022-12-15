@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import kr.gaion.armoredVehicle.web.analysis.mapper.*;
+import kr.gaion.armoredVehicle.web.analysis.model.Dashboard;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import kr.gaion.armoredVehicle.web.analysis.model.TreeInfo;
 
 @Service
 public class StatisticalTableService {
+
 	@Autowired
 	StatsdaMapper statsdaMapper;
 
@@ -29,6 +31,9 @@ public class StatisticalTableService {
 
 	@Autowired
 	DtctsdaMapper dtctsdaMapper;
+
+	@Autowired
+	DashboardMapper dashboardMapper;
 
 	public JSONObject findTable(String level, String url, Date date) {
 
@@ -50,13 +55,11 @@ public class StatisticalTableService {
 				all = countAll;
 			}
 
-			int drive = statsdaMapper.countStatssdaAll(operdate);
+			int drive = 0;
 
-			int outlier = dtctsdaMapper.countAll(operdate);
+			int outlier = 0;
 
-			bkdsearch.put("operdate", operdate);
-
-			int broken = bkdsdaMapper.countBkd(bkdsearch);
+			int broken = 0;
 
 			int sumOutlierBroken = 0;
 
@@ -64,7 +67,13 @@ public class StatisticalTableService {
 
 			List<JSONObject> childList = new ArrayList<JSONObject>();
 
+
 			for(TreeInfo c : childs) {
+				int cDrive = 0;
+				int cOutlier = 0;
+				int cBroken = 0;
+				int cAbnormal = 0;
+
 				JSONObject child = new JSONObject();
 				Map<String, Object> search = new HashMap<String, Object>();
 				search.put("divscode", c.getTrinfocode());
@@ -76,36 +85,26 @@ public class StatisticalTableService {
 					cAll = countDiv;
 				}
 
-				int cDrive = 0;
-				int cOutlier = 0;
-				int cBroken = 0;
-				int cSumOutlierBroken = 0;
-				for(Sda s : sdaList) {
-					Map<String, Object> param = new HashMap<String, Object>();
-					param.put("sdaid", s.getSdaid());
-					param.put("operdate", operdate);
-					param.put("dttime", operdate);
-					int dr = statsdaMapper.countStatssda(param);
-					int ol = dtctsdaMapper.countDtctsdaBySdaid(param);
-					int bk = bkdsdaMapper.countBkd(param);
+				HashMap<String, Object> param = new HashMap<String, Object>();
+				param.put("sdaidList", sdaList);
+				param.put("operdate", operdate);
+				param.put("dttime", operdate);
+				Dashboard board = dashboardMapper.findDashboardInfo(param);
+				cDrive = board.getStatsda();
+				cOutlier = board.getDtctsda();
+				cBroken = board.getBkdsda();
+				List<String> abnormalVehicles = dashboardMapper.findAbnormalVehicle(param);
+				cAbnormal = abnormalVehicles.size();
 
-					cDrive += dr;
-					cOutlier += ol;
-					cBroken += bk;
-					if(ol > 0 && bk > 0) {
-						cSumOutlierBroken += 1;
-					}else if(ol > 0 && bk == 0) {
-						cSumOutlierBroken += 1;
-					}else if(bk > 0 && ol == 0) {
-						cSumOutlierBroken += 1;
-					}
-				}
-				sumOutlierBroken += cSumOutlierBroken;
+				sumOutlierBroken += cAbnormal;
+				drive += cDrive;
+				outlier += cOutlier;
+				broken += cBroken;
 				child.put("bn", c.getTrinfoname());
 				child.put("allcount", cAll);
 				child.put("ndrive", cAll - cDrive);
 				child.put("drive", cDrive);
-				child.put("normal", cAll-cSumOutlierBroken);
+				child.put("normal", cAll-cAbnormal);
 				child.put("outlier", cOutlier);
 				child.put("broken", cBroken);
 				childList.add(child);
@@ -133,7 +132,7 @@ public class StatisticalTableService {
 				all = countdivcode;
 			}
 
-			List<Sda> sdaList = sdaMapper.findSda(search);
+			//List<Sda> sdaList = sdaMapper.findSda(search);
 			int drive = 0;
 
 			int outlier = 0;
@@ -141,19 +140,6 @@ public class StatisticalTableService {
 			int broken = 0;
 
 			int sumOutlierBroken = 0;
-			for(Sda s : sdaList) {
-				Map<String, Object> param = new HashMap<String, Object>();
-				param.put("sdaid", s.getSdaid());
-				param.put("operdate", operdate);
-				param.put("dttime", operdate);
-				int dr = statsdaMapper.countStatssda(param);
-				int ol = dtctsdaMapper.countDtctsdaBySdaid(param);
-				int bk = bkdsdaMapper.countBkd(param);
-
-				drive += dr;
-				outlier += ol;
-				broken += bk;
-			}
 
 			JSONObject top = new JSONObject();
 
@@ -171,35 +157,31 @@ public class StatisticalTableService {
 				int cDrive = 0;
 				int cOutlier = 0;
 				int cBroken = 0;
-				int cSumOutlierBroken = 0;
-				if(!csdaList.isEmpty()) {
-					for(Sda s : csdaList) {
-						Map<String, Object> param = new HashMap<String, Object>();
-						param.put("sdaid", s.getSdaid());
-						param.put("operdate", operdate);
-						param.put("dttime", operdate);
-						int dr = statsdaMapper.countStatssda(param);
-						int ol = dtctsdaMapper.countDtctsdaBySdaid(param);
-						int bk = bkdsdaMapper.countBkd(param);
+				int cAbnormal = 0;
 
-						cDrive += dr;
-						cOutlier += ol;
-						cBroken += bk;
-						if(ol > 0 && bk > 0) {
-							cSumOutlierBroken += 1;
-						}else if(ol > 0 && bk == 0) {
-							cSumOutlierBroken += 1;
-						}else if(bk > 0 && ol == 0) {
-							cSumOutlierBroken += 1;
-						}
-					}
+				if(!csdaList.isEmpty()) {
+
+					HashMap<String, Object> param = new HashMap<String, Object>();
+					param.put("sdaidList", csdaList);
+					param.put("operdate", operdate);
+					param.put("dttime", operdate);
+					Dashboard board = dashboardMapper.findDashboardInfo(param);
+					cDrive = board.getStatsda();
+					cOutlier = board.getDtctsda();
+					cBroken = board.getBkdsda();
+					List<String> abnormalVehicles = dashboardMapper.findAbnormalVehicle(param);
+					cAbnormal = abnormalVehicles.size();
+
 				}
-				sumOutlierBroken += cSumOutlierBroken;
+				drive += cDrive;
+				outlier += cOutlier;
+				broken += cBroken;
+				sumOutlierBroken += cAbnormal;
 				child.put("bn", c.getTrinfoname());
 				child.put("allcount", cAll);
 				child.put("ndrive", cAll - cDrive);
 				child.put("drive", cDrive);
-				child.put("normal", cAll-cSumOutlierBroken);
+				child.put("normal", cAll-cAbnormal);
 				child.put("outlier", cOutlier);
 				child.put("broken", cBroken);
 				childList.add(child);
