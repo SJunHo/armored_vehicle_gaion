@@ -4,20 +4,11 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {OpenApiContextProvider} from "./api";
 import "./App.css";
 import {Header} from "./common/Header/Header";
-import {DatasetManagement} from "./DatasetManagement/DatasetManagement";
 import "./i18n";
 import {ModelManagement} from "./ModelManagement/ModelManagement";
 import {AuthorizedRoute} from "./common/AuthorizedRoute";
-import {Login} from "./Auth/Login";
-import {Logout} from "./Auth/Logout";
 import {MeContextProvider} from "./api/MeContext";
-import {DataLookUpList} from "./DataLookUp/DataLookUpList";
 import {DataUpload} from "./DataLookUp/DataUpload";
-import {PredictedResults} from "./ResultPrediction/PredictedResults";
-import {PredictedResultsUserInput} from "./ResultPredictionUserInput/PredictedResultsUserInput";
-import {SavedPredictedResult} from "./SavedResultPrediction/SavedPredictedResult";
-import {FeatureSelection} from "./ModelManagement/FeatureSelection";
-import {Dashboard} from "./Dashboard/Dashboard";
 
 
 function App() {

@@ -24,15 +24,15 @@ export const ModelManagement: React.FC = () => {
         headers={[
           {
             id: "train",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 생성" : "고장전조 예측 모델 생성",
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 생성" : "고장진단 예측 모델 생성",
           },
           {
             id: "models",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 관리" : "고장전조 예측 모델 관리",
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 모델 관리" : "고장진단 예측 모델 관리",
           },
           {
             id: "predict",
-            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 수행" : "고장전조 예측 수행",
+            title: algorithmName == "linear" || algorithmName == "lasso" ? "잔존수명 예지 수행" : "고장진단 예측 수행",
           },
         ]}
         activeTabId={tab}

@@ -25,10 +25,10 @@ import {
 } from "react-vis";
 import {BarChart, Bar, XAxis as X, YAxis as Y, CartesianGrid, Tooltip, Legend} from "recharts"
 import Select2 from "react-select";
-import {colorPalette, colorPalette2} from "../Dashboard/Dashboard";
 import ReactTooltip from "react-tooltip";
 import {log} from "util";
 import {auto} from "@popperjs/core";
+import "../../src/css/style.css"
 
 type Props = {
   result: RandomForestClassificationResponse;
@@ -47,7 +47,6 @@ export const CreateModelResult: React.FC<Props> = ({
     predictedActualFeatureLine: resultPredictedActualFeatureLine,
     predictionInfo,
   } = result;
-
   let indexList: number[] = []
   let predictedValues: number[] = []
   let actualValues: number[] = []
@@ -64,10 +63,6 @@ export const CreateModelResult: React.FC<Props> = ({
     residualList.push(x)
   })
   const actualPredictedValues = zip(actualValues, predictedValues)
-  // console.log(actualPredictedValues)
-
-  const [eachResidualValue, setEachResidualValue] = useState<any>([]);
-  // console.log(eachResidualValue)
 
   const predictedActualFeatureLine =
     resultPredictedActualFeatureLine || predictionInfo;
@@ -79,12 +74,10 @@ export const CreateModelResult: React.FC<Props> = ({
     // roundResidualList.push(Number(value.toFixed(1)))
     roundResidualList.push(Number(Math.round(value)))
   }))
-  // console.log(roundResidualList)
 
   let count = roundResidualList?.reduce((accumulator: any, value: number) => {
     return {...accumulator, [value]: (accumulator[value] || 0) + 1};
   }, {});
-  // console.log(count)
 
   let residualKeyValuesList = []
   for (let i = 0; i <= Object.keys(count).length; i++) {
@@ -98,22 +91,15 @@ export const CreateModelResult: React.FC<Props> = ({
       <CustomCardHeader>
         <strong>{"진단 모델 성능(요약)"}</strong>
       </CustomCardHeader>
-      <CustomCardBody className="d-grid gap-3 container">
+      <CustomCardBody>
         {(algorithmName === "linear" || algorithmName === "lasso") && (
-          <>
-            <RegressionResult algorithmName={algorithmName} result={result} result2={result2}/>
-          </>
+          <RegressionResult algorithmName={algorithmName} result={result} result2={result2}/>
         )}
-
         {(algorithmName === "if") && (
-          <>
-            <ClusterDiagram algorithmName={algorithmName} result={result} result2={result2}/>
-          </>
+          <ClusterDiagram algorithmName={algorithmName} result={result} result2={result2}/>
         )}
         {(algorithmName === "rfc" || algorithmName === "mlp" || algorithmName === "svc" || algorithmName === "lr") && (
-          <>
-            <ClassificationResult algorithmName={algorithmName} result={result} result2={result2}/>
-          </>
+          <ClassificationResult algorithmName={algorithmName} result={result} result2={result2}/>
         )}
       </CustomCardBody>
     </CustomCardContainer>
@@ -173,185 +159,187 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
     })
   }
   return (
-    <CustomCardContainer className={styles.cardBody}>
-      <CustomCardHeader className={styles.cardHeader}>
-        <strong>{"진단 모델 성능(요약)"}</strong>
-      </CustomCardHeader>
-      <CustomCardBody className="d-grid gap-3 container">
-        <Row>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"R2"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <h1 className={styles.center}>{result2?.r2}</h1>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"RMSE"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <h1 className={styles.center}>{result2?.rootMeanSquaredError}</h1>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"실제 VS 예측 Line Chart"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <div>
-                  <DiscreteColorLegend
-                    orientation="vertical"
-                    items={[
-                      {title: 'Actual Values', color: '#9E520D'},
-                      {title: 'Predicted Values', color: '#00819E'}
-                    ]}
-                  />
-                </div>
-                <FlexibleXYPlot height={300}>
-                  <XAxis
-                    style={{fontSize: 12}}
-                    tickTotal={10}
-                  />
-                  <YAxis
-                    style={{fontSize: 12}}
-                    tickTotal={10}
-                  />
-                  <LineSeries
-                    data={(actualValues || []).map((data: any, index: any) => ({
-                      x: index,
-                      y: data,
-                    }))}
-                    stroke="#9E520D"
-                  />
-                  <LineSeries
-                    data={(predictedValues || []).map((data: any, index: any) => ({
-                      x: index,
-                      y: data,
-                    }))}
-                    stroke="#00819E"
-                    strokeStyle="solid"
-                  />
-                </FlexibleXYPlot>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"실제 VS 예측 Scatter Chart"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <DiscreteColorLegend
-                  orientation="vertical"
-                  items={[
-                    {title: 'Actual Values', color: '#9E520D'},
-                    {title: 'Predicted Values', color: 'black'}
-                  ]}
-                />
-                <FlexibleXYPlot height={300}>
-                  <XAxis
-                    style={{fontSize: 12}}
-                    tickTotal={10}
-                  />
-                  <YAxis
-                    style={{fontSize: 12}}
-                    tickTotal={10}
-                  />
-                  <LineSeries
-                    data={(actualPredictedValues || []).map((data: any, index: any) => ({
-                      x: data[1],
-                      y: data[1],
-                    }))}
-                    stroke="#9E520D"
-                  />
-                  <MarkSeries
-                    data={(actualPredictedValues || []).map((data: any, index: any) => ({
-                      x: data[0],
-                      y: data[1],
-                    }))}
-                    sizeType="literal"
-                    _sizeValue={1}
-                    color="black"
-                  />
-                </FlexibleXYPlot>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"잔차 Line Chart"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <div data-tip data-for="tooltip">
+    <Row className="container">
+      <CustomCardContainer className={styles.cardBody}>
+        <CustomCardHeader className={styles.cardHeader}>
+          <strong>{"진단 모델 성능(요약)"}</strong>
+        </CustomCardHeader>
+        <CustomCardBody className="d-grid gap-3 container">
+          <Row>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"R2"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <h1 className={styles.center}>{result2?.r2}</h1>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"RMSE"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <h1 className={styles.center}>{result2?.rootMeanSquaredError}</h1>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"실제 VS 예측 Line Chart"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <div>
+                    <DiscreteColorLegend
+                      orientation="vertical"
+                      items={[
+                        {title: 'Actual Values', color: '#9E520D'},
+                        {title: 'Predicted Values', color: '#00819E'}
+                      ]}
+                    />
+                  </div>
                   <FlexibleXYPlot height={300}>
                     <XAxis
-                      // title="index"
                       style={{fontSize: 12}}
                       tickTotal={10}
                     />
                     <YAxis
-                      // title="value"
                       style={{fontSize: 12}}
                       tickTotal={10}
                     />
                     <LineSeries
-                      // data={(result2?.residuals || []).map((data: any, index: any) => ({
-                      data={(residualList || []).map((data: any, index: any) => ({
+                      data={(actualValues || []).map((data: any, index: any) => ({
                         x: index,
                         y: data,
                       }))}
-                      stroke="#3296D7"
-                      onNearestXY={(v) => setEachResidualValue([v.x, v.y])}
-                      onSeriesMouseOut={() => setEachResidualValue([undefined, undefined])}
+                      stroke="#9E520D"
+                    />
+                    <LineSeries
+                      data={(predictedValues || []).map((data: any, index: any) => ({
+                        x: index,
+                        y: data,
+                      }))}
+                      stroke="#00819E"
+                      strokeStyle="solid"
                     />
                   </FlexibleXYPlot>
-                </div>
-                <ReactTooltip id="tooltip">
-                  <div> {eachResidualValue[0]} </div>
-                  <div> {"잔차 : " + eachResidualValue[1]?.toFixed(3)} </div>
-                </ReactTooltip>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"잔차 Histogram"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <div style={{display: "flex"}}>
-                  <BarChart
-                    width={868}
-                    height={300}
-                    data={residualKeyValuesList}
-                  >
-                    <X dataKey="x"/>
-                    <Y/>
-                    <Bar dataKey="y"/>
-                  </BarChart>
-                </div>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-        </Row>
-        <Row>
-          {predictedActualFeatureLine && (
-            <PredictionInfoSection
-              predictionInfo={predictedActualFeatureLine}
-              featureCols={result.listFeatures || []}
-            />
-          )}
-        </Row>
-      </CustomCardBody>
-    </CustomCardContainer>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"실제 VS 예측 Scatter Chart"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <DiscreteColorLegend
+                    orientation="vertical"
+                    items={[
+                      {title: 'Actual Values', color: '#9E520D'},
+                      {title: 'Predicted Values', color: 'black'}
+                    ]}
+                  />
+                  <FlexibleXYPlot height={300}>
+                    <XAxis
+                      style={{fontSize: 12}}
+                      tickTotal={10}
+                    />
+                    <YAxis
+                      style={{fontSize: 12}}
+                      tickTotal={10}
+                    />
+                    <LineSeries
+                      data={(actualPredictedValues || []).map((data: any, index: any) => ({
+                        x: data[1],
+                        y: data[1],
+                      }))}
+                      stroke="#9E520D"
+                    />
+                    <MarkSeries
+                      data={(actualPredictedValues || []).map((data: any, index: any) => ({
+                        x: data[0],
+                        y: data[1],
+                      }))}
+                      sizeType="literal"
+                      _sizeValue={1}
+                      color="black"
+                    />
+                  </FlexibleXYPlot>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"잔차 Line Chart"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <div data-tip data-for="tooltip">
+                    <FlexibleXYPlot height={300}>
+                      <XAxis
+                        // title="index"
+                        style={{fontSize: 12}}
+                        tickTotal={10}
+                      />
+                      <YAxis
+                        // title="value"
+                        style={{fontSize: 12}}
+                        tickTotal={10}
+                      />
+                      <LineSeries
+                        // data={(result2?.residuals || []).map((data: any, index: any) => ({
+                        data={(residualList || []).map((data: any, index: any) => ({
+                          x: index,
+                          y: data,
+                        }))}
+                        stroke="#3296D7"
+                        onNearestXY={(v) => setEachResidualValue([v.x, v.y])}
+                        onSeriesMouseOut={() => setEachResidualValue([undefined, undefined])}
+                      />
+                    </FlexibleXYPlot>
+                  </div>
+                  <ReactTooltip id="tooltip">
+                    <div> {eachResidualValue[0]} </div>
+                    <div> {"잔차 : " + eachResidualValue[1]?.toFixed(3)} </div>
+                  </ReactTooltip>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"잔차 Histogram"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <div style={{display: "flex"}}>
+                    <BarChart
+                      width={868}
+                      height={300}
+                      data={residualKeyValuesList}
+                    >
+                      <X dataKey="x"/>
+                      <Y/>
+                      <Bar dataKey="y"/>
+                    </BarChart>
+                  </div>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+          </Row>
+          <Row>
+            {predictedActualFeatureLine && (
+              <PredictionInfoSection
+                predictionInfo={predictedActualFeatureLine}
+                featureCols={result.listFeatures || []}
+              />
+            )}
+          </Row>
+        </CustomCardBody>
+      </CustomCardContainer>
+    </Row>
   )
 }
 
@@ -362,6 +350,14 @@ export const ClusterDiagram: React.FC<Props> = ({
                                                 }) => {
   const [selectedXAxis, setSelectedXAxis] = useState<number>();
   const [selectedYAxis, setSelectedYAxis] = useState<number>();
+  const colorPalette2 = [
+    "#11E7FF",
+    "#11E7FF",
+    "#0B8D9B",
+    "#075E67",
+    "#05474E",
+  ];
+
   const data = useMemo<any[][]>(
     () =>
       (predictionInfo || []).map((actual) => JSON.parse("[" + actual + "]")),
@@ -420,10 +416,7 @@ export const ClusterDiagram: React.FC<Props> = ({
                 ? data.map((item) => ({
                   x: item[selectedXAxis],
                   y: item[selectedYAxis],
-                  color:
-                    colorPalette2[
-                      algorithmName === "kmean" ? item[1] : item[0]
-                      ],
+                  color: colorPalette2[algorithmName === "kmean" ? item[1] : item[0]],
                 }))
                 : []
             }
@@ -450,119 +443,131 @@ export const ClassificationResult: React.FC<Props> = ({result, result2}) => {
   const {algorithmName} = useParams<{ algorithmName: string }>();
   const {t} = useTranslation();
   return (
-    <CustomCardContainer>
-      <CustomCardHeader>
-        <strong>{"결과"}</strong>
-      </CustomCardHeader>
-      <CustomCardBody>
-        <Row>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"정확도"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <h1 className={styles.center}>{result.accuracy}</h1>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"정밀도"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <h1 className={styles.center}>{result.weightedPrecision}</h1>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"재현율"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <h1 className={styles.center}>{result.weightedRecall}</h1>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-          <div className="col-lg-6">
-            <CustomCardContainer>
-              <CustomCardHeader>
-                <strong>{"F1 - 스코어"}</strong>
-              </CustomCardHeader>
-              <CustomCardBody>
-                <h1 className={styles.center}>{result.weightedFMeasure}</h1>
-              </CustomCardBody>
-            </CustomCardContainer>
-          </div>
-        </Row>
-      </CustomCardBody>
-      <CustomCardBody>
-        <Row>
-          <h4 className={styles.center}>{"혼잡 매트릭스"}</h4>
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead className={styles.textCenter}>
-              <tr className={`${styles.tableBlack}`}>
-                <th
-                  id="commonCell"
-                  colSpan={2}
-                  className="col-md-3"
-                  rowSpan={matrixSize}
-                />
-                <th
-                  id="actualCell"
-                  colSpan={matrixSize}
-                  className={styles.textCenter}
-                >
-                  {"실제 클래스"}
-                </th>
-              </tr>
-              <tr
-                id="actualLabels"
-                className={`${styles.tableBlack} ${styles.textCenter}`}
-              >
-                {range(0, matrixSize).map((i) => (
-                  <th>
-                    {labels[i]} ({countByLabels[i]})
+    <>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>{"결과"}</strong>
+        </CustomCardHeader>
+        <CustomCardBody>
+          <Row>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"정확도"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <h1 className={styles.center}>{result.accuracy}</h1>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"정밀도"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <h1 className={styles.center}>{result.weightedPrecision}</h1>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"재현율"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <h1 className={styles.center}>{result.weightedRecall}</h1>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+            <div className="col-lg-6">
+              <CustomCardContainer>
+                <CustomCardHeader>
+                  <strong>{"F1 - 스코어"}</strong>
+                </CustomCardHeader>
+                <CustomCardBody>
+                  <h1 className={styles.center}>{result.weightedFMeasure}</h1>
+                </CustomCardBody>
+              </CustomCardContainer>
+            </div>
+          </Row>
+        </CustomCardBody>
+      </CustomCardContainer>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>{"혼잡 매트릭스"}</strong>
+        </CustomCardHeader>
+        <CustomCardBody>
+          <Row>
+            <div className="table-responsive">
+              <table className="table table-bordered table-striped">
+                <thead className={styles.textCenter}>
+                <tr className={`${styles.tableBlack}`}>
+                  <th
+                    id="commonCell"
+                    colSpan={2}
+                    className="col-md-3"
+                    rowSpan={matrixSize}
+                  />
+                  <th
+                    id="actualCell"
+                    colSpan={matrixSize}
+                    className={styles.textCenter}
+                  >
+                    {"실제 클래스"}
                   </th>
-                ))}
-              </tr>
-              </thead>
-              <tbody id="tableBody">
-              <tr id="firstRow">
-                <th
-                  className={`${styles.tableBlack} ${styles.predictCell}`}
-                  rowSpan={matrixSize + 1}
+                </tr>
+                <tr
+                  id="actualLabels"
+                  className={`${styles.tableBlack} ${styles.textCenter}`}
                 >
-                  {"예측된 클래스"}
-                </th>
-              </tr>
-              {range(0, matrixSize).map((i) => (
-                <tr>
-                  <td className={`${styles.tableBlack}`}>{labels[i]}</td>
-                  {range(0, matrixSize).map((j) => (
-                    <td className={i === j ? `${styles.tableBlack}` : ""}>
-                      {confusionMatrix[i * matrixSize + j]}
-                    </td>
+                  {range(0, matrixSize).map((i) => (
+                    <th>
+                      {labels[i]} ({countByLabels[i]})
+                    </th>
                   ))}
                 </tr>
-              ))}
-              </tbody>
-            </table>
-          </div>
-        </Row>
-      </CustomCardBody>
-      <CustomCardBody>
-        <Row className="overflow-auto">
-          <PredictionInfoSection
-            predictionInfo={predictedActualFeatureLine ? predictedActualFeatureLine : []}
-            featureCols={result.listFeatures || []}
-          />
-        </Row>
-      </CustomCardBody>
-    </CustomCardContainer>
+                </thead>
+                <tbody id="tableBody">
+                <tr id="firstRow">
+                  <th
+                    className={`${styles.tableBlack} ${styles.predictCell}`}
+                    rowSpan={matrixSize + 1}
+                  >
+                    {"예측된 클래스"}
+                  </th>
+                </tr>
+                {range(0, matrixSize).map((i) => (
+                  <tr>
+                    <td className={`${styles.tableBlack}`}>{labels[i]}</td>
+                    {range(0, matrixSize).map((j) => (
+                      <td className={i === j ? `${styles.tableBlack}` : ""}>
+                        {confusionMatrix[i * matrixSize + j]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
+          </Row>
+        </CustomCardBody>
+      </CustomCardContainer>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>예측 결과</strong>
+        </CustomCardHeader>
+        <CustomCardBody>
+          {predictedActualFeatureLine && (
+            <PredictionInfoSection
+              predictionInfo={predictedActualFeatureLine}
+              featureCols={result.listFeatures || []}
+            />
+          )}
+        </CustomCardBody>
+      </CustomCardContainer>
+    </>
+
   );
 };
 
@@ -595,13 +600,11 @@ export const PredictionInfoSection: React.FC<{
   );
   return (
     <>
-      <Row>
-        <Table
-          data={data}
-          columns={columns}
-          paginationOptions={{pageIndex: 0, pageSize: 20}}
-        />
-      </Row>
+      <Table
+        data={data}
+        columns={columns}
+        paginationOptions={{pageIndex: 0, pageSize: 20}}
+      />
     </>
   );
 };

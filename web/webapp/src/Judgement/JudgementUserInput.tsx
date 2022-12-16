@@ -59,7 +59,6 @@ export const JudgementUserInput: React.FC = () => {
     }
     setUpdateDefectUserList(existUpdateList)
 
-    console.log(updateDefectUserList)
   }
 
   function radioButtonHandler(value: any, idx: any) {
@@ -1719,13 +1718,11 @@ export const JudgementUserInput: React.FC = () => {
 
   async function onClickSaveButtonHandler() {
     let proceed = window.confirm("저장하시겠습니까?");
-    console.log(partType)
-    console.log(updateDefectUserList)
     if (proceed) {
       // Update to DB with edited defectUser values
       databaseJudgementControllerApi?.updateUserJudgement(partType, updateDefectUserList)
         .then(res => {
-          console.log(res)
+          handleSearchData()
         })
     }
   }
@@ -2038,14 +2035,14 @@ export const JudgementUserInput: React.FC = () => {
                 }}
               />
             </div>
-            <div style={{float: 'right'}}>
-              <Button type="button" className="btn btn-primary m-lg-1"
-                      onClick={() => {
-                        onClickSaveButtonHandler()
-                      }}>
-                결과 저장
-              </Button>
-            </div>
+          </Row>
+          <Row className="float-right">
+            <Button type="button" className="btn btn-primary m-lg-1"
+                    onClick={() => {
+                      onClickSaveButtonHandler()
+                    }}>
+              결과 저장
+            </Button>
           </Row>
         </Col>
       </Section>

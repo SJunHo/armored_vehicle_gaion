@@ -49,8 +49,6 @@ export const JudgementLookup: React.FC = () => {
   const notNeededColumnsForAnother = ["ai", "ac_", "DATE", "ID", "idx"];
   const notNeededColumnsForEngine = ["ai", "DATE", "ID", "idx"];
 
-  const replacementsOfUserScoreToAIScore = {user_LBSF: "AI_LBSF"};
-
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
       {
@@ -1448,8 +1446,7 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
         setJudgedData(result);
       });
     }
@@ -1470,9 +1467,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'BLO') {
@@ -1492,9 +1488,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'BLR') {
@@ -1514,9 +1509,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'BRB') {
@@ -1536,9 +1530,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'BRI') {
@@ -1558,9 +1551,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'BRO') {
@@ -1580,9 +1572,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'BRR') {
@@ -1602,11 +1593,11 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
+    //Todo 엔진 수정필요
     if (partType === 'E') {
       databaseJudgementControllerApi?.getEnginePredictedData(
         selectedCar,
@@ -1624,9 +1615,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'G') {
@@ -1646,9 +1636,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'WL') {
@@ -1668,9 +1657,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
     if (partType === 'WR') {
@@ -1690,9 +1678,8 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = handleObjectKey(res.data)
-        console.log(result)
-        setJudgedData(res.data);
+        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        setJudgedData(result);
       });
     }
   }
@@ -1826,6 +1813,14 @@ export const JudgementLookup: React.FC = () => {
               <CSVLink
                 data={judgedData}
                 filename={`${changePartTypeToKorean(partType)}_${moment(new Date()).format("YYYYMMDD_HHmmss")}`}
+                onClick={() => {
+                  if (judgedData.length == 0) {
+                    alert("작업자 판정 데이터가 없습니다")
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }}
               >
                 <Button> 파일 다운로드 </Button>
               </CSVLink>

@@ -24,7 +24,7 @@ export const Judgement: React.FC = () => {
           },
           {
             id: "input",
-            title: "고장전조 작업자 판정",
+            title: "고장진단 작업자 판정",
           },
         ]}
         activeTabId={tab}
