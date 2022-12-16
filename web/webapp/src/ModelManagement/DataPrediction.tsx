@@ -1125,31 +1125,39 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           .then((res) => {
             setConditionData(res.data.content || [])
             setTotalPage(res.data.totalPages || 1)
-            setPaginate(res.data.pageable);
+            setPaginate(pageable ? pageable : res.data.pageable);
           })
           .finally(() => setSearchingData(false));
       } else if (["WL", "WR"].includes(wb)) {
         datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, pageable?.pageNumber, pageable?.pageSize)
           .then((res) => {
             setConditionData(res.data.content || [])
+            setTotalPage(res.data.totalPages || 1)
+            setPaginate(pageable ? pageable : res.data.pageable);
           })
           .finally(() => setSearchingData(false));
       } else if (wb === "G") {
         datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, pageable?.pageNumber, pageable?.pageSize)
           .then((res) => {
             setConditionData(res.data.content || [])
+            setTotalPage(res.data.totalPages || 1)
+            setPaginate(pageable ? pageable : res.data.pageable);
           })
           .finally(() => setSearchingData(false));
       } else if (wb === "E") {
         datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, pageable?.pageNumber, pageable?.pageSize)
           .then((res) => {
             setConditionData(res.data.content || [])
+            setTotalPage(res.data.totalPages || 1)
+            setPaginate(pageable ? pageable : res.data.pageable);
           })
           .finally(() => setSearchingData(false));
       } else if (wb === "T") {
         datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, pageable?.pageNumber, pageable?.pageSize)
           .then((res) => {
             setConditionData(res.data.content || [])
+            setTotalPage(res.data.totalPages || 1)
+            setPaginate(pageable ? pageable : res.data.pageable);
           })
           .finally(() => setSearchingData(false));
       }
@@ -1531,7 +1539,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           </div>
         </Col>
         <Row className="row justify-content-end">
-          <Col className="Col col-1 d-grid gap-2">
+          <Col className="Col col-1 d-grid p-0">
             <Button
               className="button font-monospace fw-bold"
               onClick={handleUpdateData}

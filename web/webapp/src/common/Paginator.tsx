@@ -62,11 +62,11 @@ export const Paginator: React.FC<PaginatorType> = ({
         selectedPage < numberOfPage - 5 && (
           <>
             <Pagination.Ellipsis/>
-            {new Array(3).fill(0).map((_, index) => (
+            {new Array(5).fill(0).map((_, index) => (
               <Pagination.Item
-                key={index + selectedPage - 1}
+                key={index + selectedPage}
                 onClick={() => {
-                  handleChangePage(index);
+                  handleChangePage(index + selectedPage - 2);
                 }}
               >
                 {index + selectedPage - 1}
