@@ -97,6 +97,7 @@ public class DatabaseJudgementService {
                     tempData.setUserLbsfDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
+                break;
             case "BLO":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -105,6 +106,7 @@ public class DatabaseJudgementService {
                     tempData.setUserLbpfoDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
+                break;
             case "BLI":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -113,6 +115,7 @@ public class DatabaseJudgementService {
                     tempData.setUserLbpfiDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
+                break;
             case "BLR":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -121,6 +124,7 @@ public class DatabaseJudgementService {
                     tempData.setUserLftfDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
+                break;
             case "BRB":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -129,6 +133,7 @@ public class DatabaseJudgementService {
                     tempData.setUserRbsfDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
+                break;
             case "BRO":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -137,6 +142,7 @@ public class DatabaseJudgementService {
                     tempData.setUserRbpfoDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
+                break;
             case "BRI":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -145,6 +151,7 @@ public class DatabaseJudgementService {
                     tempData.setUserRbpfiDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
+                break;
             case "BRR":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorBearingRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -153,7 +160,8 @@ public class DatabaseJudgementService {
                     tempData.setUserRftfDate(new Date());
                     sensorBearingRepository.save(tempData);
                 }
-                // wheel
+                break;
+            // wheel
             case "WL":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorWheelRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -162,6 +170,7 @@ public class DatabaseJudgementService {
                     tempData.setUserLwDate(new Date());
                     sensorWheelRepository.save(tempData);
                 }
+                break;
             case "WR":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorWheelRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -170,7 +179,8 @@ public class DatabaseJudgementService {
                     tempData.setUserRwDate(new Date());
                     sensorWheelRepository.save(tempData);
                 }
-                // gearbox
+                break;
+            // gearbox
             case "G":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorGearboxRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -179,7 +189,8 @@ public class DatabaseJudgementService {
                     tempData.setUserGearDate(new Date());
                     sensorGearboxRepository.save(tempData);
                 }
-                // engine
+                break;
+            // engine
             case "E":
                 for (DbJudgementUpdateInput dbJudgementUpdateInput : updateInputs) {
                     var tempData = sensorEngineRepository.findById(dbJudgementUpdateInput.getIdx()).get();
@@ -188,6 +199,7 @@ public class DatabaseJudgementService {
                     tempData.setUserEngineDate(new Date());
                     sensorEngineRepository.save(tempData);
                 }
+                break;
         }
         return null;
     }
