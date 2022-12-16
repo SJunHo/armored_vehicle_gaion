@@ -6,7 +6,7 @@ public interface SensorWheelRightInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_RW();
+    Integer getAI_RW();
 
     String getAI_RW_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorWheelRightInterface {
     Date getAI_RW_DATE();
 
     // User Judgement
-    String getUser_RW();
+    Integer getUser_RW();
 
     String getUSER_RW_ID();
 

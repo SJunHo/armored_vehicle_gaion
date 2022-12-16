@@ -6,7 +6,7 @@ public interface SensorWheelLeftInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_LW();
+    Integer getAI_LW();
 
     String getAI_LW_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorWheelLeftInterface {
     Date getAI_LW_DATE();
 
     // User Judgement
-    String getUSER_LW();
+    Integer getUSER_LW();
 
     String getUSER_LW_ID();
 

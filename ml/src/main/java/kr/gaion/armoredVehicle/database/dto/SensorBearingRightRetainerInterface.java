@@ -6,7 +6,7 @@ public interface SensorBearingRightRetainerInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_RFTF();
+    Integer getAI_RFTF();
 
     String getAI_RFTF_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorBearingRightRetainerInterface {
     Date getAI_RFTF_DATE();
 
     // User Judgement
-    String getUSER_RFTF();
+    Integer getUSER_RFTF();
 
     String getUSER_RFTF_ID();
 

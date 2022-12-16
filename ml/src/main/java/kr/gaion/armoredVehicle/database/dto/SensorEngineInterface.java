@@ -6,7 +6,7 @@ public interface SensorEngineInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_ENGINE();
+    Integer getAI_ENGINE();
 
     String getAI_ENGINE_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorEngineInterface {
     Date getAI_ENGINE_DATE();
 
     // User Judgement
-    String getUSER_ENGINE();
+    Integer getUSER_ENGINE();
 
     String getUSER_ENGINE_ID();
 

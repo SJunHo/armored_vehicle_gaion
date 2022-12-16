@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 import {Page} from "../common/Page/Page";
 import {Section} from "../common/Section/Section";
 import {TabHeader} from "../common/TabHeader/TabHeader";
-import {DataFormat, ImportESDataFromFileInput, OpenApiContext} from "../api";
+import {OpenApiContext} from "../api";
 import Select2 from "react-select";
 import {InputWrapper} from "../common/Common";
 import Spinner from "react-bootstrap/Spinner";

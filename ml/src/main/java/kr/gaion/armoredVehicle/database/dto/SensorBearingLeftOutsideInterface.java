@@ -6,7 +6,7 @@ public interface SensorBearingLeftOutsideInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_LBPFO();
+    Integer getAI_LBPFO();
 
     String getAI_LBPFO_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorBearingLeftOutsideInterface {
     Date getAI_LBPFO_DATE();
 
     // User Judgement
-    String getUSER_LBPFO();
+    Integer getUSER_LBPFO();
 
     String getUSER_LBPFO_ID();
 

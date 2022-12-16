@@ -6,7 +6,7 @@ public interface SensorGearboxInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_GEAR();
+    Integer getAI_GEAR();
 
     String getAI_GEAR_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorGearboxInterface {
     Date getAI_GEAR_DATE();
 
     // User Judgement
-    String getUSER_GEAR();
+    Integer getUSER_GEAR();
 
     String getUSER_GEAR_ID();
 

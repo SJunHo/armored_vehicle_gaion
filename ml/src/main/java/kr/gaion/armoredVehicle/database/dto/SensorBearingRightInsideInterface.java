@@ -6,7 +6,7 @@ public interface SensorBearingRightInsideInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_RBPFI();
+    Integer getAI_RBPFI();
 
     String getAI_RBPFI_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorBearingRightInsideInterface {
     Date getAI_RBPFI_DATE();
 
     // User Judgement
-    String getUSER_RBPFI();
+    Integer getUSER_RBPFI();
 
     String getUSER_RBPFI_ID();
 

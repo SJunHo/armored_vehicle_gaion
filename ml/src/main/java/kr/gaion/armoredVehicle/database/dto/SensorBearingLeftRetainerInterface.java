@@ -6,7 +6,7 @@ public interface SensorBearingLeftRetainerInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_LFTF();
+    Integer getAI_LFTF();
 
     String getAI_LFTF_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorBearingLeftRetainerInterface {
     Date getAI_LFTF_DATE();
 
     // User Judgement
-    String getUSER_LFTF();
+    Integer getUSER_LFTF();
 
     String getUSER_LFTF_ID();
 

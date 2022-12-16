@@ -6,7 +6,7 @@ public interface SensorBearingLeftBallInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_LBSF();
+    Integer getAI_LBSF();
 
     String getAI_LBSF_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorBearingLeftBallInterface {
     Date getAI_LBSF_DATE();
 
     // User Judgement
-    String getUSER_LBSF();
+    Integer getUSER_LBSF();
 
     String getUSER_LBSF_ID();
 

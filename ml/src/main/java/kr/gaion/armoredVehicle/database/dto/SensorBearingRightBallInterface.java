@@ -6,7 +6,7 @@ public interface SensorBearingRightBallInterface {
     int getIDX();
 
     // AI Predict
-    String getAI_RBSF();
+    Integer getAI_RBSF();
 
     String getAI_RBSF_ALGO();
 
@@ -15,7 +15,7 @@ public interface SensorBearingRightBallInterface {
     Date getAI_RBSF_DATE();
 
     // User Judgement
-    String getUSER_RBSF();
+    Integer getUSER_RBSF();
 
     String getUSER_RBPFO_ID();
 
