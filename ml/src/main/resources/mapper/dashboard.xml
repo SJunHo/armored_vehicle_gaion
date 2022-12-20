@@ -5,78 +5,78 @@
 	<select id="findDashboardInfo" parameterType="java.util.HashMap" resultType="kr.gaion.armoredVehicle.web.analysis.model.Dashboard">
 		select (select IFNULL(count(distinct s.sdaid),0)
 		from STATSDA s
-		where s.operdate like CONCAT('%',#{operdate},'%')
+		where s.operdate like '${operdate}%'
 		<choose>
-		 	<when test="sdaidList.size != 0">
-			and	s.sdaid in 
+			<when test="sdaidList.size != 0">
+				and	s.sdaid in
 				<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
 					#{item.sdaid}
 				</foreach>
-		 	</when>		 
-		 </choose>
+			</when>
+		</choose>
 		) as statsda,
 		(select IFNULL(count(distinct d.sdaid),0)
-				from DTCTSDA d
-				where d.dttime like CONCAT('%',#{operdate},'%')
-				<choose>
-				 	<when test="sdaidList.size != 0">
-					and	d.sdaid in 
-						<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
-							#{item.sdaid}
-						</foreach>
-				 	</when>		 
-				 </choose>
-				 ) as dtctsda,
+		from DTCTSDA d
+		where d.dttime like '${operdate}%'
+		<choose>
+			<when test="sdaidList.size != 0">
+				and	d.sdaid in
+				<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
+					#{item.sdaid}
+				</foreach>
+			</when>
+		</choose>
+		) as dtctsda,
 		(select IFNULL(COUNT(DISTINCT b.sdaid),0)
-				from BERDATA b , ENGDATA e , GRBDATA g , WHLDATA w 
-				where (b.`DATE` = e.`DATE` and b.`DATE` = g.`DATE` and b.`DATE` = w.`DATE`)
-				and (AI_LBPFO, AI_LBPFI, AI_LBSF, AI_LFTF,
-					   AI_RBPFO, AI_RBPFI, AI_RBSF, AI_RFTF) in (('1','1','1','1','1','1','1','1'))
-				and AI_ENGINE = '1' and AI_GEAR = '1'
-				and (AI_LW, AI_RW) IN (('1','1'))
-				<choose>
-				 	<when test="sdaidList.size != 0">
-					and	b.sdaid in 
-						<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
-							#{item.sdaid}
-						</foreach>
-				 	</when>		 
-				 </choose>
-				and b.`DATE` like CONCAT('%',#{operdate},'%')) as bkdsda
+		from BERDATA b , ENGDATA e , GRBDATA g , WHLDATA w
+		where (b.`DATE` = e.`DATE` and b.`DATE` = g.`DATE` and b.`DATE` = w.`DATE`)
+		and (AI_LBPFO, AI_LBPFI, AI_LBSF, AI_LFTF,
+		AI_RBPFO, AI_RBPFI, AI_RBSF, AI_RFTF) in (('1','1','1','1','1','1','1','1'))
+		and AI_ENGINE = '1' and AI_GEAR = '1'
+		and (AI_LW, AI_RW) IN (('1','1'))
+		<choose>
+			<when test="sdaidList.size != 0">
+				and	b.sdaid in
+				<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
+					#{item.sdaid}
+				</foreach>
+			</when>
+		</choose>
+		and b.`DATE` like '${operdate}%') as bkdsda
 		from dual
 	</select>
-	
+
 	<select id="findAbnormalVehicle" parameterType="java.util.HashMap" resultType="String">
 		(select distinct d.sdaid
-			from DTCTSDA d
-			where d.dttime like CONCAT('%',#{operdate},'%')
-			<choose>
-				 	<when test="sdaidList.size != 0">
-					and	d.sdaid in 
-						<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
-							#{item.sdaid}
-						</foreach>
-				 	</when>		 
-			 </choose>
+		from DTCTSDA d
+		where d.dttime like '${operdate}%'
+		<choose>
+			<when test="sdaidList.size != 0">
+				and	d.sdaid in
+				<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
+					#{item.sdaid}
+				</foreach>
+			</when>
+		</choose>
 		)
 		union
 		(select DISTINCT b.sdaid
-			from BERDATA b , ENGDATA e , GRBDATA g , WHLDATA w 
-			where (b.`DATE` = e.`DATE` and b.`DATE` = g.`DATE` and b.`DATE` = w.`DATE`)
-			and (AI_LBPFO, AI_LBPFI, AI_LBSF, AI_LFTF,
-				   AI_RBPFO, AI_RBPFI, AI_RBSF, AI_RFTF) in (('1','1','1','1','1','1','1','1'))
-			and AI_ENGINE = '1' and AI_GEAR = '1'
-			and (AI_LW, AI_RW) IN (('1','1'))
-			and b.`DATE` like CONCAT('%',#{operdate},'%')
-			<choose>
-				 	<when test="sdaidList.size != 0">
-					and	b.sdaid in 
-						<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
-							#{item.sdaid}
-						</foreach>
-				 	</when>		 
-			 </choose>
-			 )
+		from BERDATA b , ENGDATA e , GRBDATA g , WHLDATA w
+		where (b.`DATE` = e.`DATE` and b.`DATE` = g.`DATE` and b.`DATE` = w.`DATE`)
+		and (AI_LBPFO, AI_LBPFI, AI_LBSF, AI_LFTF,
+		AI_RBPFO, AI_RBPFI, AI_RBSF, AI_RFTF) in (('1','1','1','1','1','1','1','1'))
+		and AI_ENGINE = '1' and AI_GEAR = '1'
+		and (AI_LW, AI_RW) IN (('1','1'))
+		and b.`DATE` like '${operdate}%'
+		<choose>
+			<when test="sdaidList.size != 0">
+				and	b.sdaid in
+				<foreach collection="sdaidList" item="item" index="index" separator="," open="(" close=")">
+					#{item.sdaid}
+				</foreach>
+			</when>
+		</choose>
+		)
 	</select>
 
 </mapper>

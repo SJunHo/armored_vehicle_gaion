@@ -34,6 +34,14 @@ export default class driverPostureCorrection extends Component {
   }
 
   componentDidMount() {
+    const startDate = this.state.startDate;
+    const endDate = this.state.endDate;
+
+    startDate.setDate(endDate.getDate() - 7);
+
+    this.setState({
+      startDate : startDate,
+    });
     this.getDivsList();
   }
 

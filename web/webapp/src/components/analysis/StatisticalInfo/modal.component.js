@@ -20,6 +20,7 @@ class OpenModal extends Component {
         this.carryFileInfo = this.carryFileInfo.bind(this);
         
         this.carrySensorInfo = this.carrySensorInfo.bind(this);
+ 
         this.state = {
             isOpen : true,
             choiceThings : [],
@@ -31,11 +32,6 @@ class OpenModal extends Component {
         } 
     }
 
-    componentDidMount() {
-        
-        console.log(this.props);
-    }
-    
     componentWillUnmount() {        //컴포넌트가 소멸될때 데이터를 searchEachInfo로 전달
         if(this.props.modalDiv === "choiceDate"){
             this.props.modalFunc(true);
@@ -58,7 +54,6 @@ class OpenModal extends Component {
     }
 
     carryFileInfo(res){ //searchEachInfo에 아이디, 파일값 전달
-        console.log(res);
         this.setState({
             fileNameAndId: res
         }, () => {
@@ -66,15 +61,18 @@ class OpenModal extends Component {
         })
     }
     carrySensorInfo(res){       //searchEachInfo 에 데이터전달
-        console.log(res);
-        this.setState({
-            nummericSensor: [...res[0]],
-            categoricSensor: [...res[1]],
-            nummericSensorWithKor: [...res[2]],
-            categoricSensorWithKor: [...res[3]],
-        }, () => {
-            this.props.sensorFunc(res);
-        })
+        if(res === null){
+            this.props.sensorFunc(null);
+        }else{
+            this.setState({
+                nummericSensor: [...res[0]],
+                categoricSensor: [...res[1]],
+                nummericSensorWithKor: [...res[2]],
+                categoricSensorWithKor: [...res[3]],
+            }, () => {
+                this.props.sensorFunc(res);
+            });
+        }
     }
     carryModalShow(res){
         this.setState({
@@ -84,7 +82,6 @@ class OpenModal extends Component {
 
     render() {
         const name = this.props.name;
-        console.log(this.props.data);
         return (
             <div>
                 <Modal isOpen={this.state.isOpen} onRequestClose={this.modalShow}>
