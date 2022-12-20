@@ -25,7 +25,7 @@ class ChoiceSensorModal extends Component {
 
         this.clickSearchBtn = this.clickSearchBtn.bind(this);
         this.getBookmarkBtnEngKor = this.getBookmarkBtnEngKor.bind(this);
-
+        this.closeModal = this.closeModal.bind(this);
         this.state = {
             user : user,
             userId : "",
@@ -484,12 +484,18 @@ class ChoiceSensorModal extends Component {
 
             }
     }
-
+    closeModal(){
+        this.props.func(null);
+        this.props.modalFunc(false);
+    }
     render() {
         const {isClicked1, isClicked2, isClicked3, isClicked4, isClicked5} = this.state;
         return (
             <div className="pop02">
                 <h4>차량 센서데이터 선택</h4>
+                <button className="close small" onClick={this.closeModal}>
+                    &times;
+                </button>
                 <div className="choosebox">
 					<div className="choose01">
 						<h5>즐겨찾기</h5>

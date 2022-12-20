@@ -121,10 +121,7 @@ class searchEachInfo extends Component {
         })
       })
       .catch((e) => {
-        console.log(e);
-        this.setState({
-          loading:false,
-        })
+        //console.log(e);
       })
     }
 
@@ -456,7 +453,7 @@ class searchEachInfo extends Component {
       }
 
     } else{       //정지상태 일때.
-      console.log("정지버튼 눌러져있음 = isStart = false");
+      // console.log("정지버튼 눌러져있음 = isStart = false");
     }
   }
 
@@ -997,6 +994,7 @@ class searchEachInfo extends Component {
   }
 
   forInputFileName(res){  //팝업창에서 가져온 파일이름과 SDAID를 저장하는 함수
+    if(res !== null){
     this.setState({
       fileNameAndId: res,
       i: 0,
@@ -1004,38 +1002,47 @@ class searchEachInfo extends Component {
       isStart: false,
       // changeSensorForChart: true,
     }, () => {
-      if(this.state.fileNameAndId.length > 0 
-        && this.state.nummericSensor.length > 0 
-        && this.state.categoricSensor.length > 0){
-          this.setChartData();
+        if(this.state.fileNameAndId.length > 0 
+          && this.state.nummericSensor.length > 0 
+          && this.state.categoricSensor.length > 0){
+            this.setChartData();
         }
-    })
-    this.props.selectEachInfo(res[0]);
+    });
+    
+    
+      this.props.selectEachInfo(res[0]);
+    }else{
+      this.setState({
+        loading : false,
+      })
+    }
   }
 
   forUseSensor(res){    //센서선택팝업창에서 가져온 데이터를 저장하는 함수
     if(this.state.nummericSensor.length > 1){
       this.destroyChart();
     }
-    this.setState({
-      nummericSensor: res[0],
-      categoricSensor: res[1],
-      nummericSensorWithKor: res[2],
-      categoricSensorWithKor: res[3],
-      i: 0,
-      resetChart: true,
-      changeSensorForChart: true,
-    }, () =>{
-      this.myLiveChart.destroy();
-      this.drawExtraLiveChart();
-      this.drawingChart();
-
-      if(this.state.fileNameAndId.length > 0 
-        && this.state.nummericSensor.length > 0 
-        && this.state.categoricSensor.length > 0){
-          this.setChartData();
-      }
-    })
+    if(res !== null){
+      this.setState({
+        nummericSensor: res[0],
+        categoricSensor: res[1],
+        nummericSensorWithKor: res[2],
+        categoricSensorWithKor: res[3],
+        i: 0,
+        resetChart: true,
+        changeSensorForChart: true,
+      }, () =>{
+        this.myLiveChart.destroy();
+        this.drawExtraLiveChart();
+        this.drawingChart();
+  
+        if(this.state.fileNameAndId.length > 0 
+          && this.state.nummericSensor.length > 0 
+          && this.state.categoricSensor.length > 0){
+            this.setChartData();
+        }
+      });
+    }
   }
   progressBar(value){   //게이지차트 우측의 프로그래스바
 
@@ -1236,15 +1243,19 @@ class searchEachInfo extends Component {
 
   render() {
     let selectedFile = null;
-    if(this.state.fileNameAndId[1]){
-      let year = this.state.fileNameAndId[1].substring(0,4);
-      let month = this.state.fileNameAndId[1].substring(4,6);
-      let day = this.state.fileNameAndId[1].substring(6,8);
-      let hour = this.state.fileNameAndId[1].substring(8,10);
-      let miniute = this.state.fileNameAndId[1].substring(10,12);
-      let seconds = this.state.fileNameAndId[1].substring(12,14);
-      selectedFile = year + "/" + month + "/" + day + " " + hour + ":" + miniute + ":" + seconds;
+    let fileNameAndId = this.state.fileNameAndId;
+    if(fileNameAndId !== null){
+      if(fileNameAndId[1]){
+        let year = fileNameAndId[1].substring(0,4);
+        let month = fileNameAndId[1].substring(4,6);
+        let day = fileNameAndId[1].substring(6,8);
+        let hour = fileNameAndId[1].substring(8,10);
+        let miniute = fileNameAndId[1].substring(10,12);
+        let seconds = fileNameAndId[1].substring(12,14);
+        selectedFile = year + "/" + month + "/" + day + " " + hour + ":" + miniute + ":" + seconds;
+      }
     }
+    
     return (
       <div className="container"  disabled={this.state.loading}>
          {this.state.loading && (

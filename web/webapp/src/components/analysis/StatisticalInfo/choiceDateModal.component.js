@@ -20,14 +20,14 @@ class ChoiceDateModal extends Component {
         this.yearTemplate = this.yearTemplate.bind(this);
         this.monthTemplate = this.monthTemplate.bind(this);
         this.fileTemplate = this.fileTemplate.bind(this);
-  
         this.clickBrgd = this.clickBrgd.bind(this);
         this.clickDiv = this.clickDiv.bind(this);
         this.clickId = this.clickId.bind(this);
         this.clickName = this.clickName.bind(this);
         this.clickYear = this.clickYear.bind(this);
         this.clickMonth = this.clickMonth.bind(this);
-    
+        
+        this.closeModal = this.closeModal.bind(this);
 
         this.getFileData = this.getFileData.bind(this);
 
@@ -258,12 +258,12 @@ class ChoiceDateModal extends Component {
             }
             fileArr.sort((a, b) => b - a);
             this.setState({
-                selectedYear: latestYear,
-                selectedMonth: latestMonth,
+                //selectedYear: latestYear,
+                //selectedMonth: latestMonth,
                 yearList: yearUnqArr,
-                monthList: monthUnqArr,
-                fileList: fileArr,
-                selectedFile: latestFile,
+                //monthList: monthUnqArr,
+                //fileList: fileArr,
+                //selectedFile: latestFile,
                 loading : false,
             })
 
@@ -276,6 +276,16 @@ class ChoiceDateModal extends Component {
 
 
     clickDiv(e) {
+
+        this.setState({
+            brgdList : "",
+            idList : "",
+            nameList : "",
+            yearList : "",
+            monthList : "",
+            fileList : "",
+        });
+
         if(e.target.value === null) {
             return;
         }
@@ -297,12 +307,12 @@ class ChoiceDateModal extends Component {
         })
         const brgdBnSet = new Set(brgdArray);
         const uniqueArr = [...brgdBnSet];
-        
+        uniqueArr.sort((a,b) => a-b);
         brgdPlusBn = uniqueArr[0].split(" ");
 
         this.setState({
             selectedDiv : value,
-            selectedBrgd : brgdArray[0],
+            //selectedBrgd : brgdArray[0],
             brgdList: uniqueArr,
 
         }, () => {this.clickBrgd(this.state.selectedBrgd)})
@@ -315,7 +325,15 @@ class ChoiceDateModal extends Component {
         let bn = "";
         let brgd = "";
         let value = e;
-        
+
+        this.setState({
+            idList : "",
+            nameList : "",
+            yearList : "",
+            monthList : "",
+            fileList : "",
+        });
+
         if(this.state.selectedBrgd === value){
             brgdPlusBn = this.state.selectedBrgd.split(" ");
             if(brgdPlusBn.length > 1){
@@ -341,7 +359,9 @@ class ChoiceDateModal extends Component {
                 nameList: nameArray,
                 selectedId : idArray[0],
                 selectedName : nameArray[0]
-            }, () => {this.clickId(this.state.selectedId)})
+            }, () => {
+                //this.clickId(this.state.selectedId)
+            })
             return;
 
         }else{
@@ -372,17 +392,27 @@ class ChoiceDateModal extends Component {
                 idList: idArray,
                 nameList: nameArray,
                 selectedBrgd: value,
-                selectedId : idArray[0],
-                selectedName : nameArray[0],
-            }, () => {this.clickId(this.state.selectedId)});
+                //selectedId : idArray[0],
+                //selectedName : nameArray[0],
+            }, () => {
+                //this.clickId(this.state.selectedId)
+            });
         }
     }
 
     clickName(e){
+        this.setState({
+            yearList : "",
+            monthList : "",
+            fileList : "",
+        });
+
         let value = this.state.idList.at(this.state.nameList.indexOf(e.target.value));
         this.setState({
             selectedName : e.target.value
-        },()=>{this.clickId(value)});
+        },()=>{
+            this.clickId(value)
+        });
     }
 
     clickId(e){
@@ -397,11 +427,18 @@ class ChoiceDateModal extends Component {
             }
             this.setState({
                 selectedId : value, 
-            }, () => { this.getFileData(this.state.selectedId) });
+            }, () => { 
+                this.getFileData(this.state.selectedId) 
+            });
         }
     }
 
     clickYear(e) {
+        this.setState({
+            monthList : "",
+            fileList : "",
+        });
+
         const value = e.target.value;
         if(value === null){
             return;
@@ -431,11 +468,16 @@ class ChoiceDateModal extends Component {
         this.setState({
             selectedYear : value,
             monthList : monthUnqArr,
-            selectedMonth : latestMonth,
-        }, () => {this.clickMonth(this.state.selectedMonth)})
+            //selectedMonth : latestMonth,
+        }, () => {
+            //this.clickMonth(this.state.selectedMonth)
+        })
     }
 
     clickMonth(e){
+        this.setState({
+            fileList : "",
+        });
 
         let value = e;
         let yearMonth = "";
@@ -468,7 +510,7 @@ class ChoiceDateModal extends Component {
             })
             filenmArr.sort((a, b) => b - a);
             this.setState({
-                selectedFile: filenmArr[0],
+                //selectedFile: filenmArr[0],
                 fileList: filenmArr,
                 selectedMonth: value,
             })
@@ -546,11 +588,18 @@ class ChoiceDateModal extends Component {
             </div>
         );
     }
+    closeModal(){
+        this.props.func(null);
+        this.props.modalFunc(false);
+    }
 
     render() {
         return (
             <div className="pop01">
-                <h4>정보기준일 설정</h4>
+                <h4 style={{display : "inline-block"}}>정보기준일 설정</h4>                 
+                <button className="close small" style={{display : "inline-block"}}onClick={this.closeModal}>
+                    &times;
+                </button>
                 <div id="grouplistbox" className="listbox">
                     <div className="list-top">
                         <div className="list-top-box">
