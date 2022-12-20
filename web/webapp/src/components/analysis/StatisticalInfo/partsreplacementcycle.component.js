@@ -60,6 +60,14 @@ export default class PartsReplacementCycle extends Component {
   }
 
   componentDidMount() {
+    const startDate = this.state.startDate;
+    const endDate = this.state.endDate;
+
+    startDate.setDate(endDate.getDate() - 7);
+
+    this.setState({
+      startDate : startDate,
+    });
     this.getDivsList();
     this.getCmncdList();
   }
@@ -425,6 +433,7 @@ export default class PartsReplacementCycle extends Component {
                   rplcdate={this.state.rplcdate}
                 // startDate={this.state.startDate}
                 // endDate={this.state.endDate}
+                  locale={ko}
                 />
               </div>
            

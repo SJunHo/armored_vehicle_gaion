@@ -85,7 +85,6 @@ option{color:#000}
   margin-top: 50px;
   border: none;
   border-radius: 15px;
-  font-size: 16px;
   background-color: #fff;
 }
 .btn02 span{
@@ -224,7 +223,7 @@ nav{
   display: inline-block;
   width: 259px;
   border-radius: 50px 0 0 50px;
-  font-size: 18px;
+  font-size: 16px;
   margin-right: -79px;
 }
 .nav-item.selected{
@@ -624,7 +623,8 @@ height: 1rem;
   color: #fff;
 }
 .contents04 .form-group select{
-  padding: 10px;
+  padding: 0 10px;
+  height: 42px;
   width: 125px;
   border-radius:0.25rem; 
   font-family: 'Poppins';
@@ -685,14 +685,15 @@ height: 1rem;
 .form-datepic .react-datepicker-wrapper .react-datepicker__input-container input{
   width: 150px !important;
   position: relative;
-  padding: 11px 15px;
+  height: 42px;
+  padding: 0 15px;
   border-radius: 0.25rem;
   background: #fff;
   color: #333;
   text-align: left;
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
 }
 .form-datepic .react-datepicker-wrapper .react-datepicker__input-container::after{
   content: '';
@@ -706,10 +707,9 @@ height: 1rem;
 }
 .btn07{
   width: 122px;
-  height: 50px;
-  padding: 10px;
-  margin-top: 50px;
-  border: none;
+  height: 45px;
+  margin-top: 47px;
+  border: 1px solid #2B2B42;
   border-radius: 0.25rem;
   background: #2B2B42;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.25);
@@ -758,7 +758,7 @@ height: 1rem;
   box-shadow: 0px 0px 10px rgb(0 ,0 ,0 , 25%);
 }
 .table-div.table03 table thead tr{height: 80px;}
-.table-div.table03 table thead tr td{border: none; font-size: 13px;}
+.table-div.table03 table thead tr td{border: none;}
 .table-div.table02 table thead tr:first-child{
   box-shadow: none;
   display: none;
@@ -791,7 +791,7 @@ height: 1rem;
 .MuiPaginationItem-ellipsis{
   margin-top: -8px !important;
   color: #fff !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 .MuiPagination-ul li button{
   font-family: 'Poppins';
@@ -850,7 +850,9 @@ a.badge-info:focus, a.badge-info:hover{
   padding: 10px 10px;
 }
 .contents02 .form-group select{
-  padding: 15px;
+  padding:0 10px;
+  font-size: 12px;
+  height: 42px;
   border-radius: 0.25rem;
   width: 350px;
   color: #333;
@@ -1188,7 +1190,6 @@ a.badge-info:focus, a.badge-info:hover{
 }
 .vehicleDtlInfo label:nth-child(2){
   color: #197BBD;
-  font-size: 14px;
 }
 .vehicleDtlInfo label:nth-child(4){
   color: #439A86;
@@ -1256,7 +1257,7 @@ label[class*="btnn"]{
   height: 40px;
   line-height: 40px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   color: #000;
 }
@@ -1451,7 +1452,6 @@ label[class*="btnn"]{
 }
 .choose03{
   text-align: center;
-  color: #fff;
 }
 .choose03 h5{
   font-size: 0;
@@ -1654,21 +1654,12 @@ label[class*="btnn"]{
   padding: 175px 0;
   border-radius: 30px;
 }
-.css-r40f8v-MuiTypography-root{
-  color: #fff !important;
-}
-.MuiBox-root.css-70qvj9{
-  width: 80%;
-  margin: 0 auto;
-}
-
 /* 데이터 수집> 기존센서데이터 */
 .condata_top{
   display: block;
   width: 100%;
   height: 48px;
   margin-bottom: 30px;
-  font-size: 18px;
 }
 .condata_top .btn-file{
   float: left;
@@ -1741,7 +1732,7 @@ label[class*="btnn"]{
   position: absolute;
   left: 0;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
 }
 /* 이상치 경고 > 주기성 데이터 조회 */
 .data_header{
@@ -1829,7 +1820,7 @@ label[class*="btnn"]{
   padding: 13px;
   vertical-align: middle;
   margin-bottom: 32px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
 }
 .search-Bar .datepicker-div .form-datepic .react-datepicker-wrapper .react-datepicker__input-container::after{
@@ -1886,7 +1877,7 @@ table.table04 td:last-child, table.table04 tr:last-child{
   border-bottom: none;
   color: #fff;
   font-family: 'Noto Sans KR';
-  font-size: 16px;
+  font-size: 14px;
 }
 .rstm-tree-item:hover{
   text-decoration: underline;
@@ -2087,6 +2078,10 @@ td .form-group select{
 td .form-group option{
   color: #000;
 }
+.form-control{
+  height: 42px;
+  font-size: 12px;
+}
 td input.form-control{
   width: 90%;
   height: 100%;
@@ -2146,6 +2141,9 @@ td input.form-control{
   max-width: inherit;
   position: relative;
 }
+.form-group.form-datepic{
+  margin-bottom: 0;
+}
 .sub-date .react-datepicker-wrapper .react-datepicker__input-container input{
   float: right;
   width: 180px;
@@ -2156,6 +2154,7 @@ td input.form-control{
   text-align: center;
   box-shadow: 5px 5px 25px rgb(0 ,0, 0 ,30%);
   cursor: pointer;
+  font-size: 12px;
 }
 .react-datepicker{
   border: 1px solid #4a4492;
