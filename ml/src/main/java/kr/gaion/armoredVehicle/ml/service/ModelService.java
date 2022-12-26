@@ -88,7 +88,10 @@ public class ModelService {
         map.put("response", response);
         map.put("modelName", modelName);
         // modelResponseSaveToDatabase
-        DbModelResponse dbModelResponse = new DbModelResponse();
+        DbModelResponse dbModelResponse = dbModelResponseRepository.findDbModelResponseByAlgorithmNameAndModelName(algorithmName, modelName);
+        if (dbModelResponse == null) {
+            dbModelResponse = new DbModelResponse();
+        }
         dbModelResponse.setPartType(partType);
         switch (algorithmName) {
             case "RandomForestClassifier":

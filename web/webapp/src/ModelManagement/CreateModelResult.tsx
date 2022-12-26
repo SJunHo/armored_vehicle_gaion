@@ -599,13 +599,13 @@ export const PredictionInfoSection: React.FC<{
     [predictionInfo]
   );
   return (
-    <>
+    <div className="overflow-auto">
       <Table
         data={data}
         columns={columns}
         paginationOptions={{pageIndex: 0, pageSize: 20}}
       />
-    </>
+    </div>
   );
 };
 
