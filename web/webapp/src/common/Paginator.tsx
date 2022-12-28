@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Pagination from "react-bootstrap/Pagination";
+import "./common.module.css";
 
 type PaginatorType = {
   pageCount: number;
@@ -39,7 +40,7 @@ export const Paginator: React.FC<PaginatorType> = ({
         : 3;
 
   return (
-    <Pagination>
+    <Pagination id="paginator">
       <Pagination.Prev
         onClick={() => {
           if (internalSelectedPage > 0) {

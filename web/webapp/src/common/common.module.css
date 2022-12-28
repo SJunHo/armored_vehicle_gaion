@@ -9,3 +9,7 @@
 .formInputWrapper > div {
   margin-bottom: 8px;
 }
+
+.page-link span {
+  color: #007bff;
+}
