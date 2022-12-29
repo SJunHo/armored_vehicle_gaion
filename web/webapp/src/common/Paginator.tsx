@@ -39,6 +39,7 @@ export const Paginator: React.FC<PaginatorType> = ({
         ? 6
         : 3;
 
+  console.log(selectedPage)
   return (
     <Pagination id="paginator">
       <Pagination.Prev
@@ -82,10 +83,10 @@ export const Paginator: React.FC<PaginatorType> = ({
             <Pagination.Item
               key={numberOfPage - lastBlockCount + index}
               onClick={() => {
-                handleChangePage(index);
+                handleChangePage(numberOfPage - lastBlockCount + index);
               }}
             >
-              {numberOfPage - lastBlockCount + index}
+              {numberOfPage - lastBlockCount + index + 1}
             </Pagination.Item>
           ))}
         </>

@@ -20,14 +20,14 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
     @Query(value = "Select W.IDX, W.AI_LW, W.AI_LW_ALGO, W.AI_LW_MODEL, W.AI_LW_DATE, " +
             " W.USER_LW, W.USER_LW_ID, W.USER_LW_DATE, " +
             " W.W_RPM, W.L_W_V_2X, W.L_W_V_3X, W.L_W_S_Fault3, W.`DATE`, " +
-            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from (Select * from `WHLDATA`  WHERE `WHLDATA`.AI_LW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from (Select * from `WHLDATA` WHERE `WHLDATA`.AI_LW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = `ENGDATA`.`DATE` AND W.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     Page<SensorWheelLeftInterface> getLeftWheelAiLWPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     @Query(value = "Select W.IDX, W.AI_RW, W.AI_RW_ALGO, W.AI_RW_MODEL, W.AI_RW_DATE, " +
             " W.USER_RW, W.USER_RW_ID, W.USER_RW_DATE, " +
-            " W.W_RPM, W.R_W_V_2X, W.R_W_V_3X, W.R_W_S_Fault3, " +
-            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, W.`DATE` from (Select * from `WHLDATA`  WHERE `WHLDATA`.AI_RW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W " +
+            " W.W_RPM, W.R_W_V_2X, W.R_W_V_3X, W.R_W_S_Fault3, W.`DATE`, " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from (Select * from `WHLDATA` WHERE `WHLDATA`.AI_RW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = `ENGDATA`.`DATE` AND W.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     Page<SensorWheelRightInterface> getRightWheelAiRWPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
@@ -35,7 +35,7 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
     @Query(value = " SELECT W.IDX, W.AI_LW, W.AI_LW_ALGO, W.AI_LW_MODEL, W.AI_LW_DATE, " +
             " W.W_RPM, W.L_W_V_2X, W.L_W_V_3X, W.L_W_S_Fault3, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, W.`DATE` " +
-            " FROM (Select * from `WHLDATA`  WHERE `WHLDATA`.AI_LW IS NULL) W " +
+            " FROM (Select * from `WHLDATA` WHERE `WHLDATA`.AI_LW IS NULL) W " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
     Page<SensorWheelLeftInterface> findSensorWheelLeftAiLWIsNull(Pageable pageable);
 
@@ -43,21 +43,21 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
     @Query(value = " SELECT W.IDX, W.AI_RW, W.AI_RW_ALGO, W.AI_RW_MODEL, W.AI_RW_DATE, " +
             " W.W_RPM, W.R_W_V_2X, W.R_W_V_3X, W.R_W_S_Fault3, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, W.`DATE` " +
-            " FROM (Select * from `WHLDATA`  WHERE `WHLDATA`.AI_RW IS NULL) W " +
+            " FROM (Select * from `WHLDATA` WHERE `WHLDATA`.AI_RW IS NULL) W " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
     Page<SensorWheelRightInterface> findSensorWheelRightAiRWIsNull(Pageable pageable);
 
     // get WL's User judgement values are not Null data
     @Query(value = "Select W.IDX, W.USER_LW, W.USER_LW_ID, W.USER_LW_DATE, " +
             " W.W_RPM, W.L_W_V_2X, W.L_W_V_3X, W.L_W_S_Fault3, W.`DATE`, " +
-            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from (Select * from `WHLDATA`  WHERE `WHLDATA`.USER_LW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from (Select * from `WHLDATA` WHERE `WHLDATA`.USER_LW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = `ENGDATA`.`DATE` AND W.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorWheelLeftInterface> getLeftWheelUserLW(String carId, Date fromDate, Date toDate);
 
     // get WR's User judgement values are not Null data
     @Query(value = "Select W.IDX, W.USER_RW, W.USER_RW_ID, W.USER_RW_DATE, " +
             " W.W_RPM, W.R_W_V_2X, W.R_W_V_3X, W.R_W_S_Fault3, W.`DATE`, " +
-            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from (Select * from `WHLDATA`  WHERE `WHLDATA`.USER_RW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W  " +
+            " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a from (Select * from `WHLDATA` WHERE `WHLDATA`.USER_RW IS NOT NULL AND `WHLDATA`.SDAID = ?1 AND `WHLDATA`.DATE BETWEEN ?2 AND ?3) W  " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = `ENGDATA`.`DATE` AND W.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorWheelRightInterface> getRightWheelUserRW(String carId, Date fromDate, Date toDate);
 }
