@@ -88,7 +88,7 @@ export default class CIM extends Component {
               <label htmlFor="group">그룹</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="group"
                 required
                 defaultValue={this.state.changedGroupcode}
@@ -101,7 +101,7 @@ export default class CIM extends Component {
               <label htmlFor="code">코드</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="code"
                 required
                 defaultValue={this.state.changedCode}
@@ -114,7 +114,7 @@ export default class CIM extends Component {
               <label htmlFor="var">값</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="var"
                 required
                 defaultValue={this.state.changedVar}
@@ -127,7 +127,7 @@ export default class CIM extends Component {
               <label htmlFor="expln">설명</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="expln"
                 required
                 defaultValue={this.state.changedExpln}

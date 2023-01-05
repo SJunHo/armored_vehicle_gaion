@@ -51,7 +51,7 @@ export default class AddCIM extends Component {
               <label htmlFor="group">그룹</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="group"
                 required
                 onChange={(e)=> this.setState({changedGroupcode : e.target.value})}
@@ -63,7 +63,7 @@ export default class AddCIM extends Component {
               <label htmlFor="code">코드</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="code"
                 required
                 onChange={(e)=> this.setState({changedCode : e.target.value})}
@@ -75,7 +75,7 @@ export default class AddCIM extends Component {
               <label htmlFor="var">값</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="var"
                 required
                 onChange={(e)=> this.setState({changedVar : e.target.value})}
@@ -87,7 +87,7 @@ export default class AddCIM extends Component {
               <label htmlFor="expln">설명</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control-style"
                 id="expln"
                 required
                 onChange={(e)=> this.setState({changedExpln : e.target.value})}

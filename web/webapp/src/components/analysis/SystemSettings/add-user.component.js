@@ -295,7 +295,7 @@ class AddUser extends Component {
                   <label htmlFor="id">사용자ID</label>
                   <Input
                     type="text"
-                    className="form-control"
+                    className="form-control-style"
                     name="id"
                     value={this.state.id}
                     onChange={this.onChangeId}
@@ -307,7 +307,7 @@ class AddUser extends Component {
                   <label htmlFor="username">사용자 이름</label>
                   <Input
                     type="text"
-                    className="form-control"
+                    className="form-control-style"
                     name="username"
                     value={this.state.username}
                     onChange={this.onChangeUsername}
@@ -320,7 +320,7 @@ class AddUser extends Component {
                   <label htmlFor="pwd">비밀번호</label>
                   <Input
                     type="pwd"
-                    className="form-control"
+                    className="form-control-style"
                     name="pwd"
                     value={this.state.pwd}
                     onChange={this.onChangePassword}
@@ -358,7 +358,7 @@ class AddUser extends Component {
                   <label htmlFor="telno1">핸드폰1</label>
                   <Input
                     type="telno1"
-                    className="form-control"
+                    className="form-control-style"
                     name="telno1"
                     value={this.state.telno1}
                     onChange={this.onChangeTelno1}
@@ -370,7 +370,7 @@ class AddUser extends Component {
                   <label htmlFor="telno2">핸드폰2</label>
                   <Input
                     type="telno2"
-                    className="form-control"
+                    className="form-control-style"
                     name="telno2"
                     value={this.state.telno2}
                     onChange={this.onChangeTelno2}
@@ -382,7 +382,7 @@ class AddUser extends Component {
                   <label htmlFor="srvno">군번</label>
                   <Input
                     type="srvno"
-                    className="form-control"
+                    className="form-control-style"
                     name="srvno"
                     value={this.state.srvno}
                     onChange={this.onChangeSrvno}
@@ -394,7 +394,7 @@ class AddUser extends Component {
                   <label htmlFor="rnkcd">계급</label>
                   <Input
                     type="rnkcd"
-                    className="form-control"
+                    className="form-control-style"
                     name="rnkcd"
                     value={this.state.rnkcd}
                     onChange={this.onChangeRnkcd}
@@ -406,7 +406,7 @@ class AddUser extends Component {
                   <label htmlFor="rspofc">직책</label>
                   <Input
                     type="rspofc"
-                    className="form-control"
+                    className="form-control-style"
                     name="rspofc"
                     value={this.state.rspofc}
                     onChange={this.onChangeRspofc}

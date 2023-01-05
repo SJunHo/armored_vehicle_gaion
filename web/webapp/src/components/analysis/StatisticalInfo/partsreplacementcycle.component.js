@@ -386,7 +386,7 @@ export default class PartsReplacementCycle extends Component {
             <label htmlFor="description">선택차량</label>
             <input
               type="text"
-              className="form-control info-register"
+              className="form-control-style info-register"
               value={this.state.changedVehicleName || ""}
               onChange={(e) => this.setState({ changedVehicleName: e.target.value })}
               name="description"
@@ -411,7 +411,7 @@ export default class PartsReplacementCycle extends Component {
             <label htmlFor="description">정비자</label>
             <input
               type="text"
-              className="form-control info-register"
+              className="form-control-style info-register"
               id="engineer"
               required
               value={this.state.workrinput || ""}
@@ -443,7 +443,7 @@ export default class PartsReplacementCycle extends Component {
             <label htmlFor="description">교환사유</label>
             <input
               type="text"
-              className="form-control info-register"
+              className="form-control-style info-register"
               id="exchange"
               required
               value={this.state.msginput || ""}

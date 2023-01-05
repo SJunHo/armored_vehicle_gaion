@@ -2078,11 +2078,11 @@ td .form-group select{
 td .form-group option{
   color: #000;
 }
-.form-control{
+.form-control-style{
   height: 42px;
   font-size: 12px;
 }
-td input.form-control{
+td input .form-control-style{
   width: 90%;
   height: 100%;
   margin: 0 auto;

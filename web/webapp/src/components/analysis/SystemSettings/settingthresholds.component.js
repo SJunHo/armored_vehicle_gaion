@@ -108,9 +108,9 @@ class SettingThresholds extends Component {
               return(
               <tr key={item.snsrid}>
                 <td>{item.expln}</td>
-                <td><input type="input" className="form-control" name={"max"+index} defaultValue={item.max} onChange={(event)=>{this.onMaxChange(event)}}></input></td>
-                <td><input type="input" className="form-control" name={"min"+index} defaultValue={item.min} onChange={(event)=>{this.onMinChange(event)}}></input></td>
-                <td><input type="checkbox" className="form-control" name={"checkbox"+index} checked={item.usedvcd} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
+                <td><input type="input" className="form-control-style" name={"max"+index} defaultValue={item.max} onChange={(event)=>{this.onMaxChange(event)}}></input></td>
+                <td><input type="input" className="form-control-style" name={"min"+index} defaultValue={item.min} onChange={(event)=>{this.onMinChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control-style" name={"checkbox"+index} checked={item.usedvcd} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}
