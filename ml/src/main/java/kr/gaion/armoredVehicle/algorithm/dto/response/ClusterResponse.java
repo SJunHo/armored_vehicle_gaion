@@ -20,8 +20,8 @@ public class ClusterResponse extends AlgorithmResponse {
   private List<String> predictionInfo;
   private Map<Integer, Long> totalPointsEachCluster;
 
-  private long[] confusionMatrix;
-  private String[] tagLabels;
+  private double[] confusionMatrix;
+  private String[] labels;
   private List<Map<String, Object>> actual;
 
   public static final String PCA_FEATURES = "pcaFeatures";

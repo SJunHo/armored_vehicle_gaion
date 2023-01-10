@@ -6,6 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClusterTrainInput extends BaseAlgorithmTrainInput {
+    //
+    private double fraction;
+
     private int numClusters;
     private int numIterations;
 

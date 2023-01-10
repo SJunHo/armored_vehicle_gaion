@@ -125,6 +125,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
             <Button disabled={isTraining} type="submit">
               {isTraining && (
                 <Spinner
+                  className="pr-2"
                   as="span"
                   animation="border"
                   size="sm"
@@ -429,6 +430,7 @@ export const IsolationForestSection: React.FC = () => {
         title="클러스터 개수"
       >
         <Form.Control
+          className="mt-2"
           type="number"
           min="0.0"
           {...register("numEstimators", {valueAsNumber: true, value: 100})}
@@ -441,12 +443,12 @@ export const IsolationForestSection: React.FC = () => {
         title="최대 특징 개수"
       >
         <Form.Control
+          className="mt-2"
           type="number"
           min="0.0"
           step="0.1"
           {...register("maxFeatures", {valueAsNumber: true, value: 1.0})}
         />
-
       </InputWrapper>
       <InputWrapper
         rowLayout
@@ -455,6 +457,7 @@ export const IsolationForestSection: React.FC = () => {
         title="최대 샘플 개수"
       >
         <Form.Control
+          className="mt-2"
           type="number"
           min="0.0"
           {...register("maxSamples", {valueAsNumber: true, value: 256})}

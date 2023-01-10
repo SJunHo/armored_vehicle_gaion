@@ -21,7 +21,7 @@
 }
 
 .trainInputBodyDetailSection {
-  padding: 18px 12px;
+  padding: 18px 15px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -31,8 +31,10 @@
 .body2Input {
   flex: 1;
   min-width: 40%;
-  max-width: 50%;
-  margin-right: 8px;
+  max-width: calc(50% - 16px);
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-top:8px;
 }
 
 .center {
@@ -60,6 +62,12 @@
   margin-right: 16px;
 }
 
+.notTableBlack {
+  color: #fff;
+  background-color: #7b7d7f;
+}
+
+
 .tableBlack {
   color: #fff;
   background-color: #343a40;
@@ -78,11 +86,6 @@
 .tableBlack,
 .tableBlack > th {
   background-color: #4b4c4d;
-}
-
-.tableBlack,
-.tableBlack > td {
-  background-color: #7b7d7f;
 }
 
 .tableBlack th,

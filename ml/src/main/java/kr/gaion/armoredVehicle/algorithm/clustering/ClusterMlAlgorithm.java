@@ -18,8 +18,13 @@ import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
+import org.apache.spark.api.java.JavaPairRDD;
+import org.apache.spark.ml.classification.LogisticRegressionModel;
+import org.apache.spark.ml.feature.StringIndexer;
+import org.apache.spark.ml.feature.StringIndexerModel;
 import org.apache.spark.ml.feature.VectorAssembler;
 import org.apache.spark.ml.functions$;
+import org.apache.spark.mllib.evaluation.MulticlassMetrics;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -112,22 +117,31 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
     public ClusterResponse train(ClusterTrainInput config) throws Exception {
         Dataset<Row> trainData;
 
-        if (config.isFeaturesSelectionEnableFlg()) {
-            // get input data
-            trainData = this.dimensionalityReduction.computePcaDataframeApi(config);
-        } else {
-//      // get input data
-//      trainData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
-            trainData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
-        }
+//        if (config.isFeaturesSelectionEnableFlg()) {
+//            // get input data
+//            trainData = this.dimensionalityReduction.computePcaDataframeApi(config);
+//        } else {
+////      // get input data
+////      trainData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
+//            trainData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+//        }
 
-        TModel model = this.trainModel(config, trainData);
+        Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
+        StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
+        Dataset<Row> indexedData = labelIndexer.transform(originalData);
+//        String[] indicesLabelsMapping = labelIndexer.labels();
+        String[] indicesLabelsMapping = {"normal", "outlier"};
+        // 2. Split the data into train and test
+        var splitData = this.splitTrainTest(indexedData, config.getLSeed(), config.getFraction());
+        var train = splitData[0];
+        var test = splitData[1];
+
+        TModel model = this.trainModel(config, train);
         // map data to return
 
-        Dataset<Row> trainedDf = this.predictData(trainData, model);
-
-        Dataset<Row> trainedDfWithArrayFeatures = trainedDf.select("label", "features", "prediction")
-                .withColumn("v2a", functions$.MODULE$.vector_to_array(trainData.col("features"), "float64"));
+        Dataset<Row> predictions = this.predictData(test, model);
+        Dataset<Row> trainedDfWithArrayFeatures = predictions.select("label", "features", "prediction")
+                .withColumn("v2a", functions$.MODULE$.vector_to_array(originalData.col("features"), "float64"));
         Dataset<Row> resultDf = trainedDfWithArrayFeatures
                 .withColumns(CollectionConverters.asScalaBuffer(config.getFeatureCols()).toSeq(),
                         CollectionConverters.asScalaBuffer(IntStream.range(0, config.getFeatureCols().size())
@@ -136,21 +150,26 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
         // response to client
         ClusterResponse response = new ClusterResponse(ResponseType.OBJECT_DATA);
 
+        JavaPairRDD<Object, Object> predictionAndLabelRdd = zipPredictResult(predictions);
+
         var maxResults = resultDf.count();
         var resultArray = (Row[]) resultDf.drop("v2a", "features").take((int) maxResults);
         response.setPredictionInfo(Arrays.stream(resultArray).map(row -> row.mkString(",")).collect(Collectors.toList()));
-
         response.setListFeatures(config.getFeatureCols().toArray(new String[0]));
         response.setIdCol(config.getClassCol());
         response.setStatus(ResponseStatus.SUCCESS);
         // PCA is applied or not?
         response.setProcessed(config.isFeaturesSelectionEnableFlg());
 
+        var metrics = new MulticlassMetrics(predictionAndLabelRdd.rdd());
+
+        response.setConfusionMatrix(metrics.confusionMatrix().toArray());
+        response.setLabels(indicesLabelsMapping);
         this.doSaveModel(model, config);
         this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
         this.modelUtil.saveTrainedResults(config, response, this.algorithmName);
 
-        enrichTrainResponse(response, model, resultDf, config);
+//        enrichTrainResponse(response, model, resultDf, config);
 //        log.debug("trained successfully.");
         return response;
     }

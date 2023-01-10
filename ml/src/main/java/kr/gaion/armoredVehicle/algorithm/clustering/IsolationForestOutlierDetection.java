@@ -36,7 +36,7 @@ public class IsolationForestOutlierDetection extends ClusterMlAlgorithm<Isolatio
 
     @Override
     protected IsolationForestModel trainModel(ClusterTrainInput input, Dataset<Row> trainData) {
-        var outlierCount = trainData.filter(trainData.col("label").gt(1)).count();
+        var outlierCount = trainData.filter(trainData.col("label").gt(0.5)).count();
         var totalCount = trainData.count();
         var isolationForest = new IsolationForest();
         isolationForest
@@ -56,7 +56,7 @@ public class IsolationForestOutlierDetection extends ClusterMlAlgorithm<Isolatio
     protected Dataset<Row> predictData(Dataset<Row> input, IsolationForestModel isolationForestModel) {
         var result = isolationForestModel.transform(input);
         return result
-                .withColumn("prediction", functions.when(result.col("prediction").equalTo(functions.lit(0)), 0).otherwise(1));
+                .withColumn("prediction", functions.when(result.col("prediction").equalTo(functions.lit(0)), 0.0).otherwise(1.0));
     }
 
     @Override

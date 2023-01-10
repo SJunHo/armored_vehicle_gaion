@@ -345,18 +345,16 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
 
 
 export const ClusterDiagram: React.FC<Props> = ({
-                                                  result: {predictionInfo, listFeatures},
+                                                  result,
                                                   algorithmName, result2
                                                 }) => {
-  const [selectedXAxis, setSelectedXAxis] = useState<number>();
-  const [selectedYAxis, setSelectedYAxis] = useState<number>();
-  const colorPalette2 = [
-    "#11E7FF",
-    "#11E7FF",
-    "#0B8D9B",
-    "#075E67",
-    "#05474E",
-  ];
+  const {predictedActualFeatureLine: resultPredictedActualFeatureLine,
+    confusionMatrix = [],
+    labels = [],
+    predictionInfo } = result;
+  const predictedActualFeatureLine = resultPredictedActualFeatureLine || predictionInfo;
+  const matrixSize = Math.sqrt(confusionMatrix?.length || 0);
+  const countByLabels = chunk(confusionMatrix, matrixSize).map((c) => sum(c));
 
   const data = useMemo<any[][]>(
     () =>
@@ -364,66 +362,89 @@ export const ClusterDiagram: React.FC<Props> = ({
     [predictionInfo]
   );
 
+  console.log(matrixSize)
   return (
-    <CustomCardContainer>
-      <CustomCardHeader>
-        <strong>Clusters</strong>
-      </CustomCardHeader>
-      <CustomCardBody>
-        <div className="d-flex flex-row-reverse">
-          <Select2
-            className={styles.axisSelector}
-            value={
-              selectedYAxis !== undefined
-                ? {
-                  label: (listFeatures || [])[selectedYAxis],
-                  value: selectedYAxis,
-                }
-                : undefined
-            }
-            onChange={(v) => setSelectedYAxis(v?.value)}
-            options={(listFeatures || []).map((f, i) => ({
-              label: f,
-              value: i,
-            }))}
-          />
-          <div>YAxis</div>
-          <Select2
-            className={styles.axisSelector}
-            value={
-              selectedXAxis !== undefined
-                ? {
-                  label: (listFeatures || [])[selectedXAxis],
-                  value: selectedXAxis,
-                }
-                : undefined
-            }
-            options={(listFeatures || []).map((f, i) => ({
-              label: f,
-              value: i,
-            }))}
-            onChange={(v) => setSelectedXAxis(v?.value)}
-          />
-          <div>XAxis</div>
-        </div>
-        <FlexibleWidthXYPlot height={300}>
-          <XAxis/>
-          <YAxis/>
-          <MarkSeries
-            colorType="literal"
-            data={
-              selectedXAxis !== undefined && selectedYAxis !== undefined
-                ? data.map((item) => ({
-                  x: item[selectedXAxis],
-                  y: item[selectedYAxis],
-                  color: colorPalette2[algorithmName === "kmean" ? item[1] : item[0]],
-                }))
-                : []
-            }
-          />
-        </FlexibleWidthXYPlot>
-      </CustomCardBody>
-    </CustomCardContainer>
+    <>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>{"결과"}</strong>
+        </CustomCardHeader>
+      </CustomCardContainer>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>{"혼잡 매트릭스"}</strong>
+        </CustomCardHeader>
+        <CustomCardBody>
+          <Row>
+            <div className="table-responsive">
+              <table className="table table-bordered ">
+                <thead className={styles.textCenter}>
+                <tr className={`${styles.tableBlack}`}>
+                  <th
+                    id="commonCell"
+                    colSpan={2}
+                    className="col-md-3"
+                    rowSpan={matrixSize}
+                  />
+                  <th
+                    id="actualCell"
+                    colSpan={matrixSize}
+                    className={styles.textCenter}
+                  >
+                    {"실제 클래스"}
+                  </th>
+                </tr>
+                <tr
+                  id="actualLabels"
+                  className={`${styles.tableBlack} ${styles.textCenter}`}
+                >
+                  {range(0, matrixSize).map((i) => (
+                    <th>
+                      {labels[i]} ({countByLabels[i]})
+                    </th>
+                  ))}
+                </tr>
+                </thead>
+                <tbody id="tableBody">
+                <tr id="firstRow">
+                  <th
+                    className={`${styles.tableBlack} ${styles.predictCell}`}
+                    rowSpan={matrixSize + 1}
+                  >
+                    {"예측된 클래스"}
+                  </th>
+                </tr>
+                {range(0, matrixSize).map((i) => (
+                  <tr>
+                    <td className={`${styles.tableBlack}`}>{labels[i]}</td>
+                    {range(0, matrixSize).map((j) => (
+                      <td className={i === j ? `${styles.tableBlack}` : `${styles.notTableBlack}` }>
+                        {confusionMatrix[i * matrixSize + j]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
+          </Row>
+        </CustomCardBody>
+      </CustomCardContainer>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>예측 결과</strong>
+        </CustomCardHeader>
+        <CustomCardBody>
+          {predictedActualFeatureLine && (
+            <PredictionInfoSection
+              predictionInfo={predictedActualFeatureLine}
+              featureCols={result.listFeatures || []}
+            />
+          )}
+        </CustomCardBody>
+      </CustomCardContainer>
+    </>
+
   );
 };
 
@@ -437,11 +458,15 @@ export const ClassificationResult: React.FC<Props> = ({result, result2}) => {
   const predictedActualFeatureLine =
     resultPredictedActualFeatureLine || predictionInfo;
   const matrixSize = Math.sqrt(confusionMatrix?.length || 0);
-
   const countByLabels = chunk(confusionMatrix, matrixSize).map((c) => sum(c));
 
+  const data = useMemo<any[][]>(
+    () =>
+      (predictionInfo || []).map((actual) => JSON.parse("[" + actual + "]")),
+    [predictionInfo]
+  );
+
   const {algorithmName} = useParams<{ algorithmName: string }>();
-  const {t} = useTranslation();
   return (
     <>
       <CustomCardContainer>
@@ -541,7 +566,7 @@ export const ClassificationResult: React.FC<Props> = ({result, result2}) => {
                   <tr>
                     <td className={`${styles.tableBlack}`}>{labels[i]}</td>
                     {range(0, matrixSize).map((j) => (
-                      <td className={i === j ? `${styles.tableBlack}` : ""}>
+                      <td className={i === j ? `${styles.tableBlack}` : `${styles.notTableBlack}`}>
                         {confusionMatrix[i * matrixSize + j]}
                       </td>
                     ))}
@@ -580,11 +605,11 @@ export const PredictionInfoSection: React.FC<{
   const columns = useMemo<Column<any[]>[]>(
     () => [
       {
-        Header: algorithmName === "kmean" ? "Actual" : "Predicted",
+        Header: algorithmName === "kmean" || algorithmName === "if" ? "Actual" : "Predicted",
         accessor: (data0) => data0[0],
       },
       {
-        Header: algorithmName === "kmean" ? "Predicted" : "Actual",
+        Header: algorithmName === "kmean" || algorithmName === "if" ? "Predicted" : "Actual",
         accessor: (data0) => data0[1],
       },
       ...featureCols.map((featureCol, i) => ({
