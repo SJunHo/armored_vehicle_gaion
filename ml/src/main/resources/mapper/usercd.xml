@@ -51,4 +51,9 @@
     <delete id="deleteUser" parameterType="String">
         delete from USERCD where userid = #{userid}
     </delete>
+
+    <insert id="insertUserLog" parameterType="java.util.Map">
+        insert into USERLOG(userid, logindt)
+        values (#{userid}, #{logindt})
+    </insert>
 </mapper>

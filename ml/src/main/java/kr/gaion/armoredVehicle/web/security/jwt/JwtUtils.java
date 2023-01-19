@@ -47,12 +47,20 @@ public class JwtUtils {
             .sign(Algorithm.HMAC512(authConfiguration.getSecret()));
   }
   public String getUserNameFromJwtToken(String token) {
-    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+//    return Jwts.parser().setSigningKey(authConfiguration.getSecret()).parseClaimsJws(token).getBody().getSubject();
+    var verifier = JWT.require(Algorithm.HMAC512(authConfiguration.getSecret()))
+            .withIssuer(authConfiguration.getIssuer())
+            .acceptLeeway(1)
+            .build();
+    return verifier.verify(token).getId();
   }
 
   public boolean validateJwtToken(String authToken) {
     try {
-      Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+      JWT.require(Algorithm.HMAC512(authConfiguration.getSecret()))
+              .withIssuer(authConfiguration.getIssuer())
+              .acceptLeeway(1)
+              .build();
       return true;
     } catch (SignatureException e) {
       logger.error("Invalid JWT signature: {}", e.getMessage());

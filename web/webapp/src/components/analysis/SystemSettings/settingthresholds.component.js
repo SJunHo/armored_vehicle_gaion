@@ -61,9 +61,16 @@ class SettingThresholds extends Component {
 
   onUsedvcdChange(e){
     const {name, checked} = e.target;
+    console.log(checked);
     let index = name.split('checkbox')[1];
+    let usedvcd;
+    if(checked){
+      usedvcd = 'Y';
+    }else{
+      usedvcd = 'N';
+    }
     let thresholdSet = this.state.thresholdList;
-    thresholdSet[index].usedvcd = checked;
+    thresholdSet[index].usedvcd = usedvcd;
     thresholdSet[index].mdfcdt = new Date();
     thresholdSet[index].mdfr = this.state.user.username;
     this.setState({
@@ -75,13 +82,10 @@ class SettingThresholds extends Component {
     settingthresholdService.updateList(this.state.thresholdList)
     .then((response) => {
       console.log(response);
-      if(response.status === 201){
-        alert("정상등록되었습니다");
-      }
+      alert("정상등록되었습니다");
     })
     .catch((e) => {
-      console.log(e);
-      alert("에러 발생");
+      alert("등록에 실패했습니다");
     });
   }
 
@@ -108,9 +112,9 @@ class SettingThresholds extends Component {
               return(
               <tr key={item.snsrid}>
                 <td>{item.expln}</td>
-                <td><input type="input" className="form-control-style" name={"max"+index} defaultValue={item.max} onChange={(event)=>{this.onMaxChange(event)}}></input></td>
-                <td><input type="input" className="form-control-style" name={"min"+index} defaultValue={item.min} onChange={(event)=>{this.onMinChange(event)}}></input></td>
-                <td><input type="checkbox" className="form-control-style" name={"checkbox"+index} checked={item.usedvcd} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
+                <td><input type="input" className="form-control form-control-style" name={"max"+index} defaultValue={item.max} onChange={(event)=>{this.onMaxChange(event)}}></input></td>
+                <td><input type="input" className="form-control form-control-style" name={"min"+index} defaultValue={item.min} onChange={(event)=>{this.onMinChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control form-control-style" name={"checkbox"+index} checked={item.usedvcd === 'Y' ? true:false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}

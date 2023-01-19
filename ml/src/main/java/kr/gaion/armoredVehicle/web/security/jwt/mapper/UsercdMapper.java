@@ -20,4 +20,6 @@ public interface UsercdMapper {
 	public int countUsers();
 	public void updateUser(Usercd user);
 	public void deleteUser(String id);
+
+	public void insertUserLog(Map<String, Object> param);
 }

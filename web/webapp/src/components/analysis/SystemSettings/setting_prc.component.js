@@ -117,7 +117,7 @@ class Setting_PRC extends Component {
     })
     .catch((e) => {
       console.log(e);
-      alert("에러 발생");
+      alert("등록에 실패했습니다");
     });
   }
 
@@ -147,22 +147,22 @@ class Setting_PRC extends Component {
               <tr key={index}>
                 <td>{item.grnm}</td>
                 <td>
-                <input type="input" className="form-control-style" name={"stdval"+index} defaultValue={item.stdval} onChange={(event)=>{this.onStdValChange(event)}}>
+                <input type="input" className="form-control form-control-style" name={"stdval"+index} defaultValue={item.stdval} onChange={(event)=>{this.onStdValChange(event)}}>
                 </input>
                 </td>
                 <td>
-                <input type="input" className="form-control-style" name={"prdval"+index} defaultValue={item.prdval} onChange={(event)=>{this.onPrdValChange(event)}}>
+                <input type="input" className="form-control form-control-style" name={"prdval"+index} defaultValue={item.prdval} onChange={(event)=>{this.onPrdValChange(event)}}>
                 </input>
                 </td>
                 <td>
-                  <input type="input" className="form-control-style" name={"nmval"+index} defaultValue={item.nmval} onChange={(event)=>{this.onNmValChange(event)}}>
+                  <input type="input" className="form-control form-control-style" name={"nmval"+index} defaultValue={item.nmval} onChange={(event)=>{this.onNmValChange(event)}}>
                   </input>
                 </td>
                 <td>
-                  <input type="input" className="form-control-style" name={"msg"+index} defaultValue={item.msg} onChange={(event)=>{this.onMessageChange(event)}}>
+                  <input type="input" className="form-control form-control-style" name={"msg"+index} defaultValue={item.msg} onChange={(event)=>{this.onMessageChange(event)}}>
                   </input>
                 </td>
-                <td><input type="checkbox" className="form-control-style" name={"checkbox"+index} checked={item.usedvcd === 'Y' ? true:false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control form-control-style" name={"checkbox"+index} checked={item.usedvcd === 'Y' ? true:false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}

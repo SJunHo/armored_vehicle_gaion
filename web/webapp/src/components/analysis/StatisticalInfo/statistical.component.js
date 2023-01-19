@@ -16,9 +16,10 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import '../../../css/fonts.css';
 import '../../../css/style.css';
 import {FaBell} from "react-icons/fa";
- 
+import moment from 'moment';
 
 class Statistical extends Component {
+  
   constructor(props) {
     super(props);
     this.clickOutlierWaning = this.clickOutlierWaning.bind(this);
@@ -44,9 +45,7 @@ class Statistical extends Component {
       graphLevel : "0",
       graphUrl : "1",
       popUpList : [],
-      popUpState : true,
-      popUpdateSet : false,
-
+      popUpState : false,
       columns : [
         {
           Header: '구분',
@@ -102,17 +101,27 @@ class Statistical extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createNotification = this.createNotification.bind(this);
     this.popUpClear = this.popUpClear.bind(this);
+
   }
 
   componentDidMount() {
+
     this.setState({
       loading : true
     });
     statisticalService.getTree().then(
       response => {
+        // let treedata = response.data;
+        // let divdepth = new Array();
+        // divdepth.push("tree");
+        // treedata.tree.nodes.forEach((i)=>{
+        //   let treeid = "tree/" +i.key;
+        //   divdepth.push(treeid);
+        // })
         this.setState({
           treeArray: response.data,
         });
+        console.log(response.data);
       },
       error => {
         this.setState({
@@ -128,14 +137,12 @@ class Statistical extends Component {
       url : 1,
       date : this.state.startDate
     }
-    let startGraph = new Date();
+
     statisticalService.getGraph(param).then(
       response => {
         this.setState({
           graphData : response.data,
         });
-        let endGraph = new Date();
-        console.log(endGraph - startGraph);
       },
       error => {
         this.setState({
@@ -169,10 +176,13 @@ class Statistical extends Component {
     statisticalService.getPopUpInfo(this.state.user.id).then(
       response => {
         console.log(response.data);
-        this.setState({
-          popUpdateSet : true,
-          popUpList : response.data
-        });
+        let data = [];
+        data = response.data;
+        if(data.length !== 0){
+          this.setState({
+            popUpList : response.data
+          });
+        }
       },
       error => {
         console.log(error);
@@ -180,7 +190,7 @@ class Statistical extends Component {
     ,()=>{});
 
       setInterval(()=>{
-        if(NotificationManager.listNotify.length === 0 && this.state.popUpdateSet && this.state.popUpState){
+        if(NotificationManager.listNotify.length === 0 && this.state.popUpState){
           this.setState({
             popUpState : false,
           });
@@ -265,7 +275,6 @@ class Statistical extends Component {
       graphLevel : param.level,
       graphUrl : param.url
     });
-
     if(param.sda==null){
       this.getTableData(param.level,param.url,this.state.startDate);
       this.getGraphData(param.level,param.url,this.state.startDate);
@@ -307,18 +316,18 @@ class Statistical extends Component {
         Object.entries(avgsdtData).forEach(two => {
             let avgs = {
             bn : two[0],
-            value : Math.round(two[1])
+            value : Math.round(two[1]*1000) / 1000
           }
           avgsdt.push(avgs);
         });
       }
-
+      console.log(avgsdt);
       let engnnldnrate = [];
       if(engnnldnrateData!= null){
         Object.entries(engnnldnrateData).forEach(two => {
             let engnnldn = {
             bn : two[0],
-            value : Math.round(two[1])
+            value : Math.round(two[1]*1000) / 1000
           }
           engnnldnrate.push(engnnldn);
         });
@@ -329,7 +338,7 @@ class Statistical extends Component {
         Object.entries(mvmtdstcData).forEach(two => {
             let mvmtd = {
             bn : two[0],
-            value : Math.round(two[1])
+            value : Math.round(two[1]*1000) / 1000
           }
           mvmtdstc.push(mvmtd);
         });
@@ -340,7 +349,7 @@ class Statistical extends Component {
         Object.entries(mvmttimeData).forEach(two => {
             let mvmtt = {
             bn : two[0],
-            value : Math.round(two[1])
+            value : Math.round(two[1]*1000) / 1000
           }
           mvmttime.push(mvmtt);
         });
@@ -382,6 +391,8 @@ class Statistical extends Component {
 
     this.setState({
       loading : false,
+    },()=>{
+      console.log(this.state.tableResult);
     });
 
   }
@@ -460,8 +471,8 @@ class Statistical extends Component {
     NotificationManager.removeAll();
   }
 
-
   render() {
+    
     return (
       <div className="container">
         <div className="sub_title">
@@ -481,11 +492,12 @@ class Statistical extends Component {
 
           <div className="Tree col-2">
           <TreeMenu data={this.state.treeArray}
-              initialOpenNodes={['tree','tree/2','tree/3','tree/4']}
+              initialOpenNodes={['tree','tree/2','tree/3','tree/4', 'tree/16', 'tree/20']}
               >
             {({ items }) => (
               <div>
                 <ul className="tree-item-group">
+                {console.log(items)}
                 {items.map(({key, ...props }) => (
                     <ul key={key} className={
                       props.label.includes("25사단") 
@@ -494,6 +506,10 @@ class Statistical extends Component {
                                 ? (props.isOpen ? 'Opened index2' : 'Closed index2') 
                                 : props.label.includes("군수교") 
                                 ? (props.isOpen ? 'Opened index3' : 'Closed index3') 
+                                    : props.label.includes("수도방위사령부") 
+                                    ? (props.isOpen ? 'Opened index4' : 'Closed index4')
+                                        : props.label.includes("35사단") 
+                                        ? (props.isOpen ? 'Opened index5' : 'Closed index5')  
                                         : (props.isOpen ? 'Opened' : 'Closed') 
                                         }>
 
@@ -508,6 +524,7 @@ class Statistical extends Component {
         <div className="contents col">
           <div className="stable">
             <div className="detepicker-div">
+            {/* <button className="btn-exceldownload" onClick={() => this.handleExcelDownload()}>다운로드</button> */}
             <form className="datepicker-form" onSubmit={this.onFormSubmit}>
               <div className="form-group sub-date">
                 <DatePicker 
@@ -524,7 +541,7 @@ class Statistical extends Component {
             {
               (
                 this.state.tableResult &&
-                <Table columns={this.state.columns} data={this.state.tableResult} /> 
+                <Table columns={this.state.columns} data={this.state.tableResult}/> 
                 )
             }
 
@@ -564,7 +581,7 @@ class Statistical extends Component {
           </div>
           <div className="sgraph">
                   <div className="graph-box">
-                    <p>운행거리</p>
+                    <p>평균운행거리(km)</p>
                     <Bar
                       width={230}
                       height={200}
@@ -578,7 +595,7 @@ class Statistical extends Component {
                       />
                   </div>
                   <div className="graph-box">
-                    <p>운행시간</p>
+                    <p>평균운행시간(h)</p>
                     <Bar
                       width={230}
                       height={200}
@@ -594,7 +611,7 @@ class Statistical extends Component {
                     />
                   </div>
                   <div className="graph-box">
-                    <p>평균속력</p>
+                    <p>평균속력(km/h)</p>
                     <Bar
                       width={230}
                       height={200}
@@ -608,7 +625,7 @@ class Statistical extends Component {
                     />
                   </div>
                   <div className="graph-box">
-                    <p>엔진 공회전 비율</p>
+                    <p>엔진 공회전 비율(%)</p>
                     <Bar
                       width={230}
                       height={200}

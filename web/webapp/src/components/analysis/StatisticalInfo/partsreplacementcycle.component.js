@@ -11,7 +11,7 @@ export default class PartsReplacementCycle extends Component {
     this.state = {
       changedDivsCode: "",
       changedBrgdbnCode: "",
-      chadgedVehiclecode: "",
+      chadgedVehicleCode: "",
 
       PrListcode: "",
 
@@ -116,12 +116,19 @@ export default class PartsReplacementCycle extends Component {
   getVnList() {
     partsreplacementcycleService.getVnList(this.state.changedBrgdbnCode)
       .then((response) => {
-        let resList = response.data;
-        this.setState({
-          vnList: response.data,
-          chadgedVehiclecode: resList[0].sdaid
-        });
-        console.log(response.data);
+        if(response.data.length >= 1){
+          let resList = response.data;
+          this.setState({
+            vnList: response.data,
+            chadgedVehicleCode: resList[0].sdaid
+          });
+        }else{
+          this.setState({
+            vnList: [],
+            chadgedVehicleCode: null
+          });
+        }
+        console.log(this.state.chadgedVehicleCode);
       })
       .catch((e) => {
         console.log(e);
@@ -171,7 +178,7 @@ export default class PartsReplacementCycle extends Component {
       searchLoading : true,
     });
     var data = {
-      sdaid: this.state.chadgedVehiclecode, //차량
+      sdaid: this.state.chadgedVehicleCode, //차량
       startDate: Moment(this.state.startDate).format("YYYY-MM-DD"), //시작 날짜
       endDate: Moment(this.state.endDate).format("YYYY-MM-DD"), //끝 날짜
       divscode: this.state.changedDivsCode, //사단
@@ -200,16 +207,15 @@ export default class PartsReplacementCycle extends Component {
         rplcdate: this.state.rplcdate,
         msg: this.state.msginput,
       }
-    console.log(data);
     partsreplacementcycleService.add(data)
       .then((response) => {
         this.setState({
           cmpntsrplchistry: response.data
         });
-        console.log(response.data);
+        alert("등록 되었습니다.");
       })
       .catch((e) => {
-        console.log(e);
+        alert("등록에 실패했습니다.");
       });
   }
 
@@ -277,8 +283,8 @@ export default class PartsReplacementCycle extends Component {
 
           <div className="form-group">
             <label htmlFor="description">차량</label>
-            <select value={this.state.chadgedVehiclecode || ""}
-              onChange={(e) => this.setState({ chadgedVehiclecode: e.target.value })}>
+            <select value={this.state.chadgedVehicleCode || ""}
+              onChange={(e) => this.setState({ chadgedVehicleCode: e.target.value })}>
               {this.state.vnList.map((option) => (
                 <option key={option.sdaid}
                   value={option.sdaid}>
@@ -356,14 +362,14 @@ export default class PartsReplacementCycle extends Component {
                     <tr key={index} id={"tr" + index} onClick={(e) => this.clickList(element, index)}>
                       <td>{element.divs}</td>
                       <td>{element.brgd + " " + element.bn}</td>
-                      <td>{element.sdaid}</td>
+                      <td>{element.sdanm}</td>
                       <td>{dttime}</td>
                       <td>{element.expln}</td>
-                      <td>{element.stdvle}</td>
+                      <td style={(Number(element.stdvle) >= Number(element.stdval)) ? {color:"red"} : null}>{element.stdvle}</td>
                       <td>{element.stdval}</td>
-                      <td>{element.prdvle}</td>
+                      <td style={(Number(element.prdvle) >= Number(element.prdval)) ? {color:"red"} : null}>{element.prdvle}</td>
                       <td>{element.prdval}</td>
-                      <td>{element.nmvle}</td>
+                      <td style={(Number(element.nmvle) >= Number(element.nmval)) ? {color:"red"} : null}>{element.nmvle}</td>
                       <td>{element.nmval}</td>
                       <td>{element.msg}</td>
                     </tr>
@@ -386,7 +392,7 @@ export default class PartsReplacementCycle extends Component {
             <label htmlFor="description">선택차량</label>
             <input
               type="text"
-              className="form-control-style info-register"
+              className="form-control info-register"
               value={this.state.changedVehicleName || ""}
               onChange={(e) => this.setState({ changedVehicleName: e.target.value })}
               name="description"
@@ -411,7 +417,7 @@ export default class PartsReplacementCycle extends Component {
             <label htmlFor="description">정비자</label>
             <input
               type="text"
-              className="form-control-style info-register"
+              className="form-control info-register"
               id="engineer"
               required
               value={this.state.workrinput || ""}
@@ -443,7 +449,7 @@ export default class PartsReplacementCycle extends Component {
             <label htmlFor="description">교환사유</label>
             <input
               type="text"
-              className="form-control-style info-register"
+              className="form-control info-register"
               id="exchange"
               required
               value={this.state.msginput || ""}

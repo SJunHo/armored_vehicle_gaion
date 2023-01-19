@@ -98,7 +98,7 @@ export default class ManageUsers extends Component {
     this.onChangeSrvno = this.onChangeSrvno.bind(this);
     this.onChangeRnkcd = this.onChangeRnkcd.bind(this);
     this.onChangeRspofc = this.onChangeRspofc.bind(this);
-
+    this.deleteUser = this.deleteUser.bind(this);
     this.state = {
       userid: "",
       pwd: "",
@@ -233,7 +233,9 @@ export default class ManageUsers extends Component {
     });
   }
 
-  handleRegister() {
+  handleRegister(e) {
+    e.preventDefault();
+
     this.form.validateAll();
     let brgdbn = this.state.brgdbn;
     let brgd = null;
@@ -266,19 +268,22 @@ export default class ManageUsers extends Component {
       
     })
     .catch((e) => {
+      alert("수정에 실패했습니다");
       console.log(e);
     });
   }
 
-  deleteUser(){
+  deleteUser(e){
+    e.preventDefault();
     var result = window.confirm("정말 삭제하시겠습니까?");
       if(result){
-      userService.delete(this.state.id)
+      userService.delete(this.state.userid)
       .then((response) => {
         alert("삭제되었습니다");
         window.location.href = "/manageusers";
       })
       .catch((e) => {
+        alert("삭제에 실패했습니다");
         console.log(e);
       });
     }
@@ -308,7 +313,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="userid">사용자ID</label>
                   <Input
                     type="text"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="userid"
                     value={this.state.userid}
                     readOnly
@@ -319,7 +324,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="name">사용자 이름</label>
                   <Input
                     type="text"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChangeUsername}
@@ -331,7 +336,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="pwd">비밀번호</label>
                   <Input
                     type="pwd"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="pwd"
                     value={pwd || ""}
                     onChange={this.onChangePassword}
@@ -369,7 +374,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="telno1">핸드폰1</label>
                   <Input
                     type="telno1"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="telno1"
                     value={this.state.telno1}
                     onChange={this.onChangeTelno1}
@@ -381,7 +386,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="telno2">핸드폰2</label>
                   <Input
                     type="telno2"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="telno2"
                     value={this.state.telno2}
                     onChange={this.onChangeTelno2}
@@ -393,7 +398,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="srvno">군번</label>
                   <Input
                     type="srvno"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="srvno"
                     value={this.state.srvno}
                     onChange={this.onChangeSrvno}
@@ -405,7 +410,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="rnkcd">계급</label>
                   <Input
                     type="rnkcd"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="rnkcd"
                     value={this.state.rnkcd}
                     onChange={this.onChangeRnkcd}
@@ -417,7 +422,7 @@ export default class ManageUsers extends Component {
                   <label htmlFor="rspofc">직책</label>
                   <Input
                     type="rspofc"
-                    className="form-control-style"
+                    className="form-control form-control-style"
                     name="rspofc"
                     value={this.state.rspofc}
                     onChange={this.onChangeRspofc}

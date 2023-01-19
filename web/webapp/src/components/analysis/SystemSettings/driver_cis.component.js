@@ -127,7 +127,7 @@ class Driver_cis extends Component {
     })
     .catch((e) => {
       console.log(e);
-      alert("에러 발생");
+      alert("등록에 실패했습니다");
     });
   }
 
@@ -168,11 +168,11 @@ class Driver_cis extends Component {
                 </select>
                 </div>
                   
-                {/* <input type="input" className="form-control-style" name={"max"+index} defaultValue={item.stdval} onChange={(event)=>{this.onMaxChange(event)}}></input> */}
+                {/* <input type="input" className="form-control form-control-style" name={"max"+index} defaultValue={item.stdval} onChange={(event)=>{this.onMaxChange(event)}}></input> */}
                 </td>
-                <td><input type="input" className="form-control-style" name={"stdval"+index} value={item.stdval} onChange={(event)=>{this.onStdValChange(event)}}></input></td>
-                <td><input type="input" className="form-control-style" name={"msg"+index} value={item.msg} onChange={(event)=>{this.onMessageChange(event)}}></input></td>
-                <td><input type="checkbox" className="form-control-style" name={"checkbox"+index} id={"checkbox"+index} checked={item.usedvcd === 'Y' ? true : false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
+                <td><input type="input" className="form-control form-control-style" name={"stdval"+index} value={item.stdval} onChange={(event)=>{this.onStdValChange(event)}}></input></td>
+                <td><input type="input" className="form-control form-control-style" name={"msg"+index} value={item.msg} onChange={(event)=>{this.onMessageChange(event)}}></input></td>
+                <td><input type="checkbox" className="form-control form-control-style" name={"checkbox"+index} id={"checkbox"+index} checked={item.usedvcd === 'Y' ? true : false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
             })}

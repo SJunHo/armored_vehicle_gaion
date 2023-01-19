@@ -3,7 +3,9 @@ package kr.gaion.armoredVehicle.web.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.*;
@@ -70,6 +72,13 @@ public class AuthController {
       System.out.println(roles);
       if(roles.contains("ROLE_USER")) {
         return new ResponseEntity<>("권한이 있는 계정으로 로그인해주세요", HttpStatus.BAD_REQUEST);
+      }else {
+        //로그인 시점 insert 로그인 정보
+        Map<String, Object> param = new HashMap<String, Object>();
+        Date now = new Date();
+        param.put("userid", userDetails.getUserId());
+        param.put("logindt", now);
+        usercdRepository.insertUserLog(param);
       }
       return ResponseEntity.ok(new JwtResponse(jwt,
               userDetails.getUserId(),

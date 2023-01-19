@@ -28,7 +28,7 @@ class searchEachInfo extends Component {
     this.liveStream = this.liveStream.bind(this);
     this.rangeSliderPlus = this.rangeSliderPlus.bind(this);
     this.restart = this.restart.bind(this);
-
+    this.reverse = this.reverse.bind(this);
     
     this.openModal = this.openModal.bind(this);
     this.openModal2 = this.openModal2.bind(this);
@@ -58,7 +58,7 @@ class searchEachInfo extends Component {
       loading:false,
       setModal: false,  //모달창 생성위한
       setModal2: false,
-
+      isBack: false,
       fileNameAndId : [],
       // nummericSensor: ["RETDCHO","VOLTAGE","_2AVGSPEED","RETDTOK","REQRETDTOK"],
       // categoricSensor: ["ENGHEAT","COOLLANT","ENGOVERCTLMD","_1LOCK","_2LOCK"],
@@ -357,7 +357,7 @@ class searchEachInfo extends Component {
 
     let chartData = [];
     chartData = this.state.forChartData;
-    if(this.state.isStart){     //재생상태일때
+    if(this.state.isStart && !this.state.isBack){     //재생상태일때
 
       if(this.state.i === chartData.length){    //슬라이더바가 끝에 도달시, ( 그래프가 끝났을 때 )
         
@@ -452,7 +452,101 @@ class searchEachInfo extends Component {
         this.setState({i: this.state.i + 1});
       }
 
-    } else{       //정지상태 일때.
+    } else if(this.state.isBack && this.state.isStart){       //역재생 상태일 떄
+      if(this.state.i === 0){    //슬라이더바가 끝에 도달시, ( 그래프가 끝났을 때 )
+        
+        const changeText = document.getElementById('stopNStart');
+        changeText.innerText = "▶";
+        
+        this.setState({ 
+          isStart: false,
+          isBack: false
+        });
+        
+      }else {         //슬라이더바가 끝이 아닐때 ( 그래프 재생가능할 떄 ) 업데이트.
+        this.categoricLabel();
+        this.rangeSliderPlus();
+        let xData = this.state.forChartData[this.state.i].DTTIME.split(' ')[1];
+        let yData = this.state.forChartData[this.state.i][this.state.nummericSensor[0]];
+        let yData1 = this.state.forChartData[this.state.i][this.state.nummericSensor[1]];
+        let yData2 = this.state.forChartData[this.state.i][this.state.nummericSensor[2]];
+        let yData3 = this.state.forChartData[this.state.i][this.state.nummericSensor[3]];
+        let yData4 = this.state.forChartData[this.state.i][this.state.nummericSensor[4]];
+
+        this.state.nummericSensor.forEach((el, idx) => {
+          if(idx === 0){   //기존그래프에 그려지는 index 0 은 패스
+          }else{
+            switch(idx){    //데이터 50개 넘어가면 쉬프트를 위함
+              case 1:        
+                if(this.liveChart0.data.datasets[0].data.length >= 50){
+                  this.liveChart0.data.labels.pop();
+                  this.liveChart0.data.datasets[0].data.pop();
+                }
+                this.liveChart0.data.labels.unshift(xData);
+                this.liveChart0.data.datasets[0].data.unshift(yData1);
+                this.liveChart0.update();
+                break;
+              
+              case 2:
+                if(this.liveChart1.data.datasets[0].data.length >= 50){
+                  this.liveChart1.data.labels.pop();
+                  this.liveChart1.data.datasets[0].data.pop();
+                }
+                this.liveChart1.data.labels.unshift(xData);
+                this.liveChart1.data.datasets[0].data.unshift(yData2);
+                this.liveChart1.update();
+                break;
+
+              case 3:
+                if(this.liveChart2.data.datasets[0].data.length >= 50){
+                  this.liveChart2.data.labels.pop();
+                  this.liveChart2.data.datasets[0].data.pop();
+                }
+                this.liveChart2.data.labels.unshift(xData);
+                this.liveChart2.data.datasets[0].data.unshift(yData3);
+                this.liveChart2.update();
+                break;
+              
+              default :
+              if(this.liveChart3.data.datasets[0].data.length >= 50){
+                this.liveChart3.data.labels.pop();
+                this.liveChart3.data.datasets[0].data.pop();
+              }
+                this.liveChart3.data.labels.unshift(xData);
+                this.liveChart3.data.datasets[0].data.unshift(yData4);
+                this.liveChart3.update();
+                break;
+            }
+          }
+        })
+
+        if(this.myLiveChart.data.datasets[0].data.length >= 50){
+          this.myLiveChart.data.labels.pop();
+          this.myLiveChart.data.datasets[0].data.pop();
+        }
+        
+        this.myLiveChart.data.labels.unshift(xData);
+        this.myLiveChart.data.datasets[0].data.unshift(yData);
+        this.myLiveChart.update();
+        
+        this.gaugeChart1.setData({
+          categories:[],
+          series: [{
+            name: 'new',
+            data: [this.state.forChartData[this.state.i].ENGSPD],
+          }]
+        });
+        this.gaugeChart2.setData({
+          categories:[],
+          series:[{
+            name: 'hello',
+            data: [this.state.forChartData[this.state.i].SDHSPD],
+          }]
+        });
+  
+        this.setState({i: this.state.i - 1});
+      }
+    }else { // 정지 상태일 떄
       // console.log("정지버튼 눌러져있음 = isStart = false");
     }
   }
@@ -509,20 +603,23 @@ class searchEachInfo extends Component {
       if(!this.state.isStart){    //정지상태 => 재생
         changeText.innerText = "][";
         this.setState({ 
-          isStart: true
+          isStart: true,
+          isBack : false,
         });
       }else{      //재생상태 ==> 정지
         changeText.innerText = "▶";
         this.setState({ 
           isStart: false,
-          resetChart: false,
+          //resetChart: false,
+          isBack : false,
         });
       }
     } else{
       alert("파일, 센서정보를 선택");
       this.setState({
         i: 0,
-        resetChart: true
+        resetChart: true,
+        isBack : false,
       })
     }
   }
@@ -534,10 +631,20 @@ class searchEachInfo extends Component {
     this.setState({ 
       i : 0,
       resetChart : true,
-      isStart : false
+      isStart : false,
+      isBack : false,
     } , () => {
       this.rangeSliderPlus();
     });      
+  }
+
+  reverse(){  // 역재생
+    const changeText = document.getElementById('stopNStart');
+    changeText.innerText = "][";
+    this.setState({
+      isStart : true,
+      isBack : true,
+    });
   }
 
   rangeSliderPlus() {   //슬라이더바값을 세팅하고 그래프를 삭제한후 그래프 그려주는 함수 호출
@@ -570,11 +677,11 @@ class searchEachInfo extends Component {
       this.drawingChart();
 
     } else{   //리셋상태가 아닐때
-
+      
       if(this.state.i === 0){   //슬라이더바를ㄹ 처음으로 돌리면 0이 아니라 1부터 시작하기때문에 0으로 설정해준다.
         rangeSlider.value = 0;
-      
-      
+      }else if(this.state.isBack){
+        rangeSlider.value = Number(rangeSlider.value) - 1;
       }else{      //일반재생상태로 슬라이더바의 값을 증가시키기 위함
         rangeSlider.value = Number(rangeSlider.value) + 1;
       }
@@ -1018,11 +1125,11 @@ class searchEachInfo extends Component {
     }
   }
 
-  forUseSensor(res){    //센서선택팝업창에서 가져온 데이터를 저장하는 함수
-    if(this.state.nummericSensor.length > 1){
-      this.destroyChart();
-    }
+  forUseSensor(res){    //센서선택팝업창에서 가져온 데이터를 저장하는 함수  
     if(res !== null){
+      if(this.state.nummericSensor.length > 1){
+        this.destroyChart();
+      }
       this.setState({
         nummericSensor: res[0],
         categoricSensor: res[1],
@@ -1330,6 +1437,7 @@ class searchEachInfo extends Component {
                   </div>
                   <div className="item_bottom">
                     <button className="playbtn" id="restart" onClick={this.restart}>■</button>
+                    <button className="playbtn" id="reverse" onClick={this.reverse}>◀</button>
                     <div className="slider-control">
                       <button className="playbtn" onClick={this.slowChart}>-</button>
                       <button className="playbtn" id="speed" value="x1" disabled={true}>x1</button>

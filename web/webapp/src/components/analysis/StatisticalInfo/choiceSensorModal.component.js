@@ -354,6 +354,7 @@ class ChoiceSensorModal extends Component {
    
         vehicleStatissticsService.searchBookmark(this.state.userId, grpId)
         .then((response) =>{
+            console.log(response.data);
             response.data.forEach(el => {
                 if(el.snsrid.includes('PN')){
                     numSnsr.push(el);

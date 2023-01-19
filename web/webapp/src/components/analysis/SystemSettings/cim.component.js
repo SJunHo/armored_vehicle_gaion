@@ -53,12 +53,12 @@ export default class CIM extends Component {
 
     cimService.update(data)
     .then((reponse) => {
-        console.log(reponse);
+        alert("수정되었습니다");
         window.location.href = "/cimList";
-        })
-        .catch((e) => {
-        console.log(e);
-        });
+      })
+      .catch((e) => {
+      console.log(e);
+      });
   } 
 
   deleteCmncd(){
@@ -70,7 +70,8 @@ export default class CIM extends Component {
         window.location.href = "/cimList";
         })
         .catch((e) => {
-        console.log(e);
+          alert("삭제에 실패했습니다");
+          console.log(e);
         });
     }else{
       return;
@@ -81,14 +82,14 @@ export default class CIM extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-        공통정보 하나
+        공통정보
         </header>   
         <div className="contents02">
             <div className="form-group">
               <label htmlFor="group">그룹</label>
               <input
                 type="text"
-                className="form-control-style"
+                className="form-control form-control-style"
                 id="group"
                 required
                 defaultValue={this.state.changedGroupcode}
@@ -101,7 +102,7 @@ export default class CIM extends Component {
               <label htmlFor="code">코드</label>
               <input
                 type="text"
-                className="form-control-style"
+                className="form-control form-control-style"
                 id="code"
                 required
                 defaultValue={this.state.changedCode}
@@ -114,7 +115,7 @@ export default class CIM extends Component {
               <label htmlFor="var">값</label>
               <input
                 type="text"
-                className="form-control-style"
+                className="form-control form-control-style"
                 id="var"
                 required
                 defaultValue={this.state.changedVar}
@@ -127,7 +128,7 @@ export default class CIM extends Component {
               <label htmlFor="expln">설명</label>
               <input
                 type="text"
-                className="form-control-style"
+                className="form-control form-control-style"
                 id="expln"
                 required
                 defaultValue={this.state.changedExpln}
