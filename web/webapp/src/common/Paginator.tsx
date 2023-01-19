@@ -27,19 +27,20 @@ export const Paginator: React.FC<PaginatorType> = ({
   };
 
   const firstBlockCount =
-    numberOfPage < 10
+    numberOfPage <= 10
       ? numberOfPage
       : selectedPage < 5 && selectedPage >= 2
         ? 6
         : 3;
   const lastBlockCount =
-    numberOfPage < 10
+    numberOfPage <= 10
       ? 0
       : selectedPage < numberOfPage - 2 && selectedPage > numberOfPage - 6
         ? 6
         : 3;
 
   console.log(selectedPage)
+  console.log(numberOfPage)
   return (
     <Pagination id="paginator">
       <Pagination.Prev
