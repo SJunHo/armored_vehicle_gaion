@@ -180,7 +180,7 @@ class HeaderComp extends Component {
 								<NavDropdown.Divider/>
 								<NavDropdown.Item href="/ml/if">Isolate 랜덤 포레스트</NavDropdown.Item>
 								<NavDropdown.Divider/>
-								<NavDropdown.Item href="/ml/lr">로직스틱 회귀</NavDropdown.Item>
+								<NavDropdown.Item href="/ml/lr">로지스틱 회귀</NavDropdown.Item>
 								<NavDropdown.Divider/>
 								<NavDropdown.Item href="/judgement">작업자 판정</NavDropdown.Item>
 							</NavDropdown>

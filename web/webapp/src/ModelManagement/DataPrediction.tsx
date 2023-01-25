@@ -1452,7 +1452,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               columns={modelResponseColumns}
               isSingleRowSelect
               onRowsSelected={(v) => {
-                setSelectedModel(v[0]?.original);
+                // setSelectedModel(v[0]?.original);
               }}
             />
           </Col>
