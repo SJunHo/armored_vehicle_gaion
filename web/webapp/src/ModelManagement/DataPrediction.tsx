@@ -1080,7 +1080,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     useCallback((v: TableRow<any[]>[]) => {
       setSelectedData(v?.map((i) => i.original))
       setSelectedDataIdx(v?.map((i) => i.values.idx))
-    }, [selectedData, selectedDataIdx]);
+    }, []);
 
   // const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
   //   setSelectedModel(v[0]?.original);
@@ -1358,7 +1358,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     );
   },[])
 
-  async function handlePredictData() {
+  const handlePredictData = useCallback(async () =>{
     setPredicting(true);
     if (selectedModel?.modelName === undefined || null) {
       alert("모델이 선택되지 않았습니다.")
@@ -1372,9 +1372,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         await handleClassificationData().finally(() => setPredicting(false));
       }
     }
-  }
+  }, [])
 
-  async function handleUpdateData() {
+  const handleUpdateData = useCallback(async () => {
     setSaving(true);
     datasetDatabaseControllerApi
       ?.updateData(
@@ -1387,7 +1387,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         }))
       )
       .finally(() => setSaving(false));
-  }
+  }, [])
 
   // async function handleTempLifeUpdateData() {
   //   setSaving(true);
@@ -1452,7 +1452,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               columns={modelResponseColumns}
               isSingleRowSelect
               onRowsSelected={(v) => {
-                // setSelectedModel(v[0]?.original);
+                setSelectedModel(v[0]?.original);
               }}
             />
           </Col>
@@ -1506,10 +1506,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               columns={tableColumns}
               data={conditionData}
               autoResetSelectedRows={false}
-              onRowsSelected={(v) => {
-                setSelectedData(v?.map((i) => i.original))
-                setSelectedDataIdx(v?.map((i) => i.values.idx))
-              }}
+              onRowsSelected={handleConditionSelected}
               getRowId={(row: any) => (row as any).idx}
             />
           </div>
