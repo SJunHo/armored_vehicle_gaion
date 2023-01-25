@@ -21,6 +21,8 @@ type TableProps<T extends Object> = {
   isSingleRowSelect?: boolean;
   total?: number;
   paginationOptions?: UsePaginationState<T>;
+  getRowId?: (originalRow: T, relativeIndex: number, parent?: Row<T>) => string;
+  autoResetSelectedRows?: boolean;
   onChangePage?: (pageSize: number, pageIndex: number) => any;
 } & UsePaginationOptions<T> &
   UseRowSelectOptions<T>;
@@ -43,6 +45,7 @@ const IndeterminateCheckbox = React.forwardRef<{}, { indeterminate?: boolean }>(
           className="w-auto m-1"
           type="checkbox"
           ref={resolvedRef}
+          checked={indeterminate}
           {...rest}
         />
       </>
@@ -58,6 +61,8 @@ export function Table<T extends Object>({
                                           paginationOptions,
                                           onChangePage,
                                           onRowsSelected,
+                                          getRowId,
+                                          autoResetSelectedRows,
                                           isSingleRowSelect = false,
                                           ...props
                                         }: TableProps<T>): React.ReactElement {
@@ -78,6 +83,8 @@ export function Table<T extends Object>({
     {
       columns,
       data,
+      autoResetSelectedRows,
+      getRowId,
       initialState: paginationOptions,
       stateReducer: (newState, action) => {
         if (

@@ -23,10 +23,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [conditionData, setConditionData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>();
   const [selectedDataIdx, setSelectedDataIdx] = useState<any[]>();
-  const [wb, setWb] = useState<string>("");
+  const [wb, setWb] = useState<string>("BLB");
   const [tableColumns, setTableColumns] = useState<any>([]);
   const [targetClassCol, setTargetClassCol] = useState<string>("");
-  const [totalPage, setTotalPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(0);
   const [paginate, setPaginate] = useState<Pageable>();
 
   const {datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
@@ -1080,11 +1080,11 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     useCallback((v: TableRow<any[]>[]) => {
       setSelectedData(v?.map((i) => i.original))
       setSelectedDataIdx(v?.map((i) => i.values.idx))
-    }, []);
+    }, [selectedData, selectedDataIdx]);
 
-  const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
-    setSelectedModel(v[0]?.original);
-  }, []);
+  // const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
+  //   setSelectedModel(v[0]?.original);
+  // }, [selectedModel]);
 
   // const handleConditionDataSelected = (algorithmName === "linear" || algorithmName === "lasso"
   //         ? useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedData(v?.map((i) => i.original))}, [])
@@ -1099,72 +1099,64 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   //     });
   // }, [mlControllerApi, algorithmName]);
 
-  function handleSearchModel(wb: any) {
+  const handleSearchModel = useCallback(()=>{
     setSearchingModels(true);
-    if (wb === "") {
-      alert("부품을 먼저 선택해 주세요.")
-      setSearchingModels(false)
-    } else {
-      mlControllerApi
-        ?.getModels(ALGORITHM_INFO[algorithmName].className)
-        .then((data) => {
-          setModels((data.data || []).filter((model) => model.checked && model.partType === wb));
-        })
-        .finally(() => setSearchingModels(false));
-    }
-  }
+    mlControllerApi
+      ?.getModels(ALGORITHM_INFO[algorithmName].className)
+      .then((data) => {
+        setModels((data.data || []).filter((model) => model.checked && model.partType === wb));
+      })
+      .finally(() => setSearchingModels(false));
+  },[models])
 
-  function handleSearchConditionData(wb: any, pageable?: Pageable) {
+  const handleSearchConditionData = useCallback(()=>{
+    handleSearchTablesColumns()
+    handleSettingClassColByPart()
     setSearchingData(true);
-    if (wb === "") {
-      alert("부품을 먼저 선택해 주세요.")
-      setSearchingData(false)
-    } else {
-      if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
-        datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, pageable?.pageNumber, pageable?.pageSize)
-          .then((res) => {
-            setConditionData(res.data.content || [])
-            setTotalPage(res.data.totalPages || 1)
-            setPaginate(pageable ? pageable : res.data.pageable);
-          })
-          .finally(() => setSearchingData(false));
-      } else if (["WL", "WR"].includes(wb)) {
-        datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, pageable?.pageNumber, pageable?.pageSize)
-          .then((res) => {
-            setConditionData(res.data.content || [])
-            setTotalPage(res.data.totalPages || 1)
-            setPaginate(pageable ? pageable : res.data.pageable);
-          })
-          .finally(() => setSearchingData(false));
-      } else if (wb === "G") {
-        datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, pageable?.pageNumber, pageable?.pageSize)
-          .then((res) => {
-            setConditionData(res.data.content || [])
-            setTotalPage(res.data.totalPages || 1)
-            setPaginate(pageable ? pageable : res.data.pageable);
-          })
-          .finally(() => setSearchingData(false));
-      } else if (wb === "E") {
-        datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, pageable?.pageNumber, pageable?.pageSize)
-          .then((res) => {
-            setConditionData(res.data.content || [])
-            setTotalPage(res.data.totalPages || 1)
-            setPaginate(pageable ? pageable : res.data.pageable);
-          })
-          .finally(() => setSearchingData(false));
-      } else if (wb === "T") {
-        datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, pageable?.pageNumber, pageable?.pageSize)
-          .then((res) => {
-            setConditionData(res.data.content || [])
-            setTotalPage(res.data.totalPages || 1)
-            setPaginate(pageable ? pageable : res.data.pageable);
-          })
-          .finally(() => setSearchingData(false));
-      }
+    if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, paginate?.pageNumber, paginate?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setTotalPage(res.data.totalPages || 1)
+          setPaginate(paginate ? paginate : res.data.pageable);
+        })
+        .finally(() => setSearchingData(false));
+    } else if (["WL", "WR"].includes(wb)) {
+      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, paginate?.pageNumber, paginate?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setTotalPage(res.data.totalPages || 1)
+          setPaginate(paginate ? paginate : res.data.pageable);
+        })
+        .finally(() => setSearchingData(false));
+    } else if (wb === "G") {
+      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, paginate?.pageNumber, paginate?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setTotalPage(res.data.totalPages || 1)
+          setPaginate(paginate ? paginate : res.data.pageable);
+        })
+        .finally(() => setSearchingData(false));
+    } else if (wb === "E") {
+      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, paginate?.pageNumber, paginate?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setTotalPage(res.data.totalPages || 1)
+          setPaginate(paginate ? paginate : res.data.pageable);
+        })
+        .finally(() => setSearchingData(false));
+    } else if (wb === "T") {
+      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, paginate?.pageNumber, paginate?.pageSize)
+        .then((res) => {
+          setConditionData(res.data.content || [])
+          setTotalPage(res.data.totalPages || 1)
+          setPaginate(paginate ? paginate : res.data.pageable);
+        })
+        .finally(() => setSearchingData(false));
     }
-  }
+  },[])
 
-  function handleSearchTablesColumns(wb: any) {
+  const handleSearchTablesColumns = useCallback(() => {
     switch (wb) {
       case "BLB":
         // Bearing Left Ball
@@ -1219,9 +1211,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         setTableColumns(SensorTempLifeDataColumns);
         break
     }
-  }
+  },[])
 
-  function handleSettingClassColByPart(wb: any) {
+  const handleSettingClassColByPart = useCallback(()=> {
     switch (wb) {
       case "BLB":
         // Bearing Left Ball
@@ -1276,9 +1268,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         setTargetClassCol("TEMP_LIFE");
         break
     }
-  }
+  },[])
 
-  async function handleClassificationData() {
+  const handleClassificationData = useCallback(async()=> {
     const res = await mlControllerApi?.classificationPredict(algorithmName, {
       classCol: targetClassCol,
       modelName: selectedModel?.modelName,
@@ -1306,9 +1298,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         return row;
       })
     );
-  }
+  },[])
 
-  async function handleRegressionData() {
+  const handleRegressionData = useCallback(async() => {
     const res = await mlControllerApi?.regressionPredict(algorithmName, {
       classCol: targetClassCol,
       modelName: selectedModel?.modelName,
@@ -1336,9 +1328,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         return row;
       })
     );
-  }
+  },[])
 
-  async function handleOutlierDetectionData() {
+  const handleOutlierDetectionData = useCallback(async()=> {
     const res = await mlControllerApi?.predictCluster(algorithmName, {
       classCol: targetClassCol,
       modelName: selectedModel?.modelName,
@@ -1364,7 +1356,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         return row;
       })
     );
-  }
+  },[])
 
   async function handlePredictData() {
     setPredicting(true);
@@ -1428,7 +1420,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                 setWb((v.target as any).value)
               }}
             >
-              <option value="">선택해 주세요.</option>
               <option value="BLB">베어링 좌측 볼</option>
               <option value="BLO">베어링 좌측 외륜</option>
               <option value="BLI">베어링 좌측 내륜</option>
@@ -1447,9 +1438,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <Col xs={1} className="Col ps-0" style={{marginLeft: "50px"}}>
             <Button
               className="button btn-block font-monospace fw-bold"
-              onClick={() => {
-                handleSearchModel(wb)
-              }}
+              onClick={() => {handleSearchModel()}}
               size="sm"
             >
               모델 조회
@@ -1462,7 +1451,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               data={models}
               columns={modelResponseColumns}
               isSingleRowSelect
-              onRowsSelected={handleModelSelected}
+              onRowsSelected={(v) => {
+                setSelectedModel(v[0]?.original);
+              }}
             />
           </Col>
         </Row>
@@ -1470,11 +1461,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <Col className="Col d-grid gap-2">
             <Button
               className="button btn-block font-monospace fw-bold"
-              onClick={() => {
-                handleSearchConditionData(wb)
-                handleSearchTablesColumns(wb)
-                handleSettingClassColByPart(wb)
-              }}
+              onClick={() => handleSearchConditionData()}
               size="sm"
               disabled={searchingData}
             >
@@ -1515,12 +1502,16 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       <Section title="고장진단 예측 결과" className="mb-2">
         <Col xl={12}>
           <div className="w-100 overflow-auto">
-            {(totalPage) &&
-							<Table
-								columns={tableColumns}
-								data={conditionData}
-								onRowsSelected={handleConditionSelected}
-							/>}
+            <Table
+              columns={tableColumns}
+              data={conditionData}
+              autoResetSelectedRows={false}
+              onRowsSelected={(v) => {
+                setSelectedData(v?.map((i) => i.original))
+                setSelectedDataIdx(v?.map((i) => i.values.idx))
+              }}
+              getRowId={(row: any) => (row as any).idx}
+            />
           </div>
           <div id="paginator" className="pt-4" style={{display: 'inline-block'}}>
             <Paginator
@@ -1533,7 +1524,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                   pageNumber: v,
                 };
                 setPaginate(newPaginate);
-                handleSearchConditionData(wb, newPaginate);
+                handleSearchConditionData();
               }}
             />
           </div>

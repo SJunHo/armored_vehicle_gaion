@@ -38,9 +38,6 @@ export const Paginator: React.FC<PaginatorType> = ({
       : selectedPage < numberOfPage - 2 && selectedPage > numberOfPage - 6
         ? 6
         : 3;
-
-  console.log(selectedPage)
-  console.log(numberOfPage)
   return (
     <Pagination id="paginator">
       <Pagination.Prev
