@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(loginterceptor)
         .order(1)
-        .addPathPatterns("/**")
+        .addPathPatterns("/api/**")
         .excludePathPatterns("/css/**", "/*.ico", "/error");
 	}
 	

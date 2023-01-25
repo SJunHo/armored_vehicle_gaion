@@ -15,6 +15,9 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import kr.gaion.armoredVehicle.auth.JwtIssuer;
+import lombok.NonNull;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,17 +35,20 @@ import lombok.RequiredArgsConstructor;
 public class LogInterceptor implements HandlerInterceptor {
 
 	private final JwtUtils jwtUtils;
-	
+
+	@NonNull
+	private final JwtIssuer jwtIssuer;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		String jwt = parseJwt(request);
+		final String requestTokenHeader = request.getHeader("Authorization");
 	    String requestURI = request.getRequestURI();
 	    String message = null;
 		String reqBody = (String) request.getAttribute("requestBody");
-	    if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+		var decodedToken = jwtIssuer.verifyToken(requestTokenHeader.substring(7).replaceAll("\\\"", ""));
 	    	  //jwtToken에서 userId를 가져온다
-	      String userId = jwtUtils.getUserNameFromJwtToken(jwt);
+	      String userId = decodedToken.getClaim("id").asString();
 	      if(reqBody != null) {
 	    	  message = userId + " " + requestURI +" " + reqBody;
 	      }else {	    	  
@@ -73,7 +79,7 @@ public class LogInterceptor implements HandlerInterceptor {
 					"log" + File.separator + 
 					sd.format(today) + ".txt";
 			File file = new File(path);
-			
+
 			if(!file.exists()) {
 				file.createNewFile();
 			}
