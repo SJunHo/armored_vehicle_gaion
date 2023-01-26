@@ -979,6 +979,7 @@ a.badge-info:focus, a.badge-info:hover{
   background: none;
   height: 40px;
   padding: 2px 0;
+  margin-left: 5px;
   border-radius: 8px;
   color: #000;
   background-color: #fff;
@@ -1042,7 +1043,7 @@ a.badge-info:focus, a.badge-info:hover{
 .slider-control{
   float: right;
   display: inline-block;
-  width: 80%;
+  width: 70%;
   text-align: center;
   border-radius: 8px;
   background: #fff;
@@ -1928,9 +1929,29 @@ li .rstm-toggle-icon .rstm-toggle-icon-symbol{
   background-position-x: 2px;
   background-size: contain;
 }
+.tree-item-group ul.index4 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background: url(../images/symbol/sy04.png) no-repeat;
+  background-position-x: 2px;
+  background-size: contain;
+}
+.tree-item-group ul.index5 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background: url(../images/symbol/sy05.png) no-repeat;
+  background-position-x: 2px;
+  background-size: contain;
+}
 .tree-item-group ul.index1 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before,
 .tree-item-group ul.index2 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before,
-.tree-item-group ul.index3 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before{
+.tree-item-group ul.index3 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before,
+.tree-item-group ul.index4 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before,
+.tree-item-group ul.index5 .rstm-tree-item-level1 .rstm-toggle-icon .rstm-toggle-icon-symbol::before{
   display: none;
 }
 .rstm-tree-item-level2{
