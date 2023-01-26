@@ -204,7 +204,7 @@ function EditableCell<T extends object>({
 
   return (
     <input
-      value={value}
+      value={value || ""}
       onChange={e => {
         setValue(e.target.value);
       }}
