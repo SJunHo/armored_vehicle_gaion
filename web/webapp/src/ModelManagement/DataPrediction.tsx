@@ -23,13 +23,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [conditionData, setConditionData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
   const [selectedDataIdx, setSelectedDataIdx] = useState<any[]>([]);
-  const [totalSelectedData, setTotalSelectedData] = useState<any[]>([]);
-  const [totalSelectedDataIdx, setTotalSelectedDataIdx] = useState<any[]>([]);
   const [wb, setWb] = useState<string>("BLB");
   const [tableColumns, setTableColumns] = useState<any>([]);
   const [targetClassCol, setTargetClassCol] = useState<string>("");
-  const [totalPage, setTotalPage] = useState<number>(0);
-  const [paginate, setPaginate] = useState<Pageable>();
 
   const {datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
   const {t} = useTranslation();
@@ -1078,19 +1074,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     []
   );
 
-  //Todo :  이거 수정해야댐
   const handleConditionSelected =
     useCallback((v: TableRow<any[]>[]) => {
       setSelectedData(v?.map((i) => i.original))
       setSelectedDataIdx(v?.map((i) => i.values.idx))
-    }, [paginate]);
-
+    }, []);
   console.log(selectedData)
   console.log(selectedDataIdx)
-
-  console.log(totalSelectedData)
-  console.log(totalSelectedDataIdx)
-
+  // console.log(totalSelectedDataIdx)
+  // console.log(totalSelectedData)
 
 
   const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
@@ -1125,43 +1117,33 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     handleSettingClassColByPart(wb)
     setSearchingData(true);
     if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, paginate?.pageNumber, paginate?.pageSize)
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
-          setTotalPage(res.data.totalPages || 1)
-          setPaginate(paginate ? paginate : res.data.pageable);
         })
         .finally(() => setSearchingData(false));
     } else if (["WL", "WR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, paginate?.pageNumber, paginate?.pageSize)
+      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
-          setTotalPage(res.data.totalPages || 1)
-          setPaginate(paginate ? paginate : res.data.pageable);
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "G") {
-      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, paginate?.pageNumber, paginate?.pageSize)
+      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
-          setTotalPage(res.data.totalPages || 1)
-          setPaginate(paginate ? paginate : res.data.pageable);
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "E") {
-      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, paginate?.pageNumber, paginate?.pageSize)
+      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
-          setTotalPage(res.data.totalPages || 1)
-          setPaginate(paginate ? paginate : res.data.pageable);
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "T") {
-      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, paginate?.pageNumber, paginate?.pageSize)
+      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
-          setTotalPage(res.data.totalPages || 1)
-          setPaginate(paginate ? paginate : res.data.pageable);
         })
         .finally(() => setSearchingData(false));
     }
@@ -1370,8 +1352,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   }
 
   async function handlePredictData() {
-    setTotalSelectedData(totalSelectedData.concat(...selectedData))
-    setTotalSelectedDataIdx(totalSelectedDataIdx.concat(...selectedDataIdx))
     setPredicting(true);
     if (selectedModel?.modelName === undefined || null) {
       alert("모델이 선택되지 않았습니다.")
@@ -1394,12 +1374,15 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         selectedData!.map((inputs) => ({
           partType: wb,
           id: inputs.idx,
-          aiAlgorithmName: inputs.aiAlgorithm,
-          aiPredict: inputs[targetClassCol],
-          aiModelName: inputs.aiModel,
+          aiAlgorithmName: selectedModel?.algorithmType,
+          aiPredict: parseInt(inputs[targetClassCol]),
+          aiModelName: selectedModel?.modelName,
         }))
       )
-      .finally(() => setSaving(false));
+      .finally(() => {
+        alert("저장되었습니다")
+        setSaving(false)
+      });
   }
 
   // async function handleTempLifeUpdateData() {
@@ -1417,7 +1400,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   //     )
   //     .finally(() => setSaving(false));
   // }
-
   return (
     <Container fluid>
       <Section title="고장진단 예측 수행" className="mb-2">
@@ -1519,20 +1501,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               autoResetSelectedRows={false}
               onRowsSelected={handleConditionSelected}
               getRowId={(row: any) => (row as any).idx}
-            />
-          </div>
-          <div id="paginator" className="pt-4" style={{display: 'inline-block'}}>
-            <Paginator
-              pageCount={totalPage}
-              size={paginate?.pageSize || 0}
-              selectedPage={paginate?.pageNumber || 0}
-              onChange={(v) => {
-                const newPaginate = {
-                  ...paginate,
-                  pageNumber: v,
-                };
-                setPaginate(newPaginate);
-                handleSearchConditionData(wb, newPaginate);
+              paginationOptions={{
+                pageSize: 20,
+                pageIndex: 0,
               }}
             />
           </div>
