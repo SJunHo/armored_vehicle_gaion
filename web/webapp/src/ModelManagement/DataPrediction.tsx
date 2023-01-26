@@ -21,8 +21,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
   const [conditionData, setConditionData] = useState<any[]>([]);
-  const [selectedData, setSelectedData] = useState<any[]>();
-  const [selectedDataIdx, setSelectedDataIdx] = useState<any[]>();
+  const [selectedData, setSelectedData] = useState<any[]>([]);
+  const [selectedDataIdx, setSelectedDataIdx] = useState<any[]>([]);
+  const [totalSelectedData, setTotalSelectedData] = useState<any[]>([]);
+  const [totalSelectedDataIdx, setTotalSelectedDataIdx] = useState<any[]>([]);
   const [wb, setWb] = useState<string>("BLB");
   const [tableColumns, setTableColumns] = useState<any>([]);
   const [targetClassCol, setTargetClassCol] = useState<string>("");
@@ -1076,15 +1078,24 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     []
   );
 
+  //Todo :  이거 수정해야댐
   const handleConditionSelected =
     useCallback((v: TableRow<any[]>[]) => {
       setSelectedData(v?.map((i) => i.original))
       setSelectedDataIdx(v?.map((i) => i.values.idx))
-    }, []);
+    }, [paginate]);
 
-  // const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
-  //   setSelectedModel(v[0]?.original);
-  // }, [selectedModel]);
+  console.log(selectedData)
+  console.log(selectedDataIdx)
+
+  console.log(totalSelectedData)
+  console.log(totalSelectedDataIdx)
+
+
+
+  const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
+    setSelectedModel(v[0]?.original);
+  }, [selectedModel]);
 
   // const handleConditionDataSelected = (algorithmName === "linear" || algorithmName === "lasso"
   //         ? useCallback((v: TableRow<SensorTempLife>[]) => {setSelectedData(v?.map((i) => i.original))}, [])
@@ -1099,7 +1110,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   //     });
   // }, [mlControllerApi, algorithmName]);
 
-  const handleSearchModel = useCallback(()=>{
+  function handleSearchModel(){
     setSearchingModels(true);
     mlControllerApi
       ?.getModels(ALGORITHM_INFO[algorithmName].className)
@@ -1107,11 +1118,11 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         setModels((data.data || []).filter((model) => model.checked && model.partType === wb));
       })
       .finally(() => setSearchingModels(false));
-  },[models])
+  }
 
-  const handleSearchConditionData = useCallback(()=>{
-    handleSearchTablesColumns()
-    handleSettingClassColByPart()
+  function handleSearchConditionData(wb:any, paginate?:Pageable) {
+    handleSearchTablesColumns(wb)
+    handleSettingClassColByPart(wb)
     setSearchingData(true);
     if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
       datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, paginate?.pageNumber, paginate?.pageSize)
@@ -1154,9 +1165,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         })
         .finally(() => setSearchingData(false));
     }
-  },[])
+  }
 
-  const handleSearchTablesColumns = useCallback(() => {
+  function handleSearchTablesColumns(wb:any) {
     switch (wb) {
       case "BLB":
         // Bearing Left Ball
@@ -1211,9 +1222,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         setTableColumns(SensorTempLifeDataColumns);
         break
     }
-  },[])
+  }
 
-  const handleSettingClassColByPart = useCallback(()=> {
+  function handleSettingClassColByPart(wb:any) {
     switch (wb) {
       case "BLB":
         // Bearing Left Ball
@@ -1268,9 +1279,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         setTargetClassCol("TEMP_LIFE");
         break
     }
-  },[])
+  }
 
-  const handleClassificationData = useCallback(async()=> {
+  async function handleClassificationData() {
     const res = await mlControllerApi?.classificationPredict(algorithmName, {
       classCol: targetClassCol,
       modelName: selectedModel?.modelName,
@@ -1298,9 +1309,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         return row;
       })
     );
-  },[])
+  }
 
-  const handleRegressionData = useCallback(async() => {
+  async function handleRegressionData() {
     const res = await mlControllerApi?.regressionPredict(algorithmName, {
       classCol: targetClassCol,
       modelName: selectedModel?.modelName,
@@ -1328,9 +1339,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         return row;
       })
     );
-  },[])
+  }
 
-  const handleOutlierDetectionData = useCallback(async()=> {
+  async function handleOutlierDetectionData() {
     const res = await mlControllerApi?.predictCluster(algorithmName, {
       classCol: targetClassCol,
       modelName: selectedModel?.modelName,
@@ -1356,9 +1367,11 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         return row;
       })
     );
-  },[])
+  }
 
-  const handlePredictData = useCallback(async () =>{
+  async function handlePredictData() {
+    setTotalSelectedData(totalSelectedData.concat(...selectedData))
+    setTotalSelectedDataIdx(totalSelectedDataIdx.concat(...selectedDataIdx))
     setPredicting(true);
     if (selectedModel?.modelName === undefined || null) {
       alert("모델이 선택되지 않았습니다.")
@@ -1372,9 +1385,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         await handleClassificationData().finally(() => setPredicting(false));
       }
     }
-  }, [])
+  }
 
-  const handleUpdateData = useCallback(async () => {
+  function handleUpdateData() {
     setSaving(true);
     datasetDatabaseControllerApi
       ?.updateData(
@@ -1387,7 +1400,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         }))
       )
       .finally(() => setSaving(false));
-  }, [])
+  }
 
   // async function handleTempLifeUpdateData() {
   //   setSaving(true);
@@ -1451,9 +1464,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               data={models}
               columns={modelResponseColumns}
               isSingleRowSelect
-              onRowsSelected={(v) => {
-                setSelectedModel(v[0]?.original);
-              }}
+              onRowsSelected={handleModelSelected}
             />
           </Col>
         </Row>
@@ -1461,7 +1472,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <Col className="Col d-grid gap-2">
             <Button
               className="button btn-block font-monospace fw-bold"
-              onClick={() => handleSearchConditionData()}
+              onClick={() => handleSearchConditionData(wb)}
               size="sm"
               disabled={searchingData}
             >
@@ -1521,7 +1532,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                   pageNumber: v,
                 };
                 setPaginate(newPaginate);
-                handleSearchConditionData();
+                handleSearchConditionData(wb, newPaginate);
               }}
             />
           </div>
