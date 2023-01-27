@@ -240,32 +240,131 @@ public class CSVHelper {
         }
     }
 
-    public static List<TrainingTempLife> csvToTempLife(InputStream is) {
+    public static List<TrainingBearingLife> csvToBearingLife(InputStream is, String fileName) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-
-            List<TrainingTempLife> trainingTempLifeList = new ArrayList<>();
+            List<TrainingBearingLife> trainingBearingLifeList = new ArrayList<>();
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-
             for (CSVRecord csvRecord : csvRecords) {
-                TrainingTempLife trainingTempLife = new TrainingTempLife();
-                trainingTempLife.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
-                trainingTempLife.setCoreCycle(Double.parseDouble(csvRecord.get("CORECYCLE")));
-                trainingTempLife.setCpuUtil(Double.parseDouble(csvRecord.get("CPUUTIL")));
-                trainingTempLife.setDiskAccesses(Double.parseDouble(csvRecord.get("DISKACCESSES")));
-                trainingTempLife.setDiskBlocks(Double.parseDouble(csvRecord.get("DISKBLOCKS")));
-                trainingTempLife.setDiskUtil(Double.parseDouble(csvRecord.get("DISKUTIL")));
-                trainingTempLife.setInstRetired(Double.parseDouble(csvRecord.get("INSTRETIRED")));
-                trainingTempLife.setLastLevel(Double.parseDouble(csvRecord.get("LASTLEVEL")));
-                trainingTempLife.setMemoryBus(Double.parseDouble(csvRecord.get("MEMORYBUS")));
-                trainingTempLife.setTime(csvRecord.get("TIME"));
+                TrainingBearingLife trainingBearingLife = new TrainingBearingLife();
 
+                // File Name
+                trainingBearingLife.setFilenm(fileName.replace(".csv", ""));
 
-                trainingTempLifeList.add(trainingTempLife);
+                // Parameters
+                trainingBearingLife.setBOverallRMS(Double.parseDouble(csvRecord.get("B_OverallRMS")));
+                trainingBearingLife.setB1x(Double.parseDouble(csvRecord.get("B_1X")));
+                trainingBearingLife.setB6912bpfo(Double.parseDouble(csvRecord.get("B_6912BPFO")));
+                trainingBearingLife.setB6912bpfi(Double.parseDouble(csvRecord.get("B_6912BPFI")));
+                trainingBearingLife.setB6912bsf(Double.parseDouble(csvRecord.get("B_6912BSF")));
+                trainingBearingLife.setB6912ftf(Double.parseDouble(csvRecord.get("B_6912FTF")));
+                trainingBearingLife.setB32924bpfo(Double.parseDouble(csvRecord.get("B_32924BPFO")));
+                trainingBearingLife.setB32924bpfi(Double.parseDouble(csvRecord.get("B_32924BPFI")));
+                trainingBearingLife.setB32924bsf(Double.parseDouble(csvRecord.get("B_32924BSF")));
+                trainingBearingLife.setB32924ftf(Double.parseDouble(csvRecord.get("B_32924FTF")));
+                trainingBearingLife.setB32922bpfo(Double.parseDouble(csvRecord.get("B_32922BPFO")));
+                trainingBearingLife.setB32922bpfi(Double.parseDouble(csvRecord.get("B_32922BPFI")));
+                trainingBearingLife.setB32922bsf(Double.parseDouble(csvRecord.get("B_32922BSF")));
+                trainingBearingLife.setBCrestFactor(Double.parseDouble(csvRecord.get("B_CrestFactor")));
+                trainingBearingLife.setBDemodulation(Double.parseDouble(csvRecord.get("B_Demodulation")));
+                trainingBearingLife.setBFault1(Double.parseDouble(csvRecord.get("B_Fault1")));
+                trainingBearingLife.setBFault2(Double.parseDouble(csvRecord.get("B_Fault2")));
+
+                // AI-Predict
+                trainingBearingLife.setTrip(Integer.parseInt(csvRecord.get("Trip")));
+
+                trainingBearingLifeList.add(trainingBearingLife);
             }
-            return trainingTempLifeList;
+            return trainingBearingLifeList;
         } catch (IOException e) {
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         }
     }
+
+    public static List<TrainingWheelLife> csvToWheelLife(InputStream is, String fileName) {
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+            List<TrainingWheelLife> trainingWheelLifeList = new ArrayList<>();
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+            for (CSVRecord csvRecord : csvRecords) {
+                TrainingWheelLife trainingWheelLife = new TrainingWheelLife();
+
+                // File Name
+                trainingWheelLife.setFilenm(fileName.replace(".csv", ""));
+
+                // Parameters
+                trainingWheelLife.setW2x(Double.parseDouble(csvRecord.get("W_2X")));
+                trainingWheelLife.setW3x(Double.parseDouble(csvRecord.get("W_3X")));
+                trainingWheelLife.setWFault3(Double.parseDouble(csvRecord.get("W_Fault3")));
+
+                // AI-Predict
+                trainingWheelLife.setTrip(Integer.parseInt(csvRecord.get("Trip")));
+
+                trainingWheelLifeList.add(trainingWheelLife);
+            }
+            return trainingWheelLifeList;
+        } catch (IOException e) {
+            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
+        }
+    }
+
+    public static List<TrainingGearboxLife> csvToGearboxLife(InputStream is, String fileName) {
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+            List<TrainingGearboxLife> trainingGearboxLifeList = new ArrayList<>();
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+            for (CSVRecord csvRecord : csvRecords) {
+                TrainingGearboxLife trainingGearboxLife = new TrainingGearboxLife();
+
+                // File Name
+                trainingGearboxLife.setFilenm(fileName.replace(".csv", ""));
+
+                // Parameters
+                trainingGearboxLife.setGOverallRMS(Double.parseDouble(csvRecord.get("G_OverallRMS")));
+                trainingGearboxLife.setGWheel1x(Double.parseDouble(csvRecord.get("G_Wheel1X")));
+                trainingGearboxLife.setGWheel2x(Double.parseDouble(csvRecord.get("G_Wheel2X")));
+                trainingGearboxLife.setGPinion1x(Double.parseDouble(csvRecord.get("G_Pinion1X")));
+                trainingGearboxLife.setGPinion2x(Double.parseDouble(csvRecord.get("G_Pinion2X")));
+                trainingGearboxLife.setGGmf1x(Double.parseDouble(csvRecord.get("G_GMF1X")));
+                trainingGearboxLife.setGGmf2x(Double.parseDouble(csvRecord.get("G_GMF2X")));
+
+                // AI-Predict
+                trainingGearboxLife.setTrip(Integer.parseInt(csvRecord.get("Trip")));
+
+                trainingGearboxLifeList.add(trainingGearboxLife);
+            }
+            return trainingGearboxLifeList;
+        } catch (IOException e) {
+            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
+        }
+    }
+
+    public static List<TrainingEngineLife> csvToEngineLife(InputStream is, String fileName) {
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
+            List<TrainingEngineLife> trainingEngineLifeList = new ArrayList<>();
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+            for (CSVRecord csvRecord : csvRecords) {
+                TrainingEngineLife trainingEngineLife = new TrainingEngineLife();
+
+                // File Name
+                trainingEngineLife.setFilenm(fileName.replace(".csv", ""));
+
+                // Parameters
+                trainingEngineLife.setEOverallRms(Double.parseDouble(csvRecord.get("E_OverallRMS")));
+                trainingEngineLife.setE12x(Double.parseDouble(csvRecord.get("E_1_2X")));
+                trainingEngineLife.setE1X(Double.parseDouble(csvRecord.get("E_1X")));
+                trainingEngineLife.setECrestFactor(Double.parseDouble(csvRecord.get("E_CrestFactor")));
+
+                // AI-Predict
+                trainingEngineLife.setTrip(Integer.parseInt(csvRecord.get("Trip")));
+
+                trainingEngineLifeList.add(trainingEngineLife);
+            }
+            return trainingEngineLifeList;
+        } catch (IOException e) {
+            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
+        }
+    }
+
 }

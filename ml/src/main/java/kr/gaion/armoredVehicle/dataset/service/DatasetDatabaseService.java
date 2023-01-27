@@ -132,7 +132,53 @@ public class DatasetDatabaseService {
                     }
                 }
 
-                // TODO - 잔존수명 데이터도 해야하나?
+                case "B_LIFE": {
+                    // Bearing Remaining Life
+                    try {
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        List<TrainingBearingLife> trainingBearingLifeList = CSVHelper.csvToBearingLife(file.getInputStream(), file.getOriginalFilename());
+                        trainingBearingLifeRepository.saveAll(trainingBearingLifeList);
+                        break;
+                    } catch (IOException e) {
+                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
+                    }
+                }
+
+                case "W_LIFE": {
+                    // Wheel Remaining Life
+                    try {
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        List<TrainingWheelLife> trainingWheelLifeList = CSVHelper.csvToWheelLife(file.getInputStream(), file.getOriginalFilename());
+                        trainingWheelLifeRepository.saveAll(trainingWheelLifeList);
+                        break;
+                    } catch (IOException e) {
+                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
+                    }
+                }
+
+                case "G_LIFE": {
+                    // Gearbox Remaining Life
+                    try {
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        List<TrainingGearboxLife> trainingGearboxLifeList = CSVHelper.csvToGearboxLife(file.getInputStream(), file.getOriginalFilename());
+                        trainingGearboxLifeRepository.saveAll(trainingGearboxLifeList);
+                        break;
+                    } catch (IOException e) {
+                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
+                    }
+                }
+
+                case "E_LIFE": {
+                    // Engine Remaining Life
+                    try {
+                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
+                        List<TrainingEngineLife> trainingEngineLifeList = CSVHelper.csvToEngineLife(file.getInputStream(), file.getOriginalFilename());
+                        trainingEngineLifeRepository.saveAll(trainingEngineLifeList);
+                        break;
+                    } catch (IOException e) {
+                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
+                    }
+                }
             }
         }
         return "SUCCESS";
