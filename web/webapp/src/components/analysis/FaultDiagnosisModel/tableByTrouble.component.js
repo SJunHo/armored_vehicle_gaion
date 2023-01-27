@@ -298,7 +298,7 @@ export default class TableByTrouble extends Component {
                                         <td>time</td>
                                         <td>W_RPM</td>
                                         <td>E_V_OverallRMS</td>
-                                        <td>E_V_1-2X</td>
+                                        <td>E_V_1_2X</td>
                                         <td>E_V_1X</td>
                                         <td>E_V_Crestfactor</td>
                                         <td>AC_h</td>

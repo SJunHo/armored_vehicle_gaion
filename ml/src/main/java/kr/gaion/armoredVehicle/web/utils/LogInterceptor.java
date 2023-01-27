@@ -41,21 +41,21 @@ public class LogInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		final String requestTokenHeader = request.getHeader("Authorization");
-	    String requestURI = request.getRequestURI();
-	    String message = null;
-		String reqBody = (String) request.getAttribute("requestBody");
-		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-		var decodedToken = jwtIssuer.verifyToken(requestTokenHeader.substring(7).replaceAll("\\\"", ""));
-	    	  //jwtToken에서 userId를 가져온다
-	      String userId = decodedToken.getClaim("id").asString();
-	      if(reqBody != null) {
-	    	  message = userId + " " + requestURI +" " + reqBody;
-	      }else {	    	  
-	    	  message = userId + " " + requestURI;
-	      }
-	      this.saveLog(message);
-	    }
+//		final String requestTokenHeader = request.getHeader("Authorization");
+//	    String requestURI = request.getRequestURI();
+//	    String message = null;
+//		String reqBody = (String) request.getAttribute("requestBody");
+//		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+//		var decodedToken = jwtIssuer.verifyToken(requestTokenHeader.substring(7).replaceAll("\\\"", ""));
+//	    	  //jwtToken에서 userId를 가져온다
+//	      String userId = decodedToken.getClaim("id").asString();
+//	      if(reqBody != null) {
+//	    	  message = userId + " " + requestURI +" " + reqBody;
+//	      }else {
+//	    	  message = userId + " " + requestURI;
+//	      }
+//	      this.saveLog(message);
+//	    }
     
 	    return true;
 	}

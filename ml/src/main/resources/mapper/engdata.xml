@@ -4,7 +4,7 @@
 
 	<insert id="insertEngdata" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Engdata">
 		insert into ENGDATA(SDAID ,OPERDATE ,OPERTIME ,DATE ,TIME ,AI_Predict 
-		,W_RPM ,E_V_OverallRMS ,`E_V_1-2X` ,E_V_1X ,E_V_Crestfactor ,AC_h ,AC_v ,AC_a ,LA ,LO ,FILENM)
+		,W_RPM ,E_V_OverallRMS ,`E_V_1_2X` ,E_V_1X ,E_V_Crestfactor ,AC_h ,AC_v ,AC_a ,LA ,LO ,FILENM)
 		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{AI_Predict}
 		, #{W_RPM}, #{E_V_OverallRMS}, #{E_V_1_2X}, #{E_V_1X}, #{E_V_Crestfactor}
 		, #{AC_h}, #{AC_v}, #{AC_a}, #{LA}, #{LO}, #{filenm})
@@ -12,7 +12,7 @@
 	
 	<insert id="insertEngsim" parameterType="kr.gaion.armoredVehicle.web.analysis.model.Engdata">
 		insert into ENGSIM(SDAID, OPERDATE, OPERTIME, DATE, TIME, AI_Predict,
-		 W_RPM, E_V_OverallRMS,`E_V_1-2X` , E_V_1X, E_V_Crestfactor, AC_h, AC_v, AC_a, LA, LO, FILENM)
+		 W_RPM, E_V_OverallRMS,`E_V_1_2X` , E_V_1X, E_V_Crestfactor, AC_h, AC_v, AC_a, LA, LO, FILENM)
 		values(#{sdaid}, #{operdate}, #{opertime}, #{date}, #{time}, #{AI_Predict}, 
 		#{W_RPM}, #{E_V_OverallRMS}, #{E_V_1_2X}, #{E_V_1X}, #{E_V_Crestfactor}, #{AC_h},
 		#{AC_v}, #{AC_a}, #{LA}, #{LO}, #{filenm})
