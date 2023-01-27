@@ -687,7 +687,7 @@ class searchEachInfo extends Component {
       }
       rangeSlider.max = chartData.length -1;
 
-      if(this.state.i !== Number(rangeSlider.value)){   //드래그로 슬라이더바를 움직였을때. 
+      if(this.state.i !== Number(rangeSlider.value) && !this.state.isBack){   //드래그로 슬라이더바를 움직였을때. 
         this.setState({ 
           i: Number(rangeSlider.value),
         });

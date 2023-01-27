@@ -67,6 +67,7 @@ export function Table<T extends Object>({
                                           ...props
                                         }: TableProps<T>): React.ReactElement {
   const selectedRowsChangedKey = useRef<number>();
+  const [curSelectedRowsChangedKey, setCurSelectedRowsChangedKey] = React.useState<number>(0)
   const {
     pageCount,
     prepareRow,
@@ -133,8 +134,11 @@ export function Table<T extends Object>({
   );
 
   useEffect(() => {
-    onRowsSelected && onRowsSelected(selectedFlatRows);
-  }, [selectedRowsChangedKey, selectedFlatRows, onRowsSelected]);
+    if (curSelectedRowsChangedKey < (selectedRowsChangedKey.current || 0)) {
+      onRowsSelected && onRowsSelected(selectedFlatRows);
+      setCurSelectedRowsChangedKey(selectedRowsChangedKey.current || 0)
+    }
+  }, [selectedFlatRows, onRowsSelected, curSelectedRowsChangedKey]);
 
   useEffect(() => {
     if (paginationOptions?.pageSize) {

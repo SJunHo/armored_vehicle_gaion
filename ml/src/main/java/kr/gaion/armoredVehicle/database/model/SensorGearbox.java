@@ -34,7 +34,7 @@ public class SensorGearbox {
     private Integer aiGear;
 
     // Ai Predict Algorithm
-    @Column(name = "AI_ALGO")
+    @Column(name = "AI_GEAR_ALGO")
     private String aiGearAlgorithm;
 
     // Ai Predict Model

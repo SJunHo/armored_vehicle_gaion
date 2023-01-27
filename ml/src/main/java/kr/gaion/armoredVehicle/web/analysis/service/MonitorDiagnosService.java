@@ -496,7 +496,7 @@ public class MonitorDiagnosService {
 		cell = row.createCell(4);
 		cell.setCellValue("E_V_OverallRMS");		
 		cell = row.createCell(5);
-		cell.setCellValue("E_V_1-2X");
+		cell.setCellValue("E_V_1_2X");
 		cell = row.createCell(6);
 		cell.setCellValue("E_V_1X");
 

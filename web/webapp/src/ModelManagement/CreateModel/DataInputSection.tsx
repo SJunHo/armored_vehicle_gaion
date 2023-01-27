@@ -183,7 +183,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
         return ["W_RPM", "G_V_OverallRMS", "G_V_Wheel1X", "G_V_Wheel2X", "G_V_Pinion1X", "G_V_Pinion2X", "G_V_GMF1X", "G_V_GMF2X", "AC_h", "AC_v", "AC_a"]
       // engine
       case "E" :
-        return ["W_RPM", "E_V_OverallRMS", "E_V_1-2X", "E_V_1X", "E_V_Crestfactor", "AC_h", "AC_v", "AC_a"]
+        return ["W_RPM", "E_V_OverallRMS", "E_V_1_2X", "E_V_1X", "E_V_Crestfactor", "AC_h", "AC_v", "AC_a"]
     }
   }
 
