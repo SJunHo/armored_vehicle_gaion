@@ -26,7 +26,6 @@ import {
 } from "./tableColumns";
 import {Section} from "../common/Section/Section";
 import moment from "moment";
-import {cloneDeep} from "lodash";
 
 export const JudgementLookup: React.FC = () => {
   const [partType, setPartType] = useState<string>("BLB");
@@ -1597,7 +1596,6 @@ export const JudgementLookup: React.FC = () => {
         setJudgedData(result);
       });
     }
-    //Todo 엔진 수정필요
     if (partType === 'E') {
       databaseJudgementControllerApi?.getEnginePredictedData(
         selectedCar,

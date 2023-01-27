@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +35,13 @@ public class DatasetDatabaseService {
     @NonNull
     private final TrainingGearboxRepository trainingGearboxRepository;
     @NonNull
-    private final TrainingTempLifeRepository trainingTempLifeRepository;
+    private final TrainingBearingLifeRepository trainingBearingLifeRepository;
+    @NonNull
+    private final TrainingEngineLifeRepository trainingEngineLifeRepository;
+    @NonNull
+    private final TrainingGearboxLifeRepository trainingGearboxLifeRepository;
+    @NonNull
+    private final TrainingWheelLifeRepository trainingWheelLifeRepository;
     @NonNull
     private final SensorBearingRepository sensorBearingRepository;
     @NonNull
@@ -46,7 +51,13 @@ public class DatasetDatabaseService {
     @NonNull
     private final SensorGearboxRepository sensorGearboxRepository;
     @NonNull
-    private final SensorTempLifeRepository sensorTempLifeRepository;
+    private final SensorBearingLifeRepository sensorBearingLifeRepository;
+    @NonNull
+    private final SensorWheelLifeRepository sensorWheelLifeRepository;
+    @NonNull
+    private final SensorGearboxLifeRepository sensorGearboxLifeRepository;
+    @NonNull
+    private final SensorEngineLifeRepository sensorEngineLifeRepository;
     @NonNull
     private final FileInfoRepository fileInfoRepository;
     @NonNull
@@ -120,17 +131,8 @@ public class DatasetDatabaseService {
                         throw new RuntimeException("fail to store csv data: " + e.getMessage());
                     }
                 }
-                case "tempLife": {
-                    try {
-                        System.out.println("import CSV " + "dataType : " + dataType + " / " + "Original File name : " + file.getOriginalFilename());
-                        List<TrainingTempLife> trainingTempLifeList = CSVHelper.csvToTempLife(file.getInputStream());
-                        trainingTempLifeRepository.saveAll(trainingTempLifeList);
-                        break;
 
-                    } catch (IOException e) {
-                        throw new RuntimeException("fail to store csv data: " + e.getMessage());
-                    }
-                }
+                // TODO - 잔존수명 데이터도 해야하나?
             }
         }
         return "SUCCESS";
@@ -191,6 +193,27 @@ public class DatasetDatabaseService {
         return trainingEngineRepository.findEngine();
     }
 
+    // get labeled remaining life data (for training)
+    public List<TrainingBearingLife> getTrainingBearingLifeData() throws IOException {
+        System.out.println("get Training Bearing Life Data");
+        return trainingBearingLifeRepository.findAll();
+    }
+
+    public List<TrainingWheelLife> getTrainingWheelLifeData() throws IOException {
+        System.out.println("get Training Wheel Life Data");
+        return trainingWheelLifeRepository.findAll();
+    }
+
+    public List<TrainingGearboxLife> getTrainingGearboxLifeData() throws IOException {
+        System.out.println("get Training Gearbox Life Data");
+        return trainingGearboxLifeRepository.findAll();
+    }
+
+    public List<TrainingEngineLife> getTrainingEngineLifeData() throws IOException {
+        System.out.println("get Training Engine Life Data");
+        return trainingEngineLifeRepository.findAll();
+    }
+
     // get unlabeled data (for predict)
     public Page<?> getUnlabeledBearingData(String partType, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println("get Unlabeled Bearing Data --> " + "partType : " + partType);
@@ -246,8 +269,25 @@ public class DatasetDatabaseService {
         return sensorEngineRepository.findSensorEngineAiENGINEIsNull(pageable);
     }
 
-    public Page<SensorTempLife> getUnlabeledTempLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
-        return sensorTempLifeRepository.findSensorTempLifeByAiPredictIsNull(pageable);
+    // get unlabeled remaining life data (for training)
+    public Page<?> getUnlabeledBearingLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+        System.out.println("get Unlabeled Bearing Life Data");
+        return sensorBearingLifeRepository.findAiTripIsNull(pageable);
+    }
+
+    public Page<?> getUnlabeledWheelLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+        System.out.println("get Unlabeled Wheel Life Data");
+        return sensorWheelLifeRepository.findAiTripIsNull(pageable);
+    }
+
+    public Page<?> getUnlabeledGearboxLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+        System.out.println("get Unlabeled Gearbox Life Data");
+        return sensorGearboxLifeRepository.findAiTripIsNull(pageable);
+    }
+
+    public Page<?> getUnlabeledEngineLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+        System.out.println("get Unlabeled Engine Life Data");
+        return sensorEngineLifeRepository.findAiTripIsNull(pageable);
     }
 
     public String updatePredictData(List<DbDataUpdateInput> inputs) {
@@ -409,9 +449,56 @@ public class DatasetDatabaseService {
                 }
                 break;
 
-            case "T":
-                // Temp Life
-                System.out.println("잔존수명예지 기능 추가해야함 !!!!!!!!!!");
+            case "B_LIFE":
+                // Bearing Remaining Life
+                for (DbDataUpdateInput input : inputs) {
+                    SensorBearingLife sensorBearingLife = sensorBearingLifeRepository.findById(input.getId()).orElse(null);
+                    assert sensorBearingLife != null;
+                    sensorBearingLife.setAiTrip(input.getAiPredict());
+                    sensorBearingLife.setAiTripAlgo(input.getAiAlgorithmName());
+                    sensorBearingLife.setAiTripModel(input.getAiModelName());
+                    sensorBearingLife.setAiTripDate(new Date());
+                    sensorBearingLifeRepository.save(sensorBearingLife);
+                }
+                break;
+
+            case "W_LIFE":
+                // Wheel Remaining Life
+                for (DbDataUpdateInput input : inputs) {
+                    SensorWheelLife sensorWheelLife = sensorWheelLifeRepository.findById(input.getId()).orElse(null);
+                    assert sensorWheelLife != null;
+                    sensorWheelLife.setAiTrip(input.getAiPredict());
+                    sensorWheelLife.setAiTripAlgo(input.getAiAlgorithmName());
+                    sensorWheelLife.setAiTripModel(input.getAiModelName());
+                    sensorWheelLife.setAiTripDate(new Date());
+                    sensorWheelLifeRepository.save(sensorWheelLife);
+                }
+                break;
+
+            case "G_LIFE":
+                // Gearbox Remaining Life
+                for (DbDataUpdateInput input : inputs) {
+                    SensorGearboxLife sensorGearboxLife = sensorGearboxLifeRepository.findById(input.getId()).orElse(null);
+                    assert sensorGearboxLife != null;
+                    sensorGearboxLife.setAiTrip(input.getAiPredict());
+                    sensorGearboxLife.setAiTripAlgo(input.getAiAlgorithmName());
+                    sensorGearboxLife.setAiTripModel(input.getAiModelName());
+                    sensorGearboxLife.setAiTripDate(new Date());
+                    sensorGearboxLifeRepository.save(sensorGearboxLife);
+                }
+                break;
+
+            case "E_LIFE":
+                // Engine Remaining Life
+                for (DbDataUpdateInput input : inputs) {
+                    SensorEngineLife sensorEngineLife = sensorEngineLifeRepository.findById(input.getId()).orElse(null);
+                    assert sensorEngineLife != null;
+                    sensorEngineLife.setAiTrip(input.getAiPredict());
+                    sensorEngineLife.setAiTripAlgo(input.getAiAlgorithmName());
+                    sensorEngineLife.setAiTripModel(input.getAiModelName());
+                    sensorEngineLife.setAiTripDate(new Date());
+                    sensorEngineLifeRepository.save(sensorEngineLife);
+                }
                 break;
         }
         return "Saved to DB completed.";

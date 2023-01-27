@@ -2,7 +2,6 @@ package kr.gaion.armoredVehicle.dataset.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import kr.gaion.armoredVehicle.database.model.SensorTempLife;
 import kr.gaion.armoredVehicle.dataset.dto.DbDataUpdateInput;
 import kr.gaion.armoredVehicle.dataset.service.DatasetDatabaseService;
 import lombok.NonNull;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,6 +81,47 @@ public class DatasetDatabaseController {
         }
     }
 
+    // get labeled remaining life data (for training)
+    @GetMapping(path = "/api/data/database/get-all-labeled-bearing-life-data")
+    public List<?> getTrainingBearingLifeData() {
+        try {
+            return this.datasetDatabaseService.getTrainingBearingLifeData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping(path = "/api/data/database/get-all-labeled-wheel-life-data")
+    public List<?> getTrainingWheelLifeData() {
+        try {
+            return this.datasetDatabaseService.getTrainingWheelLifeData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping(path = "/api/data/database/get-all-labeled-gearbox-life-data")
+    public List<?> getTrainingGearboxLifeData() {
+        try {
+            return this.datasetDatabaseService.getTrainingGearboxLifeData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping(path = "/api/data/database/get-all-labeled-engine-life-data")
+    public List<?> getTrainingEngineLifeData() {
+        try {
+            return this.datasetDatabaseService.getTrainingEngineLifeData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // get unlabeled data (for predict)
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-bearing-data")
@@ -128,11 +167,37 @@ public class DatasetDatabaseController {
         }
     }
 
-    @PageableAsQueryParam
-    @GetMapping(path = "/api/data/database/get-all-unlabeled-templife-data")
-    public Page<SensorTempLife> getUnlabeledTempLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    // get unlabeled remaining life data (for predict)
+    public Page<?> getUnlabeledBearingLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledTempLifeData(pageable);
+            return this.datasetDatabaseService.getUnlabeledBearingLifeData(pageable);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Page<?> getUnlabeledWheelLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+        try {
+            return this.datasetDatabaseService.getUnlabeledWheelLifeData(pageable);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Page<?> getUnlabeledGearboxLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+        try {
+            return this.datasetDatabaseService.getUnlabeledGearboxLifeData(pageable);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Page<?> getUnlabeledEngineLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+        try {
+            return this.datasetDatabaseService.getUnlabeledEngineLifeData(pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

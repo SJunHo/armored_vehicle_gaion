@@ -17,7 +17,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     @Query(value = "Select DISTINCT SDAID from BERDATA b where ?1 is Not NULL", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);
 
-    //    //get BLB PredictedData
+    //get BLB PredictedData
     @Query(value = " Select B.IDX, B.AI_LBSF, B.AI_LBSF_ALGO, B.AI_LBSF_MODEL, B.AI_LBSF_DATE, " +
             " B.USER_LBSF, B.USER_LBSF_ID, B.USER_LBSF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BSF, B.L_B_V_32924BSF, B.L_B_V_32922BSF, " +

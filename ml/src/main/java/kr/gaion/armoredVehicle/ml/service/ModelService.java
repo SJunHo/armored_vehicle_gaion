@@ -10,17 +10,12 @@ import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.model.DbModelResponse;
 import kr.gaion.armoredVehicle.database.repository.DBModelResponseRepository;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
-import kr.gaion.armoredVehicle.elasticsearch.EsConnector;
 import kr.gaion.armoredVehicle.ml.dto.input.UpdateModelInput;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
-//import org.elasticsearch.client.RequestOptions;
-//import org.elasticsearch.index.IndexNotFoundException;
-//import org.elasticsearch.index.query.QueryBuilders;
-//import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -35,8 +30,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Log4j
 public class ModelService {
-    //    @NonNull
-//    private final EsConnector esConnector;
     @NonNull
     private final Utilities utilities;
     @NonNull
@@ -139,30 +132,4 @@ public class ModelService {
 
         return insertInfo;
     }
-
-//    public void deleteOldMlResponse(String algorithmName, String modelName) {
-//        System.out.println(String.format("Delete old data: Algorithm name: %s, Model name: %s.", algorithmName, modelName));
-//        try {
-//            var searchRequest = new DeleteByQueryRequest(this.getAlgorithmESIndex(algorithmName));
-//
-//            var query = QueryBuilders.boolQuery()
-//                    .filter(QueryBuilders.boolQuery().must(termQuery("modelName", modelName)));
-//
-//            searchRequest.setQuery(query);
-//
-//            // TODO: esConnector 삭제
-//            var response = this.esConnector.getClient().deleteByQuery(searchRequest, RequestOptions.DEFAULT);
-//
-//            long deleted = response.getDeleted();
-//
-//            System.out.println(String.format("Deleted _index: %s, modelName: %s, affected: %d ",
-//                    this.getAlgorithmESIndex(algorithmName),
-//                    modelName,
-//                    deleted));
-//
-//        } catch (IndexNotFoundException | IOException e) {
-//            log.warn("Delete failed. Cause: " + e.getMessage());
-//            log.warn(String.format("The index %s not found.", this.getAlgorithmESIndex(algorithmName)));
-//        }
-//    }
 }

@@ -4,7 +4,6 @@ import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.DatabaseConfiguration;
-import kr.gaion.armoredVehicle.database.repository.*;
 import kr.gaion.armoredVehicle.spark.dto.LabeledData;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.NonNull;
@@ -32,18 +31,6 @@ public class DatabaseSparkService {
     protected final Utilities utilities;
     @NonNull
     private final DatabaseConfiguration databaseConfiguration;
-    @NonNull
-    private final SensorBearingRepository sensorBearingRepository;
-    @NonNull
-    private final SensorWheelRepository sensorWheelRepository;
-    @NonNull
-    private final SensorEngineRepository sensorEngineRepository;
-    @NonNull
-    private final SensorGearboxRepository sensorGearboxRepository;
-    @NonNull
-    private final SensorTempLifeRepository sensorTempLifeRepository;
-    @NonNull
-    private final FileInfoRepository fileInfoRepository;
 
     private static Dataset<LabeledData> processData(
             Dataset<Row> jvRddData,
@@ -147,6 +134,7 @@ public class DatabaseSparkService {
     public Dataset<Row> getLabeledDatasetFromDatabase(BaseAlgorithmTrainInput input) {
         var jvRddData = this.getDataRDDFromDb(input.getPartType(), input.getFileName());
         var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
+
         return spark.createDataFrame(esData.rdd(), LabeledData.class);
     }
 
@@ -269,6 +257,26 @@ public class DatabaseSparkService {
                         " FROM `ENGTRNNG` " +
                         " WHERE ENGTRNNG.FILENM = '%s' ", fileName);
                 break;
+
+            case "B_LIFE":
+                // Bearing Remaining Life
+                query = String.format(" SELECT * FROM `BERLIFE` WHERE `BERLIFE`.FILENM = '%s' ", fileName);
+                break;
+
+            case "W_LIFE":
+                // Wheel Remaining Life
+                query = String.format(" SELECT * FROM `WHLLIFE` WHERE `WHLLIFE`.FILENM = '%s' ", fileName);
+                break;
+
+            case "G_LIFE":
+                // Gearbox Remaining Life
+                query = String.format(" SELECT * FROM `GRBLIFE` WHERE `GRBLIFE`.FILENM = '%s' ", fileName);
+                break;
+
+            case "E_LIFE":
+                // Engine Remaining Life
+                query = String.format(" SELECT * FROM `ENGLIFE` WHERE `ENGLIFE`.FILENM = '%s' ", fileName);
+                break;
         }
         try {
             System.out.println("Get Training Data -> " + " partType : " + partType + " / " + "fileName : " + fileName);
@@ -289,9 +297,9 @@ public class DatabaseSparkService {
         var featureCols = input.getFeatureCols();
         var classCol = input.getClassCol();
 
-        var jvRddData = this.getDataRDDFromDb("TEMPLIFE", "FILENM");
+        var jvRddData = this.getDataRDDFromDb(input.getPartType(), input.getFileName());
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ jvRddData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Numerical Labeled Data @@@@@@@@@@@@@@@@@@@@@@@@@ ");
         jvRddData.show();
 
         return processNumericLabeledDataset(jvRddData, classCol, featureCols);
@@ -443,6 +451,26 @@ public class DatabaseSparkService {
                         " FROM `ENGDATA` " +
                         " WHERE  AI_ENGINE IS NULL AND ENGDATA.IDX IN (%s) ", stringDocIds);
                 break;
+
+            case "B_LIFE":
+                // Bearing Remaining Life
+                query = String.format(" SELECT * FROM `BERLIFEDATA` WHERE `BERLIFEDATA`.AI_Trip IS NULL AND `BERLIFEDATA`.IDX IN (%s) ", stringDocIds);
+                break;
+
+            case "W_LIFE":
+                // Wheel Remaining Life
+                query = String.format(" SELECT * FROM `WHLLIFEDATA` WHERE `WHLLIFEDATA`.AI_Trip IS NULL AND `WHLLIFEDATA`.IDX IN (%s) ", stringDocIds);
+                break;
+
+            case "G_LIFE":
+                // Gearbox Remaining Life
+                query = String.format(" SELECT * FROM `GRBLIFEDATA` WHERE `GRBLIFEDATA`.AI_Trip IS NULL AND `GRBLIFEDATA`.IDX IN (%s) ", stringDocIds);
+                break;
+
+            case "E_LIFE":
+                // Engine Remaining Life
+                query = String.format(" SELECT * FROM `ENGLIFEDATA` WHERE `ENGLIFEDATA`.AI_Trip IS NULL AND `ENGLIFEDATA`.IDX IN (%s) ", stringDocIds);
+                break;
         }
         System.out.println("Get unlabeled data -> " + " partType : " + partType);
         try {
@@ -590,6 +618,26 @@ public class DatabaseSparkService {
                         " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE` " +
                         " FROM `ENGDATA` " +
                         " WHERE  AI_ENGINE IS NULL ";
+                break;
+
+            case "B_LIFE":
+                // Bearing Remaining Life
+                query = " SELECT * FROM `BERLIFEDATA` WHERE `BERLIFEDATA`.AI_Trip IS NULL ";
+                break;
+
+            case "W_LIFE":
+                // Wheel Remaining Life
+                query = " SELECT * FROM `WHLLIFEDATA` WHERE `WHLLIFEDATA`.AI_Trip IS NULL ";
+                break;
+
+            case "G_LIFE":
+                // Gearbox Remaining Life
+                query = " SELECT * FROM `GRBLIFEDATA` WHERE `GRBLIFEDATA`.AI_Trip IS NULL ";
+                break;
+
+            case "E_LIFE":
+                // Engine Remaining Life
+                query = " SELECT * FROM `ENGLIFEDATA` WHERE `ENGLIFEDATA`.AI_Trip IS NULL ";
                 break;
         }
         System.out.println("Get all unlabeled data -> " + " partType : " + partType);
