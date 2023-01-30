@@ -239,33 +239,4 @@ public class CSVHelper {
             throw new RuntimeException(e);
         }
     }
-
-    public static List<TrainingTempLife> csvToTempLife(InputStream is) {
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-             CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
-
-            List<TrainingTempLife> trainingTempLifeList = new ArrayList<>();
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-
-            for (CSVRecord csvRecord : csvRecords) {
-                TrainingTempLife trainingTempLife = new TrainingTempLife();
-                trainingTempLife.setAiPredict(Double.parseDouble(csvRecord.get("AI_Predict")));
-                trainingTempLife.setCoreCycle(Double.parseDouble(csvRecord.get("CORECYCLE")));
-                trainingTempLife.setCpuUtil(Double.parseDouble(csvRecord.get("CPUUTIL")));
-                trainingTempLife.setDiskAccesses(Double.parseDouble(csvRecord.get("DISKACCESSES")));
-                trainingTempLife.setDiskBlocks(Double.parseDouble(csvRecord.get("DISKBLOCKS")));
-                trainingTempLife.setDiskUtil(Double.parseDouble(csvRecord.get("DISKUTIL")));
-                trainingTempLife.setInstRetired(Double.parseDouble(csvRecord.get("INSTRETIRED")));
-                trainingTempLife.setLastLevel(Double.parseDouble(csvRecord.get("LASTLEVEL")));
-                trainingTempLife.setMemoryBus(Double.parseDouble(csvRecord.get("MEMORYBUS")));
-                trainingTempLife.setTime(csvRecord.get("TIME"));
-
-
-                trainingTempLifeList.add(trainingTempLife);
-            }
-            return trainingTempLifeList;
-        } catch (IOException e) {
-            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
-        }
-    }
 }
