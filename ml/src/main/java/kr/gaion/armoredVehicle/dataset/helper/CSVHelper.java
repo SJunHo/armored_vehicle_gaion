@@ -20,10 +20,7 @@ public class CSVHelper {
     public static String TYPE = "text/csv";
 
     public static boolean hasCSVFormat(MultipartFile file) {
-        if (!TYPE.equals(file.getContentType())) {
-            return false;
-        }
-        return true;
+        return TYPE.equals(file.getContentType());
     }
 
     public static List<TrainingBearing> csvToBearing(InputStream is, String fileName) {
@@ -366,5 +363,4 @@ public class CSVHelper {
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         }
     }
-
 }
