@@ -41,10 +41,12 @@ import PrivateRoute from "./components/login/PrivateRoute";
 import LogOutComp from "./components/login/logout.component";
 
 import { AuthorizedRoute } from "./common/AuthorizedRoute";
-import {DataUpload} from "./DataLookUp/DataUpload";
 import {ModelManagement} from "./ModelManagement/ModelManagement";
 import { MeContextProvider } from "./api/MeContext";
 import { Judgement} from "./Judgement/Judgement";
+
+import {ClassificationDataUpload} from "./DataLookUp/ClassificationDataUpload";
+import {RegressionDataUpload} from "./DataLookUp/RegressionDataUpload";
 
 class App extends Component {
   constructor(props) {
@@ -142,7 +144,8 @@ class App extends Component {
                 exact
                 component={Judgement}
               />
-              <AuthorizedRoute path="/data/upload" exact component={DataUpload} />
+              <AuthorizedRoute path="/data/classification-upload" exact component={ClassificationDataUpload} />
+              <AuthorizedRoute path="/data/regression-upload" exact component={RegressionDataUpload} />
             </Switch>
         </OpenApiContextProvider>
       </MeContextProvider>

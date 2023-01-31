@@ -30,9 +30,11 @@ public class DatasetDatabaseController {
                     description = "Files to be uploaded",
                     content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE)  // Won't work without OCTET_STREAM as the mediaType.
             )
-            @RequestParam("files") List<MultipartFile> files,
+            @RequestBody List<MultipartFile> files,
             @PathVariable("partType") String partType
     ) throws IOException {
+        System.out.println("start to import CSV to Database");
+
         String result = datasetDatabaseService.importCSVtoDatabase(files, partType);
 
         System.out.println("import CSV to Database result : " + result);

@@ -1684,13 +1684,37 @@ export interface PageObject {
      * @type {number}
      * @memberof PageObject
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageObject
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageObject
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageObject
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageObject
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1720,30 +1744,6 @@ export interface PageObject {
      * @type {boolean}
      * @memberof PageObject
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageObject
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageObject
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageObject
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageObject
-     */
     empty?: boolean;
 }
 /**
@@ -1757,13 +1757,37 @@ export interface PageSensorBearingLeftBallInterface {
      * @type {number}
      * @memberof PageSensorBearingLeftBallInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingLeftBallInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingLeftBallInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1793,30 +1817,6 @@ export interface PageSensorBearingLeftBallInterface {
      * @type {boolean}
      * @memberof PageSensorBearingLeftBallInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
     empty?: boolean;
 }
 /**
@@ -1830,13 +1830,37 @@ export interface PageSensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof PageSensorBearingLeftInsideInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingLeftInsideInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingLeftInsideInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1866,30 +1890,6 @@ export interface PageSensorBearingLeftInsideInterface {
      * @type {boolean}
      * @memberof PageSensorBearingLeftInsideInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
     empty?: boolean;
 }
 /**
@@ -1903,13 +1903,37 @@ export interface PageSensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof PageSensorBearingLeftOutsideInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingLeftOutsideInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingLeftOutsideInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -1939,30 +1963,6 @@ export interface PageSensorBearingLeftOutsideInterface {
      * @type {boolean}
      * @memberof PageSensorBearingLeftOutsideInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
     empty?: boolean;
 }
 /**
@@ -1976,13 +1976,37 @@ export interface PageSensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof PageSensorBearingLeftRetainerInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingLeftRetainerInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingLeftRetainerInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2012,30 +2036,6 @@ export interface PageSensorBearingLeftRetainerInterface {
      * @type {boolean}
      * @memberof PageSensorBearingLeftRetainerInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2049,13 +2049,37 @@ export interface PageSensorBearingRightBallInterface {
      * @type {number}
      * @memberof PageSensorBearingRightBallInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingRightBallInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightBallInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2085,30 +2109,6 @@ export interface PageSensorBearingRightBallInterface {
      * @type {boolean}
      * @memberof PageSensorBearingRightBallInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightBallInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2122,13 +2122,37 @@ export interface PageSensorBearingRightInsideInterface {
      * @type {number}
      * @memberof PageSensorBearingRightInsideInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingRightInsideInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightInsideInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2158,30 +2182,6 @@ export interface PageSensorBearingRightInsideInterface {
      * @type {boolean}
      * @memberof PageSensorBearingRightInsideInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2195,13 +2195,37 @@ export interface PageSensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof PageSensorBearingRightOutsideInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingRightOutsideInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightOutsideInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2231,30 +2255,6 @@ export interface PageSensorBearingRightOutsideInterface {
      * @type {boolean}
      * @memberof PageSensorBearingRightOutsideInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2268,13 +2268,37 @@ export interface PageSensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof PageSensorBearingRightRetainerInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorBearingRightRetainerInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorBearingRightRetainerInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2304,30 +2328,6 @@ export interface PageSensorBearingRightRetainerInterface {
      * @type {boolean}
      * @memberof PageSensorBearingRightRetainerInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2341,13 +2341,37 @@ export interface PageSensorEngineInterface {
      * @type {number}
      * @memberof PageSensorEngineInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorEngineInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngineInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorEngineInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorEngineInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorEngineInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2377,30 +2401,6 @@ export interface PageSensorEngineInterface {
      * @type {boolean}
      * @memberof PageSensorEngineInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorEngineInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorEngineInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorEngineInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorEngineInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2414,13 +2414,37 @@ export interface PageSensorGearboxInterface {
      * @type {number}
      * @memberof PageSensorGearboxInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorGearboxInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearboxInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorGearboxInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorGearboxInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorGearboxInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2450,103 +2474,6 @@ export interface PageSensorGearboxInterface {
      * @type {boolean}
      * @memberof PageSensorGearboxInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorGearboxInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorGearboxInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorGearboxInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorGearboxInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorTempLife
- */
-export interface PageSensorTempLife {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorTempLife
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorTempLife
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorTempLife
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorTempLife>}
-     * @memberof PageSensorTempLife
-     */
-    content?: Array<SensorTempLife>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorTempLife
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorTempLife
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorTempLife
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorTempLife
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorTempLife
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorTempLife
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorTempLife
-     */
     empty?: boolean;
 }
 /**
@@ -2560,13 +2487,37 @@ export interface PageSensorWheelLeftInterface {
      * @type {number}
      * @memberof PageSensorWheelLeftInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorWheelLeftInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorWheelLeftInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2596,30 +2547,6 @@ export interface PageSensorWheelLeftInterface {
      * @type {boolean}
      * @memberof PageSensorWheelLeftInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelLeftInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2633,13 +2560,37 @@ export interface PageSensorWheelRightInterface {
      * @type {number}
      * @memberof PageSensorWheelRightInterface
      */
-    totalPages?: number;
+    totalElements?: number;
     /**
      * 
      * @type {number}
      * @memberof PageSensorWheelRightInterface
      */
-    totalElements?: number;
+    totalPages?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
+     */
+    first?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageSensorWheelRightInterface
+     */
+    last?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof PageSensorWheelRightInterface
+     */
+    numberOfElements?: number;
+    /**
+     * 
+     * @type {Pageable}
+     * @memberof PageSensorWheelRightInterface
+     */
+    pageable?: Pageable;
     /**
      * 
      * @type {number}
@@ -2669,30 +2620,6 @@ export interface PageSensorWheelRightInterface {
      * @type {boolean}
      * @memberof PageSensorWheelRightInterface
      */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelRightInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelRightInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorWheelRightInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelRightInterface
-     */
     empty?: boolean;
 }
 /**
@@ -2703,16 +2630,16 @@ export interface PageSensorWheelRightInterface {
 export interface Pageable {
     /**
      * 
-     * @type {number}
+     * @type {boolean}
      * @memberof Pageable
      */
-    offset?: number;
+    paged?: boolean;
     /**
      * 
-     * @type {Sort}
+     * @type {boolean}
      * @memberof Pageable
      */
-    sort?: Sort;
+    unpaged?: boolean;
     /**
      * 
      * @type {number}
@@ -2727,16 +2654,16 @@ export interface Pageable {
     pageNumber?: number;
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof Pageable
      */
-    paged?: boolean;
+    offset?: number;
     /**
      * 
-     * @type {boolean}
+     * @type {Sort}
      * @memberof Pageable
      */
-    unpaged?: boolean;
+    sort?: Sort;
 }
 /**
  * 
@@ -3838,37 +3765,13 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_32924BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
     l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -3880,7 +3783,7 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    ai_LBSF?: number;
+    l_B_V_1X?: number;
     /**
      * 
      * @type {number}
@@ -3898,13 +3801,25 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
     l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    ac_h?: number;
+    l_B_V_32924BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF?: number;
     /**
      * 
      * @type {number}
@@ -3916,13 +3831,37 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    ac_a?: number;
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_Demodulation?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
     ai_LBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -3937,18 +3876,6 @@ export interface SensorBearingLeftBallInterface {
     user_LBSF?: number;
     /**
      * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_ALGO?: string;
-    /**
-     * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
@@ -3958,13 +3885,13 @@ export interface SensorBearingLeftBallInterface {
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    date?: string;
+    user_LBSF_DATE?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    user_LBSF_DATE?: string;
+    idx?: number;
 }
 /**
  * 
@@ -3977,79 +3904,7 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_32924BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
     l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_6912BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_32922BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ac_v?: number;
     /**
      * 
      * @type {number}
@@ -4061,31 +3916,91 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_MODEL?: string;
+    w_RPM?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    user_LBPFI?: number;
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_6912BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_32924BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    user_LBPFI_ID?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
     user_LBPFI_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -4100,10 +4015,22 @@ export interface SensorBearingLeftInsideInterface {
     ai_LBPFI_DATE?: string;
     /**
      * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    user_LBPFI?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
-    user_LBPFI_ID?: string;
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    idx?: number;
 }
 /**
  * 
@@ -4116,37 +4043,25 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     l_B_V_32924BPFO?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
+    ai_LBPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
     l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4164,19 +4079,13 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
     l_B_V_6912BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ai_LBPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -4188,13 +4097,37 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
     ac_v?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ac_a?: number;
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4206,31 +4139,13 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ai_LBPFO_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ai_LBPFO_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     ai_LBPFO_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    user_LBPFO_DATE?: string;
+    ai_LBPFO_MODEL?: string;
     /**
      * 
      * @type {number}
@@ -4243,6 +4158,18 @@ export interface SensorBearingLeftOutsideInterface {
      * @memberof SensorBearingLeftOutsideInterface
      */
     user_LBPFO_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    user_LBPFO_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_DATE?: string;
 }
 /**
  * 
@@ -4255,79 +4182,7 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ai_LFTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_32924FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_32922FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
     l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_6912FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_v?: number;
     /**
      * 
      * @type {number}
@@ -4339,19 +4194,85 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    idx?: number;
+    l_B_V_6912FTF?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    date?: string;
+    ai_LFTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_32924FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_32922FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_Demodulation?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
     ai_LFTF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ai_LFTF_DATE?: string;
     /**
      * 
      * @type {number}
@@ -4381,7 +4302,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_DATE?: string;
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    idx?: number;
 }
 /**
  * 
@@ -4394,49 +4321,7 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_V_32924BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ac_v?: number;
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
@@ -4460,7 +4345,31 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
+    r_B_V_32924BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
     r_B_V_6912BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -4472,7 +4381,31 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_1X?: number;
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4484,7 +4417,7 @@ export interface SensorBearingRightBallInterface {
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
-    date?: string;
+    user_RBPFO_ID?: string;
     /**
      * 
      * @type {string}
@@ -4496,31 +4429,25 @@ export interface SensorBearingRightBallInterface {
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
+    user_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
     ai_RBSF_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
-    user_RBSF_DATE?: string;
+    ai_RBSF_DATE?: string;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
     user_RBSF?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    user_RBPFO_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF_DATE?: string;
 }
 /**
  * 
@@ -4533,19 +4460,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_Demodulation?: number;
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
@@ -4557,37 +4472,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_32924BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
     r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_32922BPFI?: number;
     /**
      * 
      * @type {number}
@@ -4605,13 +4490,61 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
+    r_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
     r_B_V_6912BPFI?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_1X?: number;
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_32924BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4623,7 +4556,19 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    date?: string;
+    ai_RBPFI_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    user_RBPFI_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    user_RBPFI_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4641,25 +4586,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    user_RBPFI_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ai_RBPFI_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
     ai_RBPFI_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    user_RBPFI_ID?: string;
 }
 /**
  * 
@@ -4672,43 +4599,7 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ai_RBPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ac_v?: number;
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
@@ -4732,7 +4623,7 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_32922BPFO?: number;
+    w_RPM?: number;
     /**
      * 
      * @type {number}
@@ -4744,13 +4635,55 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
+    r_B_V_32922BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
     r_B_V_6912BPFO?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_1X?: number;
+    ai_RBPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4762,25 +4695,19 @@ export interface SensorBearingRightOutsideInterface {
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ai_RBPFO_DATE?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    user_RBPFO?: number;
+    user_RBPFO_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
     user_RBPFO_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4795,10 +4722,10 @@ export interface SensorBearingRightOutsideInterface {
     ai_RBPFO_MODEL?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    user_RBPFO_DATE?: string;
+    user_RBPFO?: number;
 }
 /**
  * 
@@ -4811,19 +4738,31 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_Crestfactor?: number;
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_T_Temperature?: number;
+    r_B_V_6912FTF?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_Demodulation?: number;
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_S_Fault2?: number;
     /**
      * 
      * @type {number}
@@ -4841,7 +4780,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_6912FTF?: number;
+    r_B_V_32922FTF?: number;
     /**
      * 
      * @type {number}
@@ -4853,79 +4792,31 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
     r_B_V_32924FTF?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_32922FTF?: number;
+    ac_v?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_1X?: number;
+    r_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    user_RFTF_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF_MODEL?: string;
+    r_B_V_Demodulation?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    user_RFTF?: number;
+    r_B_V_Crestfactor?: number;
     /**
      * 
      * @type {string}
@@ -4937,7 +4828,43 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
+    ai_RFTF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    user_RFTF?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
     user_RFTF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    user_RFTF_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    idx?: number;
 }
 /**
  * 
@@ -4945,6 +4872,60 @@ export interface SensorBearingRightRetainerInterface {
  * @interface SensorEngineInterface
  */
 export interface SensorEngineInterface {
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_1_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
@@ -4962,49 +4943,19 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_1_2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_OverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
     ai_ENGINE?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    idx?: number;
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_OverallRMS?: number;
     /**
      * 
      * @type {string}
@@ -5016,31 +4967,7 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    user_ENGINE?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    user_ENGINE_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    ai_ENGINE_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    ai_ENGINE_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    ai_ENGINE_DATE?: string;
+    idx?: number;
     /**
      * 
      * @type {string}
@@ -5056,94 +4983,16 @@ export interface SensorEngineInterface {
 export interface SensorGearboxInterface {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorGearboxInterface
      */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_GMF2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_GMF1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_OverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Pinion1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Pinion2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Wheel1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Wheel2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    idx?: number;
+    ai_GEAR_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_MODEL?: string;
+    user_GEAR_DATE?: string;
     /**
      * 
      * @type {string}
@@ -5161,7 +5010,7 @@ export interface SensorGearboxInterface {
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    ai_GEAR_DATE?: string;
+    ai_GEAR_MODEL?: string;
     /**
      * 
      * @type {number}
@@ -5170,101 +5019,88 @@ export interface SensorGearboxInterface {
     user_GEAR?: number;
     /**
      * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_OverallRMS?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_GMF1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_GMF2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    user_GEAR_DATE?: string;
-}
-/**
- * 
- * @export
- * @interface SensorTempLife
- */
-export interface SensorTempLife {
+    date?: string;
     /**
      * 
      * @type {number}
-     * @memberof SensorTempLife
+     * @memberof SensorGearboxInterface
      */
     idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorTempLife
-     */
-    aiAlgorithm?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorTempLife
-     */
-    aiModel?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    cpuUtil?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    diskAccesses?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    diskBlocks?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    diskUtil?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    instRetired?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    lastLevel?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    memoryBus?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    coreCycle?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorTempLife
-     */
-    time?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorTempLife
-     */
-    filenm?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorTempLife
-     */
-    aiPredict?: number;
 }
 /**
  * 
@@ -5272,84 +5108,6 @@ export interface SensorTempLife {
  * @interface SensorWheelLeftInterface
  */
 export interface SensorWheelLeftInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    l_W_V_3X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    l_W_S_Fault3?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    ai_LW?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    l_W_V_2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    ai_LW_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    ai_LW_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    user_LW_ID?: string;
     /**
      * 
      * @type {number}
@@ -5367,7 +5125,85 @@ export interface SensorWheelLeftInterface {
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
+    user_LW_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
     user_LW_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_3X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_S_Fault3?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    idx?: number;
 }
 /**
  * 
@@ -5377,16 +5213,52 @@ export interface SensorWheelLeftInterface {
 export interface SensorWheelRightInterface {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorWheelRightInterface
      */
-    w_RPM?: number;
+    user_RW_DATE?: string;
     /**
      * 
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    r_W_V_3X?: number;
+    user_RW?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    w_RPM?: number;
     /**
      * 
      * @type {number}
@@ -5399,12 +5271,6 @@ export interface SensorWheelRightInterface {
      * @memberof SensorWheelRightInterface
      */
     ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5428,7 +5294,7 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    idx?: number;
+    r_W_V_3X?: number;
     /**
      * 
      * @type {string}
@@ -5440,37 +5306,7 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    user_RW?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    user_RW_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    user_RW_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    ai_RW_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    ai_RW_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    ai_RW_ALGO?: string;
+    idx?: number;
 }
 /**
  * 
@@ -5611,13 +5447,13 @@ export interface Sort {
      * @type {boolean}
      * @memberof Sort
      */
-    sorted?: boolean;
+    unsorted?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof Sort
      */
-    unsorted?: boolean;
+    sorted?: boolean;
     /**
      * 
      * @type {boolean}
@@ -10107,6 +9943,39 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getTrainingBearingLifeData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-bearing-life-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getTrainingEngineData: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/data/database/get-all-labeled-engine-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -10140,8 +10009,74 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getTrainingEngineLifeData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-engine-life-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getTrainingGearboxData: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/data/database/get-all-labeled-gearbox-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingGearboxLifeData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-gearbox-life-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10210,6 +10145,39 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingWheelLifeData: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/database/get-all-labeled-wheel-life-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} partType 
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
@@ -10221,6 +10189,61 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // verify required parameter 'partType' is not null or undefined
             assertParamExists('getUnlabeledBearingData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-unlabeled-bearing-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledBearingLifeData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledBearingLifeData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-bearing-life-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10327,6 +10350,61 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getUnlabeledEngineLifeData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledEngineLifeData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-engine-life-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getUnlabeledGearboxData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'partType' is not null or undefined
             assertParamExists('getUnlabeledGearboxData', 'partType', partType)
@@ -10382,10 +10460,10 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTempLifeData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getUnlabeledGearboxLifeData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'partType' is not null or undefined
-            assertParamExists('getUnlabeledTempLifeData', 'partType', partType)
-            const localVarPath = `/api/data/database/get-all-unlabeled-templife-data`;
+            assertParamExists('getUnlabeledGearboxLifeData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-gearbox-life-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10441,6 +10519,61 @@ export const DatasetDatabaseControllerApiAxiosParamCreator = function (configura
             // verify required parameter 'partType' is not null or undefined
             assertParamExists('getUnlabeledWheelData', 'partType', partType)
             const localVarPath = `/api/data/database/get-all-unlabeled-wheel-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledWheelLifeData: async (partType: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('getUnlabeledWheelLifeData', 'partType', partType)
+            const localVarPath = `/api/data/database/get-all-unlabeled-wheel-life-data`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10595,8 +10728,26 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async getTrainingBearingLifeData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingBearingLifeData(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async getTrainingEngineData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingEngineData(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTrainingEngineLifeData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingEngineLifeData(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10610,12 +10761,30 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTrainingGearboxLifeData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingGearboxLifeData(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         async getTrainingWheelData(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingWheelData(partType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTrainingWheelLifeData(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTrainingWheelLifeData(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10640,8 +10809,34 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async getUnlabeledBearingLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledBearingLifeData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledEngineData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledEngineLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledEngineLifeData(partType, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10666,8 +10861,8 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorTempLife>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledTempLifeData(partType, page, size, sort, options);
+        async getUnlabeledGearboxLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledGearboxLifeData(partType, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10681,6 +10876,19 @@ export const DatasetDatabaseControllerApiFp = function(configuration?: Configura
          */
         async getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledWheelData(partType, page, size, sort, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUnlabeledWheelLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnlabeledWheelLifeData(partType, page, size, sort, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -10728,8 +10936,24 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getTrainingBearingLifeData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingBearingLifeData(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getTrainingEngineData(options?: any): AxiosPromise<Array<object>> {
             return localVarFp.getTrainingEngineData(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingEngineLifeData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingEngineLifeData(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10741,12 +10965,28 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingGearboxLifeData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingGearboxLifeData(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} partType 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getTrainingWheelData(partType: string, options?: any): AxiosPromise<Array<object>> {
             return localVarFp.getTrainingWheelData(partType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTrainingWheelLifeData(options?: any): AxiosPromise<Array<object>> {
+            return localVarFp.getTrainingWheelLifeData(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10769,8 +11009,32 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        getUnlabeledBearingLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledBearingLifeData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
             return localVarFp.getUnlabeledEngineData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledEngineLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledEngineLifeData(partType, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10793,8 +11057,8 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorTempLife> {
-            return localVarFp.getUnlabeledTempLifeData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        getUnlabeledGearboxLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledGearboxLifeData(partType, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10807,6 +11071,18 @@ export const DatasetDatabaseControllerApiFactory = function (configuration?: Con
          */
         getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
             return localVarFp.getUnlabeledWheelData(partType, page, size, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} partType 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnlabeledWheelLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageObject> {
+            return localVarFp.getUnlabeledWheelLifeData(partType, page, size, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10854,8 +11130,28 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
+    public getTrainingBearingLifeData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingBearingLifeData(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
     public getTrainingEngineData(options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).getTrainingEngineData(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getTrainingEngineLifeData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingEngineLifeData(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10870,6 +11166,16 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getTrainingGearboxLifeData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingGearboxLifeData(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {string} partType 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -10877,6 +11183,16 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
      */
     public getTrainingWheelData(partType: string, options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).getTrainingWheelData(partType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getTrainingWheelLifeData(options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getTrainingWheelLifeData(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10903,8 +11219,36 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
+    public getUnlabeledBearingLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledBearingLifeData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
     public getUnlabeledEngineData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledEngineData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledEngineLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledEngineLifeData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10931,8 +11275,8 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DatasetDatabaseControllerApi
      */
-    public getUnlabeledTempLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledTempLifeData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getUnlabeledGearboxLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledGearboxLifeData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10947,6 +11291,20 @@ export class DatasetDatabaseControllerApi extends BaseAPI {
      */
     public getUnlabeledWheelData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
         return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledWheelData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} partType 
+     * @param {number} [page] Zero-based page index (0..N)
+     * @param {number} [size] The size of the page to be returned
+     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DatasetDatabaseControllerApi
+     */
+    public getUnlabeledWheelLifeData(partType: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
+        return DatasetDatabaseControllerApiFp(this.configuration).getUnlabeledWheelLifeData(partType, page, size, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
