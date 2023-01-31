@@ -61,5 +61,18 @@
 		and g.DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
 		order by g.DATE
 	</select>
-	
+
+	<select id="countGrblife" resultType="Integer">
+		select ifnull(count(idx),0)
+		from GRBLIFE
+	</select>
+
+	<select id="findGrblife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
+			resultType="kr.gaion.armoredVehicle.web.analysis.model.Grblife">
+		select *
+		from GRBLIFE
+		where 1 = 1
+		order by idx
+		limit #{page}, #{size}
+	</select>
 </mapper>

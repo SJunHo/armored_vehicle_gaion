@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos;
 import kr.gaion.armoredVehicle.web.analysis.model.Grbdata;
+import kr.gaion.armoredVehicle.web.analysis.model.Grblife;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest;
@@ -20,6 +21,7 @@ public interface GrbdataMapper {
 	public List<Grbdata> findGrbdata(troubleDataRequest data);
 	
 	public List<Grbdata> findGrbdataForExcel(ExcelDownByMonitorDiagnos info);
-	
 
+	public int countGrblife();
+	public List<Grblife> findGrblife(troubleDataRequest data);
 }

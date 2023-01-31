@@ -100,4 +100,17 @@
 		limit #{page}, #{size}
 	</select>
 
+	<select id="countBerlife" resultType="Integer">
+		select ifnull(count(idx),0)
+		from BERLIFE
+	</select>
+
+	<select id="findBerlife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
+			resultType="kr.gaion.armoredVehicle.web.analysis.model.Berlife">
+		select *
+		from BERLIFE
+		where 1 = 1
+		order by idx
+		limit #{page}, #{size}
+	</select>
 </mapper>

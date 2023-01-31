@@ -51,6 +51,18 @@
 		and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
 		order by DATE
 	</select>
-	
-	
+
+	<select id="countEnglife" resultType="Integer">
+		select ifnull(count(idx),0)
+		from ENGLIFE
+	</select>
+
+	<select id="findEnglife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
+			resultType="kr.gaion.armoredVehicle.web.analysis.model.Englife">
+		select *
+		from ENGLIFE
+		where 1 = 1
+		order by idx
+		limit #{page}, #{size}
+	</select>
 </mapper>
