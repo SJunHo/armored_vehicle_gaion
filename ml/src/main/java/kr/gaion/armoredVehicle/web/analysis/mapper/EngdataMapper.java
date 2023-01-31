@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.gaion.armoredVehicle.web.analysis.model.Engdata;
+import kr.gaion.armoredVehicle.web.analysis.model.Englife;
 import kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos;
 import kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,7 @@ public interface EngdataMapper {
 	public List<Engdata> findEngdata(troubleDataRequest data);
 	
 	public List<Engdata> findEngdataForExcel(ExcelDownByMonitorDiagnos info);
+
+	public int countEnglife();
+	public List<Englife> findEnglife(troubleDataRequest data);
 }

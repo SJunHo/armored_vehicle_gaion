@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos;
 import kr.gaion.armoredVehicle.web.analysis.model.Whldata;
+import kr.gaion.armoredVehicle.web.analysis.model.Whllife;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest;
@@ -21,4 +22,6 @@ public interface WhldataMapper {
 	
 	public List<Whldata> findWhldataForExcel(ExcelDownByMonitorDiagnos info);
 
+	public int countWhllife();
+	public List<Whllife> findWhllife(troubleDataRequest data);
 }

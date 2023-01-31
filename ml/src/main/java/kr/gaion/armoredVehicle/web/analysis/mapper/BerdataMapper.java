@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.gaion.armoredVehicle.web.analysis.model.Berdata;
+import kr.gaion.armoredVehicle.web.analysis.model.Berlife;
 import kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos;
 import org.apache.ibatis.annotations.Mapper;
 import kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest;
@@ -21,5 +22,7 @@ public interface BerdataMapper {
 	public List<Berdata> findBerdataForExcel(ExcelDownByMonitorDiagnos info);
 	public int countSimulationByTable(troubleDataRequest data);
 	public List<Berdata> findSimulation(troubleDataRequest data);
-	
+
+	public int countBerlife();
+	public List<Berlife> findBerlife(troubleDataRequest data);
 }
