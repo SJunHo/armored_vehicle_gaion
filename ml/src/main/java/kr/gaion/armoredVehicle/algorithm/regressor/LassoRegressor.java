@@ -114,7 +114,7 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
 
     @Override
     public RegressionResponse train(BaseAlgorithmTrainInput config) throws Exception {
-        System.out.println("============================ START Lasso Regression ============================");
+        System.out.println("============================ Start training to lasso regression model ============================");
 
         // get settings
         int maxIterations = config.getMaxIter();
@@ -138,7 +138,7 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
         LinearRegressionModel lrModel = lr.fit(train);
 
         var modelFullPathName = this.saveModel(config, lrModel);
-        System.out.println(">>> Finish ro save model in " + modelFullPathName);
+        System.out.println(">>> Finish to save model in " + modelFullPathName);
 
         // return response
         var response = new LinearRegressionTrainResponse(ResponseType.OBJECT_DATA);
@@ -173,13 +173,14 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
 
         this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
 
-        System.out.println(">>> DONE to Lasso Regression.");
+        System.out.println(">>> Complete lasso regression training.");
+
         return response;
     }
 
     @Override
     public RegressionResponse predict(BaseAlgorithmPredictInput input) throws Exception {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("============================ Start predict using lasso regression model ============================");
 
         // 0. Get settings
         var dataInputOption = input.getDataInputOption();
@@ -187,8 +188,6 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
 
         // 1. get data
         Dataset<Row> data = this.getUnlabeledData(input);
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ UnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@");
-        data.show();
 
         // 2. load model
         var model = LinearRegressionModel.load(this.getModelFullPath(modelName));
@@ -208,17 +207,15 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
 
         var lineData = doPredictRegressionData(data, model, input.getListFieldsForPredict());
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ PredictionInfo @@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println(lineData.collect());
-
         response.setPredictionInfo(lineData.collect());
         response.setListFeatures(listCols);
 
         response.setPredictedFeatureLine(response.getPredictionInfo());
         response.setClassCol(input.getClassCol());
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Lasso regression model predict to unlabeled data successfully. @@@@@@@@@@@@@@@@@@@@@@@@@");
         response.setStatus(ResponseStatus.SUCCESS);
+
+        System.out.println(">>> Complete lasso regression Predicting.");
 
         return response;
     }

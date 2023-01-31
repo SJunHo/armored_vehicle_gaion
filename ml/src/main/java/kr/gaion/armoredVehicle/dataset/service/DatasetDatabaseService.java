@@ -186,7 +186,7 @@ public class DatasetDatabaseService {
 
     // get labeled data (for training)
     public List<?> getTrainingBearingData(String partType) throws IOException {
-        System.out.println("get Training Bearing Data --> " + "partType : " + partType);
+        System.out.println(">>> get Training Bearing Data --> " + "partType : " + partType);
         switch (partType) {
             case "BLB":
                 // Bearing Left Ball
@@ -217,7 +217,7 @@ public class DatasetDatabaseService {
     }
 
     public List<?> getTrainingWheelData(String partType) throws IOException {
-        System.out.println("get Training Wheel Data --> " + "partType : " + partType);
+        System.out.println(">>> get Training Wheel Data --> " + "partType : " + partType);
         switch (partType) {
             case "WL":
                 // Wheel Left
@@ -230,39 +230,39 @@ public class DatasetDatabaseService {
     }
 
     public List<?> getTrainingGearboxData() throws IOException {
-        System.out.println("get Training Gearbox Data");
+        System.out.println(">>> get Training Gearbox Data");
         return trainingGearboxRepository.findGearbox();
     }
 
     public List<?> getTrainingEngineData() throws IOException {
-        System.out.println("get Training Engine Data");
+        System.out.println(">>> get Training Engine Data");
         return trainingEngineRepository.findEngine();
     }
 
     // get labeled remaining life data (for training)
     public List<TrainingBearingLife> getTrainingBearingLifeData() throws IOException {
-        System.out.println("get Training Bearing Life Data");
+        System.out.println(">>> get Training Bearing Life Data");
         return trainingBearingLifeRepository.findAll();
     }
 
     public List<TrainingWheelLife> getTrainingWheelLifeData() throws IOException {
-        System.out.println("get Training Wheel Life Data");
+        System.out.println(">>> get Training Wheel Life Data");
         return trainingWheelLifeRepository.findAll();
     }
 
     public List<TrainingGearboxLife> getTrainingGearboxLifeData() throws IOException {
-        System.out.println("get Training Gearbox Life Data");
+        System.out.println(">>> get Training Gearbox Life Data");
         return trainingGearboxLifeRepository.findAll();
     }
 
     public List<TrainingEngineLife> getTrainingEngineLifeData() throws IOException {
-        System.out.println("get Training Engine Life Data");
+        System.out.println(">>> get Training Engine Life Data");
         return trainingEngineLifeRepository.findAll();
     }
 
     // get unlabeled data (for predict)
     public Page<?> getUnlabeledBearingData(String partType, @Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Bearing Data --> " + "partType : " + partType);
+        System.out.println(">>> get Unlabeled Bearing Data --> " + "partType : " + partType);
         switch (partType) {
             case "BLB":
                 // Bearing Left Ball
@@ -293,7 +293,7 @@ public class DatasetDatabaseService {
     }
 
     public Page<?> getUnlabeledWheelData(String partType, @Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Wheel Data --> " + "partType : " + partType);
+        System.out.println(">>> get Unlabeled Wheel Data --> " + "partType : " + partType);
         switch (partType) {
             case "WL":
                 // Wheel Left
@@ -306,34 +306,34 @@ public class DatasetDatabaseService {
     }
 
     public Page<?> getUnlabeledGearboxData(@Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Gearbox Data");
+        System.out.println(">>> get Unlabeled Gearbox Data");
         return sensorGearboxRepository.findSensorGearboxAiGEARIsNull(pageable);
     }
 
     public Page<?> getUnlabeledEngineData(@Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Engine Data");
+        System.out.println(">>> get Unlabeled Engine Data");
         return sensorEngineRepository.findSensorEngineAiENGINEIsNull(pageable);
     }
 
     // get unlabeled remaining life data (for training)
     public Page<?> getUnlabeledBearingLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Bearing Life Data");
-        return sensorBearingLifeRepository.findByAiTripIsNull(pageable);
+        System.out.println(">>> get Unlabeled Bearing Life Data");
+        return sensorBearingLifeRepository.findSensorBearingLifeAiTripIIsNull(pageable);
     }
 
     public Page<?> getUnlabeledWheelLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Wheel Life Data");
-        return sensorWheelLifeRepository.findByAiTripIsNull(pageable);
+        System.out.println(">>> get Unlabeled Wheel Life Data");
+        return sensorWheelLifeRepository.findSensorWheelLifeAiTripIIsNull(pageable);
     }
 
     public Page<?> getUnlabeledGearboxLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Gearbox Life Data");
-        return sensorGearboxLifeRepository.findByAiTripIsNull(pageable);
+        System.out.println(">>> get Unlabeled Gearbox Life Data");
+        return sensorGearboxLifeRepository.findSensorGearboxLifeAiTripIIsNull(pageable);
     }
 
     public Page<?> getUnlabeledEngineLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
-        System.out.println("get Unlabeled Engine Life Data");
-        return sensorEngineLifeRepository.findByAiTripIsNull(pageable);
+        System.out.println(">>> get Unlabeled Engine Life Data");
+        return sensorEngineLifeRepository.findSensorEngineLifeAiTripIIsNull(pageable);
     }
 
     public String updatePredictData(List<DbDataUpdateInput> inputs) {

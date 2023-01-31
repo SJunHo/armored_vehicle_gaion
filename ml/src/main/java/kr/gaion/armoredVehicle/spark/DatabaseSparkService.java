@@ -282,7 +282,7 @@ public class DatabaseSparkService {
                 break;
         }
         try {
-            System.out.println("Get Training Data -> " + " partType : " + partType + " / " + "fileName : " + fileName);
+            System.out.println(">>> Get Training Data -> " + " partType : " + partType + " / " + "fileName : " + fileName);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
                     .option("url", "jdbc:mysql://" + storageConfig.getDbHost() + ":" + storageConfig.getDbPort() + "/" + storageConfig.getDbDatabase())
@@ -318,7 +318,7 @@ public class DatabaseSparkService {
 
     //import Db unlabeled data for predict
     public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput, List<String> docIds) {
-        System.out.println("Selected docIds : " + docIds);
+        System.out.println(">>> Selected docIds : " + docIds);
         String stringDocIds = docIds.toString().replace("[", "").replace("]", "");
         String partType = baseAlgorithmPredictInput.getDataType();
         String query = null;
@@ -472,7 +472,7 @@ public class DatabaseSparkService {
                 query = String.format(" SELECT * FROM `ENGLIFEDATA` WHERE `ENGLIFEDATA`.AI_Trip IS NULL AND `ENGLIFEDATA`.IDX IN (%s) ", stringDocIds);
                 break;
         }
-        System.out.println("Get unlabeled data -> " + " partType : " + partType);
+        System.out.println(">>> Get unlabeled data -> " + " partType : " + partType);
         try {
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
@@ -640,7 +640,7 @@ public class DatabaseSparkService {
                 query = " SELECT * FROM `ENGLIFEDATA` WHERE `ENGLIFEDATA`.AI_Trip IS NULL ";
                 break;
         }
-        System.out.println("Get all unlabeled data -> " + " partType : " + partType);
+        System.out.println(">>> Get all unlabeled data -> " + " partType : " + partType);
         try {
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
