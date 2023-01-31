@@ -481,7 +481,7 @@ export const LinearRegression: React.FC = () => {
       >
         <Form.Control
           type="number"
-          {...register("maxIter", {valueAsNumber: true, value: 1})}
+          {...register("maxIter", {valueAsNumber: true, value: 100})}
           placeholder={"default iteration 100"}
         />
       </InputWrapper>

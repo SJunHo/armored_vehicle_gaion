@@ -219,7 +219,7 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
         return ["W_2X", "W_3X", "W_Fault3"]
       // gearbox remaining life
       case "G_LIFE":
-        return ["G_OverallRMS", "G_Wheel1X", "G_Wheel2X", "G_Pinion1X", "G_Pinion2X", "G_Wheel1X", "G_Wheel2X"]
+        return ["G_OverallRMS", "G_Wheel1X", "G_Wheel2X", "G_Pinion1X", "G_Pinion2X", "G_GMF1X", "G_GMF2X"]
       // engine remaining life
       case "E_LIFE":
         return ["E_OverallRMS", "E_1_2X", "E_1X", "E_CrestFactor"]
