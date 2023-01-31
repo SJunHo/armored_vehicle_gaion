@@ -75,7 +75,7 @@ public class ModelService {
 
     public String insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName, String partType) throws IOException {
         // Write new data
-        System.out.printf("Write new data: Algorithm name: %s, Model name: %s.%n", algorithmName, modelName);
+        System.out.printf(">>> Write new data: Algorithm name: %s, Model name: %s.%n", algorithmName, modelName);
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<>();
         map.put("response", response);
@@ -109,7 +109,6 @@ public class ModelService {
                 dbModelResponse.setModelName(modelName);
                 dbModelResponse.setAlgorithmType(algorithmName);
                 dbModelResponse.setCoefficients(model.getCoefficients());
-//                  dbModelResponse.setResiduals(model.getResiduals());
                 dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
                 dbModelResponse.setR2(model.getR2());
                 dbModelResponse.setListFeatures(model.getListFeatures());
@@ -127,7 +126,7 @@ public class ModelService {
         }
         dbModelResponseRepository.save(dbModelResponse);
 
-        String insertInfo = "DB INSERT DONE.";
+        String insertInfo = ">>> DB INSERT DONE.";
         System.out.println(insertInfo);
 
         return insertInfo;

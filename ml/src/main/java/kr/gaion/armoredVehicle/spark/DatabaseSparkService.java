@@ -4,6 +4,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.DatabaseConfiguration;
+import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.spark.dto.LabeledData;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.NonNull;
@@ -31,6 +32,8 @@ public class DatabaseSparkService {
     protected final Utilities utilities;
     @NonNull
     private final DatabaseConfiguration databaseConfiguration;
+    @NonNull
+    private final StorageConfig storageConfig;
 
     private static Dataset<LabeledData> processData(
             Dataset<Row> jvRddData,
@@ -282,9 +285,9 @@ public class DatabaseSparkService {
             System.out.println("Get Training Data -> " + " partType : " + partType + " / " + "fileName : " + fileName);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("user", "AMVHC_U")
-                    .option("password", "!Tltmxpa0517")
+                    .option("url", "jdbc:mysql://" + storageConfig.getDbHost() + ":" + storageConfig.getDbPort() + "/" + storageConfig.getDbDatabase())
+                    .option("user", storageConfig.getDbUser())
+                    .option("password", storageConfig.getDbPassword())
                     .option("query", query)
                     .load();
             return jdbcDF;
@@ -298,9 +301,6 @@ public class DatabaseSparkService {
         var classCol = input.getClassCol();
 
         var jvRddData = this.getDataRDDFromDb(input.getPartType(), input.getFileName());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Numerical Labeled Data @@@@@@@@@@@@@@@@@@@@@@@@@ ");
-        jvRddData.show();
 
         return processNumericLabeledDataset(jvRddData, classCol, featureCols);
     }
@@ -476,9 +476,9 @@ public class DatabaseSparkService {
         try {
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("user", "AMVHC_U")
-                    .option("password", "!Tltmxpa0517")
+                    .option("url", "jdbc:mysql://" + storageConfig.getDbHost() + ":" + storageConfig.getDbPort() + "/" + storageConfig.getDbDatabase())
+                    .option("user", storageConfig.getDbUser())
+                    .option("password", storageConfig.getDbPassword())
                     .option("query", query)
                     .load();
             return jdbcDF;
@@ -644,9 +644,9 @@ public class DatabaseSparkService {
         try {
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("user", "AMVHC_U")
-                    .option("password", "!Tltmxpa0517")
+                    .option("url", "jdbc:mysql://" + storageConfig.getDbHost() + ":" + storageConfig.getDbPort() + "/" + storageConfig.getDbDatabase())
+                    .option("user", storageConfig.getDbUser())
+                    .option("password", storageConfig.getDbPassword())
                     .option("query", query)
                     .load();
             return jdbcDF;
