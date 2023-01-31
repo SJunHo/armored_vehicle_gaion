@@ -13,7 +13,7 @@ public class SensorEngineLifeInput {
     private int IDX;
 
     // AI Predict
-    private int AI_Trip;
+    private Integer AI_Trip;
 
     private String AI_Trip_ALGO;
 
@@ -22,11 +22,11 @@ public class SensorEngineLifeInput {
     private Date AI_Trip_DATE;
 
     // from Engine
-    private double E_OverallRMS;
+    private Double E_OverallRMS;
 
-    private double E_1_2X;
+    private Double E_1_2X;
 
-    private double E_1X;
+    private Double E_1X;
 
-    private double E_CrestFactor;
+    private Double E_CrestFactor;
 }

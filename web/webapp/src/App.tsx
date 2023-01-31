@@ -8,7 +8,8 @@ import "./i18n";
 import {ModelManagement} from "./ModelManagement/ModelManagement";
 import {AuthorizedRoute} from "./common/AuthorizedRoute";
 import {MeContextProvider} from "./api/MeContext";
-import {DataUpload} from "./DataLookUp/DataUpload";
+import {ClassificationDataUpload} from "./DataLookUp/ClassificationDataUpload";
+import {RegressionDataUpload} from "./DataLookUp/RegressionDataUpload";
 
 
 function App() {
@@ -30,8 +31,12 @@ function Main() {
         <Header/>
         <Switch>
           <AuthorizedRoute
-            path="/data/upload"
-            component={DataUpload}
+            path="/data/classification-upload"
+            component={ClassificationDataUpload}
+          />
+          <AuthorizedRoute
+            path="/data/regression-upload"
+            component={RegressionDataUpload}
           />
           <AuthorizedRoute
             path="/ml/:algorithmName/:tab"

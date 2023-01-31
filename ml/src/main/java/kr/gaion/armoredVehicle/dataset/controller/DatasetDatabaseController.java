@@ -30,9 +30,11 @@ public class DatasetDatabaseController {
                     description = "Files to be uploaded",
                     content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE)  // Won't work without OCTET_STREAM as the mediaType.
             )
-            @RequestParam("files") List<MultipartFile> files,
+            @RequestBody List<MultipartFile> files,
             @PathVariable("partType") String partType
     ) throws IOException {
+        System.out.println("start to import CSV to Database");
+
         String result = datasetDatabaseService.importCSVtoDatabase(files, partType);
 
         System.out.println("import CSV to Database result : " + result);
@@ -168,6 +170,8 @@ public class DatasetDatabaseController {
     }
 
     // get unlabeled remaining life data (for predict)
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-bearing-life-data")
     public Page<?> getUnlabeledBearingLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledBearingLifeData(pageable);
@@ -177,6 +181,8 @@ public class DatasetDatabaseController {
         }
     }
 
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-wheel-life-data")
     public Page<?> getUnlabeledWheelLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledWheelLifeData(pageable);
@@ -186,6 +192,8 @@ public class DatasetDatabaseController {
         }
     }
 
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-gearbox-life-data")
     public Page<?> getUnlabeledGearboxLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledGearboxLifeData(pageable);
@@ -195,6 +203,8 @@ public class DatasetDatabaseController {
         }
     }
 
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-engine-life-data")
     public Page<?> getUnlabeledEngineLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledEngineLifeData(pageable);

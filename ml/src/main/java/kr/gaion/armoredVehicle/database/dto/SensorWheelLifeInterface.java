@@ -6,7 +6,7 @@ public interface SensorWheelLifeInterface {
     int getIDX();
 
     // AI Predict
-    int getAI_Trip();
+    Integer getAI_Trip();
 
     String getAI_Trip_ALGO();
 
@@ -15,9 +15,9 @@ public interface SensorWheelLifeInterface {
     Date getAI_Trip_DATE();
 
     // from Engine
-    double getW_2X();
+    Double getW_2X();
 
-    double getW_3X();
+    Double getW_3X();
 
-    double getW_Fault3();
+    Double getW_Fault3();
 }

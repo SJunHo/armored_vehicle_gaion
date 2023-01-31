@@ -38,137 +38,21 @@ import java.util.List;
 
 @Service
 @Log4j
-public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlgorithmPredictInput>  {
+public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlgorithmPredictInput> {
     public LassoRegressor(ElasticsearchSparkService elasticsearchSparkService, DatabaseSparkService databaseSparkService, Utilities utilities, StorageConfig storageConfig, ModelUtilService modelUtil, FSChiSqSelector chiSqSelector, AlgorithmConfig algorithmConfig, DataConfig dataConfig, SparkSession sparkSession, ModelService modelService) {
         super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "LassoRegression", modelService);
-    }
-
-    @Override
-    public RegressionResponse train(BaseAlgorithmTrainInput config) throws Exception {
-        System.out.println("============================ START Lasso Regression ============================");
-
-        // get settings
-        int maxIterations = config.getMaxIter();
-        double regParam = config.getRegParam();
-
-        Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config);
-        Dataset<Row> rowOriginalData = sparkSession.createDataFrame(originalData.rdd(), NumericLabeledData.class);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ originalData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
-        originalData.show();
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ rowOriginalData @@@@@@@@@@@@@@@@@@@@@@@@@ ");
-        rowOriginalData.show();
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Split the data into train and test @@@@@@@@@@@@@@@@@@@@@@@@@");
-        var splittedData = this.splitTrainTest(rowOriginalData, config.getSeed(), config.getFraction());
-        var train = splittedData[0];
-        var test = splittedData[1];
-
-        // 모델 생성
-        LinearRegression lr = new LinearRegression()
-                .setMaxIter(maxIterations)
-                .setRegParam(regParam)
-                .setElasticNetParam(1.0)    // L1 regularization(Lasso)
-                .setFeaturesCol("features")
-                .setLabelCol("label");
-
-        LinearRegressionModel lrModel = lr.fit(train);
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Saving model ... @@@@@@@@@@@@@@@@@@@@@@@@@");
-        var modelFullPathName = this.saveModel(config, lrModel);
-        lrModel.save(modelFullPathName);
-
-        // return response
-        var response = new LinearRegressionTrainResponse(ResponseType.OBJECT_DATA);
-
-        if (config.getFraction() < 100.0) {
-            var jvRddPredictionInfo = evaluateTest(test, lrModel);
-            response.setPredictionInfo(jvRddPredictionInfo.takeAsList((int) jvRddPredictionInfo.count()));
-        }
-
-        double[] arrCoe = new double[lrModel.coefficients().toArray().length + 1];
-        int index = 0;
-        for(double coe : lrModel.coefficients().toArray()) {
-            arrCoe[index] = coe;
-            index++;
-        }
-
-        arrCoe[arrCoe.length - 1] = lrModel.intercept();
-        response.setCoefficients(arrCoe);
-
-        LinearRegressionTrainingSummary trainingSummary = lrModel.summary();
-
-        // RMSE
-        response.setRootMeanSquaredError(trainingSummary.rootMeanSquaredError());
-
-        // R2
-        response.setR2(trainingSummary.r2());
-
-        response.setListFeatures(config.getFeatureCols().toArray(new String[0]));
-        response.setClassCol(config.getClassCol());
-
-        response.setStatus(ResponseStatus.SUCCESS);
-
-        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
-
-        return response;
-    }
-
-    @Override
-    public RegressionResponse predict(BaseAlgorithmPredictInput input) throws Exception {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Start predicting unlabeled data... @@@@@@@@@@@@@@@@@@@@@@@@@");
-
-        // 0. Get settings
-        var dataInputOption = input.getDataInputOption();
-        String modelName = input.getModelName();
-
-        // 1. get data
-        Dataset<Row> data = this.getUnlabeledData(input);
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ UnlabeledData @@@@@@@@@@@@@@@@@@@@@@@@@");
-        data.show();
-
-        // 2. load model
-        var model = LinearRegressionModel.load(this.getModelFullPath(modelName));
-
-        // 3. predict
-        var response = new RegressionResponse(ResponseType.OBJECT_DATA);
-
-        // get setting
-        String[] listCols = data.columns();
-        List<String> listColNames = Arrays.asList(listCols);
-        List<String> fieldsForPredict = input.getListFieldsForPredict();
-        int[] indices = new int[fieldsForPredict.size()];
-        int index = 0;
-        for(String field : fieldsForPredict) {
-            indices[index++] = listColNames.indexOf(field);
-        }
-
-        var lineData = doPredictRegressionData(data, model, input.getListFieldsForPredict());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ PredictionInfo @@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println(lineData.collect());
-
-        response.setPredictionInfo(lineData.collect());
-        response.setListFeatures(listCols);
-
-        response.setPredictedFeatureLine(response.getPredictionInfo());
-        response.setClassCol(input.getClassCol());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Lasso regression model predict to unlabeled data successfully. @@@@@@@@@@@@@@@@@@@@@@@@@");
-        response.setStatus(ResponseStatus.SUCCESS);
-
-        return response;
     }
 
     private static JavaRDD<String> doPredictRegressionData(Dataset<Row> data, LinearRegressionModel model, List<String> fieldsForPredict) {
         List<String> listColNames = List.of(data.columns());
         int[] indices = new int[fieldsForPredict.size()];
         int index = 0;
-        for(String field : fieldsForPredict) {
+        for (String field : fieldsForPredict) {
             indices[index++] = listColNames.indexOf(field);
         }
         return data.toJavaRDD().map(new Function<>() {
             private static final long serialVersionUID = 7065916945772988691L;
+
             @Override
             public String call(Row rowData) {
                 // create suitable vector
@@ -226,5 +110,113 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
                 return strBlder.toString();
             }
         }, Encoders.STRING());
+    }
+
+    @Override
+    public RegressionResponse train(BaseAlgorithmTrainInput config) throws Exception {
+        System.out.println("============================ Start training to lasso regression model ============================");
+
+        // get settings
+        int maxIterations = config.getMaxIter();
+        double regParam = config.getRegParam();
+
+        Dataset<NumericLabeledData> originalData = this.databaseSparkService.getNumericLabeledDatasetFromDb(config);
+        Dataset<Row> rowOriginalData = sparkSession.createDataFrame(originalData.rdd(), NumericLabeledData.class);
+
+        var splittedData = this.splitTrainTest(rowOriginalData, config.getSeed(), config.getFraction());
+        var train = splittedData[0];
+        var test = splittedData[1];
+
+        // 모델 생성
+        LinearRegression lr = new LinearRegression()
+                .setMaxIter(maxIterations)
+                .setRegParam(regParam)
+                .setElasticNetParam(1.0)    // L1 regularization(Lasso)
+                .setFeaturesCol("features")
+                .setLabelCol("label");
+
+        LinearRegressionModel lrModel = lr.fit(train);
+
+        var modelFullPathName = this.saveModel(config, lrModel);
+        System.out.println(">>> Finish to save model in " + modelFullPathName);
+
+        // return response
+        var response = new LinearRegressionTrainResponse(ResponseType.OBJECT_DATA);
+
+        if (config.getFraction() < 100.0) {
+            var jvRddPredictionInfo = evaluateTest(test, lrModel);
+            response.setPredictionInfo(jvRddPredictionInfo.takeAsList((int) jvRddPredictionInfo.count()));
+        }
+
+        double[] arrCoe = new double[lrModel.coefficients().toArray().length + 1];
+        int index = 0;
+        for (double coe : lrModel.coefficients().toArray()) {
+            arrCoe[index] = coe;
+            index++;
+        }
+
+        arrCoe[arrCoe.length - 1] = lrModel.intercept();
+        response.setCoefficients(arrCoe);
+
+        LinearRegressionTrainingSummary trainingSummary = lrModel.summary();
+
+        // RMSE
+        response.setRootMeanSquaredError(trainingSummary.rootMeanSquaredError());
+
+        // R2
+        response.setR2(trainingSummary.r2());
+
+        response.setListFeatures(config.getFeatureCols().toArray(new String[0]));
+        response.setClassCol(config.getClassCol());
+
+        response.setStatus(ResponseStatus.SUCCESS);
+
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
+
+        System.out.println(">>> Complete lasso regression training.");
+
+        return response;
+    }
+
+    @Override
+    public RegressionResponse predict(BaseAlgorithmPredictInput input) throws Exception {
+        System.out.println("============================ Start predict using lasso regression model ============================");
+
+        // 0. Get settings
+        var dataInputOption = input.getDataInputOption();
+        String modelName = input.getModelName();
+
+        // 1. get data
+        Dataset<Row> data = this.getUnlabeledData(input);
+
+        // 2. load model
+        var model = LinearRegressionModel.load(this.getModelFullPath(modelName));
+
+        // 3. predict
+        var response = new RegressionResponse(ResponseType.OBJECT_DATA);
+
+        // get setting
+        String[] listCols = data.columns();
+        List<String> listColNames = Arrays.asList(listCols);
+        List<String> fieldsForPredict = input.getListFieldsForPredict();
+        int[] indices = new int[fieldsForPredict.size()];
+        int index = 0;
+        for (String field : fieldsForPredict) {
+            indices[index++] = listColNames.indexOf(field);
+        }
+
+        var lineData = doPredictRegressionData(data, model, input.getListFieldsForPredict());
+
+        response.setPredictionInfo(lineData.collect());
+        response.setListFeatures(listCols);
+
+        response.setPredictedFeatureLine(response.getPredictionInfo());
+        response.setClassCol(input.getClassCol());
+
+        response.setStatus(ResponseStatus.SUCCESS);
+
+        System.out.println(">>> Complete lasso regression Predicting.");
+
+        return response;
     }
 }

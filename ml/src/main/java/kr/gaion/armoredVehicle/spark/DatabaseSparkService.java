@@ -4,6 +4,7 @@ import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.DatabaseConfiguration;
+import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.spark.dto.LabeledData;
 import kr.gaion.armoredVehicle.spark.dto.NumericLabeledData;
 import lombok.NonNull;
@@ -31,6 +32,8 @@ public class DatabaseSparkService {
     protected final Utilities utilities;
     @NonNull
     private final DatabaseConfiguration databaseConfiguration;
+    @NonNull
+    private final StorageConfig storageConfig;
 
     private static Dataset<LabeledData> processData(
             Dataset<Row> jvRddData,
@@ -279,12 +282,12 @@ public class DatabaseSparkService {
                 break;
         }
         try {
-            System.out.println("Get Training Data -> " + " partType : " + partType + " / " + "fileName : " + fileName);
+            System.out.println(">>> Get Training Data -> " + " partType : " + partType + " / " + "fileName : " + fileName);
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("user", "AMVHC_U")
-                    .option("password", "!Tltmxpa0517")
+                    .option("url", "jdbc:mysql://" + storageConfig.getDbHost() + ":" + storageConfig.getDbPort() + "/" + storageConfig.getDbDatabase())
+                    .option("user", storageConfig.getDbUser())
+                    .option("password", storageConfig.getDbPassword())
                     .option("query", query)
                     .load();
             return jdbcDF;
@@ -298,9 +301,6 @@ public class DatabaseSparkService {
         var classCol = input.getClassCol();
 
         var jvRddData = this.getDataRDDFromDb(input.getPartType(), input.getFileName());
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ Numerical Labeled Data @@@@@@@@@@@@@@@@@@@@@@@@@ ");
-        jvRddData.show();
 
         return processNumericLabeledDataset(jvRddData, classCol, featureCols);
     }
@@ -318,7 +318,7 @@ public class DatabaseSparkService {
 
     //import Db unlabeled data for predict
     public Dataset<Row> getUnlabeledDataFromDb(BaseAlgorithmPredictInput baseAlgorithmPredictInput, List<String> docIds) {
-        System.out.println("Selected docIds : " + docIds);
+        System.out.println(">>> Selected docIds : " + docIds);
         String stringDocIds = docIds.toString().replace("[", "").replace("]", "");
         String partType = baseAlgorithmPredictInput.getDataType();
         String query = null;
@@ -472,13 +472,13 @@ public class DatabaseSparkService {
                 query = String.format(" SELECT * FROM `ENGLIFEDATA` WHERE `ENGLIFEDATA`.AI_Trip IS NULL AND `ENGLIFEDATA`.IDX IN (%s) ", stringDocIds);
                 break;
         }
-        System.out.println("Get unlabeled data -> " + " partType : " + partType);
+        System.out.println(">>> Get unlabeled data -> " + " partType : " + partType);
         try {
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("user", "AMVHC_U")
-                    .option("password", "!Tltmxpa0517")
+                    .option("url", "jdbc:mysql://" + storageConfig.getDbHost() + ":" + storageConfig.getDbPort() + "/" + storageConfig.getDbDatabase())
+                    .option("user", storageConfig.getDbUser())
+                    .option("password", storageConfig.getDbPassword())
                     .option("query", query)
                     .load();
             return jdbcDF;
@@ -640,13 +640,13 @@ public class DatabaseSparkService {
                 query = " SELECT * FROM `ENGLIFEDATA` WHERE `ENGLIFEDATA`.AI_Trip IS NULL ";
                 break;
         }
-        System.out.println("Get all unlabeled data -> " + " partType : " + partType);
+        System.out.println(">>> Get all unlabeled data -> " + " partType : " + partType);
         try {
             Dataset<Row> jdbcDF = spark.read()
                     .format("jdbc")
-                    .option("url", "jdbc:mysql://192.168.0.52:3306/AMVHC")
-                    .option("user", "AMVHC_U")
-                    .option("password", "!Tltmxpa0517")
+                    .option("url", "jdbc:mysql://" + storageConfig.getDbHost() + ":" + storageConfig.getDbPort() + "/" + storageConfig.getDbDatabase())
+                    .option("user", storageConfig.getDbUser())
+                    .option("password", storageConfig.getDbPassword())
                     .option("query", query)
                     .load();
             return jdbcDF;

@@ -65,6 +65,25 @@ const partTypes = [
   }
 ]
 
+const lifePartTypes = [
+  {
+    value: "B_LIFE",
+    label: "[잔존수명] 베어링",
+  },
+  {
+    value: "W_LIFE",
+    label: "[잔존수명] 휠",
+  },
+  {
+    value: "G_LIFE",
+    label: "[잔존수명] 감속기(기어박스)",
+  },
+  {
+    value: "E_LIFE",
+    label: "[잔존수명] 엔진",
+  }
+]
+
 export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
 
   const [indices, setIndices] = React.useState<string[]>([]);
@@ -143,6 +162,12 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
       // engine
       case "E" :
         return "AI_ENGINE"
+      // part of remaining life
+      case "B_LIFE" :
+      case "W_LIFE" :
+      case "G_LIFE" :
+      case "E_LIFE" :
+        return "Trip"
     }
   }
 
@@ -184,6 +209,20 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
       // engine
       case "E" :
         return ["W_RPM", "E_V_OverallRMS", "E_V_1_2X", "E_V_1X", "E_V_Crestfactor", "AC_h", "AC_v", "AC_a"]
+      // bearing remaining life
+      case "B_LIFE":
+        return ["B_OverallRMS", "B_1X", "B_6912BPFO", "B_6912BPFI", "B_6912BSF", "B_6912FTF",
+          "B_32924BPFO", "B_32924BPFI", "B_32924BSF", "B_32924FTF", "B_32922BPFO", "B_32922BPFI", "B_32922BSF", "B_32922FTF",
+          "B_CrestFactor", "B_Demodulation", "B_Fault1", "B_Fault2", "B_Temperature"]
+      // wheel remaining life
+      case "W_LIFE":
+        return ["W_2X", "W_3X", "W_Fault3"]
+      // gearbox remaining life
+      case "G_LIFE":
+        return ["G_OverallRMS", "G_Wheel1X", "G_Wheel2X", "G_Pinion1X", "G_Pinion2X", "G_GMF1X", "G_GMF2X"]
+      // engine remaining life
+      case "E_LIFE":
+        return ["E_OverallRMS", "E_1_2X", "E_1X", "E_CrestFactor"]
     }
   }
 
@@ -212,10 +251,17 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
                   setValue("classCol", findClassLabel(v?.value))
                   setSelectedPart(v?.value)
                 }}
-                options={partTypes.map((d) => ({
-                  value: d.value,
-                  label: d.label,
-                }))}
+                options={algorithmName === "linear" || algorithmName === "lasso" ? (
+                  lifePartTypes.map((d) => ({
+                    value: d.value,
+                    label: d.label,
+                  }))
+                ) : (
+                  partTypes.map((d) => ({
+                    value: d.value,
+                    label: d.label,
+                  }))
+                )}
               />
             )}
           />

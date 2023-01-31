@@ -6,7 +6,7 @@ public interface SensorEngineLifeInterface {
     int getIDX();
 
     // AI Predict
-    int getAI_Trip();
+    Integer getAI_Trip();
 
     String getAI_Trip_ALGO();
 
@@ -15,11 +15,11 @@ public interface SensorEngineLifeInterface {
     Date getAI_Trip_DATE();
 
     // from Engine
-    double getE_OverallRMS();
+    Double getE_OverallRMS();
 
-    double getE_1_2X();
+    Double getE_1_2X();
 
-    double getE_1X();
+    Double getE_1X();
 
-    double getE_CrestFactor();
+    Double getE_CrestFactor();
 }

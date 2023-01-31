@@ -13,7 +13,7 @@ public class SensorBearingLifeInput {
     private int IDX;
 
     // AI Predict
-    private int AI_Trip;
+    private Integer AI_Trip;
 
     private String AI_Trip_ALGO;
 
@@ -22,41 +22,41 @@ public class SensorBearingLifeInput {
     private Date AI_Trip_DATE;
 
     // from Bearing
-    private double B_OverallRMS;
+    private Double B_OverallRMS;
 
-    private double B_1X;
+    private Double B_1X;
 
-    private double B_6912BPFO;
+    private Double B_6912BPFO;
 
-    private double B_6912BPFI;
+    private Double B_6912BPFI;
 
-    private double B_6912BSF;
+    private Double B_6912BSF;
 
-    private double B_6912FTF;
+    private Double B_6912FTF;
 
-    private double B_32924BPFO;
+    private Double B_32924BPFO;
 
-    private double B_32924BPFI;
+    private Double B_32924BPFI;
 
-    private double B_32924BSF;
+    private Double B_32924BSF;
 
-    private double B_32924FTF;
+    private Double B_32924FTF;
 
-    private double B_32922BPFO;
+    private Double B_32922BPFO;
 
-    private double B_32922BPFI;
+    private Double B_32922BPFI;
 
-    private double B_32922BSF;
+    private Double B_32922BSF;
 
-    private double B_32922FTF;
+    private Double B_32922FTF;
 
-    private double B_CrestFactor;
+    private Double B_CrestFactor;
 
-    private double B_Demodulation;
+    private Double B_Demodulation;
 
-    private double B_Fault1;
+    private Double B_Fault1;
 
-    private double B_Fault2;
+    private Double B_Fault2;
 
-    private double B_Temperature;
+    private Double B_Temperature;
 }
