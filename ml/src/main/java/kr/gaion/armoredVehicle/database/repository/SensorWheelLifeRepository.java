@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SensorWheelLifeRepository extends JpaRepository<SensorWheelLife, Long> {
-    Page<SensorWheelLifeInterface> findAiTripIsNull(Pageable pageable);
+    Page<SensorWheelLifeInterface> findByAiTripIsNull(Pageable pageable);
 }

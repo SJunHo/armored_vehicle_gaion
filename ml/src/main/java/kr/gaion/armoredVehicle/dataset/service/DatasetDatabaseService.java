@@ -318,22 +318,22 @@ public class DatasetDatabaseService {
     // get unlabeled remaining life data (for training)
     public Page<?> getUnlabeledBearingLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println("get Unlabeled Bearing Life Data");
-        return sensorBearingLifeRepository.findAiTripIsNull(pageable);
+        return sensorBearingLifeRepository.findByAiTripIsNull(pageable);
     }
 
     public Page<?> getUnlabeledWheelLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println("get Unlabeled Wheel Life Data");
-        return sensorWheelLifeRepository.findAiTripIsNull(pageable);
+        return sensorWheelLifeRepository.findByAiTripIsNull(pageable);
     }
 
     public Page<?> getUnlabeledGearboxLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println("get Unlabeled Gearbox Life Data");
-        return sensorGearboxLifeRepository.findAiTripIsNull(pageable);
+        return sensorGearboxLifeRepository.findByAiTripIsNull(pageable);
     }
 
     public Page<?> getUnlabeledEngineLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println("get Unlabeled Engine Life Data");
-        return sensorEngineLifeRepository.findAiTripIsNull(pageable);
+        return sensorEngineLifeRepository.findByAiTripIsNull(pageable);
     }
 
     public String updatePredictData(List<DbDataUpdateInput> inputs) {

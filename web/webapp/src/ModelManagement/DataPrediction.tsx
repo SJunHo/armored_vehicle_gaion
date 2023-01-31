@@ -7,11 +7,10 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import {useTranslation} from "react-i18next";
 import {Column, Row as TableRow} from "react-table";
-import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext, Pageable, SensorTempLife} from "../api";
+import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext, Pageable} from "../api";
 import {ALGORITHM_INFO} from "../common/Common";
 import {Section} from "../common/Section/Section";
 import {Table} from "../common/Table";
-import {Paginator} from "../common/Paginator";
 
 export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmName}) => {
   const [predicting, setPredicting] = useState(false);
@@ -131,63 +130,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       },
     ],
     [t]
-  );
-
-  const SensorTempLifeDataColumns = useMemo<Column<SensorTempLife>[]>(
-    () => [
-      {
-        Header: "예측 결과",
-        accessor: "aiPredict",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "aiAlgorithm",
-      },
-      {
-        Header: "모델이름",
-        accessor: "aiModel",
-      },
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "날짜",
-        accessor: "time",
-      },
-      {
-        Header: "Cpu Util",
-        accessor: "cpuUtil",
-      },
-      {
-        Header: "Disk Accesses",
-        accessor: "diskAccesses",
-      },
-      {
-        Header: "Disk Blocks",
-        accessor: "diskBlocks",
-      }, {
-        Header: "Disk Util",
-        accessor: "diskUtil",
-      },
-      {
-        Header: "INST RETIRED",
-        accessor: "instRetired",
-      },
-      {
-        Header: "Last Level",
-        accessor: "lastLevel",
-      },
-      {
-        Header: "Memory Bus",
-        accessor: "memoryBus",
-      },
-      {
-        Header: "Core Cycle",
-        accessor: "coreCycle",
-      },
-    ],
-    []
   );
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
@@ -1102,7 +1044,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   //     });
   // }, [mlControllerApi, algorithmName]);
 
-  function handleSearchModel(){
+  function handleSearchModel() {
     setSearchingModels(true);
     mlControllerApi
       ?.getModels(ALGORITHM_INFO[algorithmName].className)
@@ -1112,7 +1054,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       .finally(() => setSearchingModels(false));
   }
 
-  function handleSearchConditionData(wb:any, paginate?:Pageable) {
+  function handleSearchConditionData(wb: any, paginate?: Pageable) {
     handleSearchTablesColumns(wb)
     handleSettingClassColByPart(wb)
     setSearchingData(true);
@@ -1140,16 +1082,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (wb === "T") {
-      datasetDatabaseControllerApi?.getUnlabeledTempLifeData(wb, 0, 10000)
-        .then((res) => {
-          setConditionData(res.data.content || [])
-        })
-        .finally(() => setSearchingData(false));
     }
   }
 
-  function handleSearchTablesColumns(wb:any) {
+  function handleSearchTablesColumns(wb: any) {
     switch (wb) {
       case "BLB":
         // Bearing Left Ball
@@ -1199,14 +1135,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         // Engine
         setTableColumns(SensorEngineColumns);
         break
-      case "T":
-        // Engine
-        setTableColumns(SensorTempLifeDataColumns);
-        break
     }
   }
 
-  function handleSettingClassColByPart(wb:any) {
+  function handleSettingClassColByPart(wb: any) {
     switch (wb) {
       case "BLB":
         // Bearing Left Ball
@@ -1433,7 +1365,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <Col xs={1} className="Col ps-0" style={{marginLeft: "50px"}}>
             <Button
               className="button btn-block font-monospace fw-bold"
-              onClick={() => {handleSearchModel()}}
+              onClick={() => {
+                handleSearchModel()
+              }}
               size="sm"
             >
               모델 조회

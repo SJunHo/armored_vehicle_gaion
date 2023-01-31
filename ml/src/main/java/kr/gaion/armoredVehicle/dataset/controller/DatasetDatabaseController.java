@@ -168,6 +168,8 @@ public class DatasetDatabaseController {
     }
 
     // get unlabeled remaining life data (for predict)
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-bearing-life-data")
     public Page<?> getUnlabeledBearingLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledBearingLifeData(pageable);
@@ -177,6 +179,8 @@ public class DatasetDatabaseController {
         }
     }
 
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-wheel-life-data")
     public Page<?> getUnlabeledWheelLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledWheelLifeData(pageable);
@@ -186,6 +190,8 @@ public class DatasetDatabaseController {
         }
     }
 
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-gearbox-life-data")
     public Page<?> getUnlabeledGearboxLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledGearboxLifeData(pageable);
@@ -195,6 +201,8 @@ public class DatasetDatabaseController {
         }
     }
 
+    @PageableAsQueryParam
+    @GetMapping(path = "/api/data/database/get-all-unlabeled-engine-life-data")
     public Page<?> getUnlabeledEngineLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
         try {
             return this.datasetDatabaseService.getUnlabeledEngineLifeData(pageable);
