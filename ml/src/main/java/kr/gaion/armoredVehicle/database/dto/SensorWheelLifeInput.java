@@ -13,7 +13,7 @@ public class SensorWheelLifeInput {
     private int IDX;
 
     // AI Predict
-    private int AI_Trip;
+    private Integer AI_Trip;
 
     private String AI_Trip_ALGO;
 
@@ -22,9 +22,9 @@ public class SensorWheelLifeInput {
     private Date AI_Trip_DATE;
 
     // from Engine
-    private double W_2X;
+    private Double W_2X;
 
-    private double W_3X;
+    private Double W_3X;
 
-    private double W_Fault3;
+    private Double W_Fault3;
 }

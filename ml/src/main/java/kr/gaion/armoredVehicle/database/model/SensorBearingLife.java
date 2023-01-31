@@ -16,10 +16,10 @@ public class SensorBearingLife {
     @Id
     @GeneratedValue
     @Column(name = "IDX")
-    private Long idx;
+    private long idx;
 
     @Column(name = "AI_Trip")
-    private int aiTrip;
+    private Integer aiTrip;
 
     @Column(name = "AI_Trip_ALGO")
     private String aiTripAlgo;

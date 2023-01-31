@@ -6,7 +6,7 @@ public interface SensorGearboxLifeInterface {
     int getIDX();
 
     // AI Predict
-    int getAI_Trip();
+    Integer getAI_Trip();
 
     String getAI_Trip_ALGO();
 
@@ -15,17 +15,17 @@ public interface SensorGearboxLifeInterface {
     Date getAI_Trip_DATE();
 
     // from Gearbox
-    double getG_OverallRMS();
+    Double getG_OverallRMS();
 
-    double getG_Wheel1X();
+    Double getG_Wheel1X();
 
-    double getG_Wheel2X();
+    Double getG_Wheel2X();
 
-    double getG_Pinion1X();
+    Double getG_Pinion1X();
 
-    double getG_Pinion2X();
+    Double getG_Pinion2X();
 
-    double getG_GMF1X();
+    Double getG_GMF1X();
 
-    double getG_GMF2X();
+    Double getG_GMF2X();
 }

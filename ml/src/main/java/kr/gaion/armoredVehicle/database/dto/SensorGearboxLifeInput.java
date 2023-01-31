@@ -13,7 +13,7 @@ public class SensorGearboxLifeInput {
     private int IDX;
 
     // AI Predict
-    private int AI_Trip;
+    private Integer AI_Trip;
 
     private String AI_Trip_ALGO;
 
@@ -22,17 +22,17 @@ public class SensorGearboxLifeInput {
     private Date AI_Trip_DATE;
 
     // from Gearbox
-    private double G_OverallRMS;
+    private Double G_OverallRMS;
 
-    private double G_Wheel1X;
+    private Double G_Wheel1X;
 
-    private double G_Wheel2X;
+    private Double G_Wheel2X;
 
-    private double G_Pinion1X;
+    private Double G_Pinion1X;
 
-    private double G_Pinion2X;
+    private Double G_Pinion2X;
 
-    private double G_GMF1X;
+    private Double G_GMF1X;
 
-    private double G_GMF2X;
+    private Double G_GMF2X;
 }
