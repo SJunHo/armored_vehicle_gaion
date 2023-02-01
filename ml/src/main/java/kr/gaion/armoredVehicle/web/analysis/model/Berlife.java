@@ -26,7 +26,7 @@ public class Berlife {
 	double B_Fault1;
 	double B_Fault2;
 	double B_Temperature;
-	int Trip;
+	int AI_Trip;
 	String FILENM;
 	
 }

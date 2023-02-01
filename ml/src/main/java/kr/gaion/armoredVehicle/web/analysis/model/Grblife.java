@@ -14,7 +14,7 @@ public class Grblife {
 	double G_Pinion2X;
 	double G_GMF1X;
 	double G_GMF2X;
-	int Trip;
+	int AI_Trip;
 	String FILENM;
 	
 }

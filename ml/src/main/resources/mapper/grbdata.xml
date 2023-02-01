@@ -64,14 +64,16 @@
 
 	<select id="countGrblife" resultType="Integer">
 		select ifnull(count(idx),0)
-		from GRBLIFE
+		from GRBLIFEDATA
+		where AI_Trip is not null
 	</select>
 
 	<select id="findGrblife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
 			resultType="kr.gaion.armoredVehicle.web.analysis.model.Grblife">
 		select *
-		from GRBLIFE
+		from GRBLIFEDATA
 		where 1 = 1
+		and AI_Trip is not null
 		order by idx
 		limit #{page}, #{size}
 	</select>
