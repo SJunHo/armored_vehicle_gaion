@@ -63,6 +63,7 @@ export default class MonitorRemainingUsefulLife extends Component {
             count: paging.totalPageCount,
             loading : false,
           }, () => {
+            console.log(this.state.lifeList);
             ReactDOM.render(
             <TableByRemaining data={this.state.lifeList} partName={this.state.selectedPart} func={this.changeClickBtn} />, 
             parentElement);
@@ -159,9 +160,9 @@ export default class MonitorRemainingUsefulLife extends Component {
     return (
       <div className="container min">
         <header className="jumbotron">
-        잔존 수명 예지 모니터링
+        잔존 수명 예지 결과 조회
         </header>
-        <div className="search-Bar contents04">
+        <div className="search-Bar contents10">
           <div className="gear-selector form-group">
           <form onSubmit={this.handleSubmit}>
             <label>
@@ -170,12 +171,12 @@ export default class MonitorRemainingUsefulLife extends Component {
               <select value={this.state.selectedPart} onChange={this.vehiclePartChange}>            
                 <option value="ber">베어링</option>
                 <option value="eng">엔진</option>
-                <option value="grb">기어박스</option>
+                <option value="grb">기어박스(감속기)</option>
                 <option value="whl">휠</option>
               </select>
           </form>
           </div>
-            <button className="btn07" onClick={this.searchLifeThings} >조회하기</button>
+            <button className="btn10" onClick={this.searchLifeThings} >조회하기</button>
         </div>
         <div id="includeTroubleTable" className="contents05" disabled={this.state.loading}>  
                 {/* 테이블만드는 곳 */}

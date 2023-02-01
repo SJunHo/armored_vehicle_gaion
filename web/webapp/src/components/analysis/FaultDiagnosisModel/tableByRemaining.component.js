@@ -21,6 +21,7 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
+                                        <td>예지결과(km)</td>
                                         <td>B_OverallRMS</td>
                                         <td>B_1X</td>
                                         <td>B_6912BPFO</td>
@@ -40,7 +41,6 @@ export default class TableByRemaining extends Component {
                                         <td>B_Fault1</td>
                                         <td>B_Fault2</td>
                                         <td>B_Temperature</td>
-                                        <td>Trip</td>
                                         <td>FILENM</td>
                                     </tr>
                                 </thead>
@@ -49,6 +49,7 @@ export default class TableByRemaining extends Component {
                                 this.props.data.map((el, idx) => {
                                     return(
                                         <tr key={idx}>
+                                            <td>{el.ai_Trip}</td>
                                             <td>{el.b_OverallRMS}</td>
                                             <td>{el.b_1X}</td>
                                             <td>{el.b_6912BPFO}</td>
@@ -68,7 +69,6 @@ export default class TableByRemaining extends Component {
                                             <td>{el.b_Fault1}</td>
                                             <td>{el.b_Fault2}</td>
                                             <td>{el.b_Temperature}</td>
-                                            <td>{el.trip}</td>
                                             <td>{el.filenm}</td>
                                     </tr>
                                     )
@@ -87,11 +87,11 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
+                                        <td>예지결과(km)</td>
                                         <td>E_OverallRMS</td>
                                         <td>E_1_2X</td>
                                         <td>E_1X</td>
                                         <td>E_CrestFactor</td>
-                                        <td>Trip</td>
                                         <td>FILENM</td>
                                     </tr>
                         
@@ -101,11 +101,11 @@ export default class TableByRemaining extends Component {
                                     this.props.data.map((el, idx) => {
                                     return(
                                         <tr key={idx}>
+                                            <td>{el.ai_Trip}</td>
                                             <td>{el.e_OverallRMS}</td>
                                             <td>{el.e_1_2X}</td>
                                             <td>{el.e_1X}</td>
                                             <td>{el.e_CrestFactor}</td>
-                                            <td>{el.trip}</td>
                                             <td>{el.filenm}</td>
                                         </tr>
                                     )
@@ -124,6 +124,7 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
+                                        <td>예지결과(km)</td>
                                         <td>G_OverallRMS</td>
                                         <td>G_Wheel1X</td>
                                         <td>G_Wheel2X</td>
@@ -131,7 +132,6 @@ export default class TableByRemaining extends Component {
                                         <td>G_Pinion2X</td>
                                         <td>G_GMF1X</td>
                                         <td>G_GMF2X</td>
-                                        <td>Trip</td>
                                         <td>FILENM</td>
                                         
                                     </tr>
@@ -142,6 +142,7 @@ export default class TableByRemaining extends Component {
                                     this.props.data.map((el, idx) => {
                                     return(
                                             <tr key={idx}>
+                                                <td>{el.ai_Trip}</td>
                                                 <td>{el.g_OverallRMS}</td>
                                                 <td>{el.g_Wheel1X}</td>
                                                 <td>{el.g_Wheel2X}</td>
@@ -149,7 +150,6 @@ export default class TableByRemaining extends Component {
                                                 <td>{el.g_Pinion2X}</td>
                                                 <td>{el.g_GMF1X}</td>
                                                 <td>{el.g_GMF2X}</td>
-                                                <td>{el.trip}</td>
                                                 <td>{el.filenm}</td>
                                             </tr>
                                     )
@@ -168,10 +168,10 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
+                                        <td>예지결과(km)</td>
                                         <td>W_2X</td>
                                         <td>W_3X</td>
                                         <td>W_Fault3</td>
-                                        <td>Trip</td>
                                         <td>FILENM</td>
                                     </tr>
                                 </thead>
@@ -180,10 +180,10 @@ export default class TableByRemaining extends Component {
                                     this.props.data.map((el, idx) => {
                                     return(
                                             <tr key={idx}>
+                                                <td>{el.ai_Trip}</td>
                                                 <td>{el.w_2X}</td>
                                                 <td>{el.w_3X}</td>
                                                 <td>{el.w_Fault3}</td>
-                                                <td>{el.trip}</td>
                                                 <td>{el.filenm}</td>
                                             </tr>
                                     )

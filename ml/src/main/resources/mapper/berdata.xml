@@ -102,14 +102,16 @@
 
 	<select id="countBerlife" resultType="Integer">
 		select ifnull(count(idx),0)
-		from BERLIFE
+		from BERLIFEDATA
+		where AI_Trip is not null
 	</select>
 
 	<select id="findBerlife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
 			resultType="kr.gaion.armoredVehicle.web.analysis.model.Berlife">
 		select *
-		from BERLIFE
+		from BERLIFEDATA
 		where 1 = 1
+		and AI_Trip is not null
 		order by idx
 		limit #{page}, #{size}
 	</select>

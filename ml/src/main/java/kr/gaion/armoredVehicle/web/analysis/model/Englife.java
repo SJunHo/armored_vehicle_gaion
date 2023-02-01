@@ -11,7 +11,7 @@ public class Englife {
 	double E_1_2X;
 	double E_1X;
 	double E_CrestFactor;
-	int Trip;
+	int AI_Trip;
 	String FILENM;
 	
 }

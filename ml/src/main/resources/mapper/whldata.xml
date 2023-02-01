@@ -59,14 +59,16 @@
 
 	<select id="countWhllife" resultType="Integer">
 		select ifnull(count(idx),0)
-		from WHLLIFE
+		from WHLLIFEDATA
+		where AI_Trip is not null
 	</select>
 
 	<select id="findWhllife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
 			resultType="kr.gaion.armoredVehicle.web.analysis.model.Whllife">
 		select *
-		from WHLLIFE
+		from WHLLIFEDATA
 		where 1 = 1
+		and AI_Trip is not null
 		order by idx
 		limit #{page}, #{size}
 	</select>
