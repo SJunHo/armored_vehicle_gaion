@@ -155,8 +155,8 @@ class HeaderComp extends Component {
                   (location.includes("/learningdata") ? "selected" : "")}
                 onClick={(e) => this.handleSelectedNavbar(e)}
               >
-                <NavDropdown.Item href="/data/classification-upload">고장진단 모델 학습 데이터</NavDropdown.Item>
-                <NavDropdown.Item href="/data/regression-upload">잔존수명 모델 학습 데이터</NavDropdown.Item>
+                <NavDropdown.Item href="/data/classification-upload">[고장진단] 학습 데이터</NavDropdown.Item>
+                <NavDropdown.Item href="/data/regression-upload">[잔존수명] 학습 데이터</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown

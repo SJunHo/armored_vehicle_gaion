@@ -54,7 +54,7 @@ const UploadPage: React.FC<{
 
   return (
     <div className="page-padding">
-      <Section title={"잔존수명 모델 학습 데이터 업로드"}>
+      <Section title={"잔존수명예지 모델 학습 데이터 업로드"}>
         <Form>
           <Row className="d-flex mt-2 mb-4">
             <Col md={2}>
