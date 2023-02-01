@@ -1,6 +1,5 @@
 package kr.gaion.armoredVehicle.spark.controller;
 
-import au.com.bytecode.opencsv.CSVReader;
 import kr.gaion.armoredVehicle.algorithm.classifier.LogisticRegressionClassifier;
 import kr.gaion.armoredVehicle.algorithm.classifier.MLPClassifier;
 import kr.gaion.armoredVehicle.algorithm.classifier.RandomForestClassifier;
@@ -25,7 +24,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -171,12 +169,13 @@ public class MLController {
         return fileInfoRepository.findTrainingDataNameList(partType.charAt(0));
     }
 
-    @GetMapping(path = "/api/get-trainingDataColumnList/{index}")
-    public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
-        String path = storageConfig.getHomeDir() + storageConfig.getDataDir() + "/tmp/" + index + ".csv";
-        CSVReader reader = new CSVReader(new FileReader(path));
-        return reader.readNext();
-    }
+//    // function of csv file read in root path
+//    @GetMapping(path = "/api/get-trainingDataColumnList/{index}")
+//    public String[] getTrainingDataColumnList(@PathVariable String index) throws IOException {
+//        String path = storageConfig.getHomeDir() + storageConfig.getDataDir() + "/tmp/" + index + ".csv";
+//        CSVReader reader = new CSVReader(new FileReader(path));
+//        return reader.readNext();
+//    }
 
     @PostMapping(path = "/api/fs/chi-sq")
     public FSResponse chiSquareFS(@RequestBody BaseAlgorithmTrainInput input) {

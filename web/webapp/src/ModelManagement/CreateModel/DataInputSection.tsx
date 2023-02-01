@@ -105,13 +105,14 @@ export const DataInputSection: React.FC<Props> = ({algorithmName}) => {
     }
   }, [mlControllerApi, selectedPart]);
 
-  useEffect(() => {
-    if (selectedIndice && mlControllerApi) {
-      mlControllerApi?.getTrainingDataColumnList(selectedIndice).then((res) => {
-        setColumns(res.data);
-      });
-    }
-  }, [mlControllerApi, selectedIndice]);
+  // // function of csv file read in root path
+  // useEffect(() => {
+  //   if (selectedIndice && mlControllerApi) {
+  //     mlControllerApi?.getTrainingDataColumnList(selectedIndice).then((res) => {
+  //       setColumns(res.data);
+  //     });
+  //   }
+  // }, [mlControllerApi, selectedIndice]);
 
   function CustomSelect(props: any) {
     return (
