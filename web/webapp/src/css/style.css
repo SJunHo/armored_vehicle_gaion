@@ -2401,3 +2401,7 @@ tr.highlight{
 .btn10:hover{
   background: #4a4492;
 }
+
+.custom-tooltip{
+  background-color: #7971e1;
+}

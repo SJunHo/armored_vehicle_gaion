@@ -8,9 +8,8 @@ import {RandomForestClassificationResponse, RegressionResponse} from "../api";
 import {useParams} from "react-router-dom";
 import {Table} from "../common/Table";
 import {Column} from "react-table";
-import {DiscreteColorLegend, FlexibleXYPlot, LineSeries, MarkSeries, XAxis, YAxis} from "react-vis";
-import ReactTooltip from "react-tooltip";
 import "../../src/css/style.css"
+import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 type Props = {
   result: RandomForestClassificationResponse;
@@ -111,10 +110,8 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
     residualList.push(x)
   })
   const actualPredictedValues = zip(actualValues, predictedValues)
-  // console.log(actualPredictedValues)
 
   const [eachResidualValue, setEachResidualValue] = useState<any>([]);
-  // console.log(eachResidualValue)
 
   const predictedActualFeatureLine =
     resultPredictedActualFeatureLine || predictionInfo;
@@ -126,7 +123,6 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
     // roundResidualList.push(Number(value.toFixed(1)))
     roundResidualList.push(Number(Math.round(value)))
   }))
-  // console.log(roundResidualList)
 
   let count = roundResidualList?.reduce((accumulator: any, value: number) => {
     return {...accumulator, [value]: (accumulator[value] || 0) + 1};
@@ -140,13 +136,56 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
       y: Number(Object.values(count)[i])
     })
   }
+  console.log(roundResidualList)
+  console.log(residualKeyValuesList)
+
+  function filterResidualData(data: any) {
+    const chartDataset: { index: number; residual:undefined }[] = [];
+    data.map((v: any, i: number) => {
+      const rowData = {
+        index: i,
+        residual: v,
+      };
+      chartDataset.push(rowData)
+    })
+    return chartDataset;
+  }
+
+  function filterChartData(data: any) {
+    const chartDataset: { index: number; actual: undefined; predict: undefined; }[] = [];
+    data.map((v: any, i: number) => {
+      const rowData = {
+        index: i,
+        actual: v[0],
+        predict: v[1]
+      };
+      chartDataset.push(rowData)
+    })
+    return chartDataset;
+  }
+
+  const CustomTooltip = (data:any) => {
+    // console.log('CustomTooltip -> data', data)
+    const { active, payload, label } = data;
+    console.log(active, payload, label)
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          {payload.map((v: { name: any; value: any; }) => {
+            return<p className="label">{`${v.name} : ${v.value}`}</p>
+          })}
+        </div>
+      );
+    }
+    return null;
+  };
   return (
-    <Row className="container">
-      <CustomCardContainer className={styles.cardBody}>
-        <CustomCardHeader className={styles.cardHeader}>
-          <strong>{"진단 모델 성능(요약)"}</strong>
+    <>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>{"결과"}</strong>
         </CustomCardHeader>
-        <CustomCardBody className="d-grid gap-3 container">
+        <CustomCardBody>
           <Row>
             <div className="col-lg-6">
               <CustomCardContainer>
@@ -168,89 +207,66 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
                 </CustomCardBody>
               </CustomCardContainer>
             </div>
-            {/*<div className="col-lg-6">*/}
-            {/*  <CustomCardContainer>*/}
-            {/*    <CustomCardHeader>*/}
-            {/*      <strong>{"실제 VS 예측 Line Chart"}</strong>*/}
-            {/*    </CustomCardHeader>*/}
-            {/*    <CustomCardBody>*/}
-            {/*      <div>*/}
-            {/*        <DiscreteColorLegend*/}
-            {/*          orientation="vertical"*/}
-            {/*          items={[*/}
-            {/*            {title: 'Actual Values', color: '#9E520D'},*/}
-            {/*            {title: 'Predicted Values', color: '#00819E'}*/}
-            {/*          ]}*/}
-            {/*        />*/}
-            {/*      </div>*/}
-            {/*      <FlexibleXYPlot height={300}>*/}
-            {/*        <XAxis*/}
-            {/*          style={{fontSize: 12}}*/}
-            {/*          tickTotal={10}*/}
-            {/*        />*/}
-            {/*        <YAxis*/}
-            {/*          style={{fontSize: 12}}*/}
-            {/*          tickTotal={10}*/}
-            {/*        />*/}
-            {/*        <LineSeries*/}
-            {/*          data={(actualValues || []).map((data: any, index: any) => ({*/}
-            {/*            x: index,*/}
-            {/*            y: data,*/}
-            {/*          }))}*/}
-            {/*          stroke="#9E520D"*/}
-            {/*        />*/}
-            {/*        <LineSeries*/}
-            {/*          data={(predictedValues || []).map((data: any, index: any) => ({*/}
-            {/*            x: index,*/}
-            {/*            y: data,*/}
-            {/*          }))}*/}
-            {/*          stroke="#00819E"*/}
-            {/*          strokeStyle="solid"*/}
-            {/*        />*/}
-            {/*      </FlexibleXYPlot>*/}
-            {/*    </CustomCardBody>*/}
-            {/*  </CustomCardContainer>*/}
-            {/*</div>*/}
+          </Row>
+        </CustomCardBody>
+      </CustomCardContainer>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>결과 차트</strong>
+        </CustomCardHeader>
+        <CustomCardBody>
+          <Row>
             <div className="col-lg-6">
               <CustomCardContainer>
                 <CustomCardHeader>
                   <strong>{"실제 VS 예측 Chart"}</strong>
                 </CustomCardHeader>
                 <CustomCardBody>
-                  <div>
-                    <DiscreteColorLegend
-                      orientation="horizontal"
-                      items={[
-                        {title: 'Actual Values', color: '#fff000', strokeWidth: 5},
-                        {title: 'Predicted Values', color: '#ffffff', strokeWidth: 5}
-                      ]}
-                    />
-                    <FlexibleXYPlot height={300}>
-                      <XAxis
-                        style={{fontSize: 10}}
-                        tickTotal={10}
-                      />
-                      <YAxis
-                        style={{fontSize: 7}}
-                        tickTotal={5}
-                      />
-                      <LineSeries
-                        data={(actualPredictedValues || []).map((data: any, index: any) => ({
-                          x: data[1],
-                          y: data[1],
-                        }))}
-                        stroke="#fff000"
-                      />
-                      <MarkSeries
-                        data={(actualPredictedValues || []).map((data: any, index: any) => ({
-                          x: data[0],
-                          y: data[1],
-                        }))}
-                        sizeType="literal"
-                        _sizeValue={1}
-                        color="#ffffff"
-                      />
-                    </FlexibleXYPlot>
+                  <div style={{position: 'relative', minWidth: "600px", width: '100%', paddingBottom: '250px'}}>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        top: 0,
+                      }}
+                    >
+                      <ResponsiveContainer>
+                        <LineChart
+                          width={600}
+                          height={300}
+                          margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                          }}
+                          data={filterChartData(actualPredictedValues)}
+                        >
+                          <XAxis tick={{fill: 'white'}} dataKey="index"/>
+                          <YAxis tick={{fill: 'white'}}/>
+                          <Line
+                            strokeWidth={1}
+                            type="monotone"
+                            dataKey="actual"
+                            stroke="#8884d8"
+                            activeDot={{r: 8}}
+                          />
+                          <Line
+                            strokeWidth={1}
+                            type="monotone"
+                            dataKey="predict"
+                            stroke="#82ca9d"
+                          />
+                          <Tooltip
+                            content={<CustomTooltip />}
+                            //viewBox={{ x: 100, y: 140, width: 400, height: 400 }}
+                          />
+                          <Legend/>
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
                   </div>
                 </CustomCardBody>
               </CustomCardContainer>
@@ -261,66 +277,67 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
                   <strong>{"잔차 Chart"}</strong>
                 </CustomCardHeader>
                 <CustomCardBody>
-                  <div data-tip="" data-for="tooltip">
-                    <FlexibleXYPlot height={348}>
-                      <XAxis
-                        style={{fontSize: 10}}
-                        tickTotal={10}
-                      />
-                      <YAxis
-                        style={{fontSize: 7}}
-                        tickTotal={5}
-                      />
-                      <LineSeries
-                        data={(residualList || []).map((data: any, index: any) => ({
-                          x: index,
-                          y: data,
-                        }))}
-                        stroke="#ffffff"
-                        onNearestXY={(v) => setEachResidualValue([v.x, v.y])}
-                        onSeriesMouseOut={() => setEachResidualValue([undefined, undefined])}
-                      />
-                    </FlexibleXYPlot>
+                  <div style={{position: 'relative', minWidth: "600px", width: '100%', paddingBottom: '250px'}}>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        top: 0,
+                      }}
+                    >
+                      <ResponsiveContainer>
+                        <LineChart
+                          width={600}
+                          height={300}
+                          margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                          }}
+                          data={filterResidualData(residualList)}
+                        >
+                          <XAxis tick={{fill: 'white'}} dataKey="index"/>
+                          <YAxis tick={{fill: 'white'}}/>
+                          <Tooltip
+                            content={<CustomTooltip />}
+                            //viewBox={{ x: 100, y: 140, width: 400, height: 400 }}
+                          />
+                          <Legend/>
+                          <Line
+                            isAnimationActive={false}
+                            strokeWidth={1}
+                            type="monotone"
+                            dataKey="residual"
+                            stroke="#8884d8"
+                            activeDot={{r: 8}}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
                   </div>
-                  <ReactTooltip id="tooltip">
-                    <div> {eachResidualValue[0]} </div>
-                    <div> {"잔차 : " + eachResidualValue[1]?.toFixed(5)} </div>
-                  </ReactTooltip>
                 </CustomCardBody>
               </CustomCardContainer>
             </div>
-            {/*<div className="col-lg-6">*/}
-            {/*  <CustomCardContainer>*/}
-            {/*    <CustomCardHeader>*/}
-            {/*      <strong>{"잔차 Histogram"}</strong>*/}
-            {/*    </CustomCardHeader>*/}
-            {/*    <CustomCardBody>*/}
-            {/*      <div style={{display: "flex"}}>*/}
-            {/*        <BarChart*/}
-            {/*          width={868}*/}
-            {/*          height={300}*/}
-            {/*          data={residualKeyValuesList}*/}
-            {/*        >*/}
-            {/*          <X dataKey="x"/>*/}
-            {/*          <Y/>*/}
-            {/*          <Bar dataKey="y"/>*/}
-            {/*        </BarChart>*/}
-            {/*      </div>*/}
-            {/*    </CustomCardBody>*/}
-            {/*  </CustomCardContainer>*/}
-            {/*</div>*/}
-          </Row>
-          <Row>
-            {predictedActualFeatureLine && (
-              <PredictionInfoSection
-                predictionInfo={predictedActualFeatureLine}
-                featureCols={result.listFeatures || []}
-              />
-            )}
           </Row>
         </CustomCardBody>
       </CustomCardContainer>
-    </Row>
+      <CustomCardContainer>
+        <CustomCardHeader>
+          <strong>예측 결과</strong>
+        </CustomCardHeader>
+        <CustomCardBody>
+          {predictedActualFeatureLine && (
+            <PredictionInfoSection
+              predictionInfo={predictedActualFeatureLine}
+              featureCols={result.listFeatures || []}
+            />
+          )}
+        </CustomCardBody>
+      </CustomCardContainer>
+    </>
   )
 }
 
