@@ -261,79 +261,79 @@ public class DatasetDatabaseService {
     }
 
     // get unlabeled data (for predict)
-    public Page<?> getUnlabeledBearingData(String partType, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledBearingData(String partType, Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Bearing Data --> " + "partType : " + partType);
         switch (partType) {
             case "BLB":
                 // Bearing Left Ball
-                return sensorBearingRepository.findSensorBearingLeftBallAiLBSFIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingLeftBallAiLBSFIsNull(fromDate, toDate, pageable);
             case "BLI":
                 // Bearing Left Inside
-                return sensorBearingRepository.findSensorBearingLeftInsideAiLBPFIIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingLeftInsideAiLBPFIIsNull(fromDate, toDate, pageable);
             case "BLO":
                 // Bearing Left Outside
-                return sensorBearingRepository.findSensorBearingLeftOutsideAiLBPFOIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingLeftOutsideAiLBPFOIsNull(fromDate, toDate, pageable);
             case "BLR":
                 // Bearing Left Retainer
-                return sensorBearingRepository.findSensorBearingLeftRetainerAiLFTFIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingLeftRetainerAiLFTFIsNull(fromDate, toDate, pageable);
             case "BRB":
                 // Bearing Right Ball
-                return sensorBearingRepository.findSensorBearingRightBallAiRBSFIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingRightBallAiRBSFIsNull(fromDate, toDate, pageable);
             case "BRI":
                 // Bearing Right Inside
-                return sensorBearingRepository.findSensorBearingRightInsideAiRBPFIIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingRightInsideAiRBPFIIsNull(fromDate, toDate, pageable);
             case "BRO":
                 // Bearing Right Outside
-                return sensorBearingRepository.findSensorBearingRightOutsideAiRBPFOIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingRightOutsideAiRBPFOIsNull(fromDate, toDate, pageable);
             case "BRR":
                 // Bearing Right Retainer
-                return sensorBearingRepository.findSensorBearingRightRetainerRFTFIsNull(pageable);
+                return sensorBearingRepository.findSensorBearingRightRetainerRFTFIsNull(fromDate, toDate, pageable);
         }
         return null;
     }
 
-    public Page<?> getUnlabeledWheelData(String partType, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledWheelData(String partType, Date fromDate, Date toDate,  @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Wheel Data --> " + "partType : " + partType);
         switch (partType) {
             case "WL":
                 // Wheel Left
-                return sensorWheelRepository.findSensorWheelLeftAiLWIsNull(pageable);
+                return sensorWheelRepository.findSensorWheelLeftAiLWIsNull(fromDate, toDate, pageable);
             case "WR":
                 // Wheel Right
-                return sensorWheelRepository.findSensorWheelRightAiRWIsNull(pageable);
+                return sensorWheelRepository.findSensorWheelRightAiRWIsNull(fromDate, toDate, pageable);
         }
         return null;
     }
 
-    public Page<?> getUnlabeledGearboxData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledGearboxData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Gearbox Data");
-        return sensorGearboxRepository.findSensorGearboxAiGEARIsNull(pageable);
+        return sensorGearboxRepository.findSensorGearboxAiGEARIsNull(fromDate, toDate, pageable);
     }
 
-    public Page<?> getUnlabeledEngineData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledEngineData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Engine Data");
-        return sensorEngineRepository.findSensorEngineAiENGINEIsNull(pageable);
+        return sensorEngineRepository.findSensorEngineAiENGINEIsNull(fromDate, toDate, pageable);
     }
 
     // get unlabeled remaining life data (for training)
-    public Page<?> getUnlabeledBearingLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledBearingLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Bearing Life Data");
-        return sensorBearingLifeRepository.findSensorBearingLifeAiTripIIsNull(pageable);
+        return sensorBearingLifeRepository.findSensorBearingLifeAiTripIIsNull(fromDate, toDate, pageable);
     }
 
-    public Page<?> getUnlabeledWheelLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledWheelLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Wheel Life Data");
-        return sensorWheelLifeRepository.findSensorWheelLifeAiTripIIsNull(pageable);
+        return sensorWheelLifeRepository.findSensorWheelLifeAiTripIIsNull(fromDate, toDate, pageable);
     }
 
-    public Page<?> getUnlabeledGearboxLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledGearboxLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Gearbox Life Data");
-        return sensorGearboxLifeRepository.findSensorGearboxLifeAiTripIIsNull(pageable);
+        return sensorGearboxLifeRepository.findSensorGearboxLifeAiTripIIsNull(fromDate, toDate, pageable);
     }
 
-    public Page<?> getUnlabeledEngineLifeData(@Parameter(hidden = true) Pageable pageable) throws IOException {
+    public Page<?> getUnlabeledEngineLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
         System.out.println(">>> get Unlabeled Engine Life Data");
-        return sensorEngineLifeRepository.findSensorEngineLifeAiTripIIsNull(pageable);
+        return sensorEngineLifeRepository.findSensorEngineLifeAiTripIIsNull(fromDate, toDate, pageable);
     }
 
     public String updatePredictData(List<DbDataUpdateInput> inputs) {

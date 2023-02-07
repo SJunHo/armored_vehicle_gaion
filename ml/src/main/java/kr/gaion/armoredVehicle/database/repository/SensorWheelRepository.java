@@ -35,17 +35,17 @@ public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> 
     @Query(value = " SELECT W.IDX, W.AI_LW, W.AI_LW_ALGO, W.AI_LW_MODEL, W.AI_LW_DATE, " +
             " W.W_RPM, W.L_W_V_2X, W.L_W_V_3X, W.L_W_S_Fault3, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, W.`DATE` " +
-            " FROM (Select * from `WHLDATA` WHERE `WHLDATA`.AI_LW IS NULL) W " +
+            " FROM (Select * from `WHLDATA` WHERE `WHLDATA`.AI_LW IS NULL AND `WHLDATA`.DATE BETWEEN ?1 AND ?2) W " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorWheelLeftInterface> findSensorWheelLeftAiLWIsNull(Pageable pageable);
+    Page<SensorWheelLeftInterface> findSensorWheelLeftAiLWIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Wheel Right
     @Query(value = " SELECT W.IDX, W.AI_RW, W.AI_RW_ALGO, W.AI_RW_MODEL, W.AI_RW_DATE, " +
             " W.W_RPM, W.R_W_V_2X, W.R_W_V_3X, W.R_W_S_Fault3, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, W.`DATE` " +
-            " FROM (Select * from `WHLDATA` WHERE `WHLDATA`.AI_RW IS NULL) W " +
+            " FROM (Select * from `WHLDATA` WHERE `WHLDATA`.AI_RW IS NULL AND `WHLDATA`.DATE BETWEEN ?1 AND ?2) W " +
             " INNER JOIN `ENGDATA` ON W.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorWheelRightInterface> findSensorWheelRightAiRWIsNull(Pageable pageable);
+    Page<SensorWheelRightInterface> findSensorWheelRightAiRWIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // get WL's User judgement values are not Null data
     @Query(value = "Select W.IDX, W.USER_LW, W.USER_LW_ID, W.USER_LW_DATE, " +

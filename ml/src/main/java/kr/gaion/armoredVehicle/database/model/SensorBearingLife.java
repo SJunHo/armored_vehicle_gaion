@@ -1,5 +1,6 @@
 package kr.gaion.armoredVehicle.database.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,13 @@ public class SensorBearingLife {
     @GeneratedValue
     @Column(name = "IDX")
     private long idx;
+
+    @Column(name = "SDAID")
+    private String carId;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "DATE")
+    private Date operateDateTime;
 
     @Column(name = "AI_Trip")
     private Integer aiTrip;

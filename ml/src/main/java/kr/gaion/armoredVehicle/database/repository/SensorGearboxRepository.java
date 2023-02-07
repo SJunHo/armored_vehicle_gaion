@@ -29,9 +29,9 @@ public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Lo
             " G.W_RPM, G.G_V_OverallRMS, G.G_V_Wheel1X, G.G_V_Wheel2X, " +
             " G.G_V_Pinion1X, G.G_V_Pinion2X, G.G_V_GMF1X, G.G_V_GMF2X, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, G.`DATE` " +
-            " FROM (Select * from `GRBDATA` WHERE `GRBDATA`.AI_GEAR IS NULL) G " +
+            " FROM (Select * from `GRBDATA` WHERE `GRBDATA`.AI_GEAR IS NULL AND `GRBDATA`.DATE BETWEEN ?1 AND ?2) G " +
             " INNER JOIN `ENGDATA` ON G.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorGearboxInterface> findSensorGearboxAiGEARIsNull(Pageable pageable);
+    Page<SensorGearboxInterface> findSensorGearboxAiGEARIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // get G's User judgement values are not Null data
     @Query(value = "Select G.IDX, G.USER_GEAR, G.USER_GEAR_ID, G.USER_GEAR_DATE, " +

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -127,9 +128,13 @@ public class DatasetDatabaseController {
     // get unlabeled data (for predict)
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-bearing-data")
-    public Page<?> getUnlabeledBearingData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledBearingData(
+            @RequestParam("partType") String partType,
+            @RequestParam(value = "from-date", required = false) Date fromDate,
+            @RequestParam(value = "to-date", required = false) Date toDate,
+            @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledBearingData(partType, pageable);
+            return this.datasetDatabaseService.getUnlabeledBearingData(partType, fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -138,9 +143,12 @@ public class DatasetDatabaseController {
 
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-wheel-data")
-    public Page<?> getUnlabeledWheelData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledWheelData(@RequestParam("partType") String partType,
+                                         @RequestParam(value = "from-date", required = false) Date fromDate,
+                                         @RequestParam(value = "to-date", required = false) Date toDate,
+                                         @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledWheelData(partType, pageable);
+            return this.datasetDatabaseService.getUnlabeledWheelData(partType, fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -149,9 +157,12 @@ public class DatasetDatabaseController {
 
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-gearbox-data")
-    public Page<?> getUnlabeledGearboxData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledGearboxData(@RequestParam("partType") String partType,
+                                           @RequestParam(value = "from-date", required = false) Date fromDate,
+                                           @RequestParam(value = "to-date", required = false) Date toDate,
+                                           @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledGearboxData(pageable);
+            return this.datasetDatabaseService.getUnlabeledGearboxData(fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -160,9 +171,12 @@ public class DatasetDatabaseController {
 
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-engine-data")
-    public Page<?> getUnlabeledEngineData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledEngineData(@RequestParam("partType") String partType,
+                                          @RequestParam(value = "from-date", required = false) Date fromDate,
+                                          @RequestParam(value = "to-date", required = false) Date toDate,
+                                          @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledEngineData(pageable);
+            return this.datasetDatabaseService.getUnlabeledEngineData(fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -172,9 +186,12 @@ public class DatasetDatabaseController {
     // get unlabeled remaining life data (for predict)
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-bearing-life-data")
-    public Page<?> getUnlabeledBearingLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledBearingLifeData(@RequestParam("partType") String partType,
+                                               @RequestParam(value = "from-date", required = false) Date fromDate,
+                                               @RequestParam(value = "to-date", required = false) Date toDate,
+                                               @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledBearingLifeData(pageable);
+            return this.datasetDatabaseService.getUnlabeledBearingLifeData(fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -183,9 +200,12 @@ public class DatasetDatabaseController {
 
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-wheel-life-data")
-    public Page<?> getUnlabeledWheelLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledWheelLifeData(@RequestParam("partType") String partType,
+                                             @RequestParam(value = "from-date", required = false) Date fromDate,
+                                             @RequestParam(value = "to-date", required = false) Date toDate,
+                                             @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledWheelLifeData(pageable);
+            return this.datasetDatabaseService.getUnlabeledWheelLifeData(fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -194,9 +214,12 @@ public class DatasetDatabaseController {
 
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-gearbox-life-data")
-    public Page<?> getUnlabeledGearboxLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledGearboxLifeData(@RequestParam("partType") String partType,
+                                               @RequestParam(value = "from-date", required = false) Date fromDate,
+                                               @RequestParam(value = "to-date", required = false) Date toDate,
+                                               @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledGearboxLifeData(pageable);
+            return this.datasetDatabaseService.getUnlabeledGearboxLifeData(fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -205,9 +228,12 @@ public class DatasetDatabaseController {
 
     @PageableAsQueryParam
     @GetMapping(path = "/api/data/database/get-all-unlabeled-engine-life-data")
-    public Page<?> getUnlabeledEngineLifeData(@RequestParam("partType") String partType, @Parameter(hidden = true) Pageable pageable) {
+    public Page<?> getUnlabeledEngineLifeData(@RequestParam("partType") String partType,
+                                              @RequestParam(value = "from-date", required = false) Date fromDate,
+                                              @RequestParam(value = "to-date", required = false) Date toDate,
+                                              @Parameter(hidden = true) Pageable pageable) {
         try {
-            return this.datasetDatabaseService.getUnlabeledEngineLifeData(pageable);
+            return this.datasetDatabaseService.getUnlabeledEngineLifeData(fromDate, toDate, pageable);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

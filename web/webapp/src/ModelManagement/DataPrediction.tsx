@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState,} from "react"
+import React, {useCallback, useContext, useEffect, useMemo, useState,} from "react"
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Col from "react-bootstrap/Col";
@@ -25,6 +25,14 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [wb, setWb] = useState<string>("BLB");
   const [tableColumns, setTableColumns] = useState<any>([]);
   const [targetClassCol, setTargetClassCol] = useState<string>("");
+  const [fromDate, setFromDate] = useState<Date>();
+  const [toDate, setToDate] = useState<Date>(new Date());
+
+  useEffect(() => {
+    const thisDate = new Date();
+    thisDate.setMonth(thisDate.getMonth() - 6);
+    setFromDate(thisDate);
+  }, []);
 
   const {datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
   const {t} = useTranslation();
@@ -1281,49 +1289,49 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     handleSettingClassColByPart(wb)
     setSearchingData(true);
     if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
     } else if (["WL", "WR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "G") {
-      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "E") {
-      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "B_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledBearingLifeData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledBearingLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "W_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledWheelLifeData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledWheelLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "G_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledGearboxLifeData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledGearboxLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
         .finally(() => setSearchingData(false));
     } else if (wb === "E_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledEngineLifeData(wb, 0, 10000)
+      datasetDatabaseControllerApi?.getUnlabeledEngineLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
           setConditionData(res.data.content || [])
         })
@@ -1623,6 +1631,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               )}
             </Form.Select>
           </Col>
+
           <Col xs={1} className="Col ps-0" style={{marginLeft: "50px"}}>
             <Button
               className="button btn-block font-monospace fw-bold"
@@ -1633,6 +1642,24 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             >
               모델 조회
             </Button>
+          </Col>
+          <Col xs={1} className="text-right">기간</Col>
+          <Col xs={2}>
+            <Form.Control
+              size="sm"
+              type="date"
+              value={fromDate?.toLocaleDateString("en-CA")}
+              onChange={(v) => setFromDate(new Date((v.target as any).value))}
+            />
+          </Col>
+          <div className="font-weight-bold">~</div>
+          <Col xs={2}>
+            <Form.Control
+              type="date"
+              size="sm"
+              value={toDate?.toLocaleDateString("en-CA")}
+              onChange={(v) => setToDate(new Date((v.target as any).value))}
+            />
           </Col>
         </Row>
         <Row>
