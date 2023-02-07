@@ -53,9 +53,10 @@ public class ModelService {
         try {
             var res = dbModelResponseRepository.findById(algorithmResponseId);
             dbModelResponseRepository.deleteById(algorithmResponseId);
-            String rootDir = this.utilities.getPathInWorkingFolder(this.storageConfig.getDataDir(), algorithmName, this.storageConfig.getModelDir());
+            String rootDir = this.utilities.getPathInWorkingFolder(this.storageConfig.getModelDir(), algorithmName);
             String pathname = rootDir + File.separator + res.get().getModelName();
             this.hdfsHelperService.deleteIfExist(pathname);
+
             return true;
         } catch (IOException e) {
             e.printStackTrace();
