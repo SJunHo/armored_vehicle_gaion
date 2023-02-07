@@ -38,12 +38,20 @@ public class IsolationForestOutlierDetection extends ClusterMlAlgorithm<Isolatio
     protected IsolationForestModel trainModel(ClusterTrainInput input, Dataset<Row> trainData) {
         var outlierCount = trainData.filter(trainData.col("label").gt(0.5)).count();
         var totalCount = trainData.count();
+        double outlierRatio = Math.floor((outlierCount * 1.0) / (totalCount * 1.0) * 10) / 10;
+        var contamination = outlierRatio;
+        if (contamination > 0.5) {
+            contamination = 0.49;
+        } else {
+            contamination = outlierRatio;
+        }
+
         var isolationForest = new IsolationForest();
         isolationForest
                 .setNumEstimators(input.getNumEstimators()) // number of isolation trees
                 .setMaxFeatures(input.getMaxFeatures()) // number of features to draw from X to train each base estimator
                 .setMaxSamples(input.getMaxSamples()) // number of samples
-                .setContamination((outlierCount * 1.0) / (totalCount * 1.0)) // The amount of contamination of the dataset(the proportion of outliers in the dataset)
+                .setContamination(contamination) // The amount of contamination of the dataset(the proportion of outliers in the dataset, 0.0 <= contamination < 0.5)
                 .setContaminationError(0.0) // 0 is forces an exact calculation of the threshold
                 .setScoreCol("outlier_score")
                 .setFeaturesCol("features")
