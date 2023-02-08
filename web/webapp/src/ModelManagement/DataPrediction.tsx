@@ -1566,20 +1566,89 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
 
   function handleUpdateData() {
     setSaving(true);
-    datasetDatabaseControllerApi
-      ?.updateData(
-        selectedData!.map((inputs) => ({
-          partType: wb,
-          id: inputs.idx,
-          aiAlgorithmName: selectedModel?.algorithmType,
-          aiPredict: parseInt(inputs[targetClassCol]),
-          aiModelName: selectedModel?.modelName,
-        }))
-      )
-      .finally(() => {
-        alert("저장되었습니다")
-        setSaving(false)
-      });
+    if (algorithmName === "linear" || algorithmName === "lasso") {
+      switch (wb) {
+        case "B_LIFE":
+          datasetDatabaseControllerApi
+            ?.updateData(
+              selectedData!.map((inputs) => ({
+                partType: wb,
+                id: inputs.idx,
+                aiAlgorithmName: selectedModel?.algorithmType,
+                aiPredict: wholeBearingCycle - inputs[targetClassCol],
+                aiModelName: selectedModel?.modelName,
+              }))
+            )
+            .finally(() => {
+              alert("저장되었습니다")
+              setSaving(false)
+            });
+          break;
+        case "W_LIFE":
+          datasetDatabaseControllerApi
+            ?.updateData(
+              selectedData!.map((inputs) => ({
+                partType: wb,
+                id: inputs.idx,
+                aiAlgorithmName: selectedModel?.algorithmType,
+                aiPredict: wholeWheelCycle - inputs[targetClassCol],
+                aiModelName: selectedModel?.modelName,
+              }))
+            )
+            .finally(() => {
+              alert("저장되었습니다")
+              setSaving(false)
+            });
+          break;
+        case "G_LIFE":
+          datasetDatabaseControllerApi
+            ?.updateData(
+              selectedData!.map((inputs) => ({
+                partType: wb,
+                id: inputs.idx,
+                aiAlgorithmName: selectedModel?.algorithmType,
+                aiPredict: wholeGearboxCycle - inputs[targetClassCol],
+                aiModelName: selectedModel?.modelName,
+              }))
+            )
+            .finally(() => {
+              alert("저장되었습니다")
+              setSaving(false)
+            });
+          break;
+        case "E_LIFE":
+          datasetDatabaseControllerApi
+            ?.updateData(
+              selectedData!.map((inputs) => ({
+                partType: wb,
+                id: inputs.idx,
+                aiAlgorithmName: selectedModel?.algorithmType,
+                aiPredict: wholeEngineCycle - inputs[targetClassCol],
+                aiModelName: selectedModel?.modelName,
+              }))
+            )
+            .finally(() => {
+              alert("저장되었습니다")
+              setSaving(false)
+            });
+          break;
+      }
+    } else {
+      datasetDatabaseControllerApi
+        ?.updateData(
+          selectedData!.map((inputs) => ({
+            partType: wb,
+            id: inputs.idx,
+            aiAlgorithmName: selectedModel?.algorithmType,
+            aiPredict: parseInt(inputs[targetClassCol]),
+            aiModelName: selectedModel?.modelName,
+          }))
+        )
+        .finally(() => {
+          alert("저장되었습니다")
+          setSaving(false)
+        });
+    }
   }
 
   return (
