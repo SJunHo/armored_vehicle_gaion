@@ -22,4 +22,6 @@ public interface SensorEngineLifeInterface {
     Double getE_1X();
 
     Double getE_CrestFactor();
+
+    Date getDate();
 }

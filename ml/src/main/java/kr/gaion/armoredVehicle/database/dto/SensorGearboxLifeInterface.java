@@ -28,4 +28,6 @@ public interface SensorGearboxLifeInterface {
     Double getG_GMF1X();
 
     Double getG_GMF2X();
+
+    Date getDate();
 }

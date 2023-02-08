@@ -22,7 +22,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [conditionData, setConditionData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
   const [selectedDataIdx, setSelectedDataIdx] = useState<any[]>([]);
-  const [wb, setWb] = useState<string>("BLB");
+  const [wb, setWb] = useState<string>("");
   const [tableColumns, setTableColumns] = useState<any>([]);
   const [targetClassCol, setTargetClassCol] = useState<string>("");
   const [fromDate, setFromDate] = useState<Date>();
@@ -128,22 +128,22 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     b_OverallRMS: number, b_1X: number, b_6912BPFO: number, b_6912BPFI: number, b_6912BSF: number, b_6912FTF: number,
     b_32924BPFO: number, b_32924BPFI: number, b_32924BSF: number, b_32924FTF: number,
     b_32922BPFO: number, b_32922BPFI: number, b_32922BSF: number, b_32922FTF: number,
-    b_CrestFactor: number, b_Demodulation: number, b_Fault1: number, b_Fault2: number, b_Temperature: number
+    b_CrestFactor: number, b_Demodulation: number, b_Fault1: number, b_Fault2: number, b_Temperature: number, date: string
   }
 
   type SensorWheelLifeInput = {
     idx: number, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
-    w_2X: number, w_3X: number, w_Fault3: number,
+    w_2X: number, w_3X: number, w_Fault3: number, date: string
   }
 
   type SensorGearboxLifeInput = {
     idx: number, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
-    g_OverallRMS: number, g_Wheel1X: number, g_Wheel2X: number, g_Pinion1X: number, g_Pinion2X: number, g_GMF1X: number, g_GMF2X: number
+    g_OverallRMS: number, g_Wheel1X: number, g_Wheel2X: number, g_Pinion1X: number, g_Pinion2X: number, g_GMF1X: number, g_GMF2X: number, date: string
   }
 
   type SensorEngineLifeInput = {
     idx: number, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
-    e_OverallRMS: number, e_1_2X: number, e_1X: number, e_CrestFactor: number
+    e_OverallRMS: number, e_1_2X: number, e_1X: number, e_CrestFactor: number, date: string
   }
 
   const modelResponseColumns = useMemo<Column<DbModelResponse>[]>(
@@ -1144,6 +1144,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         Header: "B_Temperature",
         accessor: "b_Temperature",
       },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
     ],
     []
   );
@@ -1175,6 +1181,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       {
         Header: "W_Fault3",
         accessor: "w_Fault3",
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
       },
     ],
     []
@@ -1224,6 +1236,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         Header: "G_GMF2X",
         accessor: "g_GMF2X",
       },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
     ],
     []
   );
@@ -1260,6 +1278,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         Header: "E_CrestFactor",
         accessor: "e_CrestFactor",
       },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
     ],
     []
   );
@@ -1275,6 +1299,11 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   }, [selectedModel]);
 
   function handleSearchModel() {
+    if (wb === "" || null) {
+      alert("부품이 선택되지 않았습니다.")
+      setPredicting(false)
+      return null
+    }
     setSearchingModels(true);
     mlControllerApi
       ?.getModels(ALGORITHM_INFO[algorithmName].className)
@@ -1285,6 +1314,11 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   }
 
   function handleSearchConditionData(wb: any, paginate?: Pageable) {
+    if (wb === "" || null) {
+      alert("부품이 선택되지 않았습니다.")
+      setPredicting(false)
+      return null
+    }
     handleSearchTablesColumns(wb)
     handleSettingClassColByPart(wb)
     setSearchingData(true);
@@ -1684,6 +1718,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                 </>
               ) : (
                 <>
+                  <option value="">선택해주세요.</option>
                   <option value="BLB">베어링 좌측 볼</option>
                   <option value="BLO">베어링 좌측 외륜</option>
                   <option value="BLI">베어링 좌측 내륜</option>

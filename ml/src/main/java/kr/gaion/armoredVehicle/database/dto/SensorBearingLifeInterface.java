@@ -52,4 +52,6 @@ public interface SensorBearingLifeInterface {
     Double getB_Fault2();
 
     Double getB_Temperature();
+
+    Date getDate();
 }

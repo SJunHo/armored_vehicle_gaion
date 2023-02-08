@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 public class SensorWheelLifeInput {
     private int IDX;
-
+    private Date DATE;
     // AI Predict
     private Integer AI_Trip;
 

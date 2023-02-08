@@ -1,5 +1,7 @@
 package kr.gaion.armoredVehicle.database.dto;
 
+import java.util.Date;
+
 public interface WheelLifeInterface {
     int getIDX();
 
@@ -12,4 +14,6 @@ public interface WheelLifeInterface {
     double getW_3X();
 
     double getW_Fault3();
+
+    Date getDate();
 }

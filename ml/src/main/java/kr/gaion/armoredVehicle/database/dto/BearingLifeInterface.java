@@ -1,5 +1,7 @@
 package kr.gaion.armoredVehicle.database.dto;
 
+import java.util.Date;
+
 public interface BearingLifeInterface {
     int getIDX();
 
@@ -44,4 +46,6 @@ public interface BearingLifeInterface {
     double getB_Fault2();
 
     double getB_Temperature();
+
+    Date getDate();
 }

@@ -1,5 +1,7 @@
 package kr.gaion.armoredVehicle.database.dto;
 
+import java.util.Date;
+
 public interface GearboxLifeInterface {
     int getIDX();
 
@@ -20,4 +22,6 @@ public interface GearboxLifeInterface {
     double getG_GMF1X();
 
     double getG_GMF2X();
+
+    Date getDate();
 }

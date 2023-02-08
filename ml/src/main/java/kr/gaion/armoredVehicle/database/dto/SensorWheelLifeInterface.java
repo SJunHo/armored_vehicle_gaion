@@ -20,4 +20,6 @@ public interface SensorWheelLifeInterface {
     Double getW_3X();
 
     Double getW_Fault3();
+
+    Date getDate();
 }

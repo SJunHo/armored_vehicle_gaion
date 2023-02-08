@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Data
 @Getter
 @Setter
@@ -27,4 +29,7 @@ public class GearboxLifeInput {
     private double G_GMF1X;
 
     private double G_GMF2X;
+
+    private Date date;
+
 }

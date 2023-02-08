@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Data
 @Getter
 @Setter
@@ -19,4 +21,6 @@ public class WheelLifeInput {
     private double W_3X;
 
     private double W_Fault3;
+
+    private Date date;
 }
