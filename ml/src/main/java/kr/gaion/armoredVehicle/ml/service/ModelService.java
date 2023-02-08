@@ -115,7 +115,7 @@ public class ModelService {
                 dbModelResponse.setListFeatures(model.getListFeatures());
                 break;
             }
-            case "isolationForestOutlierDetection": {
+            case "IsolationForestOutlierDetection": {
                 var model = (ClusterResponse) response;
                 dbModelResponse.setModelName(modelName);
                 dbModelResponse.setAlgorithmType(algorithmName);

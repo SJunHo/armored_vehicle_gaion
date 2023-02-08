@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class IsolationForestOutlierDetection extends ClusterMlAlgorithm<IsolationForestModel> {
     public IsolationForestOutlierDetection(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull PcaDimensionalityReduction dimensionalityReduction, @NonNull ModelService modelService) {
-        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "isolationForestOutlierDetection", modelService, dimensionalityReduction);
+        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, "IsolationForestOutlierDetection", modelService, dimensionalityReduction);
     }
 
     @Override
