@@ -9,6 +9,7 @@ import kr.gaion.armoredVehicle.web.analysis.mapper.SdaMapper;
 import kr.gaion.armoredVehicle.web.analysis.mapper.TreeInfoMapper;
 import kr.gaion.armoredVehicle.web.analysis.model.Cmncd;
 import kr.gaion.armoredVehicle.web.analysis.model.TreeInfo;
+import kr.gaion.armoredVehicle.web.analysis.model.Userlog;
 import kr.gaion.armoredVehicle.web.security.jwt.mapper.UsercdMapper;
 import kr.gaion.armoredVehicle.web.security.jwt.model.Usercd;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +75,31 @@ public class UserManagementService {
 		List<TreeInfo> treeList = treeinfoMapper.findHeader(treeinfoid);
 
 		return treeList;
+	}
+
+	public Map<String, Object> findUserLogList(int page, int pageSize){
+		Paging paging = new Paging();
+
+		paging.setTotalcount(usercdRepository.countUserLogs());
+		paging.setPagenum(page-1);
+		paging.setContentnum(pageSize);
+		paging.setCurrentblock(page);
+		paging.setLastblock(paging.getTotalcount());
+
+		paging.prevnext(page);
+		paging.setStartPage(paging.getCurrentblock());
+		paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
+		paging.setTotalPageCount();
+		Map<String, Integer> parameter = new HashMap<String, Integer>();
+		parameter.put("page",paging.getPagenum()*pageSize);
+		parameter.put("pageSize", paging.getContentnum());
+		List<Userlog> userLogList = usercdRepository.findUserLogList(parameter);
+
+		Map<String, Object> map = new HashMap<String,Object>();
+
+		map.put("userLogList",userLogList);
+		map.put("paging", paging);
+		return map;
+
 	}
 }

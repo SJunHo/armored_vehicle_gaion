@@ -118,4 +118,24 @@ public class UserManagementController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping("/getUserLog")
+	public ResponseEntity<Map<String,Object>> getUserLog(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int pageSize){
+		try {
+			Map<String,Object> logList = new HashMap<String,Object>();
+
+			logList = userManagementService.findUserLogList(page, pageSize);
+
+			if(logList.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}else {
+				return new ResponseEntity<>(logList, HttpStatus.OK);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

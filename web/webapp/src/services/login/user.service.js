@@ -28,6 +28,11 @@ class UserService {
 	getBnList(data) {
 	return axios.get(API_URL + `/bnList/${data}`, { headers: authHeader(),'Content-type': "application/json",});
 	}
+
+	getUserLogList(params) {
+		return axios.get(API_URL + "/getUserLog", {headers: authHeader(), params});
+	}
+
 }
 
 export default new UserService();

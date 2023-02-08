@@ -25,7 +25,7 @@ import CIMList from "./components/analysis/SystemSettings/cim-list.component";
 import AddCIM from "./components/analysis/SystemSettings/add-cim.component";
 import ManageUsers from "./components/analysis/SystemSettings/manageusers.component";
 import AddUser from "./components/analysis/SystemSettings/add-user.component";
-
+import UserLog from "./components/analysis/SystemSettings/userlog-list.component";
 import MonitorRemaining from "./components/analysis/FaultDiagnosisModel/monitorremainingusefullife.component";
 /*전자 매뉴얼*/
 import Electronmanual from "./components/analysis/ElectronManual/electronmanual.component";
@@ -119,6 +119,7 @@ class App extends Component {
             <PrivateRoute exact path="/manageusers" component={ManageUsersList} />
             <PrivateRoute exact path="/addUser" component={AddUser} />
             <PrivateRoute exact path="/manageuser/:id" component={ManageUsers} />
+            <PrivateRoute exact path="/userLogList" component={UserLog} />
 
             <PrivateRoute exact path="/monitorremainingusefullife" component={MonitorRemaining} />
               {/*전자 매뉴얼*/}

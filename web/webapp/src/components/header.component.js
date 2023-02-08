@@ -226,6 +226,8 @@ class HeaderComp extends Component {
                 <NavDropdown.Item href="/cimList">공통정보 관리</NavDropdown.Item>
                 <NavDropdown.Divider/>
                 <NavDropdown.Item href="/manageusers">사용자 관리</NavDropdown.Item>
+                <NavDropdown.Divider/>
+                <NavDropdown.Item href="/userLogList">사용자 로그인 기록</NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown

@@ -56,4 +56,17 @@
         insert into USERLOG(userid, logindt)
         values (#{userid}, #{logindt})
     </insert>
+
+    <select id="findUserLogList" parameterType="java.util.Map"
+        resultType="kr.gaion.armoredVehicle.web.analysis.model.Userlog">
+        select *
+        from USERLOG
+        order by logindt desc
+        limit #{page}, #{pageSize}
+    </select>
+
+    <select id="countUserLogs" resultType="Integer">
+        select ifnull(count(*),0)
+        from USERLOG
+    </select>
 </mapper>
