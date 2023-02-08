@@ -213,6 +213,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
             // 6. Save model
             this.saveModel(config, lsModel);
+            this.saveModelIndexer(config, labelIndexer);
 
             // 7. response
             var response = new SVMClassificationResponse(ResponseType.OBJECT_DATA);
@@ -286,6 +287,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
             // 6. Save model
             this.saveModel(config, mlpModel);
+            this.saveModelIndexer(config, labelIndexer);
 
             // 7. response
             var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
@@ -352,7 +354,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
             // 6. Save model
             this.saveModel(config, lrModel);
-
+            this.saveModelIndexer(config, labelIndexer);
             // 7. response
             var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
 
@@ -420,7 +422,7 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
 
             // 6. Save model
             this.saveModel(config, rfModel);
-
+            this.saveModelIndexer(config, labelIndexer);
 
             // 7. response
             var response = new RandomForestClassificationResponse(ResponseType.OBJECT_DATA);
