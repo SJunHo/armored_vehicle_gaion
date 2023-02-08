@@ -51,22 +51,6 @@ export const JudgementLookup: React.FC = () => {
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LBSF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBSF_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LBSF_DATE",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           let result = data.ai_LBSF == "0" ? "정상" : "고장"
@@ -89,8 +73,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LBSF_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_LBSF_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -98,6 +86,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_LBSF_DATE == null ? "" : new Date(value.user_LBSF_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LBSF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LBSF_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBSF_ID",
       },
       {
         Header: "W_RPM",
@@ -151,34 +157,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorBearingLeftInsideColumns = useMemo<Column<SensorBearingLeftInsideInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LBPFI_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBPFI_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LBPFI_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -202,8 +186,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LBPFI_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_LBPFI_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -211,6 +199,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_LBPFI_DATE == null ? "" : new Date(value.user_LBPFI_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LBPFI_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LBPFI_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBPFI_ID",
       },
       {
         Header: "W_RPM",
@@ -264,34 +270,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorBearingLeftOutsideColumns = useMemo<Column<SensorBearingLeftOutsideInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LBPFO_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBPFO_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LBPFO_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -315,8 +299,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LBPFO_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_LBPFO_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -324,6 +312,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_LBPFO_DATE == null ? "" : new Date(value.user_LBPFO_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LBPFO_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LBPFO_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBPFO_ID",
       },
       {
         Header: "W_RPM",
@@ -377,34 +383,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorBearingLeftRetainerColumns = useMemo<Column<SensorBearingLeftRetainerInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LFTF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LFTF_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LFTF_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -428,8 +412,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LFTF_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_LFTF_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -437,6 +425,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_LFTF_DATE == null ? "" : new Date(value.user_LFTF_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LFTF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LFTF_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LFTF_ID",
       },
       {
         Header: "W_RPM",
@@ -490,34 +496,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorBearingRightBallColumns = useMemo<Column<SensorBearingRightBallInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RBSF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBSF_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RBSF_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -541,8 +525,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RBSF_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_RBSF_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -550,6 +538,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_RBSF_DATE == null ? "" : new Date(value.user_RBSF_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBSF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBSF_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBSF_ID",
       },
       {
         Header: "W_RPM",
@@ -603,34 +609,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorBearingRightInsideColumns = useMemo<Column<SensorBearingRightInsideInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RBPFI_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBPFI_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RBPFI_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -654,8 +638,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RBPFI_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_RBPFI_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -663,6 +651,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_RBPFI_DATE == null ? "" : new Date(value.user_RBPFI_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBPFI_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBPFI_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBPFI_ID",
       },
       {
         Header: "W_RPM",
@@ -716,34 +722,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorBearingRightOutsideColumns = useMemo<Column<SensorBearingRightOutsideInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RBPFO_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBPFO_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RBPFO_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -767,8 +751,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RBPFO_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_RBPFO_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -776,6 +764,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_RBPFO_DATE == null ? "" : new Date(value.user_RBPFO_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBPFO_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBPFO_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBPFO_ID",
       },
       {
         Header: "W_RPM",
@@ -829,34 +835,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorBearingRightRetainerColumns = useMemo<Column<SensorBearingRightRetainerInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RFTF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RFTF_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RFTF_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -880,8 +864,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RFTF_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_RFTF_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -889,6 +877,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_RFTF_DATE == null ? "" : new Date(value.user_RFTF_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RFTF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RFTF_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RFTF_ID",
       },
       {
         Header: "W_RPM",
@@ -942,34 +948,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorWheelLeftColumns = useMemo<Column<SensorWheelLeftInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_LW_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LW_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LW_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -993,8 +977,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LW_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_LW_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1002,6 +990,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_LW_DATE == null ? "" : new Date(value.user_LW_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LW_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LW_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LW_ID",
       },
       {
         Header: "W_RPM",
@@ -1031,34 +1037,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorWheelRightColumns = useMemo<Column<SensorWheelRightInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_RW_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RW_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RW_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -1082,8 +1066,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RW_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_RW_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1091,6 +1079,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_RW_DATE == null ? "" : new Date(value.user_RW_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RW_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RW_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RW_ID",
       },
       {
         Header: "W_RPM",
@@ -1120,34 +1126,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorGearboxColumns = useMemo<Column<SensorGearboxInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_GEAR_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_GEAR_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_GEAR_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -1171,8 +1155,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_GEAR_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_GEAR_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1180,6 +1168,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_GEAR_DATE == null ? "" : new Date(value.user_GEAR_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_GEAR_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_GEAR_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_GEAR_ID",
       },
       {
         Header: "W_RPM",
@@ -1225,34 +1231,12 @@ export const JudgementLookup: React.FC = () => {
         Header: "AC_a",
         accessor: "ac_a",
       },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
     ],
     []
   );
 
   const SensorEngineColumns = useMemo<Column<SensorEngineInput>[]>(
     () => [
-      {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
-        Header: "알고리즘",
-        accessor: "ai_ENGINE_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_ENGINE_MODEL",
-      },
-      {
-        Header: "모델 판정 날짜",
-        accessor: "ai_ENGINE_DATE",
-      },
       {
         Header: "예측 결과",
         accessor: (data) => {
@@ -1276,8 +1260,12 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_ENGINE_ID",
+        Header: "ID",
+        accessor: "idx",
+      },
+      {
+        Header: "모델 판정 날짜",
+        accessor: "ai_ENGINE_DATE",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1285,6 +1273,24 @@ export const JudgementLookup: React.FC = () => {
           let result = value.user_ENGINE_DATE == null ? "" : new Date(value.user_ENGINE_DATE).toLocaleString("ko-KR")
           return result
         }
+      },
+      {
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_ENGINE_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_ENGINE_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_ENGINE_ID",
       },
       {
         Header: "W_RPM",
@@ -1317,12 +1323,6 @@ export const JudgementLookup: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []

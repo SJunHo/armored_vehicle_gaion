@@ -127,22 +127,14 @@ export const JudgementUserInput: React.FC = () => {
           },
         },
         {
-          Header: "알고리즘",
-          accessor: "ai_LBSF_ALGO",
-        },
-        {
-          Header: "모델이름",
-          accessor: "ai_LBSF_MODEL",
+          Header: "ID",
+          accessor: "idx",
         },
         {
           Header: "모델 판정 날짜",
           Cell: (value?: any) => {
             return new Date(value.row.original.ai_LBSF_DATE).toLocaleString("ko-KR")
           }
-        },
-        {
-          Header: "작업자 ID",
-          accessor: "user_LBSF_ID",
         },
         {
           Header: "작업자 판정 날짜",
@@ -152,8 +144,22 @@ export const JudgementUserInput: React.FC = () => {
           }
         },
         {
-          Header: "ID",
-          accessor: "idx",
+          Header: "DATE",
+          Cell: (value?: any) => {
+            return new Date(value.row.original.date).toLocaleString("ko-KR")
+          }
+        },
+        {
+          Header: "알고리즘",
+          accessor: "ai_LBSF_ALGO",
+        },
+        {
+          Header: "모델이름",
+          accessor: "ai_LBSF_MODEL",
+        },
+        {
+          Header: "작업자 ID",
+          accessor: "user_LBSF_ID",
         },
         {
           Header: "W_RPM",
@@ -206,12 +212,6 @@ export const JudgementUserInput: React.FC = () => {
         {
           Header: "AC_a",
           accessor: "ac_a",
-        },
-        {
-          Header: "DATE",
-          Cell: (value?: any) => {
-            return new Date(value.row.original.date).toLocaleString("ko-KR")
-          }
         },
       ];
     },
@@ -271,22 +271,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_LBPFI_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBPFI_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_LBPFI_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_LBPFI_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -296,8 +288,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LBPFI_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LBPFI_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBPFI_ID",
       },
       {
         Header: "W_RPM",
@@ -350,12 +356,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -414,22 +414,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_LBPFO_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LBPFO_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_LBPFO_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_LBPFO_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -439,8 +431,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LBPFO_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LBPFO_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBPFO_ID",
       },
       {
         Header: "W_RPM",
@@ -493,12 +499,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -557,22 +557,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_LFTF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LFTF_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_LFTF_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_LFTF_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -582,8 +574,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LFTF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LFTF_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LFTF_ID",
       },
       {
         Header: "W_RPM",
@@ -636,12 +642,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -700,22 +700,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_RBSF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBSF_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_RBSF_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_RBSF_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -725,8 +717,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBSF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBSF_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBSF_ID",
       },
       {
         Header: "W_RPM",
@@ -779,12 +785,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -843,22 +843,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_RBPFI_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBPFI_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_RBPFI_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_RBPFI_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -868,8 +860,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBPFI_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBPFI_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBPFI_ID",
       },
       {
         Header: "W_RPM",
@@ -922,12 +928,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -986,22 +986,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_RBPFO_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RBPFO_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_RBPFO_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_RBPFO_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1011,8 +1003,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RBPFO_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RBPFO_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBPFO_ID",
       },
       {
         Header: "W_RPM",
@@ -1065,12 +1071,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -1129,22 +1129,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_RFTF_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RFTF_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_RFTF_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_RFTF_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1154,8 +1146,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RFTF_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RFTF_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RFTF_ID",
       },
       {
         Header: "W_RPM",
@@ -1208,12 +1214,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -1272,22 +1272,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_LW_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_LW_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_LW_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_LW_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1297,8 +1289,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_LW_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_LW_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LW_ID",
       },
       {
         Header: "W_RPM",
@@ -1327,12 +1333,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -1391,22 +1391,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_RW_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_RW_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_RW_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_RW_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1416,8 +1408,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_RW_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_RW_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RW_ID",
       },
       {
         Header: "W_RPM",
@@ -1446,12 +1452,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -1510,22 +1510,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_GEAR_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_GEAR_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_GEAR_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_GEAR_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1535,8 +1527,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_GEAR_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_GEAR_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_GEAR_ID",
       },
       {
         Header: "W_RPM",
@@ -1581,12 +1587,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
@@ -1645,22 +1645,14 @@ export const JudgementUserInput: React.FC = () => {
         },
       },
       {
-        Header: "알고리즘",
-        accessor: "ai_ENGINE_ALGO",
-      },
-      {
-        Header: "모델이름",
-        accessor: "ai_ENGINE_MODEL",
+        Header: "ID",
+        accessor: "idx",
       },
       {
         Header: "모델 판정 날짜",
         Cell: (value?: any) => {
           return new Date(value.row.original.ai_ENGINE_DATE).toLocaleString("ko-KR")
         }
-      },
-      {
-        Header: "작업자 ID",
-        accessor: "user_ENGINE_ID",
       },
       {
         Header: "작업자 판정 날짜",
@@ -1670,8 +1662,22 @@ export const JudgementUserInput: React.FC = () => {
         }
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "DATE",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "알고리즘",
+        accessor: "ai_ENGINE_ALGO",
+      },
+      {
+        Header: "모델이름",
+        accessor: "ai_ENGINE_MODEL",
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_ENGINE_ID",
       },
       {
         Header: "W_RPM",
@@ -1704,12 +1710,6 @@ export const JudgementUserInput: React.FC = () => {
       {
         Header: "AC_a",
         accessor: "ac_a",
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
       },
     ],
     []
