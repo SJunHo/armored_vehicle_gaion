@@ -20,11 +20,11 @@ export const Judgement: React.FC = () => {
         headers={[
           {
             id: "lookup",
-            title: "고장진단 결과 조회",
+            title: "고장예지 결과 조회",
           },
           {
             id: "input",
-            title: "고장진단 작업자 판정",
+            title: "고장예지 작업자 판정",
           },
         ]}
         activeTabId={tab}

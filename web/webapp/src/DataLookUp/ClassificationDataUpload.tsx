@@ -55,7 +55,7 @@ const UploadPage: React.FC<{
 
   return (
     <div className="page-padding">
-      <Section title={"고장진단 모델 학습 데이터 업로드"}>
+      <Section title={"고장예지 모델 학습 데이터 업로드"}>
         <Form>
           <Row className="d-flex mt-2 mb-4">
             <Col md={2}>
@@ -64,10 +64,10 @@ const UploadPage: React.FC<{
                 value={selectedDataType}
                 onChange={(v) => setSelectedDataType((v.target as any).value)}
               >
-                <option value={'B'}>[고장진단] 베어링</option>
-                <option value={'W'}>[고장진단] 휠</option>
-                <option value={'G'}>[고장진단] 기어박스</option>
-                <option value={'E'}>[고장진단] 엔진</option>
+                <option value={'B'}>[고장예지] 베어링</option>
+                <option value={'W'}>[고장예지] 휠</option>
+                <option value={'G'}>[고장예지] 기어박스</option>
+                <option value={'E'}>[고장예지] 엔진</option>
               </Form.Select>
             </Col>
           </Row>

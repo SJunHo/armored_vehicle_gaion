@@ -717,7 +717,7 @@ export default class MonitorDiagnosTictroubleAlerts extends Component {
     return (
       <div className="container min">
         <header className="jumbotron">
-          AI 고장진단 결과 조회
+          AI 고장예지 결과 조회
         <div className="button_area02">
           <button className="btn-sumulation" onClick={this.simulation}>시뮬레이션</button>
         </div>

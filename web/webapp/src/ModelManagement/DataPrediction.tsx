@@ -1695,7 +1695,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
 
   return (
     <Container fluid>
-      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 수행" : "고장진단 예측 수행"} className="mb-2">
+      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 수행" : "고장예지 예측 수행"} className="mb-2">
         <Row className="row mb-2">
           <Col xs={1} className="Col pe-0 text-white">
             부품선택
@@ -1818,7 +1818,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           </Col>
         </Row>
       </Section>
-      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 결과" : "고장진단 예측 결과"} className="mb-2">
+      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 결과" : "고장예지 예측 결과"} className="mb-2">
         <Col xl={12}>
           <div className="w-100 overflow-auto">
             <Table
