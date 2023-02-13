@@ -128,7 +128,7 @@ export const JudgementUserInput: React.FC = () => {
         },
         {
           Header: "차량 ID",
-          accessor: "sdaid",
+          accessor: "sdaId",
         },
         {
           Header: "운용날짜",
@@ -272,7 +272,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -415,7 +415,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -558,7 +558,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -701,7 +701,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -844,7 +844,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -987,7 +987,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1130,7 +1130,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1273,7 +1273,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1392,7 +1392,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1511,7 +1511,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1646,7 +1646,7 @@ export const JudgementUserInput: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",

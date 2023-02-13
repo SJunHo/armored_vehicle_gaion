@@ -45,8 +45,7 @@ export const JudgementLookup: React.FC = () => {
 
   const {databaseJudgementControllerApi} = useContext(OpenApiContext);
 
-  const notNeededColumnsForAnother = ["ai", "ac_", "DATE", "ID", "idx"];
-  const notNeededColumnsForEngine = ["ai", "DATE", "ID", "idx"];
+  const notNeededColumnsForAnother = ["ai", "ac_", "DATE", "idx", "_ID"];
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
@@ -74,7 +73,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -190,7 +189,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -306,7 +305,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -422,7 +421,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -538,7 +537,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -654,7 +653,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -770,7 +769,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -886,7 +885,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1002,7 +1001,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1094,7 +1093,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1186,7 +1185,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1294,7 +1293,7 @@ export const JudgementLookup: React.FC = () => {
       },
       {
         Header: "차량 ID",
-        accessor: "sdaid",
+        accessor: "sdaId",
       },
       {
         Header: "운용날짜",
@@ -1440,19 +1439,28 @@ export const JudgementLookup: React.FC = () => {
     const isUpperCase = (string: string) => /^[A-Z]*$/.test(string)
 
     data.forEach((el: any) => {
-      el[newAiKey] = el[userKey[0]]
-      delete el[userKey[0]]
-      for (var i in el) {
-        if (i.toString() == 'date') {
-          el["DATE"] = el['date']
-          delete el['date']
-        } else if (!isUpperCase(i.charAt(0))) {
-          var upperCaseKey = i.charAt(0).toUpperCase() + i.slice(1)
-          el[upperCaseKey] = el[i];
-          delete el[i];
+        el[newAiKey] = el[userKey[0]]
+        delete el[userKey[0]]
+        for (let i in el) {
+          switch (i.toString()) {
+            case 'date':
+              el["DATE"] = el['date']
+              delete el['date']
+              break
+            case 'sdaId':
+              el['SDAID'] = el['sdaId']
+              delete el['sdaId']
+              break
+            default:
+              if (!isUpperCase(i.charAt(0))) {
+                var upperCaseKey = i.charAt(0).toUpperCase() + i.slice(1)
+                el[upperCaseKey] = el[i];
+                delete el[i];
+              }
+          }
         }
       }
-    })
+    )
 
     return data
   }

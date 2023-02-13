@@ -1,7 +1,7 @@
 import React from "react";
 
 export type SensorBearingLeftBallInput = {
-  idx: number, sdaid: string, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,
+  idx: number, sdaId: string, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,
   user_LBSF: string, user_LBSF_ID: string, user_LBSF_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912BSF: number, l_B_V_32924BSF: number, l_B_V_32922BSF: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
@@ -9,7 +9,7 @@ export type SensorBearingLeftBallInput = {
 }
 
 export type SensorBearingLeftInsideInput = {
-  idx: number, sdaid: string, ai_LBPFI: string, ai_LBPFI_ALGO: string, ai_LBPFI_MODEL: string, ai_LBPFI_DATE: string,
+  idx: number, sdaId: string, ai_LBPFI: string, ai_LBPFI_ALGO: string, ai_LBPFI_MODEL: string, ai_LBPFI_DATE: string,
   user_LBPFI: string, user_LBPFI_ID: string, user_LBPFI_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFI: number, l_B_V_32924BPFI: number, l_B_V_32922BPFI: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
@@ -17,7 +17,7 @@ export type SensorBearingLeftInsideInput = {
 }
 
 export type SensorBearingLeftOutsideInput = {
-  idx: number, sdaid: string, ai_LBPFO: string, ai_LBPFO_ALGO: string, ai_LBPFO_MODEL: string, ai_LBPFO_DATE: string,
+  idx: number, sdaId: string, ai_LBPFO: string, ai_LBPFO_ALGO: string, ai_LBPFO_MODEL: string, ai_LBPFO_DATE: string,
   user_LBPFO: string, user_LBPFO_ID: string, user_LBPFO_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFO: number, l_B_V_32924BPFO: number, l_B_V_32922BPFO: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
@@ -25,7 +25,7 @@ export type SensorBearingLeftOutsideInput = {
 }
 
 export type SensorBearingLeftRetainerInput = {
-  idx: number, sdaid: string, ai_LFTF: string, ai_LFTF_ALGO: string, ai_LFTF_MODEL: string, ai_LFTF_DATE: string,
+  idx: number, sdaId: string, ai_LFTF: string, ai_LFTF_ALGO: string, ai_LFTF_MODEL: string, ai_LFTF_DATE: string,
   user_LFTF: string, user_LFTF_ID: string, user_LFTF_DATE: string,
   w_RPM: number, l_B_V_1X: number, l_B_V_6912FTF: number, l_B_V_32924FTF: number, l_B_V_32922FTF: number,
   l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
@@ -33,7 +33,7 @@ export type SensorBearingLeftRetainerInput = {
 }
 
 export type SensorBearingRightBallInput = {
-  idx: number, sdaid: string, ai_RBSF: string, ai_RBSF_ALGO: string, ai_RBSF_MODEL: string, ai_RBSF_DATE: string,
+  idx: number, sdaId: string, ai_RBSF: string, ai_RBSF_ALGO: string, ai_RBSF_MODEL: string, ai_RBSF_DATE: string,
   user_RBSF: string, user_RBSF_ID: string, user_RBSF_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912BSF: number, r_B_V_32924BSF: number, r_B_V_32922BSF: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
@@ -41,7 +41,7 @@ export type SensorBearingRightBallInput = {
 }
 
 export type SensorBearingRightInsideInput = {
-  idx: number, sdaid: string, ai_RBPFI: string, ai_RBPFI_ALGO: string, ai_RBPFI_MODEL: string, ai_RBPFI_DATE: string,
+  idx: number, sdaId: string, ai_RBPFI: string, ai_RBPFI_ALGO: string, ai_RBPFI_MODEL: string, ai_RBPFI_DATE: string,
   user_RBPFI: string, user_RBPFI_ID: string, user_RBPFI_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFI: number, r_B_V_32924BPFI: number, r_B_V_32922BPFI: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
@@ -49,7 +49,7 @@ export type SensorBearingRightInsideInput = {
 }
 
 export type SensorBearingRightOutsideInput = {
-  idx: number, sdaid: string, ai_RBPFO: string, ai_RBPFO_ALGO: string, ai_RBPFO_MODEL: string, ai_RBPFO_DATE: string,
+  idx: number, sdaId: string, ai_RBPFO: string, ai_RBPFO_ALGO: string, ai_RBPFO_MODEL: string, ai_RBPFO_DATE: string,
   user_RBPFO: string, user_RBPFO_ID: string, user_RBPFO_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFO: number, r_B_V_32924BPFO: number, r_B_V_32922BPFO: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
@@ -57,7 +57,7 @@ export type SensorBearingRightOutsideInput = {
 }
 
 export type SensorBearingRightRetainerInput = {
-  idx: number, sdaid: string, ai_RFTF: string, ai_RFTF_ALGO: string, ai_RFTF_MODEL: string, ai_RFTF_DATE: string,
+  idx: number, sdaId: string, ai_RFTF: string, ai_RFTF_ALGO: string, ai_RFTF_MODEL: string, ai_RFTF_DATE: string,
   user_RFTF: string, user_RFTF_ID: string, user_RFTF_DATE: string,
   w_RPM: number, r_B_V_1X: number, r_B_V_6912FTF: number, r_B_V_32924FTF: number, r_B_V_32922FTF: number,
   r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
@@ -65,21 +65,21 @@ export type SensorBearingRightRetainerInput = {
 }
 
 export type SensorWheelLeftInput = {
-  idx: number, sdaid: string, ai_LW: string, ai_LW_ALGO: string, ai_LW_MODEL: string, ai_LW_DATE: string,
+  idx: number, sdaId: string, ai_LW: string, ai_LW_ALGO: string, ai_LW_MODEL: string, ai_LW_DATE: string,
   user_LW: string, user_LW_ID: string, user_LW_DATE: string,
   w_RPM: number, l_W_V_2X: number, l_W_V_3X: number, l_W_S_Fault3: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
 }
 
 export type SensorWheelRightInput = {
-  idx: number, sdaid: string, ai_RW: string, ai_RW_ALGO: string, ai_RW_MODEL: string, ai_RW_DATE: string,
+  idx: number, sdaId: string, ai_RW: string, ai_RW_ALGO: string, ai_RW_MODEL: string, ai_RW_DATE: string,
   user_RW: string, user_RW_ID: string, user_RW_DATE: string,
   w_RPM: number, r_W_V_2X: number, r_W_V_3X: number, r_W_S_Fault3: number,
   ac_h: number, ac_v: number, ac_a: number, date: string
 }
 
 export type SensorGearboxInput = {
-  idx: number, sdaid: string, ai_GEAR: string, ai_GEAR_ALGO: string, ai_GEAR_MODEL: string, ai_GEAR_DATE: string,
+  idx: number, sdaId: string, ai_GEAR: string, ai_GEAR_ALGO: string, ai_GEAR_MODEL: string, ai_GEAR_DATE: string,
   user_GEAR: string, user_GEAR_ID: string, user_GEAR_DATE: string,
   w_RPM: number, g_V_OverallRMS: number, g_V_Wheel1X: number, g_V_Wheel2X: number,
   g_V_Pinion1X: number, g_V_Pinion2X: number, g_V_GMF1X: number, g_V_GMF2X: number,
@@ -87,10 +87,33 @@ export type SensorGearboxInput = {
 }
 
 export type SensorEngineInput = {
-  idx: number, sdaid: string, ai_ENGINE: string, ai_ENGINE_ALGO: string, ai_ENGINE_MODEL: string, ai_ENGINE_DATE: string,
+  idx: number, sdaId: string, ai_ENGINE: string, ai_ENGINE_ALGO: string, ai_ENGINE_MODEL: string, ai_ENGINE_DATE: string,
   user_ENGINE: string, user_ENGINE_ID: string, user_ENGINE_DATE: string,
   w_RPM: number, e_V_OverallRMS: number, e_V_1_2X: number, e_V_1X: number,
   e_V_Crestfactor: number, ac_h: number, ac_v: number, ac_a: number, date: string
+}
+
+export type SensorBearingLifeInput = {
+  idx: number, sdaId: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+  b_OverallRMS: number, b_1X: number, b_6912BPFO: number, b_6912BPFI: number, b_6912BSF: number, b_6912FTF: number,
+  b_32924BPFO: number, b_32924BPFI: number, b_32924BSF: number, b_32924FTF: number,
+  b_32922BPFO: number, b_32922BPFI: number, b_32922BSF: number, b_32922FTF: number,
+  b_CrestFactor: number, b_Demodulation: number, b_Fault1: number, b_Fault2: number, b_Temperature: number, date: string
+}
+
+export type SensorWheelLifeInput = {
+  idx: number, sdaId: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+  w_2X: number, w_3X: number, w_Fault3: number,
+}
+
+export type SensorGearboxLifeInput = {
+  idx: number, sdaId: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+  g_OverallRMS: number, g_Wheel1X: number, g_Wheel2X: number, g_Pinion1X: number, g_Pinion2X: number, g_GMF1X: number, g_GMF2X: number
+}
+
+export type SensorEngineLifeInput = {
+  idx: number, sdaId: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+  e_OverallRMS: number, e_1_2X: number, e_1X: number, e_CrestFactor: number
 }
 
 export const partTypes = [

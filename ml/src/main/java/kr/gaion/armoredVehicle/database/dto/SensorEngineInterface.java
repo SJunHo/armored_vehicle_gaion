@@ -5,7 +5,7 @@ import java.util.Date;
 public interface SensorEngineInterface {
     int getIDX();
 
-    String getSDAID();
+    String getSdaId();
 
     // AI Predict
     Integer getAI_ENGINE();

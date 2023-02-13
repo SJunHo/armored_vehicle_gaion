@@ -5,7 +5,7 @@ import java.util.Date;
 public interface SensorBearingLeftRetainerInterface {
     int getIDX();
 
-    String getSDAID();
+    String getSdaId();
 
     // AI Predict
     Integer getAI_LFTF();

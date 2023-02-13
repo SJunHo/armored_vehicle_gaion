@@ -5,6 +5,8 @@ import java.util.Date;
 public interface SensorGearboxLifeInterface {
     int getIDX();
 
+    String getSdaId();
+
     // AI Predict
     Integer getAI_Trip();
 
