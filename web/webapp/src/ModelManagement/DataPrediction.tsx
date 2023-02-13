@@ -43,88 +43,88 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const wholeEngineCycle = 480000
 
   type SensorBearingLeftBallInput = {
-    idx: number, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,
+    idx: number, sdaid: string, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,
     w_RPM: number, l_B_V_1X: number, l_B_V_6912BSF: number, l_B_V_32924BSF: number, l_B_V_32922BSF: number,
     l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingLeftInsideInput = {
-    idx: number, ai_LBPFI: string, ai_LBPFI_ALGO: string, ai_LBPFI_MODEL: string, ai_LBPFI_DATE: string,
+    idx: number, sdaid: string, ai_LBPFI: string, ai_LBPFI_ALGO: string, ai_LBPFI_MODEL: string, ai_LBPFI_DATE: string,
     w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFI: number, l_B_V_32924BPFI: number, l_B_V_32922BPFI: number,
     l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingLeftOutsideInput = {
-    idx: number, ai_LBPFO: string, ai_LBPFO_ALGO: string, ai_LBPFO_MODEL: string, ai_LBPFO_DATE: string,
+    idx: number, sdaid: string, ai_LBPFO: string, ai_LBPFO_ALGO: string, ai_LBPFO_MODEL: string, ai_LBPFO_DATE: string,
     w_RPM: number, l_B_V_1X: number, l_B_V_6912BPFO: number, l_B_V_32924BPFO: number, l_B_V_32922BPFO: number,
     l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingLeftRetainerInput = {
-    idx: number, ai_LFTF: string, ai_LFTF_ALGO: string, ai_LFTF_MODEL: string, ai_LFTF_DATE: string,
+    idx: number, sdaid: string, ai_LFTF: string, ai_LFTF_ALGO: string, ai_LFTF_MODEL: string, ai_LFTF_DATE: string,
     w_RPM: number, l_B_V_1X: number, l_B_V_6912FTF: number, l_B_V_32924FTF: number, l_B_V_32922FTF: number,
     l_B_V_Crestfactor: number, l_B_V_Demodulation: number, l_B_S_Fault1: number, l_B_S_Fault2: number, l_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingRightBallInput = {
-    idx: number, ai_RBSF: string, ai_RBSF_ALGO: string, ai_RBSF_MODEL: string, ai_RBSF_DATE: string,
+    idx: number, sdaid: string, ai_RBSF: string, ai_RBSF_ALGO: string, ai_RBSF_MODEL: string, ai_RBSF_DATE: string,
     w_RPM: number, r_B_V_1X: number, r_B_V_6912BSF: number, r_B_V_32924BSF: number, r_B_V_32922BSF: number,
     r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingRightInsideInput = {
-    idx: number, ai_RBPFI: string, ai_RBPFI_ALGO: string, ai_RBPFI_MODEL: string, ai_RBPFI_DATE: string,
+    idx: number, sdaid: string, ai_RBPFI: string, ai_RBPFI_ALGO: string, ai_RBPFI_MODEL: string, ai_RBPFI_DATE: string,
     w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFI: number, r_B_V_32924BPFI: number, r_B_V_32922BPFI: number,
     r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingRightOutsideInput = {
-    idx: number, ai_RBPFO: string, ai_RBPFO_ALGO: string, ai_RBPFO_MODEL: string, ai_RBPFO_DATE: string,
+    idx: number, sdaid: string, ai_RBPFO: string, ai_RBPFO_ALGO: string, ai_RBPFO_MODEL: string, ai_RBPFO_DATE: string,
     w_RPM: number, r_B_V_1X: number, r_B_V_6912BPFO: number, r_B_V_32924BPFO: number, r_B_V_32922BPFO: number,
     r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingRightRetainerInput = {
-    idx: number, ai_RFTF: string, ai_RFTF_ALGO: string, ai_RFTF_MODEL: string, ai_RFTF_DATE: string,
+    idx: number, sdaid: string, ai_RFTF: string, ai_RFTF_ALGO: string, ai_RFTF_MODEL: string, ai_RFTF_DATE: string,
     w_RPM: number, r_B_V_1X: number, r_B_V_6912FTF: number, r_B_V_32924FTF: number, r_B_V_32922FTF: number,
     r_B_V_Crestfactor: number, r_B_V_Demodulation: number, r_B_S_Fault1: number, r_B_S_Fault2: number, r_B_T_Temperature: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorWheelLeftInput = {
-    idx: number, ai_LW: string, ai_LW_ALGO: string, ai_LW_MODEL: string, ai_LW_DATE: string,
+    idx: number, sdaid: string, ai_LW: string, ai_LW_ALGO: string, ai_LW_MODEL: string, ai_LW_DATE: string,
     w_RPM: number, l_W_V_2X: number, l_W_V_3X: number, l_W_S_Fault3: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorWheelRightInput = {
-    idx: number, ai_RW: string, ai_RW_ALGO: string, ai_RW_MODEL: string, ai_RW_DATE: string,
+    idx: number, sdaid: string, ai_RW: string, ai_RW_ALGO: string, ai_RW_MODEL: string, ai_RW_DATE: string,
     w_RPM: number, r_W_V_2X: number, r_W_V_3X: number, r_W_S_Fault3: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorGearboxInput = {
-    idx: number, ai_GEAR: string, ai_GEAR_ALGO: string, ai_GEAR_MODEL: string, ai_GEAR_DATE: string,
+    idx: number, sdaid: string, ai_GEAR: string, ai_GEAR_ALGO: string, ai_GEAR_MODEL: string, ai_GEAR_DATE: string,
     w_RPM: number, g_V_OverallRMS: number, g_V_Wheel1X: number, g_V_Wheel2X: number,
     g_V_Pinion1X: number, g_V_Pinion2X: number, g_V_GMF1X: number, g_V_GMF2X: number,
     ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorEngineInput = {
-    idx: number, ai_ENGINE: string, ai_ENGINE_ALGO: string, ai_ENGINE_MODEL: string, ai_ENGINE_DATE: string,
+    idx: number, sdaid: string, ai_ENGINE: string, ai_ENGINE_ALGO: string, ai_ENGINE_MODEL: string, ai_ENGINE_DATE: string,
     w_RPM: number, e_V_OverallRMS: number, e_V_1_2X: number, e_V_1X: number,
     e_V_Crestfactor: number, ac_h: number, ac_v: number, ac_a: number, date: string
   }
 
   type SensorBearingLifeInput = {
-    idx: number, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+    idx: number, sdaid: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
     b_OverallRMS: number, b_1X: number, b_6912BPFO: number, b_6912BPFI: number, b_6912BSF: number, b_6912FTF: number,
     b_32924BPFO: number, b_32924BPFI: number, b_32924BSF: number, b_32924FTF: number,
     b_32922BPFO: number, b_32922BPFI: number, b_32922BSF: number, b_32922FTF: number,
@@ -132,18 +132,18 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   }
 
   type SensorWheelLifeInput = {
-    idx: number, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
-    w_2X: number, w_3X: number, w_Fault3: number, date: string
+    idx: number, sdaid: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+    w_2X: number, w_3X: number, w_Fault3: number,
   }
 
   type SensorGearboxLifeInput = {
-    idx: number, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
-    g_OverallRMS: number, g_Wheel1X: number, g_Wheel2X: number, g_Pinion1X: number, g_Pinion2X: number, g_GMF1X: number, g_GMF2X: number, date: string
+    idx: number, sdaid: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+    g_OverallRMS: number, g_Wheel1X: number, g_Wheel2X: number, g_Pinion1X: number, g_Pinion2X: number, g_GMF1X: number, g_GMF2X: number
   }
 
   type SensorEngineLifeInput = {
-    idx: number, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
-    e_OverallRMS: number, e_1_2X: number, e_1X: number, e_CrestFactor: number, date: string
+    idx: number, sdaid: string, ai_Trip: number, aI_Trip_ALGO: string, aI_Trip_MODEL: string, aI_Trip_DATE: string,
+    e_OverallRMS: number, e_1_2X: number, e_1X: number, e_CrestFactor: number
   }
 
   const modelResponseColumns = useMemo<Column<DbModelResponse>[]>(
@@ -171,10 +171,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_LBSF === "0.0") {
@@ -185,6 +181,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -251,10 +251,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingLeftInsideColumns = useMemo<Column<SensorBearingLeftInsideInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_LBPFI === "0.0") {
@@ -265,6 +261,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -331,10 +331,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingLeftOutsideColumns = useMemo<Column<SensorBearingLeftOutsideInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_LBPFO === "0.0") {
@@ -345,6 +341,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -411,10 +411,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingLeftRetainerColumns = useMemo<Column<SensorBearingLeftRetainerInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_LFTF === "0.0") {
@@ -425,6 +421,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -491,10 +491,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingRightBallColumns = useMemo<Column<SensorBearingRightBallInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_RBSF === "0.0") {
@@ -505,6 +501,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -571,10 +571,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingRightInsideColumns = useMemo<Column<SensorBearingRightInsideInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_RBPFI === "0.0") {
@@ -585,6 +581,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -651,10 +651,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingRightOutsideColumns = useMemo<Column<SensorBearingRightOutsideInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_RBPFO === "0.0") {
@@ -665,6 +661,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -731,10 +731,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorBearingRightRetainerColumns = useMemo<Column<SensorBearingRightRetainerInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_RFTF === "0.0") {
@@ -745,6 +741,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -811,10 +811,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorWheelLeftColumns = useMemo<Column<SensorWheelLeftInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_LW === "0.0") {
@@ -825,6 +821,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -867,10 +867,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorWheelRightColumns = useMemo<Column<SensorWheelRightInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_RW === "0.0") {
@@ -881,6 +877,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -923,10 +923,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorGearboxColumns = useMemo<Column<SensorGearboxInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_GEAR === "0.0") {
@@ -937,6 +933,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",
@@ -995,10 +995,6 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const SensorEngineColumns = useMemo<Column<SensorEngineInput>[]>(
     () => [
       {
-        Header: "ID",
-        accessor: "idx",
-      },
-      {
         Header: "예측 결과",
         accessor: (data) => {
           if (data.ai_ENGINE === "0.0") {
@@ -1009,6 +1005,10 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
             return "-"
           }
         },
+      },
+      {
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
         Header: "W_RPM",

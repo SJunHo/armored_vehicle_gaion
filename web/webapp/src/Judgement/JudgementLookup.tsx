@@ -73,24 +73,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LBSF_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBSF_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_LBSF_DATE == null ? "" : new Date(value.user_LBSF_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -102,8 +102,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_LBSF_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LBSF_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_LBSF_DATE == null ? "" : new Date(value.ai_LBSF_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -186,24 +189,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LBPFI_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBPFI_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_LBPFI_DATE == null ? "" : new Date(value.user_LBPFI_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -215,8 +218,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_LBPFI_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LBPFI_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_LBPFI_DATE == null ? "" : new Date(value.ai_LBPFI_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -299,24 +305,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LBPFO_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LBPFO_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_LBPFO_DATE == null ? "" : new Date(value.user_LBPFO_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -328,8 +334,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_LBPFO_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LBPFO_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_LBPFO_DATE == null ? "" : new Date(value.ai_LBPFO_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -412,24 +421,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LFTF_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LFTF_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_LFTF_DATE == null ? "" : new Date(value.user_LFTF_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -441,8 +450,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_LFTF_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LFTF_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_LFTF_DATE == null ? "" : new Date(value.ai_LFTF_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -525,24 +537,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RBSF_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBSF_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_RBSF_DATE == null ? "" : new Date(value.user_RBSF_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -554,8 +566,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_RBSF_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RBSF_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_RBSF_DATE == null ? "" : new Date(value.ai_RBSF_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -638,24 +653,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RBPFI_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBPFI_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_RBPFI_DATE == null ? "" : new Date(value.user_RBPFI_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -667,8 +682,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_RBPFI_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RBPFI_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_RBPFI_DATE == null ? "" : new Date(value.ai_RBPFI_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -751,24 +769,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RBPFO_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RBPFO_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_RBPFO_DATE == null ? "" : new Date(value.user_RBPFO_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -780,8 +798,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_RBPFO_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RBPFO_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_RBPFO_DATE == null ? "" : new Date(value.ai_RBPFO_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -864,24 +885,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RFTF_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RFTF_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_RFTF_DATE == null ? "" : new Date(value.user_RFTF_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -893,8 +914,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_RFTF_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RFTF_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_RFTF_DATE == null ? "" : new Date(value.ai_RFTF_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -977,24 +1001,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_LW_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_LW_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_LW_DATE == null ? "" : new Date(value.user_LW_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -1006,8 +1030,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_LW_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_LW_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_LW_DATE == null ? "" : new Date(value.ai_LW_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -1066,24 +1093,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_RW_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_RW_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_RW_DATE == null ? "" : new Date(value.user_RW_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -1095,8 +1122,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_RW_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_RW_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_RW_DATE == null ? "" : new Date(value.ai_RW_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -1155,24 +1185,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_GEAR_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_GEAR_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_GEAR_DATE == null ? "" : new Date(value.user_GEAR_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -1184,8 +1214,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_GEAR_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_GEAR_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_GEAR_DATE == null ? "" : new Date(value.ai_GEAR_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",
@@ -1260,24 +1293,24 @@ export const JudgementLookup: React.FC = () => {
         },
       },
       {
-        Header: "ID",
-        accessor: "idx",
+        Header: "차량 ID",
+        accessor: "sdaid",
       },
       {
-        Header: "모델 판정 날짜",
-        accessor: "ai_ENGINE_DATE",
+        Header: "운용날짜",
+        Cell: (value?: any) => {
+          return new Date(value.row.original.date).toLocaleString("ko-KR")
+        }
+      },
+      {
+        Header: "작업자 ID",
+        accessor: "user_ENGINE_ID",
       },
       {
         Header: "작업자 판정 날짜",
         accessor: (value) => {
           let result = value.user_ENGINE_DATE == null ? "" : new Date(value.user_ENGINE_DATE).toLocaleString("ko-KR")
           return result
-        }
-      },
-      {
-        Header: "DATE",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
         }
       },
       {
@@ -1289,8 +1322,11 @@ export const JudgementLookup: React.FC = () => {
         accessor: "ai_ENGINE_MODEL",
       },
       {
-        Header: "작업자 ID",
-        accessor: "user_ENGINE_ID",
+        Header: "모델 판정 날짜",
+        accessor: (value) => {
+          let result = value.ai_ENGINE_DATE == null ? "" : new Date(value.ai_ENGINE_DATE).toLocaleString("ko-KR")
+          return result
+        }
       },
       {
         Header: "W_RPM",

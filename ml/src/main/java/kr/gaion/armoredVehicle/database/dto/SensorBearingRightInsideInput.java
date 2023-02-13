@@ -12,6 +12,8 @@ import java.util.Date;
 public class SensorBearingRightInsideInput {
     private int IDX;
 
+    private String SDAID;
+
     // AI Predict
     private String AI_RBPFI;
 

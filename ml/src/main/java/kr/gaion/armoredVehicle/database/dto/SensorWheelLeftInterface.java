@@ -5,6 +5,8 @@ import java.util.Date;
 public interface SensorWheelLeftInterface {
     int getIDX();
 
+    String getSDAID();
+
     // AI Predict
     Integer getAI_LW();
 

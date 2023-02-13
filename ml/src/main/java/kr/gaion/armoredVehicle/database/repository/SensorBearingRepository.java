@@ -18,7 +18,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<String> findDistinctByCarId(String targetColumn);
 
     //get BLB PredictedData
-    @Query(value = " Select B.IDX, B.AI_LBSF, B.AI_LBSF_ALGO, B.AI_LBSF_MODEL, B.AI_LBSF_DATE, " +
+    @Query(value = " Select B.IDX, B.SDAID, B.AI_LBSF, B.AI_LBSF_ALGO, B.AI_LBSF_MODEL, B.AI_LBSF_DATE, " +
             " B.USER_LBSF, B.USER_LBSF_ID, B.USER_LBSF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BSF, B.L_B_V_32924BSF, B.L_B_V_32922BSF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
@@ -27,7 +27,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftBallInterface> getLeftBallAiLBSFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     //get BLO PredictedData
-    @Query(value = "Select B.IDX, B.AI_LBPFO, B.AI_LBPFO_ALGO, B.AI_LBPFO_MODEL, B.AI_LBPFO_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.AI_LBPFO, B.AI_LBPFO_ALGO, B.AI_LBPFO_MODEL, B.AI_LBPFO_DATE, " +
             " B.USER_LBPFO, B.USER_LBPFO_ID, B.USER_LBPFO_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFO, B.L_B_V_32924BPFO, B.L_B_V_32922BPFO, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
@@ -36,7 +36,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftOutsideInterface> getLeftOutsideAiLBPFOPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     //get BLI PredictedData
-    @Query(value = "Select B.IDX, B.AI_LBPFI, B.AI_LBPFI_ALGO, B.AI_LBPFI_MODEL, B.AI_LBPFI_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.AI_LBPFI, B.AI_LBPFI_ALGO, B.AI_LBPFI_MODEL, B.AI_LBPFI_DATE, " +
             " B.USER_LBPFI, B.USER_LBPFI_ID, B.USER_LBPFI_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFI, B.L_B_V_32924BPFI, B.L_B_V_32922BPFI, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
@@ -45,7 +45,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftInsideInterface> getLeftInsideAiLBPFIPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     //get BLR PredictedData
-    @Query(value = "Select B.IDX, B.AI_LFTF, B.AI_LFTF_ALGO, B.AI_LFTF_MODEL, B.AI_LFTF_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.AI_LFTF, B.AI_LFTF_ALGO, B.AI_LFTF_MODEL, B.AI_LFTF_DATE, " +
             " B.USER_LFTF, B.USER_LFTF_ID, B.USER_LFTF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912FTF, B.L_B_V_32924FTF, B.L_B_V_32922FTF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
@@ -54,7 +54,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftRetainerInterface> getLeftRetainerAiLFTFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     //get BRB PredictedData
-    @Query(value = "Select B.IDX, B.AI_RBSF, B.AI_RBSF_ALGO, B.AI_RBSF_MODEL, B.AI_RBSF_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.AI_RBSF, B.AI_RBSF_ALGO, B.AI_RBSF_MODEL, B.AI_RBSF_DATE, " +
             " B.USER_RBSF, B.USER_RBSF_ID, B.USER_RBSF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BSF, B.R_B_V_32924BSF, B.R_B_V_32922BSF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
@@ -63,7 +63,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightBallInterface> getRightBallAiRBSFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     //get BRO PredictedData
-    @Query(value = "Select B.IDX, B.AI_RBPFO, B.AI_RBPFO_ALGO, B.AI_RBPFO_MODEL, B.AI_RBPFO_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.AI_RBPFO, B.AI_RBPFO_ALGO, B.AI_RBPFO_MODEL, B.AI_RBPFO_DATE, " +
             " B.USER_RBPFO, B.USER_RBPFO_ID, B.USER_RBPFO_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFO, B.R_B_V_32924BPFO, B.R_B_V_32922BPFO, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
@@ -72,7 +72,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightOutsideInterface> getRightOutsideAiRBPFOPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     //get BRI PredictedData
-    @Query(value = "Select B.IDX, B.AI_RBPFI, B.AI_RBPFI_ALGO, B.AI_RBPFI_MODEL, B.AI_RBPFI_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.AI_RBPFI, B.AI_RBPFI_ALGO, B.AI_RBPFI_MODEL, B.AI_RBPFI_DATE, " +
             " B.USER_RBPFI, B.USER_RBPFI_ID, B.USER_RBPFI_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFI, B.R_B_V_32924BPFI, B.R_B_V_32922BPFI, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
@@ -81,7 +81,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightInsideInterface> getRightInsideAiRBPFIPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     //get BRR PredictedData
-    @Query(value = "Select B.IDX, B.AI_RFTF, B.AI_RFTF_ALGO, B.AI_RFTF_MODEL, B.AI_RFTF_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.AI_RFTF, B.AI_RFTF_ALGO, B.AI_RFTF_MODEL, B.AI_RFTF_DATE, " +
             " B.USER_RFTF, B.USER_RFTF_ID, B.USER_RFTF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912FTF, B.R_B_V_32924FTF, B.R_B_V_32922FTF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
@@ -90,7 +90,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightRetainerInterface> getRightRetainerAiRFTFPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Left Ball
-    @Query(value = " SELECT B.IDX, B.AI_LBSF, B.AI_LBSF_ALGO, B.AI_LBSF_MODEL, B.AI_LBSF_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LBSF, B.AI_LBSF_ALGO, B.AI_LBSF_MODEL, B.AI_LBSF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BSF, B.L_B_V_32924BSF, B.L_B_V_32922BSF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -99,7 +99,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftBallInterface> findSensorBearingLeftBallAiLBSFIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Left Inside
-    @Query(value = " SELECT B.IDX, B.AI_LBPFI, B.AI_LBPFI_ALGO, B.AI_LBPFI_MODEL, B.AI_LBPFI_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LBPFI, B.AI_LBPFI_ALGO, B.AI_LBPFI_MODEL, B.AI_LBPFI_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFI, B.L_B_V_32924BPFI, B.L_B_V_32922BPFI, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -108,7 +108,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftInsideInterface> findSensorBearingLeftInsideAiLBPFIIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Left Outside
-    @Query(value = " SELECT B.IDX, B.AI_LBPFO, B.AI_LBPFO_ALGO, B.AI_LBPFO_MODEL, B.AI_LBPFO_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LBPFO, B.AI_LBPFO_ALGO, B.AI_LBPFO_MODEL, B.AI_LBPFO_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFO, B.L_B_V_32924BPFO, B.L_B_V_32922BPFO, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -117,7 +117,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftOutsideInterface> findSensorBearingLeftOutsideAiLBPFOIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Left Retainer
-    @Query(value = " SELECT B.IDX, B.AI_LFTF, B.AI_LFTF_ALGO, B.AI_LFTF_MODEL, B.AI_LFTF_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LFTF, B.AI_LFTF_ALGO, B.AI_LFTF_MODEL, B.AI_LFTF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912FTF, B.L_B_V_32924FTF, B.L_B_V_32922FTF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -126,7 +126,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingLeftRetainerInterface> findSensorBearingLeftRetainerAiLFTFIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Right Ball
-    @Query(value = " SELECT B.IDX, B.AI_RBSF, B.AI_RBSF_ALGO, B.AI_RBSF_MODEL, B.AI_RBSF_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RBSF, B.AI_RBSF_ALGO, B.AI_RBSF_MODEL, B.AI_RBSF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BSF, B.R_B_V_32924BSF, B.R_B_V_32922BSF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -135,7 +135,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightBallInterface> findSensorBearingRightBallAiRBSFIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Right Inside
-    @Query(value = " SELECT B.IDX, B.AI_RBPFI, B.AI_RBPFI_ALGO, B.AI_RBPFI_MODEL, B.AI_RBPFI_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RBPFI, B.AI_RBPFI_ALGO, B.AI_RBPFI_MODEL, B.AI_RBPFI_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFI, B.R_B_V_32924BPFI, B.R_B_V_32922BPFI, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -144,7 +144,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightInsideInterface> findSensorBearingRightInsideAiRBPFIIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Right Outside
-    @Query(value = " SELECT B.IDX, B.AI_RBPFO, B.AI_RBPFO_ALGO, B.AI_RBPFO_MODEL, B.AI_RBPFO_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RBPFO, B.AI_RBPFO_ALGO, B.AI_RBPFO_MODEL, B.AI_RBPFO_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFO, B.R_B_V_32924BPFO, B.R_B_V_32922BPFO, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -153,7 +153,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightOutsideInterface> findSensorBearingRightOutsideAiRBPFOIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // Bearing Right Retainer
-    @Query(value = " SELECT B.IDX, B.AI_RFTF, B.AI_RFTF_ALGO, B.AI_RFTF_MODEL, B.AI_RFTF_DATE, " +
+    @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RFTF, B.AI_RFTF_ALGO, B.AI_RFTF_MODEL, B.AI_RFTF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912FTF, B.R_B_V_32924FTF, B.R_B_V_32922FTF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
@@ -162,7 +162,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     Page<SensorBearingRightRetainerInterface> findSensorBearingRightRetainerRFTFIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // get BLB's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_LBSF, B.USER_LBSF_ID, B.USER_LBSF_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_LBSF, B.USER_LBSF_ID, B.USER_LBSF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BSF, B.L_B_V_32924BSF, B.L_B_V_32922BSF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
@@ -171,7 +171,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<SensorBearingLeftBallInterface> getLeftBallUserLBSFData(String carId, Date fromDate, Date toDate);
 
     // get BLO's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_LBPFO, B.USER_LBPFO_ID, B.USER_LBPFO_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_LBPFO, B.USER_LBPFO_ID, B.USER_LBPFO_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFO, B.L_B_V_32924BPFO, B.L_B_V_32922BPFO, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
@@ -180,7 +180,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<SensorBearingLeftOutsideInterface> getLeftOutsideUserLBPFOData(String carId, Date fromDate, Date toDate);
 
     // get BLI's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_LBPFI, B.USER_LBPFI_ID, B.USER_LBPFI_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_LBPFI, B.USER_LBPFI_ID, B.USER_LBPFI_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFI, B.L_B_V_32924BPFI, B.L_B_V_32922BPFI, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
@@ -189,7 +189,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<SensorBearingLeftInsideInterface> getLeftInsideUserLBPFIData(String carId, Date fromDate, Date toDate);
 
     // get BLR's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_LFTF, B.USER_LFTF_ID, B.USER_LFTF_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_LFTF, B.USER_LFTF_ID, B.USER_LFTF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912FTF, B.L_B_V_32924FTF, B.L_B_V_32922FTF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
@@ -198,7 +198,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<SensorBearingLeftRetainerInterface> getLeftRetainerUserLFTFData(String carId, Date fromDate, Date toDate);
 
     // get BRB's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_RBSF, B.USER_RBSF_ID, B.USER_RBSF_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_RBSF, B.USER_RBSF_ID, B.USER_RBSF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BSF, B.R_B_V_32924BSF, B.R_B_V_32922BSF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
@@ -207,7 +207,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<SensorBearingRightBallInterface> getRightBallUserRBSFData(String carId, Date fromDate, Date toDate);
 
     // get BRO's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_RBPFO, B.USER_RBPFO_ID, B.USER_RBPFO_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_RBPFO, B.USER_RBPFO_ID, B.USER_RBPFO_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFO, B.R_B_V_32924BPFO, B.R_B_V_32922BPFO, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
@@ -216,7 +216,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<SensorBearingRightOutsideInterface> getRightOutsideUserRBPFOData(String carId, Date fromDate, Date toDate);
 
     // get BRI's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_RBPFI, B.USER_RBPFI_ID, B.USER_RBPFI_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_RBPFI, B.USER_RBPFI_ID, B.USER_RBPFI_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFI, B.R_B_V_32924BPFI, B.R_B_V_32922BPFI, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
@@ -225,7 +225,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
     List<SensorBearingRightInsideInterface> getRightInsideUserRBPFIData(String carId, Date fromDate, Date toDate);
 
     // get BRR's User judgement values are not Null data
-    @Query(value = "Select B.IDX, B.USER_RFTF, B.USER_RFTF_ID, B.USER_RFTF_DATE, " +
+    @Query(value = "Select B.IDX, B.SDAID, B.USER_RFTF, B.USER_RFTF_ID, B.USER_RFTF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912FTF, B.R_B_V_32924FTF, B.R_B_V_32922FTF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +

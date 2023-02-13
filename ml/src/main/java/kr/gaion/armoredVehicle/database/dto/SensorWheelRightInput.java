@@ -12,6 +12,8 @@ import java.util.Date;
 public class SensorWheelRightInput {
     private int IDX;
 
+    private String SDAID;
+
     // AI Predict
     private String AI_RW;
 

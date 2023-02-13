@@ -5,6 +5,8 @@ import java.util.Date;
 public interface SensorBearingRightOutsideInterface {
     int getIDX();
 
+    String getSDAID();
+
     // AI Predict
     Integer getAI_RBPFO();
 

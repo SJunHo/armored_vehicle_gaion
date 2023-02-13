@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long> {
-    @Query(value = "Select `ENGDATA`.IDX, `ENGDATA`.AI_ENGINE, `ENGDATA`.AI_ENGINE_ALGO, `ENGDATA`.AI_ENGINE_MODEL, `ENGDATA`.AI_ENGINE_DATE, " +
+    @Query(value = "Select `ENGDATA`.IDX, `ENGDATA`.SDAID, `ENGDATA`.AI_ENGINE, `ENGDATA`.AI_ENGINE_ALGO, `ENGDATA`.AI_ENGINE_MODEL, `ENGDATA`.AI_ENGINE_DATE, " +
             "`ENGDATA`.USER_ENGINE, `ENGDATA`.USER_ENGINE_ID, `ENGDATA`.USER_ENGINE_DATE, " +
             "`ENGDATA`.W_RPM, `ENGDATA`.E_V_OverallRMS, `ENGDATA`.E_V_1_2X, `ENGDATA`.E_V_1X, `ENGDATA`.E_V_Crestfactor, " +
             "`ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `ENGDATA`.`DATE`  from `ENGDATA` " +
@@ -23,7 +23,7 @@ public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long
     @Query(value = "Select DISTINCT SDAID from ENGDATA b where ?1 is Not NULL", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);
 
-    @Query(value = " SELECT ENGDATA.IDX, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +
+    @Query(value = " SELECT ENGDATA.IDX, `ENGDATA`.SDAID, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +
             " ENGDATA.W_RPM, ENGDATA.E_V_OverallRMS, ENGDATA.E_V_1_2X, ENGDATA.E_V_1X, ENGDATA.E_V_Crestfactor, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE` " +
             " FROM `ENGDATA` " +
@@ -31,7 +31,7 @@ public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long
     Page<SensorEngineInterface> findSensorEngineAiENGINEIsNull(Date fromDate, Date toDate, Pageable pageable);
 
     // get E's User judgement values are not Null data
-    @Query(value = "Select `ENGDATA`.IDX, `ENGDATA`.USER_ENGINE, `ENGDATA`.USER_ENGINE_ID, `ENGDATA`.USER_ENGINE_DATE, " +
+    @Query(value = "Select `ENGDATA`.IDX, `ENGDATA`.SDAID, `ENGDATA`.USER_ENGINE, `ENGDATA`.USER_ENGINE_ID, `ENGDATA`.USER_ENGINE_DATE, " +
             "`ENGDATA`.W_RPM, `ENGDATA`.E_V_OverallRMS, `ENGDATA`.E_V_1_2X, `ENGDATA`.E_V_1X, `ENGDATA`.E_V_Crestfactor, " +
             "`ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `ENGDATA`.`DATE`  from `ENGDATA` " +
             "WHERE `ENGDATA`.USER_ENGINE IS NOT NULL AND `ENGDATA`.SDAID = ?1 AND `ENGDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
