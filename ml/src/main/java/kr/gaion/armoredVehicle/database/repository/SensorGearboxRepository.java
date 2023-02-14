@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Long> {
-    @Query(value = "Select DISTINCT SDAID from GRBDATA b where ?1 is Not NULL", nativeQuery = true)
+    @Query(value = "Select DISTINCT SDAID from GRBDATA ", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);
 
     @Query(value = "Select G.IDX, G.SDAID, G.AI_GEAR, G.AI_GEAR_ALGO, G.AI_GEAR_MODEL, G.AI_GEAR_DATE, " +

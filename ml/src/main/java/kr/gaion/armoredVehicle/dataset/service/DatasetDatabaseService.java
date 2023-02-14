@@ -14,8 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static kr.gaion.armoredVehicle.dataset.service.DatabaseJudgementService.findClassLabel;
 
 @Service
 @RequiredArgsConstructor
@@ -64,6 +67,24 @@ public class DatasetDatabaseService {
     public String handleUploadFile(MultipartFile file) {
         this.storageService.store(file);
         return file.getOriginalFilename();
+    }
+
+    public List<String> findDistinctByCarIdFromLifeData(String partType) {
+        var targetColumn = findClassLabel(partType);
+        var componentType = partType.substring(0, 1);
+
+        List<String> result = new ArrayList<>();
+        switch (componentType) {
+            case "B":
+                return sensorBearingLifeRepository.findDistinctByCarIdFromBearingLifeData();
+            case "W":
+                return sensorWheelLifeRepository.findDistinctByCarIdFromWheelLifeData();
+            case "E":
+                return sensorEngineLifeRepository.findDistinctByCarIdFromEngineLifeData();
+            case "G":
+                return sensorGearboxLifeRepository.findDistinctByCarIdFromGearboxLifeData();
+        }
+        return result;
     }
 
     //import nas Database

@@ -40,6 +40,14 @@ public class DatasetDatabaseController {
 
         return files.stream().map(this.datasetDatabaseService::handleUploadFile).collect(Collectors.toList());
     }
+    
+    @GetMapping(path = "/api/data/database/life/cars")
+    public List<String> findDistinctByCarIdFromLifeData(
+            @RequestParam("partType") String partType
+    ) {
+        return this.datasetDatabaseService.findDistinctByCarIdFromLifeData(partType);
+    }
+
 
     // get labeled data (for training)
     @GetMapping(path = "/api/data/database/get-all-labeled-bearing-data")

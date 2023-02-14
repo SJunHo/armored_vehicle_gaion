@@ -20,7 +20,7 @@ public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long
             "WHERE `ENGDATA`.AI_ENGINE IS NOT NULL AND `ENGDATA`.SDAID = ?1 AND `ENGDATA`.DATE BETWEEN ?2 AND ?3", nativeQuery = true)
     Page<SensorEngineInterface> getEngineAiEnginePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
 
-    @Query(value = "Select DISTINCT SDAID from ENGDATA b where ?1 is Not NULL", nativeQuery = true)
+    @Query(value = "Select DISTINCT SDAID from ENGDATA ", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);
 
     @Query(value = " SELECT ENGDATA.IDX, `ENGDATA`.SDAID, ENGDATA.AI_ENGINE, ENGDATA.AI_ENGINE_ALGO, ENGDATA.AI_ENGINE_MODEL, ENGDATA.AI_ENGINE_DATE, " +

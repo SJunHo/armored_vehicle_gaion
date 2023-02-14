@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface SensorWheelRepository extends JpaRepository<SensorWheel, Long> {
-    @Query(value = "Select DISTINCT SDAID from WHLDATA b where ?1 is Not NULL", nativeQuery = true)
+    @Query(value = "Select DISTINCT SDAID from WHLDATA ", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);
 
     @Query(value = "Select W.IDX, W.SDAID, W.AI_LW, W.AI_LW_ALGO, W.AI_LW_MODEL, W.AI_LW_DATE, " +

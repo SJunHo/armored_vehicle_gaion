@@ -39,14 +39,20 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   }, []);
 
   useEffect(() => {
-    if (partType) {
+    if (partType && (algorithmName === "linear" || algorithmName === "lasso")) {
+      datasetDatabaseControllerApi?.findDistinctByCarIdFromLifeData(partType)
+        .then((res) => {
+          setCarsList(res.data)
+          setSelectedCar(res.data[0])
+        });
+    } else if (partType) {
       databaseJudgementControllerApi?.findDistinctByCarId(partType)
         .then((res) => {
           setCarsList(res.data)
           setSelectedCar(res.data[0])
         });
     }
-  }, [partType, databaseJudgementControllerApi]);
+  }, [partType, databaseJudgementControllerApi, algorithmName, datasetDatabaseControllerApi]);
 
   const wholeBearingCycle = 540000
   const wholeWheelCycle = 160000
