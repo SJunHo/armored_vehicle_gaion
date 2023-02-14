@@ -27,8 +27,8 @@ public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long
             " ENGDATA.W_RPM, ENGDATA.E_V_OverallRMS, ENGDATA.E_V_1_2X, ENGDATA.E_V_1X, ENGDATA.E_V_Crestfactor, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, ENGDATA.`DATE` " +
             " FROM `ENGDATA` " +
-            " WHERE ENGDATA.AI_ENGINE IS NULL AND `ENGDATA`.DATE BETWEEN ?1 AND ?2 ", nativeQuery = true)
-    Page<SensorEngineInterface> findSensorEngineAiENGINEIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " WHERE `ENGDATA`.SDAID = ?1 AND ENGDATA.AI_ENGINE IS NULL AND `ENGDATA`.DATE BETWEEN ?2 AND ?3 ", nativeQuery = true)
+    List<SensorEngineInterface> findSensorEngineAiENGINEIsNull(String carId, Date fromDate, Date toDate);
 
     // get E's User judgement values are not Null data
     @Query(value = "Select `ENGDATA`.IDX, `ENGDATA`.SDAID, `ENGDATA`.USER_ENGINE, `ENGDATA`.USER_ENGINE_ID, `ENGDATA`.USER_ENGINE_DATE, " +

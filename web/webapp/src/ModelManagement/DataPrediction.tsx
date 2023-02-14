@@ -5,30 +5,12 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import {useTranslation} from "react-i18next";
 import {Column, Row as TableRow} from "react-table";
 import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext, Pageable} from "../api";
 import {ALGORITHM_INFO} from "../common/Common";
 import {Section} from "../common/Section/Section";
 import {Table} from "../common/Table";
-import {
-  SensorBearingLeftBallInput,
-  SensorBearingLeftInsideInput,
-  SensorBearingLeftOutsideInput,
-  SensorBearingLeftRetainerInput,
-  SensorBearingLifeInput,
-  SensorBearingRightBallInput,
-  SensorBearingRightInsideInput,
-  SensorBearingRightOutsideInput,
-  SensorBearingRightRetainerInput,
-  SensorEngineInput,
-  SensorEngineLifeInput,
-  SensorGearboxInput,
-  SensorGearboxLifeInput,
-  SensorWheelLeftInput,
-  SensorWheelLifeInput,
-  SensorWheelRightInput
-} from "../Judgement/tableColumns"
+import {useDataPredictionColumns} from "./useDataPredictionColumns";
 
 export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmName}) => {
   const [predicting, setPredicting] = useState(false);
@@ -37,14 +19,18 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [searchingModels, setSearchingModels] = useState(false);
   const [models, setModels] = useState<DbModelResponse[]>([]);
   const [selectedModel, setSelectedModel] = useState<DbModelResponse>();
+
+  const [carsList, setCarsList] = useState<string[]>([]);
+  const [selectedCar, setSelectedCar] = useState<string>();
+
   const [conditionData, setConditionData] = useState<any[]>([]);
   const [selectedData, setSelectedData] = useState<any[]>([]);
   const [selectedDataIdx, setSelectedDataIdx] = useState<any[]>([]);
-  const [wb, setWb] = useState<string>("");
-  const [tableColumns, setTableColumns] = useState<any>([]);
+  const [partType, setPartType] = useState<string>("");
   const [targetClassCol, setTargetClassCol] = useState<string>("");
-  const [fromDate, setFromDate] = useState<Date>();
+  const [fromDate, setFromDate] = useState<Date>(new Date());
   const [toDate, setToDate] = useState<Date>(new Date());
+  const {databaseJudgementControllerApi, datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
 
   useEffect(() => {
     const thisDate = new Date();
@@ -52,13 +38,30 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     setFromDate(thisDate);
   }, []);
 
-  const {datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
-  const {t} = useTranslation();
+  useEffect(() => {
+    if (partType) {
+      databaseJudgementControllerApi?.findDistinctByCarId(partType)
+        .then((res) => {
+          setCarsList(res.data)
+          setSelectedCar(res.data[0])
+        });
+    }
+  }, [partType, databaseJudgementControllerApi]);
 
   const wholeBearingCycle = 540000
   const wholeWheelCycle = 160000
   const wholeGearboxCycle = 1080000
   const wholeEngineCycle = 480000
+
+  const handleConditionSelected =
+    useCallback((v: TableRow<any[]>[]) => {
+      setSelectedData(v?.map((i) => i.original))
+      setSelectedDataIdx(v?.map((i) => i.values.idx))
+    }, []);
+
+  const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
+    setSelectedModel(v[0]?.original);
+  }, []);
 
   const modelResponseColumns = useMemo<Column<DbModelResponse>[]>(
     () => [
@@ -79,1205 +82,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
         accessor: "rootMeanSquaredError",
       },
     ],
-    [t]
-  );
-
-  const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_LBSF === "0.0") {
-            return "정상";
-          } else if (data.ai_LBSF === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "L_B_V_1X",
-        accessor: "l_B_V_1X",
-      },
-      {
-        Header: "L_B_V_6912BSF",
-        accessor: "l_B_V_6912BSF",
-      },
-      {
-        Header: "L_B_V_32924BSF",
-        accessor: "l_B_V_32924BSF",
-      },
-      {
-        Header: "L_B_V_32922BSF",
-        accessor: "l_B_V_32922BSF",
-      },
-      {
-        Header: "L_B_V_Crestfactor",
-        accessor: "l_B_V_Crestfactor",
-      },
-      {
-        Header: "L_B_V_Demodulation",
-        accessor: "l_B_V_Demodulation",
-      },
-      {
-        Header: "L_B_S_Fault1",
-        accessor: "l_B_S_Fault1",
-      },
-      {
-        Header: "L_B_S_Fault2",
-        accessor: "l_B_S_Fault2",
-      },
-      {
-        Header: "L_B_T_Temperature",
-        accessor: "l_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
     []
   );
 
-  const SensorBearingLeftInsideColumns = useMemo<Column<SensorBearingLeftInsideInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_LBPFI === "0.0") {
-            return "정상";
-          } else if (data.ai_LBPFI === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "L_B_V_1X",
-        accessor: "l_B_V_1X",
-      },
-      {
-        Header: "L_B_V_6912BPFI",
-        accessor: "l_B_V_6912BPFI",
-      },
-      {
-        Header: "L_B_V_32924BPFI",
-        accessor: "l_B_V_32924BPFI",
-      },
-      {
-        Header: "L_B_V_32922BPFI",
-        accessor: "l_B_V_32922BPFI",
-      },
-      {
-        Header: "L_B_V_Crestfactor",
-        accessor: "l_B_V_Crestfactor",
-      },
-      {
-        Header: "L_B_V_Demodulation",
-        accessor: "l_B_V_Demodulation",
-      },
-      {
-        Header: "L_B_S_Fault1",
-        accessor: "l_B_S_Fault1",
-      },
-      {
-        Header: "L_B_S_Fault2",
-        accessor: "l_B_S_Fault2",
-      },
-      {
-        Header: "L_B_T_Temperature",
-        accessor: "l_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorBearingLeftOutsideColumns = useMemo<Column<SensorBearingLeftOutsideInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_LBPFO === "0.0") {
-            return "정상";
-          } else if (data.ai_LBPFO === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "L_B_V_1X",
-        accessor: "l_B_V_1X",
-      },
-      {
-        Header: "L_B_V_6912BPFO",
-        accessor: "l_B_V_6912BPFO",
-      },
-      {
-        Header: "L_B_V_32924BPFO",
-        accessor: "l_B_V_32924BPFO",
-      },
-      {
-        Header: "L_B_V_32922BPFO",
-        accessor: "l_B_V_32922BPFO",
-      },
-      {
-        Header: "L_B_V_Crestfactor",
-        accessor: "l_B_V_Crestfactor",
-      },
-      {
-        Header: "L_B_V_Demodulation",
-        accessor: "l_B_V_Demodulation",
-      },
-      {
-        Header: "L_B_S_Fault1",
-        accessor: "l_B_S_Fault1",
-      },
-      {
-        Header: "L_B_S_Fault2",
-        accessor: "l_B_S_Fault2",
-      },
-      {
-        Header: "L_B_T_Temperature",
-        accessor: "l_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorBearingLeftRetainerColumns = useMemo<Column<SensorBearingLeftRetainerInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_LFTF === "0.0") {
-            return "정상";
-          } else if (data.ai_LFTF === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "L_B_V_1X",
-        accessor: "l_B_V_1X",
-      },
-      {
-        Header: "L_B_V_6912FTF",
-        accessor: "l_B_V_6912FTF",
-      },
-      {
-        Header: "L_B_V_32924FTF",
-        accessor: "l_B_V_32924FTF",
-      },
-      {
-        Header: "l_B_V_32922FTF",
-        accessor: "l_B_V_32922FTF",
-      },
-      {
-        Header: "L_B_V_Crestfactor",
-        accessor: "l_B_V_Crestfactor",
-      },
-      {
-        Header: "L_B_V_Demodulation",
-        accessor: "l_B_V_Demodulation",
-      },
-      {
-        Header: "L_B_S_Fault1",
-        accessor: "l_B_S_Fault1",
-      },
-      {
-        Header: "L_B_S_Fault2",
-        accessor: "l_B_S_Fault2",
-      },
-      {
-        Header: "L_B_T_Temperature",
-        accessor: "l_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorBearingRightBallColumns = useMemo<Column<SensorBearingRightBallInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_RBSF === "0.0") {
-            return "정상";
-          } else if (data.ai_RBSF === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "R_B_V_1X",
-        accessor: "r_B_V_1X",
-      },
-      {
-        Header: "R_B_V_6912BSF",
-        accessor: "r_B_V_6912BSF",
-      },
-      {
-        Header: "R_B_V_32924BSF",
-        accessor: "r_B_V_32924BSF",
-      },
-      {
-        Header: "R_B_V_32922BSF",
-        accessor: "r_B_V_32922BSF",
-      },
-      {
-        Header: "R_B_V_Crestfactor",
-        accessor: "r_B_V_Crestfactor",
-      },
-      {
-        Header: "R_B_V_Demodulation",
-        accessor: "r_B_V_Demodulation",
-      },
-      {
-        Header: "R_B_S_Fault1",
-        accessor: "r_B_S_Fault1",
-      },
-      {
-        Header: "R_B_S_Fault2",
-        accessor: "r_B_S_Fault2",
-      },
-      {
-        Header: "R_B_T_Temperature",
-        accessor: "r_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorBearingRightInsideColumns = useMemo<Column<SensorBearingRightInsideInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_RBPFI === "0.0") {
-            return "정상";
-          } else if (data.ai_RBPFI === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "R_B_V_1X",
-        accessor: "r_B_V_1X",
-      },
-      {
-        Header: "R_B_V_6912BPFI",
-        accessor: "r_B_V_6912BPFI",
-      },
-      {
-        Header: "R_B_V_32924BPFI",
-        accessor: "r_B_V_32924BPFI",
-      },
-      {
-        Header: "R_B_V_32922BPFI",
-        accessor: "r_B_V_32922BPFI",
-      },
-      {
-        Header: "R_B_V_Crestfactor",
-        accessor: "r_B_V_Crestfactor",
-      },
-      {
-        Header: "R_B_V_Demodulation",
-        accessor: "r_B_V_Demodulation",
-      },
-      {
-        Header: "R_B_S_Fault1",
-        accessor: "r_B_S_Fault1",
-      },
-      {
-        Header: "R_B_S_Fault2",
-        accessor: "r_B_S_Fault2",
-      },
-      {
-        Header: "R_B_T_Temperature",
-        accessor: "r_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorBearingRightOutsideColumns = useMemo<Column<SensorBearingRightOutsideInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_RBPFO === "0.0") {
-            return "정상";
-          } else if (data.ai_RBPFO === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "R_B_V_1X",
-        accessor: "r_B_V_1X",
-      },
-      {
-        Header: "R_B_V_6912BPFO",
-        accessor: "r_B_V_6912BPFO",
-      },
-      {
-        Header: "R_B_V_32924BPFO",
-        accessor: "r_B_V_32924BPFO",
-      },
-      {
-        Header: "R_B_V_32922BPFO",
-        accessor: "r_B_V_32922BPFO",
-      },
-      {
-        Header: "R_B_V_Crestfactor",
-        accessor: "r_B_V_Crestfactor",
-      },
-      {
-        Header: "R_B_V_Demodulation",
-        accessor: "r_B_V_Demodulation",
-      },
-      {
-        Header: "R_B_S_Fault1",
-        accessor: "r_B_S_Fault1",
-      },
-      {
-        Header: "R_B_S_Fault2",
-        accessor: "r_B_S_Fault2",
-      },
-      {
-        Header: "R_B_T_Temperature",
-        accessor: "r_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorBearingRightRetainerColumns = useMemo<Column<SensorBearingRightRetainerInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_RFTF === "0.0") {
-            return "정상";
-          } else if (data.ai_RFTF === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "R_B_V_1X",
-        accessor: "r_B_V_1X",
-      },
-      {
-        Header: "R_B_V_6912FTF",
-        accessor: "r_B_V_6912FTF",
-      },
-      {
-        Header: "R_B_V_32924FTF",
-        accessor: "r_B_V_32924FTF",
-      },
-      {
-        Header: "R_B_V_32922FTF",
-        accessor: "r_B_V_32922FTF",
-      },
-      {
-        Header: "R_B_V_Crestfactor",
-        accessor: "r_B_V_Crestfactor",
-      },
-      {
-        Header: "R_B_V_Demodulation",
-        accessor: "r_B_V_Demodulation",
-      },
-      {
-        Header: "R_B_S_Fault1",
-        accessor: "r_B_S_Fault1",
-      },
-      {
-        Header: "R_B_S_Fault2",
-        accessor: "r_B_S_Fault2",
-      },
-      {
-        Header: "R_B_T_Temperature",
-        accessor: "r_B_T_Temperature",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorWheelLeftColumns = useMemo<Column<SensorWheelLeftInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_LW === "0.0") {
-            return "정상";
-          } else if (data.ai_LW === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "L_W_V_2X",
-        accessor: "l_W_V_2X",
-      },
-      {
-        Header: "L_W_V_3X",
-        accessor: "l_W_V_3X",
-      },
-      {
-        Header: "L_W_S_Fault3",
-        accessor: "l_W_S_Fault3",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorWheelRightColumns = useMemo<Column<SensorWheelRightInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_RW === "0.0") {
-            return "정상";
-          } else if (data.ai_RW === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "R_W_V_2X",
-        accessor: "r_W_V_2X",
-      },
-      {
-        Header: "R_W_V_3X",
-        accessor: "r_W_V_3X",
-      },
-      {
-        Header: "R_W_S_Fault3",
-        accessor: "r_W_S_Fault3",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorGearboxColumns = useMemo<Column<SensorGearboxInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_GEAR === "0.0") {
-            return "정상";
-          } else if (data.ai_GEAR === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "G_V_OverallRMS",
-        accessor: "g_V_OverallRMS",
-      },
-      {
-        Header: "G_V_Wheel1X",
-        accessor: "g_V_Wheel1X",
-      },
-      {
-        Header: "G_V_Wheel2X",
-        accessor: "g_V_Wheel2X",
-      },
-      {
-        Header: "G_V_Pinion1X",
-        accessor: "g_V_Pinion1X",
-      },
-      {
-        Header: "G_V_Pinion2X",
-        accessor: "g_V_Pinion2X",
-      },
-      {
-        Header: "G_V_GMF1X",
-        accessor: "g_V_GMF1X",
-      },
-      {
-        Header: "G_V_GMF2X",
-        accessor: "g_V_GMF2X",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorEngineColumns = useMemo<Column<SensorEngineInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과",
-        accessor: (data) => {
-          if (data.ai_ENGINE === "0.0") {
-            return "정상";
-          } else if (data.ai_ENGINE === "1.0") {
-            return "고장";
-          } else {
-            return "-"
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_RPM",
-        accessor: "w_RPM",
-      },
-      {
-        Header: "E_V_OverallRMS",
-        accessor: "e_V_OverallRMS",
-      },
-      {
-        Header: "E_V_1_2X",
-        accessor: "e_V_1_2X",
-      },
-      {
-        Header: "E_V_1X",
-        accessor: "e_V_1X",
-      },
-      {
-        Header: "E_V_Crestfactor",
-        accessor: "e_V_Crestfactor",
-      },
-      {
-        Header: "AC_h",
-        accessor: "ac_h",
-      },
-      {
-        Header: "AC_v",
-        accessor: "ac_v",
-      },
-      {
-        Header: "AC_a",
-        accessor: "ac_a",
-      },
-    ],
-    []
-  );
-
-  const SensorBearingLifeColumns = useMemo<Column<SensorBearingLifeInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과(km)",
-        accessor: (data) => {
-          if (data.ai_Trip === null) {
-            return "-"
-          } else {
-            return Math.round((wholeBearingCycle - data.ai_Trip) * 1000) / 1000
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "B_OverallRMS",
-        accessor: "b_OverallRMS",
-      },
-      {
-        Header: "B_1X",
-        accessor: "b_1X",
-      },
-      {
-        Header: "B_6912BPFO",
-        accessor: "b_6912BPFO",
-      },
-      {
-        Header: "B_6912BPFI",
-        accessor: "b_6912BPFI",
-      },
-      {
-        Header: "B_6912BSF",
-        accessor: "b_6912BSF",
-      },
-      {
-        Header: "B_6912FTF",
-        accessor: "b_6912FTF",
-      },
-      {
-        Header: "B_32924BPFO",
-        accessor: "b_32924BPFO",
-      },
-      {
-        Header: "B_32924BPFI",
-        accessor: "b_32924BPFI",
-      },
-      {
-        Header: "B_32924BSF",
-        accessor: "b_32924BSF",
-      },
-      {
-        Header: "B_32924FTF",
-        accessor: "b_32924FTF",
-      },
-      {
-        Header: "B_32922BPFO",
-        accessor: "b_32922BPFO",
-      },
-      {
-        Header: "B_32922BPFI",
-        accessor: "b_32922BPFI",
-      },
-      {
-        Header: "B_32922BSF",
-        accessor: "b_32922BSF",
-      },
-      {
-        Header: "B_32922FTF",
-        accessor: "b_32922FTF",
-      },
-      {
-        Header: "B_CrestFactor",
-        accessor: "b_CrestFactor",
-      },
-      {
-        Header: "B_Demodulation",
-        accessor: "b_Demodulation",
-      },
-      {
-        Header: "B_Fault1",
-        accessor: "b_Fault1",
-      },
-      {
-        Header: "B_Fault2",
-        accessor: "b_Fault2",
-      },
-      {
-        Header: "B_Temperature",
-        accessor: "b_Temperature",
-      },
-    ],
-    []
-  );
-
-  const SensorWheelLifeColumns = useMemo<Column<SensorWheelLifeInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과(km)",
-        accessor: (data) => {
-          if (data.ai_Trip === null) {
-            return "-"
-          } else {
-            return Math.round((wholeWheelCycle - data.ai_Trip) * 1000) / 1000
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "W_2X",
-        accessor: "w_2X",
-      },
-      {
-        Header: "W_3X",
-        accessor: "w_3X",
-      },
-      {
-        Header: "W_Fault3",
-        accessor: "w_Fault3",
-      },
-    ],
-    []
-  );
-
-  const SensorGearboxLifeColumns = useMemo<Column<SensorGearboxLifeInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과(km)",
-        accessor: (data) => {
-          if (data.ai_Trip === null) {
-            return "-"
-          } else {
-            return Math.round((wholeGearboxCycle - data.ai_Trip) * 1000) / 1000
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "G_OverallRMS",
-        accessor: "g_OverallRMS",
-      },
-      {
-        Header: "G_Wheel1X",
-        accessor: "g_Wheel1X",
-      },
-      {
-        Header: "G_Wheel2X",
-        accessor: "g_Wheel2X",
-      },
-      {
-        Header: "G_Pinion1X",
-        accessor: "g_Pinion1X",
-      },
-      {
-        Header: "G_Pinion2X",
-        accessor: "g_Pinion2X",
-      },
-      {
-        Header: "G_GMF1X",
-        accessor: "g_GMF1X",
-      },
-      {
-        Header: "G_GMF2X",
-        accessor: "g_GMF2X",
-      },
-    ],
-    []
-  );
-
-  const SensorEngineLifeColumns = useMemo<Column<SensorEngineLifeInput>[]>(
-    () => [
-      {
-        Header: "ID",
-        accessor: "idx"
-      },
-      {
-        Header: "예측 결과(km)",
-        accessor: (data) => {
-          if (data.ai_Trip === null) {
-            return "-"
-          } else {
-            return Math.round((wholeEngineCycle - data.ai_Trip) * 1000) / 1000
-          }
-        },
-      },
-      {
-        Header: "차량 ID",
-        accessor: "sdaId",
-      },
-      {
-        Header: "운용날짜",
-        Cell: (value?: any) => {
-          return new Date(value.row.original.date).toLocaleString("ko-KR")
-        }
-      },
-      {
-        Header: "E_OverallRMS",
-        accessor: "e_OverallRMS",
-      },
-      {
-        Header: "E_1_2X",
-        accessor: "e_1_2X",
-      },
-      {
-        Header: "E_1X",
-        accessor: "e_1X",
-      },
-      {
-        Header: "E_CrestFactor",
-        accessor: "e_CrestFactor",
-      },
-    ],
-    []
-  );
-
-  const handleConditionSelected =
-    useCallback((v: TableRow<any[]>[]) => {
-      setSelectedData(v?.map((i) => i.original))
-      setSelectedDataIdx(v?.map((i) => i.values.idx))
-    }, []);
-
-  const handleModelSelected = useCallback((v: TableRow<DbModelResponse>[]) => {
-    setSelectedModel(v[0]?.original);
-  }, [selectedModel]);
 
   function handleSearchModel() {
-    if (wb === "" || null) {
+    if (partType === "" || null) {
       alert("부품이 선택되지 않았습니다.")
       setPredicting(false)
       return null
@@ -1286,142 +96,75 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     mlControllerApi
       ?.getModels(ALGORITHM_INFO[algorithmName].className)
       .then((data) => {
-        setModels((data.data || []).filter((model) => model.checked && model.partType === wb));
+        setModels((data.data || []).filter((model) => model.checked && model.partType === partType));
       })
       .finally(() => setSearchingModels(false));
   }
 
-  function handleSearchConditionData(wb: any, paginate?: Pageable) {
-    if (wb === "" || null) {
+  function handleSearchConditionData(partType: any, paginate?: Pageable) {
+    if (partType === "" || null) {
       alert("부품이 선택되지 않았습니다.")
       setPredicting(false)
       return null
     }
-    handleSearchTablesColumns(wb)
-    handleSettingClassColByPart(wb)
+    if (selectedCar == undefined) {
+      return []
+    }
+    handleSettingClassColByPart(partType)
     setSearchingData(true);
-    if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledBearingData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    if (["BLB", "BLI", "BLO", "BLR", "BRB", "BRI", "BRO", "BRR"].includes(partType)) {
+      datasetDatabaseControllerApi?.getUnlabeledBearingData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"))
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (["WL", "WR"].includes(wb)) {
-      datasetDatabaseControllerApi?.getUnlabeledWheelData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    } else if (["WL", "WR"].includes(partType)) {
+      datasetDatabaseControllerApi?.getUnlabeledWheelData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"))
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (wb === "G") {
-      datasetDatabaseControllerApi?.getUnlabeledGearboxData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    } else if (partType === "G") {
+      datasetDatabaseControllerApi?.getUnlabeledGearboxData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"))
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (wb === "E") {
-      datasetDatabaseControllerApi?.getUnlabeledEngineData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    } else if (partType === "E") {
+      datasetDatabaseControllerApi?.getUnlabeledEngineData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (wb === "B_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledBearingLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    } else if (partType === "B_LIFE") {
+      datasetDatabaseControllerApi?.getUnlabeledBearingLifeData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (wb === "W_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledWheelLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    } else if (partType === "W_LIFE") {
+      datasetDatabaseControllerApi?.getUnlabeledWheelLifeData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (wb === "G_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledGearboxLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    } else if (partType === "G_LIFE") {
+      datasetDatabaseControllerApi?.getUnlabeledGearboxLifeData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
-    } else if (wb === "E_LIFE") {
-      datasetDatabaseControllerApi?.getUnlabeledEngineLifeData(wb, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
+    } else if (partType === "E_LIFE") {
+      datasetDatabaseControllerApi?.getUnlabeledEngineLifeData(selectedCar, partType, fromDate?.toLocaleDateString("en-US"), toDate?.toLocaleDateString("en-US"), 0, 10000)
         .then((res) => {
-          setConditionData(res.data.content || [])
+          setConditionData(res.data || [])
         })
         .finally(() => setSearchingData(false));
     }
   }
 
-  function handleSearchTablesColumns(wb: any) {
-    switch (wb) {
-      case "BLB":
-        // Bearing Left Ball
-        setTableColumns(SensorBearingLeftBallColumns);
-        break
-      case "BLI":
-        // Bearing Left Inside
-        setTableColumns(SensorBearingLeftInsideColumns);
-        break
-      case "BLO":
-        // Bearing Left Outside
-        setTableColumns(SensorBearingLeftOutsideColumns);
-        break
-      case "BLR":
-        // Bearing Left Retainer
-        setTableColumns(SensorBearingLeftRetainerColumns);
-        break
-      case "BRB":
-        // Bearing Right Ball
-        setTableColumns(SensorBearingRightBallColumns);
-        break
-      case "BRI":
-        // Bearing Right Inside
-        setTableColumns(SensorBearingRightInsideColumns);
-        break
-      case "BRO":
-        // Bearing Right Outside
-        setTableColumns(SensorBearingRightOutsideColumns);
-        break
-      case "BRR":
-        // Bearing Right Retainer
-        setTableColumns(SensorBearingRightRetainerColumns);
-        break
-      case "WL":
-        // Wheel Left
-        setTableColumns(SensorWheelLeftColumns);
-        break
-      case "WR":
-        // Wheel Right
-        setTableColumns(SensorWheelRightColumns);
-        break
-      case "G":
-        // Gearbox
-        setTableColumns(SensorGearboxColumns);
-        break
-      case "E":
-        // Engine
-        setTableColumns(SensorEngineColumns);
-        break
-      case "B_LIFE":
-        // Bearing remaining life
-        setTableColumns(SensorBearingLifeColumns);
-        break
-      case "W_LIFE":
-        // Wheel remaining life
-        setTableColumns(SensorWheelLifeColumns);
-        break
-      case "G_LIFE":
-        // Gearbox remaining life
-        setTableColumns(SensorGearboxLifeColumns);
-        break
-      case "E_LIFE":
-        // Engine remaining life
-        setTableColumns(SensorEngineLifeColumns);
-        break
-    }
-  }
-
-  function handleSettingClassColByPart(wb: any) {
-    switch (wb) {
+  function handleSettingClassColByPart(partType: any) {
+    switch (partType) {
       case "BLB":
         // Bearing Left Ball
         setTargetClassCol("ai_LBSF");
@@ -1487,7 +230,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
-      dataType: wb,
+      dataType: partType,
       dbDocIds: selectedDataIdx
     });
     const predictedData = res?.data.predictionInfo || [];
@@ -1517,7 +260,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
-      dataType: wb,
+      dataType: partType,
       dbDocIds: selectedDataIdx
     });
     const predictedData = res?.data.predictionInfo || [];
@@ -1547,7 +290,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       dataProvider: DataProvider.Ktme,
       dataInputOption: DataInputOption.Db,
       listFieldsForPredict: selectedModel?.listFeatures,
-      dataType: wb,
+      dataType: partType,
       dbDocIds: selectedDataIdx
     });
     const predictedData = res?.data.predictionInfo || [];
@@ -1587,12 +330,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   function handleUpdateData() {
     setSaving(true);
     if (algorithmName === "linear" || algorithmName === "lasso") {
-      switch (wb) {
+      switch (partType) {
         case "B_LIFE":
           datasetDatabaseControllerApi
             ?.updateData(
               selectedData!.map((inputs) => ({
-                partType: wb,
+                partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
                 aiPredict: wholeBearingCycle - inputs[targetClassCol],
@@ -1608,7 +351,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           datasetDatabaseControllerApi
             ?.updateData(
               selectedData!.map((inputs) => ({
-                partType: wb,
+                partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
                 aiPredict: wholeWheelCycle - inputs[targetClassCol],
@@ -1624,7 +367,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           datasetDatabaseControllerApi
             ?.updateData(
               selectedData!.map((inputs) => ({
-                partType: wb,
+                partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
                 aiPredict: wholeGearboxCycle - inputs[targetClassCol],
@@ -1640,7 +383,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           datasetDatabaseControllerApi
             ?.updateData(
               selectedData!.map((inputs) => ({
-                partType: wb,
+                partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
                 aiPredict: wholeEngineCycle - inputs[targetClassCol],
@@ -1657,7 +400,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       datasetDatabaseControllerApi
         ?.updateData(
           selectedData!.map((inputs) => ({
-            partType: wb,
+            partType: partType,
             id: inputs.idx,
             aiAlgorithmName: selectedModel?.algorithmType,
             aiPredict: parseInt(inputs[targetClassCol]),
@@ -1671,9 +414,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     }
   }
 
+  const columns = useDataPredictionColumns(partType)
+
   return (
     <Container fluid>
-      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 수행" : "고장예지 예측 수행"} className="mb-2">
+      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 수행" : "고장예지 예측 수행"}
+               className="mb-2">
         <Row className="row mb-2">
           <Col xs={1} className="Col pe-0 text-white">
             부품선택
@@ -1681,9 +427,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <Col xs={1} className="Col ps-0">
             <Form.Select
               size="sm"
-              value={wb}
+              value={partType}
               onChange={(v) => {
-                setWb((v.target as any).value)
+                setPartType((v.target as any).value)
               }}
             >
               {algorithmName === "linear" || algorithmName === "lasso" ? (
@@ -1725,6 +471,20 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               모델 조회
             </Button>
           </Col>
+          <Col xs={1} className="text-right">
+            차량 선택
+          </Col>
+          <Col xs={1}>
+            <Form.Select
+              size="sm"
+              value={selectedCar}
+              onChange={(v) => setSelectedCar((v.target as any).value)}
+            >
+              {carsList.map((car) => (
+                <option key={car} value={car}>{car}</option>
+              ))}
+            </Form.Select>
+          </Col>
           <Col xs={1} className="text-right">기간</Col>
           <Col xs={2}>
             <Form.Control
@@ -1758,7 +518,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <Col className="Col d-grid gap-2">
             <Button
               className="button btn-block font-monospace fw-bold"
-              onClick={() => handleSearchConditionData(wb)}
+              onClick={() => handleSearchConditionData(partType)}
               size="sm"
               disabled={searchingData}
             >
@@ -1796,11 +556,12 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           </Col>
         </Row>
       </Section>
-      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 결과" : "고장예지 예측 결과"} className="mb-2">
+      <Section title={algorithmName === "linear" || algorithmName === "lasso" ? "잔존수명 예지 결과" : "고장예지 예측 결과"}
+               className="mb-2">
         <Col xl={12}>
           <div className="w-100 overflow-auto">
             <Table
-              columns={tableColumns}
+              columns={columns}
               data={conditionData}
               autoResetSelectedRows={false}
               onRowsSelected={handleConditionSelected}

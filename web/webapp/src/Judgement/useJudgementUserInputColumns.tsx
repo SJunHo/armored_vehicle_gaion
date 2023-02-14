@@ -1,15 +1,6 @@
-import React, {useContext, useEffect, useMemo, useState} from "react";
-import {Button} from "react-bootstrap";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+import React, {useMemo, useState} from "react";
 import {Column} from "react-table";
-import {OpenApiContext, Pageable} from "../api";
-import {Paginator} from "../common/Paginator";
-import {Table} from "../common/Table";
 import {
-  partTypes,
   SensorBearingLeftBallInput,
   SensorBearingLeftInsideInput,
   SensorBearingLeftOutsideInput,
@@ -23,27 +14,21 @@ import {
   SensorWheelLeftInput,
   SensorWheelRightInput
 } from "../ModelManagement/useDataPredictionColumns";
-import {Section} from "../common/Section/Section";
-import "./judgementStyle.css"
 
+export const useJudgementUserInputColumns: (partType: string) => any = (partType:string) => {
 
-export const JudgementUserInput: React.FC = () => {
-  const [partType, setPartType] = useState<string>("BLB");
-  const [carsList, setCarsList] = useState<string[]>([]);
-  const [selectedCar, setSelectedCar] = useState<string>();
+  const [updateDefectUserList, setUpdateDefectUserList] = useState<{ idx: number; userJudgement: number }[]>([])
 
-  const [fromDate, setFromDate] = useState<Date>(new Date());
-  const [toDate, setToDate] = useState<Date>(new Date());
+  function radioButtonHandler(value: any, idx: any) {
+    var existUpdateList = updateDefectUserList
+    var index = existUpdateList.findIndex(el => el.idx === idx);
 
-  const [paginate, setPaginate] = useState<Pageable>();
-  const [totalPage, setTotalPage] = useState<number>();
-
-  const [tableColumn, setTableColumn] = useState<any>();
-  const [predictedData, setPredictedData] = useState<any[]>([]);
-
-  const {databaseJudgementControllerApi} = useContext(OpenApiContext);
-
-  const [updateDefectUserList, setUpdateDefectUserList] = useState<{ idx: number; userJudgement: number; }[]>([]);
+    if (index === -1) {
+      return false
+    } else {
+      return existUpdateList[index].userJudgement == value
+    }
+  }
 
   function onClickHandler(score: any, idx: any, e: any) {
     // Whenever defectUser value comes in through radio button,
@@ -57,20 +42,8 @@ export const JudgementUserInput: React.FC = () => {
     } else {
       existUpdateList[index] = updateDict;
     }
+    console.log(existUpdateList)
     setUpdateDefectUserList(existUpdateList)
-
-  }
-
-  function radioButtonHandler(value: any, idx: any) {
-    var existUpdateList = updateDefectUserList
-    var index = existUpdateList.findIndex(el => el.idx === idx);
-
-    if (index === -1) {
-      return false
-    } else {
-      return existUpdateList[index].userJudgement == value
-    }
-
   }
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
@@ -1715,338 +1688,57 @@ export const JudgementUserInput: React.FC = () => {
     []
   );
 
-  async function onClickSaveButtonHandler() {
-    let proceed = window.confirm("저장하시겠습니까?");
-    if (proceed) {
-      // Update to DB with edited defectUser values
-      databaseJudgementControllerApi?.updateUserJudgement(partType, updateDefectUserList)
-        .then(res => {
-          handleSearchData()
-        })
-    }
+  var resultColumns: any[] = []
+  switch (partType) {
+    case "BLB":
+      // Bearing Left Ball
+      resultColumns = SensorBearingLeftBallColumns;
+      break
+    case "BLI":
+      // Bearing Left Inside
+      resultColumns = SensorBearingLeftInsideColumns;
+      break
+    case "BLO":
+      // Bearing Left Outside
+      resultColumns = SensorBearingLeftOutsideColumns;
+      break
+    case "BLR":
+      // Bearing Left Retainer
+      resultColumns = SensorBearingLeftRetainerColumns;
+      break
+    case "BRB":
+      // Bearing Right Ball
+      resultColumns = SensorBearingRightBallColumns;
+      break
+    case "BRI":
+      // Bearing Right Inside
+      resultColumns = SensorBearingRightInsideColumns;
+      break
+    case "BRO":
+      // Bearing Right Outside
+      resultColumns = SensorBearingRightOutsideColumns;
+      break
+    case "BRR":
+      // Bearing Right Retainer
+      resultColumns = SensorBearingRightRetainerColumns;
+      break
+    case "WL":
+      // Wheel Left
+      resultColumns = SensorWheelLeftColumns;
+      break
+    case "WR":
+      // Wheel Right
+      resultColumns = SensorWheelRightColumns;
+      break
+    case "G":
+      // Gearbox
+      resultColumns = SensorGearboxColumns;
+      break
+    case "E":
+      // Engine
+      resultColumns = SensorEngineColumns;
+      break
   }
 
-  function handleSearchTablesColumns(partType: any) {
-    switch (partType) {
-      case "BLB":
-        // Bearing Left Ball
-        return SensorBearingLeftBallColumns
-      case "BLI":
-        // Bearing Left Inside
-        return SensorBearingLeftInsideColumns
-      case "BLO":
-        // Bearing Left Outside
-        return SensorBearingLeftOutsideColumns
-      case "BLR":
-        // Bearing Left Retainer
-        return SensorBearingLeftRetainerColumns
-      case "BRB":
-        // Bearing Right Ball
-        return SensorBearingRightBallColumns
-      case "BRI":
-        // Bearing Right Inside
-        return SensorBearingRightInsideColumns
-      case "BRO":
-        // Bearing Right Outside
-        return SensorBearingRightOutsideColumns
-      case "BRR":
-        // Bearing Right Retainer
-        return SensorBearingRightRetainerColumns
-      case "WL":
-        // Wheel Left
-        return SensorWheelLeftColumns
-      case "WR":
-        // Wheel Right
-        return SensorWheelRightColumns
-      case "G":
-        // Gearbox
-        return SensorGearboxColumns
-      case "E":
-        // Engine
-        return SensorEngineColumns
-    }
-  }
-
-
-  useEffect(() => {
-    const thisDate = new Date();
-    thisDate.setMonth(thisDate.getMonth() - 6);
-    setFromDate(thisDate);
-  }, []);
-
-  useEffect(() => {
-    if (partType) {
-      databaseJudgementControllerApi?.findDistinctByCarId(partType)
-        .then((res) => {
-          setCarsList(res.data)
-          setSelectedCar(res.data[0])
-        });
-    }
-  }, [partType, databaseJudgementControllerApi]);
-
-
-  function handleSearchData(pageable?: Pageable) {
-    if (selectedCar == undefined) {
-      return []
-    }
-    setTableColumn(handleSearchTablesColumns(partType))
-
-    if (partType == 'BLB') {
-      databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'BLI') {
-      databaseJudgementControllerApi?.getBearingLeftInsidePredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'BLO') {
-      databaseJudgementControllerApi?.getBearingLeftOutsidePredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'BLR') {
-      databaseJudgementControllerApi?.getBearingLeftRetainerPredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'BRB') {
-      databaseJudgementControllerApi?.getBearingRightBallPredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'BRI') {
-      databaseJudgementControllerApi?.getBearingRightInsidePredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'BRO') {
-      databaseJudgementControllerApi?.getBearingRightOutsidePredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'BRR') {
-      databaseJudgementControllerApi?.getBearingRightRetainerPredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-
-    if (partType == 'E') {
-      databaseJudgementControllerApi?.getEnginePredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'G') {
-      databaseJudgementControllerApi?.getGearboxPredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'WL') {
-      databaseJudgementControllerApi?.getWheelLeftPredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-    if (partType == 'WR') {
-      databaseJudgementControllerApi?.getWheelRightPredictedData(
-        selectedCar,
-        fromDate?.toLocaleDateString("en-US"),
-        toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
-      ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
-      });
-    }
-  }
-
-  return (
-    <Container className="p-0 w-100 ">
-      <Section title="검색 조건 입력">
-        <Row className="row">
-          <Col xs={1} className="text-right">
-            부품 선택
-          </Col>
-          <Col xs={2}>
-            <Form.Select
-              size="sm"
-              value={partType}
-              onChange={(v) => {
-                setPartType((v.target as any).value);
-                // handleSearchTablesColumns((v.target as any).value)
-              }}
-            >
-              {partTypes.map((part) => (
-                <option key={part.value} value={part.value}>{part.label}</option>
-              ))}
-            </Form.Select>
-          </Col>
-          <Col xs={1} className="text-right">
-            차량 선택
-          </Col>
-          <Col xs={1}>
-            <Form.Select
-              size="sm"
-              value={selectedCar}
-              onChange={(v) => setSelectedCar((v.target as any).value)}
-            >
-              {carsList.map((car) => (
-                <option key={car} value={car}>{car}</option>
-              ))}
-            </Form.Select>
-          </Col>
-          <Col xs={1} className="text-right">기간</Col>
-          <Col xs={2}>
-            <Form.Control
-              size="sm"
-              type="date"
-              value={fromDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setFromDate(new Date((v.target as any).value))}
-            />
-          </Col>
-          <div className="font-weight-bold">~</div>
-          <Col xs={2}>
-            <Form.Control
-              type="date"
-              size="sm"
-              value={toDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setToDate(new Date((v.target as any).value))}
-            />
-          </Col>
-          <div>
-            <Button type="button" onClick={() => {
-              handleSearchData()
-            }}>검색</Button>
-          </div>
-        </Row>
-      </Section>
-      <Section title="결과 조회">
-        <Col xl={12} className="w-100">
-          <Row className="overflow-auto">
-            {(totalPage) &&
-            <Table
-              columns={tableColumn}
-              data={predictedData}
-            />
-            }
-            <div id="paginator" className="pt-4">
-              <Paginator
-                pageCount={totalPage || 0}
-                size={paginate?.pageSize || 0}
-                selectedPage={paginate?.pageNumber || 0}
-                onChange={(v) => {
-                  const newPaginate = {
-                    ...paginate,
-                    pageNumber: v,
-                  };
-                  setPaginate(newPaginate)
-                  handleSearchData(newPaginate)
-                }}
-              />
-            </div>
-          </Row>
-          <Row className="float-right">
-            <Button type="button" className="btn btn-primary m-lg-1"
-                    onClick={() => {
-                      onClickSaveButtonHandler()
-                    }}>
-              결과 저장
-            </Button>
-          </Row>
-        </Col>
-      </Section>
-    </Container>
-  );
+  return [resultColumns, updateDefectUserList];
 };
-
-
