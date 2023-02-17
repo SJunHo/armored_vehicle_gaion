@@ -1,6 +1,5 @@
 package kr.gaion.armoredVehicle.dataset.service;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import kr.gaion.armoredVehicle.auth.User;
 import kr.gaion.armoredVehicle.common.Utilities;
 import kr.gaion.armoredVehicle.database.model.*;
@@ -10,15 +9,16 @@ import kr.gaion.armoredVehicle.dataset.helper.CSVHelper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static kr.gaion.armoredVehicle.dataset.service.DatabaseJudgementService.findClassLabel;
 
 @Service
 @RequiredArgsConstructor
@@ -67,6 +67,24 @@ public class DatasetDatabaseService {
     public String handleUploadFile(MultipartFile file) {
         this.storageService.store(file);
         return file.getOriginalFilename();
+    }
+
+    public List<String> findDistinctByCarIdFromLifeData(String partType) {
+        var targetColumn = findClassLabel(partType);
+        var componentType = partType.substring(0, 1);
+
+        List<String> result = new ArrayList<>();
+        switch (componentType) {
+            case "B":
+                return sensorBearingLifeRepository.findDistinctByCarIdFromBearingLifeData();
+            case "W":
+                return sensorWheelLifeRepository.findDistinctByCarIdFromWheelLifeData();
+            case "E":
+                return sensorEngineLifeRepository.findDistinctByCarIdFromEngineLifeData();
+            case "G":
+                return sensorGearboxLifeRepository.findDistinctByCarIdFromGearboxLifeData();
+        }
+        return result;
     }
 
     //import nas Database
@@ -261,79 +279,79 @@ public class DatasetDatabaseService {
     }
 
     // get unlabeled data (for predict)
-    public Page<?> getUnlabeledBearingData(String partType, Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledBearingData(String carId, String partType, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Bearing Data --> " + "partType : " + partType);
         switch (partType) {
             case "BLB":
                 // Bearing Left Ball
-                return sensorBearingRepository.findSensorBearingLeftBallAiLBSFIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingLeftBallAiLBSFIsNull(carId, fromDate, toDate);
             case "BLI":
                 // Bearing Left Inside
-                return sensorBearingRepository.findSensorBearingLeftInsideAiLBPFIIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingLeftInsideAiLBPFIIsNull(carId, fromDate, toDate);
             case "BLO":
                 // Bearing Left Outside
-                return sensorBearingRepository.findSensorBearingLeftOutsideAiLBPFOIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingLeftOutsideAiLBPFOIsNull(carId, fromDate, toDate);
             case "BLR":
                 // Bearing Left Retainer
-                return sensorBearingRepository.findSensorBearingLeftRetainerAiLFTFIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingLeftRetainerAiLFTFIsNull(carId, fromDate, toDate);
             case "BRB":
                 // Bearing Right Ball
-                return sensorBearingRepository.findSensorBearingRightBallAiRBSFIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingRightBallAiRBSFIsNull(carId, fromDate, toDate);
             case "BRI":
                 // Bearing Right Inside
-                return sensorBearingRepository.findSensorBearingRightInsideAiRBPFIIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingRightInsideAiRBPFIIsNull(carId, fromDate, toDate);
             case "BRO":
                 // Bearing Right Outside
-                return sensorBearingRepository.findSensorBearingRightOutsideAiRBPFOIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingRightOutsideAiRBPFOIsNull(carId, fromDate, toDate);
             case "BRR":
                 // Bearing Right Retainer
-                return sensorBearingRepository.findSensorBearingRightRetainerRFTFIsNull(fromDate, toDate, pageable);
+                return sensorBearingRepository.findSensorBearingRightRetainerRFTFIsNull(carId, fromDate, toDate);
         }
         return null;
     }
 
-    public Page<?> getUnlabeledWheelData(String partType, Date fromDate, Date toDate,  @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledWheelData(String carId, String partType, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Wheel Data --> " + "partType : " + partType);
         switch (partType) {
             case "WL":
                 // Wheel Left
-                return sensorWheelRepository.findSensorWheelLeftAiLWIsNull(fromDate, toDate, pageable);
+                return sensorWheelRepository.findSensorWheelLeftAiLWIsNull(carId, fromDate, toDate);
             case "WR":
                 // Wheel Right
-                return sensorWheelRepository.findSensorWheelRightAiRWIsNull(fromDate, toDate, pageable);
+                return sensorWheelRepository.findSensorWheelRightAiRWIsNull(carId, fromDate, toDate);
         }
         return null;
     }
 
-    public Page<?> getUnlabeledGearboxData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledGearboxData(String carId, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Gearbox Data");
-        return sensorGearboxRepository.findSensorGearboxAiGEARIsNull(fromDate, toDate, pageable);
+        return sensorGearboxRepository.findSensorGearboxAiGEARIsNull(carId, fromDate, toDate);
     }
 
-    public Page<?> getUnlabeledEngineData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledEngineData(String carId, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Engine Data");
-        return sensorEngineRepository.findSensorEngineAiENGINEIsNull(fromDate, toDate, pageable);
+        return sensorEngineRepository.findSensorEngineAiENGINEIsNull(carId, fromDate, toDate);
     }
 
     // get unlabeled remaining life data (for training)
-    public Page<?> getUnlabeledBearingLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledBearingLifeData(String carId, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Bearing Life Data");
-        return sensorBearingLifeRepository.findSensorBearingLifeAiTripIIsNull(fromDate, toDate, pageable);
+        return sensorBearingLifeRepository.findSensorBearingLifeAiTripIIsNull(carId, fromDate, toDate);
     }
 
-    public Page<?> getUnlabeledWheelLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledWheelLifeData(String carId, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Wheel Life Data");
-        return sensorWheelLifeRepository.findSensorWheelLifeAiTripIIsNull(fromDate, toDate, pageable);
+        return sensorWheelLifeRepository.findSensorWheelLifeAiTripIIsNull(carId, fromDate, toDate);
     }
 
-    public Page<?> getUnlabeledGearboxLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledGearboxLifeData(String carId, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Gearbox Life Data");
-        return sensorGearboxLifeRepository.findSensorGearboxLifeAiTripIIsNull(fromDate, toDate, pageable);
+        return sensorGearboxLifeRepository.findSensorGearboxLifeAiTripIIsNull(carId, fromDate, toDate);
     }
 
-    public Page<?> getUnlabeledEngineLifeData(Date fromDate, Date toDate, @Parameter(hidden = true) Pageable pageable) throws IOException {
+    public List<?> getUnlabeledEngineLifeData(String carId, Date fromDate, Date toDate) throws IOException {
         System.out.println(">>> get Unlabeled Engine Life Data");
-        return sensorEngineLifeRepository.findSensorEngineLifeAiTripIIsNull(fromDate, toDate, pageable);
+        return sensorEngineLifeRepository.findSensorEngineLifeAiTripIIsNull(carId, fromDate, toDate);
     }
 
     public String updatePredictData(List<DbDataUpdateInput> inputs) {

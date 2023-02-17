@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface SensorBearingRepository extends JpaRepository<SensorBearing, Long> {
     //get SDAID List
-    @Query(value = "Select DISTINCT SDAID from BERDATA b where ?1 is Not NULL", nativeQuery = true)
+    @Query(value = "Select DISTINCT SDAID from BERDATA ", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);
 
     //get BLB PredictedData
@@ -94,72 +94,72 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BSF, B.L_B_V_32924BSF, B.L_B_V_32922BSF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_LBSF IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingLeftBallInterface> findSensorBearingLeftBallAiLBSFIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LBSF IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingLeftBallInterface> findSensorBearingLeftBallAiLBSFIsNull(String carId, Date fromDate, Date toDate);
 
     // Bearing Left Inside
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LBPFI, B.AI_LBPFI_ALGO, B.AI_LBPFI_MODEL, B.AI_LBPFI_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFI, B.L_B_V_32924BPFI, B.L_B_V_32922BPFI, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_LBPFI IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingLeftInsideInterface> findSensorBearingLeftInsideAiLBPFIIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LBPFI IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingLeftInsideInterface> findSensorBearingLeftInsideAiLBPFIIsNull(String carId, Date fromDate, Date toDate);
 
     // Bearing Left Outside
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LBPFO, B.AI_LBPFO_ALGO, B.AI_LBPFO_MODEL, B.AI_LBPFO_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912BPFO, B.L_B_V_32924BPFO, B.L_B_V_32922BPFO, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_LBPFO IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingLeftOutsideInterface> findSensorBearingLeftOutsideAiLBPFOIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LBPFO IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingLeftOutsideInterface> findSensorBearingLeftOutsideAiLBPFOIsNull(String carId, Date fromDate, Date toDate);
 
     // Bearing Left Retainer
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LFTF, B.AI_LFTF_ALGO, B.AI_LFTF_MODEL, B.AI_LFTF_DATE, " +
             " B.W_RPM, B.L_B_V_1X, B.L_B_V_6912FTF, B.L_B_V_32924FTF, B.L_B_V_32922FTF, " +
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_LFTF IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingLeftRetainerInterface> findSensorBearingLeftRetainerAiLFTFIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LFTF IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingLeftRetainerInterface> findSensorBearingLeftRetainerAiLFTFIsNull(String carId, Date fromDate, Date toDate);
 
     // Bearing Right Ball
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RBSF, B.AI_RBSF_ALGO, B.AI_RBSF_MODEL, B.AI_RBSF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BSF, B.R_B_V_32924BSF, B.R_B_V_32922BSF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_RBSF IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingRightBallInterface> findSensorBearingRightBallAiRBSFIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RBSF IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingRightBallInterface> findSensorBearingRightBallAiRBSFIsNull(String carId, Date fromDate, Date toDate);
 
     // Bearing Right Inside
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RBPFI, B.AI_RBPFI_ALGO, B.AI_RBPFI_MODEL, B.AI_RBPFI_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFI, B.R_B_V_32924BPFI, B.R_B_V_32922BPFI, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_RBPFI IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingRightInsideInterface> findSensorBearingRightInsideAiRBPFIIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RBPFI IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingRightInsideInterface> findSensorBearingRightInsideAiRBPFIIsNull(String carId, Date fromDate, Date toDate);
 
     // Bearing Right Outside
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RBPFO, B.AI_RBPFO_ALGO, B.AI_RBPFO_MODEL, B.AI_RBPFO_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912BPFO, B.R_B_V_32924BPFO, B.R_B_V_32922BPFO, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_RBPFO IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingRightOutsideInterface> findSensorBearingRightOutsideAiRBPFOIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RBPFO IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingRightOutsideInterface> findSensorBearingRightOutsideAiRBPFOIsNull(String carId, Date fromDate, Date toDate);
 
     // Bearing Right Retainer
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_RFTF, B.AI_RFTF_ALGO, B.AI_RFTF_MODEL, B.AI_RFTF_DATE, " +
             " B.W_RPM, B.R_B_V_1X, B.R_B_V_6912FTF, B.R_B_V_32924FTF, B.R_B_V_32922FTF, " +
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " ENGDATA.AC_h, ENGDATA.AC_v, ENGDATA.AC_a, B.`DATE` " +
-            " FROM (Select * from `BERDATA` where `BERDATA`.AI_RFTF IS NULL AND `BERDATA`.DATE BETWEEN ?1 AND ?2) B " +
-            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` ", nativeQuery = true)
-    Page<SensorBearingRightRetainerInterface> findSensorBearingRightRetainerRFTFIsNull(Date fromDate, Date toDate, Pageable pageable);
+            " FROM (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RFTF IS NULL AND `BERDATA`.DATE BETWEEN ?2 AND ?3) B " +
+            " INNER JOIN `ENGDATA` ON B.`DATE` = ENGDATA.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
+    List<SensorBearingRightRetainerInterface> findSensorBearingRightRetainerRFTFIsNull(String carId, Date fromDate, Date toDate);
 
     // get BLB's User judgement values are not Null data
     @Query(value = "Select B.IDX, B.SDAID, B.USER_LBSF, B.USER_LBSF_ID, B.USER_LBSF_DATE, " +

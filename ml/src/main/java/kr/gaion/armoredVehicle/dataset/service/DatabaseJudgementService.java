@@ -32,7 +32,7 @@ public class DatabaseJudgementService {
     @NonNull
     private final SensorEngineRepository sensorEngineRepository;
 
-    public String findClassLabel(String part) {
+    public static String findClassLabel(String part) {
         switch (part) {
             // bearing
             case "BLB":
