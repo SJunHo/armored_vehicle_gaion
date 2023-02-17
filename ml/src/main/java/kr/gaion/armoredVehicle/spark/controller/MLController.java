@@ -26,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController("api")
 @RequiredArgsConstructor
@@ -60,6 +61,15 @@ public class MLController {
     @PostMapping(path = "/api/train/rfc")
     public RandomForestClassificationResponse trainRfc(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
         return (RandomForestClassificationResponse) rfc.trainRF(input);
+    }
+
+    @PostMapping(path = "/api/retrain/rfc")
+    public RandomForestClassificationResponse retrainRfc(@RequestBody List<Map<Integer, Object>> webData) throws Exception {
+        System.out.println(webData);
+
+
+//        return (RandomForestClassificationResponse) rfc.trainRF(input);
+        return null;
     }
 
     @PostMapping(path = "/api/train/svc")

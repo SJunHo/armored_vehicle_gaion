@@ -33,6 +33,7 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
   const [result2, setResult2] = React.useState<RegressionResponse>();
 
   async function handleTrain(input: any) {
+    console.log(input)
     setResult(undefined);
     setResult2(undefined);
     setIsTraining(true);
@@ -52,7 +53,6 @@ export const CreateModelSection: React.FC<{ algorithmName: string }> = ({
           newResult = await mlControllerApi?.trainLr(input);
           break;
         }
-
         case "mlp": {
           newResult = await mlControllerApi?.trainMLP(input);
           break;

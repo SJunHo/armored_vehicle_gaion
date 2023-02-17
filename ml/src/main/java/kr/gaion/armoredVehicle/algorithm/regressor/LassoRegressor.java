@@ -101,7 +101,7 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
                 DenseVector vector = (DenseVector) (row.getAs("features"));
                 double predictedVal = lrModel.predict(vector);
                 strBlder.append(predictedVal).append(',');
-                double actualVal = row.getAs("label");
+                double actualVal = (double) row.getAs("label");
                 strBlder.append(actualVal).append(',');
 
                 String originalFeatures = vector.toString();
@@ -171,7 +171,7 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
 
         response.setStatus(ResponseStatus.SUCCESS);
 
-        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType(), config.getFileName());
 
         System.out.println(">>> Complete lasso regression training.");
 

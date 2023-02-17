@@ -74,7 +74,7 @@ public class ModelService {
         return dbModelResponseRepository.getModelResponseListByAlgorithm(algorithm);
     }
 
-    public void insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName, String partType) throws IOException {
+    public void insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName, String partType, String fileName) throws IOException {
         // Write new data
         System.out.printf(">>> Write new data: Algorithm name: %s, Model name: %s.%n", algorithmName, modelName);
         Gson gson = new Gson();
@@ -87,14 +87,16 @@ public class ModelService {
             dbModelResponse = new DbModelResponse();
         }
         dbModelResponse.setPartType(partType);
+        dbModelResponse.setModelName(modelName);
+        dbModelResponse.setAlgorithmType(algorithmName);
+        dbModelResponse.setTrainingDataFileName(fileName);
+
         switch (algorithmName) {
             case "RandomForestClassifier":
             case "LogisticRegression":
             case "SVCClassifier":
             case "MLPClassifier": {
                 var model = (ClassificationResponse) response;
-                dbModelResponse.setModelName(modelName);
-                dbModelResponse.setAlgorithmType(algorithmName);
                 dbModelResponse.setWeightedFalsePositiveRate(model.getWeightedFalsePositiveRate());
                 dbModelResponse.setWeightedFMeasure(model.getWeightedFMeasure());
                 dbModelResponse.setAccuracy(model.getAccuracy());
@@ -107,8 +109,6 @@ public class ModelService {
             case "LinearRegression":
             case "LassoRegression": {
                 var model = (RegressionResponse) response;
-                dbModelResponse.setModelName(modelName);
-                dbModelResponse.setAlgorithmType(algorithmName);
                 dbModelResponse.setCoefficients(model.getCoefficients());
                 dbModelResponse.setRootMeanSquaredError(model.getRootMeanSquaredError());
                 dbModelResponse.setR2(model.getR2());
@@ -117,10 +117,7 @@ public class ModelService {
             }
             case "IsolationForestOutlierDetection": {
                 var model = (ClusterResponse) response;
-                dbModelResponse.setModelName(modelName);
-                dbModelResponse.setAlgorithmType(algorithmName);
                 dbModelResponse.setListFeatures(model.getListFeatures());
-
                 break;
             }
 

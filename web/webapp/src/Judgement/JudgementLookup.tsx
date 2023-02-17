@@ -17,15 +17,16 @@ export const JudgementLookup: React.FC = () => {
   const [partType, setPartType] = useState<string>("BLB");
   const [carsList, setCarsList] = useState<string[]>([]);
   const [selectedCar, setSelectedCar] = useState<string>();
+  const [modelList, setModelList] = useState<string[]>([]);
+  const [selectedModel, setSelectedModel] = useState<string>();
 
-  const [fromDate, setFromDate] = useState<Date>(new Date());
+  const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>(new Date());
 
   const [paginate, setPaginate] = useState<Pageable>();
   const [totalPage, setTotalPage] = useState<number>(0);
 
   const [predictedData, setPredictedData] = useState<any[]>([]);
-
   const [judgedData, setJudgedData] = useState<any[]>([]);
 
   const {databaseJudgementControllerApi} = useContext(OpenApiContext);
@@ -48,9 +49,20 @@ export const JudgementLookup: React.FC = () => {
     }
   }, [partType, databaseJudgementControllerApi]);
 
+  useEffect(() => {
+    if (partType) {
+      databaseJudgementControllerApi?.findDistinctByModelName(partType)
+        .then((res) => {
+          setModelList(res.data)
+          setSelectedModel(res.data[0])
+        });
+    }
+  }, [partType, databaseJudgementControllerApi]);
+
 
   function handleObjectKey(data: any) {
-    data.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+    const result = data.slice()
+    result.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
       // delete not needed
       notNeededColumnsForAnother.map((el: string) => {
         if (eachKey.includes(el)) {
@@ -59,7 +71,7 @@ export const JudgementLookup: React.FC = () => {
       })
     })))
 
-    var userKey = Object.keys(data[0]).filter(el => {
+    var userKey = Object.keys(result[0]).filter(el => {
       if (el.includes("user_")) return true
     })
     var targetColumnName = userKey[0].split('_')[1]
@@ -67,7 +79,7 @@ export const JudgementLookup: React.FC = () => {
 
     const isUpperCase = (string: string) => /^[A-Z]*$/.test(string)
 
-    data.forEach((el: any) => {
+    result.forEach((el: any) => {
         el[newAiKey] = el[userKey[0]]
         delete el[userKey[0]]
         for (let i in el) {
@@ -91,21 +103,20 @@ export const JudgementLookup: React.FC = () => {
       }
     )
 
-    return data
+    return result
   }
 
-  function handleSearchData(pageable?: Pageable) {
-    if (selectedCar == undefined) {
+  function handleSearchData() {
+    if (selectedCar == undefined || selectedModel == undefined) {
       return []
     }
     //다운로드 데이터 조회
     if (partType === 'BLB') {
       databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
           setPredictedData(res.data.content || []);
           setPaginate(res.data.pageable);
@@ -114,20 +125,22 @@ export const JudgementLookup: React.FC = () => {
       );
       databaseJudgementControllerApi?.getLeftBallUserLBSFData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        console.log(res)
         var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
         setJudgedData(result);
+        console.log(result)
       });
     }
     if (partType === 'BLI') {
       databaseJudgementControllerApi?.getBearingLeftInsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -135,6 +148,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getLeftInsideUserLBPFIData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -145,10 +159,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'BLO') {
       databaseJudgementControllerApi?.getBearingLeftOutsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -156,6 +169,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getLeftOutsideUserLBPFOData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -166,10 +180,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'BLR') {
       databaseJudgementControllerApi?.getBearingLeftRetainerPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -177,6 +190,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getLeftRetainerUserLFTFData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -187,10 +201,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'BRB') {
       databaseJudgementControllerApi?.getBearingRightBallPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -198,6 +211,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getRightBallUserRBSFData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -208,10 +222,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'BRI') {
       databaseJudgementControllerApi?.getBearingRightInsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -219,6 +232,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getRightInsideUserRBPFIData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -229,10 +243,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'BRO') {
       databaseJudgementControllerApi?.getBearingRightOutsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -240,6 +253,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getRightOutsideUserRBPFOData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -250,10 +264,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'BRR') {
       databaseJudgementControllerApi?.getBearingRightRetainerPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -261,6 +274,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getRightRetainerUserRFTFData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -271,10 +285,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'E') {
       databaseJudgementControllerApi?.getEnginePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -282,6 +295,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getEngineUserEngineData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -292,10 +306,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'G') {
       databaseJudgementControllerApi?.getGearboxPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -303,20 +316,25 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getGearboxUserGearData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        var data = res.data.map(a => {
+          return {...a}
+        })
         var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
         setJudgedData(result);
+        console.log(data)
+        console.log(result)
       });
     }
     if (partType === 'WL') {
       databaseJudgementControllerApi?.getWheelLeftPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -324,6 +342,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getLeftWheelUserLW(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -334,10 +353,9 @@ export const JudgementLookup: React.FC = () => {
     if (partType === 'WR') {
       databaseJudgementControllerApi?.getWheelRightPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -345,6 +363,7 @@ export const JudgementLookup: React.FC = () => {
       });
       databaseJudgementControllerApi?.getRightWheelUserRW(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
@@ -395,18 +414,17 @@ export const JudgementLookup: React.FC = () => {
     }
   }
 
-  const columns =  useJudgementLookupColumns(partType)
+  const columns = useJudgementLookupColumns(partType)
 
   return (
     <Container className="p-0">
       <Section title="검색 조건 입력">
         <Row className="row">
-          <Col xs={1} className="text-right">
+          <Col xs={2} className="text-right">
             부품 선택
-          </Col>
-          <Col xs={2}>
             <Form.Select
               size="sm"
+              className="ml-2"
               value={partType}
               onChange={(v) => {
                 setPartType((v.target as any).value);
@@ -418,12 +436,11 @@ export const JudgementLookup: React.FC = () => {
               ))}
             </Form.Select>
           </Col>
-          <Col xs={1} className="text-right">
+          <Col xs={2} className="text-right">
             차량 선택
-          </Col>
-          <Col xs={1}>
             <Form.Select
               size="sm"
+              className="ml-2"
               value={selectedCar}
               onChange={(v) => setSelectedCar((v.target as any).value)}
             >
@@ -432,29 +449,50 @@ export const JudgementLookup: React.FC = () => {
               ))}
             </Form.Select>
           </Col>
-          <Col xs={1} className="text-right">기간</Col>
-          <Col xs={2}>
-            <Form.Control
+          <Col xs={2} className="text-right">
+            모델 선택
+            <Form.Select
               size="sm"
-              type="date"
-              value={fromDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setFromDate(new Date((v.target as any).value))}
-            />
+              className="ml-2"
+              value={selectedModel}
+              onChange={(v) => setSelectedModel((v.target as any).value)}
+            >
+              {modelList.map((model) => (
+                <option key={model} value={model}>{model}</option>
+              ))}
+            </Form.Select>
           </Col>
-          <div className="font-weight-bold">~</div>
-          <Col xs={2}>
-            <Form.Control
-              type="date"
-              size="sm"
-              value={toDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setToDate(new Date((v.target as any).value))}
-            />
+          <Col xs={5}>
+            <Row className="ml-5">
+              기간
+              <Col xs={5}>
+                <Form.Control
+                  size="sm"
+                  type="date"
+                  value={fromDate?.toLocaleDateString("en-CA")}
+                  onChange={(v) => setFromDate(new Date((v.target as any).value))}
+                />
+              </Col>
+              <div className="font-weight-bold">~</div>
+              <Col xs={5}>
+                <Form.Control
+                  type="date"
+                  size="sm"
+                  value={toDate?.toLocaleDateString("en-CA")}
+                  onChange={(v) => setToDate(new Date((v.target as any).value))}
+                />
+              </Col>
+            </Row>
           </Col>
-          <div>
-            <Button type="button" onClick={() => {
-              handleSearchData()
-            }}>검색</Button>
-          </div>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <div style={{float: 'right'}}>
+              <Button type="button" onClick={() => {
+                handleSearchData()
+              }}>검색</Button>
+            </div>
+          </Col>
         </Row>
       </Section>
       <Section title="결과 조회">
@@ -477,11 +515,12 @@ export const JudgementLookup: React.FC = () => {
                     pageNumber: v,
                   };
                   setPaginate(newPaginate)
-                  handleSearchData(newPaginate)
+                  handleSearchData()
                 }}
               />
             </div>
             <div style={{float: 'right'}}>
+              <Button className="mr20"> 자가 학습 반영 </Button>
               <CSVLink
                 data={judgedData}
                 filename={`${changePartTypeToKorean(partType)}_${moment(new Date()).format("YYYYMMDD_HHmmss")}`}

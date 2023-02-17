@@ -31,6 +31,8 @@ export const JudgementUserInput: React.FC = () => {
   const [partType, setPartType] = useState<string>("BLB");
   const [carsList, setCarsList] = useState<string[]>([]);
   const [selectedCar, setSelectedCar] = useState<string>();
+  const [modelList, setModelList] = useState<string[]>([]);
+  const [selectedModel, setSelectedModel] = useState<string>();
 
   const [fromDate, setFromDate] = useState<Date>(new Date());
   const [toDate, setToDate] = useState<Date>(new Date());
@@ -215,7 +217,7 @@ export const JudgementUserInput: React.FC = () => {
         },
       ];
     },
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorBearingLeftInsideColumns = useMemo<Column<SensorBearingLeftInsideInput>[]>(
@@ -358,7 +360,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorBearingLeftOutsideColumns = useMemo<Column<SensorBearingLeftOutsideInput>[]>(
@@ -501,7 +503,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorBearingLeftRetainerColumns = useMemo<Column<SensorBearingLeftRetainerInput>[]>(
@@ -644,7 +646,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorBearingRightBallColumns = useMemo<Column<SensorBearingRightBallInput>[]>(
@@ -787,7 +789,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorBearingRightInsideColumns = useMemo<Column<SensorBearingRightInsideInput>[]>(
@@ -930,7 +932,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorBearingRightOutsideColumns = useMemo<Column<SensorBearingRightOutsideInput>[]>(
@@ -1073,7 +1075,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorBearingRightRetainerColumns = useMemo<Column<SensorBearingRightRetainerInput>[]>(
@@ -1216,7 +1218,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorWheelLeftColumns = useMemo<Column<SensorWheelLeftInput>[]>(
@@ -1335,7 +1337,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorWheelRightColumns = useMemo<Column<SensorWheelRightInput>[]>(
@@ -1454,7 +1456,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorGearboxColumns = useMemo<Column<SensorGearboxInput>[]>(
@@ -1589,7 +1591,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   const SensorEngineColumns = useMemo<Column<SensorEngineInput>[]>(
@@ -1712,7 +1714,7 @@ export const JudgementUserInput: React.FC = () => {
         accessor: "ac_a",
       },
     ],
-    []
+    [onClickHandler, radioButtonHandler]
   );
 
   async function onClickSaveButtonHandler() {
@@ -1784,9 +1786,18 @@ export const JudgementUserInput: React.FC = () => {
     }
   }, [partType, databaseJudgementControllerApi]);
 
+  useEffect(() => {
+    if (partType) {
+      databaseJudgementControllerApi?.findDistinctByModelName(partType)
+        .then((res) => {
+          setModelList(res.data)
+          setSelectedModel(res.data[0])
+        });
+    }
+  }, [partType, databaseJudgementControllerApi]);
 
   function handleSearchData(pageable?: Pageable) {
-    if (selectedCar == undefined) {
+    if (selectedCar == undefined || selectedModel == undefined) {
       return []
     }
     setTableColumn(handleSearchTablesColumns(partType))
@@ -1794,10 +1805,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BLB') {
       databaseJudgementControllerApi?.getBearingLeftBallPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1807,10 +1817,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BLI') {
       databaseJudgementControllerApi?.getBearingLeftInsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1820,10 +1829,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BLO') {
       databaseJudgementControllerApi?.getBearingLeftOutsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1833,10 +1841,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BLR') {
       databaseJudgementControllerApi?.getBearingLeftRetainerPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1846,10 +1853,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BRB') {
       databaseJudgementControllerApi?.getBearingRightBallPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1859,10 +1865,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BRI') {
       databaseJudgementControllerApi?.getBearingRightInsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1872,10 +1877,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BRO') {
       databaseJudgementControllerApi?.getBearingRightOutsidePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1885,10 +1889,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'BRR') {
       databaseJudgementControllerApi?.getBearingRightRetainerPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1899,10 +1902,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'E') {
       databaseJudgementControllerApi?.getEnginePredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1912,10 +1914,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'G') {
       databaseJudgementControllerApi?.getGearboxPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1925,10 +1926,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'WL') {
       databaseJudgementControllerApi?.getWheelLeftPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1938,10 +1938,9 @@ export const JudgementUserInput: React.FC = () => {
     if (partType == 'WR') {
       databaseJudgementControllerApi?.getWheelRightPredictedData(
         selectedCar,
+        selectedModel,
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
-        pageable?.pageNumber,
-        pageable?.pageSize
       ).then((res) => {
         setPredictedData(res.data.content || []);
         setPaginate(res.data.pageable);
@@ -1954,12 +1953,11 @@ export const JudgementUserInput: React.FC = () => {
     <Container className="p-0 w-100 ">
       <Section title="검색 조건 입력">
         <Row className="row">
-          <Col xs={1} className="text-right">
+          <Col xs={2} className="text-right">
             부품 선택
-          </Col>
-          <Col xs={2}>
             <Form.Select
               size="sm"
+              className="ml-2"
               value={partType}
               onChange={(v) => {
                 setPartType((v.target as any).value);
@@ -1971,12 +1969,11 @@ export const JudgementUserInput: React.FC = () => {
               ))}
             </Form.Select>
           </Col>
-          <Col xs={1} className="text-right">
+          <Col xs={2} className="text-right">
             차량 선택
-          </Col>
-          <Col xs={1}>
             <Form.Select
               size="sm"
+              className="ml-2"
               value={selectedCar}
               onChange={(v) => setSelectedCar((v.target as any).value)}
             >
@@ -1985,66 +1982,86 @@ export const JudgementUserInput: React.FC = () => {
               ))}
             </Form.Select>
           </Col>
-          <Col xs={1} className="text-right">기간</Col>
-          <Col xs={2}>
-            <Form.Control
+          <Col xs={2} className="text-right">
+            모델 선택
+            <Form.Select
               size="sm"
-              type="date"
-              value={fromDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setFromDate(new Date((v.target as any).value))}
-            />
+              className="ml-2"
+              value={selectedModel}
+              onChange={(v) => setSelectedModel((v.target as any).value)}
+            >
+              {modelList.map((model) => (
+                <option key={model} value={model}>{model}</option>
+              ))}
+            </Form.Select>
           </Col>
-          <div className="font-weight-bold">~</div>
-          <Col xs={2}>
-            <Form.Control
-              type="date"
-              size="sm"
-              value={toDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setToDate(new Date((v.target as any).value))}
-            />
+          <Col xs={5}>
+            <Row className="ml-5">
+              기간
+              <Col xs={5}>
+                <Form.Control
+                  size="sm"
+                  type="date"
+                  value={fromDate?.toLocaleDateString("en-CA")}
+                  onChange={(v) => setFromDate(new Date((v.target as any).value))}
+                />
+              </Col>
+              <div className="font-weight-bold">~</div>
+              <Col xs={5}>
+                <Form.Control
+                  type="date"
+                  size="sm"
+                  value={toDate?.toLocaleDateString("en-CA")}
+                  onChange={(v) => setToDate(new Date((v.target as any).value))}
+                />
+              </Col>
+            </Row>
           </Col>
-          <div>
-            <Button type="button" onClick={() => {
-              handleSearchData()
-            }}>검색</Button>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <div style={{float: 'right'}}>
+              <Button type="button" onClick={() => {
+                handleSearchData()
+              }}>검색</Button>
+            </div>
+          </Col>
+        </Row>
+      </Section> <Section title="결과 조회">
+      <Col xl={12} className="w-100">
+        <Row className="overflow-auto">
+          {(totalPage) &&
+						<Table
+							columns={tableColumn}
+							data={predictedData}
+						/>
+          }
+          <div id="paginator" className="pt-4">
+            <Paginator
+              pageCount={totalPage || 0}
+              size={paginate?.pageSize || 0}
+              selectedPage={paginate?.pageNumber || 0}
+              onChange={(v) => {
+                const newPaginate = {
+                  ...paginate,
+                  pageNumber: v,
+                };
+                setPaginate(newPaginate)
+                handleSearchData(newPaginate)
+              }}
+            />
           </div>
         </Row>
-      </Section>
-      <Section title="결과 조회">
-        <Col xl={12} className="w-100">
-          <Row className="overflow-auto">
-            {(totalPage) &&
-            <Table
-              columns={tableColumn}
-              data={predictedData}
-            />
-            }
-            <div id="paginator" className="pt-4">
-              <Paginator
-                pageCount={totalPage || 0}
-                size={paginate?.pageSize || 0}
-                selectedPage={paginate?.pageNumber || 0}
-                onChange={(v) => {
-                  const newPaginate = {
-                    ...paginate,
-                    pageNumber: v,
-                  };
-                  setPaginate(newPaginate)
-                  handleSearchData(newPaginate)
-                }}
-              />
-            </div>
-          </Row>
-          <Row className="float-right">
-            <Button type="button" className="btn btn-primary m-lg-1"
-                    onClick={() => {
-                      onClickSaveButtonHandler()
-                    }}>
-              결과 저장
-            </Button>
-          </Row>
-        </Col>
-      </Section>
+        <Row className="float-right">
+          <Button type="button" className="btn btn-primary m-lg-1"
+                  onClick={() => {
+                    onClickSaveButtonHandler()
+                  }}>
+            결과 저장
+          </Button>
+        </Row>
+      </Col>
+    </Section>
     </Container>
   );
 };

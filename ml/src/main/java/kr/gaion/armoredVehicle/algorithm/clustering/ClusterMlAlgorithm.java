@@ -17,9 +17,7 @@ import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
 import lombok.NonNull;
-import lombok.extern.log4j.Log4j2;
 import org.apache.spark.api.java.JavaPairRDD;
-import org.apache.spark.ml.classification.LogisticRegressionModel;
 import org.apache.spark.ml.feature.StringIndexer;
 import org.apache.spark.ml.feature.StringIndexerModel;
 import org.apache.spark.ml.feature.VectorAssembler;
@@ -166,7 +164,7 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
         response.setConfusionMatrix(metrics.confusionMatrix().toArray());
         response.setLabels(indicesLabelsMapping);
         this.doSaveModel(model, config);
-        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType());
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType(), config.getFileName());
         this.modelUtil.saveTrainedResults(config, response, this.algorithmName);
 
 //        enrichTrainResponse(response, model, resultDf, config);

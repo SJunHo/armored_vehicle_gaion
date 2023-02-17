@@ -16,14 +16,18 @@ public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Lo
     @Query(value = "Select DISTINCT SDAID from GRBDATA ", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);
 
+    @Query(value = "Select DISTINCT AI_GEAR_MODEL from GRBDATA where AI_GEAR_MODEL Is Not Null ", nativeQuery = true)
+    List<String> findDistinctByGEARModel();
+
     @Query(value = "Select G.IDX, G.SDAID, G.AI_GEAR, G.AI_GEAR_ALGO, G.AI_GEAR_MODEL, G.AI_GEAR_DATE, " +
             "G.USER_GEAR, G.USER_GEAR_ID, G.USER_GEAR_DATE, " +
             "G.W_RPM, G.G_V_OverallRMS, G.G_V_Wheel1X, G.G_V_Wheel2X, " +
             "G.G_V_Pinion1X, G.G_V_Pinion2X, G.G_V_GMF1X, G.G_V_GMF2X, " +
             "`ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, G.`DATE` " +
-            "from (Select * from `GRBDATA` WHERE `GRBDATA`.AI_GEAR IS NOT NULL AND `GRBDATA`.SDAID = ?1 AND `GRBDATA`.DATE BETWEEN ?2 AND ?3) G " +
+            "from (Select * from `GRBDATA` WHERE `GRBDATA`.AI_GEAR IS NOT NULL AND `GRBDATA`.SDAID = ?1 " +
+            " AND `GRBDATA`.AI_GEAR_MODEL = ?2 AND `GRBDATA`.DATE BETWEEN ?3 AND ?4) G " +
             "INNER JOIN `ENGDATA` ON G.`DATE` = `ENGDATA`.`DATE` AND G.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorGearboxInterface> getGearboxAiGearPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable);
+    Page<SensorGearboxInterface> getGearboxAiGearPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
 
     @Query(value = " SELECT G.IDX, G.SDAID, G.AI_GEAR, G.AI_GEAR_ALGO, G.AI_GEAR_MODEL, G.AI_GEAR_DATE, " +
             " G.W_RPM, G.G_V_OverallRMS, G.G_V_Wheel1X, G.G_V_Wheel2X, " +
@@ -38,7 +42,8 @@ public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Lo
             "G.W_RPM, G.G_V_OverallRMS, G.G_V_Wheel1X, G.G_V_Wheel2X, " +
             "G.G_V_Pinion1X, G.G_V_Pinion2X, G.G_V_GMF1X, G.G_V_GMF2X, " +
             "`ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, G.`DATE` " +
-            "from (Select * from `GRBDATA` WHERE `GRBDATA`.USER_GEAR IS NOT NULL AND `GRBDATA`.SDAID = ?1 AND `GRBDATA`.DATE BETWEEN ?2 AND ?3) G  " +
+            "from (Select * from `GRBDATA` WHERE `GRBDATA`.USER_GEAR IS NOT NULL AND `GRBDATA`.SDAID = ?1 " +
+            " AND `GRBDATA`.AI_GEAR_MODEL = ?2 AND `GRBDATA`.DATE BETWEEN ?3 AND ?4) G  " +
             "INNER JOIN `ENGDATA` ON G.`DATE` = `ENGDATA`.`DATE` AND G.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    List<SensorGearboxInterface> getGearboxUserGearData(String carId, Date fromDate, Date toDate);
+    List<SensorGearboxInterface> getGearboxUserGearData(String carId, String modelName, Date fromDate, Date toDate);
 }

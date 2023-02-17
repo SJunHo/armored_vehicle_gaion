@@ -1,6 +1,5 @@
 package kr.gaion.armoredVehicle.database.model;
 
-import kr.gaion.armoredVehicle.database.converter.ClassificationResponseConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +36,9 @@ public class DbModelResponse {
     @Column(name = "CHECKED")
     private Boolean checked;
 
+    @Column(name = "TRAINING_DATA_FILE_NAME")
+    private String trainingDataFileName;
+
     // Classification
     @Column(name = "weighted_false_positive_rate")
     private double weightedFalsePositiveRate;
@@ -57,8 +59,8 @@ public class DbModelResponse {
     private double weightedTruePositiveRate;
 
     // Regression
-    @Type(type="json")
-    @Column( name = "coefficients",columnDefinition = "json")
+    @Type(type = "json")
+    @Column(name = "coefficients", columnDefinition = "json")
     private double[] coefficients;
 
     @Column(name = "rootMeanSquaredError")
@@ -67,7 +69,7 @@ public class DbModelResponse {
     @Column(name = "r2")
     private double r2;
 
-    @Type(type="json")
+    @Type(type = "json")
     @Column(name = "listFeatures", columnDefinition = "LONGTEXT")
     private String[] listFeatures;
 

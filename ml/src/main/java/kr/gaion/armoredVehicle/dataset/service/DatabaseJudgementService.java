@@ -84,6 +84,39 @@ public class DatabaseJudgementService {
         return result;
     }
 
+    public List<String> findDistinctByModelName(String partType) {
+        switch (partType) {
+            case "BLB":
+                return sensorBearingRepository.findDistinctByLBSFModel();
+            case "BLO":
+                return sensorBearingRepository.findDistinctByLBPFOModel();
+            case "BLI":
+                return sensorBearingRepository.findDistinctByLBSFIModel();
+            case "BLR":
+                return sensorBearingRepository.findDistinctByLFTFModel();
+            case "BRB":
+                return sensorBearingRepository.findDistinctByRBSFModel();
+            case "BRO":
+                return sensorBearingRepository.findDistinctByRBPFOModel();
+            case "BRI":
+                return sensorBearingRepository.findDistinctByRBSFIModel();
+            case "BRR":
+                return sensorBearingRepository.findDistinctByRFTFModel();
+            // wheel
+            case "WL":
+                return sensorWheelRepository.findDistinctByLWModel();
+            case "WR":
+                return sensorWheelRepository.findDistinctByRWModel();
+            // gearbox
+            case "G":
+                return sensorGearboxRepository.findDistinctByGEARModel();
+            // engine
+            case "E":
+                return sensorEngineRepository.findDistinctByENGINEModel();
+        }
+        return null;
+    }
+
     public String updateUserJudgement(String partType, List<DbJudgementUpdateInput> updateInputs) {
         Object obj = SecurityContextHolder.getContext().getAuthentication().getDetails();
         User logUser = (User) obj;
@@ -204,112 +237,112 @@ public class DatabaseJudgementService {
         return null;
     }
 
-    public Page<SensorBearingLeftBallInterface> getBearingLeftBallPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getLeftBallAiLBSFPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingLeftBallInterface> getBearingLeftBallPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftBallAiLBSFPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorBearingLeftOutsideInterface> getBearingLeftOutsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getLeftOutsideAiLBPFOPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingLeftOutsideInterface> getBearingLeftOutsidePredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftOutsideAiLBPFOPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorBearingLeftInsideInterface> getBearingLeftInsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getLeftInsideAiLBPFIPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingLeftInsideInterface> getBearingLeftInsidePredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftInsideAiLBPFIPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorBearingLeftRetainerInterface> getBearingLeftRetainerPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getLeftRetainerAiLFTFPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingLeftRetainerInterface> getBearingLeftRetainerPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getLeftRetainerAiLFTFPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorBearingRightBallInterface> getBearingRightBallPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getRightBallAiRBSFPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingRightBallInterface> getBearingRightBallPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightBallAiRBSFPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorBearingRightOutsideInterface> getBearingRightOutsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getRightOutsideAiRBPFOPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingRightOutsideInterface> getBearingRightOutsidePredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightOutsideAiRBPFOPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorBearingRightInsideInterface> getBearingRightInsidePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getRightInsideAiRBPFIPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingRightInsideInterface> getBearingRightInsidePredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightInsideAiRBPFIPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorBearingRightRetainerInterface> getBearingRightRetainerPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorBearingRepository.getRightRetainerAiRFTFPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorBearingRightRetainerInterface> getBearingRightRetainerPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorBearingRepository.getRightRetainerAiRFTFPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorWheelLeftInterface> getWheelLeftPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorWheelRepository.getLeftWheelAiLWPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorWheelLeftInterface> getWheelLeftPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorWheelRepository.getLeftWheelAiLWPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorWheelRightInterface> getWheelRightPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorWheelRepository.getRightWheelAiRWPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorWheelRightInterface> getWheelRightPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorWheelRepository.getRightWheelAiRWPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorGearboxInterface> getGearboxPredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorGearboxRepository.getGearboxAiGearPredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorGearboxInterface> getGearboxPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorGearboxRepository.getGearboxAiGearPredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
-    public Page<SensorEngineInterface> getEnginePredictedData(String carId, Date fromDate, Date toDate, Pageable pageable) {
-        return sensorEngineRepository.getEngineAiEnginePredictedData(carId, fromDate, toDate, pageable);
+    public Page<SensorEngineInterface> getEnginePredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable) {
+        return sensorEngineRepository.getEngineAiEnginePredictedData(carId, modelName, fromDate, toDate, pageable);
     }
 
     // get BLB's User judgement values are not Null data
-    public List<SensorBearingLeftBallInterface> getLeftBallUserLBSFData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getLeftBallUserLBSFData(carId, fromDate, toDate);
+    public List<SensorBearingLeftBallInterface> getLeftBallUserLBSFData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftBallUserLBSFData(carId, modelName, fromDate, toDate);
     }
 
     // get BLO's User judgement values are not Null data
-    public List<SensorBearingLeftOutsideInterface> getLeftOutsideUserLBPFOData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getLeftOutsideUserLBPFOData(carId, fromDate, toDate);
+    public List<SensorBearingLeftOutsideInterface> getLeftOutsideUserLBPFOData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftOutsideUserLBPFOData(carId, modelName, fromDate, toDate);
     }
 
     // get BLI's User judgement values are not Null data
-    public List<SensorBearingLeftInsideInterface> getLeftInsideUserLBPFIData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getLeftInsideUserLBPFIData(carId, fromDate, toDate);
+    public List<SensorBearingLeftInsideInterface> getLeftInsideUserLBPFIData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftInsideUserLBPFIData(carId, modelName, fromDate, toDate);
     }
 
     // get BLR's User judgement values are not Null data
-    public List<SensorBearingLeftRetainerInterface> getLeftRetainerUserLFTFData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getLeftRetainerUserLFTFData(carId, fromDate, toDate);
+    public List<SensorBearingLeftRetainerInterface> getLeftRetainerUserLFTFData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getLeftRetainerUserLFTFData(carId, modelName, fromDate, toDate);
     }
 
     // get BRB's User judgement values are not Null data
-    public List<SensorBearingRightBallInterface> getRightBallUserRBSFData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getRightBallUserRBSFData(carId, fromDate, toDate);
+    public List<SensorBearingRightBallInterface> getRightBallUserRBSFData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightBallUserRBSFData(carId, modelName, fromDate, toDate);
     }
 
     // get BRO's User judgement values are not Null data
-    public List<SensorBearingRightOutsideInterface> getRightOutsideUserRBPFOData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getRightOutsideUserRBPFOData(carId, fromDate, toDate);
+    public List<SensorBearingRightOutsideInterface> getRightOutsideUserRBPFOData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightOutsideUserRBPFOData(carId, modelName, fromDate, toDate);
     }
 
     // get BRI's User judgement values are not Null data
-    public List<SensorBearingRightInsideInterface> getRightInsideUserRBPFIData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getRightInsideUserRBPFIData(carId, fromDate, toDate);
+    public List<SensorBearingRightInsideInterface> getRightInsideUserRBPFIData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightInsideUserRBPFIData(carId, modelName, fromDate, toDate);
     }
 
     // get BRR's User judgement values are not Null data
-    public List<SensorBearingRightRetainerInterface> getRightRetainerUserRFTFData(String carId, Date fromDate, Date toDate) {
-        return sensorBearingRepository.getRightRetainerUserRFTFData(carId, fromDate, toDate);
+    public List<SensorBearingRightRetainerInterface> getRightRetainerUserRFTFData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorBearingRepository.getRightRetainerUserRFTFData(carId, modelName, fromDate, toDate);
     }
 
     // get WL's User judgement values are not Null data
-    public List<SensorWheelLeftInterface> getLeftWheelUserLW(String carId, Date fromDate, Date toDate) {
-        return sensorWheelRepository.getLeftWheelUserLW(carId, fromDate, toDate);
+    public List<SensorWheelLeftInterface> getLeftWheelUserLW(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorWheelRepository.getLeftWheelUserLW(carId, modelName, fromDate, toDate);
     }
 
     // get WR's User judgement values are not Null data
-    public List<SensorWheelRightInterface> getRightWheelUserRW(String carId, Date fromDate, Date toDate) {
-        return sensorWheelRepository.getRightWheelUserRW(carId, fromDate, toDate);
+    public List<SensorWheelRightInterface> getRightWheelUserRW(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorWheelRepository.getRightWheelUserRW(carId, modelName, fromDate, toDate);
     }
 
     // get G's User judgement values are not Null data
-    public List<SensorGearboxInterface> getGearboxUserGearData(String carId, Date fromDate, Date toDate) {
-        return sensorGearboxRepository.getGearboxUserGearData(carId, fromDate, toDate);
+    public List<SensorGearboxInterface> getGearboxUserGearData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorGearboxRepository.getGearboxUserGearData(carId, modelName, fromDate, toDate);
     }
 
     // get E's User judgement values are not Null data
-    public List<SensorEngineInterface> getEngineUserEngineData(String carId, Date fromDate, Date toDate) {
-        return sensorEngineRepository.getEngineUserEngineData(carId, fromDate, toDate);
+    public List<SensorEngineInterface> getEngineUserEngineData(String carId, String modelName, Date fromDate, Date toDate) {
+        return sensorEngineRepository.getEngineUserEngineData(carId, modelName, fromDate, toDate);
     }
 }
 
