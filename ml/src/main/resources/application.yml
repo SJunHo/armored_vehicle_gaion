@@ -16,11 +16,12 @@ server:
     max-swallow-size: 20000MB
 storage:
   homeDir: ${AMVHC_HOME:D:\Sources\armored-vehicle\test-data\}
+  #  homeDir: ${AMVHC_HOME:/home/army/SYnologyDrive/analysis_data/} ==========> 변경하기
   dataDir: data
   modelDir: model
   modelIndexerDir: model_indexer
   csvDelimiter: ","
-  dbHost: "192.168.3.19"
+  dbHost: "192.168.3.18"  # ----------> localhost로 변경하기
   dbPort: "3306"
   dbDatabase: "AMVHC"
   dbUser: "AMVHC_U"
@@ -29,8 +30,8 @@ algorithm:
   maxResult: 20
 database:
   driverClass: org.mariadb.jdbc.Driver
-  #  url: jdbc:mysql://${DB_HOST:221.148.11.152}:${DB_PORT:8012}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8
-  url: jdbc:mysql://${DB_HOST:192.168.3.19}:${DB_PORT:3306}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8
+  url: jdbc:mysql://${DB_HOST:192.168.3.18}:${DB_PORT:3306}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8
+  #  url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_DATABASE:AMVHC}?useUnicode=yes&characterEncoding=UTF-8 ==========> 변경하기
   user: ${DB_USER:AMVHC_U}
   password: ${DB_PASSWORD:!Tltmxpa0517}
   properties:
