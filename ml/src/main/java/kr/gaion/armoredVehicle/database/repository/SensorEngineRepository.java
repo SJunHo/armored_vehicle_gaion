@@ -2,8 +2,6 @@ package kr.gaion.armoredVehicle.database.repository;
 
 import kr.gaion.armoredVehicle.database.dto.SensorEngineInterface;
 import kr.gaion.armoredVehicle.database.model.SensorEngine;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,7 +16,7 @@ public interface SensorEngineRepository extends JpaRepository<SensorEngine, Long
             "`ENGDATA`.W_RPM, `ENGDATA`.E_V_OverallRMS, `ENGDATA`.E_V_1_2X, `ENGDATA`.E_V_1X, `ENGDATA`.E_V_Crestfactor, " +
             "`ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, `ENGDATA`.`DATE`  from `ENGDATA` " +
             "WHERE `ENGDATA`.AI_ENGINE IS NOT NULL AND `ENGDATA`.SDAID = ?1  AND `ENGDATA`.AI_ENGINE_MODEL = ?2 AND `ENGDATA`.DATE BETWEEN ?3 AND ?4", nativeQuery = true)
-    Page<SensorEngineInterface> getEngineAiEnginePredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorEngineInterface> getEngineAiEnginePredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     @Query(value = "Select DISTINCT SDAID from ENGDATA ", nativeQuery = true)
     List<String> findDistinctByCarId(String targetColumn);

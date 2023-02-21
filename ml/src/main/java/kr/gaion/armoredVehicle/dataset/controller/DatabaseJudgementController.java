@@ -1,14 +1,10 @@
 package kr.gaion.armoredVehicle.dataset.controller;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import kr.gaion.armoredVehicle.database.dto.*;
 import kr.gaion.armoredVehicle.dataset.dto.DbJudgementUpdateInput;
 import kr.gaion.armoredVehicle.dataset.service.DatabaseJudgementService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.converters.models.PageableAsQueryParam;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -45,148 +41,124 @@ public class DatabaseJudgementController {
     }
 
     //고장예지 작업자 판정
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-left-ball-predicted-data")
-    public Page<SensorBearingLeftBallInterface> getBearingLeftBallPredictedData(
+    public List<SensorBearingLeftBallInterface> getBearingLeftBallPredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-left-outside-predicted-data")
-    public Page<SensorBearingLeftOutsideInterface> getBearingLeftOutsidePredictedData(
+    public List<SensorBearingLeftOutsideInterface> getBearingLeftOutsidePredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-left-inside-predicted-data")
-    public Page<SensorBearingLeftInsideInterface> getBearingLeftInsidePredictedData(
+    public List<SensorBearingLeftInsideInterface> getBearingLeftInsidePredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-left-retainer-predicted-data")
-    public Page<SensorBearingLeftRetainerInterface> getBearingLeftRetainerPredictedData(
+    public List<SensorBearingLeftRetainerInterface> getBearingLeftRetainerPredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-right-ball-predicted-data")
-    public Page<SensorBearingRightBallInterface> getBearingRightBallPredictedData(
+    public List<SensorBearingRightBallInterface> getBearingRightBallPredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingRightBallPredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingRightBallPredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-right-outside-predicted-data")
-    public Page<SensorBearingRightOutsideInterface> getBearingRightOutsidePredictedData(
+    public List<SensorBearingRightOutsideInterface> getBearingRightOutsidePredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-right-inside-predicted-data")
-    public Page<SensorBearingRightInsideInterface> getBearingRightInsidePredictedData(
+    public List<SensorBearingRightInsideInterface> getBearingRightInsidePredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-bearing-right-retainer-predicted-data")
-    public Page<SensorBearingRightRetainerInterface> getBearingRightRetainerPredictedData(
+    public List<SensorBearingRightRetainerInterface> getBearingRightRetainerPredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-wheel-left-predicted-data")
-    public Page<SensorWheelLeftInterface> getWheelLeftPredictedData(
+    public List<SensorWheelLeftInterface> getWheelLeftPredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getWheelLeftPredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getWheelLeftPredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-wheel-right-predicted-data")
-    public Page<SensorWheelRightInterface> getWheelRightPredictedData(
+    public List<SensorWheelRightInterface> getWheelRightPredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getWheelRightPredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getWheelRightPredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-gearbox-predicted-data")
-    public Page<SensorGearboxInterface> getGearboxPredictedData(
+    public List<SensorGearboxInterface> getGearboxPredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getGearboxPredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getGearboxPredictedData(carId, modelName, fromDate, toDate);
     }
 
-    @PageableAsQueryParam
     @GetMapping(path = "/api/judgement/get-engine-predicted-data")
-    public Page<SensorEngineInterface> getEnginePredictedData(
+    public List<SensorEngineInterface> getEnginePredictedData(
             @RequestParam("carId") String carId,
             @RequestParam("modelName") String modelName,
             @RequestParam(value = "from-date", required = false) Date fromDate,
-            @RequestParam(value = "to-date", required = false) Date toDate,
-            @Parameter(hidden = true) Pageable pageable
+            @RequestParam(value = "to-date", required = false) Date toDate
     ) {
-        return this.databaseJudgementService.getEnginePredictedData(carId, modelName, fromDate, toDate, pageable);
+        return this.databaseJudgementService.getEnginePredictedData(carId, modelName, fromDate, toDate);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -5,8 +5,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import {Column} from "react-table";
-import {OpenApiContext, Pageable} from "../api";
-import {Paginator} from "../common/Paginator";
+import {OpenApiContext} from "../api";
 import {Table} from "../common/Table";
 import {
   partTypes,
@@ -37,10 +36,7 @@ export const JudgementUserInput: React.FC = () => {
   const [fromDate, setFromDate] = useState<Date>(new Date());
   const [toDate, setToDate] = useState<Date>(new Date());
 
-  const [paginate, setPaginate] = useState<Pageable>();
-  const [totalPage, setTotalPage] = useState<number>();
-
-  const [tableColumn, setTableColumn] = useState<any>();
+  const [tableColumn, setTableColumn] = useState<any>([]);
   const [predictedData, setPredictedData] = useState<any[]>([]);
 
   const {databaseJudgementControllerApi} = useContext(OpenApiContext);
@@ -1796,7 +1792,7 @@ export const JudgementUserInput: React.FC = () => {
     }
   }, [partType, databaseJudgementControllerApi]);
 
-  function handleSearchData(pageable?: Pageable) {
+  function handleSearchData() {
     if (selectedCar == undefined || selectedModel == undefined) {
       return []
     }
@@ -1809,9 +1805,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'BLI') {
@@ -1821,9 +1815,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'BLO') {
@@ -1833,9 +1825,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'BLR') {
@@ -1845,9 +1835,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'BRB') {
@@ -1857,9 +1845,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'BRI') {
@@ -1869,9 +1855,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'BRO') {
@@ -1881,9 +1865,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'BRR') {
@@ -1893,9 +1875,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
 
@@ -1906,9 +1886,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'G') {
@@ -1918,9 +1896,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'WL') {
@@ -1930,9 +1906,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
     if (partType == 'WR') {
@@ -1942,9 +1916,7 @@ export const JudgementUserInput: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        setPredictedData(res.data.content || []);
-        setPaginate(res.data.pageable);
-        setTotalPage(res.data.totalPages || 1);
+        setPredictedData(res.data || []);
       });
     }
   }
@@ -2030,13 +2002,15 @@ export const JudgementUserInput: React.FC = () => {
       </Section> <Section title="결과 조회">
       <Col xl={12} className="w-100">
         <Row className="overflow-auto">
-          {(totalPage) &&
-						<Table
-							columns={tableColumn}
-							data={predictedData}
-						/>
-          }
-          <div id="paginator" className="pt-4">
+          <Table
+            columns={tableColumn}
+            data={predictedData}
+            paginationOptions={{
+              pageSize: 20,
+              pageIndex: 0,
+            }}
+          />
+          {/*<div id="paginator" className="pt-4">
             <Paginator
               pageCount={totalPage || 0}
               size={paginate?.pageSize || 0}
@@ -2050,7 +2024,7 @@ export const JudgementUserInput: React.FC = () => {
                 handleSearchData(newPaginate)
               }}
             />
-          </div>
+          </div>*/}
         </Row>
         <Row className="float-right">
           <Button type="button" className="btn btn-primary m-lg-1"

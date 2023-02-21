@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import {Column, Row as TableRow} from "react-table";
-import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext, Pageable} from "../api";
+import {DataInputOption, DataProvider, DbModelResponse, OpenApiContext} from "../api";
 import {ALGORITHM_INFO} from "../common/Common";
 import {Section} from "../common/Section/Section";
 import {Table} from "../common/Table";
@@ -107,7 +107,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
       .finally(() => setSearchingModels(false));
   }
 
-  function handleSearchConditionData(partType: any, paginate?: Pageable) {
+  function handleSearchConditionData(partType: any) {
     if (partType === "" || null) {
       alert("부품이 선택되지 않았습니다.")
       setPredicting(false)

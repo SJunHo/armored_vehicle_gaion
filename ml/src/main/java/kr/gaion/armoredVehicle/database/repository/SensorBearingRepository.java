@@ -2,8 +2,6 @@ package kr.gaion.armoredVehicle.database.repository;
 
 import kr.gaion.armoredVehicle.database.dto.*;
 import kr.gaion.armoredVehicle.database.model.SensorBearing;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -54,7 +52,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LBSF IS NOT NULL " +
             " AND `BERDATA`.AI_LBSF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingLeftBallInterface> getLeftBallAiLBSFPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingLeftBallInterface> getLeftBallAiLBSFPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     //get BLO PredictedData
     @Query(value = "Select B.IDX, B.SDAID, B.AI_LBPFO, B.AI_LBPFO_ALGO, B.AI_LBPFO_MODEL, B.AI_LBPFO_DATE, " +
@@ -64,7 +62,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LBPFO IS NOT NULL " +
             " AND `BERDATA`.AI_LBPFO_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingLeftOutsideInterface> getLeftOutsideAiLBPFOPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingLeftOutsideInterface> getLeftOutsideAiLBPFOPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     //get BLI PredictedData
     @Query(value = "Select B.IDX, B.SDAID, B.AI_LBPFI, B.AI_LBPFI_ALGO, B.AI_LBPFI_MODEL, B.AI_LBPFI_DATE, " +
@@ -74,7 +72,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LBPFI IS NOT NULL " +
             " AND `BERDATA`.AI_LBPFI_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B  " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingLeftInsideInterface> getLeftInsideAiLBPFIPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingLeftInsideInterface> getLeftInsideAiLBPFIPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     //get BLR PredictedData
     @Query(value = "Select B.IDX, B.SDAID, B.AI_LFTF, B.AI_LFTF_ALGO, B.AI_LFTF_MODEL, B.AI_LFTF_DATE, " +
@@ -84,7 +82,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_LFTF IS NOT NULL " +
             " AND `BERDATA`.AI_LFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B  " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingLeftRetainerInterface> getLeftRetainerAiLFTFPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingLeftRetainerInterface> getLeftRetainerAiLFTFPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     //get BRB PredictedData
     @Query(value = "Select B.IDX, B.SDAID, B.AI_RBSF, B.AI_RBSF_ALGO, B.AI_RBSF_MODEL, B.AI_RBSF_DATE, " +
@@ -94,7 +92,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RBSF IS NOT NULL " +
             " AND `BERDATA`.AI_RBSF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B  " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingRightBallInterface> getRightBallAiRBSFPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingRightBallInterface> getRightBallAiRBSFPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     //get BRO PredictedData
     @Query(value = "Select B.IDX, B.SDAID, B.AI_RBPFO, B.AI_RBPFO_ALGO, B.AI_RBPFO_MODEL, B.AI_RBPFO_DATE, " +
@@ -104,7 +102,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE`  from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RBPFO IS NOT NULL " +
             " AND `BERDATA`.AI_RBPFO_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B  " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingRightOutsideInterface> getRightOutsideAiRBPFOPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingRightOutsideInterface> getRightOutsideAiRBPFOPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     //get BRI PredictedData
     @Query(value = "Select B.IDX, B.SDAID, B.AI_RBPFI, B.AI_RBPFI_ALGO, B.AI_RBPFI_MODEL, B.AI_RBPFI_DATE, " +
@@ -114,7 +112,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RBPFI IS NOT NULL " +
             " AND `BERDATA`.AI_RBPFI_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B  " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingRightInsideInterface> getRightInsideAiRBPFIPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingRightInsideInterface> getRightInsideAiRBPFIPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     //get BRR PredictedData
     @Query(value = "Select B.IDX, B.SDAID, B.AI_RFTF, B.AI_RFTF_ALGO, B.AI_RFTF_MODEL, B.AI_RFTF_DATE, " +
@@ -124,7 +122,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.AI_RFTF IS NOT NULL " +
             " AND `BERDATA`.AI_RFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B  " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorBearingRightRetainerInterface> getRightRetainerAiRFTFPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorBearingRightRetainerInterface> getRightRetainerAiRFTFPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     // Bearing Left Ball
     @Query(value = " SELECT B.IDX, B.SDAID, B.AI_LBSF, B.AI_LBSF_ALGO, B.AI_LBSF_MODEL, B.AI_LBSF_DATE, " +

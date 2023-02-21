@@ -2,8 +2,6 @@ package kr.gaion.armoredVehicle.database.repository;
 
 import kr.gaion.armoredVehicle.database.dto.SensorGearboxInterface;
 import kr.gaion.armoredVehicle.database.model.SensorGearbox;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,7 +25,7 @@ public interface SensorGearboxRepository extends JpaRepository<SensorGearbox, Lo
             "from (Select * from `GRBDATA` WHERE `GRBDATA`.AI_GEAR IS NOT NULL AND `GRBDATA`.SDAID = ?1 " +
             " AND `GRBDATA`.AI_GEAR_MODEL = ?2 AND `GRBDATA`.DATE BETWEEN ?3 AND ?4) G " +
             "INNER JOIN `ENGDATA` ON G.`DATE` = `ENGDATA`.`DATE` AND G.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
-    Page<SensorGearboxInterface> getGearboxAiGearPredictedData(String carId, String modelName, Date fromDate, Date toDate, Pageable pageable);
+    List<SensorGearboxInterface> getGearboxAiGearPredictedData(String carId, String modelName, Date fromDate, Date toDate);
 
     @Query(value = " SELECT G.IDX, G.SDAID, G.AI_GEAR, G.AI_GEAR_ALGO, G.AI_GEAR_MODEL, G.AI_GEAR_DATE, " +
             " G.W_RPM, G.G_V_OverallRMS, G.G_V_Wheel1X, G.G_V_Wheel2X, " +
