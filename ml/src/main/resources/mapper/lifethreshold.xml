@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.LifeThresholdMapper">
+	
+	<select id="get" resultType="kr.gaion.armoredVehicle.web.analysis.model.LifeThreshold">
+		select *
+		from LIFETHRESHOLD
+	</select>
+
+	<update id="updateThreshold" parameterType="kr.gaion.armoredVehicle.web.analysis.model.LifeThreshold">
+		update LIFETHRESHOLD
+		set
+			distance = #{distance}
+			, days = #{days}
+			, usedvcd = #{usedvcd}
+			, mdfcdt = #{mdfcdt}
+			, mdfr = #{mdfr}
+		where
+			snsrtype = #{snsrtype}
+	</update>
+	
+</mapper>

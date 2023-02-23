@@ -20,6 +20,7 @@ import { OpenApiContextProvider } from "./api";
 import Driver_CIS from "./components/analysis/SystemSettings/driver_cis.component";
 import Setting_PRC from "./components/analysis/SystemSettings/setting_prc.component";
 import SettingThresholds from "./components/analysis/SystemSettings/settingthresholds.component";
+import LifeThresholds from "./components/analysis/SystemSettings/lifethresholds.component";
 import CIM from "./components/analysis/SystemSettings/cim.component";
 import CIMList from "./components/analysis/SystemSettings/cim-list.component";
 import AddCIM from "./components/analysis/SystemSettings/add-cim.component";
@@ -113,6 +114,7 @@ class App extends Component {
             <PrivateRoute exact path="/driver_cis" component={Driver_CIS} />
             <PrivateRoute exact path="/setting_prc" component={Setting_PRC} />
             <PrivateRoute exact path="/settingthresholds" component={SettingThresholds} />
+            <PrivateRoute exact path="/lifethresholds" component={LifeThresholds} />
             <PrivateRoute exact path="/cimList" component={CIMList} />
             <PrivateRoute exact path="/cimAdd" component={AddCIM} />
             <PrivateRoute exact path="/cim/:id" component={CIM} />
