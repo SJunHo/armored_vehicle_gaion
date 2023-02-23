@@ -11,7 +11,7 @@ public class LifeThreshold {
 	
 	private String snsrtype;
 	private Integer distance;
-	private Integer days;
+	private Integer years;
 	private char usedvcd;
 	private Date crtdt;
 	private String crtor;

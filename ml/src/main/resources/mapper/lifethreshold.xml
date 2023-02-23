@@ -11,7 +11,7 @@
 		update LIFETHRESHOLD
 		set
 			distance = #{distance}
-			, days = #{days}
+			, years = #{years}
 			, usedvcd = #{usedvcd}
 			, mdfcdt = #{mdfcdt}
 			, mdfr = #{mdfr}

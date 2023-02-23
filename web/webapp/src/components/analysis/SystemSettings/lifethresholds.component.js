@@ -7,7 +7,7 @@ class LifeThresholds extends Component {
     super(props);
     this.retrieveThresholdList = this.retrieveThresholdList.bind(this);
     this.onDistanceChange = this.onDistanceChange.bind(this);
-    this.onDaysChange = this.onDaysChange.bind(this);
+    this.onYearsChange = this.onYearsChange.bind(this);
     this.onUsedvcdChange = this.onUsedvcdChange.bind(this);
     this.updateThreshold = this.updateThreshold.bind(this);
 
@@ -47,11 +47,11 @@ class LifeThresholds extends Component {
     });
   }
 
-  onDaysChange(e){
+  onYearsChange(e){
     const {name, value} = e.target;
-    let index = name.split('days')[1];
+    let index = name.split('years')[1];
     let thresholdSet = this.state.thresholdList;
-    thresholdSet[index].days = value;
+    thresholdSet[index].years = value;
     thresholdSet[index].mdfcdt = new Date();
     thresholdSet[index].mdfr = this.state.user.username;
     this.setState({
@@ -100,8 +100,8 @@ class LifeThresholds extends Component {
           <thead>
           <tr>
             <td className="col-3">센서명</td>
-            <td className="col-3">기준거리(KM)</td>
-            <td className="col-3">기준일(Days)</td>
+            <td className="col-3">기준수명(KM)</td>
+            <td className="col-3">기준수명(Years)</td>
             <td className="col-3">적용여부</td>
           </tr>
           </thead>
@@ -113,7 +113,7 @@ class LifeThresholds extends Component {
               <tr key={item.snsrtype}>
                 <td>{item.snsrtype}</td>
                 <td><input type="input" className="form-control form-control-style" name={"distance"+index} defaultValue={item.distance} onChange={(event)=>{this.onDistanceChange(event)}}></input></td>
-                <td><input type="input" className="form-control form-control-style" name={"days"+index} defaultValue={item.days} onChange={(event)=>{this.onDaysChange(event)}}></input></td>
+                <td><input type="input" className="form-control form-control-style" name={"years"+index} defaultValue={item.years} onChange={(event)=>{this.onYearsChange(event)}}></input></td>
                 <td><input type="checkbox" className="form-control form-control-style" name={"checkbox"+index} checked={item.usedvcd === 'Y' ? true:false} onChange={(event)=>{this.onUsedvcdChange(event)}}></input></td>
               </tr>
               );
