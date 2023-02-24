@@ -58,6 +58,10 @@ public class ModelService {
             String pathname = rootDir + File.separator + res.get().getModelName();
             this.hdfsHelperService.deleteIfExist(pathname);
 
+            String rootDir2 = this.utilities.getPathInWorkingFolder(this.storageConfig.getModelIndexerDir(), algorithmName);
+            String pathname2 = rootDir2 + File.separator + res.get().getModelName();
+            this.hdfsHelperService.deleteIfExist(pathname2);
+
             return true;
         } catch (IOException e) {
             e.printStackTrace();
