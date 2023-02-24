@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import {chunk, range, sum, zip} from "lodash";
 import styles from "./styles.module.css";
-import {RandomForestClassificationResponse, RegressionResponse} from "../api";
+import {ClassificationResponse, RegressionResponse} from "../api";
 import {useParams} from "react-router-dom";
 import {Table} from "../common/Table";
 import {Column} from "react-table";
@@ -12,7 +12,7 @@ import "../../src/css/style.css"
 import {Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
 type Props = {
-  result: RandomForestClassificationResponse;
+  result: ClassificationResponse;
   result2?: RegressionResponse;
   algorithmName: string;
 };
@@ -140,7 +140,7 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
   console.log(residualKeyValuesList)
 
   function filterResidualData(data: any) {
-    const chartDataset: { index: number; residual:undefined }[] = [];
+    const chartDataset: { index: number; residual: undefined }[] = [];
     data.map((v: any, i: number) => {
       const rowData = {
         index: i,
@@ -164,15 +164,15 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
     return chartDataset;
   }
 
-  const CustomTooltip = (data:any) => {
+  const CustomTooltip = (data: any) => {
     // console.log('CustomTooltip -> data', data)
-    const { active, payload, label } = data;
+    const {active, payload, label} = data;
     console.log(active, payload, label)
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
           {payload.map((v: { name: any; value: any; }) => {
-            return<p className="label">{`${v.name} : ${v.value}`}</p>
+            return <p className="label">{`${v.name} : ${v.value}`}</p>
           })}
         </div>
       );
@@ -260,7 +260,7 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
                             stroke="#82ca9d"
                           />
                           <Tooltip
-                            content={<CustomTooltip />}
+                            content={<CustomTooltip/>}
                             //viewBox={{ x: 100, y: 140, width: 400, height: 400 }}
                           />
                           <Legend/>
@@ -302,7 +302,7 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
                           <XAxis tick={{fill: 'white'}} dataKey="index"/>
                           <YAxis tick={{fill: 'white'}}/>
                           <Tooltip
-                            content={<CustomTooltip />}
+                            content={<CustomTooltip/>}
                             //viewBox={{ x: 100, y: 140, width: 400, height: 400 }}
                           />
                           <Legend/>
@@ -617,7 +617,7 @@ export const PredictionInfoSection: React.FC<{
         accessor: (data0: any[]) => data0[i + 2],
       })),
     ],
-    [featureCols]
+    [algorithmName, featureCols]
   );
   const data = useMemo<any[][]>(
     () => predictionInfo.map((actual) => JSON.parse("[" + actual + "]")),

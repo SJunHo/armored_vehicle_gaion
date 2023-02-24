@@ -1,5 +1,6 @@
 package kr.gaion.armoredVehicle.spark;
 
+import com.google.gson.Gson;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmPredictInput;
 import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.common.Utilities;
@@ -12,15 +13,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.ml.linalg.Vectors;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Encoders;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.*;
+import org.apache.spark.sql.types.DataType;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 import org.springframework.stereotype.Service;
+import scala.collection.JavaConverters;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +38,10 @@ public class DatabaseSparkService {
     private final DatabaseConfiguration databaseConfiguration;
     @NonNull
     private final StorageConfig storageConfig;
+
+    public static Column col(String columnName) {
+        return new Column(columnName);
+    }
 
     private static Dataset<LabeledData> processData(
             Dataset<Row> jvRddData,
@@ -119,6 +127,46 @@ public class DatabaseSparkService {
         }, Encoders.javaSerialization(NumericLabeledData.class));
     }
 
+    public static Dataset<Row> reorderColumns(Dataset<Row> dataset) {
+        // dataset의 컬럼 이름을 가져옵니다.
+        String[] columns = dataset.columns();
+
+        // dataset에서 선택할 컬럼을 담을 리스트를 생성합니다.
+        List<Column> selectedColumns = new ArrayList<>();
+
+        // dataset의 컬럼 순서를 맞춥니다.
+        for (String column : columns) {
+            selectedColumns.add(col(column));
+        }
+
+        // dataset을 선택한 컬럼으로 재구성합니다.
+        dataset = dataset.select(selectedColumns.toArray(new Column[selectedColumns.size()]));
+
+        return dataset;
+    }
+
+    public static Dataset<Row> unionDatasets(Dataset<Row> ds1, Dataset<Row> ds2) {
+        // 스키마를 비교하여 컬럼이름과 컬럼타입이 같은 컬럼을 찾습니다.
+        String[] colNames = ds1.columns();
+        StructType schema = ds1.schema();
+        StructField[] fields = schema.fields();
+        List<Column> cols = new ArrayList<>();
+        for (String colName : colNames) {
+            for (StructField field : fields) {
+                if (colName.equalsIgnoreCase(field.name())) {
+                    DataType dataType = field.dataType();
+                    cols.add(col(colName).cast(dataType));
+                    break;
+                }
+            }
+        }
+        // 컬럼이름과 컬럼타입이 같은 컬럼을 선택하여 Dataset을 생성합니다.
+        Dataset<Row> selectedDs1 = ds1.select(cols.toArray(new Column[0]));
+        Dataset<Row> selectedDs2 = ds2.select(cols.toArray(new Column[0]));
+        // 두 Dataset을 union 합니다.
+        return selectedDs1.union(selectedDs2);
+    }
+
     public String JDBCQuery(String query) {
         String DB_URL = databaseConfiguration.getUrl();
         String USER = databaseConfiguration.getUser();
@@ -136,8 +184,32 @@ public class DatabaseSparkService {
 
     public Dataset<Row> getLabeledDatasetFromDatabase(BaseAlgorithmTrainInput input) {
         var jvRddData = this.getDataRDDFromDb(input.getPartType(), input.getFileName());
-        var esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
+        System.out.println("TrainingDataset RowCount : " + jvRddData.count());
+        Dataset<LabeledData> esData;
+        if (input.getDataForRetraining() != null) {
 
+            List<Map<String, String>> dataForRetraining = input.getDataForRetraining();
+
+            Gson gson = new Gson();
+            String jsonData = gson.toJson(dataForRetraining);
+
+            System.out.println(jsonData);
+
+            Dataset<Row> addDataset = spark.read().json(spark.sparkContext().parallelize(
+                    JavaConverters.asScalaIterator(
+                            Collections.singletonList(jsonData).iterator()
+                    ).toSeq(),
+                    1,
+                    scala.reflect.ClassTag$.MODULE$.apply(String.class)
+            ));
+
+            Dataset<Row> newTrainingDataset = unionDatasets(jvRddData, addDataset);
+            System.out.println("newTrainingDataset RowCount : " + newTrainingDataset.count());
+            newTrainingDataset.show((int) newTrainingDataset.count());
+            esData = processData(newTrainingDataset, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
+        } else {
+            esData = processData(jvRddData, input.getFilterOutFields(), input.getFeatureCols(), input.getClassCol());
+        }
         return spark.createDataFrame(esData.rdd(), LabeledData.class);
     }
 

@@ -1,6 +1,7 @@
 package kr.gaion.armoredVehicle.ml.service;
 
 import com.google.gson.Gson;
+import kr.gaion.armoredVehicle.algorithm.dto.input.BaseAlgorithmTrainInput;
 import kr.gaion.armoredVehicle.algorithm.dto.response.AlgorithmResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClassificationResponse;
 import kr.gaion.armoredVehicle.algorithm.dto.response.ClusterResponse;
@@ -66,6 +67,10 @@ public class ModelService {
         }
     }
 
+    public DbModelResponse findDbModelResponse(String algorithmName, String modelName) {
+        return dbModelResponseRepository.findDbModelResponseByAlgorithmNameAndModelName(algorithmName, modelName);
+    }
+
     private String getAlgorithmESIndex(String algorithmName) {
         return algorithmName.toLowerCase() + "_2";
     }
@@ -74,22 +79,23 @@ public class ModelService {
         return dbModelResponseRepository.getModelResponseListByAlgorithm(algorithm);
     }
 
-    public void insertNewMlResponse(AlgorithmResponse response, String algorithmName, String modelName, String partType, String fileName) throws IOException {
+    public void insertNewMlResponse(AlgorithmResponse response, String algorithmName, BaseAlgorithmTrainInput config) throws IOException {
         // Write new data
-        System.out.printf(">>> Write new data: Algorithm name: %s, Model name: %s.%n", algorithmName, modelName);
+        System.out.printf(">>> Write new data: Algorithm name: %s, Model name: %s.%n", algorithmName, config.getModelName());
         Gson gson = new Gson();
         Map<String, Object> map = new HashMap<>();
         map.put("response", response);
-        map.put("modelName", modelName);
+        map.put("modelName", config.getModelName());
         // modelResponseSaveToDatabase
-        DbModelResponse dbModelResponse = dbModelResponseRepository.findDbModelResponseByAlgorithmNameAndModelName(algorithmName, modelName);
+        DbModelResponse dbModelResponse = dbModelResponseRepository.findDbModelResponseByAlgorithmNameAndModelName(algorithmName, config.getModelName());
         if (dbModelResponse == null) {
             dbModelResponse = new DbModelResponse();
         }
-        dbModelResponse.setPartType(partType);
-        dbModelResponse.setModelName(modelName);
+        dbModelResponse.setPartType(config.getPartType());
+        dbModelResponse.setModelName(config.getModelName());
         dbModelResponse.setAlgorithmType(algorithmName);
-        dbModelResponse.setTrainingDataFileName(fileName);
+        dbModelResponse.setTrainingDataFileName(config.getFileName());
+        dbModelResponse.setFraction((int) config.getFraction());
 
         switch (algorithmName) {
             case "RandomForestClassifier":

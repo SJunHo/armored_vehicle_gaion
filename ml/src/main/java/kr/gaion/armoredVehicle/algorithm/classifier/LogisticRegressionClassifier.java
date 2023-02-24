@@ -32,96 +32,96 @@ import java.util.List;
 @Service
 @Log4j
 public class LogisticRegressionClassifier extends ClassifierAlgorithm<LogisticRegressionModel> {
-	public LogisticRegressionClassifier(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil,@NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
-		super(elasticsearchSparkService,databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, modelService, "LogisticRegression");
-	}
+    public LogisticRegressionClassifier(@NonNull ElasticsearchSparkService elasticsearchSparkService, @NonNull DatabaseSparkService databaseSparkService, @NonNull Utilities utilities, @NonNull StorageConfig storageConfig, @NonNull ModelUtilService modelUtil, @NonNull FSChiSqSelector chiSqSelector, @NonNull AlgorithmConfig algorithmConfig, @NonNull DataConfig dataConfig, @NonNull SparkSession sparkSession, @NonNull ModelService modelService) {
+        super(elasticsearchSparkService, databaseSparkService, utilities, storageConfig, modelUtil, chiSqSelector, algorithmConfig, dataConfig, sparkSession, modelService, "LogisticRegression");
+    }
 
-  @Override
-	protected String saveTrainedModel(BaseAlgorithmTrainInput config, LogisticRegressionModel model) throws Exception {
-		return this.saveModel(config, model);
-	}
+    private static JavaRDD<String> doPredictData(Dataset<Row> data, LogisticRegressionModel model, List<String> fieldsForPredict, String[] indicesLabelsMapping, String delimiter) {
+        List<String> listColNames = List.of(data.columns());
+        int[] indices = new int[fieldsForPredict.size()];
+        int index = 0;
+        for (String field : fieldsForPredict) {
+            indices[index++] = listColNames.indexOf(field);
+        }
+        return data.toJavaRDD().map(new Function<>() {
+            private static final long serialVersionUID = -4035135440483467579L;
 
-	@Override
-	protected LogisticRegressionModel trainModel(BaseAlgorithmTrainInput config, Dataset<Row> train, Integer numberOfClass) {
-		// Training model
-		var rfTrainer = new LogisticRegression()
-				.setLabelCol("index")
-				.setRegParam(config.getRegParam())
-				.setElasticNetParam(config.getElasticNetMixing())
-				.setMaxIter(config.getMaxIter())
-				.setFitIntercept(config.isIntercept());
+            @Override
+            public String call(Row rowData) {
+                // create suitable vector
+                double[] denseData = new double[fieldsForPredict.size()];
+                int _subIter = -1;
+                for (int iter : indices) {
+                    ++_subIter;
+                    try {
+                        denseData[_subIter] = rowData.getDouble(iter);
+                    } catch (Exception e) {
+                        denseData[_subIter] = 0;
+                    }
+                }
+                Vector vector = Vectors.dense(denseData);
+
+                // predict
+                StringBuilder lineBuilder = new StringBuilder();
+                int index = Double.valueOf(model.predict(vector)).intValue();
+                lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');
+                lineBuilder.append(delimiter);
+                for (int iter = 0; iter < listColNames.size(); ++iter) {
+                    if (rowData.get(iter) == null) {
+                        lineBuilder.append('"').append('"');
+                    } else {
+                        lineBuilder.append('"').append(rowData.get(iter)).append('"');
+                    }
+                    lineBuilder.append(delimiter);
+                }
+                lineBuilder.deleteCharAt(lineBuilder.length() - 1);
+                return lineBuilder.toString();
+            }
+        });
+    }
+
+    @Override
+    protected String saveTrainedModel(BaseAlgorithmTrainInput config, LogisticRegressionModel model) throws Exception {
+        return this.saveModel(config, model);
+    }
+
+    @Override
+    protected LogisticRegressionModel trainModel(BaseAlgorithmTrainInput config, Dataset<Row> train, Integer numberOfClass) {
+        // Training model
+        var rfTrainer = new LogisticRegression()
+                .setLabelCol("index")
+                .setRegParam(config.getRegParam())
+                .setElasticNetParam(config.getElasticNetMixing())
+                .setMaxIter(config.getMaxIter())
+                .setFitIntercept(config.isIntercept());
 
 
-		return rfTrainer.fit(train);
-	}
+        return rfTrainer.fit(train);
+    }
 
-	@Override
-	protected final Dataset<Row> getTrainingResults(LogisticRegressionModel model, Dataset<Row> test) {
-		return model.transform(test);
-	}
+    @Override
+    protected final Dataset<Row> getTrainingResults(LogisticRegressionModel model, Dataset<Row> test) {
+        return model.transform(test);
+    }
 
-	@Override
-	protected LogisticRegressionModel loadModel(String modelName) throws IOException {
-		return LogisticRegressionModel.load(this.getModelFullPath(modelName));
-	}
+    @Override
+    protected LogisticRegressionModel loadModel(String modelName) throws IOException {
+        return LogisticRegressionModel.load(this.getModelFullPath(modelName));
+    }
 
-	@Override
-	protected ClassificationResponse predictData(Dataset<Row> data, LogisticRegressionModel model, BaseAlgorithmPredictInput input, String[] indicesLabelsMapping) {
-		// 3. predict
-		// #PC0002 - Start
-		var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
+    @Override
+    protected ClassificationResponse predictData(Dataset<Row> data, LogisticRegressionModel model, BaseAlgorithmPredictInput input, String[] indicesLabelsMapping) {
+        // 3. predict
+        // #PC0002 - Start
+        var response = new ClassificationResponse(ResponseType.OBJECT_DATA);
 
-		// get setting
-		String delimiter = this.storageConfig.getCsvDelimiter();
+        // get setting
+        String delimiter = this.storageConfig.getCsvDelimiter();
 
-		var lineData = doPredictData(data, model, input.getListFieldsForPredict(), indicesLabelsMapping, delimiter);
+        var lineData = doPredictData(data, model, input.getListFieldsForPredict(), indicesLabelsMapping, delimiter);
 
-		response.setPredictionInfo(lineData.collect());
+        response.setPredictionInfo(lineData.collect());
 
-		return response;
-	}
-
-	private static JavaRDD<String> doPredictData(Dataset<Row> data, LogisticRegressionModel model, List<String> fieldsForPredict, String[] indicesLabelsMapping, String delimiter) {
-		List<String> listColNames = List.of(data.columns());
-		int[] indices = new int[fieldsForPredict.size()];
-		int index = 0;
-		for(String field : fieldsForPredict) {
-			indices[index++] = listColNames.indexOf(field);
-		}
-		return data.toJavaRDD().map(new Function<>() {
-			private static final long serialVersionUID = -4035135440483467579L;
-
-			@Override
-			public String call(Row rowData) {
-				// create suitable vector
-				double[] denseData = new double[fieldsForPredict.size()];
-				int _subIter = -1;
-				for (int iter : indices) {
-					++_subIter;
-					try {
-						denseData[_subIter] = rowData.getDouble(iter);
-					} catch (Exception e) {
-						denseData[_subIter] = 0;
-					}
-				}
-				Vector vector = Vectors.dense(denseData);
-
-				// predict
-				StringBuilder lineBuilder = new StringBuilder();
-				int index = Double.valueOf(model.predict(vector)).intValue();
-				lineBuilder.append('"').append(indicesLabelsMapping[index]).append('"');
-				lineBuilder.append(delimiter);
-				for (int iter = 0; iter < listColNames.size(); ++iter) {
-					if (rowData.get(iter) == null) {
-						lineBuilder.append('"').append('"');
-					} else {
-						lineBuilder.append('"').append(rowData.get(iter)).append('"');
-					}
-					lineBuilder.append(delimiter);
-				}
-				lineBuilder.deleteCharAt(lineBuilder.length() - 1);
-				return lineBuilder.toString();
-			}
-		});
-	}
+        return response;
+    }
 }

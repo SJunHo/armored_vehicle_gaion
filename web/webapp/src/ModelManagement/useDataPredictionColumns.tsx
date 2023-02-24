@@ -170,12 +170,7 @@ export const partTypes = [
   }
 ]
 
-export const useDataPredictionColumns: (partType: string) => any = (partType:string) => {
-
-  const wholeBearingCycle = 540000
-  const wholeWheelCycle = 160000
-  const wholeGearboxCycle = 1080000
-  const wholeEngineCycle = 480000
+export const useDataPredictionColumns: (partType: string) => any = (partType: string) => {
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
@@ -1121,7 +1116,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType:str
           if (data.ai_Trip === null) {
             return "-"
           } else {
-            return Math.round((wholeBearingCycle - data.ai_Trip) * 1000) / 1000
+            return data.ai_Trip
           }
         },
       },
@@ -1227,7 +1222,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType:str
           if (data.ai_Trip === null) {
             return "-"
           } else {
-            return Math.round((wholeWheelCycle - data.ai_Trip) * 1000) / 1000
+            return data.ai_Trip
           }
         },
       },
@@ -1269,7 +1264,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType:str
           if (data.ai_Trip === null) {
             return "-"
           } else {
-            return Math.round((wholeGearboxCycle - data.ai_Trip) * 1000) / 1000
+            return data.ai_Trip
           }
         },
       },
@@ -1327,7 +1322,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType:str
           if (data.ai_Trip === null) {
             return "-"
           } else {
-            return Math.round((wholeEngineCycle - data.ai_Trip) * 1000) / 1000
+            return data.ai_Trip
           }
         },
       },

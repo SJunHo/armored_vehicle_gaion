@@ -17,6 +17,7 @@ import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
+import kr.gaion.armoredVehicle.spark.dto.ReTrainingInput;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -40,6 +41,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static kr.gaion.armoredVehicle.dataset.service.DatabaseJudgementService.findClassLabel;
 
 @Log4j
 public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlgorithmPredictInput> {
@@ -136,8 +139,9 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         var model = trainModel(config, train, indicesLabelsMapping.length);
 
         System.out.println("Saving model ..");
-        var modelFullPathName = this.saveTrainedModel(config, model);
-        labelIndexer.save(modelFullPathName);
+        // 6. Save model
+        this.saveTrainedModel(config, model);
+        this.saveModelIndexer(config, labelIndexer);
 
         var response = createModelResponse(model, test, config);
 
@@ -238,6 +242,28 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         }
     }
 
+    public final ClassificationResponse retrainSVC(ReTrainingInput webData) throws Exception {
+        System.out.println("Start SVC Model training with labeled data ...");
+
+        var modelName = webData.getModelName();
+        var model = LinearSVCModel.load(this.getModelFullPath(modelName));
+
+        var modelResponse = this.modelService.findDbModelResponse(webData.getAlgorithmName(), webData.getModelName());
+
+        BaseAlgorithmTrainInput config = new BaseAlgorithmTrainInput();
+        config.setPartType(webData.getPartType());
+        config.setFeatureCols(List.of(model.getFeaturesCol()));
+        config.setFraction(modelResponse.getFraction());
+        config.setFileName(modelResponse.getTrainingDataFileName());
+        config.setClassCol(findClassLabel(webData.getPartType()));
+        config.setDataForRetraining(webData.getNewData());
+        config.setModelName(webData.getModelName());
+
+        config.setMaxIter(model.getMaxIter());
+
+        return this.trainSVC(config);
+    }
+
     public final ClassificationResponse trainMLP(BaseAlgorithmTrainInput config) throws Exception {
         System.out.println("Start MLP Model training with labeled data ...");
 
@@ -311,6 +337,31 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         }
     }
 
+    public final ClassificationResponse retrainMLP(ReTrainingInput webData) throws Exception {
+        System.out.println("Start MLP Model training with labeled data ...");
+
+        var modelName = webData.getModelName();
+        var model = MultilayerPerceptronClassifier.load(this.getModelFullPath(modelName));
+
+        var modelResponse = this.modelService.findDbModelResponse(webData.getAlgorithmName(), webData.getModelName());
+
+        BaseAlgorithmTrainInput config = new BaseAlgorithmTrainInput();
+        config.setPartType(webData.getPartType());
+        config.setFeatureCols(List.of(model.getFeaturesCol()));
+        config.setFraction(modelResponse.getFraction());
+        config.setFileName(modelResponse.getTrainingDataFileName());
+        config.setClassCol(findClassLabel(webData.getPartType()));
+        config.setDataForRetraining(webData.getNewData());
+        config.setModelName(webData.getModelName());
+
+        config.setMaxIter(model.getMaxIter());
+        config.setBlockSize(model.getBlockSize());
+        config.setLayers(model.getLayers()[0]);
+
+
+        return this.trainMLP(config);
+    }
+
     public final ClassificationResponse trainLR(BaseAlgorithmTrainInput config) throws Exception {
         System.out.println("Start LR Model training with labeled data ...");
 
@@ -375,6 +426,31 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
             System.out.println(">>> Error (dataset is empty as it may not match engine data) <<<");
             return null;
         }
+    }
+
+    public final ClassificationResponse retrainLR(ReTrainingInput webData) throws Exception {
+        System.out.println("Start LR Model training with labeled data ...");
+
+        var modelName = webData.getModelName();
+        var model = LogisticRegressionModel.load(this.getModelFullPath(modelName));
+
+        var modelResponse = this.modelService.findDbModelResponse(webData.getAlgorithmName(), webData.getModelName());
+
+        BaseAlgorithmTrainInput config = new BaseAlgorithmTrainInput();
+        config.setPartType(webData.getPartType());
+        config.setFeatureCols(List.of(model.getFeaturesCol()));
+        config.setFraction(modelResponse.getFraction());
+        config.setFileName(modelResponse.getTrainingDataFileName());
+        config.setClassCol(findClassLabel(webData.getPartType()));
+        config.setDataForRetraining(webData.getNewData());
+        config.setModelName(webData.getModelName());
+
+        config.setMaxIter(model.getMaxIter());
+        config.setRegParam(model.getRegParam());
+        config.setElasticNetMixing(model.getElasticNetParam());
+        config.setIntercept(model.getFitIntercept());
+
+        return this.trainLR(config);
     }
 
     public final ClassificationResponse trainRF(BaseAlgorithmTrainInput config) throws Exception {
@@ -444,6 +520,32 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
             System.out.println(">>> Error (dataset is empty as it may not match engine data) <<<");
             return null;
         }
+    }
+
+    public final ClassificationResponse retrainRF(ReTrainingInput webData) throws Exception {
+        System.out.println("Start RF Model training with labeled data ...");
+
+        var modelName = webData.getModelName();
+        var model = RandomForestClassificationModel.load(this.getModelFullPath(modelName));
+
+        var modelResponse = this.modelService.findDbModelResponse(webData.getAlgorithmName(), webData.getModelName());
+
+        BaseAlgorithmTrainInput config = new BaseAlgorithmTrainInput();
+        config.setPartType(webData.getPartType());
+        System.out.println("FeaturesCol : " + Arrays.toString(modelResponse.getListFeatures()));
+        config.setFeatureCols(List.of(modelResponse.getListFeatures()));
+        config.setFeatureSubsetStrategy(model.getFeatureSubsetStrategy());
+        config.setMaxBins(model.getMaxBins());
+        config.setMaxDepths(model.getMaxDepth());
+        config.setNumTrees(model.getNumTrees());
+        config.setModelName(webData.getModelName());
+        config.setFileName(modelResponse.getTrainingDataFileName());
+        config.setFraction(modelResponse.getFraction());
+        config.setImpurity(model.getImpurity());
+        config.setClassCol(findClassLabel(webData.getPartType()));
+        config.setDataForRetraining(webData.getNewData());
+
+        return this.trainRF(config);
     }
 
     public final ClassificationResponse predictSVC(BaseAlgorithmPredictInput input) throws IOException {
@@ -671,6 +773,6 @@ public abstract class ClassifierAlgorithm<T> extends MLAlgorithm<BaseAlgorithmTr
         response.setListFeatures(listSelectedFeatures);
         response.setClassCol(config.getClassCol());
         response.setStatus(ResponseStatus.SUCCESS);
-        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType(), config.getFileName());
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config);
     }
 }

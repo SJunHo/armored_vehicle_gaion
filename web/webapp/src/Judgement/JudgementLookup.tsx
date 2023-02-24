@@ -4,24 +4,31 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import {OpenApiContext} from "../api";
+import {ClassificationResponse, OpenApiContext} from "../api";
 import {Table} from "../common/Table";
 import {CSVLink} from "react-csv";
 import {partTypes} from "../ModelManagement/useDataPredictionColumns";
 import {Section} from "../common/Section/Section";
 import moment from "moment";
 import {useJudgementLookupColumns} from "./useJudgementLookupColumns";
+import {CreateModelResult} from "../ModelManagement/CreateModelResult";
+import DatePicker from "react-datepicker";
+
 
 export const JudgementLookup: React.FC = () => {
   const [partType, setPartType] = useState<string>("BLB");
+  const [isTraining, setIsTraining] = React.useState(false);
   const [carsList, setCarsList] = useState<string[]>([]);
   const [selectedCar, setSelectedCar] = useState<string>();
   const [modelList, setModelList] = useState<string[]>([]);
   const [selectedModel, setSelectedModel] = useState<string>();
+  const [retrainingResult, setRetrainingResult] = useState<ClassificationResponse>();
+  const [algorithmName, setAlgorithmName] = useState<string>();
+
 
   const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>(new Date());
-  
+
   const [predictedData, setPredictedData] = useState<any[]>([]);
   const [judgedData, setJudgedData] = useState<any[]>([]);
   const [judgedRetrainingData, setJudgedRetrainingData] = useState<any[]>([]);
@@ -29,6 +36,7 @@ export const JudgementLookup: React.FC = () => {
   const {databaseJudgementControllerApi, mlControllerApi} = useContext(OpenApiContext);
 
   const notNeededColumnsForAnother = ["ai", "ac_", "DATE", "idx", "_ID"];
+  const notNeededColumnsForRetraining = ["sdaId", "ai", "_ID", "_DATE", "_ALGO", "_MODEL"];
 
   useEffect(() => {
     const thisDate = new Date();
@@ -56,6 +64,45 @@ export const JudgementLookup: React.FC = () => {
     }
   }, [partType, databaseJudgementControllerApi]);
 
+  function findClassLabel(selectedPart: any) {
+    switch (selectedPart) {
+      // bearing
+      case "BLB" :
+        return "AI_LBSF"
+      case "BLO" :
+        return "AI_LBPFO"
+      case "BLI" :
+        return "AI_LBPFI"
+      case "BLR" :
+        return "AI_LFTF"
+      case "BRB" :
+        return "AI_RBSF"
+      case "BRO" :
+        return "AI_RBPFO"
+      case "BRI" :
+        return "AI_RBPFI"
+      case "BRR" :
+        return "AI_RFTF"
+      // wheel
+      case "WL" :
+        return "AI_LW"
+      case "WR" :
+        return "AI_RW"
+      // gearbox
+      case "G" :
+        return "AI_GEAR"
+      // engine
+      case "E" :
+        return "AI_ENGINE"
+      // part of remaining life
+      case "B_LIFE" :
+      case "W_LIFE" :
+      case "G_LIFE" :
+      case "E_LIFE" :
+        return "Trip"
+    }
+  }
+
   type reTrainingInput = {
     newData: any[];
     modelName: string;
@@ -63,22 +110,139 @@ export const JudgementLookup: React.FC = () => {
     algorithmName: string;
   };
 
-  function handleReTraining() {
-
-    let result: reTrainingInput = {} as reTrainingInput
-    result.newData = judgedRetrainingData
-    result.modelName = selectedModel || ""
-    result.partType = partType
-    // ai_ALGO 부분 처리해줘야 됨
-    result.algorithmName = predictedData[0].ai_GEAR_ALGO
-    console.log(result)
-    console.log(predictedData[0])
-    mlControllerApi?.retrainRfc(result).then((res) => {
-      console.log(res)
-    })
+  function removeKeyFromObject(obj: any, key: any) {
+    delete obj[key];
+    return obj;
   }
 
-  function handleObjectKey(data: any) {
+  function handleObjectKeyToRetraining(data: any) {
+    const result = data.slice()
+    result.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
+      // delete not needed
+      notNeededColumnsForRetraining.map((el: string) => {
+        if (eachKey.includes(el)) {
+          delete eachMap[eachKey]
+        }
+      })
+    })))
+
+    var aiKey = findClassLabel(partType)
+    var targetCol = aiKey?.split('_')[1] || ""
+    var userKey = "user_" + targetCol
+    var newAiKey = "AI_" + targetCol
+
+    const isUpperCase = (string: string) => /^[A-Z]*$/.test(string)
+
+
+    result.forEach((obj: any) => {
+      if (obj["user_" + targetCol] != null) {
+        const oldValue = obj["user_" + targetCol]
+        removeKeyFromObject(obj, "user_" + targetCol)
+        obj["ai_" + targetCol] = oldValue
+      }
+
+      for (let i in obj) {
+        switch (i.toString()) {
+          case 'idx':
+            obj["IDX"] = obj['idx']
+            delete obj['idx']
+            break
+          case 'date':
+            obj["DATE"] = obj['date']
+            delete obj['date']
+            break
+          case 'sdaId':
+            obj['SDAID'] = obj['sdaId']
+            delete obj['sdaId']
+            break
+          default:
+            if (!isUpperCase(i.charAt(0))) {
+              var upperCaseKey = i.charAt(0).toUpperCase() + i.charAt(1).toUpperCase() + i.slice(2)
+              obj[upperCaseKey] = obj[i];
+              delete obj[i];
+            }
+        }
+      }
+    })
+
+    return result
+  }
+
+
+  async function handleReTraining() {
+    setIsTraining(true);
+    let input: reTrainingInput = {} as reTrainingInput
+    let handleData = handleObjectKeyToRetraining(judgedRetrainingData)
+
+    input.newData = handleData
+    input.modelName = selectedModel || ""
+    input.partType = partType
+    input.algorithmName = findAlgorithmName(predictedData[0])
+
+
+    let newResult;
+    try {
+      switch (findAlgorithmName(predictedData[0])) {
+        case "RandomForestClassifier": {
+          newResult = await mlControllerApi?.retrainRfc(input);
+          break;
+        }
+        case "SVCClassifier": {
+          newResult = await mlControllerApi?.retrainSVC(input);
+          break;
+        }
+        case "LogisticRegression": {
+          newResult = await mlControllerApi?.retrainLr(input);
+          break;
+        }
+        case "MLPClassifier": {
+          newResult = await mlControllerApi?.retrainMLP(input);
+          break;
+        }
+        case "IsolationForestOutlierDetection": {
+          newResult = await mlControllerApi?.retrainIF(input);
+          break;
+        }
+      }
+    } catch (e) {
+      setIsTraining(false);
+    }
+    setRetrainingResult(newResult?.data);
+    setIsTraining(false);
+  }
+
+
+  function findAlgorithmName(data: any) {
+    const keysArray = Object.keys(data)
+    var aiKey = keysArray.filter((key) => key.includes("_ALGO"))
+    var algorithmFullName = data[aiKey[0]]
+    switch (algorithmFullName) {
+      case "RandomForestClassifier": {
+        setAlgorithmName("rfc")
+        break;
+      }
+      case "SVCClassifier": {
+        setAlgorithmName("svc")
+        break;
+      }
+      case "LogisticRegression": {
+        setAlgorithmName("lr")
+        break;
+      }
+      case "MLPClassifier": {
+        setAlgorithmName("mlp")
+        break;
+      }
+      case "IsolationForestOutlierDetection": {
+        setAlgorithmName("if")
+        break;
+      }
+    }
+
+    return algorithmFullName
+  }
+
+  function handleObjectKeyToCSV(data: any) {
     const result = data.slice()
     result.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
       // delete not needed
@@ -89,10 +253,9 @@ export const JudgementLookup: React.FC = () => {
       })
     })))
 
-    var userKey = Object.keys(result[0]).filter(el => {
-      if (el.includes("user_")) return true
-    })
-    var targetColumnName = userKey[0].split('_')[1]
+    var aiKey = findClassLabel(partType)
+    var targetColumnName = aiKey?.split('_')[1] || ""
+    var userKey = "user_" + targetColumnName
     var newAiKey = "AI_" + targetColumnName
 
     const isUpperCase = (string: string) => /^[A-Z]*$/.test(string)
@@ -124,6 +287,7 @@ export const JudgementLookup: React.FC = () => {
     return result
   }
 
+
   function handleSearchData() {
     if (selectedCar == undefined || selectedModel == undefined) {
       return []
@@ -145,10 +309,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        console.log(res)
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
-        console.log(result)
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'BLI') {
@@ -166,8 +332,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'BLO') {
@@ -185,8 +355,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'BLR') {
@@ -204,8 +378,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'BRB') {
@@ -223,8 +401,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'BRI') {
@@ -242,8 +424,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'BRO') {
@@ -261,8 +447,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'BRR') {
@@ -280,8 +470,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'E') {
@@ -299,8 +493,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'G') {
@@ -321,7 +519,7 @@ export const JudgementLookup: React.FC = () => {
         var data = res.data.map(a => {
           return {...a}
         })
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
         setJudgedRetrainingData(data)
       });
@@ -341,8 +539,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
     if (partType === 'WR') {
@@ -360,8 +562,12 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
-        var result = res.data.length == 0 ? [] : handleObjectKey(res.data)
+        var data = res.data.map(a => {
+          return {...a}
+        })
+        var result = res.data.length == 0 ? [] : handleObjectKeyToCSV(res.data)
         setJudgedData(result);
+        setJudgedRetrainingData(data)
       });
     }
   }
@@ -459,20 +665,24 @@ export const JudgementLookup: React.FC = () => {
             <Row className="ml-5">
               기간
               <Col xs={5}>
-                <Form.Control
-                  size="sm"
-                  type="date"
-                  value={fromDate?.toLocaleDateString("en-CA")}
-                  onChange={(v) => setFromDate(new Date((v.target as any).value))}
+                <DatePicker
+                  className="text-dark"
+                  dateFormat="yyyy-MM-dd"
+                  selected={fromDate}
+                  onChange={(v: Date) => {
+                    setFromDate(v)
+                  }}
                 />
               </Col>
               <div className="font-weight-bold">~</div>
               <Col xs={5}>
-                <Form.Control
-                  type="date"
-                  size="sm"
-                  value={toDate?.toLocaleDateString("en-CA")}
-                  onChange={(v) => setToDate(new Date((v.target as any).value))}
+                <DatePicker
+                  className="text-dark"
+                  dateFormat="yyyy-MM-dd"
+                  selected={toDate}
+                  onChange={(v: Date) => {
+                    setToDate(v)
+                  }}
                 />
               </Col>
             </Row>
@@ -536,6 +746,11 @@ export const JudgementLookup: React.FC = () => {
           </Col>
         </Row>
       </Section>
+      {retrainingResult && algorithmName && (
+        <>
+          <CreateModelResult algorithmName={algorithmName} result={retrainingResult}/>
+        </>
+      )}
     </Container>
   );
 };

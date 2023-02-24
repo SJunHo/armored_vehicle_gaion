@@ -18,15 +18,16 @@ import kr.gaion.armoredVehicle.database.repository.FileInfoRepository;
 import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.ml.dto.input.UpdateModelInput;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
+import kr.gaion.armoredVehicle.spark.dto.ReTrainingInput;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController("api")
 @RequiredArgsConstructor
@@ -64,12 +65,9 @@ public class MLController {
     }
 
     @PostMapping(path = "/api/retrain/rfc")
-    public RandomForestClassificationResponse retrainRfc(@RequestBody List<Map<Integer, Object>> webData) throws Exception {
-        System.out.println(webData);
-
-
-//        return (RandomForestClassificationResponse) rfc.trainRF(input);
-        return null;
+    public RandomForestClassificationResponse retrainRfc(@RequestBody ReTrainingInput webData) throws Exception {
+        System.out.println("retraining Input" + ReflectionToStringBuilder.toString(webData));
+        return (RandomForestClassificationResponse) rfc.retrainRF(webData);
     }
 
     @PostMapping(path = "/api/train/svc")
@@ -77,9 +75,21 @@ public class MLController {
         return svc.trainSVC(input);
     }
 
+    @PostMapping(path = "/api/retrain/svc")
+    public ClassificationResponse retrainSVC(@RequestBody ReTrainingInput webData) throws Exception {
+        System.out.println("retraining Input" + ReflectionToStringBuilder.toString(webData));
+        return rfc.retrainSVC(webData);
+    }
+
     @PostMapping(path = "/api/train/lr")
     public ClassificationResponse trainLr(@RequestBody BaseAlgorithmTrainInput input) throws Exception {
         return lr.trainLR(input);
+    }
+
+    @PostMapping(path = "/api/retrain/lr")
+    public ClassificationResponse retrainLr(@RequestBody ReTrainingInput webData) throws Exception {
+        System.out.println("retraining Input" + ReflectionToStringBuilder.toString(webData));
+        return rfc.retrainLR(webData);
     }
 
     @PostMapping(path = "/api/train/mlp")
@@ -87,9 +97,20 @@ public class MLController {
         return mlp.trainMLP(input);
     }
 
+    @PostMapping(path = "/api/retrain/mlp")
+    public ClassificationResponse retrainMLP(@RequestBody ReTrainingInput webData) throws Exception {
+        System.out.println("retraining Input" + ReflectionToStringBuilder.toString(webData));
+        return mlp.retrainMLP(webData);
+    }
+
     @PostMapping(path = "/api/train/if")
     public ClusterResponse trainIsolationForest(@RequestBody ClusterTrainInput input) throws Exception {
         return isolationForestOutlierDetection.train(input);
+    }
+
+    @PostMapping(path = "/api/retrain/if")
+    public ClusterResponse retrainIF(@RequestBody ReTrainingInput input) throws Exception {
+        return isolationForestOutlierDetection.retrainIF(input);
     }
 
     @PostMapping(path = "/api/train/linear")

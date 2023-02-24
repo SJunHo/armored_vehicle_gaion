@@ -11,6 +11,7 @@ import {ALGORITHM_INFO} from "../common/Common";
 import {Section} from "../common/Section/Section";
 import {Table} from "../common/Table";
 import {useDataPredictionColumns} from "./useDataPredictionColumns";
+import DatePicker from "react-datepicker";
 
 export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmName}) => {
   const [predicting, setPredicting] = useState(false);
@@ -491,23 +492,31 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               ))}
             </Form.Select>
           </Col>
-          <Col xs={1} className="text-right">기간</Col>
-          <Col xs={2}>
-            <Form.Control
-              size="sm"
-              type="date"
-              value={fromDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setFromDate(new Date((v.target as any).value))}
-            />
-          </Col>
-          <div className="font-weight-bold">~</div>
-          <Col xs={2}>
-            <Form.Control
-              type="date"
-              size="sm"
-              value={toDate?.toLocaleDateString("en-CA")}
-              onChange={(v) => setToDate(new Date((v.target as any).value))}
-            />
+          <Col xs={5}>
+            <Row className="ml-5">
+              기간
+              <Col xs={5}>
+                <DatePicker
+                  className="text-dark"
+                  dateFormat="yyyy-MM-dd"
+                  selected={fromDate}
+                  onChange={(v: Date) => {
+                    setFromDate(v)
+                  }}
+                />
+              </Col>
+              <div className="font-weight-bold">~</div>
+              <Col xs={5}>
+                <DatePicker
+                  className="text-dark"
+                  dateFormat="yyyy-MM-dd"
+                  selected={toDate}
+                  onChange={(v: Date) => {
+                    setToDate(v)
+                  }}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
         <Row>

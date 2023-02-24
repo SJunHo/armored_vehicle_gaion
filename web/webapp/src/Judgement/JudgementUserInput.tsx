@@ -24,6 +24,7 @@ import {
 } from "../ModelManagement/useDataPredictionColumns";
 import {Section} from "../common/Section/Section";
 import "./judgementStyle.css"
+import DatePicker from "react-datepicker";
 
 
 export const JudgementUserInput: React.FC = () => {
@@ -1971,20 +1972,24 @@ export const JudgementUserInput: React.FC = () => {
             <Row className="ml-5">
               기간
               <Col xs={5}>
-                <Form.Control
-                  size="sm"
-                  type="date"
-                  value={fromDate?.toLocaleDateString("en-CA")}
-                  onChange={(v) => setFromDate(new Date((v.target as any).value))}
+                <DatePicker
+                  className="text-dark"
+                  dateFormat="yyyy-MM-dd"
+                  selected={fromDate}
+                  onChange={(v: Date) => {
+                    setFromDate(v)
+                  }}
                 />
               </Col>
               <div className="font-weight-bold">~</div>
               <Col xs={5}>
-                <Form.Control
-                  type="date"
-                  size="sm"
-                  value={toDate?.toLocaleDateString("en-CA")}
-                  onChange={(v) => setToDate(new Date((v.target as any).value))}
+                <DatePicker
+                  className="text-dark"
+                  dateFormat="yyyy-MM-dd"
+                  selected={toDate}
+                  onChange={(v: Date) => {
+                    setToDate(v)
+                  }}
                 />
               </Col>
             </Row>

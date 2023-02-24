@@ -283,6 +283,12 @@ export interface BaseAlgorithmTrainInput {
     elasticNetMixing?: number;
     /**
      * 
+     * @type {Array<{ [key: string]: string; }>}
+     * @memberof BaseAlgorithmTrainInput
+     */
+    dataForRetraining?: Array<{ [key: string]: string; }>;
+    /**
+     * 
      * @type {number}
      * @memberof BaseAlgorithmTrainInput
      */
@@ -675,6 +681,12 @@ export interface ClusterTrainInput {
      * @memberof ClusterTrainInput
      */
     elasticNetMixing?: number;
+    /**
+     * 
+     * @type {Array<{ [key: string]: string; }>}
+     * @memberof ClusterTrainInput
+     */
+    dataForRetraining?: Array<{ [key: string]: string; }>;
     /**
      * 
      * @type {number}
@@ -1313,6 +1325,12 @@ export interface DbModelResponse {
      * @type {number}
      * @memberof DbModelResponse
      */
+    fraction?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DbModelResponse
+     */
     weightedFalsePositiveRate?: number;
     /**
      * 
@@ -1682,925 +1700,6 @@ export interface LoginRequest {
 /**
  * 
  * @export
- * @interface PageSensorBearingLeftBallInterface
- */
-export interface PageSensorBearingLeftBallInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingLeftBallInterface>}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    content?: Array<SensorBearingLeftBallInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftBallInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearingLeftInsideInterface
- */
-export interface PageSensorBearingLeftInsideInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingLeftInsideInterface>}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    content?: Array<SensorBearingLeftInsideInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftInsideInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearingLeftOutsideInterface
- */
-export interface PageSensorBearingLeftOutsideInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingLeftOutsideInterface>}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    content?: Array<SensorBearingLeftOutsideInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftOutsideInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearingLeftRetainerInterface
- */
-export interface PageSensorBearingLeftRetainerInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingLeftRetainerInterface>}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    content?: Array<SensorBearingLeftRetainerInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingLeftRetainerInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearingRightBallInterface
- */
-export interface PageSensorBearingRightBallInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingRightBallInterface>}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    content?: Array<SensorBearingRightBallInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightBallInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearingRightInsideInterface
- */
-export interface PageSensorBearingRightInsideInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingRightInsideInterface>}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    content?: Array<SensorBearingRightInsideInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightInsideInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearingRightOutsideInterface
- */
-export interface PageSensorBearingRightOutsideInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingRightOutsideInterface>}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    content?: Array<SensorBearingRightOutsideInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightOutsideInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorBearingRightRetainerInterface
- */
-export interface PageSensorBearingRightRetainerInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorBearingRightRetainerInterface>}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    content?: Array<SensorBearingRightRetainerInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorBearingRightRetainerInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorEngineInterface
- */
-export interface PageSensorEngineInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorEngineInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorEngineInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorEngineInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorEngineInterface>}
-     * @memberof PageSensorEngineInterface
-     */
-    content?: Array<SensorEngineInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorEngineInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorEngineInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorEngineInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorEngineInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorEngineInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorEngineInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorEngineInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorGearboxInterface
- */
-export interface PageSensorGearboxInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorGearboxInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorGearboxInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorGearboxInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorGearboxInterface>}
-     * @memberof PageSensorGearboxInterface
-     */
-    content?: Array<SensorGearboxInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorGearboxInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorGearboxInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorGearboxInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorGearboxInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorGearboxInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorGearboxInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorGearboxInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorWheelLeftInterface
- */
-export interface PageSensorWheelLeftInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorWheelLeftInterface>}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    content?: Array<SensorWheelLeftInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelLeftInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface PageSensorWheelRightInterface
- */
-export interface PageSensorWheelRightInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelRightInterface
-     */
-    totalPages?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelRightInterface
-     */
-    totalElements?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelRightInterface
-     */
-    size?: number;
-    /**
-     * 
-     * @type {Array<SensorWheelRightInterface>}
-     * @memberof PageSensorWheelRightInterface
-     */
-    content?: Array<SensorWheelRightInterface>;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelRightInterface
-     */
-    number?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof PageSensorWheelRightInterface
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {Pageable}
-     * @memberof PageSensorWheelRightInterface
-     */
-    pageable?: Pageable;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelRightInterface
-     */
-    first?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelRightInterface
-     */
-    last?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof PageSensorWheelRightInterface
-     */
-    numberOfElements?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageSensorWheelRightInterface
-     */
-    empty?: boolean;
-}
-/**
- * 
- * @export
- * @interface Pageable
- */
-export interface Pageable {
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    offset?: number;
-    /**
-     * 
-     * @type {Sort}
-     * @memberof Pageable
-     */
-    sort?: Sort;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    pageSize?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Pageable
-     */
-    pageNumber?: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    paged?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Pageable
-     */
-    unpaged?: boolean;
-}
-/**
- * 
- * @export
  * @interface Paramdesc
  */
 export interface Paramdesc {
@@ -2768,6 +1867,37 @@ export interface RandomForestClassificationResponse {
      * @memberof RandomForestClassificationResponse
      */
     decisionTree?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ReTrainingInput
+ */
+export interface ReTrainingInput {
+    /**
+     * 
+     * @type {Array<{ [key: string]: string; }>}
+     * @memberof ReTrainingInput
+     */
+    newData?: Array<{ [key: string]: string; }>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ReTrainingInput
+     */
+    modelName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ReTrainingInput
+     */
+    partType?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ReTrainingInput
+     */
+    algorithmName?: string;
 }
 /**
  * 
@@ -3704,19 +2834,13 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
     l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    ai_LBSF?: number;
+    l_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -3728,13 +2852,7 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_V_6912BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_32924BSF?: number;
+    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -3746,13 +2864,7 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ac_a?: number;
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -3764,13 +2876,25 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_S_Fault2?: number;
+    ai_LBSF?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_S_Fault1?: number;
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_32924BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_6912BSF?: number;
     /**
      * 
      * @type {number}
@@ -3782,37 +2906,19 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    idx?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    user_LBSF_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_ALGO?: string;
+    l_B_S_Fault2?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
     date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_DATE?: string;
     /**
      * 
      * @type {number}
@@ -3824,13 +2930,37 @@ export interface SensorBearingLeftBallInterface {
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    sdaId?: string;
+    user_LBSF_ID?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    user_LBSF_ID?: string;
+    user_LBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    sdaId?: string;
 }
 /**
  * 
@@ -3849,19 +2979,13 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
     l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    ai_LBPFI?: number;
+    l_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -3873,19 +2997,7 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
     l_B_V_32924BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_6912BPFI?: number;
     /**
      * 
      * @type {number}
@@ -3897,13 +3009,31 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    ac_a?: number;
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
     ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI?: number;
     /**
      * 
      * @type {number}
@@ -3921,7 +3051,13 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_S_Fault1?: number;
+    l_B_V_6912BPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    date?: string;
     /**
      * 
      * @type {number}
@@ -3933,31 +3069,7 @@ export interface SensorBearingLeftInsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_ALGO?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    user_LBPFI?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_DATE?: string;
     /**
      * 
      * @type {string}
@@ -3970,6 +3082,24 @@ export interface SensorBearingLeftInsideInterface {
      * @memberof SensorBearingLeftInsideInterface
      */
     user_LBPFI_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    user_LBPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -3994,19 +3124,13 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ai_LBPFO?: number;
+    l_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -4018,19 +3142,7 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_V_6912BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_V_32924BPFO?: number;
+    ai_LBPFO?: number;
     /**
      * 
      * @type {number}
@@ -4042,13 +3154,37 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ac_a?: number;
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
     ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_6912BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_32924BPFO?: number;
     /**
      * 
      * @type {number}
@@ -4063,10 +3199,10 @@ export interface SensorBearingLeftOutsideInterface {
     l_B_S_Fault2?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_S_Fault1?: number;
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4078,25 +3214,7 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ai_LBPFO_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ai_LBPFO_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -4115,6 +3233,18 @@ export interface SensorBearingLeftOutsideInterface {
      * @memberof SensorBearingLeftOutsideInterface
      */
     ai_LBPFO_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4139,25 +3269,49 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
     l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF?: number;
+    l_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
     w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4175,7 +3329,7 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_1X?: number;
+    ai_LFTF?: number;
     /**
      * 
      * @type {number}
@@ -4187,31 +3341,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
     l_B_S_Fault2?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_S_Fault1?: number;
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4223,25 +3359,7 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ai_LFTF_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    user_LFTF_ID?: string;
     /**
      * 
      * @type {number}
@@ -4253,13 +3371,25 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_ALGO?: string;
+    ai_LFTF_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
     user_LFTF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    user_LFTF_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ai_LFTF_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -4302,25 +3432,31 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    ai_RBSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
     r_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_6912BSF?: number;
+    r_B_S_Fault2?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
     ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
@@ -4338,13 +3474,13 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    ac_v?: number;
+    ai_RBSF?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_S_Fault2?: number;
+    r_B_V_6912BSF?: number;
     /**
      * 
      * @type {number}
@@ -4353,10 +3489,10 @@ export interface SensorBearingRightBallInterface {
     r_B_V_32924BSF?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_1X?: number;
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4368,25 +3504,7 @@ export interface SensorBearingRightBallInterface {
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4401,16 +3519,28 @@ export interface SensorBearingRightBallInterface {
     user_RBPFO_ID?: string;
     /**
      * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    user_RBSF_DATE?: string;
-    /**
-     * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
     user_RBSF?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBSF_DATE?: string;
 }
 /**
  * 
@@ -4447,37 +3577,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    ai_RBPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
     r_B_V_6912BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_32924BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4489,7 +3589,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    ac_v?: number;
+    r_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -4501,7 +3601,43 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
     r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_32924BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4513,25 +3649,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    user_RBPFI_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ai_RBPFI_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -4555,7 +3673,19 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
+    user_RBPFI_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
     user_RBPFI_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI_ALGO?: string;
 }
 /**
  * 
@@ -4586,37 +3716,7 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ai_RBPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
     w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_V_6912BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4628,7 +3728,7 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ac_v?: number;
+    r_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -4640,7 +3740,31 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_6912BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
     r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4652,13 +3776,19 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    idx?: number;
+    ai_RBPFO?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
     date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    idx?: number;
     /**
      * 
      * @type {string}
@@ -4673,10 +3803,10 @@ export interface SensorBearingRightOutsideInterface {
     user_RBPFO_ID?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ai_RBPFO_DATE?: string;
+    user_RBPFO?: number;
     /**
      * 
      * @type {string}
@@ -4691,10 +3821,10 @@ export interface SensorBearingRightOutsideInterface {
     ai_RBPFO_ALGO?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    user_RBPFO?: number;
+    ai_RBPFO_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4743,48 +3873,6 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_V_32924FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
     r_B_V_6912FTF?: number;
     /**
      * 
@@ -4797,13 +3885,55 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    idx?: number;
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_32924FTF?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
     date?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    idx?: number;
     /**
      * 
      * @type {string}
@@ -4815,7 +3945,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF_MODEL?: string;
+    ai_RFTF_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -4833,19 +3963,19 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    user_RFTF_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
     user_RFTF_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF_ALGO?: string;
+    user_RFTF_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_MODEL?: string;
 }
 /**
  * 
@@ -4864,31 +3994,19 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    e_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
     ac_h?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    e_V_Crestfactor?: number;
+    ac_v?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorEngineInterface
      */
     ai_ENGINE?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_1_2X?: number;
     /**
      * 
      * @type {number}
@@ -4906,13 +4024,25 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    ac_v?: number;
+    e_V_1_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_1X?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    user_ENGINE_DATE?: string;
+    date?: string;
     /**
      * 
      * @type {number}
@@ -4924,13 +4054,19 @@ export interface SensorEngineInterface {
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    date?: string;
+    sdaId?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    sdaId?: string;
+    ai_ENGINE_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4948,19 +4084,13 @@ export interface SensorEngineInterface {
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
     ai_ENGINE_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE_DATE?: string;
+    user_ENGINE_DATE?: string;
 }
 /**
  * 
@@ -4979,43 +4109,7 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    g_V_OverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_GMF1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
     ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Pinion2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Wheel2X?: number;
     /**
      * 
      * @type {number}
@@ -5027,13 +4121,13 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    g_V_Pinion1X?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    g_V_Wheel1X?: number;
+    g_V_OverallRMS?: number;
     /**
      * 
      * @type {number}
@@ -5045,7 +4139,37 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    idx?: number;
+    g_V_Wheel1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_GMF1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR?: number;
     /**
      * 
      * @type {string}
@@ -5054,10 +4178,34 @@ export interface SensorGearboxInterface {
     date?: string;
     /**
      * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    idx?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorGearboxInterface
      */
     sdaId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    user_GEAR?: number;
     /**
      * 
      * @type {string}
@@ -5076,24 +4224,6 @@ export interface SensorGearboxInterface {
      * @memberof SensorGearboxInterface
      */
     ai_GEAR_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_ALGO?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    user_GEAR?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_MODEL?: string;
 }
 /**
  * 
@@ -5112,37 +4242,7 @@ export interface SensorWheelLeftInterface {
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    l_W_V_3X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    ai_LW?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    l_W_S_Fault3?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
     ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    l_W_V_2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -5154,7 +4254,31 @@ export interface SensorWheelLeftInterface {
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    idx?: number;
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_3X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_S_Fault3?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_2X?: number;
     /**
      * 
      * @type {string}
@@ -5163,22 +4287,22 @@ export interface SensorWheelLeftInterface {
     date?: string;
     /**
      * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    idx?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
     sdaId?: string;
     /**
      * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    user_LW?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
-    ai_LW_ALGO?: string;
+    ai_LW_DATE?: string;
     /**
      * 
      * @type {string}
@@ -5187,10 +4311,10 @@ export interface SensorWheelLeftInterface {
     ai_LW_MODEL?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    ai_LW_DATE?: string;
+    user_LW?: number;
     /**
      * 
      * @type {string}
@@ -5203,6 +4327,12 @@ export interface SensorWheelLeftInterface {
      * @memberof SensorWheelLeftInterface
      */
     user_LW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_ALGO?: string;
 }
 /**
  * 
@@ -5221,19 +4351,13 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    r_W_V_2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
     ac_h?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    r_W_V_3X?: number;
+    ac_v?: number;
     /**
      * 
      * @type {number}
@@ -5251,13 +4375,25 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    ac_v?: number;
+    r_W_V_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    r_W_V_3X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
     ai_RW?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    date?: string;
     /**
      * 
      * @type {number}
@@ -5269,25 +4405,13 @@ export interface SensorWheelRightInterface {
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
-    date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
     sdaId?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    ai_RW_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    ai_RW_MODEL?: string;
+    user_RW?: number;
     /**
      * 
      * @type {string}
@@ -5296,10 +4420,10 @@ export interface SensorWheelRightInterface {
     user_RW_ID?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorWheelRightInterface
      */
-    user_RW?: number;
+    ai_RW_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -5312,6 +4436,12 @@ export interface SensorWheelRightInterface {
      * @memberof SensorWheelRightInterface
      */
     user_RW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    ai_RW_MODEL?: string;
 }
 /**
  * 
@@ -5440,31 +4570,6 @@ export interface Snsr {
      * @memberof Snsr
      */
     snsrunit?: string;
-}
-/**
- * 
- * @export
- * @interface Sort
- */
-export interface Sort {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
-     */
-    sorted?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
-     */
-    unsorted?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Sort
-     */
-    empty?: boolean;
 }
 /**
  * 
@@ -7051,13 +6156,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftBallPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingLeftBallPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingLeftBallPredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7098,18 +6200,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7127,13 +6217,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftInsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingLeftInsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingLeftInsidePredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7174,18 +6261,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7203,13 +6278,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftOutsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingLeftOutsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingLeftOutsidePredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7250,18 +6322,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7279,13 +6339,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftRetainerPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingLeftRetainerPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingLeftRetainerPredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7326,18 +6383,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7355,13 +6400,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightBallPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingRightBallPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingRightBallPredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7402,18 +6444,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7431,13 +6461,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightInsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingRightInsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingRightInsidePredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7478,18 +6505,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7507,13 +6522,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightOutsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingRightOutsidePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingRightOutsidePredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7554,18 +6566,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7583,13 +6583,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightRetainerPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getBearingRightRetainerPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getBearingRightRetainerPredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7630,18 +6627,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -7659,13 +6644,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEnginePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getEnginePredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getEnginePredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7704,18 +6686,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                 localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
                     (toDate as any).toISOString() :
                     toDate;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -7796,13 +6766,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getGearboxPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getGearboxPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getGearboxPredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -7841,18 +6808,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                 localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
                     (toDate as any).toISOString() :
                     toDate;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -8543,13 +7498,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWheelLeftPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getWheelLeftPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getWheelLeftPredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -8590,18 +7542,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                     toDate;
             }
 
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -8619,13 +7559,10 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWheelRightPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        getWheelRightPredictedData: async (carId: string, modelName: string, fromDate?: string, toDate?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'carId' is not null or undefined
             assertParamExists('getWheelRightPredictedData', 'carId', carId)
             // verify required parameter 'modelName' is not null or undefined
@@ -8664,18 +7601,6 @@ export const DatabaseJudgementControllerApiAxiosParamCreator = function (configu
                 localVarQueryParameter['to-date'] = (toDate as any instanceof Date) ?
                     (toDate as any).toISOString() :
                     toDate;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
             }
 
 
@@ -8771,14 +7696,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingLeftBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftBallInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingLeftBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftBallInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8787,14 +7709,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingLeftInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftInsideInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingLeftInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftInsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8803,14 +7722,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingLeftOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftOutsideInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingLeftOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftOutsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8819,14 +7735,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingLeftRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingLeftRetainerInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingLeftRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingLeftRetainerInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8835,14 +7748,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingRightBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightBallInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightBallPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingRightBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightBallInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightBallPredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8851,14 +7761,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingRightInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightInsideInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingRightInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightInsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8867,14 +7774,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingRightOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightOutsideInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingRightOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightOutsideInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8883,14 +7787,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBearingRightRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorBearingRightRetainerInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getBearingRightRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorBearingRightRetainerInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8899,14 +7800,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEnginePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorEngineInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEnginePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getEnginePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorEngineInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEnginePredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -8928,14 +7826,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getGearboxPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorGearboxInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getGearboxPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getGearboxPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorGearboxInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGearboxPredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9087,14 +7982,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getWheelLeftPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorWheelLeftInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelLeftPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getWheelLeftPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorWheelLeftInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelLeftPredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9103,14 +7995,11 @@ export const DatabaseJudgementControllerApiFp = function(configuration?: Configu
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getWheelRightPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageSensorWheelRightInterface>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelRightPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options);
+        async getWheelRightPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SensorWheelRightInterface>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWheelRightPredictedData(carId, modelName, fromDate, toDate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -9158,14 +8047,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftBallInterface> {
-            return localVarFp.getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingLeftBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftBallInterface>> {
+            return localVarFp.getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9173,14 +8059,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftInsideInterface> {
-            return localVarFp.getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingLeftInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftInsideInterface>> {
+            return localVarFp.getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9188,14 +8071,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftOutsideInterface> {
-            return localVarFp.getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingLeftOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftOutsideInterface>> {
+            return localVarFp.getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9203,14 +8083,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingLeftRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingLeftRetainerInterface> {
-            return localVarFp.getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingLeftRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingLeftRetainerInterface>> {
+            return localVarFp.getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9218,14 +8095,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightBallInterface> {
-            return localVarFp.getBearingRightBallPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingRightBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightBallInterface>> {
+            return localVarFp.getBearingRightBallPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9233,14 +8107,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightInsideInterface> {
-            return localVarFp.getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingRightInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightInsideInterface>> {
+            return localVarFp.getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9248,14 +8119,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightOutsideInterface> {
-            return localVarFp.getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingRightOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightOutsideInterface>> {
+            return localVarFp.getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9263,14 +8131,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBearingRightRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorBearingRightRetainerInterface> {
-            return localVarFp.getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getBearingRightRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorBearingRightRetainerInterface>> {
+            return localVarFp.getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9278,14 +8143,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEnginePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorEngineInterface> {
-            return localVarFp.getEnginePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getEnginePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorEngineInterface>> {
+            return localVarFp.getEnginePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9305,14 +8167,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getGearboxPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorGearboxInterface> {
-            return localVarFp.getGearboxPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getGearboxPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorGearboxInterface>> {
+            return localVarFp.getGearboxPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9452,14 +8311,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWheelLeftPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorWheelLeftInterface> {
-            return localVarFp.getWheelLeftPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getWheelLeftPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorWheelLeftInterface>> {
+            return localVarFp.getWheelLeftPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9467,14 +8323,11 @@ export const DatabaseJudgementControllerApiFactory = function (configuration?: C
          * @param {string} modelName 
          * @param {string} [fromDate] 
          * @param {string} [toDate] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWheelRightPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any): AxiosPromise<PageSensorWheelRightInterface> {
-            return localVarFp.getWheelRightPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(axios, basePath));
+        getWheelRightPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any): AxiosPromise<Array<SensorWheelRightInterface>> {
+            return localVarFp.getWheelRightPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9524,15 +8377,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingLeftBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingLeftBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftBallPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9541,15 +8391,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingLeftInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingLeftInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftInsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9558,15 +8405,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingLeftOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingLeftOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftOutsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9575,15 +8419,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingLeftRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingLeftRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingLeftRetainerPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9592,15 +8433,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingRightBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightBallPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingRightBallPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightBallPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9609,15 +8447,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingRightInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingRightInsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightInsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9626,15 +8461,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingRightOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingRightOutsidePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightOutsidePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9643,15 +8475,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getBearingRightRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getBearingRightRetainerPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getBearingRightRetainerPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9660,15 +8489,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getEnginePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getEnginePredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getEnginePredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getEnginePredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9691,15 +8517,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getGearboxPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getGearboxPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getGearboxPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getGearboxPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9862,15 +8685,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getWheelLeftPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getWheelLeftPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getWheelLeftPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getWheelLeftPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -9879,15 +8699,12 @@ export class DatabaseJudgementControllerApi extends BaseAPI {
      * @param {string} modelName 
      * @param {string} [fromDate] 
      * @param {string} [toDate] 
-     * @param {number} [page] Zero-based page index (0..N)
-     * @param {number} [size] The size of the page to be returned
-     * @param {Array<string>} [sort] Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatabaseJudgementControllerApi
      */
-    public getWheelRightPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, page?: number, size?: number, sort?: Array<string>, options?: any) {
-        return DatabaseJudgementControllerApiFp(this.configuration).getWheelRightPredictedData(carId, modelName, fromDate, toDate, page, size, sort, options).then((request) => request(this.axios, this.basePath));
+    public getWheelRightPredictedData(carId: string, modelName: string, fromDate?: string, toDate?: string, options?: any) {
+        return DatabaseJudgementControllerApiFp(this.configuration).getWheelRightPredictedData(carId, modelName, fromDate, toDate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -12791,13 +11608,130 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {Array<{ [key: string]: object; }>} requestBody 
+         * @param {ReTrainingInput} reTrainingInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrainRfc: async (requestBody: Array<{ [key: string]: object; }>, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'requestBody' is not null or undefined
-            assertParamExists('retrainRfc', 'requestBody', requestBody)
+        retrainIF: async (reTrainingInput: ReTrainingInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reTrainingInput' is not null or undefined
+            assertParamExists('retrainIF', 'reTrainingInput', reTrainingInput)
+            const localVarPath = `/api/retrain/if`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(reTrainingInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainLr: async (reTrainingInput: ReTrainingInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reTrainingInput' is not null or undefined
+            assertParamExists('retrainLr', 'reTrainingInput', reTrainingInput)
+            const localVarPath = `/api/retrain/lr`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(reTrainingInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainMLP: async (reTrainingInput: ReTrainingInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reTrainingInput' is not null or undefined
+            assertParamExists('retrainMLP', 'reTrainingInput', reTrainingInput)
+            const localVarPath = `/api/retrain/mlp`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(reTrainingInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainRfc: async (reTrainingInput: ReTrainingInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reTrainingInput' is not null or undefined
+            assertParamExists('retrainRfc', 'reTrainingInput', reTrainingInput)
             const localVarPath = `/api/retrain/rfc`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -12821,7 +11755,46 @@ export const MlControllerApiAxiosParamCreator = function (configuration?: Config
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(reTrainingInput, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainSVC: async (reTrainingInput: ReTrainingInput, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reTrainingInput' is not null or undefined
+            assertParamExists('retrainSVC', 'reTrainingInput', reTrainingInput)
+            const localVarPath = `/api/retrain/svc`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(reTrainingInput, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -13244,12 +12217,52 @@ export const MlControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {Array<{ [key: string]: object; }>} requestBody 
+         * @param {ReTrainingInput} reTrainingInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrainRfc(requestBody: Array<{ [key: string]: object; }>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RandomForestClassificationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrainRfc(requestBody, options);
+        async retrainIF(reTrainingInput: ReTrainingInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClusterResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrainIF(reTrainingInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrainLr(reTrainingInput: ReTrainingInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClassificationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrainLr(reTrainingInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrainMLP(reTrainingInput: ReTrainingInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClassificationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrainMLP(reTrainingInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrainRfc(reTrainingInput: ReTrainingInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RandomForestClassificationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrainRfc(reTrainingInput, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrainSVC(reTrainingInput: ReTrainingInput, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClassificationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrainSVC(reTrainingInput, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -13422,12 +12435,48 @@ export const MlControllerApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @param {Array<{ [key: string]: object; }>} requestBody 
+         * @param {ReTrainingInput} reTrainingInput 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrainRfc(requestBody: Array<{ [key: string]: object; }>, options?: any): AxiosPromise<RandomForestClassificationResponse> {
-            return localVarFp.retrainRfc(requestBody, options).then((request) => request(axios, basePath));
+        retrainIF(reTrainingInput: ReTrainingInput, options?: any): AxiosPromise<ClusterResponse> {
+            return localVarFp.retrainIF(reTrainingInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainLr(reTrainingInput: ReTrainingInput, options?: any): AxiosPromise<ClassificationResponse> {
+            return localVarFp.retrainLr(reTrainingInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainMLP(reTrainingInput: ReTrainingInput, options?: any): AxiosPromise<ClassificationResponse> {
+            return localVarFp.retrainMLP(reTrainingInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainRfc(reTrainingInput: ReTrainingInput, options?: any): AxiosPromise<RandomForestClassificationResponse> {
+            return localVarFp.retrainRfc(reTrainingInput, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ReTrainingInput} reTrainingInput 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrainSVC(reTrainingInput: ReTrainingInput, options?: any): AxiosPromise<ClassificationResponse> {
+            return localVarFp.retrainSVC(reTrainingInput, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -13607,13 +12656,57 @@ export class MlControllerApi extends BaseAPI {
 
     /**
      * 
-     * @param {Array<{ [key: string]: object; }>} requestBody 
+     * @param {ReTrainingInput} reTrainingInput 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MlControllerApi
      */
-    public retrainRfc(requestBody: Array<{ [key: string]: object; }>, options?: any) {
-        return MlControllerApiFp(this.configuration).retrainRfc(requestBody, options).then((request) => request(this.axios, this.basePath));
+    public retrainIF(reTrainingInput: ReTrainingInput, options?: any) {
+        return MlControllerApiFp(this.configuration).retrainIF(reTrainingInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ReTrainingInput} reTrainingInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public retrainLr(reTrainingInput: ReTrainingInput, options?: any) {
+        return MlControllerApiFp(this.configuration).retrainLr(reTrainingInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ReTrainingInput} reTrainingInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public retrainMLP(reTrainingInput: ReTrainingInput, options?: any) {
+        return MlControllerApiFp(this.configuration).retrainMLP(reTrainingInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ReTrainingInput} reTrainingInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public retrainRfc(reTrainingInput: ReTrainingInput, options?: any) {
+        return MlControllerApiFp(this.configuration).retrainRfc(reTrainingInput, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ReTrainingInput} reTrainingInput 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MlControllerApi
+     */
+    public retrainSVC(reTrainingInput: ReTrainingInput, options?: any) {
+        return MlControllerApiFp(this.configuration).retrainSVC(reTrainingInput, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

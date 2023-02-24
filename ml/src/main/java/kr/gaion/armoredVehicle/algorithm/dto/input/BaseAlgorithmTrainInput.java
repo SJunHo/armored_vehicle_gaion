@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -84,4 +85,6 @@ public class BaseAlgorithmTrainInput extends BaseAlgorithmInput {
 
     // for lr
     private double elasticNetMixing;
+
+    private List<Map<String, String>> dataForRetraining;
 }

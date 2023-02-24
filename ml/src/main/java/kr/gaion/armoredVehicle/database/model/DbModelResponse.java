@@ -39,6 +39,9 @@ public class DbModelResponse {
     @Column(name = "TRAINING_DATA_FILE_NAME")
     private String trainingDataFileName;
 
+    @Column(name = "FRACTION")
+    private Integer fraction;
+
     // Classification
     @Column(name = "weighted_false_positive_rate")
     private double weightedFalsePositiveRate;

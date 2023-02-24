@@ -1,5 +1,6 @@
 package kr.gaion.armoredVehicle.algorithm.clustering;
 
+import com.linkedin.relevance.isolationforest.IsolationForestModel;
 import kr.gaion.armoredVehicle.algorithm.AlgorithmConfig;
 import kr.gaion.armoredVehicle.algorithm.MLAlgorithm;
 import kr.gaion.armoredVehicle.algorithm.ModelUtilService;
@@ -16,6 +17,7 @@ import kr.gaion.armoredVehicle.dataset.config.StorageConfig;
 import kr.gaion.armoredVehicle.ml.service.ModelService;
 import kr.gaion.armoredVehicle.spark.DatabaseSparkService;
 import kr.gaion.armoredVehicle.spark.ElasticsearchSparkService;
+import kr.gaion.armoredVehicle.spark.dto.ReTrainingInput;
 import lombok.NonNull;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.ml.feature.StringIndexer;
@@ -34,6 +36,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static kr.gaion.armoredVehicle.dataset.service.DatabaseJudgementService.findClassLabel;
 
 //@Log4j2
 public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrainInput, BaseAlgorithmPredictInput> {
@@ -113,17 +117,6 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
 
     @Override
     public ClusterResponse train(ClusterTrainInput config) throws Exception {
-        Dataset<Row> trainData;
-
-//        if (config.isFeaturesSelectionEnableFlg()) {
-//            // get input data
-//            trainData = this.dimensionalityReduction.computePcaDataframeApi(config);
-//        } else {
-////      // get input data
-////      trainData = this.elasticsearchSparkService.getLabeledDatasetFromElasticsearch(config);
-//            trainData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
-//        }
-
         Dataset<Row> originalData = this.databaseSparkService.getLabeledDatasetFromDatabase(config);
         StringIndexerModel labelIndexer = new StringIndexer().setInputCol("label").setOutputCol("index").fit(originalData);
         Dataset<Row> indexedData = labelIndexer.transform(originalData);
@@ -164,12 +157,37 @@ public abstract class ClusterMlAlgorithm<TModel> extends MLAlgorithm<ClusterTrai
         response.setConfusionMatrix(metrics.confusionMatrix().toArray());
         response.setLabels(indicesLabelsMapping);
         this.doSaveModel(model, config);
-        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType(), config.getFileName());
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config);
         this.modelUtil.saveTrainedResults(config, response, this.algorithmName);
 
 //        enrichTrainResponse(response, model, resultDf, config);
 //        log.debug("trained successfully.");
         return response;
+    }
+
+    public ClusterResponse retrainIF(ReTrainingInput webData) throws Exception {
+
+        var modelName = webData.getModelName();
+        var model = IsolationForestModel.load(this.getModelFullPath(modelName));
+
+        var modelResponse = this.modelService.findDbModelResponse(webData.getAlgorithmName(), webData.getModelName());
+
+        ClusterTrainInput config = new ClusterTrainInput();
+        config.setPartType(webData.getPartType());
+        config.setFeatureCols(List.of(model.getFeaturesCol()));
+        config.setFraction(modelResponse.getFraction());
+        config.setFileName(modelResponse.getTrainingDataFileName());
+        config.setClassCol(findClassLabel(webData.getPartType()));
+        config.setDataForRetraining(webData.getNewData());
+        config.setModelName(webData.getModelName());
+
+        config.setNumEstimators(model.getNumEstimators());
+        config.setMaxFeatures((int) model.getMaxFeatures());
+        config.setMaxSamples((int) model.getMaxSamples());
+
+
+        return this.train(config);
+
     }
 
     protected abstract void doSaveModel(TModel model, ClusterTrainInput input) throws Exception;

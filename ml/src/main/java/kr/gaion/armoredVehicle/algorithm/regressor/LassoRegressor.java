@@ -171,7 +171,7 @@ public class LassoRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAlg
 
         response.setStatus(ResponseStatus.SUCCESS);
 
-        this.modelService.insertNewMlResponse(response, this.algorithmName, config.getModelName(), config.getPartType(), config.getFileName());
+        this.modelService.insertNewMlResponse(response, this.algorithmName, config);
 
         System.out.println(">>> Complete lasso regression training.");
 
