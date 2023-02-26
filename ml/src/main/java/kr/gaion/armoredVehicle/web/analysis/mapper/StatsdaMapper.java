@@ -18,4 +18,8 @@ public interface StatsdaMapper {
 	public List<StatsdaGroup> findStatsdaByGroupDivs(String operdate);
 	public List<StatsdaGroup> findStatsdaByGroupBN(String operdate, String divscode);
 	public void insertStatsda(Statsda statsda);
+	public int findSumMvmtdstcBySdaidAndTime(Map<String,Object> param);
+	public int findSumMvmtdstcBySdaid(String sdaid);
+	public int findCountBySdaidAndOperdate(Map<String,Object> param);
+	public int findCountBySdaidAll(String sdaid);
 }

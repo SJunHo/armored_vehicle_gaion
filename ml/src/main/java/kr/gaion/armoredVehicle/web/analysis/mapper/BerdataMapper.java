@@ -20,9 +20,15 @@ public interface BerdataMapper {
 	public List<Berdata> findBerdata(troubleDataRequest data);
 
 	public List<Berdata> findBerdataForExcel(ExcelDownByMonitorDiagnos info);
-	public int countSimulationByTable(troubleDataRequest data);
+	// 시뮬레이션 시 페이징을 위해 사용
+	public int countSimulationByTable();
+	// 시뮬레이션 데이터를 보여주기 위해 사용
 	public List<Berdata> findSimulation(troubleDataRequest data);
-
-	public int countBerlife();
+	
+	// 잔존 수명예지 부분의 BERLIFEDATA를 페이징 하기 위해 사용
+	public int countBerlife(troubleDataRequest data);
+	// 잔존 수명예지 부분의 BERLIFEDATA를 보여주기 위해 사용
 	public List<Berlife> findBerlife(troubleDataRequest data);
+	
+	public int findPart(Map<String, Object> data);
 }

@@ -36,8 +36,8 @@ public class StatisticalTableService {
 	DashboardMapper dashboardMapper;
 
 	public JSONObject findTable(String level, String url, Date date) {
-
-		DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String operdate = dateFormat.format(date);
 
 		JSONObject json = new JSONObject();
@@ -100,6 +100,11 @@ public class StatisticalTableService {
 				drive += cDrive;
 				outlier += cOutlier;
 				broken += cBroken;
+				
+				child.put("level", 1);
+				//자식트리 => 사단코드
+				child.put("divscode", c.getTrinfocode());
+				//자식트리이름 => 사단명
 				child.put("bn", c.getTrinfoname());
 				child.put("allcount", cAll);
 				child.put("ndrive", cAll - cDrive);
@@ -110,6 +115,9 @@ public class StatisticalTableService {
 				childList.add(child);
 			}
 
+			//자식트리 => 사단코드
+			top.put("level", 0);
+			top.put("divscode", "root");
 			top.put("bn", "총괄");
 			top.put("allcount", all);
 			top.put("ndrive", all-drive);
@@ -177,6 +185,8 @@ public class StatisticalTableService {
 				outlier += cOutlier;
 				broken += cBroken;
 				sumOutlierBroken += cAbnormal;
+				child.put("level", 2);
+				child.put("divscode", c.getTrinfocode());
 				child.put("bn", c.getTrinfoname());
 				child.put("allcount", cAll);
 				child.put("ndrive", cAll - cDrive);
@@ -186,6 +196,8 @@ public class StatisticalTableService {
 				child.put("broken", cBroken);
 				childList.add(child);
 			}
+			top.put("level", 1);
+			top.put("divscode", treeInfo.getTrinfocode());
 			top.put("bn", "총괄");
 			top.put("allcount", all);
 			top.put("ndrive", all-drive);
@@ -230,7 +242,7 @@ public class StatisticalTableService {
 					int bk = bkdsdaMapper.countBkd(param);
 
 					drive += dr;
-					outlier += ol;
+					outlier += ol>0?1:0;
 					broken += bk;
 					if(ol > 0) {
 						stateString += "O";
@@ -253,7 +265,9 @@ public class StatisticalTableService {
 				}
 			}
 			JSONObject top = new JSONObject();
-
+			
+			top.put("level", 2);
+			top.put("brgdbncode", treeInfo.getTrinfocode());
 			top.put("bn", "총괄");
 			top.put("allcount", all);
 			top.put("ndrive", all-drive);

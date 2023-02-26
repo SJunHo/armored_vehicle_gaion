@@ -14,14 +14,20 @@ import kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest;
 public interface WhldataMapper {
 
 	public void insertWhldata(Whldata whldata);
+	public void insertWhldataList(Map<String, Object> inputMap);
 	public void insertWhlsim(Whldata whldata);
+	public void insertWhlstatList(Map<String, Object> inputMap);
 	public List<Whldata> findWhldataBySdaidAndFilenm(Map<String,String> data);
 	
 	public int countWhldataByTable(troubleDataRequest data);
 	public List<Whldata> findWhldata(troubleDataRequest data);
 	
 	public List<Whldata> findWhldataForExcel(ExcelDownByMonitorDiagnos info);
-
-	public int countWhllife();
+	public int countSimulationByTable();
+	public List<Whldata> findSimulation(troubleDataRequest data);
+	
+	public int countWhllife(troubleDataRequest data);
 	public List<Whllife> findWhllife(troubleDataRequest data);
+	
+	public int findPart(Map<String, Object> data);
 }

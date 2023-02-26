@@ -2,17 +2,11 @@ package kr.gaion.armoredVehicle.web.analysis.service;
 
 import java.util.*;
 
+import kr.gaion.armoredVehicle.web.analysis.mapper.*;
 import kr.gaion.armoredVehicle.web.analysis.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import kr.gaion.armoredVehicle.web.analysis.mapper.CmncdMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.DtctsdaMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.SdaDataMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.SdaDataWithDtctsdaMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.SdaMapper;
-import kr.gaion.armoredVehicle.web.analysis.mapper.UsersnsrMapper;
 
 
 @Service
@@ -35,31 +29,52 @@ public class VehicleStaticsService {
 
 	@Autowired
 	SdaDataWithDtctsdaMapper sdadatawithdtctsdaMapper;
-
+	
+	@Autowired
+	FileInfoMapper fileInfoMapper;
+	
 	@Value("${periodic.table}")
 	private String periodic;
 
 	public Sda getEachInfo(String id) {
-
-		Map<String, Object> search = new HashMap<String, Object>();
-		search.put("sdaid", id);
-		List<Sda> sdaList = sdaMapper.findSda(search);
-		Sda sda = sdaList.get(0);
-		return sda;
+		
+		if(id == null) {
+			Sda sda = new Sda();
+			return sda;
+		}else {
+			Map<String, Object> search = new HashMap<String, Object>();
+			search.put("sdaid", id);
+			List<Sda> sdaList = sdaMapper.findSda(search);
+			Sda sda = sdaList.get(0);
+			return sda;
+		}
 	}
 
 	public List<Sda> getAllVehicleInfo(){
 		List<Sda> sda = sdaMapper.findSda(null);
 		return sda;
 	}
-
-	public List<SdaData> getFileWithId(String id){
+	
+	public List<Map<String, Object>> getFileWithId(String id){
 		String tableName = id + periodic;
 		HashMap<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
 		param.put("tableName", tableName);
-
-		List<SdaData> sdadata = sdaDataMapper.getFileWithId(param);
+		
+		List<Map<String, Object>> sdadata = Collections.emptyList();
+		
+		Integer countNotMapped = sdaDataMapper.getCountOfNotMappedFileInfo(id);
+		Integer count = sdaDataMapper.getCountOfFileInfo(id);
+		
+		if(count == 0) {
+			fileInfoMapper.insertFileInfoWithSdaidAll(param);
+		}else if(count > 0 && countNotMapped > 0) {
+			fileInfoMapper.deleteFileInfoWidSdaid(id);
+			fileInfoMapper.insertFileInfoWithSdaidAll(param);
+		}
+		
+		sdadata = sdaDataMapper.getFileInfoWithSdaid(id);
+		
 		return sdadata;
 	}
 
@@ -197,13 +212,19 @@ public class VehicleStaticsService {
 		Collections.sort(totalSdaData, comp);
 		return totalSdaData;
 	}
-
-	public String findRecentFile(String sdaid) {
-		String fileName = "null";
+	
+	public String findRecentFile(String sdaid,String operdate) {
+		//String fileName = "null";
+		String fileName = null;
 		String tablenm = sdaid+periodic;
 
+		if("null".equals(operdate)) {
+			operdate = null;
+		}
+		
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("tablenm", tablenm);
+		param.put("operdate", operdate);
 		List<FilenmDttimeForDefaultBookmark> defaultBookmark = sdaDataMapper.findRecentFile(param);
 		if(defaultBookmark.size() > 0 ) {
 			String recentDate = defaultBookmark.get(0).getDttime().toString();

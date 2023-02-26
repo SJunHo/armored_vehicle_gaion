@@ -2,14 +2,13 @@ package kr.gaion.armoredVehicle.web.analysis.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import kr.gaion.armoredVehicle.web.analysis.mapper.*;
-import kr.gaion.armoredVehicle.web.analysis.model.*;
 import kr.gaion.armoredVehicle.web.utils.Paging;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,7 +18,26 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.gaion.armoredVehicle.web.analysis.mapper.BerdataMapper;
+import kr.gaion.armoredVehicle.web.analysis.mapper.EngdataMapper;
+import kr.gaion.armoredVehicle.web.analysis.mapper.GrbdataMapper;
+import kr.gaion.armoredVehicle.web.analysis.mapper.ParamdescMapper;
+import kr.gaion.armoredVehicle.web.analysis.mapper.SdaMapper;
+import kr.gaion.armoredVehicle.web.analysis.mapper.WhldataMapper;
+import kr.gaion.armoredVehicle.web.analysis.model.Berdata;
+import kr.gaion.armoredVehicle.web.analysis.model.Engdata;
+import kr.gaion.armoredVehicle.web.analysis.model.ExcelDownByMonitorDiagnos;
+import kr.gaion.armoredVehicle.web.analysis.model.Grbdata;
+import kr.gaion.armoredVehicle.web.analysis.model.Paramdesc;
+import kr.gaion.armoredVehicle.web.analysis.model.ParamdescRequest;
+import kr.gaion.armoredVehicle.web.analysis.model.Sda;
+import kr.gaion.armoredVehicle.web.analysis.model.Whldata;
+import kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest;
 
+
+/*
+ * 고장진단 경고 모니터링 관련 서비스
+ * */
 @Service
 public class MonitorDiagnosService {
 	
@@ -75,9 +93,7 @@ public class MonitorDiagnosService {
 				
 				map.put("troubleList", troubleBerData);
 				map.put("paging", paging);
-				for(Berdata b: troubleBerData) {
-					System.out.println(b.getDate());
-				}
+
 				break;
 			
 			case "ENGINE":
@@ -98,7 +114,6 @@ public class MonitorDiagnosService {
 				
 				map.put("troubleList", troubleEngData);
 				map.put("paging", paging);
-				System.out.println(map);
 				break;
 			
 			case "GEARBOX":
@@ -119,7 +134,6 @@ public class MonitorDiagnosService {
 				
 				map.put("troubleList", troubleGrbData);
 				map.put("paging", paging);
-				System.out.println(map);
 				break;
 				
 			case "WHEEL":
@@ -140,28 +154,6 @@ public class MonitorDiagnosService {
 				
 				map.put("troubleList", troubleWhlData);
 				map.put("paging", paging);
-				System.out.println(map);
-				break;
-
-			case "SIMULATION":
-				paging.setTotalcount(berdataMapper.countSimulationByTable(data));
-				paging.setPagenum(page -1);
-				paging.setContentnum(pageSize);
-				paging.setCurrentblock(paging.getTotalcount());
-
-				paging.prevnext(page);
-				paging.setStartPage(paging.getCurrentblock());
-				paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
-				paging.setTotalPageCount();
-
-				data.setPage(paging.getPagenum()*pageSize);
-				data.setSize(paging.getContentnum());
-
-				List<Berdata> simulationData = berdataMapper.findSimulation(data);
-
-				map.put("troubleList", simulationData);
-				map.put("paging", paging);
-
 				break;
 		}
 		
@@ -174,13 +166,13 @@ public class MonitorDiagnosService {
 		if(startDate != null){
 			startDate = startDate.substring(0, 10);
 			startDate = startDate + " 00:00:00";
-			data.setStartDate(startDate);
+			data.setStartDate(startDate);			
 		}
 		String endDate = data.getEndDate();
 		if(endDate != null){
 			endDate = endDate.substring(0, 10);
 			endDate = endDate + " 23:59:59";
-			data.setEndDate(endDate);
+			data.setEndDate(endDate);			
 		}
 	}
 	
@@ -496,7 +488,7 @@ public class MonitorDiagnosService {
 		cell = row.createCell(4);
 		cell.setCellValue("E_V_OverallRMS");		
 		cell = row.createCell(5);
-		cell.setCellValue("E_V_1_2X");
+		cell.setCellValue("E_V_1-2X");
 		cell = row.createCell(6);
 		cell.setCellValue("E_V_1X");
 
@@ -734,36 +726,131 @@ public class MonitorDiagnosService {
 		}
 		return wb;
 	}
-
-	
-
-//	public Map<String, Object> getAllTroubleDataForChart(troubleDataRequest data){
-//		Map<String, Object> forChartData = new HashMap<String, Object>();
-//		
-//		switch(data.getPart().toString()) {
-//			case "ber":
-//				List<Berdata> listForChartBerData = berdataMapper.findForChart(data);
-//				forChartData.put("data", listForChartBerData);
-//				break;
-//			case "eng":
-//				List<Engdata> listForChartEngData = engdataMapper.findForChart(data);
-//				forChartData.put("data", listForChartEngData);
-//				break;
-//			case "grb":
-//				List<Grbdata> listForChartGrbData = grbdataMapper.findForChart(data);
-//				forChartData.put("data", listForChartGrbData);
-//				break;
-//			default:
-//				List<Whldata> listForChartWhlData = whldataMapper.findForChart(data);
-//				forChartData.put("data" , listForChartWhlData);
-//		}
-//		return forChartData;
-//	}
 	
 	public List<Paramdesc> getParamdescList(ParamdescRequest param) {
 		List<Paramdesc> List = paramdescMapper.findParamdesc(param);
 		
 		return List;
+	}
+	
+	public Map<String, Object> getSimulationData(troubleDataRequest data) {
+		changeDate(data);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String partName = data.getPart();
+
+		Paging paging = new Paging();
+		int page = data.getPage();
+		int pageSize = data.getSize();
+		String sdaid = data.getSdaid().toUpperCase();
+		
+		switch(partName) {
+			case "BEARING":
+				paging.setTotalcount(berdataMapper.countSimulationByTable());
+				paging.setPagenum(page -1);
+				paging.setContentnum(pageSize);
+				paging.setCurrentblock(paging.getTotalcount());
+				
+				paging.prevnext(page);
+				paging.setStartPage(paging.getCurrentblock());
+				paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
+				paging.setTotalPageCount();
+				
+				data.setPage(paging.getPagenum()*pageSize);
+				data.setSize(paging.getContentnum());
+				
+				List<Berdata> troubleBerData = berdataMapper.findSimulation(data);
+				
+				map.put("troubleList", troubleBerData);
+				map.put("paging", paging);
+
+				break;
+			
+			case "ENGINE":
+				paging.setTotalcount(engdataMapper.countSimulationByTable());
+				paging.setPagenum(page -1);
+				paging.setContentnum(pageSize);
+				paging.setCurrentblock(paging.getTotalcount());
+				
+				paging.prevnext(page);
+				paging.setStartPage(paging.getCurrentblock());
+				paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
+				paging.setTotalPageCount();
+				
+				data.setPage(paging.getPagenum()*pageSize);
+				data.setSize(paging.getContentnum());
+				
+				List<Engdata> troubleEngData = engdataMapper.findSimulation(data);
+				
+				map.put("troubleList", troubleEngData);
+				map.put("paging", paging);
+				break;
+			
+			case "GEARBOX":
+				paging.setTotalcount(grbdataMapper.countSimulationByTable());
+				paging.setPagenum(page -1);
+				paging.setContentnum(pageSize);
+				paging.setCurrentblock(paging.getTotalcount());
+				
+				paging.prevnext(page);
+				paging.setStartPage(paging.getCurrentblock());
+				paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
+				paging.setTotalPageCount();
+				
+				data.setPage(paging.getPagenum()*pageSize);
+				data.setSize(paging.getContentnum());
+				
+				List<Grbdata> troubleGrbData = grbdataMapper.findSimulation(data);
+				
+				map.put("troubleList", troubleGrbData);
+				map.put("paging", paging);
+				break;
+				
+			case "WHEEL":
+				paging.setTotalcount(whldataMapper.countSimulationByTable());
+				paging.setPagenum(page -1);
+				paging.setContentnum(pageSize);
+				paging.setCurrentblock(paging.getTotalcount());
+				
+				paging.prevnext(page);
+				paging.setStartPage(paging.getCurrentblock());
+				paging.setEndPage(paging.getLastblock(), paging.getCurrentblock());
+				paging.setTotalPageCount();
+				
+				data.setPage(paging.getPagenum()*pageSize);
+				data.setSize(paging.getContentnum());
+				
+				List<Whldata> troubleWhlData = whldataMapper.findSimulation(data);
+				
+				map.put("troubleList", troubleWhlData);
+				map.put("paging", paging);
+				break;
+			
+			}
+		return map;
+	}
+	
+	
+	public String findPart(String id, Date startdate) {
+		String part = null;
+		Map<String,Object> data = new HashMap<String, Object>();
+		data.put("startdate", startdate);
+		data.put("sdaid", id);
+		
+		int bCount = berdataMapper.findPart(data);
+		int eCount = engdataMapper.findPart(data);
+		int gCount = grbdataMapper.findPart(data);
+		int wCount = whldataMapper.findPart(data);
+		
+		if(bCount > 0) {
+			part = "BEARING";
+		}else if(eCount > 0) {
+			part = "ENGINE";
+		}else if(gCount > 0) {
+			part = "GEARBOX";
+		}else if(wCount > 0) {
+			part = "WHEEL";
+		}
+		return part;
 	}
 }
 

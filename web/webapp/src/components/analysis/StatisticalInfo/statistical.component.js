@@ -18,6 +18,11 @@ import '../../../css/style.css';
 import {FaBell} from "react-icons/fa";
 import moment from 'moment';
 
+import xlsx from "xlsx";
+import { left } from "@popperjs/core";
+
+import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight  } from "react-icons/fa";
+
 class Statistical extends Component {
   
   constructor(props) {
@@ -97,11 +102,13 @@ class Statistical extends Component {
         },
       ]
     };
+    this.handleChangeYesterday = this.handleChangeYesterday.bind(this);
+    this.handleChangeTomorrow = this.handleChangeTomorrow.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createNotification = this.createNotification.bind(this);
     this.popUpClear = this.popUpClear.bind(this);
-
+    this.handleExcelDownload = this.handleExcelDownload.bind(this);
   }
 
   componentDidMount() {
@@ -111,17 +118,9 @@ class Statistical extends Component {
     });
     statisticalService.getTree().then(
       response => {
-        // let treedata = response.data;
-        // let divdepth = new Array();
-        // divdepth.push("tree");
-        // treedata.tree.nodes.forEach((i)=>{
-        //   let treeid = "tree/" +i.key;
-        //   divdepth.push(treeid);
-        // })
         this.setState({
           treeArray: response.data,
         });
-        console.log(response.data);
       },
       error => {
         this.setState({
@@ -161,7 +160,6 @@ class Statistical extends Component {
           tableData : response.data,
         });
         let endTable = new Date();
-        console.log(endTable - startTable);
       },
       error => {
         this.setState({
@@ -175,7 +173,6 @@ class Statistical extends Component {
 
     statisticalService.getPopUpInfo(this.state.user.id).then(
       response => {
-        console.log(response.data);
         let data = [];
         data = response.data;
         if(data.length !== 0){
@@ -260,6 +257,7 @@ class Statistical extends Component {
         });
       },
       error => {
+        debugger
         this.setState({
           tableData:
             (error.response && error.response.data) ||
@@ -310,7 +308,6 @@ class Statistical extends Component {
             break;
         }
       });
-
       let avgsdt = [];
       if(avgsdtData!= null){
         Object.entries(avgsdtData).forEach(two => {
@@ -321,7 +318,6 @@ class Statistical extends Component {
           avgsdt.push(avgs);
         });
       }
-      console.log(avgsdt);
       let engnnldnrate = [];
       if(engnnldnrateData!= null){
         Object.entries(engnnldnrateData).forEach(two => {
@@ -396,6 +392,16 @@ class Statistical extends Component {
     });
 
   }
+  
+  handleChangeYesterday(){
+	let yesterday = moment(this.state.startDate).subtract(1, 'days');
+	this.handleChange(yesterday.toDate());
+  }
+  
+  handleChangeTomorrow(){
+	let tomorrow = moment(this.state.startDate).add(1,'days');
+	this.handleChange(tomorrow.toDate());
+  }
 
   handleChange(date){
     this.setState({
@@ -410,8 +416,10 @@ class Statistical extends Component {
 
   clickOutlierWaning(param){
     statisticalService.getId(param).then((response) => {
+      let id= response.data;
+      let startdate = moment(this.state.startDate).format('YYYY-MM-DD');
       if(window.confirm("이상치경고모니터링으로 이동하시겠습니까?")){
-        window.location.href = "/monitoroutlierwarning/"+response.data;
+        window.location.href = "/monitoroutlierwarning/"+id+"/"+startdate;
       }
     })
     .catch((e) => {
@@ -421,21 +429,37 @@ class Statistical extends Component {
   }
 
   clickTroubleShooting(param){
-    statisticalService.getId(param).then((response) => {
-      if(window.confirm("고장진단경고모니터링으로 이동하시겠습니까?")){
-        window.location.href = "/monitordiagnostictroublealerts/"+response.data;
-      }
+    let id = null;
+    let part = null;
+    let startdate = moment(this.state.startDate).format('YYYY-MM-DD');
+    statisticalService.getId(param).then((response) => {   
+      id = response.data;
+      console.log(id);
+      statisticalService.getPart(id, this.state.startDate).then((response)=>{
+        part = response.data;
+        console.log(part);
+        if(window.confirm("고장예지경고모니터링으로 이동하시겠습니까?")){
+          window.location.href = "/monitordiagnostictroublealerts/"+id+"/"+startdate+"/"+part;
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      }); 
+    },()=>{
     })
     .catch((e) => {
         console.log(e);
     }); 
     
+    
+    
   }
 
   clickVehicleInfo(param){
     statisticalService.getId(param).then((response) => {
+      let id = response.data;
       if(window.confirm("차량정보조회화면으로 이동하시겠습니까?")){
-        window.location.href = "/searchEachInfo/"+response.data;
+        window.location.href = "/searchEachInfo/?id="+id;
       }
     })
     .catch((e) => {
@@ -471,6 +495,29 @@ class Statistical extends Component {
     NotificationManager.removeAll();
   }
 
+  handleExcelDownload(){
+    let tableData = this.state.tableResult;
+    const header = {
+      bn : "구분",
+      allcount : "총대수",
+      ndrive : "미운행",
+      drive : "운행",
+      normal : "정상",
+      outlier : "이상치경고",
+      broken : "고장경고"
+    }
+
+    tableData.unshift(header);
+    let todayDate = moment(this.state.startDate).format('YYYYMMDD');
+    const xlsx = require( "xlsx" );
+    const book = xlsx.utils.book_new();
+    const data = xlsx.utils.json_to_sheet(tableData, {skipHeader:true});
+    
+    xlsx.utils.book_append_sheet(book, data, `statistical_${todayDate}`);
+
+    xlsx.writeFile( book, `statistical_${todayDate}.xlsx` );
+  }
+
   render() {
     
     return (
@@ -497,7 +544,6 @@ class Statistical extends Component {
             {({ items }) => (
               <div>
                 <ul className="tree-item-group">
-                {console.log(items)}
                 {items.map(({key, ...props }) => (
                     <ul key={key} className={
                       props.label.includes("25사단") 
@@ -523,20 +569,32 @@ class Statistical extends Component {
         </div>
         <div className="contents col">
           <div className="stable">
-            <div className="detepicker-div">
-            {/* <button className="btn-exceldownload" onClick={() => this.handleExcelDownload()}>다운로드</button> */}
-            <form className="datepicker-form" onSubmit={this.onFormSubmit}>
-              <div className="form-group sub-date">
-                <DatePicker 
-                  selected={this.state.startDate}
-                  onChange={this.handleChange}
-                  name="startDate"
-                  dateFormat="yyyy/MM/dd"
-                  locale={ko}
-                />
-              </div>
-            </form>
-            </div>
+          	<div className="d-flex justify-content-end">
+          		<div className="d-flex justify-content-end">
+          			<div className="col d-flex align-items-center justify-content-end pb-3">
+          				<FaRegArrowAltCircleLeft className="icon" size="24" style={{cursor:"hand"}} onClick={()=> this.handleChangeYesterday()}/>
+      				</div>
+		            <div className="col detepicker-div">
+		            	{/* <button className="btn-exceldownload" onClick={() => this.handleExcelDownload()}>다운로드</button> */}
+			            <form className="datepicker-form" onSubmit={this.onFormSubmit}>
+			          		<div className="form-group sub-date">
+				          		<DatePicker 
+				                  selected={this.state.startDate}
+				                  onChange={this.handleChange}
+				                  name="startDate"
+				                  dateFormat="yyyy/MM/dd"
+				                  locale={ko}
+				                  popperPlacement="bottom-end"
+				                />
+				            </div>
+			            </form>
+		            </div>
+		            <div className="col d-flex align-items-center justify-content-start pb-3">
+		            	<FaRegArrowAltCircleRight className="icon" size="24" style={{cursor:"hand"}} onClick={()=> this.handleChangeTomorrow()}/>
+	            	</div>
+          		</div>
+          	</div>
+          	
             <div className="table-div">
             {
               (
@@ -563,13 +621,13 @@ class Statistical extends Component {
 
                             {
                               amvh[1].includes("O")
-                              ? <button className="btn btn-danger" onClick={()=>{this.clickOutlierWaning(amvh[0]);}}>이상</button>
+                              ? <button className="btn btn-danger" style={{cursor:'default'}}>이상</button>
                               : <button className="btn btn-light" disabled>이상</button> 
                             }
 
                             {
                               amvh[1].includes("B")
-                              ? <button className="btn btn-danger" onClick={()=>{this.clickTroubleShooting(amvh[0]);}}>고장</button>
+                              ? <button className="btn btn-danger" style={{cursor:'default'}}>고장</button>
                               : <button className="btn btn-light" disabled>고장</button>
                             }
                             </div>
@@ -586,7 +644,7 @@ class Statistical extends Component {
                       width={230}
                       height={200}
                       margin={{ top: 30, right: 5, bottom: 30, left: 10 }}
-                      data={this.state.avgsdtGraphData}
+                      data={this.state.mvmttimeGraphData}
                       indexBy="bn"
                       keys={["value"]}
                       // colors={color}
@@ -600,7 +658,7 @@ class Statistical extends Component {
                       width={230}
                       height={200}
                       margin={{ top: 30, right: 5, bottom: 30, left: 5 }}
-                      data={this.state.engnnldnrateGraphData}
+                      data={this.state.mvmtdstcGraphData}
                       indexBy="bn"
                       keys={["value"]}
                       // colors={color}
@@ -616,7 +674,7 @@ class Statistical extends Component {
                       width={230}
                       height={200}
                       margin={{ top: 30, right: 5, bottom: 30, left: 5 }}
-                      data={this.state.mvmtdstcGraphData}
+                      data={this.state.avgsdtGraphData}
                       indexBy="bn"
                       keys={["value"]}
                       //colors={color}
@@ -630,7 +688,7 @@ class Statistical extends Component {
                       width={230}
                       height={200}
                       margin={{ top: 30, right: 10, bottom: 30, left: 5 }}
-                      data={this.state.mvmttimeGraphData}
+                      data={this.state.engnnldnrateGraphData}
                       indexBy="bn"
                       keys={["value"]}
                       //colors={color}

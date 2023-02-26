@@ -34,13 +34,14 @@ public class MonitorRemainingService {
 	WhldataMapper whldataMapper;
 	
 	public Map<String, Object> getBerlife(troubleDataRequest data){
+		changeDate(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Paging paging = new Paging();
 		int page = data.getPage();
 		int pageSize = data.getSize();
 		
-		paging.setTotalcount(berdataMapper.countBerlife());
+		paging.setTotalcount(berdataMapper.countBerlife(data));
 		paging.setPagenum(page -1);
 		paging.setContentnum(pageSize);
 		paging.setCurrentblock(paging.getTotalcount());
@@ -62,13 +63,14 @@ public class MonitorRemainingService {
 	}
 	
 	public Map<String, Object> getEnglife(troubleDataRequest data){
+		changeDate(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Paging paging = new Paging();
 		int page = data.getPage();
 		int pageSize = data.getSize();
 		
-		paging.setTotalcount(engdataMapper.countEnglife());
+		paging.setTotalcount(engdataMapper.countEnglife(data));
 		paging.setPagenum(page -1);
 		paging.setContentnum(pageSize);
 		paging.setCurrentblock(paging.getTotalcount());
@@ -90,13 +92,14 @@ public class MonitorRemainingService {
 	}
 	
 	public Map<String, Object> getGrblife(troubleDataRequest data){
+		changeDate(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Paging paging = new Paging();
 		int page = data.getPage();
 		int pageSize = data.getSize();
 		
-		paging.setTotalcount(grbdataMapper.countGrblife());
+		paging.setTotalcount(grbdataMapper.countGrblife(data));
 		paging.setPagenum(page -1);
 		paging.setContentnum(pageSize);
 		paging.setCurrentblock(paging.getTotalcount());
@@ -118,13 +121,14 @@ public class MonitorRemainingService {
 	}
 	
 	public Map<String, Object> getWhllife(troubleDataRequest data){
+		changeDate(data);
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Paging paging = new Paging();
 		int page = data.getPage();
 		int pageSize = data.getSize();
 		
-		paging.setTotalcount(whldataMapper.countWhllife());
+		paging.setTotalcount(whldataMapper.countWhllife(data));
 		paging.setPagenum(page -1);
 		paging.setContentnum(pageSize);
 		paging.setCurrentblock(paging.getTotalcount());
@@ -143,5 +147,17 @@ public class MonitorRemainingService {
 		map.put("paging", paging);
 		
 		return map;
+	}
+	
+	public void changeDate(troubleDataRequest data) {
+		String startDate = data.getStartDate();
+		startDate = startDate.substring(0, 10);
+		startDate = startDate + " 00:00:00";
+		data.setStartDate(startDate);
+		
+		String endDate = data.getEndDate();
+		endDate = endDate.substring(0, 10);
+		endDate = endDate + " 23:59:59";
+		data.setEndDate(endDate);
 	}
 }
