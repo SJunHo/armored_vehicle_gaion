@@ -28,5 +28,10 @@ public class Berlife {
 	double B_Temperature;
 	int AI_Trip;
 	String FILENM;
-	
+	int remainDistance;
+	double remainRatio;
+	double remainTime;
+	String AI_Trip_DATE;
+	String date;
+
 }

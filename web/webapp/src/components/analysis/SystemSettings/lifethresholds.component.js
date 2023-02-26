@@ -101,7 +101,7 @@ class LifeThresholds extends Component {
           <tr>
             <td className="col-3">센서명</td>
             <td className="col-3">기준수명(KM)</td>
-            <td className="col-3">기준수명(Years)</td>
+            <td className="col-3">기준수명(년)</td>
             <td className="col-3">적용여부</td>
           </tr>
           </thead>

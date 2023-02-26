@@ -100,19 +100,90 @@
 		limit #{page}, #{size}
 	</select>
 
-	<select id="countBerlife" resultType="Integer">
+	<select id="countBerlife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest" resultType="Integer">
 		select ifnull(count(idx),0)
 		from BERLIFEDATA
 		where AI_Trip is not null
+		<if test="sdaid != null">
+			and SDAID = #{sdaid}
+		</if>
+		<if test="startDate != null and endDate != null">
+			and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		</if>
 	</select>
 
 	<select id="findBerlife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
 			resultType="kr.gaion.armoredVehicle.web.analysis.model.Berlife">
-		select *
-		from BERLIFEDATA
-		where 1 = 1
-		and AI_Trip is not null
-		order by idx
-		limit #{page}, #{size}
+		select
+			case
+				when T.DISTANCE-T.AI_Trip <![CDATA[<]]> 0 then 0
+				ELSE
+					T.DISTANCE-T.AI_Trip
+			end as REMAINDISTANCE,
+			case
+				when ((T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE) <![CDATA[<]]> 0 then 0
+				else
+					(T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE
+			end as REMAINRATIO,
+			T.*,
+			YEARS,
+			case
+				when ((T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE) <![CDATA[<]]> 0 then 0
+				else
+					(T.DISTANCE-T.AI_Trip) * YEARS / T.DISTANCE
+			end as REMAINTIME
+		from (
+			select
+				IDX
+				, AI_Trip
+				, (SELECT DISTANCE FROM LIFETHRESHOLD WHERE SNSRTYPE='BEARING') AS DISTANCE
+				, (SELECT YEARS FROM LIFETHRESHOLD WHERE SNSRTYPE='BEARING') AS YEARS
+				, AI_Trip_ALGO
+				, AI_Trip_MODEL
+				, DATE_FORMAT(AI_Trip_DATE,'%Y-%m-%d') AS AI_Trip_DATE
+				, B_OverallRMS
+				, B_1X
+				, B_6912BPFO
+				, B_6912BPFI
+				, B_6912BSF
+				, B_6912FTF
+				, B_32924BPFO
+				, B_32924BPFI
+				, B_32924BSF
+				, B_32924FTF
+				, B_32922BPFO
+				, B_32922BPFI
+				, B_32922BSF
+				, B_32922FTF
+				, B_CrestFactor
+				, B_Demodulation
+				, B_Fault1
+				, B_Fault2
+				, B_Temperature
+				, FILENM
+				, SDAID
+				, DATE_FORMAT(DATE,'%Y-%m-%d') AS DATE
+			from BERLIFEDATA
+			where 1 = 1
+			and AI_Trip is not null
+			<if test="sdaid != null">
+				and SDAID = #{sdaid}
+			</if>
+			<if test="startDate != null and endDate != null">
+				and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+			</if>
+			order by idx
+			limit #{page}, #{size}
+		) T
+	</select>
+
+	<select id="findPart" parameterType="java.util.Map"
+		resultType="Integer">
+		select ifnull(count(*),0)
+		from BERDATA
+		where (AI_LBPFO = 1 OR AI_LBPFI = 1 OR AI_LBSF = 1 OR AI_LFTF = 1
+			OR AI_RBPFO = 1 OR AI_RBPFI= 1 OR AI_RBSF = 1 OR AI_RFTF = 1 )
+		and DATE_FORMAT(`DATE`,'%Y-%m-%d') = DATE_FORMAT(#{startdate},'%Y-%m-%d')
+		and SDAID = #{sdaid}
 	</select>
 </mapper>

@@ -13,5 +13,10 @@ public class Englife {
 	double E_CrestFactor;
 	int AI_Trip;
 	String FILENM;
-	
+	String SDAID;
+	int remainDistance;
+	double remainRatio;
+	double remainTime;
+	String AI_Trip_DATE;
+	String date;
 }

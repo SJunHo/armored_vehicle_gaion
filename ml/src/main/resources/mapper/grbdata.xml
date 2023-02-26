@@ -62,19 +62,78 @@
 		order by g.DATE
 	</select>
 
-	<select id="countGrblife" resultType="Integer">
+	<select id="countGrblife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
+			resultType="Integer">
 		select ifnull(count(idx),0)
 		from GRBLIFEDATA
 		where AI_Trip is not null
+		<if test="sdaid != null">
+			and SDAID = #{sdaid}
+		</if>
+		<if test="startDate != null and endDate != null">
+			and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+		</if>
 	</select>
 
 	<select id="findGrblife" parameterType="kr.gaion.armoredVehicle.web.analysis.model.troubleDataRequest"
 			resultType="kr.gaion.armoredVehicle.web.analysis.model.Grblife">
-		select *
-		from GRBLIFEDATA
-		where 1 = 1
-		and AI_Trip is not null
-		order by idx
-		limit #{page}, #{size}
+		select
+			case
+				when T.DISTANCE-T.AI_Trip <![CDATA[<]]> 0 then 0
+				ELSE
+					T.DISTANCE-T.AI_Trip
+			end as REMAINDISTANCE,
+			case
+				when ((T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE) <![CDATA[<]]> 0 then 0
+				else
+					(T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE
+			end as REMAINRATIO,
+			T.*,
+			YEARS,
+			case
+				when ((T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE) <![CDATA[<]]> 0 then 0
+				else
+					(T.DISTANCE-T.AI_Trip) * YEARS / T.DISTANCE
+			end as REMAINTIME
+		from (
+			select
+				IDX
+				, AI_Trip
+				, (SELECT DISTANCE FROM LIFETHRESHOLD WHERE SNSRTYPE='REDUCER') AS DISTANCE
+				, (SELECT YEARS FROM LIFETHRESHOLD WHERE SNSRTYPE='REDUCER') AS YEARS
+				, AI_Trip_ALGO
+				, AI_Trip_MODEL
+				, DATE_FORMAT(AI_Trip_DATE,'%Y-%m-%d') AS AI_Trip_DATE
+				, G_OverallRMS
+				, G_Wheel1X
+				, G_Wheel2X
+				, G_Pinion1X
+				, G_Pinion2X
+				, G_GMF1X
+				, G_GMF2X
+				, FILENM
+				, SDAID
+				, DATE_FORMAT(DATE,'%Y-%m-%d') AS DATE
+			from GRBLIFEDATA
+			where 1 = 1
+			and AI_Trip is not null
+			<if test="sdaid != null">
+				and SDAID = #{sdaid}
+			</if>
+			<if test="startDate != null and endDate != null">
+				and DATE between STR_TO_DATE(#{startDate}, '%Y-%m-%d %H:%i:%s') and STR_TO_DATE(#{endDate}, '%Y-%m-%d %H:%i:%s')
+			</if>
+			order by idx
+			limit #{page}, #{size}
+		) T
+	</select>
+
+	<select id="findPart" parameterType="java.util.Map"
+		resultType="Integer">
+		select ifnull(count(*),0)
+		from GRBDATA
+		where AI_GEAR = 1
+		and DATE_FORMAT(`DATE`,'%Y-%m-%d') = DATE_FORMAT(#{startdate},'%Y-%m-%d')
+		and SDAID = #{sdaid}
 	</select>
 </mapper>
