@@ -362,7 +362,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiLbsf(input.getAiPredict());
+                    sensorBearing.setAiLbsf((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiLbsfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLbsfModel(input.getAiModelName());
                     sensorBearing.setAiLbsfDate(new Date());
@@ -375,7 +375,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiLbpfi(input.getAiPredict());
+                    sensorBearing.setAiLbpfi((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiLbpfiAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLbpfiModel(input.getAiModelName());
                     sensorBearing.setAiLbpfiDate(new Date());
@@ -388,7 +388,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiLbpfo(input.getAiPredict());
+                    sensorBearing.setAiLbpfo((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiLbpfoAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLbpfoModel(input.getAiModelName());
                     sensorBearing.setAiLbpfoDate(new Date());
@@ -401,7 +401,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiLftf(input.getAiPredict());
+                    sensorBearing.setAiLftf((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiLftfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiLftfModel(input.getAiModelName());
                     sensorBearing.setAiLftfDate(new Date());
@@ -414,7 +414,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiRbsf(input.getAiPredict());
+                    sensorBearing.setAiRbsf((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiRbsfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRbsfModel(input.getAiModelName());
                     sensorBearing.setAiRbsfDate(new Date());
@@ -427,7 +427,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiRbpfi(input.getAiPredict());
+                    sensorBearing.setAiRbpfi((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiRbpfiAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRbpfiModel(input.getAiModelName());
                     sensorBearing.setAiRbpfiDate(new Date());
@@ -440,7 +440,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiRbpfo(input.getAiPredict());
+                    sensorBearing.setAiRbpfo((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiRbpfoAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRbpfoModel(input.getAiModelName());
                     sensorBearing.setAiRbpfoDate(new Date());
@@ -453,7 +453,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorBearing sensorBearing = sensorBearingRepository.findById(input.getId()).orElse(null);
                     assert sensorBearing != null;
-                    sensorBearing.setAiRftf(input.getAiPredict());
+                    sensorBearing.setAiRftf((int) input.getAiPredict().doubleValue());
                     sensorBearing.setAiRftfAlgorithm(input.getAiAlgorithmName());
                     sensorBearing.setAiRftfModel(input.getAiModelName());
                     sensorBearing.setAiRftfDate(new Date());
@@ -466,7 +466,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorWheel sensorWheel = sensorWheelRepository.findById(input.getId()).orElse(null);
                     assert sensorWheel != null;
-                    sensorWheel.setAiLw(input.getAiPredict());
+                    sensorWheel.setAiLw((int) input.getAiPredict().doubleValue());
                     sensorWheel.setAiLwAlgorithm(input.getAiAlgorithmName());
                     sensorWheel.setAiLwModel(input.getAiModelName());
                     sensorWheel.setAiLwDate(new Date());
@@ -479,7 +479,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorWheel sensorWheel = sensorWheelRepository.findById(input.getId()).orElse(null);
                     assert sensorWheel != null;
-                    sensorWheel.setAiRw(input.getAiPredict());
+                    sensorWheel.setAiRw((int) input.getAiPredict().doubleValue());
                     sensorWheel.setAiRwAlgorithm(input.getAiAlgorithmName());
                     sensorWheel.setAiRwModel(input.getAiModelName());
                     sensorWheel.setAiRwDate(new Date());
@@ -492,7 +492,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorGearbox sensorGearbox = sensorGearboxRepository.findById(input.getId()).orElse(null);
                     assert sensorGearbox != null;
-                    sensorGearbox.setAiGear(input.getAiPredict());
+                    sensorGearbox.setAiGear((int) input.getAiPredict().doubleValue());
                     sensorGearbox.setAiGearAlgorithm(input.getAiAlgorithmName());
                     sensorGearbox.setAiGearModel(input.getAiModelName());
                     sensorGearbox.setAiGearDate(new Date());
@@ -505,7 +505,7 @@ public class DatasetDatabaseService {
                 for (DbDataUpdateInput input : inputs) {
                     SensorEngine sensorEngine = sensorEngineRepository.findById(input.getId()).orElse(null);
                     assert sensorEngine != null;
-                    sensorEngine.setAiEngine(input.getAiPredict());
+                    sensorEngine.setAiEngine((int) input.getAiPredict().doubleValue());
                     sensorEngine.setAiEngineAlgorithm(input.getAiAlgorithmName());
                     sensorEngine.setAiEngineModel(input.getAiModelName());
                     sensorEngine.setAiEngineDate(new Date());

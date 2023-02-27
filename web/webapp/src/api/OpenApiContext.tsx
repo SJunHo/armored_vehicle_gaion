@@ -1,9 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
 import {
+  DatabaseJudgementControllerApi,
   DatasetControllerApi,
-  MlControllerApi,
   DatasetDatabaseControllerApi,
-  DatabaseJudgementControllerApi
+  LifeThresholdControllerApi,
+  MlControllerApi
 } from "./gen";
 import {MeContext} from "./MeContext";
 
@@ -12,6 +13,7 @@ type OpenApiContextProps = {
   datasetControllerApi?: DatasetControllerApi;
   datasetDatabaseControllerApi?: DatasetDatabaseControllerApi;
   databaseJudgementControllerApi?: DatabaseJudgementControllerApi;
+  lifeThresholdControllerApi?: LifeThresholdControllerApi;
 };
 
 export const basePath =
@@ -52,6 +54,11 @@ export const OpenApiContextProvider: React.FC = ({children}) => {
         isJsonMime: () => true,
       }),
       databaseJudgementControllerApi: new DatabaseJudgementControllerApi({
+        baseOptions,
+        basePath,
+        isJsonMime: () => true,
+      }),
+      lifeThresholdControllerApi: new LifeThresholdControllerApi({
         baseOptions,
         basePath,
         isJsonMime: () => true,

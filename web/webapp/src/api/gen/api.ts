@@ -1681,6 +1681,61 @@ export enum HttpStatus {
 /**
  * 
  * @export
+ * @interface LifeThreshold
+ */
+export interface LifeThreshold {
+    /**
+     * 
+     * @type {string}
+     * @memberof LifeThreshold
+     */
+    snsrtype?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof LifeThreshold
+     */
+    distance?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LifeThreshold
+     */
+    years?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof LifeThreshold
+     */
+    usedvcd?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LifeThreshold
+     */
+    crtdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LifeThreshold
+     */
+    crtor?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LifeThreshold
+     */
+    mdfcdt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LifeThreshold
+     */
+    mdfr?: string;
+}
+/**
+ * 
+ * @export
  * @interface LoginRequest
  */
 export interface LoginRequest {
@@ -2828,19 +2883,25 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
     l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
     l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_6912BSF?: number;
     /**
      * 
      * @type {number}
@@ -2858,13 +2919,13 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_V_1X?: number;
+    ai_LBSF?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_S_Fault1?: number;
+    l_B_V_1X?: number;
     /**
      * 
      * @type {number}
@@ -2876,7 +2937,19 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    ai_LBSF?: number;
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_32922BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -2894,25 +2967,13 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_V_6912BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_32922BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_S_Fault2?: number;
+    idx?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    date?: string;
+    ai_LBSF_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -2936,25 +2997,19 @@ export interface SensorBearingLeftBallInterface {
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    user_LBSF_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_ALGO?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    idx?: number;
+    date?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
     ai_LBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    user_LBSF_DATE?: string;
     /**
      * 
      * @type {string}
@@ -2973,13 +3028,13 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_Demodulation?: number;
+    l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_Crestfactor?: number;
+    l_B_V_Demodulation?: number;
     /**
      * 
      * @type {number}
@@ -2991,13 +3046,13 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    w_RPM?: number;
+    ai_LBPFI?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_32924BPFI?: number;
+    w_RPM?: number;
     /**
      * 
      * @type {number}
@@ -3015,31 +3070,7 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
     ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_32922BPFI?: number;
     /**
      * 
      * @type {number}
@@ -3051,13 +3082,31 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    l_B_V_6912BPFI?: number;
+    l_B_S_Fault1?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
-    date?: string;
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_32924BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_6912BPFI?: number;
     /**
      * 
      * @type {number}
@@ -3069,25 +3118,13 @@ export interface SensorBearingLeftInsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    user_LBPFI_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI_DATE?: string;
     /**
      * 
      * @type {number}
@@ -3099,13 +3136,31 @@ export interface SensorBearingLeftInsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
+    user_LBPFI_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ai_LBPFI_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
     ai_LBPFI_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
-    user_LBPFI_DATE?: string;
+    ai_LBPFI_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    user_LBPFI_ID?: string;
 }
 /**
  * 
@@ -3118,13 +3173,13 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_Demodulation?: number;
+    l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_Crestfactor?: number;
+    l_B_V_Demodulation?: number;
     /**
      * 
      * @type {number}
@@ -3136,13 +3191,19 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
+    ai_LBPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
     w_RPM?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ai_LBPFO?: number;
+    l_B_V_32922BPFO?: number;
     /**
      * 
      * @type {number}
@@ -3160,19 +3221,19 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     ac_v?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_6912BPFO?: number;
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -3190,19 +3251,7 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_32922BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    date?: string;
+    l_B_V_6912BPFO?: number;
     /**
      * 
      * @type {number}
@@ -3214,31 +3263,19 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
     sdaId?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    user_LBPFO_DATE?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    user_LBPFO?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     ai_LBPFO_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ai_LBPFO_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -3251,6 +3288,24 @@ export interface SensorBearingLeftOutsideInterface {
      * @memberof SensorBearingLeftOutsideInterface
      */
     user_LBPFO_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ai_LBPFO_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    user_LBPFO?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    user_LBPFO_DATE?: string;
 }
 /**
  * 
@@ -3263,13 +3318,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_Demodulation?: number;
+    l_B_V_Crestfactor?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_Crestfactor?: number;
+    l_B_V_Demodulation?: number;
     /**
      * 
      * @type {number}
@@ -3293,37 +3348,7 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_6912FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_32924FTF?: number;
+    l_B_V_32922FTF?: number;
     /**
      * 
      * @type {number}
@@ -3335,7 +3360,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_32922FTF?: number;
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_v?: number;
     /**
      * 
      * @type {number}
@@ -3344,16 +3375,40 @@ export interface SensorBearingLeftRetainerInterface {
     l_B_S_Fault2?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    date?: string;
+    l_B_V_32924FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_6912FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_a?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
     idx?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    date?: string;
     /**
      * 
      * @type {string}
@@ -3371,7 +3426,7 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_MODEL?: string;
+    user_LFTF_ID?: string;
     /**
      * 
      * @type {string}
@@ -3383,13 +3438,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    user_LFTF_ID?: string;
+    ai_LFTF_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_ALGO?: string;
+    ai_LFTF_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -3408,12 +3463,6 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
     r_B_V_Crestfactor?: number;
     /**
      * 
@@ -3426,19 +3475,19 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
     w_RPM?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_S_Fault2?: number;
+    r_B_V_32924BSF?: number;
     /**
      * 
      * @type {number}
@@ -3450,13 +3499,13 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    ac_v?: number;
+    r_B_S_Fault2?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_1X?: number;
+    ac_v?: number;
     /**
      * 
      * @type {number}
@@ -3468,7 +3517,7 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    ac_a?: number;
+    r_B_V_6912BSF?: number;
     /**
      * 
      * @type {number}
@@ -3480,19 +3529,19 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_6912BSF?: number;
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_32924BSF?: number;
+    r_B_S_Fault1?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    date?: string;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -3504,19 +3553,13 @@ export interface SensorBearingRightBallInterface {
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    user_RBPFO_ID?: string;
     /**
      * 
      * @type {number}
@@ -3528,7 +3571,7 @@ export interface SensorBearingRightBallInterface {
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
-    ai_RBSF_DATE?: string;
+    ai_RBSF_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -3541,6 +3584,18 @@ export interface SensorBearingRightBallInterface {
      * @memberof SensorBearingRightBallInterface
      */
     user_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBPFO_ID?: string;
 }
 /**
  * 
@@ -3548,12 +3603,6 @@ export interface SensorBearingRightBallInterface {
  * @interface SensorBearingRightInsideInterface
  */
 export interface SensorBearingRightInsideInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -3571,31 +3620,13 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
     w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_6912BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_32922BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_S_Fault2?: number;
     /**
      * 
      * @type {number}
@@ -3607,13 +3638,43 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_6912BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
     ac_v?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
+    r_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
     r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -3631,19 +3692,13 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    ai_RBPFI?: number;
+    idx?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
     date?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    idx?: number;
     /**
      * 
      * @type {string}
@@ -3655,7 +3710,13 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    ai_RBPFI_MODEL?: string;
+    ai_RBPFI_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    user_RBPFI_DATE?: string;
     /**
      * 
      * @type {string}
@@ -3673,19 +3734,13 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
+    ai_RBPFI_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
     user_RBPFI_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    user_RBPFI_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ai_RBPFI_ALGO?: string;
 }
 /**
  * 
@@ -3693,12 +3748,6 @@ export interface SensorBearingRightInsideInterface {
  * @interface SensorBearingRightOutsideInterface
  */
 export interface SensorBearingRightOutsideInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -3716,31 +3765,31 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
     w_RPM?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_32922BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_S_Fault1?: number;
+    ac_h?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
     r_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -3758,7 +3807,25 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
+    r_B_V_32924BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
     r_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_32922BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
@@ -3770,25 +3837,13 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_32924BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ai_RBPFO?: number;
+    idx?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
     date?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    idx?: number;
     /**
      * 
      * @type {string}
@@ -3800,7 +3855,13 @@ export interface SensorBearingRightOutsideInterface {
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    user_RBPFO_ID?: string;
+    ai_RBPFO_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ai_RBPFO_DATE?: string;
     /**
      * 
      * @type {number}
@@ -3812,25 +3873,19 @@ export interface SensorBearingRightOutsideInterface {
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    user_RBPFO_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightOutsideInterface
-     */
     ai_RBPFO_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ai_RBPFO_DATE?: string;
+    user_RBPFO_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ai_RBPFO_MODEL?: string;
+    user_RBPFO_ID?: string;
 }
 /**
  * 
@@ -3838,12 +3893,6 @@ export interface SensorBearingRightOutsideInterface {
  * @interface SensorBearingRightRetainerInterface
  */
 export interface SensorBearingRightRetainerInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -3861,7 +3910,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF?: number;
+    r_B_T_Temperature?: number;
     /**
      * 
      * @type {number}
@@ -3873,7 +3922,13 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_6912FTF?: number;
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_32924FTF?: number;
     /**
      * 
      * @type {number}
@@ -3885,19 +3940,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
     r_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -3915,19 +3958,25 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
+    r_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
     ac_a?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_32924FTF?: number;
+    r_B_V_6912FTF?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    date?: string;
+    ai_RFTF?: number;
     /**
      * 
      * @type {number}
@@ -3939,19 +3988,13 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
     sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF_DATE?: string;
     /**
      * 
      * @type {number}
@@ -3963,7 +4006,13 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    user_RFTF_DATE?: string;
+    ai_RFTF_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -3975,7 +4024,13 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF_MODEL?: string;
+    user_RFTF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    ai_RFTF_DATE?: string;
 }
 /**
  * 
@@ -4006,13 +4061,19 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE?: number;
+    e_V_1_2X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    e_V_OverallRMS?: number;
+    e_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    ai_ENGINE?: number;
     /**
      * 
      * @type {number}
@@ -4024,7 +4085,7 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    e_V_1_2X?: number;
+    e_V_OverallRMS?: number;
     /**
      * 
      * @type {number}
@@ -4036,7 +4097,7 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    e_V_1X?: number;
+    idx?: number;
     /**
      * 
      * @type {string}
@@ -4045,22 +4106,22 @@ export interface SensorEngineInterface {
     date?: string;
     /**
      * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    idx?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
     sdaId?: string;
     /**
      * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE_ALGO?: string;
+    ai_ENGINE_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -4075,16 +4136,10 @@ export interface SensorEngineInterface {
     user_ENGINE_ID?: string;
     /**
      * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    user_ENGINE?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE_MODEL?: string;
+    ai_ENGINE_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -4121,37 +4176,7 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
     g_V_OverallRMS?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_GMF2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Wheel1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Pinion2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Pinion1X?: number;
     /**
      * 
      * @type {number}
@@ -4163,19 +4188,43 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
+    g_V_Pinion1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
     g_V_GMF1X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    ai_GEAR?: number;
+    g_V_Pinion2X?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorGearboxInterface
      */
-    date?: string;
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_GMF2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR?: number;
     /**
      * 
      * @type {number}
@@ -4187,19 +4236,31 @@ export interface SensorGearboxInterface {
      * @type {string}
      * @memberof SensorGearboxInterface
      */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
     sdaId?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    ai_GEAR_ALGO?: string;
+    ai_GEAR_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    ai_GEAR_MODEL?: string;
+    ai_GEAR_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    user_GEAR_ID?: string;
     /**
      * 
      * @type {number}
@@ -4217,13 +4278,7 @@ export interface SensorGearboxInterface {
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    user_GEAR_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_DATE?: string;
+    ai_GEAR_ALGO?: string;
 }
 /**
  * 
@@ -4237,6 +4292,18 @@ export interface SensorWheelLeftInterface {
      * @memberof SensorWheelLeftInterface
      */
     w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    l_W_V_3X?: number;
     /**
      * 
      * @type {number}
@@ -4260,7 +4327,7 @@ export interface SensorWheelLeftInterface {
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    l_W_V_3X?: number;
+    ai_LW?: number;
     /**
      * 
      * @type {number}
@@ -4272,25 +4339,13 @@ export interface SensorWheelLeftInterface {
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    ai_LW?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    l_W_V_2X?: number;
+    idx?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
     date?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    idx?: number;
     /**
      * 
      * @type {string}
@@ -4302,7 +4357,25 @@ export interface SensorWheelLeftInterface {
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
+    user_LW_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    ai_LW_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
     ai_LW_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4315,24 +4388,6 @@ export interface SensorWheelLeftInterface {
      * @memberof SensorWheelLeftInterface
      */
     user_LW?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    user_LW_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    user_LW_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    ai_LW_ALGO?: string;
 }
 /**
  * 
@@ -4369,6 +4424,12 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
+    ai_RW?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
     r_W_S_Fault3?: number;
     /**
      * 
@@ -4387,7 +4448,7 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    ai_RW?: number;
+    idx?: number;
     /**
      * 
      * @type {string}
@@ -4396,34 +4457,16 @@ export interface SensorWheelRightInterface {
     date?: string;
     /**
      * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    idx?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
     sdaId?: string;
     /**
      * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    user_RW?: number;
-    /**
-     * 
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
-    user_RW_ID?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    ai_RW_ALGO?: string;
+    ai_RW_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -4441,7 +4484,19 @@ export interface SensorWheelRightInterface {
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
-    ai_RW_MODEL?: string;
+    ai_RW_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW_ID?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW?: number;
 }
 /**
  * 
@@ -11134,7 +11189,7 @@ export const DriverCorrectionSettingControllerApiAxiosParamCreator = function (c
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getThresholdList2: async (options: any = {}): Promise<RequestArgs> => {
+        getThresholdList3: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/driverPostureCorrection/list`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -11196,8 +11251,8 @@ export const DriverCorrectionSettingControllerApiFp = function(configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getThresholdList2(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DriverAttitd>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getThresholdList2(options);
+        async getThresholdList3(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DriverAttitd>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getThresholdList3(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -11232,8 +11287,8 @@ export const DriverCorrectionSettingControllerApiFactory = function (configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getThresholdList2(options?: any): AxiosPromise<Array<DriverAttitd>> {
-            return localVarFp.getThresholdList2(options).then((request) => request(axios, basePath));
+        getThresholdList3(options?: any): AxiosPromise<Array<DriverAttitd>> {
+            return localVarFp.getThresholdList3(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -11272,8 +11327,283 @@ export class DriverCorrectionSettingControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DriverCorrectionSettingControllerApi
      */
+    public getThresholdList3(options?: any) {
+        return DriverCorrectionSettingControllerApiFp(this.configuration).getThresholdList3(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * LifeThresholdControllerApi - axios parameter creator
+ * @export
+ */
+export const LifeThresholdControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getThresholdList2: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/lifethreshold/list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {Array<LifeThreshold>} lifeThreshold 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        update: async (lifeThreshold: Array<LifeThreshold>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'lifeThreshold' is not null or undefined
+            assertParamExists('update', 'lifeThreshold', lifeThreshold)
+            const localVarPath = `/api/lifethreshold/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(lifeThreshold, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LifeThresholdControllerApi - functional programming interface
+ * @export
+ */
+export const LifeThresholdControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LifeThresholdControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getThresholdList2(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<LifeThreshold>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getThresholdList2(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {Array<LifeThreshold>} lifeThreshold 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async update(lifeThreshold: Array<LifeThreshold>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LifeThreshold>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.update(lifeThreshold, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * LifeThresholdControllerApi - factory interface
+ * @export
+ */
+export const LifeThresholdControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LifeThresholdControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getThresholdList2(options?: any): AxiosPromise<Array<LifeThreshold>> {
+            return localVarFp.getThresholdList2(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {Array<LifeThreshold>} lifeThreshold 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        update(lifeThreshold: Array<LifeThreshold>, options?: any): AxiosPromise<LifeThreshold> {
+            return localVarFp.update(lifeThreshold, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LifeThresholdControllerApi - object-oriented interface
+ * @export
+ * @class LifeThresholdControllerApi
+ * @extends {BaseAPI}
+ */
+export class LifeThresholdControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LifeThresholdControllerApi
+     */
     public getThresholdList2(options?: any) {
-        return DriverCorrectionSettingControllerApiFp(this.configuration).getThresholdList2(options).then((request) => request(this.axios, this.basePath));
+        return LifeThresholdControllerApiFp(this.configuration).getThresholdList2(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {Array<LifeThreshold>} lifeThreshold 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LifeThresholdControllerApi
+     */
+    public update(lifeThreshold: Array<LifeThreshold>, options?: any) {
+        return LifeThresholdControllerApiFp(this.configuration).update(lifeThreshold, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * LifeThresholdFindControllerApi - axios parameter creator
+ * @export
+ */
+export const LifeThresholdFindControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findThreshold: async (partType: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'partType' is not null or undefined
+            assertParamExists('findThreshold', 'partType', partType)
+            const localVarPath = `/api/threshold`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (partType !== undefined) {
+                localVarQueryParameter['partType'] = partType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LifeThresholdFindControllerApi - functional programming interface
+ * @export
+ */
+export const LifeThresholdFindControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LifeThresholdFindControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findThreshold(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LifeThreshold>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findThreshold(partType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * LifeThresholdFindControllerApi - factory interface
+ * @export
+ */
+export const LifeThresholdFindControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LifeThresholdFindControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {string} partType 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findThreshold(partType: string, options?: any): AxiosPromise<LifeThreshold> {
+            return localVarFp.findThreshold(partType, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LifeThresholdFindControllerApi - object-oriented interface
+ * @export
+ * @class LifeThresholdFindControllerApi
+ * @extends {BaseAPI}
+ */
+export class LifeThresholdFindControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} partType 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LifeThresholdFindControllerApi
+     */
+    public findThreshold(partType: string, options?: any) {
+        return LifeThresholdFindControllerApiFp(this.configuration).findThreshold(partType, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

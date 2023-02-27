@@ -31,7 +31,18 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
   const [targetClassCol, setTargetClassCol] = useState<string>("");
   const [fromDate, setFromDate] = useState<Date>(new Date());
   const [toDate, setToDate] = useState<Date>(new Date());
-  const {databaseJudgementControllerApi, datasetDatabaseControllerApi, mlControllerApi} = useContext(OpenApiContext);
+  const {
+    databaseJudgementControllerApi,
+    datasetDatabaseControllerApi,
+    mlControllerApi,
+    lifeThresholdControllerApi
+  } = useContext(OpenApiContext);
+  const [threshold, setThreshold] = useState<any>();
+
+  const wholeBearingCycle = 540000
+  const wholeWheelCycle = 160000
+  const wholeGearboxCycle = 1080000
+  const wholeEngineCycle = 480000
 
   useEffect(() => {
     const thisDate = new Date();
@@ -55,10 +66,40 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     }
   }, [partType, databaseJudgementControllerApi, algorithmName, datasetDatabaseControllerApi]);
 
-  const wholeBearingCycle = 540000
-  const wholeWheelCycle = 160000
-  const wholeGearboxCycle = 1080000
-  const wholeEngineCycle = 480000
+  useEffect(() => {
+    if (partType && (algorithmName === "linear" || algorithmName === "lasso")) {
+      lifeThresholdControllerApi?.getThresholdList2()
+        .then((res: any) => {
+          switch (partType) {
+            case "B_LIFE":
+              setThreshold(wholeBearingCycle)
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "BEARING"
+              // }).distance)
+              break
+            case "W_LIFE":
+              setThreshold(wholeWheelCycle)
+
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "WHEEL"
+              // }).distance)
+              break
+            case "E_LIFE":
+              setThreshold(wholeEngineCycle)
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "ENGINE"
+              // }).distance)
+              break
+            case "G_LIFE":
+              setThreshold(wholeGearboxCycle)
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "REDUCER"
+              // }).distance)
+              break
+          }
+        })
+    }
+  }, [algorithmName, lifeThresholdControllerApi, partType])
 
   const handleConditionSelected =
     useCallback((v: TableRow<any[]>[]) => {
@@ -281,7 +322,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           resultArr = JSON.parse(
             "[" + predictedData[selectedIndex] + "]"
           )
-          row[targetClassCol] = resultArr[0];
+          console.log(threshold)
+          console.log(resultArr[0])
+          row[targetClassCol] = ((threshold - resultArr[0]) * 100 / threshold).toFixed(1);
           row.aiAlgorithm = algorithmName;
           row.aiModel = selectedModel?.modelName;
         }
@@ -345,7 +388,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                 partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
-                aiPredict: wholeBearingCycle - inputs[targetClassCol],
+                aiPredict: inputs[targetClassCol],
                 aiModelName: selectedModel?.modelName,
               }))
             )
@@ -361,7 +404,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                 partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
-                aiPredict: wholeWheelCycle - inputs[targetClassCol],
+                aiPredict: inputs[targetClassCol],
                 aiModelName: selectedModel?.modelName,
               }))
             )
@@ -377,7 +420,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                 partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
-                aiPredict: wholeGearboxCycle - inputs[targetClassCol],
+                aiPredict: inputs[targetClassCol],
                 aiModelName: selectedModel?.modelName,
               }))
             )
@@ -393,7 +436,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
                 partType: partType,
                 id: inputs.idx,
                 aiAlgorithmName: selectedModel?.algorithmType,
-                aiPredict: wholeEngineCycle - inputs[targetClassCol],
+                aiPredict: inputs[targetClassCol],
                 aiModelName: selectedModel?.modelName,
               }))
             )
@@ -421,7 +464,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
     }
   }
 
-  const columns = useDataPredictionColumns(partType)
+  const columns = useDataPredictionColumns(partType, algorithmName)
 
   return (
     <Container fluid>
@@ -436,6 +479,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               size="sm"
               value={partType}
               onChange={(v) => {
+                setConditionData([])
                 setPartType((v.target as any).value)
               }}
             >

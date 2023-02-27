@@ -12,7 +12,7 @@ public class DbDataUpdateInput {
 
     private String partType;
 
-    private Integer aiPredict;
+    private Double aiPredict;
 
     private String aiAlgorithmName;
 

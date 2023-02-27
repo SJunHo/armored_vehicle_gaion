@@ -27,7 +27,7 @@ public class SensorEngineLife {
     private Date operateDateTime;
 
     @Column(name = "AI_Trip")
-    private Integer aiTrip;
+    private Double aiTrip;
 
     @Column(name = "AI_Trip_ALGO")
     private String aiTripAlgo;

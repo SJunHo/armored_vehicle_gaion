@@ -1,5 +1,6 @@
-import React, {useMemo} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Column} from "react-table";
+import {OpenApiContext} from "../api";
 
 export type SensorBearingLeftBallInput = {
   idx: number, sdaId: string, ai_LBSF: string, ai_LBSF_ALGO: string, ai_LBSF_MODEL: string, ai_LBSF_DATE: string,
@@ -170,7 +171,57 @@ export const partTypes = [
   }
 ]
 
-export const useDataPredictionColumns: (partType: string) => any = (partType: string) => {
+export const useDataPredictionColumns: (partType: string, algorithmName: string) => any = (partType: string, algorithmName: string) => {
+  const {lifeThresholdControllerApi} = useContext(OpenApiContext);
+  const [distanceThreshold, setDistanceThreshold] = useState(0);
+  const [yearThreshold, setYearThreshold] = useState(0);
+
+  useEffect(() => {
+    if (partType && (algorithmName === "linear" || algorithmName === "lasso")) {
+      lifeThresholdControllerApi?.getThresholdList2()
+        .then((res: any) => {
+          switch (partType) {
+            case "B_LIFE":
+              // setThreshold(wholeBearingCycle)
+              setDistanceThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "BEARING"
+              }).distance)
+              setYearThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "BEARING"
+              }).years)
+              break
+            case "W_LIFE":
+              // setThreshold(wholeWheelCycle)
+              setDistanceThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "WHEEL"
+              }).distance)
+              setYearThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "WHEEL"
+              }).years)
+              break
+            case "E_LIFE":
+              // setThreshold(wholeEngineCycle)
+              setDistanceThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "ENGINE"
+              }).distance)
+              setYearThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "ENGINE"
+              }).years)
+              break
+            case "G_LIFE":
+              // setThreshold(wholeGearboxCycle)
+              setDistanceThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "REDUCER"
+              }).distance)
+              setYearThreshold(res.data.find((v: any) => {
+                return v.snsrtype === "REDUCER"
+              }).years)
+              break
+          }
+        })
+    }
+  }, [algorithmName, lifeThresholdControllerApi, partType])
+
 
   const SensorBearingLeftBallColumns = useMemo<Column<SensorBearingLeftBallInput>[]>(
     () => [
@@ -1111,12 +1162,32 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "idx"
       },
       {
-        Header: "예측 결과(km)",
+        Header: "예측 결과(score)",
         accessor: (data) => {
           if (data.ai_Trip === null) {
             return "-"
           } else {
             return data.ai_Trip
+          }
+        },
+      },
+      {
+        Header: "잔여수명(km)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * distanceThreshold / 100).toFixed(1)
+          }
+        },
+      },
+      {
+        Header: "잔여수명(년)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * yearThreshold / 100).toFixed(1)
           }
         },
       },
@@ -1207,7 +1278,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "b_Temperature",
       },
     ],
-    []
+    [distanceThreshold, yearThreshold]
   );
 
   const SensorWheelLifeColumns = useMemo<Column<SensorWheelLifeInput>[]>(
@@ -1217,12 +1288,32 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "idx"
       },
       {
-        Header: "예측 결과(km)",
+        Header: "예측 결과(score)",
         accessor: (data) => {
           if (data.ai_Trip === null) {
             return "-"
           } else {
             return data.ai_Trip
+          }
+        },
+      },
+      {
+        Header: "잔여수명(km)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * distanceThreshold / 100).toFixed(1)
+          }
+        },
+      },
+      {
+        Header: "잔여수명(년)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * yearThreshold / 100).toFixed(1)
           }
         },
       },
@@ -1249,7 +1340,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "w_Fault3",
       },
     ],
-    []
+    [distanceThreshold, yearThreshold]
   );
 
   const SensorGearboxLifeColumns = useMemo<Column<SensorGearboxLifeInput>[]>(
@@ -1259,12 +1350,32 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "idx"
       },
       {
-        Header: "예측 결과(km)",
+        Header: "예측 결과(score)",
         accessor: (data) => {
           if (data.ai_Trip === null) {
             return "-"
           } else {
             return data.ai_Trip
+          }
+        },
+      },
+      {
+        Header: "잔여수명(km)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * distanceThreshold / 100).toFixed(1)
+          }
+        },
+      },
+      {
+        Header: "잔여수명(년)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * yearThreshold / 100).toFixed(1)
           }
         },
       },
@@ -1307,7 +1418,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "g_GMF2X",
       },
     ],
-    []
+    [distanceThreshold, yearThreshold]
   );
 
   const SensorEngineLifeColumns = useMemo<Column<SensorEngineLifeInput>[]>(
@@ -1317,12 +1428,32 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "idx"
       },
       {
-        Header: "예측 결과(km)",
+        Header: "예측 결과(score)",
         accessor: (data) => {
           if (data.ai_Trip === null) {
             return "-"
           } else {
             return data.ai_Trip
+          }
+        },
+      },
+      {
+        Header: "잔여수명(km)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * distanceThreshold / 100).toFixed(1)
+          }
+        },
+      },
+      {
+        Header: "잔여수명(년)",
+        accessor: (data) => {
+          if (data.ai_Trip === null) {
+            return "-"
+          } else {
+            return (data.ai_Trip * yearThreshold / 100).toFixed(1)
           }
         },
       },
@@ -1353,7 +1484,7 @@ export const useDataPredictionColumns: (partType: string) => any = (partType: st
         accessor: "e_CrestFactor",
       },
     ],
-    []
+    [distanceThreshold, yearThreshold]
   );
 
   var resultColumns: any[] = []
