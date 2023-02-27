@@ -4,7 +4,7 @@
 
 	<select id="findStatsdaByListSdaid" parameterType="java.util.HashMap" resultType="kr.gaion.armoredVehicle.web.analysis.model.Statsda">
 		select  sdaid , avg(avgspd) as avgspd , avg(engnnldnrate) as engnnldnrate,
-				 avg(mvmtdstc) as mvmtdstc, avg(mvmttime) as mvmttime
+				 avg(mvmtdstc) as mvmtdstc, avg(mvmttime/3600) as mvmttime
 		from STATSDA
 		where
 			1=1
@@ -22,7 +22,7 @@
 	
 	<select id="findStatsdaByGroupDivs" parameterType="String" resultType="kr.gaion.armoredVehicle.web.analysis.model.StatsdaGroup">
 		select SDA.DIVS as groupName, avg(avgspd) as avgspd , avg(engnnldnrate) as engnnldnrate,
-		avg(mvmtdstc) as mvmtdstc, avg(mvmttime) as mvmttime
+		avg(avgspd)*avg(mvmttime/3600) as mvmtdstc, avg(mvmttime/3600) as mvmttime
 		from SDA, STATSDA
 		where SDA.sdaid = STATSDA.sdaid 
 		and operdate like CONCAT('%',#{operdate},'%')
@@ -31,7 +31,7 @@
 	
 	<select id="findStatsdaByGroupBN" parameterType="String" resultType = "kr.gaion.armoredVehicle.web.analysis.model.StatsdaGroup">
 		select SDA.BN as groupName, avg(avgspd) as avgspd , avg(engnnldnrate) as engnnldnrate,
-		avg(mvmtdstc) as mvmtdstc, avg(mvmttime) as mvmttime
+		avg(avgspd)*avg(mvmttime/3600) as mvmtdstc, avg(mvmttime/3600) as mvmttime
 		from SDA, STATSDA
 		where SDA.sdaid = STATSDA.sdaid
 		and operdate like CONCAT('%',#{operdate},'%')
@@ -56,4 +56,31 @@
 		insert into STATSDA (filenm, avgspd, engnnldnrate, mvmtdstc, mvmttime, operdate, sdaid)
 		values(#{filenm}, #{avgspd}, #{engnnldnrate}, #{mvmtdstc}, #{mvmttime}, #{operdate}, #{sdaid})
 	</insert>
+	
+	<select id="findSumMvmtdstcBySdaidAndTime" parameterType="java.util.Map" resultType="Integer">
+		select ifnull(SUM(mvmtdstc),0)
+		from STATSDA s 
+		<![CDATA[where STR_TO_DATE(operdate,'%Y-%m-%d %T') >= STR_TO_DATE(#{time}, '%Y-%m-%d %T')
+		and STR_TO_DATE(operdate,'%Y-%m-%d %T') <= DATE_FORMAT(CURDATE(), '%Y-%m-%d %T') ]]>
+		and sdaid=#{sdaid}
+	</select>
+	
+	<select id="findSumMvmtdstcBySdaid" parameterType="String" resultType="Integer">
+		select ifnull(SUM(mvmtdstc),0)
+		from STATSDA s 
+		where sdaid=#{sdaid}
+	</select>
+	
+	<select id="findCountBySdaidAndOperdate" parameterType="java.util.Map" resultType="Integer">
+		select ifnull(COUNT(filenm),0)
+		from STATSDA s 
+		<![CDATA[where STR_TO_DATE(operdate,'%Y-%m-%d') >= STR_TO_DATE(#{time}, '%Y-%m-%d')]]>
+		and sdaid=#{sdaid}
+	</select>
+	
+	<select id="findCountBySdaidAll" parameterType="String" resultType="Integer">
+		select ifnull(COUNT(filenm),0)
+		from STATSDA 
+		where sdaid=#{sdaid}
+	</select>
 </mapper>

@@ -21,7 +21,10 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
-                                        <td>예지결과(km)</td>
+                                        <td>수집날짜</td>
+                                        <td>스코어(점수)</td>
+                                        <td>잔여수명(km)</td>
+                                        <td>잔여수명(년)</td>
                                         <td>B_OverallRMS</td>
                                         <td>B_1X</td>
                                         <td>B_6912BPFO</td>
@@ -47,32 +50,35 @@ export default class TableByRemaining extends Component {
                                 <tbody>
                                 {
                                 this.props.data.map((el, idx) => {
-                                    return(
-                                        <tr key={idx}>
-                                            <td>{el.ai_Trip}</td>
-                                            <td>{el.b_OverallRMS}</td>
-                                            <td>{el.b_1X}</td>
-                                            <td>{el.b_6912BPFO}</td>
-                                            <td>{el.b_6912BPFI}</td>
-                                            <td>{el.b_6912BSF}</td>
-                                            <td>{el.b_6912FTF}</td>
-                                            <td>{el.b_32924BPFO}</td>
-                                            <td>{el.b_32924BPFI}</td>
-                                            <td>{el.b_32924BSF}</td>
-                                            <td>{el.b_32924FTF}</td>
-                                            <td>{el.b_32922BPFO}</td>
-                                            <td>{el.b_32922BPFI}</td>
-                                            <td>{el.b_32922BSF}</td>
-                                            <td>{el.b_32922FTF}</td>
-                                            <td>{el.b_CrestFactor}</td>
-                                            <td>{el.b_Demodulation}</td>
-                                            <td>{el.b_Fault1}</td>
-                                            <td>{el.b_Fault2}</td>
-                                            <td>{el.b_Temperature}</td>
-                                            <td>{el.filenm}</td>
-                                    </tr>
-                                    )
-                                })
+                                        return(
+                                            <tr key={idx}>
+                                                <td>{el.date}</td>
+                                                <td>{el.remainRatio.toFixed(2)}</td>
+                                                <td>{el.remainDistance}</td>
+                                                <td>{el.remainTime.toFixed(2)}</td>
+                                                <td>{el.b_OverallRMS}</td>
+                                                <td>{el.b_1X}</td>
+                                                <td>{el.b_6912BPFO}</td>
+                                                <td>{el.b_6912BPFI}</td>
+                                                <td>{el.b_6912BSF}</td>
+                                                <td>{el.b_6912FTF}</td>
+                                                <td>{el.b_32924BPFO}</td>
+                                                <td>{el.b_32924BPFI}</td>
+                                                <td>{el.b_32924BSF}</td>
+                                                <td>{el.b_32924FTF}</td>
+                                                <td>{el.b_32922BPFO}</td>
+                                                <td>{el.b_32922BPFI}</td>
+                                                <td>{el.b_32922BSF}</td>
+                                                <td>{el.b_32922FTF}</td>
+                                                <td>{el.b_CrestFactor}</td>
+                                                <td>{el.b_Demodulation}</td>
+                                                <td>{el.b_Fault1}</td>
+                                                <td>{el.b_Fault2}</td>
+                                                <td>{el.b_Temperature}</td>
+                                                <td>{el.filenm}</td>
+                                            </tr>
+                                        )
+                                    })
                                 }
                                 </tbody>
                             </table>
@@ -87,7 +93,10 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
-                                        <td>예지결과(km)</td>
+                                        <td>수집날짜</td>
+                                        <td>스코어(점수)</td>
+                                        <td>잔여수명(km)</td>
+                                        <td>잔여수명(년)</td>
                                         <td>E_OverallRMS</td>
                                         <td>E_1_2X</td>
                                         <td>E_1X</td>
@@ -99,16 +108,19 @@ export default class TableByRemaining extends Component {
                                 <tbody>
                                     {
                                     this.props.data.map((el, idx) => {
-                                    return(
-                                        <tr key={idx}>
-                                            <td>{el.ai_Trip}</td>
-                                            <td>{el.e_OverallRMS}</td>
-                                            <td>{el.e_1_2X}</td>
-                                            <td>{el.e_1X}</td>
-                                            <td>{el.e_CrestFactor}</td>
-                                            <td>{el.filenm}</td>
-                                        </tr>
-                                    )
+                                        return(
+                                            <tr key={idx}>
+                                                <td>{el.date}</td>
+                                                <td>{el.remainRatio.toFixed(2)}</td>
+                                                <td>{el.remainDistance}</td>
+                                                <td>{el.remainTime.toFixed(2)}</td>
+                                                <td>{el.e_OverallRMS}</td>
+                                                <td>{el.e_1_2X}</td>
+                                                <td>{el.e_1X}</td>
+                                                <td>{el.e_CrestFactor}</td>
+                                                <td>{el.filenm}</td>
+                                            </tr>
+                                        )
                                     })
                                     }
                                 </tbody>
@@ -124,7 +136,10 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
-                                        <td>예지결과(km)</td>
+                                        <td>수집날짜</td>
+                                        <td>스코어(점수)</td>
+                                        <td>잔여수명(km)</td>
+                                        <td>잔여수명(년)</td>
                                         <td>G_OverallRMS</td>
                                         <td>G_Wheel1X</td>
                                         <td>G_Wheel2X</td>
@@ -142,7 +157,10 @@ export default class TableByRemaining extends Component {
                                     this.props.data.map((el, idx) => {
                                     return(
                                             <tr key={idx}>
-                                                <td>{el.ai_Trip}</td>
+	                                            <td>{el.date}</td>
+	                                            <td>{el.remainRatio.toFixed(2)}</td>
+	                                            <td>{el.remainDistance}</td>
+	                                            <td>{el.remainTime.toFixed(2)}</td>
                                                 <td>{el.g_OverallRMS}</td>
                                                 <td>{el.g_Wheel1X}</td>
                                                 <td>{el.g_Wheel2X}</td>
@@ -168,7 +186,10 @@ export default class TableByRemaining extends Component {
                             <table>
                                 <thead>
                                     <tr>
-                                        <td>예지결과(km)</td>
+                                        <td>수집날짜</td>
+                                        <td>스코어(점수)</td>
+                                        <td>잔여수명(km)</td>
+                                        <td>잔여수명(년)</td>
                                         <td>W_2X</td>
                                         <td>W_3X</td>
                                         <td>W_Fault3</td>
@@ -180,7 +201,10 @@ export default class TableByRemaining extends Component {
                                     this.props.data.map((el, idx) => {
                                     return(
                                             <tr key={idx}>
-                                                <td>{el.ai_Trip}</td>
+	                                            <td>{el.date}</td>
+	                                            <td>{el.remainRatio.toFixed(2)}</td>
+	                                            <td>{el.remainDistance}</td>
+	                                            <td>{el.remainTime.toFixed(2)}</td>
                                                 <td>{el.w_2X}</td>
                                                 <td>{el.w_3X}</td>
                                                 <td>{el.w_Fault3}</td>
