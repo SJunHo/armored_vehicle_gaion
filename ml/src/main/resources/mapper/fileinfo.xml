@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.gaion.armoredVehicle.web.analysis.mapper.FileInfoMapper">
+
+	<insert id="insertFileInfo" parameterType="kr.gaion.armoredVehicle.web.analysis.model.FileInfo">
+		insert into FILEINFO(fileid, filenm, filepath, filesnsr, filetype, filediv, filept,
+							 crtdt, crtor, mdfcdt, mdfr, starttime, endtime, seq)
+		values(#{fileid}, #{filenm}, #{filepath}, #{filesnsr}, #{filetype}, #{filediv}, #{filept},
+			   #{crtdt}, #{crtor}, #{mdfcdt}, #{mdfr}, #{starttime}, #{endtime}, #{seq})
+	</insert>
+	
+	<insert id="insertFileInfoWithSdaid" parameterType="java.util.Map">
+		insert into FILEINFOWITHSDA(filenm, sdaid, operdate)
+		values (#{filenm}, #{sdaid}, null)
+	</insert>
+	<insert id="insertFileInfoWithSdaidAll" parameterType="java.util.Map">
+		INSERT INTO FILEINFOWITHSDA(FILENM, SDAID, OPERDATE)
+		SELECT filenm, #{id} as sdaid, operdate
+		FROM ${tableName} 
+		group by filenm, operdate
+		ORDER BY filenm
+	</insert>
+	<delete id="deleteFileInfoWidSdaid" parameterType="String">
+		DELETE FROM FILEINFOWITHSDA 
+		WHERE SDAID = #{sdaid}
+	</delete>
+	
+	<select id="findTodayRecentFileInfo" parameterType="java.util.Map"
+	 resultType="kr.gaion.armoredVehicle.web.analysis.model.FileInfo">
+		select *
+		from FILEINFO f 
+		where date_Format(CRTDT ,'%Y-%m-%d') = date_Format(now(),'%Y-%m-%d')
+		and FILESNSR = #{filesnsr}
+		and FILETYPE = #{filetype}
+		and FILEDIV = #{filediv}
+		and FILEPT = #{filept}
+		order by seq desc
+		limit 1
+	</select>
+</mapper>

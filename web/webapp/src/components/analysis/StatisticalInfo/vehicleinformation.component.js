@@ -1015,16 +1015,18 @@ class searchEachInfo extends Component {
     } else{
       switch(value){
         case 'engsta':
-          const engsta = this.state.forChartData[this.state.i].ENGSTA;
-          if(engsta === 0){
-            return (<label>준비</label>);
-          } else if(engsta === 1){
-            return (<label>시동</label>);
-          } else if(engsta === 2){
-            return (<label>정지</label>)
-          } else{
-            return (<label>종료</label>);
-          }
+            const engsta = this.state.forChartData[this.state.i].ENGSTA;
+            if(engsta === 0){
+              return (<label>준비</label>);
+            } else if(engsta === 1){
+              return (<label>시동</label>);
+            } else if(engsta === 2){
+              return (<label>동작</label>)
+            } else if(engsta === 3){
+              return (<label>정지</label>)
+            } else{
+              return (<label>종료</label>);
+            }
   
         case 'currttrans':
           const currttrans = this.state.forChartData[this.state.i].CURRTTRANS;
