@@ -2883,7 +2883,67 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_V_Crestfactor?: number;
+    l_B_V_32924BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_6912BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_V_32922BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -2901,79 +2961,37 @@ export interface SensorBearingLeftBallInterface {
      * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    l_B_V_6912BSF?: number;
+    l_B_V_Crestfactor?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_32922BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    l_B_V_32924BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    idx?: number;
+    user_LBSF_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
     ai_LBSF_ALGO?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    ai_LBSF_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    user_LBSF_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftBallInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {string}
@@ -2988,34 +3006,16 @@ export interface SensorBearingLeftBallInterface {
     user_LBSF?: number;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftBallInterface
      */
-    user_LBSF_ID?: string;
+    idx?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftBallInterface
      */
     date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    ai_LBSF_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    user_LBSF_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftBallInterface
-     */
-    sdaId?: string;
 }
 /**
  * 
@@ -3023,78 +3023,6 @@ export interface SensorBearingLeftBallInterface {
  * @interface SensorBearingLeftInsideInterface
  */
 export interface SensorBearingLeftInsideInterface {
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ai_LBPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    w_RPM?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    l_B_V_32922BPFI?: number;
     /**
      * 
      * @type {number}
@@ -3112,6 +3040,84 @@ export interface SensorBearingLeftInsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftInsideInterface
      */
+    ai_LBPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftInsideInterface
+     */
+    sdaId?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftInsideInterface
+     */
     idx?: number;
     /**
      * 
@@ -3119,12 +3125,6 @@ export interface SensorBearingLeftInsideInterface {
      * @memberof SensorBearingLeftInsideInterface
      */
     date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftInsideInterface
-     */
-    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -3142,13 +3142,13 @@ export interface SensorBearingLeftInsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
-    ai_LBPFI_MODEL?: string;
+    ai_LBPFI_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftInsideInterface
      */
-    ai_LBPFI_ALGO?: string;
+    ai_LBPFI_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -3173,19 +3173,7 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_T_Temperature?: number;
+    l_B_V_32924BPFO?: number;
     /**
      * 
      * @type {number}
@@ -3203,37 +3191,13 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_32922BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     l_B_V_1X?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    l_B_S_Fault1?: number;
+    l_B_V_6912BPFO?: number;
     /**
      * 
      * @type {number}
@@ -3245,13 +3209,55 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_32924BPFO?: number;
+    l_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    l_B_V_6912BPFO?: number;
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_32922BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    l_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -3269,31 +3275,25 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
     ai_LBPFO_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    ai_LBPFO_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingLeftOutsideInterface
-     */
-    user_LBPFO_ID?: string;
+    user_LBPFO_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
     ai_LBPFO_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingLeftOutsideInterface
+     */
+    user_LBPFO_ID?: string;
     /**
      * 
      * @type {number}
@@ -3305,7 +3305,7 @@ export interface SensorBearingLeftOutsideInterface {
      * @type {string}
      * @memberof SensorBearingLeftOutsideInterface
      */
-    user_LBPFO_DATE?: string;
+    ai_LBPFO_DATE?: string;
 }
 /**
  * 
@@ -3318,7 +3318,67 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    l_B_V_Crestfactor?: number;
+    ai_LFTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    w_RPM?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_6912FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_32922FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_S_Fault1?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    l_B_V_32924FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingLeftRetainerInterface
+     */
+    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -3336,67 +3396,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    w_RPM?: number;
+    l_B_V_Crestfactor?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_32922FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ai_LFTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_32924FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_V_6912FTF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    l_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    ac_a?: number;
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -3414,19 +3420,13 @@ export interface SensorBearingLeftRetainerInterface {
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    sdaId?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingLeftRetainerInterface
-     */
-    user_LFTF?: number;
+    ai_LFTF_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    user_LFTF_ID?: string;
+    ai_LFTF_DATE?: string;
     /**
      * 
      * @type {string}
@@ -3441,16 +3441,16 @@ export interface SensorBearingLeftRetainerInterface {
     ai_LFTF_ALGO?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_MODEL?: string;
+    user_LFTF?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingLeftRetainerInterface
      */
-    ai_LFTF_DATE?: string;
+    user_LFTF_ID?: string;
 }
 /**
  * 
@@ -3463,19 +3463,7 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_T_Temperature?: number;
+    ai_RBSF?: number;
     /**
      * 
      * @type {number}
@@ -3493,37 +3481,7 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_V_32922BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    r_B_V_6912BSF?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -3535,13 +3493,61 @@ export interface SensorBearingRightBallInterface {
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_6912BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
     r_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightBallInterface
      */
-    ac_a?: number;
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_32922BSF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -3559,31 +3565,7 @@ export interface SensorBearingRightBallInterface {
      * @type {string}
      * @memberof SensorBearingRightBallInterface
      */
-    sdaId?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightBallInterface
-     */
-    user_RBSF?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    ai_RBSF_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
     ai_RBSF_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightBallInterface
-     */
-    user_RBSF_DATE?: string;
     /**
      * 
      * @type {string}
@@ -3596,6 +3578,24 @@ export interface SensorBearingRightBallInterface {
      * @memberof SensorBearingRightBallInterface
      */
     user_RBPFO_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBSF_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightBallInterface
+     */
+    ai_RBSF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightBallInterface
+     */
+    user_RBSF?: number;
 }
 /**
  * 
@@ -3608,19 +3608,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_T_Temperature?: number;
+    ai_RBPFI?: number;
     /**
      * 
      * @type {number}
@@ -3632,37 +3620,7 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ai_RBPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_6912BPFI?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    r_B_V_32922BPFI?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -3674,19 +3632,67 @@ export interface SensorBearingRightInsideInterface {
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
+    r_B_V_32922BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
     r_B_S_Fault1?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    ac_a?: number;
+    r_B_V_32924BPFI?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightInsideInterface
      */
-    r_B_V_32924BPFI?: number;
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_6912BPFI?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -3704,19 +3710,19 @@ export interface SensorBearingRightInsideInterface {
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
-    sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ai_RBPFI_ALGO?: string;
+    ai_RBPFI_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightInsideInterface
      */
     user_RBPFI_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightInsideInterface
+     */
+    ai_RBPFI_ALGO?: string;
     /**
      * 
      * @type {string}
@@ -3729,12 +3735,6 @@ export interface SensorBearingRightInsideInterface {
      * @memberof SensorBearingRightInsideInterface
      */
     user_RBPFI?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightInsideInterface
-     */
-    ai_RBPFI_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -3753,24 +3753,6 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_T_Temperature?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
     ai_RBPFO?: number;
     /**
      * 
@@ -3783,31 +3765,7 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_S_Fault2?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_V_6912BPFO?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    r_B_V_32924BPFO?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -3819,7 +3777,19 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    r_B_V_32922BPFO?: number;
+    r_B_V_32924BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_S_Fault2?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_v?: number;
     /**
      * 
      * @type {number}
@@ -3831,7 +3801,43 @@ export interface SensorBearingRightOutsideInterface {
      * @type {number}
      * @memberof SensorBearingRightOutsideInterface
      */
-    ac_a?: number;
+    r_B_V_6912BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_32922BPFO?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -3849,25 +3855,7 @@ export interface SensorBearingRightOutsideInterface {
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ai_RBPFO_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    ai_RBPFO_DATE?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightOutsideInterface
-     */
-    user_RBPFO?: number;
+    user_RBPFO_ID?: string;
     /**
      * 
      * @type {string}
@@ -3879,13 +3867,25 @@ export interface SensorBearingRightOutsideInterface {
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    user_RBPFO_DATE?: string;
+    ai_RBPFO_MODEL?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    user_RBPFO?: number;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightOutsideInterface
      */
-    user_RBPFO_ID?: string;
+    ai_RBPFO_DATE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightOutsideInterface
+     */
+    user_RBPFO_DATE?: string;
 }
 /**
  * 
@@ -3898,19 +3898,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_Crestfactor?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_V_Demodulation?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    r_B_T_Temperature?: number;
+    ai_RFTF?: number;
     /**
      * 
      * @type {number}
@@ -3922,13 +3910,13 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ac_h?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_32924FTF?: number;
+    r_B_V_1X?: number;
     /**
      * 
      * @type {number}
@@ -3952,19 +3940,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    r_B_V_1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
     r_B_S_Fault1?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -3976,7 +3952,37 @@ export interface SensorBearingRightRetainerInterface {
      * @type {number}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF?: number;
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_32924FTF?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_T_Temperature?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    r_B_V_Demodulation?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -3994,25 +4000,7 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    sdaId?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    user_RFTF?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorBearingRightRetainerInterface
-     */
-    ai_RFTF_MODEL?: string;
+    ai_RFTF_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4024,13 +4012,25 @@ export interface SensorBearingRightRetainerInterface {
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
+    ai_RFTF_ALGO?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorBearingRightRetainerInterface
+     */
+    user_RFTF?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorBearingRightRetainerInterface
+     */
     user_RFTF_DATE?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorBearingRightRetainerInterface
      */
-    ai_RFTF_DATE?: string;
+    ai_RFTF_MODEL?: string;
 }
 /**
  * 
@@ -4049,25 +4049,7 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    ac_v?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_1_2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorEngineInterface
-     */
-    e_V_1X?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4079,7 +4061,13 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
-    ac_a?: number;
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -4091,7 +4079,25 @@ export interface SensorEngineInterface {
      * @type {number}
      * @memberof SensorEngineInterface
      */
+    e_V_1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
+    e_V_1_2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorEngineInterface
+     */
     e_V_Crestfactor?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -4106,22 +4112,10 @@ export interface SensorEngineInterface {
     date?: string;
     /**
      * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    sdaId?: string;
-    /**
-     * 
      * @type {number}
      * @memberof SensorEngineInterface
      */
     user_ENGINE?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorEngineInterface
-     */
-    ai_ENGINE_MODEL?: string;
     /**
      * 
      * @type {string}
@@ -4133,13 +4127,19 @@ export interface SensorEngineInterface {
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    user_ENGINE_ID?: string;
+    ai_ENGINE_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorEngineInterface
      */
-    ai_ENGINE_ALGO?: string;
+    ai_ENGINE_MODEL?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorEngineInterface
+     */
+    user_ENGINE_ID?: string;
     /**
      * 
      * @type {string}
@@ -4164,13 +4164,7 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ac_v?: number;
+    ac_a?: number;
     /**
      * 
      * @type {number}
@@ -4182,37 +4176,7 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
-    g_V_Wheel2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Pinion1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
     g_V_GMF1X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Pinion2X?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    ac_a?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorGearboxInterface
-     */
-    g_V_Wheel1X?: number;
     /**
      * 
      * @type {number}
@@ -4224,7 +4188,49 @@ export interface SensorGearboxInterface {
      * @type {number}
      * @memberof SensorGearboxInterface
      */
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion1X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Wheel2X?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
     ai_GEAR?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorGearboxInterface
+     */
+    g_V_Pinion2X?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -4242,25 +4248,19 @@ export interface SensorGearboxInterface {
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    sdaId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_MODEL?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorGearboxInterface
-     */
-    ai_GEAR_DATE?: string;
+    ai_GEAR_ALGO?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorGearboxInterface
      */
     user_GEAR_ID?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorGearboxInterface
+     */
+    ai_GEAR_DATE?: string;
     /**
      * 
      * @type {number}
@@ -4272,13 +4272,13 @@ export interface SensorGearboxInterface {
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    user_GEAR_DATE?: string;
+    ai_GEAR_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorGearboxInterface
      */
-    ai_GEAR_ALGO?: string;
+    user_GEAR_DATE?: string;
 }
 /**
  * 
@@ -4297,6 +4297,12 @@ export interface SensorWheelLeftInterface {
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
+    ac_a?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
     l_W_V_2X?: number;
     /**
      * 
@@ -4309,19 +4315,19 @@ export interface SensorWheelLeftInterface {
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
     ac_v?: number;
     /**
      * 
      * @type {number}
      * @memberof SensorWheelLeftInterface
      */
-    ac_a?: number;
+    l_W_S_Fault3?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    ac_h?: number;
     /**
      * 
      * @type {number}
@@ -4330,10 +4336,10 @@ export interface SensorWheelLeftInterface {
     ai_LW?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof SensorWheelLeftInterface
      */
-    l_W_S_Fault3?: number;
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -4351,13 +4357,19 @@ export interface SensorWheelLeftInterface {
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
-    sdaId?: string;
+    ai_LW_MODEL?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
-    user_LW_ID?: string;
+    ai_LW_DATE?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelLeftInterface
+     */
+    user_LW?: number;
     /**
      * 
      * @type {string}
@@ -4369,25 +4381,13 @@ export interface SensorWheelLeftInterface {
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
-    ai_LW_DATE?: string;
+    user_LW_ID?: string;
     /**
      * 
      * @type {string}
      * @memberof SensorWheelLeftInterface
      */
     user_LW_DATE?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelLeftInterface
-     */
-    ai_LW_MODEL?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelLeftInterface
-     */
-    user_LW?: number;
 }
 /**
  * 
@@ -4406,13 +4406,7 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    ac_h?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    ac_v?: number;
+    ai_RW?: number;
     /**
      * 
      * @type {number}
@@ -4424,13 +4418,7 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    ai_RW?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    r_W_S_Fault3?: number;
+    r_W_V_3X?: number;
     /**
      * 
      * @type {number}
@@ -4442,7 +4430,25 @@ export interface SensorWheelRightInterface {
      * @type {number}
      * @memberof SensorWheelRightInterface
      */
-    r_W_V_3X?: number;
+    ac_v?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    ac_h?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    r_W_S_Fault3?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SensorWheelRightInterface
+     */
+    sdaId?: string;
     /**
      * 
      * @type {number}
@@ -4460,7 +4466,7 @@ export interface SensorWheelRightInterface {
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
-    sdaId?: string;
+    ai_RW_DATE?: string;
     /**
      * 
      * @type {string}
@@ -4469,10 +4475,16 @@ export interface SensorWheelRightInterface {
     ai_RW_MODEL?: string;
     /**
      * 
+     * @type {number}
+     * @memberof SensorWheelRightInterface
+     */
+    user_RW?: number;
+    /**
+     * 
      * @type {string}
      * @memberof SensorWheelRightInterface
      */
-    ai_RW_DATE?: string;
+    user_RW_ID?: string;
     /**
      * 
      * @type {string}
@@ -4485,18 +4497,6 @@ export interface SensorWheelRightInterface {
      * @memberof SensorWheelRightInterface
      */
     ai_RW_ALGO?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SensorWheelRightInterface
-     */
-    user_RW_ID?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SensorWheelRightInterface
-     */
-    user_RW?: number;
 }
 /**
  * 
@@ -11501,114 +11501,6 @@ export class LifeThresholdControllerApi extends BaseAPI {
 
 
 /**
- * LifeThresholdFindControllerApi - axios parameter creator
- * @export
- */
-export const LifeThresholdFindControllerApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {string} partType 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findThreshold: async (partType: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'partType' is not null or undefined
-            assertParamExists('findThreshold', 'partType', partType)
-            const localVarPath = `/api/threshold`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearer-key required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-            if (partType !== undefined) {
-                localVarQueryParameter['partType'] = partType;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * LifeThresholdFindControllerApi - functional programming interface
- * @export
- */
-export const LifeThresholdFindControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = LifeThresholdFindControllerApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {string} partType 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async findThreshold(partType: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LifeThreshold>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findThreshold(partType, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * LifeThresholdFindControllerApi - factory interface
- * @export
- */
-export const LifeThresholdFindControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = LifeThresholdFindControllerApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {string} partType 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findThreshold(partType: string, options?: any): AxiosPromise<LifeThreshold> {
-            return localVarFp.findThreshold(partType, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * LifeThresholdFindControllerApi - object-oriented interface
- * @export
- * @class LifeThresholdFindControllerApi
- * @extends {BaseAPI}
- */
-export class LifeThresholdFindControllerApi extends BaseAPI {
-    /**
-     * 
-     * @param {string} partType 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LifeThresholdFindControllerApi
-     */
-    public findThreshold(partType: string, options?: any) {
-        return LifeThresholdFindControllerApiFp(this.configuration).findThreshold(partType, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
  * MlControllerApi - axios parameter creator
  * @export
  */
@@ -13143,9 +13035,9 @@ export const MonitorDiagnosControllerApiAxiosParamCreator = function (configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        excelDownLoad: async (excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options: any = {}): Promise<RequestArgs> => {
+        excelDownLoad1: async (excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'excelDownByMonitorDiagnos' is not null or undefined
-            assertParamExists('excelDownLoad', 'excelDownByMonitorDiagnos', excelDownByMonitorDiagnos)
+            assertParamExists('excelDownLoad1', 'excelDownByMonitorDiagnos', excelDownByMonitorDiagnos)
             const localVarPath = `/api/monitordiagnost/downloadExcel`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -13181,7 +13073,7 @@ export const MonitorDiagnosControllerApiAxiosParamCreator = function (configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllVehicleInfo: async (options: any = {}): Promise<RequestArgs> => {
+        getAllVehicleInfo1: async (options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/monitordiagnost/getAllVehicle`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -13326,9 +13218,9 @@ export const MonitorDiagnosControllerApiAxiosParamCreator = function (configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleBer: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+        getTroubleBer1: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'troubleDataRequest' is not null or undefined
-            assertParamExists('getTroubleBer', 'troubleDataRequest', troubleDataRequest)
+            assertParamExists('getTroubleBer1', 'troubleDataRequest', troubleDataRequest)
             const localVarPath = `/api/monitordiagnost/searchTroubleBer`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -13365,9 +13257,9 @@ export const MonitorDiagnosControllerApiAxiosParamCreator = function (configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleEng: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+        getTroubleEng1: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'troubleDataRequest' is not null or undefined
-            assertParamExists('getTroubleEng', 'troubleDataRequest', troubleDataRequest)
+            assertParamExists('getTroubleEng1', 'troubleDataRequest', troubleDataRequest)
             const localVarPath = `/api/monitordiagnost/searchTroubleEng`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -13404,9 +13296,9 @@ export const MonitorDiagnosControllerApiAxiosParamCreator = function (configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleGrb: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+        getTroubleGrb1: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'troubleDataRequest' is not null or undefined
-            assertParamExists('getTroubleGrb', 'troubleDataRequest', troubleDataRequest)
+            assertParamExists('getTroubleGrb1', 'troubleDataRequest', troubleDataRequest)
             const localVarPath = `/api/monitordiagnost/searchTroubleGrb`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -13443,9 +13335,9 @@ export const MonitorDiagnosControllerApiAxiosParamCreator = function (configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleWhl: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+        getTroubleWhl1: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'troubleDataRequest' is not null or undefined
-            assertParamExists('getTroubleWhl', 'troubleDataRequest', troubleDataRequest)
+            assertParamExists('getTroubleWhl1', 'troubleDataRequest', troubleDataRequest)
             const localVarPath = `/api/monitordiagnost/searchTroubleWhl`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -13492,8 +13384,8 @@ export const MonitorDiagnosControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async excelDownLoad(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.excelDownLoad(excelDownByMonitorDiagnos, options);
+        async excelDownLoad1(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.excelDownLoad1(excelDownByMonitorDiagnos, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -13501,8 +13393,8 @@ export const MonitorDiagnosControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllVehicleInfo(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllVehicleInfo(options);
+        async getAllVehicleInfo1(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllVehicleInfo1(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -13540,8 +13432,8 @@ export const MonitorDiagnosControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTroubleBer(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleBer(troubleDataRequest, options);
+        async getTroubleBer1(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleBer1(troubleDataRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -13550,8 +13442,8 @@ export const MonitorDiagnosControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTroubleEng(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleEng(troubleDataRequest, options);
+        async getTroubleEng1(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleEng1(troubleDataRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -13560,8 +13452,8 @@ export const MonitorDiagnosControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTroubleGrb(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleGrb(troubleDataRequest, options);
+        async getTroubleGrb1(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleGrb1(troubleDataRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -13570,8 +13462,8 @@ export const MonitorDiagnosControllerApiFp = function(configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTroubleWhl(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleWhl(troubleDataRequest, options);
+        async getTroubleWhl1(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleWhl1(troubleDataRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -13590,16 +13482,16 @@ export const MonitorDiagnosControllerApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        excelDownLoad(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any): AxiosPromise<void> {
-            return localVarFp.excelDownLoad(excelDownByMonitorDiagnos, options).then((request) => request(axios, basePath));
+        excelDownLoad1(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any): AxiosPromise<void> {
+            return localVarFp.excelDownLoad1(excelDownByMonitorDiagnos, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllVehicleInfo(options?: any): AxiosPromise<Array<Sda>> {
-            return localVarFp.getAllVehicleInfo(options).then((request) => request(axios, basePath));
+        getAllVehicleInfo1(options?: any): AxiosPromise<Array<Sda>> {
+            return localVarFp.getAllVehicleInfo1(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -13633,8 +13525,8 @@ export const MonitorDiagnosControllerApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleBer(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getTroubleBer(troubleDataRequest, options).then((request) => request(axios, basePath));
+        getTroubleBer1(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleBer1(troubleDataRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -13642,8 +13534,8 @@ export const MonitorDiagnosControllerApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleEng(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getTroubleEng(troubleDataRequest, options).then((request) => request(axios, basePath));
+        getTroubleEng1(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleEng1(troubleDataRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -13651,8 +13543,8 @@ export const MonitorDiagnosControllerApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleGrb(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getTroubleGrb(troubleDataRequest, options).then((request) => request(axios, basePath));
+        getTroubleGrb1(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleGrb1(troubleDataRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -13660,8 +13552,8 @@ export const MonitorDiagnosControllerApiFactory = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTroubleWhl(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
-            return localVarFp.getTroubleWhl(troubleDataRequest, options).then((request) => request(axios, basePath));
+        getTroubleWhl1(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleWhl1(troubleDataRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -13680,8 +13572,8 @@ export class MonitorDiagnosControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MonitorDiagnosControllerApi
      */
-    public excelDownLoad(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any) {
-        return MonitorDiagnosControllerApiFp(this.configuration).excelDownLoad(excelDownByMonitorDiagnos, options).then((request) => request(this.axios, this.basePath));
+    public excelDownLoad1(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any) {
+        return MonitorDiagnosControllerApiFp(this.configuration).excelDownLoad1(excelDownByMonitorDiagnos, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13690,8 +13582,8 @@ export class MonitorDiagnosControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MonitorDiagnosControllerApi
      */
-    public getAllVehicleInfo(options?: any) {
-        return MonitorDiagnosControllerApiFp(this.configuration).getAllVehicleInfo(options).then((request) => request(this.axios, this.basePath));
+    public getAllVehicleInfo1(options?: any) {
+        return MonitorDiagnosControllerApiFp(this.configuration).getAllVehicleInfo1(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13733,8 +13625,8 @@ export class MonitorDiagnosControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MonitorDiagnosControllerApi
      */
-    public getTroubleBer(troubleDataRequest: TroubleDataRequest, options?: any) {
-        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleBer(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
+    public getTroubleBer1(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleBer1(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13744,8 +13636,8 @@ export class MonitorDiagnosControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MonitorDiagnosControllerApi
      */
-    public getTroubleEng(troubleDataRequest: TroubleDataRequest, options?: any) {
-        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleEng(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
+    public getTroubleEng1(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleEng1(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13755,8 +13647,8 @@ export class MonitorDiagnosControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MonitorDiagnosControllerApi
      */
-    public getTroubleGrb(troubleDataRequest: TroubleDataRequest, options?: any) {
-        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleGrb(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
+    public getTroubleGrb1(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleGrb1(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -13766,8 +13658,8 @@ export class MonitorDiagnosControllerApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MonitorDiagnosControllerApi
      */
-    public getTroubleWhl(troubleDataRequest: TroubleDataRequest, options?: any) {
-        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleWhl(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
+    public getTroubleWhl1(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return MonitorDiagnosControllerApiFp(this.configuration).getTroubleWhl1(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -14838,6 +14730,47 @@ export const StatisticalInfoControllerApiAxiosParamCreator = function (configura
         },
         /**
          * 
+         * @param {string} id 
+         * @param {string} startdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPart: async (id: string, startdate: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getPart', 'id', id)
+            // verify required parameter 'startdate' is not null or undefined
+            assertParamExists('getPart', 'startdate', startdate)
+            const localVarPath = `/api/statistical/getPart/{id}/{startdate}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"startdate"}}`, encodeURIComponent(String(startdate)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} userid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -14953,6 +14886,17 @@ export const StatisticalInfoControllerApiFp = function(configuration?: Configura
         },
         /**
          * 
+         * @param {string} id 
+         * @param {string} startdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPart(id: string, startdate: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPart(id, startdate, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {string} userid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -15006,6 +14950,16 @@ export const StatisticalInfoControllerApiFactory = function (configuration?: Con
          */
         getInfo(options?: any): AxiosPromise<{ [key: string]: object; }> {
             return localVarFp.getInfo(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {string} startdate 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPart(id: string, startdate: string, options?: any): AxiosPromise<string> {
+            return localVarFp.getPart(id, startdate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -15069,6 +15023,18 @@ export class StatisticalInfoControllerApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} id 
+     * @param {string} startdate 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatisticalInfoControllerApi
+     */
+    public getPart(id: string, startdate: string, options?: any) {
+        return StatisticalInfoControllerApiFp(this.configuration).getPart(id, startdate, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {string} userid 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -15087,6 +15053,449 @@ export class StatisticalInfoControllerApi extends BaseAPI {
      */
     public getTable(statisticalInfo: StatisticalInfo, options?: any) {
         return StatisticalInfoControllerApiFp(this.configuration).getTable(statisticalInfo, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * StatusDataLookupControllerApi - axios parameter creator
+ * @export
+ */
+export const StatusDataLookupControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {ExcelDownByMonitorDiagnos} excelDownByMonitorDiagnos 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        excelDownLoad: async (excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'excelDownByMonitorDiagnos' is not null or undefined
+            assertParamExists('excelDownLoad', 'excelDownByMonitorDiagnos', excelDownByMonitorDiagnos)
+            const localVarPath = `/api/statusdatalookup/downloadExcel`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(excelDownByMonitorDiagnos, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllVehicleInfo: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/statusdatalookup/getAllVehicle`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleBer: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'troubleDataRequest' is not null or undefined
+            assertParamExists('getTroubleBer', 'troubleDataRequest', troubleDataRequest)
+            const localVarPath = `/api/statusdatalookup/searchStatusBer`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(troubleDataRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleEng: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'troubleDataRequest' is not null or undefined
+            assertParamExists('getTroubleEng', 'troubleDataRequest', troubleDataRequest)
+            const localVarPath = `/api/statusdatalookup/searchStatusEng`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(troubleDataRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleGrb: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'troubleDataRequest' is not null or undefined
+            assertParamExists('getTroubleGrb', 'troubleDataRequest', troubleDataRequest)
+            const localVarPath = `/api/statusdatalookup/searchStatusGrb`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(troubleDataRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleWhl: async (troubleDataRequest: TroubleDataRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'troubleDataRequest' is not null or undefined
+            assertParamExists('getTroubleWhl', 'troubleDataRequest', troubleDataRequest)
+            const localVarPath = `/api/statusdatalookup/searchStatusWhl`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer-key required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(troubleDataRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * StatusDataLookupControllerApi - functional programming interface
+ * @export
+ */
+export const StatusDataLookupControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StatusDataLookupControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {ExcelDownByMonitorDiagnos} excelDownByMonitorDiagnos 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async excelDownLoad(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.excelDownLoad(excelDownByMonitorDiagnos, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllVehicleInfo(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Sda>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllVehicleInfo(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTroubleBer(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleBer(troubleDataRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTroubleEng(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleEng(troubleDataRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTroubleGrb(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleGrb(troubleDataRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTroubleWhl(troubleDataRequest: TroubleDataRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: object; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTroubleWhl(troubleDataRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * StatusDataLookupControllerApi - factory interface
+ * @export
+ */
+export const StatusDataLookupControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StatusDataLookupControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {ExcelDownByMonitorDiagnos} excelDownByMonitorDiagnos 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        excelDownLoad(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any): AxiosPromise<void> {
+            return localVarFp.excelDownLoad(excelDownByMonitorDiagnos, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllVehicleInfo(options?: any): AxiosPromise<Array<Sda>> {
+            return localVarFp.getAllVehicleInfo(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleBer(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleBer(troubleDataRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleEng(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleEng(troubleDataRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleGrb(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleGrb(troubleDataRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {TroubleDataRequest} troubleDataRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTroubleWhl(troubleDataRequest: TroubleDataRequest, options?: any): AxiosPromise<{ [key: string]: object; }> {
+            return localVarFp.getTroubleWhl(troubleDataRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * StatusDataLookupControllerApi - object-oriented interface
+ * @export
+ * @class StatusDataLookupControllerApi
+ * @extends {BaseAPI}
+ */
+export class StatusDataLookupControllerApi extends BaseAPI {
+    /**
+     * 
+     * @param {ExcelDownByMonitorDiagnos} excelDownByMonitorDiagnos 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatusDataLookupControllerApi
+     */
+    public excelDownLoad(excelDownByMonitorDiagnos: ExcelDownByMonitorDiagnos, options?: any) {
+        return StatusDataLookupControllerApiFp(this.configuration).excelDownLoad(excelDownByMonitorDiagnos, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatusDataLookupControllerApi
+     */
+    public getAllVehicleInfo(options?: any) {
+        return StatusDataLookupControllerApiFp(this.configuration).getAllVehicleInfo(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TroubleDataRequest} troubleDataRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatusDataLookupControllerApi
+     */
+    public getTroubleBer(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return StatusDataLookupControllerApiFp(this.configuration).getTroubleBer(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TroubleDataRequest} troubleDataRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatusDataLookupControllerApi
+     */
+    public getTroubleEng(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return StatusDataLookupControllerApiFp(this.configuration).getTroubleEng(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TroubleDataRequest} troubleDataRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatusDataLookupControllerApi
+     */
+    public getTroubleGrb(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return StatusDataLookupControllerApiFp(this.configuration).getTroubleGrb(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {TroubleDataRequest} troubleDataRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatusDataLookupControllerApi
+     */
+    public getTroubleWhl(troubleDataRequest: TroubleDataRequest, options?: any) {
+        return StatusDataLookupControllerApiFp(this.configuration).getTroubleWhl(troubleDataRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -16110,14 +16519,18 @@ export const VehicleStatisticsControllerApiAxiosParamCreator = function (configu
         /**
          * 
          * @param {string} sdaid 
+         * @param {string} operdate 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findRecentFile: async (sdaid: string, options: any = {}): Promise<RequestArgs> => {
+        findRecentFile: async (sdaid: string, operdate: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'sdaid' is not null or undefined
             assertParamExists('findRecentFile', 'sdaid', sdaid)
-            const localVarPath = `/api/vehicleStatistics/findRecentFile/{sdaid}`
-                .replace(`{${"sdaid"}}`, encodeURIComponent(String(sdaid)));
+            // verify required parameter 'operdate' is not null or undefined
+            assertParamExists('findRecentFile', 'operdate', operdate)
+            const localVarPath = `/api/vehicleStatistics/findRecentFile/{sdaid}/{operdate}`
+                .replace(`{${"sdaid"}}`, encodeURIComponent(String(sdaid)))
+                .replace(`{${"operdate"}}`, encodeURIComponent(String(operdate)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -16510,11 +16923,12 @@ export const VehicleStatisticsControllerApiFp = function(configuration?: Configu
         /**
          * 
          * @param {string} sdaid 
+         * @param {string} operdate 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findRecentFile(sdaid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findRecentFile(sdaid, options);
+        async findRecentFile(sdaid: string, operdate: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findRecentFile(sdaid, operdate, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -16577,7 +16991,7 @@ export const VehicleStatisticsControllerApiFp = function(configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFileWithId(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SdaData>>> {
+        async getFileWithId(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<{ [key: string]: object; }>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFileWithId(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -16631,11 +17045,12 @@ export const VehicleStatisticsControllerApiFactory = function (configuration?: C
         /**
          * 
          * @param {string} sdaid 
+         * @param {string} operdate 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findRecentFile(sdaid: string, options?: any): AxiosPromise<string> {
-            return localVarFp.findRecentFile(sdaid, options).then((request) => request(axios, basePath));
+        findRecentFile(sdaid: string, operdate: string, options?: any): AxiosPromise<string> {
+            return localVarFp.findRecentFile(sdaid, operdate, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -16692,7 +17107,7 @@ export const VehicleStatisticsControllerApiFactory = function (configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFileWithId(id: string, options?: any): AxiosPromise<Array<SdaData>> {
+        getFileWithId(id: string, options?: any): AxiosPromise<Array<{ [key: string]: object; }>> {
             return localVarFp.getFileWithId(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -16744,12 +17159,13 @@ export class VehicleStatisticsControllerApi extends BaseAPI {
     /**
      * 
      * @param {string} sdaid 
+     * @param {string} operdate 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VehicleStatisticsControllerApi
      */
-    public findRecentFile(sdaid: string, options?: any) {
-        return VehicleStatisticsControllerApiFp(this.configuration).findRecentFile(sdaid, options).then((request) => request(this.axios, this.basePath));
+    public findRecentFile(sdaid: string, operdate: string, options?: any) {
+        return VehicleStatisticsControllerApiFp(this.configuration).findRecentFile(sdaid, operdate, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
