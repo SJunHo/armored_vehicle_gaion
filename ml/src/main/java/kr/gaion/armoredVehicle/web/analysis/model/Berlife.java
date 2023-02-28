@@ -26,10 +26,9 @@ public class Berlife {
 	double B_Fault1;
 	double B_Fault2;
 	double B_Temperature;
-	int AI_Trip;
+	double AI_Trip;
 	String FILENM;
 	int remainDistance;
-	double remainRatio;
 	double remainTime;
 	String AI_Trip_DATE;
 	String date;

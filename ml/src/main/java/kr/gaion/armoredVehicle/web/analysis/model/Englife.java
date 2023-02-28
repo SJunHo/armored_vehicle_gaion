@@ -11,11 +11,10 @@ public class Englife {
 	double E_1_2X;
 	double E_1X;
 	double E_CrestFactor;
-	int AI_Trip;
+	double AI_Trip;
 	String FILENM;
 	String SDAID;
 	int remainDistance;
-	double remainRatio;
 	double remainTime;
 	String AI_Trip_DATE;
 	String date;

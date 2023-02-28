@@ -53,7 +53,7 @@ export default class TableByRemaining extends Component {
                                         return(
                                             <tr key={idx}>
                                                 <td>{el.date}</td>
-                                                <td>{el.remainRatio.toFixed(2)}</td>
+                                                <td>{el.ai_Trip.toFixed(2)}</td>
                                                 <td>{el.remainDistance}</td>
                                                 <td>{el.remainTime.toFixed(2)}</td>
                                                 <td>{el.b_OverallRMS}</td>
@@ -111,7 +111,7 @@ export default class TableByRemaining extends Component {
                                         return(
                                             <tr key={idx}>
                                                 <td>{el.date}</td>
-                                                <td>{el.remainRatio.toFixed(2)}</td>
+                                                <td>{el.ai_Trip.toFixed(2)}</td>
                                                 <td>{el.remainDistance}</td>
                                                 <td>{el.remainTime.toFixed(2)}</td>
                                                 <td>{el.e_OverallRMS}</td>
@@ -158,7 +158,7 @@ export default class TableByRemaining extends Component {
                                     return(
                                             <tr key={idx}>
 	                                            <td>{el.date}</td>
-	                                            <td>{el.remainRatio.toFixed(2)}</td>
+	                                            <td>{el.ai_Trip.toFixed(2)}</td>
 	                                            <td>{el.remainDistance}</td>
 	                                            <td>{el.remainTime.toFixed(2)}</td>
                                                 <td>{el.g_OverallRMS}</td>
@@ -202,7 +202,7 @@ export default class TableByRemaining extends Component {
                                     return(
                                             <tr key={idx}>
 	                                            <td>{el.date}</td>
-	                                            <td>{el.remainRatio.toFixed(2)}</td>
+	                                            <td>{el.ai_Trip.toFixed(2)}</td>
 	                                            <td>{el.remainDistance}</td>
 	                                            <td>{el.remainTime.toFixed(2)}</td>
                                                 <td>{el.w_2X}</td>

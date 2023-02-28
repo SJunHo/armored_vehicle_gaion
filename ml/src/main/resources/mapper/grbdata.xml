@@ -79,22 +79,16 @@
 			resultType="kr.gaion.armoredVehicle.web.analysis.model.Grblife">
 		select
 			case
-				when T.DISTANCE-T.AI_Trip <![CDATA[<]]> 0 then 0
-				ELSE
-					T.DISTANCE-T.AI_Trip
+				when (T.AI_Trip/100)*T.DISTANCE <![CDATA[<]]> 0 then 0
+				else
+					(T.AI_Trip/100)*T.DISTANCE
 			end as REMAINDISTANCE,
 			case
-				when ((T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE) <![CDATA[<]]> 0 then 0
+				when (T.AI_Trip/100)*YEARS <![CDATA[<]]> 0 then 0
 				else
-					(T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE
-			end as REMAINRATIO,
-			T.*,
-			YEARS,
-			case
-				when ((T.DISTANCE-T.AI_Trip) * 100 / T.DISTANCE) <![CDATA[<]]> 0 then 0
-				else
-					(T.DISTANCE-T.AI_Trip) * YEARS / T.DISTANCE
-			end as REMAINTIME
+					(T.AI_Trip/100)*YEARS
+			end as REMAINTIME,
+			T.*
 		from (
 			select
 				IDX

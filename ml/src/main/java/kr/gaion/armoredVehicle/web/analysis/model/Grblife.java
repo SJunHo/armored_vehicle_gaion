@@ -14,10 +14,9 @@ public class Grblife {
 	double G_Pinion2X;
 	double G_GMF1X;
 	double G_GMF2X;
-	int AI_Trip;
+	double AI_Trip;
 	String FILENM;
 	int remainDistance;
-	double remainRatio;
 	double remainTime;
 	String AI_Trip_DATE;
 	String date;
