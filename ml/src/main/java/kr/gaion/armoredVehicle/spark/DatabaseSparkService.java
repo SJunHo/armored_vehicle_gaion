@@ -147,6 +147,12 @@ public class DatabaseSparkService {
 
     public static Dataset<Row> unionDatasets(Dataset<Row> ds1, Dataset<Row> ds2) {
         // 스키마를 비교하여 컬럼이름과 컬럼타입이 같은 컬럼을 찾습니다.
+        System.out.println(ds1.columns().toString());
+        System.out.println(ds2.columns().toString());
+        System.out.println(ds1.schema().toString());
+        System.out.println(ds2.schema().toString());
+
+
         String[] colNames = ds1.columns();
         StructType schema = ds1.schema();
         StructField[] fields = schema.fields();

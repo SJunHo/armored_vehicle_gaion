@@ -212,7 +212,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
             " from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.USER_LBPFO IS NOT NULL " +
-            " AND `BERDATA`.AI_RFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
+            " AND `BERDATA`.AI_LBPFO_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorBearingLeftOutsideInterface> getLeftOutsideUserLBPFOData(String carId, String modelName, Date fromDate, Date toDate);
 
@@ -222,7 +222,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
             " from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.USER_LBPFI IS NOT NULL " +
-            " AND `BERDATA`.AI_RFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
+            " AND `BERDATA`.AI_LBPFI_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorBearingLeftInsideInterface> getLeftInsideUserLBPFIData(String carId, String modelName, Date fromDate, Date toDate);
 
@@ -232,7 +232,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " B.L_B_V_Crestfactor, B.L_B_V_Demodulation, B.L_B_S_Fault1, B.L_B_S_Fault2, B.L_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
             " from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.USER_LFTF IS NOT NULL " +
-            " AND `BERDATA`.AI_RFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
+            " AND `BERDATA`.AI_LFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorBearingLeftRetainerInterface> getLeftRetainerUserLFTFData(String carId, String modelName, Date fromDate, Date toDate);
 
@@ -242,7 +242,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
             " from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.USER_RBSF IS NOT NULL " +
-            " AND `BERDATA`.AI_RFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
+            " AND `BERDATA`.AI_RBSF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorBearingRightBallInterface> getRightBallUserRBSFData(String carId, String modelName, Date fromDate, Date toDate);
 
@@ -252,7 +252,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
             " from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.USER_RBPFO IS NOT NULL " +
-            " AND `BERDATA`.AI_RFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
+            " AND `BERDATA`.AI_RBPFO_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorBearingRightOutsideInterface> getRightOutsideUserRBPFOData(String carId, String modelName, Date fromDate, Date toDate);
 
@@ -262,7 +262,7 @@ public interface SensorBearingRepository extends JpaRepository<SensorBearing, Lo
             " B.R_B_V_Crestfactor, B.R_B_V_Demodulation, B.R_B_S_Fault1, B.R_B_S_Fault2, B.R_B_T_Temperature, " +
             " `ENGDATA`.AC_h, `ENGDATA`.AC_v, `ENGDATA`.AC_a, B.`DATE` " +
             " from (Select * from `BERDATA` where `BERDATA`.SDAID = ?1 AND `BERDATA`.USER_RBPFI IS NOT NULL " +
-            " AND `BERDATA`.AI_RFTF_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
+            " AND `BERDATA`.AI_RBPFI_MODEL = ?2 AND `BERDATA`.DATE BETWEEN ?3 AND ?4) B " +
             " INNER JOIN `ENGDATA` ON B.`DATE` = `ENGDATA`.`DATE` AND B.SDAID = `ENGDATA`.SDAID ", nativeQuery = true)
     List<SensorBearingRightInsideInterface> getRightInsideUserRBPFIData(String carId, String modelName, Date fromDate, Date toDate);
 

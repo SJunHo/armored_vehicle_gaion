@@ -1925,8 +1925,8 @@ export const JudgementUserInput: React.FC = () => {
   return (
     <Container className="p-0 w-100 ">
       <Section title="검색 조건 입력">
-        <Row className="row">
-          <Col xs={2} className="text-right">
+        <Row className="mt-2">
+          <Col xs={2} className="text-right pr-2">
             부품 선택
             <Form.Select
               size="sm"
@@ -1934,6 +1934,7 @@ export const JudgementUserInput: React.FC = () => {
               value={partType}
               onChange={(v) => {
                 setPartType((v.target as any).value);
+                setPredictedData([])
                 // handleSearchTablesColumns((v.target as any).value)
               }}
             >
@@ -1994,9 +1995,7 @@ export const JudgementUserInput: React.FC = () => {
               </Col>
             </Row>
           </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
+          <Col xs={1}>
             <div style={{float: 'right'}}>
               <Button type="button" onClick={() => {
                 handleSearchData()

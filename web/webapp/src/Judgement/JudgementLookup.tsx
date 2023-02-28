@@ -117,6 +117,7 @@ export const JudgementLookup: React.FC = () => {
 
   function handleObjectKeyToRetraining(data: any) {
     const result = data.slice()
+    console.log(data)
     result.forEach(((eachMap: any) => Object.keys(eachMap).forEach(function (eachKey: string) {
       // delete not needed
       notNeededColumnsForRetraining.map((el: string) => {
@@ -332,6 +333,7 @@ export const JudgementLookup: React.FC = () => {
         fromDate?.toLocaleDateString("en-US"),
         toDate?.toLocaleDateString("en-US"),
       ).then((res) => {
+        console.log(res)
         var data = res.data.map(a => {
           return {...a}
         })
@@ -618,8 +620,8 @@ export const JudgementLookup: React.FC = () => {
   return (
     <Container className="p-0">
       <Section title="검색 조건 입력">
-        <Row className="row">
-          <Col xs={2} className="text-right">
+        <Row className="mt-2">
+          <Col xs={2} className="text-right pr-2">
             부품 선택
             <Form.Select
               size="sm"
@@ -627,6 +629,7 @@ export const JudgementLookup: React.FC = () => {
               value={partType}
               onChange={(v) => {
                 setPartType((v.target as any).value);
+                setPredictedData([])
                 // handleSearchTablesColumns((v.target as any).value)
               }}
             >
@@ -687,9 +690,7 @@ export const JudgementLookup: React.FC = () => {
               </Col>
             </Row>
           </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
+          <Col xs={1}>
             <div style={{float: 'right'}}>
               <Button type="button" onClick={() => {
                 handleSearchData()

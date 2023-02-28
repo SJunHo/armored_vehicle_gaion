@@ -479,8 +479,9 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
               size="sm"
               value={partType}
               onChange={(v) => {
-                setConditionData([])
                 setPartType((v.target as any).value)
+                setConditionData([])
+                console.log(conditionData)
               }}
             >
               {algorithmName === "linear" || algorithmName === "lasso" ? (
@@ -621,7 +622,7 @@ export const DataPrediction: React.FC<{ algorithmName: string }> = ({algorithmNa
           <div className="w-100 overflow-auto">
             <Table
               columns={columns}
-              data={conditionData}
+              data={conditionData || []}
               autoResetSelectedRows={false}
               onRowsSelected={handleConditionSelected}
               getRowId={(row: any) => (row as any).idx}
