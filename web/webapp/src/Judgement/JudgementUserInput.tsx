@@ -1931,6 +1931,7 @@ export const JudgementUserInput: React.FC = () => {
             <Form.Select
               size="sm"
               className="ml-2"
+              style={{minWidth: '150px'}}
               value={partType}
               onChange={(v) => {
                 setPartType((v.target as any).value);
@@ -1947,7 +1948,8 @@ export const JudgementUserInput: React.FC = () => {
             차량 선택
             <Form.Select
               size="sm"
-              className="ml-2"
+              className="ml-2 pl-2"
+              style={{minWidth: '120px'}}
               value={selectedCar}
               onChange={(v) => setSelectedCar((v.target as any).value)}
             >
@@ -1960,7 +1962,8 @@ export const JudgementUserInput: React.FC = () => {
             모델 선택
             <Form.Select
               size="sm"
-              className="ml-2"
+              className="ml-2 pl-2"
+              style={{minWidth: '120px'}}
               value={selectedModel}
               onChange={(v) => setSelectedModel((v.target as any).value)}
             >
@@ -1974,7 +1977,7 @@ export const JudgementUserInput: React.FC = () => {
               기간
               <Col xs={5}>
                 <DatePicker
-                  className="text-dark"
+                  className="text-dark pl-2"
                   dateFormat="yyyy-MM-dd"
                   selected={fromDate}
                   onChange={(v: Date) => {
@@ -1985,7 +1988,7 @@ export const JudgementUserInput: React.FC = () => {
               <div className="font-weight-bold">~</div>
               <Col xs={5}>
                 <DatePicker
-                  className="text-dark"
+                  className="text-dark pl-2"
                   dateFormat="yyyy-MM-dd"
                   selected={toDate}
                   onChange={(v: Date) => {
