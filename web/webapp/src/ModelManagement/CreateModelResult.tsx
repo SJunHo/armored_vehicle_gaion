@@ -1,10 +1,10 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import {chunk, range, sum, zip} from "lodash";
 import styles from "./styles.module.css";
-import {ClassificationResponse, RegressionResponse} from "../api";
+import {ClassificationResponse, OpenApiContext, RegressionResponse} from "../api";
 import {useParams} from "react-router-dom";
 import {Table} from "../common/Table";
 import {Column} from "react-table";
@@ -331,6 +331,7 @@ export const RegressionResult: React.FC<Props> = ({result, result2}) => {
         <CustomCardBody>
           {predictedActualFeatureLine && (
             <PredictionInfoSection
+              partType={result.partType || ""}
               predictionInfo={predictedActualFeatureLine}
               featureCols={result.listFeatures || []}
             />
@@ -437,6 +438,7 @@ export const ClusterDiagram: React.FC<Props> = ({
         <CustomCardBody>
           {predictedActualFeatureLine && (
             <PredictionInfoSection
+              partType={result.partType || ""}
               predictionInfo={predictedActualFeatureLine}
               featureCols={result.listFeatures || []}
             />
@@ -585,6 +587,7 @@ export const ClassificationResult: React.FC<Props> = ({result, result2}) => {
         <CustomCardBody>
           {predictedActualFeatureLine && (
             <PredictionInfoSection
+              partType={result.partType || ""}
               predictionInfo={predictedActualFeatureLine}
               featureCols={result.listFeatures || []}
             />
@@ -597,27 +600,83 @@ export const ClassificationResult: React.FC<Props> = ({result, result2}) => {
 };
 
 export const PredictionInfoSection: React.FC<{
+  partType: string,
   predictionInfo: string[];
   featureCols: string[];
-}> = ({predictionInfo, featureCols}) => {
+}> = ({partType, predictionInfo, featureCols}) => {
   const {algorithmName} = useParams<{ algorithmName: string }>();
+  const {lifeThresholdControllerApi} = useContext(OpenApiContext);
+  const [threshold, setThreshold] = useState<any>();
+
   const {t} = useTranslation();
+  const wholeBearingCycle = 540000
+  const wholeWheelCycle = 160000
+  const wholeGearboxCycle = 1080000
+  const wholeEngineCycle = 480000
+  useEffect(() => {
+    if (partType && (algorithmName === "linear" || algorithmName === "lasso")) {
+      lifeThresholdControllerApi?.getThresholdList2()
+        .then((res: any) => {
+          switch (partType) {
+            case "B_LIFE":
+              setThreshold(wholeBearingCycle)
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "BEARING"
+              // }).distance)
+              break
+            case "W_LIFE":
+              setThreshold(wholeWheelCycle)
+
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "WHEEL"
+              // }).distance)
+              break
+            case "E_LIFE":
+              setThreshold(wholeEngineCycle)
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "ENGINE"
+              // }).distance)
+              break
+            case "G_LIFE":
+              setThreshold(wholeGearboxCycle)
+              // setThreshold(res.data.find((v: any) => {
+              //   return v.snsrtype === "REDUCER"
+              // }).distance)
+              break
+          }
+        })
+    }
+  }, [algorithmName, lifeThresholdControllerApi, partType])
+
+
   const columns = useMemo<Column<any[]>[]>(
     () => [
       {
         Header: algorithmName === "kmean" || algorithmName === "if" ? "Actual" : "Predicted",
-        accessor: (data0) => data0[0],
+        accessor: (data0) => {
+          if (algorithmName === "linear" || algorithmName === "lasso") {
+            return ((threshold - data0[0]) * 100 / threshold).toFixed(1);
+          } else {
+            return data0[0]
+          }
+        },
       },
       {
         Header: algorithmName === "kmean" || algorithmName === "if" ? "Predicted" : "Actual",
-        accessor: (data0) => data0[1],
+        accessor: (data0) => {
+          if (algorithmName === "linear" || algorithmName === "lasso") {
+            return ((threshold - data0[1]) * 100 / threshold).toFixed(1);
+          } else {
+            return data0[1]
+          }
+        },
       },
       ...featureCols.map((featureCol, i) => ({
         Header: featureCol,
         accessor: (data0: any[]) => data0[i + 2],
       })),
     ],
-    [algorithmName, featureCols]
+    [algorithmName, featureCols, threshold]
   );
   const data = useMemo<any[][]>(
     () => predictionInfo.map((actual) => JSON.parse("[" + actual + "]")),

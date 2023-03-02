@@ -173,6 +173,7 @@ public class LinearRegressor extends MLAlgorithm<BaseAlgorithmTrainInput, BaseAl
 
         System.out.println(">>> Complete linear regression training.");
 
+        response.setPartType(config.getPartType());
         return response;
     }
 
