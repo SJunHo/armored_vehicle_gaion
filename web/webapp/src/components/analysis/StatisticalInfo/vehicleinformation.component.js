@@ -171,10 +171,12 @@ class searchEachInfo extends Component {
         width: 700, 
         height: 700,
       },
+      circularAxis: { scale: { min: 0, max: 5000 } },
       series: {
         selectable: false,
         solid: true,
         dataLabels: { visible: true, offsetY: -30, formatter: (value) => `${value} RPM` },
+        angleRange: { start: 225, end: 135 }
       },
       theme: {
         chart: {
@@ -231,9 +233,11 @@ class searchEachInfo extends Component {
         },
         
         chart: { width: 700, height: 700 },
+        circularAxis: { scale: { min: 0, max: 90 } },
         series: {
           solid: true,
           dataLabels: { visible: true, offsetY: -30, formatter: (value) => `${value}km/h` },
+          angleRange: { start: 225, end: 135 }
         },
         theme: {
           solid:{
@@ -1043,7 +1047,7 @@ class searchEachInfo extends Component {
           return(<label>{detailtrans}</label>);
   
         case 'break':
-          const Break = this.state.forChartData[this.state.i].BREAK;
+          const Break = this.state.forChartData[this.state.i]._BREAK;
           if(Break === 0){
             return(<label>미작동</label>);
           }else{
