@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+document.title = '차륜형 장갑차 분석 시스템';
 ReactDOM.render(
   <Provider store={store}>
     <App />
